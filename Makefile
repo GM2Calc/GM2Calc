@@ -80,3 +80,11 @@ make.args:
 	sed 's|.*\.o:|$*.o:|' > $@
 
 print-% : ; @echo $* = $($*)
+
+tag:
+	git tag v$(VERSION)
+
+release-tag:
+	git archive --worktree-attributes --prefix=gm2calc-v$(VERSION)/ \
+		--output=gm2calc-v$(VERSION).tar.gz v$(VERSION)
+	md5sum gm2calc-v$(VERSION).tar.gz > gm2calc-v$(VERSION).tar.gz.md5
