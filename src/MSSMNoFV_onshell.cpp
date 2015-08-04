@@ -111,8 +111,10 @@ void MSSMNoFV_onshell::convert_to_onshell(double precision) {
    convert_yukawa_couplings(); // first guess of resummed yukawas
    convert_mf2(precision, 1000);
    convert_yukawa_couplings();
-   calculate_DRbar_masses();
 
+   // final mass spectrum
+   get_problems().clear();
+   calculate_DRbar_masses();
    check_problems();
 }
 
@@ -130,14 +132,16 @@ void MSSMNoFV_onshell::calculate_masses() {
    convert_vev();
    convert_yukawa_couplings_treelevel();
    convert_yukawa_couplings(); // tan(beta) resummation in Yukawas
-   calculate_DRbar_masses();   // final mass spectrum
+
+   // final mass spectrum
+   get_problems().clear();
+   calculate_DRbar_masses();
+   check_problems();
 
    // copy SUSY masses to physical struct
    copy_susy_masses_to_pole();
    get_physical().MAh = get_MAh();
    get_physical().Mhh = get_Mhh();
-
-   check_problems();
 }
 
 void MSSMNoFV_onshell::check_input()

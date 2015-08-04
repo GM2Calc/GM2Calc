@@ -38,6 +38,7 @@ void MSSMNoFV_onshell_problems::clear()
 
 void MSSMNoFV_onshell_problems::flag_tachyon(const std::string& particle_name)
 {
+   have_tachyon = true;
    tachyonic_particle = particle_name;
 }
 
