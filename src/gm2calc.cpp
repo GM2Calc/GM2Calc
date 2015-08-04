@@ -132,23 +132,6 @@ void setup_model(gm2calc::MSSMNoFV_onshell& model,
 }
 
 /**
- * Calculate most precise value of a_mu for a given set op parameters
- */
-double calculate_amu_best(gm2calc::MSSMNoFV_onshell& model)
-{
-   const double gm2_1l_tan_beta_resummed =
-      gm2calc::calculate_amu_1loop(model);
-   const double gm2_2l_tan_beta_resummed =
-      + gm2calc::amu2LFSfapprox(model)
-      + gm2calc::amuChipmPhotonic(model)
-      + gm2calc::amuChi0Photonic(model);
-
-   const double gm2_best = gm2_1l_tan_beta_resummed + gm2_2l_tan_beta_resummed;
-
-   return gm2_best;
-}
-
-/**
  * Prints detailed a_mu calculation (1-loop w/ and w/o tan(beta)
  * resumation, 2-loop, and differenc contributions).
  */
@@ -308,7 +291,7 @@ int main(int argc, const char* argv[])
    case gm2calc::Config_options::Minimal:
       std::cout << std::setprecision(std::numeric_limits<double>::digits10)
                 << std::scientific
-                << calculate_amu_best(model) << '\n';
+                << calculate_amu(model, config_options) << '\n';
       break;
    case gm2calc::Config_options::Detailed:
       print_amu_detailed(model);
