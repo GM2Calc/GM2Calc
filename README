@@ -94,7 +94,9 @@ reads the input parameters from the following blocks:
  * SMINPUTS: Standard Model fermion masses, W and Z pole masses,
    alpha_s(MZ)
 
- * MASS: pole masses of SUSY particles, W pole mass
+ * MASS: pole masses of SUSY particles, W pole mass.  If the W pole
+   mass is given in MASS[24], then this value will be used instead of
+   the W pole mass given in SMINPUTS[9].
 
  * HMIX: tan(beta), mu parameter, renormalization scale
 
