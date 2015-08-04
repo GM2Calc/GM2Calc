@@ -269,8 +269,17 @@ double G4(double x) {
  * \f$\frac{1}{z} H_2(\frac{x}{z},\frac{y}{z}) = - I(x,y,z)\f$.
  */
 double H2(double x, double y) {
-   if (is_equal(x,1.) || is_equal(y,1.) || is_equal(x,y))
-      ERROR("H2(" << x << "," << y << ") is not well-defined!");
+   if (is_equal(x, 1., precision) && is_equal(y, 1., precision))
+      return -0.5;
+
+   if (is_equal(x, 1., precision))
+      return (-1. + y - y*log(y))/sqr(-1. + y);
+
+   if (is_equal(y, 1., precision))
+      return (-1. + x - x*log(x))/sqr(-1. + x);
+
+   if (is_equal(x, y, precision))
+      return (1 - y + log(y))/sqr(-1 + y);
 
    return x * log(x) / ((1-x)*(x-y)) + y * log(y) / ((1-y)*(y-x));
 }
