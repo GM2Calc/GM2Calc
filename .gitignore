@@ -1,0 +1,9 @@
+*.a
+*.d
+*.o
+*~
+
+config.h
+make.args
+
+bin/
