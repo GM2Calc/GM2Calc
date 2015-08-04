@@ -197,9 +197,30 @@ double Fa(double x, double y) {
    return - (G3(x) - G3(y)) / (x - y);
 }
 
+/// Fb(x,1)
+double Fb1(double x) {
+   return x * (cube(x) - 6*sqr(x) + 3*x + 2. + 3*x*log(sqr(x)))
+      / (2*sqr(x)*3*quad(x - 1.));
+}
+
+/// Fb(x,x)
+double Fbx(double x) {
+   return sqr(x) * (sqr(x) + 4*x - 5. - (2*x + 1.)*log(sqr(x)))
+      / (2*sqr(x)*quad(x - 1.));
+}
+
 double Fb(double x, double y) {
-   if(is_equal(x, y))
-      ERROR("Fb: x must not be equal y!");
+   if (is_equal(x, 1.) && is_equal(y, 1.))
+      return 1./12.;
+
+   if (is_equal(x, 1.))
+      return Fb1(y);
+
+   if (is_equal(y, 1.))
+      return Fb1(x);
+
+   if (is_equal(x, y))
+      return Fbx(x);
 
    return - (G4(x) - G4(y)) / (x - y);
 }
