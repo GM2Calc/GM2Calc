@@ -105,6 +105,7 @@ private:
    unsigned find_bino_like_neutralino();
 
    void check_input();
+   void check_problems();
    void convert_gauge_couplings();
    void convert_BMu();
    void convert_mf2(double, unsigned);

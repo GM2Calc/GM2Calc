@@ -25,6 +25,7 @@
 #include <cmath>
 #include <complex>
 #include <iostream>
+#include <sstream>
 
 #define WARNING(message) std::cerr << "Warning: " << message << '\n';
 
@@ -111,6 +112,8 @@ void MSSMNoFV_onshell::convert_to_onshell(double precision) {
    convert_mf2(precision, 1000);
    convert_yukawa_couplings();
    calculate_DRbar_masses();
+
+   check_problems();
 }
 
 /**
@@ -133,6 +136,8 @@ void MSSMNoFV_onshell::calculate_masses() {
    copy_susy_masses_to_pole();
    get_physical().MAh = get_MAh();
    get_physical().Mhh = get_Mhh();
+
+   check_problems();
 }
 
 void MSSMNoFV_onshell::check_input()
@@ -149,6 +154,15 @@ void MSSMNoFV_onshell::check_input()
       throw EInvalidInput("Bino mass M2 is zero");
    if (is_zero(get_MassG()))
       throw EInvalidInput("Gluino mass M3 is zero");
+}
+
+void MSSMNoFV_onshell::check_problems()
+{
+   if (get_problems().have_problem()) {
+      std::ostringstream sstr;
+      sstr << get_problems();
+      throw EPhysicalProblem(sstr.str());
+   }
 }
 
 void MSSMNoFV_onshell::copy_susy_masses_to_pole()

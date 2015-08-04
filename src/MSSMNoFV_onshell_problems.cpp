@@ -16,33 +16,47 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_ERROR_H
-#define GM2_ERROR_H
+#include "MSSMNoFV_onshell_problems.hpp"
+#include "numerics2.hpp"
 
-#include "error.hpp"
+#include <iostream>
 
 namespace flexiblesusy {
 namespace gm2calc {
 
-class EInvalidInput : public Error {
-public:
-   explicit EInvalidInput(const std::string& message_) : message(message_) {}
-   virtual ~EInvalidInput() {}
-   virtual std::string what() const { return message; }
-private:
-   std::string message;
-};
+MSSMNoFV_onshell_problems::MSSMNoFV_onshell_problems()
+   : have_tachyon(false)
+   , tachyonic_particle("")
+{
+}
 
-class EPhysicalProblem : public Error {
-public:
-   explicit EPhysicalProblem(const std::string& message_) : message(message_) {}
-   virtual ~EPhysicalProblem() {}
-   virtual std::string what() const { return message; }
-private:
-   std::string message;
-};
+void MSSMNoFV_onshell_problems::clear()
+{
+   have_tachyon = false;
+   tachyonic_particle.clear();
+}
+
+void MSSMNoFV_onshell_problems::flag_tachyon(const std::string& particle_name)
+{
+   tachyonic_particle = particle_name;
+}
+
+bool MSSMNoFV_onshell_problems::have_problem() const
+{
+   return have_tachyon;
+}
+
+void MSSMNoFV_onshell_problems::print(std::ostream& ostr) const
+{
+   if (have_tachyon)
+      ostr << "Problem: " << tachyonic_particle << " tachyon";
+}
+
+std::ostream& operator<<(std::ostream& ostr, const MSSMNoFV_onshell_problems& problems)
+{
+   problems.print(ostr);
+   return ostr;
+}
 
 } // namespace gm2calc
 } // namespace flexiblesusy
-
-#endif

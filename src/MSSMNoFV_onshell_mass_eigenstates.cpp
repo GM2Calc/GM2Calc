@@ -682,8 +682,8 @@ void CLASSNAME::calculate_MSveL()
    const auto mass_matrix_SveL = get_mass_matrix_SveL();
    MSveL = std::abs(mass_matrix_SveL);
 
-   // if (MSveL < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::SveL);
+   if (MSveL < 0.)
+      problems.flag_tachyon("SveL");
 
    MSveL = std::sqrt(std::abs(MSveL));
 }
@@ -701,8 +701,8 @@ void CLASSNAME::calculate_MSvmL()
    const auto mass_matrix_SvmL = get_mass_matrix_SvmL();
    MSvmL = std::abs(mass_matrix_SvmL);
 
-   // if (MSvmL < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::SvmL);
+   if (MSvmL < 0.)
+      problems.flag_tachyon("SvmL");
 
    MSvmL = std::sqrt(std::abs(MSvmL));
 }
@@ -720,8 +720,8 @@ void CLASSNAME::calculate_MSvtL()
    const auto mass_matrix_SvtL = get_mass_matrix_SvtL();
    MSvtL = std::abs(mass_matrix_SvtL);
 
-   // if (MSvtL < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::SvtL);
+   if (MSvtL < 0.)
+      problems.flag_tachyon("SvtL");
 
    MSvtL = std::sqrt(std::abs(MSvtL));
 }
@@ -748,8 +748,8 @@ void CLASSNAME::calculate_MSd()
    const auto mass_matrix_Sd(get_mass_matrix_Sd());
    fs_diagonalize_hermitian(mass_matrix_Sd, MSd, ZD);
 
-   // if (MSd.minCoeff() < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::Sd);
+   if (MSd.minCoeff() < 0.)
+      problems.flag_tachyon("Sd");
 
    MSd = sqrt(MSd.cwiseAbs());
 }
@@ -776,8 +776,8 @@ void CLASSNAME::calculate_MSu()
    const auto mass_matrix_Su(get_mass_matrix_Su());
    fs_diagonalize_hermitian(mass_matrix_Su, MSu, ZU);
 
-   // if (MSu.minCoeff() < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::Su);
+   if (MSu.minCoeff() < 0.)
+      problems.flag_tachyon("Su");
 
    MSu = sqrt(MSu.cwiseAbs());
 }
@@ -804,8 +804,8 @@ void CLASSNAME::calculate_MSe()
    const auto mass_matrix_Se(get_mass_matrix_Se());
    fs_diagonalize_hermitian(mass_matrix_Se, MSe, ZE);
 
-   // if (MSe.minCoeff() < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::Se);
+   if (MSe.minCoeff() < 0.)
+      problems.flag_tachyon("Se");
 
    MSe = sqrt(MSe.cwiseAbs());
 }
@@ -832,8 +832,8 @@ void CLASSNAME::calculate_MSm()
    const auto mass_matrix_Sm(get_mass_matrix_Sm());
    fs_diagonalize_hermitian(mass_matrix_Sm, MSm, ZM);
 
-   // if (MSm.minCoeff() < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::Sm);
+   if (MSm.minCoeff() < 0.)
+      problems.flag_tachyon("Sm");
 
    MSm = sqrt(MSm.cwiseAbs());
 }
@@ -860,8 +860,8 @@ void CLASSNAME::calculate_MStau()
    const auto mass_matrix_Stau(get_mass_matrix_Stau());
    fs_diagonalize_hermitian(mass_matrix_Stau, MStau, ZTau);
 
-   // if (MStau.minCoeff() < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::Stau);
+   if (MStau.minCoeff() < 0.)
+      problems.flag_tachyon("Stau");
 
    MStau = sqrt(MStau.cwiseAbs());
 }
@@ -888,8 +888,8 @@ void CLASSNAME::calculate_MSs()
    const auto mass_matrix_Ss(get_mass_matrix_Ss());
    fs_diagonalize_hermitian(mass_matrix_Ss, MSs, ZS);
 
-   // if (MSs.minCoeff() < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::Ss);
+   if (MSs.minCoeff() < 0.)
+      problems.flag_tachyon("Ss");
 
    MSs = sqrt(MSs.cwiseAbs());
 }
@@ -916,8 +916,8 @@ void CLASSNAME::calculate_MSc()
    const auto mass_matrix_Sc(get_mass_matrix_Sc());
    fs_diagonalize_hermitian(mass_matrix_Sc, MSc, ZC);
 
-   // if (MSc.minCoeff() < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::Sc);
+   if (MSc.minCoeff() < 0.)
+      problems.flag_tachyon("Sc");
 
    MSc = sqrt(MSc.cwiseAbs());
 }
@@ -944,8 +944,8 @@ void CLASSNAME::calculate_MSb()
    const auto mass_matrix_Sb(get_mass_matrix_Sb());
    fs_diagonalize_hermitian(mass_matrix_Sb, MSb, ZB);
 
-   // if (MSb.minCoeff() < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::Sb);
+   if (MSb.minCoeff() < 0.)
+      problems.flag_tachyon("Sb");
 
    MSb = sqrt(MSb.cwiseAbs());
 }
@@ -972,8 +972,8 @@ void CLASSNAME::calculate_MSt()
    const auto mass_matrix_St(get_mass_matrix_St());
    fs_diagonalize_hermitian(mass_matrix_St, MSt, ZT);
 
-   // if (MSt.minCoeff() < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::St);
+   if (MSt.minCoeff() < 0.)
+      problems.flag_tachyon("St");
 
    MSt = sqrt(MSt.cwiseAbs());
 }
@@ -999,8 +999,8 @@ void CLASSNAME::calculate_Mhh()
    const auto mass_matrix_hh(get_mass_matrix_hh());
    fs_diagonalize_hermitian(mass_matrix_hh, Mhh, ZH);
 
-   // if (Mhh.minCoeff() < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::hh);
+   if (Mhh.minCoeff() < 0.)
+      problems.flag_tachyon("hh");
 
    Mhh = sqrt(Mhh.cwiseAbs());
 }
@@ -1031,8 +1031,8 @@ void CLASSNAME::calculate_MAh()
    const auto mass_matrix_Ah(get_mass_matrix_Ah());
    fs_diagonalize_hermitian(mass_matrix_Ah, MAh, ZA);
 
-   // if (MAh.minCoeff() < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::Ah);
+   if (MAh.minCoeff() < 0.)
+      problems.flag_tachyon("Ah");
 
    MAh = sqrt(MAh.cwiseAbs());
 }
@@ -1057,8 +1057,8 @@ void CLASSNAME::calculate_MHpm()
    const auto mass_matrix_Hpm(get_mass_matrix_Hpm());
    fs_diagonalize_hermitian(mass_matrix_Hpm, MHpm, ZP);
 
-   // if (MHpm.minCoeff() < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::Hpm);
+   if (MHpm.minCoeff() < 0.)
+      problems.flag_tachyon("Hpm");
 
    MHpm = sqrt(MHpm.cwiseAbs());
 }
@@ -1119,8 +1119,8 @@ void CLASSNAME::calculate_MVWm()
    const auto mass_matrix_VWm = get_mass_matrix_VWm();
    MVWm = std::abs(mass_matrix_VWm);
 
-   // if (MVWm < 0.)
-   //    problems.flag_tachyon(MSSMNoFV_onshell_info::VWm);
+   if (MVWm < 0.)
+      problems.flag_tachyon("VWm");
 
    MVWm = std::sqrt(std::abs(MVWm));
 }

@@ -16,31 +16,29 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_ERROR_H
-#define GM2_ERROR_H
+#ifndef MSSMNoFV_onshell_PROBLEMS_H
+#define MSSMNoFV_onshell_PROBLEMS_H
 
-#include "error.hpp"
+#include <iosfwd>
+#include <string>
 
 namespace flexiblesusy {
 namespace gm2calc {
 
-class EInvalidInput : public Error {
+class MSSMNoFV_onshell_problems {
 public:
-   explicit EInvalidInput(const std::string& message_) : message(message_) {}
-   virtual ~EInvalidInput() {}
-   virtual std::string what() const { return message; }
+   MSSMNoFV_onshell_problems();
+   void clear();
+   void flag_tachyon(const std::string&);
+   bool have_problem() const;
+   void print(std::ostream&) const;
+
 private:
-   std::string message;
+   bool have_tachyon;
+   std::string tachyonic_particle;
 };
 
-class EPhysicalProblem : public Error {
-public:
-   explicit EPhysicalProblem(const std::string& message_) : message(message_) {}
-   virtual ~EPhysicalProblem() {}
-   virtual std::string what() const { return message; }
-private:
-   std::string message;
-};
+std::ostream& operator<<(std::ostream&, const MSSMNoFV_onshell_problems&);
 
 } // namespace gm2calc
 } // namespace flexiblesusy
