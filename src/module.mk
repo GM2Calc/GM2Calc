@@ -17,7 +17,8 @@ LIBsrc_SRC := \
 
 # main()
 EXEsrc_SRC := \
-		$(DIR)/gm2calc.cpp
+		$(DIR)/gm2calc.cpp \
+		$(DIR)/gm2scan.cpp
 
 LIBsrc_OBJ := \
 		$(patsubst %.cpp, %.o, $(filter %.cpp, $(LIBsrc_SRC))) \
