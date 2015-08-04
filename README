@@ -1,0 +1,137 @@
+GM2Calc
+=======
+
+GM2Calc calculates the SUSY contributions to a_mu = (g-2)/2 in the
+real MSSM at the 1- and leading 2-loop level.
+
+Homepage:                https://gm2calc.hepforge.org
+Source code repository:  https://github.com/gm2calc
+                         https://github.com/FlexibleSUSY
+References:              arxiv:XXXX.YYYY
+
+
+Requirements
+============
+
+ * C++ compiler (g++ >= 4.8.4 or clang++ >= 3.4 or icpc >= 14.0.3)
+ * Fortran compiler (gfortran, ifort >= 12.1.5)
+ * Boost (version 1.37.0 or higher)   http://www.boost.org
+ * Eigen 3 (version 3.1 or higher)    http://eigen.tuxfamily.org
+ * Lapack / Blas                      http://www.netlib.org/lapack/
+
+
+Compilation
+===========
+
+To compile GM2Calc run
+
+  $ make
+
+The used compilers, include paths and libraries can be passed as an
+argument to make.  For example:
+
+  $ make \
+       CXX=icpc \
+       FC=ifort \
+       FLIBS="-L/opt/intel/2015/lib/intel64 -lifcore -limf -lintlc" \
+       EIGENFLAGS="-I/opt/eigen3/eigen3" \
+       BOOSTFLAGS="-I/opt/boost/include"
+
+In the following list all supported variables and their default values
+are given:
+
+  CXX             := g++
+  CPPFLAGS        := -I. -Isrc
+  CXXFLAGS        := -O2 -std=c++11
+  CXX_DEP_GEN     := g++
+  FC              := gfortran
+  FFLAGS          := -O2 -frecursive
+  FLIBS           := -lgfortran -lm
+  FOR_DEP_GEN     := gfortran
+  MAKELIB         := ar cru
+  BLASLIBS        := -lblas
+  BOOSTFLAGS      := -I/usr/include
+  EIGENFLAGS      := -I/usr/include/eigen3
+  LAPACKLIBS      := -llapack -lblas
+
+The command line arguments passed to `make' are stored in the file
+`make.args'.  To (re-)run `make' with the command line arguments
+stored in `make.args' run
+
+  $ cat make.args | xargs make
+
+
+Running GM2Calc
+===============
+
+GM2Calc can be run with (i) either an SLHA interface or with (ii) a
+custom GM2Calc interface (similar to SLHA, but different definition of
+input parameters).  See `bin/gm2calc.x --help' for all options.
+
+Example using the SLHA interface:
+
+  $ bin/gm2calc.x --slha-input-file=input/slha.in
+
+or
+
+  $ cat input/slha.in | bin/gm2calc.x --slha-input-file=-
+
+Example using the GM2Calc interface:
+
+  $ bin/gm2calc.x --gm2calc-input-file=input/gm2calc.in
+
+or
+
+  $ cat input/gm2calc.in | bin/gm2calc.x --gm2calc-input-file=-
+
+
+SLHA interface
+==============
+
+When the input parameters are provided in SLHA-compliant form, GM2Calc
+reads the input parameters from the following blocks:
+
+ * SMINPUTS: Standard Model fermion masses, W and Z pole masses,
+   alpha_s(MZ)
+
+ * MASS: pole masses of SUSY particles, W pole mass
+
+ * HMIX: tan(beta), mu parameter, renormalization scale
+
+ * AU, AD, AE: soft-breaking trilinear couplings, renormalization
+   scale
+
+ * MSOFT: soft-breaking gaugino masses, soft-breaking sfermion masses,
+   renormalization scale
+
+
+GM2Calc interface
+=================
+
+When the input parameters are provided in GM2Calc specific form,
+GM2Calc reads the input parameters from the following blocks:
+
+ * SMINPUTS: Standard Model fermion masses, W and Z pole masses,
+   alpha_s(MZ)
+
+ * GM2CalcInput: renormalization scale, alpha_em(MZ), alpha_em in the
+   Thompson limit, tan(beta), mu parameter, soft-breaking gaugino
+   masses, soft-breaking Bmu parameter, soft-breaking sfermion masses,
+   soft-breaking trilinear couplings
+
+
+Configuration options
+=====================
+
+The calculation of a_mu can be controlled in the GM2CalcConfig block.
+
+ * GM2CalcConfig[0]: output format (0 ... 4)
+
+   0: minimal output (a single number)
+   1: detailed (a detailed output of the various contributions)
+   2: write the value of (g-2)/2 into LOWEN block, entry 6
+   3: write the value of (g-2)/2 into SPhenoLowEnergy block, entry 21
+
+ * GM2CalcConfig[1]: loop order of the calculation (1 or 2)
+
+ * GM2CalcConfig[2]: disable/enable tan(beta) resummation (0 or 1)
