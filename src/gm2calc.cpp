@@ -234,7 +234,7 @@ void print_amu_detailed(const gm2calc::MSSMNoFV_onshell& model)
 double calculate_amu(gm2calc::MSSMNoFV_onshell& model,
                      const gm2calc::Config_options& config_options)
 {
-   double result = 0.;
+   double result = std::numeric_limits<double>::signaling_NaN();
 
    switch (config_options.loop_order) {
    case 0:
