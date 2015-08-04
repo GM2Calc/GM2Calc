@@ -143,6 +143,12 @@ void MSSMNoFV_onshell::check_input()
       throw EInvalidInput("Z mass is zero");
    if (is_zero(get_MM()))
       throw EInvalidInput("Muon mass is zero");
+   if (is_zero(get_MassB()))
+      throw EInvalidInput("Bino mass M1 is zero");
+   if (is_zero(get_MassWB()))
+      throw EInvalidInput("Bino mass M2 is zero");
+   if (is_zero(get_MassG()))
+      throw EInvalidInput("Gluino mass M3 is zero");
 }
 
 void MSSMNoFV_onshell::copy_susy_masses_to_pole()
