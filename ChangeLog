@@ -1,3 +1,8 @@
+GM2Calc-0.2.5 [not released yet]
+
+ * Bugfix (commit 8acb0b7): Make loop order selectable in case of
+   minimal output.
+
 GM2Calc-0.2.4 [August, 04 2015]
 
  * Bugfix: Implementation of functions Fa(x,y), Fb(x,y), I(x,y,z) and
