@@ -1,7 +1,9 @@
-GM2Calc-0.2.5 [not released yet]
+GM2Calc-0.2.5 [August, 04 2015]
 
  * Bugfix (commit 8acb0b7): Make loop order selectable in case of
    minimal output.
+
+ * Change: Do not print any output if the spectrum contains a tachyon.
 
 GM2Calc-0.2.4 [August, 04 2015]
 
