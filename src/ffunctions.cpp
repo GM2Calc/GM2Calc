@@ -284,15 +284,9 @@ double H2(double x, double y) {
    return x * log(x) / ((1-x)*(x-y)) + y * log(y) / ((1-y)*(y-x));
 }
 
+/// Iabc(a,a,c)
 double Iaac(double a, double c) {
-   const double va2 = sqr(a/c);
-   return (va2 - 1. - log(va2))/(sqr(c) * sqr(va2 - 1.));
-}
-
-double Iabb(double a, double b) {
-   const double va = a/b;
-   const double va2 = sqr(va);
-   return va*(1. - va2 + va2*log(va2))/(a*b*sqr(va2 - 1.));
+   return (sqr(a) - sqr(c) - sqr(c)*log(sqr(a/c))) / sqr(sqr(a) - sqr(c));
 }
 
 double Iabc(double a, double b, double c) {
@@ -303,10 +297,10 @@ double Iabc(double a, double b, double c) {
       return Iaac(a,c);
 
    if (is_equal(b,c))
-      return Iabb(a,b);
+      return Iaac(b,a);
 
    if (is_equal(a,c))
-      return Iabb(b,a);
+      return Iaac(a,b);
 
    return ( (sqr(a * b) * log(sqr(a / b))
            + sqr(b * c) * log(sqr(b / c))
