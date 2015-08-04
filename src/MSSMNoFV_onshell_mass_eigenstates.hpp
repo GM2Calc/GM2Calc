@@ -32,6 +32,7 @@
 
 #include "MSSMNoFV_onshell_soft_parameters.hpp"
 #include "MSSMNoFV_onshell_physical.hpp"
+#include "MSSMNoFV_onshell_problems.hpp"
 
 #include <iosfwd>
 #include <string>
@@ -64,12 +65,13 @@ public:
    void set_physical(const MSSMNoFV_onshell_physical&);
    const MSSMNoFV_onshell_physical& get_physical() const;
    MSSMNoFV_onshell_physical& get_physical();
+   const MSSMNoFV_onshell_problems& get_problems() const;
+   MSSMNoFV_onshell_problems& get_problems();
    int solve_ewsb_tree_level();
    int solve_ewsb();
 
    std::string name() const;
    void print(std::ostream&) const;
-
 
    double get_MVG() const { return MVG; }
    double get_MGlu() const { return MGlu; }
@@ -238,6 +240,7 @@ private:
    bool force_output;             ///< switch to force output of pole masses
    double precision;              ///< RG running precision
    MSSMNoFV_onshell_physical physical; ///< contains the pole masses and mixings
+   MSSMNoFV_onshell_problems problems; ///< problems
 
    int solve_ewsb_tree_level_via_soft_higgs_masses();
 

@@ -78,6 +78,7 @@ CLASSNAME::MSSMNoFV_onshell_mass_eigenstates()
    , force_output(false)
    , precision(1.0e-3)
    , physical()
+   , problems()
    , MVG(0), MGlu(0), MVP(0), MVZ(0), MFd(0), MFs(0), MFb(0), MFu(0), MFc(0),
       MFt(0), MFve(0), MFvm(0), MFvt(0), MFe(0), MFm(0), MFtau(0), MSveL(0), MSvmL
       (0), MSvtL(0), MSd(Eigen::Array<double,2,1>::Zero()), MSu(Eigen::Array<
@@ -131,6 +132,16 @@ MSSMNoFV_onshell_physical& CLASSNAME::get_physical()
 void CLASSNAME::set_physical(const MSSMNoFV_onshell_physical& physical_)
 {
    physical = physical_;
+}
+
+const MSSMNoFV_onshell_problems& CLASSNAME::get_problems() const
+{
+   return problems;
+}
+
+MSSMNoFV_onshell_problems& CLASSNAME::get_problems()
+{
+   return problems;
 }
 
 int CLASSNAME::solve_ewsb_tree_level()
@@ -232,6 +243,7 @@ void CLASSNAME::print(std::ostream& ostr) const
    ostr << "UP = " << UP << '\n';
 
    physical.print(ostr);
+   problems.print(ostr);
 }
 
 /**
@@ -423,6 +435,7 @@ void CLASSNAME::clear()
    MSSMNoFV_onshell_soft_parameters::clear();
    clear_DRbar_parameters();
    physical.clear();
+   problems.clear();
 }
 
 std::string CLASSNAME::name() const
