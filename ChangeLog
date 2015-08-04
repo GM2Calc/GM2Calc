@@ -1,0 +1,4 @@
+GM2Calc-0.2.4 [August, 04 2015]
+
+ * Bugfix: Implementation of functions Fa(x,y), Fb(x,y), I(x,y,z) and
+   H2(x,y) in the limit x=1, y=1, z=1, x=y=z.
