@@ -190,23 +190,16 @@ double F4N(double x) {
                                   + (6. * x + 2.) * dilog(1. - x));
 }
 
-double Fa(double x, double y) {
-   if(is_equal(x, y))
-      ERROR("Fa: x must not be equal y!");
-
-   return - (G3(x) - G3(y)) / (x - y);
-}
-
 /// Fb(x,1)
 double Fb1(double x) {
-   return x * (cube(x) - 6*sqr(x) + 3*x + 2. + 3*x*log(sqr(x)))
-      / (2*sqr(x)*3*quad(x - 1.));
+   return (cube(x) - 6*sqr(x) + 3*x + 2. + 3*x*log(sqr(x)))
+      / (6*quad(x - 1.));
 }
 
 /// Fb(x,x)
 double Fbx(double x) {
-   return sqr(x) * (sqr(x) + 4*x - 5. - (2*x + 1.)*log(sqr(x)))
-      / (2*sqr(x)*quad(x - 1.));
+   return 0.5 * (sqr(x) + 4*x - 5. - (2*x + 1.)*log(sqr(x)))
+      / quad(x - 1.);
 }
 
 double Fb(double x, double y) {
@@ -223,6 +216,34 @@ double Fb(double x, double y) {
       return Fbx(x);
 
    return - (G4(x) - G4(y)) / (x - y);
+}
+
+/// Fa(x,1)
+double Fa1(double x) {
+   return 0.25 * (cube(x) - 4*sqr(x) + 11*x - 8. - (x + 2.)*log(sqr(x)))
+      / quad(x - 1.) + 0.5 * Fb1(x);
+}
+
+/// Fa(x,x)
+double Fax(double x) {
+   return 0.25 * (cube(x) - 16*sqr(x) + 11*x + 4. + x*(2*x + 7.)*log(sqr(x)))
+      / (x * quad(x - 1.)) + 0.5 * Fbx(x);
+}
+
+double Fa(double x, double y) {
+   if (is_equal(x, 1.) && is_equal(y, 1.))
+      return 0.25;
+
+   if (is_equal(x, 1.))
+      return Fa1(y);
+
+   if (is_equal(y, 1.))
+      return Fa1(x);
+
+   if (is_equal(x, y))
+      return Fax(x);
+
+   return - (G3(x) - G3(y)) / (x - y);
 }
 
 double G3(double x) {
