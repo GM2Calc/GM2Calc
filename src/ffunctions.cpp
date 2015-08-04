@@ -30,6 +30,8 @@ namespace flexiblesusy {
 
 namespace {
 
+const double precision = 1e-10;
+
 double dilog(double x) {
    // The DiLogarithm function
    // Code translated by R.Brun from CERNLIB DILOG function C332
@@ -203,16 +205,16 @@ double Fbx(double x) {
 }
 
 double Fb(double x, double y) {
-   if (is_equal(x, 1.) && is_equal(y, 1.))
+   if (is_equal(x, 1., precision) && is_equal(y, 1., precision))
       return 1./12.;
 
-   if (is_equal(x, 1.))
+   if (is_equal(x, 1., precision))
       return Fb1(y);
 
-   if (is_equal(y, 1.))
+   if (is_equal(y, 1., precision))
       return Fb1(x);
 
-   if (is_equal(x, y))
+   if (is_equal(x, y, precision))
       return Fbx(x);
 
    return - (G4(x) - G4(y)) / (x - y);
@@ -231,16 +233,16 @@ double Fax(double x) {
 }
 
 double Fa(double x, double y) {
-   if (is_equal(x, 1.) && is_equal(y, 1.))
+   if (is_equal(x, 1., precision) && is_equal(y, 1., precision))
       return 0.25;
 
-   if (is_equal(x, 1.))
+   if (is_equal(x, 1., precision))
       return Fa1(y);
 
-   if (is_equal(y, 1.))
+   if (is_equal(y, 1., precision))
       return Fa1(x);
 
-   if (is_equal(x, y))
+   if (is_equal(x, y, precision))
       return Fax(x);
 
    return - (G3(x) - G3(y)) / (x - y);
