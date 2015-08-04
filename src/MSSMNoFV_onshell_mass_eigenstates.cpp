@@ -682,8 +682,8 @@ void CLASSNAME::calculate_MSveL()
    const auto mass_matrix_SveL = get_mass_matrix_SveL();
    MSveL = std::abs(mass_matrix_SveL);
 
-   if (MSveL < 0.)
-      problems.flag_tachyon("SveL");
+   // if (MSveL < 0.)
+   //    problems.flag_tachyon("SveL");
 
    MSveL = std::sqrt(std::abs(MSveL));
 }
@@ -720,8 +720,8 @@ void CLASSNAME::calculate_MSvtL()
    const auto mass_matrix_SvtL = get_mass_matrix_SvtL();
    MSvtL = std::abs(mass_matrix_SvtL);
 
-   if (MSvtL < 0.)
-      problems.flag_tachyon("SvtL");
+   // if (MSvtL < 0.)
+   //    problems.flag_tachyon("SvtL");
 
    MSvtL = std::sqrt(std::abs(MSvtL));
 }
@@ -748,8 +748,8 @@ void CLASSNAME::calculate_MSd()
    const auto mass_matrix_Sd(get_mass_matrix_Sd());
    fs_diagonalize_hermitian(mass_matrix_Sd, MSd, ZD);
 
-   if (MSd.minCoeff() < 0.)
-      problems.flag_tachyon("Sd");
+   // if (MSd.minCoeff() < 0.)
+   //    problems.flag_tachyon("Sd");
 
    MSd = sqrt(MSd.cwiseAbs());
 }
@@ -776,8 +776,8 @@ void CLASSNAME::calculate_MSu()
    const auto mass_matrix_Su(get_mass_matrix_Su());
    fs_diagonalize_hermitian(mass_matrix_Su, MSu, ZU);
 
-   if (MSu.minCoeff() < 0.)
-      problems.flag_tachyon("Su");
+   // if (MSu.minCoeff() < 0.)
+   //    problems.flag_tachyon("Su");
 
    MSu = sqrt(MSu.cwiseAbs());
 }
@@ -804,8 +804,8 @@ void CLASSNAME::calculate_MSe()
    const auto mass_matrix_Se(get_mass_matrix_Se());
    fs_diagonalize_hermitian(mass_matrix_Se, MSe, ZE);
 
-   if (MSe.minCoeff() < 0.)
-      problems.flag_tachyon("Se");
+   // if (MSe.minCoeff() < 0.)
+   //    problems.flag_tachyon("Se");
 
    MSe = sqrt(MSe.cwiseAbs());
 }
@@ -888,8 +888,8 @@ void CLASSNAME::calculate_MSs()
    const auto mass_matrix_Ss(get_mass_matrix_Ss());
    fs_diagonalize_hermitian(mass_matrix_Ss, MSs, ZS);
 
-   if (MSs.minCoeff() < 0.)
-      problems.flag_tachyon("Ss");
+   // if (MSs.minCoeff() < 0.)
+   //    problems.flag_tachyon("Ss");
 
    MSs = sqrt(MSs.cwiseAbs());
 }
@@ -916,8 +916,8 @@ void CLASSNAME::calculate_MSc()
    const auto mass_matrix_Sc(get_mass_matrix_Sc());
    fs_diagonalize_hermitian(mass_matrix_Sc, MSc, ZC);
 
-   if (MSc.minCoeff() < 0.)
-      problems.flag_tachyon("Sc");
+   // if (MSc.minCoeff() < 0.)
+   //    problems.flag_tachyon("Sc");
 
    MSc = sqrt(MSc.cwiseAbs());
 }
