@@ -19,10 +19,26 @@
 #ifndef GM2_ERROR_H
 #define GM2_ERROR_H
 
-#include "error.hpp"
-
-namespace flexiblesusy {
 namespace gm2calc {
+
+class Error {
+public:
+   virtual ~Error() {}
+   virtual std::string what() const = 0;
+};
+
+/**
+ * @class SetupError
+ * @brief Spectrum generator was not setup correctly
+ */
+class SetupError : public Error {
+public:
+   explicit SetupError(const std::string& message_) : message(message_) {}
+   virtual ~SetupError() {}
+   virtual std::string what() const { return message; }
+private:
+   std::string message;
+};
 
 class EInvalidInput : public Error {
 public:
@@ -42,7 +58,15 @@ private:
    std::string message;
 };
 
+class ReadError : public Error {
+public:
+   ReadError(const std::string& message_) : message(message_) {}
+   virtual ~ReadError() {}
+   virtual std::string what() const { return message; }
+private:
+   std::string message;
+};
+
 } // namespace gm2calc
-} // namespace flexiblesusy
 
 #endif

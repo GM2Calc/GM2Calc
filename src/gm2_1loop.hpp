@@ -22,7 +22,6 @@
 #include <cmath>
 #include <Eigen/Core>
 
-namespace flexiblesusy {
 namespace gm2calc {
 
 class MSSMNoFV_onshell;
@@ -77,6 +76,5 @@ Eigen::Matrix<double,4,2> x_im(const MSSMNoFV_onshell&);
 Eigen::Array<double,2,1> x_k(const MSSMNoFV_onshell&);
 
 } // namespace gm2calc
-} // namespace flexiblesusy
 
 #endif

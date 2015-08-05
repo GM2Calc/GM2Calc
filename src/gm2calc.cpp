@@ -18,7 +18,7 @@
 
 #include "gm2_1loop.hpp"
 #include "gm2_2loop.hpp"
-#include "error.hpp"
+#include "gm2_error.hpp"
 #include "config.h"
 
 #include "gm2_slha_io.hpp"
@@ -126,7 +126,7 @@ void setup_model(gm2calc::MSSMNoFV_onshell& model,
       model.calculate_masses();
       break;
    default:
-      throw SetupError("Unknown input option");
+      throw gm2calc::SetupError("Unknown input option");
       break;
    }
 }
@@ -282,7 +282,7 @@ int main(int argc, const char* argv[])
       slha_io.read_from_source(options.input_source);
       fill(slha_io, config_options);
       setup_model(model, slha_io, options);
-   } catch (const Error& error) {
+   } catch (const gm2calc::Error& error) {
       ERROR(error.what());
       return EXIT_FAILURE;
    }

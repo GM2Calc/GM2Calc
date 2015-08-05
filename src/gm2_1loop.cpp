@@ -29,7 +29,6 @@
  * for g-2 at the 1-loop level.
  */
 
-namespace flexiblesusy {
 namespace gm2calc {
 
 /**
@@ -513,4 +512,3 @@ double delta_bottom_correction(const MSSMNoFV_onshell& model)
 }
 
 } // namespace gm2calc
-} // namespace flexiblesusy

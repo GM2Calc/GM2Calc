@@ -24,8 +24,6 @@
 #include <cstdio>
 #include <iostream>
 
-using namespace flexiblesusy;
-
 double calculate_amu(gm2calc::MSSMNoFV_onshell& model)
 {
    return gm2calc::calculate_amu_1loop(model)
@@ -130,7 +128,7 @@ int main()
       try {
          model.calculate_masses();
          amu = calculate_amu(model);
-      } catch (const Error& e) {
+      } catch (const gm2calc::Error& e) {
          std::cerr << "Error: " << e.what() << std::endl;
          amu = std::numeric_limits<double>::signaling_NaN();
       }

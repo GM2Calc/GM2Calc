@@ -39,7 +39,6 @@
 
 #include <Eigen/Core>
 
-namespace flexiblesusy {
 namespace gm2calc {
 
 /**
@@ -304,6 +303,5 @@ private:
 std::ostream& operator<<(std::ostream&, const MSSMNoFV_onshell_mass_eigenstates&);
 
 } // namespace gm2calc
-} // namespace flexiblesusy
 
 #endif

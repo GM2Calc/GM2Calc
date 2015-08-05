@@ -21,8 +21,9 @@
 
 #include <iostream>
 
-namespace flexiblesusy {
 namespace gm2calc {
+
+using namespace flexiblesusy;
 
 MSSMNoFV_onshell_physical::MSSMNoFV_onshell_physical()
    :
@@ -228,4 +229,3 @@ std::ostream& operator<<(std::ostream& ostr, const MSSMNoFV_onshell_physical& ph
 }
 
 } // namespace gm2calc
-} // namespace flexiblesusy

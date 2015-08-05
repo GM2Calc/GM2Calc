@@ -26,8 +26,9 @@
 
 #include <Eigen/Core>
 
-namespace flexiblesusy {
 namespace gm2calc {
+
+using namespace flexiblesusy;
 
 #define ERROR(message) std::cerr << "Error: " << message << '\n';
 #define WARNING(message) std::cerr << "Warning: " << message << '\n';
@@ -578,4 +579,3 @@ void GM2_slha_io::process_gm2calcconfig_tuple(Config_options& config_options,
 }
 
 } // namespace gm2calc
-} // namespace flexiblesusy

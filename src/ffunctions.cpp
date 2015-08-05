@@ -26,9 +26,9 @@
 
 #define ERROR(message) std::cerr << "Error: " << message << '\n';
 
-namespace flexiblesusy {
+namespace gm2calc {
 
-namespace {
+using namespace flexiblesusy;
 
 const double precision = 1e-10;
 
@@ -111,10 +111,6 @@ std::complex<double> dilog(const std::complex<double>& x) {
 
    return std::complex<double>(ansreal, ansimag);
 }
-
-} // anonymous namespace
-
-namespace gm2calc {
 
 double sqr(double x) { return x*x; }
 double cube(double x) { return x*x*x; }
@@ -346,4 +342,3 @@ double f_sferm(double z) {
 }
 
 } // namespace gm2calc
-} // namespace flexiblesusy

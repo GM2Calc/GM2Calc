@@ -23,7 +23,6 @@
 #include <limits>
 #include <Eigen/Core>
 
-namespace flexiblesusy {
 namespace gm2calc {
 
 class MSSMNoFV_onshell : public MSSMNoFV_onshell_mass_eigenstates {
@@ -117,6 +116,5 @@ private:
 };
 
 } // namespace gm2calc
-} // namespace flexiblesusy
 
 #endif

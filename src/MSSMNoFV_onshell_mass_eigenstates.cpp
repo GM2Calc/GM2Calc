@@ -32,7 +32,6 @@
 #include "eigen_utils.hpp"
 #include "linalg2.hpp"
 #include "numerics2.hpp"
-#include "error.hpp"
 #include "ffunctions.hpp"
 
 #include <cmath>
@@ -65,9 +64,9 @@ void Hermitianize(Eigen::MatrixBase<Derived>& m)
 }
 } // anonymous namespace
 
-namespace flexiblesusy {
+namespace gm2calc {
 
-using namespace gm2calc;
+using namespace flexiblesusy;
 
 #define CLASSNAME MSSMNoFV_onshell_mass_eigenstates
 #define PHYSICAL(parameter) physical.parameter
@@ -1161,4 +1160,4 @@ std::ostream& operator<<(std::ostream& ostr, const MSSMNoFV_onshell_mass_eigenst
    return ostr;
 }
 
-} // namespace flexiblesusy
+} // namespace gm2calc

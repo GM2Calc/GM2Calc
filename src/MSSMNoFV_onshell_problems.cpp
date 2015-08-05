@@ -21,7 +21,6 @@
 
 #include <iostream>
 
-namespace flexiblesusy {
 namespace gm2calc {
 
 MSSMNoFV_onshell_problems::MSSMNoFV_onshell_problems()
@@ -60,4 +59,3 @@ std::ostream& operator<<(std::ostream& ostr, const MSSMNoFV_onshell_problems& pr
 }
 
 } // namespace gm2calc
-} // namespace flexiblesusy

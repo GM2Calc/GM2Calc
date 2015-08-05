@@ -24,7 +24,6 @@
 #include <complex>
 #include <cmath>
 
-namespace flexiblesusy {
 namespace gm2calc {
 
 /**
@@ -516,4 +515,3 @@ double amua2LCha(const MSSMNoFV_onshell& model) {
 }
 
 } // namespace gm2calc
-} // namespace flexiblesusy

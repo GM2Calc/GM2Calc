@@ -19,7 +19,6 @@
 #ifndef GM2_FFUNCTIONS_H
 #define GM2_FFUNCTIONS_H
 
-namespace flexiblesusy {
 namespace gm2calc {
 
 /// \f$F_1^C(x)\f$, Eq. (54) arXiv:hep-ph/0609168
@@ -60,6 +59,5 @@ double signed_sqr(double);
 double sqr(double);
 
 } // namespace gm2calc
-} // namespace flexiblesusy
 
 #endif
