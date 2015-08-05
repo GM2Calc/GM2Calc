@@ -282,8 +282,7 @@ double amuChi0Photonic(const MSSMNoFV_onshell& model) {
 
 /**
  * The following functions include resummation of 1/(1+Deltamu) within
- * muon Yukawa coupling but not in other Yukawa couplings (in
- * particular not in tau, bottom)
+ * the muon, tau and bottom Yukawa couplings.
  */
 
 /**
