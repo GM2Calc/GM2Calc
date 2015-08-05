@@ -34,7 +34,7 @@ EXEsrc_DEP := \
 		$(EXEsrc_OBJ:.o=.d)
 
 EXEsrc_EXE := \
-		$(EXEsrc_OBJ:.o=.x)
+		$(patsubst $(DIR)/%.o, $(BINDIR)/%.x, $(EXEsrc_OBJ))
 
 LIBsrc     := \
 		$(DIR)/lib$(MODNAME)$(LIBEXT)
@@ -45,7 +45,7 @@ clean::
 		-rm -f $(LIBsrc_OBJ)
 		-rm -f $(EXEsrc_OBJ)
 		-rm -f $(LIBsrc)
-		-rm -f $(patsubst src/%, bin/%, $(EXEsrc_EXE))
+		-rm -f $(EXEsrc_EXE)
 
 $(LIBsrc_DEP) $(EXEsrc_DEP) $(LIBsrc_OBJ) $(EXEsrc_OBJ): \
 		override CPPFLAGS += $(EIGENFLAGS) $(BOOSTFLAGS)
@@ -53,9 +53,8 @@ $(LIBsrc_DEP) $(EXEsrc_DEP) $(LIBsrc_OBJ) $(EXEsrc_OBJ): \
 $(LIBsrc): $(LIBsrc_OBJ)
 		$(MAKELIB) $@ $^
 
-$(DIR)/%.x: $(DIR)/%.o $(LIBsrc) $(LIBFLEXI) | $(BINDIR)
+$(BINDIR)/%.x: $(DIR)/%.o $(LIBsrc) $(LIBFLEXI) | $(BINDIR)
 		$(CXX) -o $@ $^ $(LAPACKLIBS) $(BLASLIBS) $(FLIBS)
-		mv $@ $(BINDIR)
 
 ALLDEP += $(LIBsrc_DEP) $(EXEsrc_DEP)
 ALLLIB += $(LIBsrc)
