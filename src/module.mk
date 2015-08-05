@@ -1,5 +1,5 @@
 DIR          := src
-MODNAME      := src
+MODNAME      := gm2calc
 
 # source files
 LIBsrc_SRC := \
