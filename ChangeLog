@@ -1,4 +1,4 @@
-GM2Calc-0.2.6 [not released yet]
+GM2Calc-0.2.6 [August, 06 2015]
 
  * Bugfix (commit e16898f): Implementation of the limit x=1 for the
    functions F1C, F2C, F1N, F2N.  Patch: Markus Bach.
