@@ -6,7 +6,7 @@ HTML_OUTPUT_DIR := $(DIR)/html
 
 doc: doc-html
 
-doc-html: config.h $(LIBsrc_SRC)
+doc-html: $(LIBsrc_SRC)
 	( cat $(DIR)/Doxyfile ; \
 	  echo "INPUT = src README" ; \
 	  echo "OUTPUT_DIRECTORY = $(HTML_OUTPUT_DIR)" ; \
