@@ -7,3 +7,4 @@ config.h
 make.args
 
 bin/
+doc/html/

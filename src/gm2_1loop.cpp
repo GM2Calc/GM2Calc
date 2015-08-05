@@ -22,10 +22,19 @@
 
 #include <complex>
 
+/**
+ * \file gm2_1loop.cpp
+ *
+ * Contains functions necessary to calculate the SUSY contributions
+ * for g-2 at the 1-loop level.
+ */
+
 namespace flexiblesusy {
 namespace gm2calc {
 
 /**
+ * \fn calculate_amu_1loop_non_tan_beta_resummed
+ *
  * Calculates full 1-loop SUSY contribution to (g-2), Eq. (45) of
  * arXiv:hep-ph/0609168.
  *

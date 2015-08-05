@@ -27,6 +27,13 @@
 namespace flexiblesusy {
 namespace gm2calc {
 
+/**
+ * \file gm2_2loop.cpp
+ *
+ * Contains functions necessary to calculate the SUSY contributions
+ * for g-2 at the 2-loop level.
+ */
+
 // fermion/sfermion corrections, log-approximations
 
 /**

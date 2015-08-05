@@ -25,14 +25,20 @@ all: alllib allexec make.args
 
 clean::
 	-rm -f config.h
+	-rm -rf $(BINDIR)
 
 include src/module.mk
+include doc/module.mk
 
 ifneq ($(MAKECMDGOALS),clean)
 ifneq ($(MAKECMDGOALS),depend)
+ifneq ($(MAKECMDGOALS),doc)
 ifneq ($(MAKECMDGOALS),make.args)
+ifeq ($(findstring doc-,$(MAKECMDGOALS)),)
 ifeq ($(findstring print-,$(MAKECMDGOALS)),)
 -include $(ALLDEP)
+endif
+endif
 endif
 endif
 endif
