@@ -70,6 +70,7 @@ public:
    void clear();
 
    // reading functions
+   const SLHAea::Coll& get_data() const { return data; }
    bool block_exists(const std::string&) const;
    void read_from_file(const std::string&);
    void read_from_source(const std::string&);
@@ -85,7 +86,6 @@ public:
    void set_block(const std::ostringstream&, Position position = back);
    void write_to_file(const std::string&);
    void write_to_stream(std::ostream& = std::cout);
-
    void fill_block_entry(const std::string&, unsigned, double, const std::string&);
 
    static void process_gm2calcconfig_tuple(Config_options&, int, double);
