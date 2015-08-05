@@ -27,6 +27,7 @@ all: alllib allexec make.args
 clean::
 	-rm -f $(CONFIG_H)
 	-rm -rf $(BINDIR)
+	-rm -f make.args
 
 include src/module.mk
 include doc/module.mk
