@@ -1,3 +1,8 @@
+GM2Calc-0.2.7 [August, 06 2015]
+
+ * Bugfix (commit c514eca): Implementation of the limit x=1 for the
+   functions F3C, F4C, F3N, F4N.
+
 GM2Calc-0.2.6 [August, 06 2015]
 
  * Bugfix (commit e16898f): Implementation of the limit x=1 for the
