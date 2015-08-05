@@ -18,13 +18,14 @@ EIGENFLAGS      := -I/usr/include/eigen3
 LAPACKLIBS      := -llapack -lblas
 LIBEXT          := .a
 BINDIR          := bin
+CONFIG_H        := src/config.h
 
 .PHONY:         all allexec alllib clean depend make.args
 
 all: alllib allexec make.args
 
 clean::
-	-rm -f config.h
+	-rm -f $(CONFIG_H)
 	-rm -rf $(BINDIR)
 
 include src/module.mk
@@ -51,7 +52,7 @@ depend:   $(ALLDEP)
 $(BINDIR):
 	mkdir $(BINDIR)
 
-config.h: Makefile
+$(CONFIG_H): Makefile
 	rm -f $@-t $@
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  echo ''; \
@@ -78,10 +79,10 @@ make.args:
 	} > $@-t
 	mv $@-t $@
 
-%.d: %.cpp
+%.d: %.cpp | $(CONFIG_H)
 	$(CXX_DEP_GEN) $(CPPFLAGS) -MM -MP -MG -o $@ -MT '$*.o' $^
 
-%.d: %.f
+%.d: %.f | $(CONFIG_H)
 	$(FOR_DEP_GEN) $(CPPFLAGS) -cpp -MM -MP -MG $^ -MT '$*.o' | \
 	sed 's|.*\.o:|$*.o:|' > $@
 
