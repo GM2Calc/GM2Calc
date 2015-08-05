@@ -122,16 +122,25 @@ double signed_abs_sqrt(double x) {
 }
 
 double F1C(double x) {
-   if(is_equal(x, 1.))
-      ERROR("F1C: x must not be 1 !");
+   if (is_equal(x, 1., 0.01)) {
+      return 1. - 0.6*(-1 + x) + 0.4*sqr(-1 + x)
+         - 0.2857142857142857*cube(-1 + x)
+         + 0.21428571428571427*quad(-1 + x)
+         - 0.16666666666666666*std::pow(-1 + x,5)
+         + 0.13333333333333333*std::pow(-1 + x,6);
+   }
 
    return 2. / quad(1. - x) * (2. + 3. * x - 6. * sqr(x)
                            + cube(x) + 6. * x * log(x));
 }
 
 double F2C(double x) {
-   if(is_equal(x, 1.))
-      ERROR("F2C: x must not be 1 !");
+   if (is_equal(x, 1., 0.01)) {
+      return 1. - 0.75*(-1 + x) + 0.6*sqr(-1 + x) - 0.5*cube(-1 + x)
+         + 0.42857142857142855*quad(-1 + x)
+         - 0.375*std::pow(-1 + x,5)
+         + 0.3333333333333333*std::pow(-1 + x,6);
+   }
 
    return 3. / (2. * cube(1. - x)) * (- 3. + 4. * x - sqr(x) - 2. * log(x));
 }
@@ -157,16 +166,25 @@ double F4C(double x) {
 }
 
 double F1N(double x) {
-   if(is_equal(x, 1.))
-      ERROR("F1N: x must not be 1 !");
+   if (is_equal(x, 1., 0.01)) {
+      return 1. - 0.4*(-1 + x) + 0.2*sqr(-1 + x)
+         - 0.1142857142857143*cube(-1 + x)
+         + 0.07142857142857142*quad(-1 + x)
+         - 0.047619047619047616*std::pow(-1 + x,5)
+         + 0.03333333333333333*std::pow(-1 + x,6);
+   }
 
    return 2. / quad(1. - x) * (1. - 6. * x + 3. * sqr(x)
                           + 2. * cube(x) - 6. * sqr(x) * log(x));
 }
 
 double F2N(double x) {
-   if(is_equal(x, 1.))
-      ERROR("F2N: x must not be 1 !");
+   if(is_equal(x, 1., 0.01)){
+      return 1. - 0.5*(-1 + x) + 0.3*sqr(-1 + x)
+         - 0.2*cube(-1 + x) + 0.14285714285714285*quad(-1 + x)
+         - 0.10714285714285714*std::pow(-1 + x,5)
+         + 0.08333333333333333*std::pow(-1 + x,6);
+   }
 
    return 3. / cube(1. - x) * (1. - sqr(x) + 2. * x * log(x));
 }
