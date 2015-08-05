@@ -146,8 +146,14 @@ double F2C(double x) {
 }
 
 double F3C(double x) {
-   if(is_equal(x, 1.))
-      ERROR("F3C: x must not be 1 !");
+   if (is_equal(x, 1., 0.07)) {
+      return 1. + 0.9012765957446807*(-1 + x)
+         - 1.2235460992907807*sqr(-1 + x)
+         + 1.2279808944854547*cube(-1 + x)
+         - 1.1530221450282228*quad(-1 + x)
+         + 1.0620712114633095*std::pow(-1 + x,5)
+         - 0.9740314565542522*std::pow(-1 + x,6);
+   }
 
    return ( 4. / (141. * quad(1. - x)) * ((1. - x) * (151. * sqr(x) - 335. * x + 592.)
              + 6. * (21. * cube(x) - 108. * sqr(x) - 93. * x + 50.) * log(x)
@@ -156,8 +162,14 @@ double F3C(double x) {
 }
 
 double F4C(double x) {
-   if(is_equal(x, 1.))
-      ERROR("F4C: x must not be 1 !");
+   if (is_equal(x, 1., 0.07)) {
+      return 1. - 0.3688524590163934*(-1 + x)
+         + 0.15426229508196715*sqr(-1 + x)
+         - 0.05573770491803279*cube(-1 + x)
+         + 0.0037738374038140845*quad(-1 + x)
+         + 0.025907494145199085*std::pow(-1 + x,5)
+         - 0.04369818965837698*std::pow(-1 + x,6);
+   }
 
    return ( - 9. / (122. * cube(1. - x)) * (8. * (sqr(x) - 3. * x + 2.)
              +  (11. * sqr(x) - 40. * x + 5.) * log(x)
@@ -190,8 +202,14 @@ double F2N(double x) {
 }
 
 double F3N(double x) {
-   if(is_equal(x, 1.))
-      ERROR("F3N: x must not be 1 !");
+   if (is_equal(x, 1., 0.07)) {
+      return 1. + 0.08685714285714365*(-1 + x)
+         - 0.1641904761904751*sqr(-1 + x)
+         + 0.13662973760932912*cube(-1 + x)
+         - 0.1038192419825078*quad(-1 + x)
+         + 0.07823129251700683*std::pow(-1 + x,5)
+         - 0.05960544217687109*std::pow(-1 + x,6);
+   }
 
    return 4. / (105. * quad(1. - x)) * ((1. - x) * (- 97. * sqr(x) - 529. * x + 2.)
             + 6. * sqr(x) * (13. * x + 81.) * log(x)
@@ -199,8 +217,14 @@ double F3N(double x) {
 }
 
 double F4N(double x) {
-   if(is_equal(x, 1.))
-      ERROR("F4N: x must not be 1 !");
+   if (is_equal(x, 1.)) {
+      return 1. + 6.245004513516506e-17*(-1 + x)
+         - 0.13875*sqr(-1 + x)
+         + 0.1475*cube(-1 + x)
+         - 0.13163265306122446*quad(-1 + x)
+         + 0.1128826530612245*std::pow(-1 + x,5)
+         - 0.09610615079365077*std::pow(-1 + x,6);
+   }
 
    return - 2.25 / cube(1. - x) * ((x + 3.) * (x * log(x) + x - 1.)
                                   + (6. * x + 2.) * dilog(1. - x));
