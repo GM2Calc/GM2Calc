@@ -1,4 +1,4 @@
-GM2Calc-0.2.8 [not released yet]
+GM2Calc-0.2.8 [August, 06 2015]
 
  * Change (commit 2260ac4): If a physical problem has occured, the
    problem description is added to SPINFO[4] in case of
