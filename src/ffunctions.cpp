@@ -217,7 +217,7 @@ double F3N(double x) {
 }
 
 double F4N(double x) {
-   if (is_equal(x, 1.)) {
+   if (is_equal(x, 1., 0.07)) {
       return 1. + 6.245004513516506e-17*(-1 + x)
          - 0.13875*sqr(-1 + x)
          + 0.1475*cube(-1 + x)
