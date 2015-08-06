@@ -173,7 +173,7 @@ void print_amu_detailed(const gm2calc::MSSMNoFV_onshell& model)
       "amuChi0 (TB resummed) = " << gm2calc::amuChi0(model) << '\n' <<
       "amuChipm (TB resummed) = " << gm2calc::amuChipm(model) << '\n' <<
       "--------------------------------------\n"
-      "amu1Lapprox = " << amu1Lapprox(model) << '\n' <<
+      "amu1Lapprox = " << gm2calc::amu1Lapprox(model) << '\n' <<
       "--------------------------------------\n"
       "amuWHnu = " << gm2calc::amuWHnu(model) << '\n' <<
       "amuBmuLmuR = " << gm2calc::amuBmuLmuR(model) << '\n' <<
@@ -191,6 +191,8 @@ void print_amu_detailed(const gm2calc::MSSMNoFV_onshell& model)
       (100. * gm2_2l_tan_beta_resummed / gm2_1l_tan_beta_resummed) << " %\n"
       "--------------------------------------\n"
       "amu2LSFsapprox = " << gm2calc::amu2LFSfapprox(model) << '\n' <<
+      "amu2LSFsapprox (not TB resummed) = " <<
+      gm2calc::amu2LFSfapprox_non_tan_beta_resummed(model) << '\n' <<
       "--------------------------------------\n"
       "amuWHnu2L = " << gm2calc::amuWHnu2L(model) << '\n' <<
       "amuWHmuL2L = " << gm2calc::amuWHmuL2L(model) << '\n' <<
