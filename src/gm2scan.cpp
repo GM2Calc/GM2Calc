@@ -123,6 +123,7 @@ int main()
       const double tanb = tanb_start + (tanb_stop - tanb_start) * n / 100;
 
       gm2calc::MSSMNoFV_onshell model(setup());
+      model.do_force_output(false); // throw exception in case of problem
       model.set_TB(tanb);
 
       try {

@@ -318,14 +318,6 @@ void print_error(const gm2calc::Error& error,
    ERROR(error.what());
 
    switch (config_options.output_format) {
-   case gm2calc::Config_options::Detailed:
-      // in detailed mode print amu even if an error has occured
-      print_amu_detailed(model);
-      std::cout << '\n'
-                << "================================\n"
-                << "   " << error.what() << '\n'
-                << "================================\n";
-      break;
    case gm2calc::Config_options::NMSSMTools:
    case gm2calc::Config_options::SPheno:
       // print SPINFO block with error description
@@ -358,12 +350,15 @@ int main(int argc, const char* argv[])
    try {
       slha_io.read_from_source(options.input_source);
       fill(slha_io, config_options);
+      model.do_force_output(config_options.force_output);
       setup_model(model, slha_io, options);
       print_amu(model, slha_io, config_options);
    } catch (const gm2calc::Error& error) {
       print_error(error, model, slha_io, config_options);
       exit_code = EXIT_FAILURE;
    }
+
+   exit_code |= model.get_problems().have_problem();
 
    return exit_code;
 }

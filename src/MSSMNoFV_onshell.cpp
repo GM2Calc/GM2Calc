@@ -27,7 +27,8 @@
 #include <iostream>
 #include <sstream>
 
-#define WARNING(message) std::cerr << "Warning: " << message << '\n';
+#define WARNING(message)                                                \
+   do { std::cerr << "Warning: " << message << '\n'; } while (0)
 
 namespace {
    static const double ALPHA_EM_THOMPSON = 1./137.035999074;
@@ -154,18 +155,22 @@ void MSSMNoFV_onshell::calculate_masses() {
 
 void MSSMNoFV_onshell::check_input()
 {
-   if (is_zero(get_MW()))
-      throw EInvalidInput("W mass is zero");
-   if (is_zero(get_MZ()))
-      throw EInvalidInput("Z mass is zero");
-   if (is_zero(get_MM()))
-      throw EInvalidInput("Muon mass is zero");
-   if (is_zero(get_MassB()))
-      throw EInvalidInput("Bino mass M1 is zero");
-   if (is_zero(get_MassWB()))
-      throw EInvalidInput("Bino mass M2 is zero");
-   if (is_zero(get_MassG()))
-      throw EInvalidInput("Gluino mass M3 is zero");
+#define WARN_OR_THROW_IF_ZERO(mass,msg)         \
+   if (is_zero(get_##mass())) {                 \
+      if (do_force_output())                    \
+         WARNING(msg);                          \
+      else                                      \
+         throw EInvalidInput(msg);              \
+   }
+
+   WARN_OR_THROW_IF_ZERO(MW    , "W mass is zero");
+   WARN_OR_THROW_IF_ZERO(MZ    , "Z mass is zero");
+   WARN_OR_THROW_IF_ZERO(MM    , "Muon mass is zero");
+   WARN_OR_THROW_IF_ZERO(MassB , "Bino mass M1 is zero");
+   WARN_OR_THROW_IF_ZERO(MassWB, "Bino mass M2 is zero");
+   WARN_OR_THROW_IF_ZERO(MassG , "Gluino mass M3 is zero");
+
+#undef WARN_OR_THROW_IF_ZERO
 }
 
 void MSSMNoFV_onshell::check_problems()
@@ -173,7 +178,10 @@ void MSSMNoFV_onshell::check_problems()
    if (get_problems().have_problem()) {
       std::ostringstream sstr;
       sstr << get_problems();
-      throw EPhysicalProblem(sstr.str());
+      if (do_force_output())
+         WARNING(sstr.str());
+      else
+         throw EPhysicalProblem(sstr.str());
    }
 }
 

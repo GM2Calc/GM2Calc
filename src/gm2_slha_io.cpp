@@ -601,6 +601,9 @@ void GM2_slha_io::process_gm2calcconfig_tuple(Config_options& config_options,
    case 2:
       config_options.tanb_resummation = value;
       break;
+   case 3:
+      config_options.force_output = value;
+      break;
    default:
       WARNING("Unrecognized entry in block GM2CalcConfig: " << key);
       break;

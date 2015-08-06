@@ -60,6 +60,7 @@ struct Config_options {
    E_output_format output_format = Minimal;
    unsigned loop_order = 2;
    bool tanb_resummation = true;
+   bool force_output = false;
 };
 
 class GM2_slha_io {
