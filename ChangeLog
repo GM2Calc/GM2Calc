@@ -4,6 +4,9 @@ GM2Calc-0.2.8 [not released yet]
    problem description is added to SPINFO[4] in case of
    SLHA-compliant output.
 
+ * Feature (commit bfc22cc): Allow user to force output even if
+   physical problem has been spotted.
+
 GM2Calc-0.2.7 [August, 06 2015]
 
  * Bugfix (commit c514eca): Implementation of the limit x=1 for the
