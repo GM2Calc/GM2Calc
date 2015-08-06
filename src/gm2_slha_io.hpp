@@ -87,6 +87,7 @@ public:
    void write_to_file(const std::string&);
    void write_to_stream(std::ostream& = std::cout);
    void fill_block_entry(const std::string&, unsigned, double, const std::string&);
+   void fill_block_entry(const std::string&, unsigned, const std::string&);
 
    static void process_gm2calcconfig_tuple(Config_options&, int, double);
    static void process_gm2calcinput_tuple(MSSMNoFV_onshell&, int, double);
