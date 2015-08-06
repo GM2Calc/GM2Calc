@@ -458,6 +458,7 @@ std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)
       "MSm         = " << model.get_MSmu().transpose() << '\n' <<
       "USm         = " << model.get_USmu().row(0) << ' '
                        << model.get_USmu().row(1) << '\n' <<
+      "MSvm        = " << model.get_MSvmL() << '\n' <<
       "MSb         = " << model.get_MSbot().transpose() << '\n' <<
       "USb         = " << model.get_USbot().row(0) << ' '
                        << model.get_USbot().row(1) << '\n' <<
