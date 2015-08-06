@@ -45,6 +45,9 @@ double amuChipm(const MSSMNoFV_onshell&);
 /// 1-loop leading log approximation
 double amu1Lapprox(const MSSMNoFV_onshell&);
 
+/// 1-loop leading log approximation w/o explicit tan(beta) resummation
+double amu1Lapprox_non_tan_beta_resummed(const MSSMNoFV_onshell&);
+
 /// 1-loop wino--Higgsino, muon-sneutrino leading log approximation
 double amuWHnu(const MSSMNoFV_onshell&);
 /// 1-loop wino--Higgsino, left-handed smuon leading log approximation
