@@ -137,3 +137,6 @@ The calculation of a_mu can be controlled in the GM2CalcConfig block.
  * GM2CalcConfig[1]: loop order of the calculation (1 or 2)
 
  * GM2CalcConfig[2]: disable/enable tan(beta) resummation (0 or 1)
+
+ * GM2CalcConfig[3]: force output even if physical problem has occured
+   (0 or 1).  WARNING: The result might not be trusted!
