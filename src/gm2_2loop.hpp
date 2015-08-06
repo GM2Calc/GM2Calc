@@ -38,12 +38,12 @@ double amuBmuLmuR2L(const MSSMNoFV_onshell&);
 
 double LogNorm(const MSSMNoFV_onshell&);
 
-double Deltag1(const MSSMNoFV_onshell&);
-double DeltaYukHiggsino(const MSSMNoFV_onshell&);
-double DeltaYukBinoHiggsino(const MSSMNoFV_onshell&);
-double Deltag2(const MSSMNoFV_onshell&);
-double DeltaYukWinoHiggsino(const MSSMNoFV_onshell&);
-double DeltaTanBeta(const MSSMNoFV_onshell&);
+double Delta_g1(const MSSMNoFV_onshell&);
+double Delta_g2(const MSSMNoFV_onshell&);
+double Delta_YukHiggsino(const MSSMNoFV_onshell&);
+double Delta_YukBinoHiggsino(const MSSMNoFV_onshell&);
+double Delta_YukWinoHiggsino(const MSSMNoFV_onshell&);
+double Delta_TanBeta(const MSSMNoFV_onshell&);
 
 
 // === photonic 2-loop corrections ===
