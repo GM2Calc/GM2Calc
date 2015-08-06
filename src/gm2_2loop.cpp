@@ -436,7 +436,7 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_stau(const MSSMNoFV_onshell& mode
  * Barr-Zee diagram \f$(\tilde{f}\gamma H)\f$), Eq. (64)
  * arXiv:hep-ph/0609168.
  */
-double amua2LSferm(const MSSMNoFV_onshell& model) {
+double amu2LaSferm(const MSSMNoFV_onshell& model) {
    double result = 0.;
    const double MM(model.get_MM());
    const double MW(model.get_MW());
@@ -492,7 +492,7 @@ double amua2LSferm(const MSSMNoFV_onshell& model) {
  * Barr-Zee diagram \f$(\chi\gamma H)\f$), Eq. (63)
  * arXiv:hep-ph/0609168.
  */
-double amua2LCha(const MSSMNoFV_onshell& model) {
+double amu2LaCha(const MSSMNoFV_onshell& model) {
    double result = 0.;
    const double MM(model.get_MM());
    const double MW(model.get_MW());

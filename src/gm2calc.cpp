@@ -216,8 +216,8 @@ void print_amu_detailed(const gm2calc::MSSMNoFV_onshell& model)
       100. * (amuChipmPhotonic(model)
               + gm2calc::amuChi0Photonic(model)) / gm2_1l << " %\n"
       "--------------------------------------\n"
-      "amu2LaSferm = " << gm2calc::amua2LSferm(model) << '\n' <<
-      "amua2LaCha = " << gm2calc::amua2LCha(model) << '\n' <<
+      "amu2LaSferm = " << gm2calc::amu2LaSferm(model) << '\n' <<
+      "amu2LaCha = " << gm2calc::amu2LaCha(model) << '\n' <<
       "--------------------------------------\n"
       ;
 

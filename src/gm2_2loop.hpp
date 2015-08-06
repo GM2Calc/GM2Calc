@@ -53,8 +53,8 @@ double amuChi0Photonic(const MSSMNoFV_onshell&);
 
 // === SUSY 2L(a) diagrams ===
 
-double amua2LSferm(const MSSMNoFV_onshell&);
-double amua2LCha(const MSSMNoFV_onshell&);
+double amu2LaSferm(const MSSMNoFV_onshell&);
+double amu2LaCha(const MSSMNoFV_onshell&);
 
 double tan_alpha(const MSSMNoFV_onshell&);
 Eigen::Matrix<std::complex<double>,3,3> lambda_mu_cha(const MSSMNoFV_onshell&);
