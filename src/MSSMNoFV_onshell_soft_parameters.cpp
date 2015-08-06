@@ -98,4 +98,4 @@ std::ostream& operator<<(std::ostream& ostr, const MSSMNoFV_onshell_soft_paramet
    return ostr;
 }
 
-} // namespace flexiblesusy
+} // namespace gm2calc
