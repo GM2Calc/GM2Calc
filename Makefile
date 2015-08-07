@@ -4,7 +4,7 @@ VERSION         := 0.2.8
 
 # Variables for compilation
 CXX             := g++
-CPPFLAGS        := -I. -Isrc
+CPPFLAGS        := -Isrc
 CXXFLAGS        := -O2 -std=c++11
 CXX_DEP_GEN     := g++
 FC              := gfortran
