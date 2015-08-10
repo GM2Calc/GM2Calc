@@ -384,6 +384,8 @@ void GM2_slha_io::process_fermion_sminputs_tuple(
    MSSMNoFV_onshell_physical& physical, int key, double value)
 {
    switch (key) {
+   case  1: /* alpha_em(MZ) */      break;
+   case  2: /* G_F */               break;
    case  3: /* alpha_s(MZ) */       break;
    case  4: physical.MVZ = value;   break;
    case  5: physical.MFb = value;   break;
