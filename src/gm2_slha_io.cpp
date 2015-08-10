@@ -446,6 +446,7 @@ void GM2_slha_io::process_mass_tuple(
    case 35     : physical.Mhh(1) = value;   break;
    case 36     : physical.MAh(1) = value;   break;
    case 37     : physical.MHpm(1) = value;  break;
+   case 1000021: /* gluino */               break;
    case 1000022: physical.MChi(0) = value;  break;
    case 1000023: physical.MChi(1) = value;  break;
    case 1000025: physical.MChi(2) = value;  break;
