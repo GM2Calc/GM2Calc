@@ -477,7 +477,7 @@ void fill_physical(const GM2_slha_io& slha_io, MSSMNoFV_onshell_physical& physic
 void fill_pole_masses_from_sminputs_and_mass(
    const GM2_slha_io& slha_io, MSSMNoFV_onshell_physical& physical)
 {
-   MSSMNoFV_onshell_physical physical_hk;
+   MSSMNoFV_onshell_physical physical_hk(physical);
    fill_physical(slha_io, physical_hk);
    physical_hk.convert_to_hk();
    physical = physical_hk;
