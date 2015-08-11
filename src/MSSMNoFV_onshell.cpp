@@ -60,7 +60,6 @@ MSSMNoFV_onshell::MSSMNoFV_onshell()
    get_physical().MFm  = 0.1056583715;
    get_physical().MVWm = 80.385;
    get_physical().MVZ  = 91.1876;
-   get_physical().MFm  = 0.1056583715;
    set_scale(get_physical().MVZ);
 }
 
