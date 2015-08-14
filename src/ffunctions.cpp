@@ -30,8 +30,6 @@ namespace gm2calc {
 
 using namespace flexiblesusy;
 
-const double precision = 1e-10;
-
 double dilog(double x) {
    // The DiLogarithm function
    // Code translated by R.Brun from CERNLIB DILOG function C332
@@ -122,24 +120,21 @@ double signed_abs_sqrt(double x) {
 }
 
 double F1C(double x) {
-   if (is_equal(x, 1., 0.01)) {
-      return 1. - 0.6*(-1 + x) + 0.4*sqr(-1 + x)
-         - 0.2857142857142857*cube(-1 + x)
-         + 0.21428571428571427*quad(-1 + x)
-         - 0.16666666666666666*std::pow(-1 + x,5)
-         + 0.13333333333333333*std::pow(-1 + x,6);
+   if (is_equal(x, 1., 0.05)) {
+      return 1. - 0.6*(-1 + x) + 0.4*sqr(-1 + x) - 2/7.*cube(-1 + x)
+         + 3/14.*quad(-1 + x) - 1/6.*std::pow(-1 + x,5)
+         + 2/15.*std::pow(-1 + x,6);
    }
 
    return 2. / quad(1. - x) * (2. + 3. * x - 6. * sqr(x)
-                           + cube(x) + 6. * x * log(x));
+                               + cube(x) + 6. * x * log(x));
 }
 
 double F2C(double x) {
-   if (is_equal(x, 1., 0.01)) {
+   if (is_equal(x, 1., 0.03)) {
       return 1. - 0.75*(-1 + x) + 0.6*sqr(-1 + x) - 0.5*cube(-1 + x)
-         + 0.42857142857142855*quad(-1 + x)
-         - 0.375*std::pow(-1 + x,5)
-         + 0.3333333333333333*std::pow(-1 + x,6);
+         + 3/7.*quad(-1 + x) - 0.375*std::pow(-1 + x,5)
+         + 1/3.*std::pow(-1 + x,6);
    }
 
    return 3. / (2. * cube(1. - x)) * (- 3. + 4. * x - sqr(x) - 2. * log(x));
@@ -147,12 +142,12 @@ double F2C(double x) {
 
 double F3C(double x) {
    if (is_equal(x, 1., 0.07)) {
-      return 1. + 0.9012765957446807*(-1 + x)
-         - 1.2235460992907807*sqr(-1 + x)
-         + 1.2279808944854547*cube(-1 + x)
-         - 1.1530221450282228*quad(-1 + x)
-         + 1.0620712114633095*std::pow(-1 + x,5)
-         - 0.9740314565542522*std::pow(-1 + x,6);
+      return 1. + 1059/1175.*(-1 + x)
+         - 4313/3525.*sqr(-1 + x)
+         + 70701/57575.*cube(-1 + x)
+         - 265541/230300.*quad(-1 + x)
+         + 48919/46060.*std::pow(-1 + x,5)
+         - 80755/82908.*std::pow(-1 + x,6);
    }
 
    return ( 4. / (141. * quad(1. - x)) * ((1. - x) * (151. * sqr(x) - 335. * x + 592.)
@@ -163,12 +158,12 @@ double F3C(double x) {
 
 double F4C(double x) {
    if (is_equal(x, 1., 0.07)) {
-      return 1. - 0.3688524590163934*(-1 + x)
-         + 0.15426229508196715*sqr(-1 + x)
-         - 0.05573770491803279*cube(-1 + x)
-         + 0.0037738374038140845*quad(-1 + x)
-         + 0.025907494145199085*std::pow(-1 + x,5)
-         - 0.04369818965837698*std::pow(-1 + x,6);
+      return 1. - 45/122.*(-1 + x)
+         + 941/6100.*sqr(-1 + x)
+         - 17/305.*cube(-1 + x)
+         + 282/74725.*quad(-1 + x)
+         + 177/6832.*std::pow(-1 + x,5)
+         - 47021/1076040.*std::pow(-1 + x,6);
    }
 
    return ( - 9. / (122. * cube(1. - x)) * (8. * (sqr(x) - 3. * x + 2.)
@@ -178,24 +173,21 @@ double F4C(double x) {
 }
 
 double F1N(double x) {
-   if (is_equal(x, 1., 0.01)) {
-      return 1. - 0.4*(-1 + x) + 0.2*sqr(-1 + x)
-         - 0.1142857142857143*cube(-1 + x)
-         + 0.07142857142857142*quad(-1 + x)
-         - 0.047619047619047616*std::pow(-1 + x,5)
-         + 0.03333333333333333*std::pow(-1 + x,6);
+   if (is_equal(x, 1., 0.06)) {
+      return 1. - 0.4*(-1 + x) + 0.2*sqr(-1 + x) - 4/35.*cube(-1 + x)
+         + 1/14.*quad(-1 + x) - 1/21.*std::pow(-1 + x,5)
+         + 1/30.*std::pow(-1 + x,6);
    }
 
    return 2. / quad(1. - x) * (1. - 6. * x + 3. * sqr(x)
-                          + 2. * cube(x) - 6. * sqr(x) * log(x));
+                               + 2. * cube(x) - 6. * sqr(x) * log(x));
 }
 
 double F2N(double x) {
-   if(is_equal(x, 1., 0.01)){
-      return 1. - 0.5*(-1 + x) + 0.3*sqr(-1 + x)
-         - 0.2*cube(-1 + x) + 0.14285714285714285*quad(-1 + x)
-         - 0.10714285714285714*std::pow(-1 + x,5)
-         + 0.08333333333333333*std::pow(-1 + x,6);
+   if (is_equal(x, 1., 0.04)) {
+      return 1. - 0.5*(-1 + x) + 0.3*sqr(-1 + x) - 0.2*cube(-1 + x)
+         + 1/7.*quad(-1 + x) - 3/28.*std::pow(-1 + x,5)
+         + 1/12.*std::pow(-1 + x,6);
    }
 
    return 3. / cube(1. - x) * (1. - sqr(x) + 2. * x * log(x));
@@ -203,12 +195,12 @@ double F2N(double x) {
 
 double F3N(double x) {
    if (is_equal(x, 1., 0.07)) {
-      return 1. + 0.08685714285714365*(-1 + x)
-         - 0.1641904761904751*sqr(-1 + x)
-         + 0.13662973760932912*cube(-1 + x)
-         - 0.1038192419825078*quad(-1 + x)
-         + 0.07823129251700683*std::pow(-1 + x,5)
-         - 0.05960544217687109*std::pow(-1 + x,6);
+      return 1. + 76/875.*(-1 + x)
+         - 431/2625.*sqr(-1 + x)
+         + 5858/42875.*cube(-1 + x)
+         - 3561/34300.*quad(-1 + x)
+         + 23/294.*std::pow(-1 + x,5)
+         - 4381/73500.*std::pow(-1 + x,6);
    }
 
    return 4. / (105. * quad(1. - x)) * ((1. - x) * (- 97. * sqr(x) - 529. * x + 2.)
@@ -218,85 +210,102 @@ double F3N(double x) {
 
 double F4N(double x) {
    if (is_equal(x, 1., 0.07)) {
-      return 1. + 6.245004513516506e-17*(-1 + x)
-         - 0.13875*sqr(-1 + x)
+      return 1. - 0.13875*sqr(-1 + x)
          + 0.1475*cube(-1 + x)
-         - 0.13163265306122446*quad(-1 + x)
-         + 0.1128826530612245*std::pow(-1 + x,5)
-         - 0.09610615079365077*std::pow(-1 + x,6);
+         - 129/980.*quad(-1 + x)
+         + 177/1568.*std::pow(-1 + x,5)
+         - 775/8064.*std::pow(-1 + x,6);
    }
 
    return - 2.25 / cube(1. - x) * ((x + 3.) * (x * log(x) + x - 1.)
-                                  + (6. * x + 2.) * dilog(1. - x));
+                                   + (6. * x + 2.) * dilog(1. - x));
+}
+
+/// Fb(1,1)
+double Fb11(double x, double y) {
+   return (293. - 216.*y + 63.*sqr(y) + sqr(x)*(63. - 50.*y + 15.*sqr(y))
+           - 2.*x*(108. - 84.*y + 25.*sqr(y))) / 840.;
 }
 
 /// Fb(x,1)
-double Fb1(double x) {
-   return (cube(x) - 6*sqr(x) + 3*x + 2. + 3*x*log(sqr(x)))
-      / (6*quad(x - 1.));
+double Fb1(double x, double y) {
+   return (2. + 3.*x - 6.*sqr(x) + cube(x) + 6.*x*log(x)) / (6.*quad(-1. + x))
+      + (-1. + y) * (3. + 10.*x - 18.*sqr(x) + 6.*cube(x) - quad(x) + 12.*x*log(x))
+      / (12.*std::pow(-1. + x,5))
+      + sqr(-1. + y) * (12. + 65.*x - 120.*sqr(x) + 60.*cube(x) - 20.*quad(x)
+                        + 3.*std::pow(x,5) + 60.*x*log(x)) / (60.*std::pow(-1. + x,6));
 }
 
 /// Fb(x,x)
-double Fbx(double x) {
-   return 0.5 * (sqr(x) + 4*x - 5. - (2*x + 1.)*log(sqr(x)))
-      / quad(x - 1.);
+double Fbx(double x, double y) {
+   return (-5. + 4.*x + sqr(x) - 2.*log(x) - 4.*x*log(x)) / (2.*quad(-1. + x))
+      - (-x + y) * (-1. - 9.*x + 9.*sqr(x) + cube(x) - 6.*x*log(x) - 6.*sqr(x)*log(x))
+      / (2.*std::pow(-1. + x,5)*x)
+      - sqr(-x + y) * (-1. + 12.*x + 36.*sqr(x) - 44.*cube(x) - 3.*quad(x) + 36.*sqr(x)*log(x)
+                       + 24.*cube(x)*log(x)) / (6.*std::pow(-1. + x,6)*sqr(x));
 }
 
 double Fb(double x, double y) {
-   if (is_equal(x, 1., precision) && is_equal(y, 1., precision))
-      return 1./12.;
+   if (is_equal(x, 1., 0.01) && is_equal(y, 1., 0.01))
+      return Fb11(x,y);
 
-   if (is_equal(x, 1., precision))
-      return Fb1(y);
+   if (is_equal(x, 1., 0.01))
+      return Fb1(y,x);
 
-   if (is_equal(y, 1., precision))
-      return Fb1(x);
+   if (is_equal(y, 1., 0.01))
+      return Fb1(x,y);
 
-   if (is_equal(x, y, precision))
-      return Fbx(x);
+   if (is_equal_rel(x, y, 0.01))
+      return Fbx(x,y);
 
    return - (G4(x) - G4(y)) / (x - y);
 }
 
+/// Fa(1,1)
+double Fa11(double x, double y) {
+   return (1311. - 1158.*y + 365.*sqr(y) + 5.*sqr(x)*(73. - 66.*y + 21.*sqr(y))
+           - 2.*x*(579. - 520.*y + 165.*sqr(y))) / 840.;
+}
+
 /// Fa(x,1)
-double Fa1(double x) {
-   return 0.25 * (cube(x) - 4*sqr(x) + 11*x - 8. - (x + 2.)*log(sqr(x)))
-      / quad(x - 1.) + 0.5 * Fb1(x);
+double Fa1(double x, double y) {
+   return (-11. + 18.*x - 9.*sqr(x) + 2.*cube(x) - 6.*log(x)) / (6.*quad(-1. + x))
+      + (-1. + y) * (-25. + 48.*x - 36.*sqr(x) + 16.*cube(x) - 3.*quad(x) - 12.*log(x))
+      / (12.*std::pow(-1. + x,5))
+      + sqr(-1. + y) * (-137. + 300.*x - 300.*sqr(x) + 200.*cube(x) - 75.*quad(x)
+                        + 12.*std::pow(x,5) - 60.*log(x)) / (60.*std::pow(-1. + x,6));
 }
 
 /// Fa(x,x)
-double Fax(double x) {
-   return 0.25 * (cube(x) - 16*sqr(x) + 11*x + 4. + x*(2*x + 7.)*log(sqr(x)))
-      / (x * quad(x - 1.)) + 0.5 * Fbx(x);
+double Fax(double x, double y) {
+   return (2. + 3.*x - 6.*sqr(x) + cube(x) + 6.*x*log(x)) / (2.*quad(-1. + x)*x)
+      - (-x + y) * (-1. + 8.*x - 8.*cube(x) + quad(x) + 12.*sqr(x)*log(x))
+      / (2.*std::pow(-1. + x,5)*sqr(x))
+      - sqr(-x + y) * (-2. + 15.*x - 60.*sqr(x) + 20.*cube(x) + 30.*quad(x) - 3.*std::pow(x,5)
+                       - 60.*cube(x)*log(x)) / (6.*std::pow(-1. + x,6)*cube(x));
 }
 
 double Fa(double x, double y) {
-   if (is_equal(x, 1., precision) && is_equal(y, 1., precision))
-      return 0.25;
+   if (is_equal(x, 1., 0.01) && is_equal(y, 1., 0.01))
+      return Fa11(x,y);
 
-   if (is_equal(x, 1., precision))
-      return Fa1(y);
+   if (is_equal(x, 1., 0.01))
+      return Fa1(y,x);
 
-   if (is_equal(y, 1., precision))
-      return Fa1(x);
+   if (is_equal(y, 1., 0.01))
+      return Fa1(x,y);
 
-   if (is_equal(x, y, precision))
-      return Fax(x);
+   if (is_equal_rel(x, y, 0.01))
+      return Fax(x,y);
 
    return - (G3(x) - G3(y)) / (x - y);
 }
 
 double G3(double x) {
-   if(is_equal(x, 1.))
-      ERROR("G3: x must not be 1 !");
-
    return 1. / (2. * cube(x - 1.)) * ((x - 1.) * (x - 3.) + 2. * log(x));
 }
 
 double G4(double x) {
-   if(is_equal(x, 1.))
-      ERROR("G4: x must not be 1 !");
-
    return 1. / (2. * cube(x - 1.)) * ((x - 1.) * (x + 1.) - 2. * x * log(x));
 }
 
@@ -304,41 +313,53 @@ double G4(double x) {
  * \f$H_2(x,y)\f$ function from Eq. (34) of arxiv:0901.2065 .
  *
  * The \f$H_2(x,y)\f$ function is related to \f$I(a,b,c)\f$ by
- * \f$\frac{1}{z} H_2(\frac{x}{z},\frac{y}{z}) = - I(x,y,z)\f$.
+ * \f$\frac{1}{z^2} H_2(\frac{x^2}{z^2},\frac{y^2}{z^2}) = - I(x,y,z)\f$.
  */
 double H2(double x, double y) {
-   if (is_equal(x, 1., precision) && is_equal(y, 1., precision))
+   if (is_equal(x, 1., 1e-8) && is_equal(y, 1., 1e-8))
       return -0.5;
 
-   if (is_equal(x, 1., precision))
+   if (is_equal(x, 1., 1e-8))
       return (-1. + y - y*log(y))/sqr(-1. + y);
 
-   if (is_equal(y, 1., precision))
+   if (is_equal(y, 1., 1e-8))
       return (-1. + x - x*log(x))/sqr(-1. + x);
 
-   if (is_equal(x, y, precision))
+   if (is_equal(x, y, 1e-8))
       return (1 - y + log(y))/sqr(-1 + y);
 
    return x * log(x) / ((1-x)*(x-y)) + y * log(y) / ((1-y)*(y-x));
 }
 
+/// Iabc(a,a,a)
+double Iaaa(double a, double b, double c) {
+   return (151.*quad(a) + 13.*sqr(b)*sqr(c) - 128.*cube(a)*(b + c) - 40.*a*b*c*(b + c)
+           + sqr(a)*(37.*sqr(b) + 128.*b*c + 37.*sqr(c))) / (60.*std::pow(a,6));
+}
+
 /// Iabc(a,a,c)
-double Iaac(double a, double c) {
-   return (sqr(a) - sqr(c) - sqr(c)*log(sqr(a/c))) / sqr(sqr(a) - sqr(c));
+double Iaac(double a, double b, double c) {
+   return ((sqr(a) - sqr(c))
+           * (17.*std::pow(a,6) - 16.*std::pow(a,5)*b - 40.*cube(a)*b*sqr(c)
+              + 8.*a*b*quad(c) - sqr(b)*quad(c) + quad(a)*(5.*sqr(b) + 8.*sqr(c))
+              + sqr(a)*(20.*sqr(b)*sqr(c) - quad(c)))
+           - 6.*sqr(a)*sqr(c) * log(sqr(a)/sqr(c))
+           * (6.*quad(a) - 8.*cube(a)*b + 3.*sqr(a)*(sqr(b) - sqr(c)) + sqr(c)*(sqr(b) + sqr(c))))
+      / (6.*sqr(a)*quad(sqr(a) - sqr(c)));
 }
 
 double Iabc(double a, double b, double c) {
-   if (is_equal(a,b) && is_equal(b,c))
-      return 0.5 / sqr(a);
+   if (is_equal_rel(std::abs(a), std::abs(b), 0.01) && is_equal_rel(std::abs(a), std::abs(c), 0.01))
+      return Iaaa(std::abs(a),std::abs(b),std::abs(c));
 
-   if (is_equal(a,b))
-      return Iaac(a,c);
+   if (is_equal_rel(std::abs(a), std::abs(b), 0.01))
+      return Iaac(std::abs(a),std::abs(b),c);
 
-   if (is_equal(b,c))
-      return Iaac(b,a);
+   if (is_equal_rel(std::abs(b), std::abs(c), 0.01))
+      return Iaac(std::abs(b),std::abs(c),a);
 
-   if (is_equal(a,c))
-      return Iaac(a,b);
+   if (is_equal_rel(std::abs(a), std::abs(c), 0.01))
+      return Iaac(std::abs(a),std::abs(c),b);
 
    return ( (sqr(a * b) * log(sqr(a / b))
            + sqr(b * c) * log(sqr(b / c))
