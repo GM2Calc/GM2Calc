@@ -432,8 +432,8 @@ void MSSMNoFV_onshell::convert_mf2(
       set_ml2(1,1,ml211);
       set_me2(1,1,me211);
 
-      calculate_DRbar_masses();
-
+      //calculate_DRbar_masses();
+      calculate_MSm();
       accuracy_goal_reached =
          MSSMNoFV_onshell::is_equal(get_MSm(), MSm_pole, precision_goal);
 
