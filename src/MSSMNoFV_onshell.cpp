@@ -405,7 +405,13 @@ void MSSMNoFV_onshell::convert_mf2(
    double precision_goal,
    unsigned max_iterations)
 {
-   const Eigen::Array<double,2,1> MSm_pole(get_physical().MSm);
+   Eigen::Array<double,2,1> MSm_pole(get_physical().MSm);
+   /// pole masses should be mass ordered for this to work
+   if(MSm_pole(0) > MSm_pole(1)) {
+     double temp = MSm_pole(0);
+     MSm_pole(0) = MSm_pole(1);
+     MSm_pole(1) = temp;    
+   }
    Eigen::Array<double,2,1> MSm(get_MSm());
 
    bool accuracy_goal_reached =
@@ -432,7 +438,6 @@ void MSSMNoFV_onshell::convert_mf2(
       set_ml2(1,1,ml211);
       set_me2(1,1,me211);
 
-      //calculate_DRbar_masses();
       calculate_MSm();
       accuracy_goal_reached =
          MSSMNoFV_onshell::is_equal(get_MSm(), MSm_pole, precision_goal);
