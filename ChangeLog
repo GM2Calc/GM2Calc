@@ -3,6 +3,9 @@ GM2Calc-0.2.9 [not released yet]
  * Bugfix (commit 4a5725a): Use default muon mass if no muon mass is
    given in the SMINPUTS block.
 
+ * Bugfix (commit c12dfe3): Refine and implement limits for the
+   functions F*C, F*N, Fa, Fb and Iabc.  Patch: Markus Bach.
+
 GM2Calc-0.2.8 [August, 06 2015]
 
  * Change (commit 2260ac4): If a physical problem has occured, the
