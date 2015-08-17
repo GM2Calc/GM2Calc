@@ -513,9 +513,7 @@ double CLASSNAME::get_mass_matrix_VZ() const
 void CLASSNAME::calculate_MVZ()
 {
    const auto mass_matrix_VZ = get_mass_matrix_VZ();
-   MVZ = std::abs(mass_matrix_VZ);
-
-   MVZ = std::sqrt(std::abs(MVZ));
+   MVZ = std::sqrt(std::abs(mass_matrix_VZ));
 }
 
 double CLASSNAME::get_mass_matrix_Fd() const
@@ -679,12 +677,7 @@ double CLASSNAME::get_mass_matrix_SveL() const
 void CLASSNAME::calculate_MSveL()
 {
    const auto mass_matrix_SveL = get_mass_matrix_SveL();
-   MSveL = std::abs(mass_matrix_SveL);
-
-   // if (MSveL < 0.)
-   //    problems.flag_tachyon("SveL");
-
-   MSveL = std::sqrt(std::abs(MSveL));
+   MSveL = std::sqrt(std::abs(mass_matrix_SveL));
 }
 
 double CLASSNAME::get_mass_matrix_SvmL() const
@@ -698,12 +691,11 @@ double CLASSNAME::get_mass_matrix_SvmL() const
 void CLASSNAME::calculate_MSvmL()
 {
    const auto mass_matrix_SvmL = get_mass_matrix_SvmL();
-   MSvmL = std::abs(mass_matrix_SvmL);
 
-   if (MSvmL < 0.)
+   if (mass_matrix_SvmL < 0.)
       problems.flag_tachyon("SvmL");
 
-   MSvmL = std::sqrt(std::abs(MSvmL));
+   MSvmL = std::sqrt(std::abs(mass_matrix_SvmL));
 }
 
 double CLASSNAME::get_mass_matrix_SvtL() const
@@ -717,12 +709,7 @@ double CLASSNAME::get_mass_matrix_SvtL() const
 void CLASSNAME::calculate_MSvtL()
 {
    const auto mass_matrix_SvtL = get_mass_matrix_SvtL();
-   MSvtL = std::abs(mass_matrix_SvtL);
-
-   // if (MSvtL < 0.)
-   //    problems.flag_tachyon("SvtL");
-
-   MSvtL = std::sqrt(std::abs(MSvtL));
+   MSvtL = std::sqrt(std::abs(mass_matrix_SvtL));
 }
 
 Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Sd() const
@@ -746,10 +733,6 @@ void CLASSNAME::calculate_MSd()
 {
    const auto mass_matrix_Sd(get_mass_matrix_Sd());
    fs_diagonalize_hermitian(mass_matrix_Sd, MSd, ZD);
-
-   // if (MSd.minCoeff() < 0.)
-   //    problems.flag_tachyon("Sd");
-
    MSd = sqrt(MSd.cwiseAbs());
 }
 
@@ -774,10 +757,6 @@ void CLASSNAME::calculate_MSu()
 {
    const auto mass_matrix_Su(get_mass_matrix_Su());
    fs_diagonalize_hermitian(mass_matrix_Su, MSu, ZU);
-
-   // if (MSu.minCoeff() < 0.)
-   //    problems.flag_tachyon("Su");
-
    MSu = sqrt(MSu.cwiseAbs());
 }
 
@@ -802,10 +781,6 @@ void CLASSNAME::calculate_MSe()
 {
    const auto mass_matrix_Se(get_mass_matrix_Se());
    fs_diagonalize_hermitian(mass_matrix_Se, MSe, ZE);
-
-   // if (MSe.minCoeff() < 0.)
-   //    problems.flag_tachyon("Se");
-
    MSe = sqrt(MSe.cwiseAbs());
 }
 
@@ -886,10 +861,6 @@ void CLASSNAME::calculate_MSs()
 {
    const auto mass_matrix_Ss(get_mass_matrix_Ss());
    fs_diagonalize_hermitian(mass_matrix_Ss, MSs, ZS);
-
-   // if (MSs.minCoeff() < 0.)
-   //    problems.flag_tachyon("Ss");
-
    MSs = sqrt(MSs.cwiseAbs());
 }
 
@@ -914,10 +885,6 @@ void CLASSNAME::calculate_MSc()
 {
    const auto mass_matrix_Sc(get_mass_matrix_Sc());
    fs_diagonalize_hermitian(mass_matrix_Sc, MSc, ZC);
-
-   // if (MSc.minCoeff() < 0.)
-   //    problems.flag_tachyon("Sc");
-
    MSc = sqrt(MSc.cwiseAbs());
 }
 
@@ -1116,12 +1083,7 @@ double CLASSNAME::get_mass_matrix_VWm() const
 void CLASSNAME::calculate_MVWm()
 {
    const auto mass_matrix_VWm = get_mass_matrix_VWm();
-   MVWm = std::abs(mass_matrix_VWm);
-
-   if (MVWm < 0.)
-      problems.flag_tachyon("VWm");
-
-   MVWm = std::sqrt(std::abs(MVWm));
+   MVWm = std::sqrt(std::abs(mass_matrix_VWm));
 }
 
 
