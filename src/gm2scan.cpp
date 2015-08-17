@@ -115,12 +115,13 @@ int main()
 {
    const double tanb_start = 2.;
    const double tanb_stop = 100.;
+   const unsigned nsteps = 100;
 
    printf("# %14s %16s\n", "tan(beta)", "amu");
 
-   for (unsigned n = 0; n < 100; n++) {
+   for (unsigned n = 0; n < nsteps; n++) {
       double amu;
-      const double tanb = tanb_start + (tanb_stop - tanb_start) * n / 100;
+      const double tanb = tanb_start + (tanb_stop - tanb_start) * n / nsteps;
 
       gm2calc::MSSMNoFV_onshell model(setup());
       model.do_force_output(false); // throw exception in case of problem
