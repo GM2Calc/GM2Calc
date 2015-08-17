@@ -306,12 +306,10 @@ void print_amu(const gm2calc::MSSMNoFV_onshell& model,
  * Prints output if an error has occured.
  *
  * @param error error object
- * @param model model
  * @param slha_io SLHA object
  * @param config_options configuration options
  */
 void print_error(const gm2calc::Error& error,
-                 const gm2calc::MSSMNoFV_onshell& model,
                  gm2calc::GM2_slha_io& slha_io,
                  const gm2calc::Config_options& config_options)
 {
@@ -354,7 +352,7 @@ int main(int argc, const char* argv[])
       setup_model(model, slha_io, options);
       print_amu(model, slha_io, config_options);
    } catch (const gm2calc::Error& error) {
-      print_error(error, model, slha_io, config_options);
+      print_error(error, slha_io, config_options);
       exit_code = EXIT_FAILURE;
    }
 
