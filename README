@@ -106,6 +106,8 @@ reads the input parameters from the following blocks:
  * MSOFT: soft-breaking gaugino masses, soft-breaking sfermion masses,
    renormalization scale
 
+ * GM2CalcInput: alpha_em(MZ), alpha_em in the Thompson limit
+
 
 GM2Calc interface
 =================
@@ -127,7 +129,7 @@ Configuration options
 
 The calculation of a_mu can be controlled in the GM2CalcConfig block.
 
- * GM2CalcConfig[0]: output format (0 ... 4)
+ * GM2CalcConfig[0]: output format (0 ... 3)
 
    0: minimal output (a single number)
    1: detailed (a detailed output of the various contributions)
@@ -139,4 +141,5 @@ The calculation of a_mu can be controlled in the GM2CalcConfig block.
  * GM2CalcConfig[2]: disable/enable tan(beta) resummation (0 or 1)
 
  * GM2CalcConfig[3]: force output even if physical problem has occured
-   (0 or 1).  WARNING: The result might not be trusted!
+   (0 or 1).  WARNING: The result might not be trusted if a problem
+   has occured!
