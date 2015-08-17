@@ -26,6 +26,7 @@
 #include <complex>
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 
 #define WARNING(message)                                                \
    do { std::cerr << "Warning: " << message << '\n'; } while (0)
@@ -407,11 +408,7 @@ void MSSMNoFV_onshell::convert_mf2(
 {
    Eigen::Array<double,2,1> MSm_pole(get_physical().MSm);
    /// pole masses should be mass ordered for this to work
-   if(MSm_pole(0) > MSm_pole(1)) {
-     double temp = MSm_pole(0);
-     MSm_pole(0) = MSm_pole(1);
-     MSm_pole(1) = temp;    
-   }
+   std::sort(MSm_pole.data(), MSm_pole.data() + MSm_pole.size());
    Eigen::Array<double,2,1> MSm(get_MSm());
 
    bool accuracy_goal_reached =
