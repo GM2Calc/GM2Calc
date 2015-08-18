@@ -6,6 +6,9 @@ GM2Calc-0.2.9 [not released yet]
  * Bugfix (commit c12dfe3): Refine and implement limits for the
    functions F*C, F*N, Fa, Fb and Iabc.  Patch: Markus Bach.
 
+ * Bugfix (commit d3cc2de): Determine soft-breaking left-handed smuon
+   mass parameter from the muon sneutrino pole mass.
+
 GM2Calc-0.2.8 [August, 06 2015]
 
  * Change (commit 2260ac4): If a physical problem has occured, the
