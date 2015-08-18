@@ -402,14 +402,32 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       WARNING("DR-bar to on-shell conversion for Mu, M1 and M2 did not converge.");
 }
 
+void MSSMNoFV_onshell::convert_ml2()
+{
+   const double MSvmL_pole = get_physical().MSvmL;
+   const double vd2 = sqr(get_vd());
+   const double vu2 = sqr(get_vu());
+   const double g12 = sqr(get_g1());
+   const double g22 = sqr(get_g2());
+
+   // calculate ml2(1,1) from muon sneutrino pole mass
+   const double ml211
+      = sqr(MSvmL_pole) + 0.125*(0.6*g12*(vu2 - vd2) + g22*(vu2 - vd2));
+
+   set_ml2(1,1,ml211);
+   calculate_MSvmL();
+}
+
 void MSSMNoFV_onshell::convert_mf2(
    double precision_goal,
    unsigned max_iterations)
 {
+   convert_ml2();
+
    Eigen::Array<double,2,1> MSm_pole(get_physical().MSm);
    /// pole masses should be mass ordered for this to work
    std::sort(MSm_pole.data(), MSm_pole.data() + MSm_pole.size());
-   Eigen::Array<double,2,1> MSm(get_MSm());
+   const Eigen::Array<double,2,1> MSm(get_MSm());
 
    bool accuracy_goal_reached =
       MSSMNoFV_onshell::is_equal(MSm, MSm_pole, precision_goal);
@@ -422,22 +440,19 @@ void MSSMNoFV_onshell::convert_mf2(
       const double vd2 = sqr(get_vd());
       const double vu2 = sqr(get_vu());
       const double g12 = sqr(get_g1());
-      const double g22 = sqr(get_g2());
       const double ymu2 = std::norm(Ye(1,1));
-
-      const double ml211 = M(0,0)
-         - (0.5*ymu2*vd2 + 0.075*g12*vd2 - 0.125*g22*vd2
-            - 0.075*g12*vu2 + 0.125*g22*vu2);
 
       const double me211 = M(1,1)
          - (0.5*ymu2*vd2 - 0.15*g12*vd2 + 0.15*g12*vu2);
 
-      set_ml2(1,1,ml211);
       set_me2(1,1,me211);
-
       calculate_MSm();
+
+      const int right_index = (ZM(0,0) > ZM(0,1)) ? 1 : 0;
+
       accuracy_goal_reached =
-         MSSMNoFV_onshell::is_equal(get_MSm(), MSm_pole, precision_goal);
+         MSSMNoFV_onshell::is_equal(get_MSm(right_index), MSm_pole(right_index),
+                                    precision_goal);
 
       it++;
    }
