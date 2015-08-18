@@ -395,11 +395,15 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       accuracy_goal_reached =
          MSSMNoFV_onshell::is_equal(MCha_goal, get_MCha(), precision_goal) &&
          MSSMNoFV_onshell::is_equal(MChi_goal(max_bino), get_MChi(max_bino), precision_goal);
+
       it++;
    }
 
-   if (it == max_iterations)
-      WARNING("DR-bar to on-shell conversion for Mu, M1 and M2 did not converge.");
+   if (it == max_iterations) {
+      WARNING("DR-bar to on-shell conversion for Mu, M1 and M2 did"
+              " not converge (accuracy goal: " << precision_goal
+              << ", max. iterations: " << max_iterations);
+   }
 }
 
 void MSSMNoFV_onshell::convert_mf2(
