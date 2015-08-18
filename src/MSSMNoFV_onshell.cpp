@@ -28,6 +28,8 @@
 #include <sstream>
 #include <algorithm>
 
+#include <boost/math/tools/roots.hpp>
+
 #define WARNING(message)                                                \
    do { std::cerr << "Warning: " << message << '\n'; } while (0)
 
@@ -402,6 +404,18 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       WARNING("DR-bar to on-shell conversion for Mu, M1 and M2 did not converge.");
 }
 
+void MSSMNoFV_onshell::convert_mf2(
+   double precision_goal,
+   unsigned max_iterations)
+{
+   convert_ml2();
+   convert_me2(precision_goal, max_iterations);
+}
+
+/**
+ * Determines soft-breaking left-handed smuon mass parameter from the
+ * muon sneutrino pole mass.
+ */
 void MSSMNoFV_onshell::convert_ml2()
 {
    const double MSvmL_pole = get_physical().MSvmL;
@@ -418,47 +432,52 @@ void MSSMNoFV_onshell::convert_ml2()
    calculate_MSvmL();
 }
 
-void MSSMNoFV_onshell::convert_mf2(
+/**
+ * Determines soft-breaking right-handed smuon mass parameter from one
+ * smuon pole mass.
+ */
+void MSSMNoFV_onshell::convert_me2(
    double precision_goal,
    unsigned max_iterations)
 {
-   convert_ml2();
+   class Difference_MSm {
+   public:
+      Difference_MSm(const MSSMNoFV_onshell& model_)
+         : model(model_) {}
 
-   Eigen::Array<double,2,1> MSm_pole(get_physical().MSm);
-   /// pole masses should be mass ordered for this to work
-   std::sort(MSm_pole.data(), MSm_pole.data() + MSm_pole.size());
-   const Eigen::Array<double,2,1> MSm(get_MSm());
+      double operator()(double me211) {
+         model.set_me2(1,1,me211);
+         model.calculate_MSm();
 
-   bool accuracy_goal_reached =
-      MSSMNoFV_onshell::is_equal(MSm, MSm_pole, precision_goal);
-   unsigned it = 0;
+         Eigen::Array<double,2,1> MSm_pole(model.get_physical().MSm);
+         std::sort(MSm_pole.data(), MSm_pole.data() + MSm_pole.size());
+         const int right_index = (model.get_ZM(0,0) > model.get_ZM(0,1)) ? 1 : 0;
 
-   while (!accuracy_goal_reached && it < max_iterations) {
-      const Eigen::Matrix<double,2,2> ZM(get_ZM()); // smuon mixing matrix
-      const Eigen::Matrix<double,2,2> M(ZM.adjoint() * MSm_pole.square().matrix().asDiagonal() * ZM);
+         return model.get_MSm(right_index) - MSm_pole(right_index);
+      }
+   private:
+      MSSMNoFV_onshell model;
+   };
 
-      const double vd2 = sqr(get_vd());
-      const double vu2 = sqr(get_vu());
-      const double g12 = sqr(get_g1());
-      const double ymu2 = std::norm(Ye(1,1));
+   boost::uintmax_t it = max_iterations;
 
-      const double me211 = M(1,1)
-         - (0.5*ymu2*vd2 - 0.15*g12*vd2 + 0.15*g12*vu2);
+   // stopping criterion, given two brackets a, b
+   auto Stop_crit = [precision_goal](double a, double b) {
+      return MSSMNoFV_onshell::is_equal(a,b,precision_goal);
+   };
 
-      set_me2(1,1,me211);
-      calculate_MSm();
+   // find the root
+   const std::pair<double,double> root =
+      boost::math::tools::toms748_solve(Difference_MSm(*this), 0., 1e16, Stop_crit, it);
 
-      const int right_index = (ZM(0,0) > ZM(0,1)) ? 1 : 0;
-
-      accuracy_goal_reached =
-         MSSMNoFV_onshell::is_equal(get_MSm(right_index), MSm_pole(right_index),
-                                    precision_goal);
-
-      it++;
+   if (it >= max_iterations) {
+      WARNING("DR-bar to on-shell conversion for me2 did not converge "
+              " (precision goal: " << precision_goal
+              << ", max iterations: " << max_iterations << ")");
    }
 
-   if (it == max_iterations)
-      WARNING("DR-bar to on-shell conversion for ml2 and me2 did not converge.");
+   set_me2(1,1,0.5*(root.first + root.second));
+   calculate_MSm();
 }
 
 std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)

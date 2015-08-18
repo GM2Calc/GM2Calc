@@ -109,6 +109,7 @@ private:
    void convert_gauge_couplings();
    void convert_BMu();
    void convert_ml2();
+   void convert_me2(double, unsigned);
    void convert_mf2(double, unsigned);
    void convert_Mu_M1_M2(double, unsigned);
    void convert_vev();
