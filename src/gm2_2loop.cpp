@@ -307,7 +307,7 @@ double tan_alpha(const MSSMNoFV_onshell& model) {
    const double tan2beta = 2. * TB / (1. - sqr(TB));
    const double tan2alpha = tan2beta * (sqr(MA0) + sqr(MZ)) / (sqr(MA0) - sqr(MZ));
 
-   return - 1. / tan2alpha - sqrt(1. / sqr(tan2alpha) + 1.); // alpha < 0 !
+   return - 1. / tan2alpha - sqrt(1. / sqr(tan2alpha) + 1.);
 }
 
 /**

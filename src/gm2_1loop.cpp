@@ -298,7 +298,7 @@ Eigen::Array<double,2,1> x_k(const MSSMNoFV_onshell& model) {
    Eigen::Array<double,2,1> result;
 
    for(int k=0; k<2; ++k) {
-      result(k) = sqr(model.get_MCha(k) / model.get_MSvmL()); // !!!
+      result(k) = sqr(model.get_MCha(k) / model.get_MSvmL());
    }
 
    return result;
