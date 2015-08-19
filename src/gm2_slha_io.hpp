@@ -31,7 +31,7 @@
 namespace gm2calc {
 
 class MSSMNoFV_onshell;
-class MSSMNoFV_onshell_physical;
+struct MSSMNoFV_onshell_physical;
 
    namespace {
       /// SLHA number formatter
