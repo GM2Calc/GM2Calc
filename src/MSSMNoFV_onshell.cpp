@@ -123,7 +123,7 @@ void MSSMNoFV_onshell::convert_to_onshell(double precision) {
    convert_yukawa_couplings();
 
    // final mass spectrum
-   get_problems().clear();
+   get_problems().clear_problems();
    calculate_DRbar_masses();
    check_problems();
 }
@@ -407,6 +407,9 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       WARNING("DR-bar to on-shell conversion for Mu, M1 and M2 did"
               " not converge (accuracy goal: " << precision_goal
               << ", max. iterations: " << max_iterations);
+      get_problems().flag_no_convergence_Mu_MassB_MassWB();
+   } else {
+      get_problems().flag_no_convergence_Mu_MassB_MassWB(false);
    }
 }
 
