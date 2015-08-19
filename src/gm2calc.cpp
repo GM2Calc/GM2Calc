@@ -190,7 +190,7 @@ void print_amu_detailed(const gm2calc::MSSMNoFV_onshell& model)
       "2-loop / 1-loop = " <<
       (100. * gm2_2l_tan_beta_resummed / gm2_1l_tan_beta_resummed) << " %\n"
       "--------------------------------------\n"
-      "amu2LSFsapprox = " << gm2calc::amu2LFSfapprox(model) << '\n' <<
+      "amu2LFSfapprox = " << gm2calc::amu2LFSfapprox(model) << '\n' <<
       "--------------------------------------\n"
       "amuWHnu2L = " << gm2calc::amuWHnu2L(model) << '\n' <<
       "amuWHmuL2L = " << gm2calc::amuWHmuL2L(model) << '\n' <<
