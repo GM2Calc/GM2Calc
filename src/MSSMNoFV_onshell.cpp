@@ -349,12 +349,16 @@ bool MSSMNoFV_onshell::is_zero(double a, double eps)
 
 /**
  * Returns index of most bino-like neutralino.  The function extracts
- * this information from the neutralino pole mass mixing matrix.
+ * this information from the given neutralino mixing matrix.
+ *
+ * @param ZN neutralino mixing matrix
  */
-unsigned MSSMNoFV_onshell::find_bino_like_neutralino()
+template <class Derived>
+unsigned MSSMNoFV_onshell::find_bino_like_neutralino(
+   const Eigen::MatrixBase<Derived>& ZN)
 {
    unsigned max_bino;
-   get_physical().ZN.col(0).cwiseAbs().maxCoeff(&max_bino);
+   ZN.col(0).cwiseAbs().maxCoeff(&max_bino);
 
    return max_bino;
 }
@@ -364,7 +368,7 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
    unsigned max_iterations)
 {
    // find neutralino, which is most bino like
-   const unsigned max_bino = find_bino_like_neutralino();
+   const unsigned max_bino = find_bino_like_neutralino(get_physical().ZN);
 
    const auto MCha_goal(get_physical().MCha);
    auto MChi_goal(get_MChi());

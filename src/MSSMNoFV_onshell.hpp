@@ -102,7 +102,8 @@ private:
    static bool is_zero(const Eigen::MatrixBase<Derived>&,
                        double eps = std::numeric_limits<double>::epsilon());
 
-   unsigned find_bino_like_neutralino();
+   template <class Derived>
+   static unsigned find_bino_like_neutralino(const Eigen::MatrixBase<Derived>&);
 
    void check_input();
    void check_problems();
