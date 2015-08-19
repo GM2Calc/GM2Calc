@@ -52,7 +52,7 @@ are given:
   BLASLIBS        := -lblas
   BOOSTFLAGS      := -I/usr/include
   EIGENFLAGS      := -I/usr/include/eigen3
-  LAPACKLIBS      := -llapack -lblas
+  LAPACKLIBS      := -llapack
 
 The command line arguments passed to `make' are stored in the file
 `make.args'.  To (re-)run `make' with the command line arguments
