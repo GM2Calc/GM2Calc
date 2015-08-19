@@ -490,9 +490,9 @@ void MSSMNoFV_onshell::convert_me2_root(
       WARNING("DR-bar to on-shell conversion for me2 did not converge "
               " (precision goal: " << precision_goal
               << ", max iterations: " << max_iterations << ")");
-      get_problems().flag_no_convergence_ml2_me2();
+      get_problems().flag_no_convergence_me2();
    } else {
-      get_problems().flag_no_convergence_ml2_me2(false);
+      get_problems().flag_no_convergence_me2(false);
    }
 
    set_me2(1,1,0.5*(root.first + root.second));
@@ -545,9 +545,9 @@ void MSSMNoFV_onshell::convert_me2_fpi(
 
    if (it == max_iterations) {
       WARNING("DR-bar to on-shell conversion for me2 did not converge.");
-      get_problems().flag_no_convergence_ml2_me2();
+      get_problems().flag_no_convergence_me2();
    } else {
-      get_problems().flag_no_convergence_ml2_me2(false);
+      get_problems().flag_no_convergence_me2(false);
    }
 }
 
