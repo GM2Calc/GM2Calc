@@ -444,7 +444,7 @@ void MSSMNoFV_onshell::convert_me2(
    double precision_goal,
    unsigned max_iterations)
 {
-   convert_me2_root(precision_goal, max_iterations);
+   convert_me2_fpi(precision_goal, max_iterations);
 }
 
 /**
