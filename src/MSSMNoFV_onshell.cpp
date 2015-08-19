@@ -28,6 +28,8 @@
 #include <sstream>
 #include <algorithm>
 
+#include <boost/math/tools/roots.hpp>
+
 #define WARNING(message)                                                \
    do { std::cerr << "Warning: " << message << '\n'; } while (0)
 
@@ -119,7 +121,8 @@ void MSSMNoFV_onshell::convert_to_onshell(double precision) {
    convert_yukawa_couplings_treelevel();
    convert_Mu_M1_M2(precision, 1000);
    convert_yukawa_couplings(); // first guess of resummed yukawas
-   convert_mf2(precision, 1000);
+   convert_ml2();
+   convert_me2(precision, 1000);
    convert_yukawa_couplings();
 
    // final mass spectrum
@@ -413,14 +416,98 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
    }
 }
 
-void MSSMNoFV_onshell::convert_mf2(
+/**
+ * Determines soft-breaking left-handed smuon mass parameter from the
+ * muon sneutrino pole mass.
+ */
+void MSSMNoFV_onshell::convert_ml2()
+{
+   const double MSvmL_pole = get_physical().MSvmL;
+   const double vd2 = sqr(get_vd());
+   const double vu2 = sqr(get_vu());
+   const double g12 = sqr(get_g1());
+   const double g22 = sqr(get_g2());
+
+   // calculate ml2(1,1) from muon sneutrino pole mass
+   const double ml211
+      = sqr(MSvmL_pole) + 0.125*(0.6*g12*(vu2 - vd2) + g22*(vu2 - vd2));
+
+   set_ml2(1,1,ml211);
+   calculate_MSvmL();
+}
+
+/**
+ * Determines soft-breaking right-handed smuon mass parameter from one
+ * smuon pole mass.
+ */
+void MSSMNoFV_onshell::convert_me2(
+   double precision_goal,
+   unsigned max_iterations)
+{
+   convert_me2_root(precision_goal, max_iterations);
+}
+
+/**
+ * Determines soft-breaking right-handed smuon mass parameter from one
+ * smuon pole mass.  The function uses a one-dimensional root-finding
+ * algorithm.
+ */
+void MSSMNoFV_onshell::convert_me2_root(
+   double precision_goal,
+   unsigned max_iterations)
+{
+   class Difference_MSm {
+   public:
+      Difference_MSm(const MSSMNoFV_onshell& model_)
+         : model(model_) {}
+
+      double operator()(double me211) {
+         model.set_me2(1,1,me211);
+         model.calculate_MSm();
+
+         Eigen::Array<double,2,1> MSm_pole(model.get_physical().MSm);
+         std::sort(MSm_pole.data(), MSm_pole.data() + MSm_pole.size());
+         const int right_index = (model.get_ZM(0,0) > model.get_ZM(0,1)) ? 1 : 0;
+
+         return model.get_MSm(right_index) - MSm_pole(right_index);
+      }
+   private:
+      MSSMNoFV_onshell model;
+   };
+
+   boost::uintmax_t it = max_iterations;
+
+   // stopping criterion, given two brackets a, b
+   auto Stop_crit = [precision_goal](double a, double b) {
+      return MSSMNoFV_onshell::is_equal(a,b,precision_goal);
+   };
+
+   // find the root
+   const std::pair<double,double> root =
+      boost::math::tools::toms748_solve(Difference_MSm(*this), 0., 1e16, Stop_crit, it);
+
+   if (it >= max_iterations) {
+      WARNING("DR-bar to on-shell conversion for me2 did not converge "
+              " (precision goal: " << precision_goal
+              << ", max iterations: " << max_iterations << ")");
+   }
+
+   set_me2(1,1,0.5*(root.first + root.second));
+   calculate_MSm();
+}
+
+/**
+ * Determines soft-breaking right-handed smuon mass parameter from one
+ * smuon pole mass.  The function uses a fixed-point iteration.
+ */
+void MSSMNoFV_onshell::convert_me2_fpi(
    double precision_goal,
    unsigned max_iterations)
 {
    Eigen::Array<double,2,1> MSm_pole(get_physical().MSm);
-   /// pole masses should be mass ordered for this to work
+   // pole masses should be mass ordered for this to work
    std::sort(MSm_pole.data(), MSm_pole.data() + MSm_pole.size());
-   Eigen::Array<double,2,1> MSm(get_MSm());
+   const Eigen::Array<double,2,1> MSm(get_MSm());
 
    bool accuracy_goal_reached =
       MSSMNoFV_onshell::is_equal(MSm, MSm_pole, precision_goal);
@@ -433,28 +520,28 @@ void MSSMNoFV_onshell::convert_mf2(
       const double vd2 = sqr(get_vd());
       const double vu2 = sqr(get_vu());
       const double g12 = sqr(get_g1());
-      const double g22 = sqr(get_g2());
       const double ymu2 = std::norm(Ye(1,1));
-
-      const double ml211 = M(0,0)
-         - (0.5*ymu2*vd2 + 0.075*g12*vd2 - 0.125*g22*vd2
-            - 0.075*g12*vu2 + 0.125*g22*vu2);
 
       const double me211 = M(1,1)
          - (0.5*ymu2*vd2 - 0.15*g12*vd2 + 0.15*g12*vu2);
 
-      set_ml2(1,1,ml211);
       set_me2(1,1,me211);
-
       calculate_MSm();
+
+      const int right_index = (ZM(0,0) > ZM(0,1)) ? 1 : 0;
+
+      MSm_pole = get_MSm();
+      MSm_pole(right_index) = get_physical().MSm(right_index);
+
       accuracy_goal_reached =
-         MSSMNoFV_onshell::is_equal(get_MSm(), MSm_pole, precision_goal);
+         MSSMNoFV_onshell::is_equal(get_MSm(right_index), MSm_pole(right_index),
+                                    precision_goal);
 
       it++;
    }
 
    if (it == max_iterations) {
-      WARNING("DR-bar to on-shell conversion for ml2 and me2 did not converge.");
+      WARNING("DR-bar to on-shell conversion for me2 did not converge.");
       get_problems().flag_no_convergence_ml2_me2();
    } else {
       get_problems().flag_no_convergence_ml2_me2(false);
