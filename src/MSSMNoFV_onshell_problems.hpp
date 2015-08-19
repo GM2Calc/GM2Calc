@@ -31,6 +31,7 @@ public:
    void clear_problems();
    void clear_warnings();
    void flag_no_convergence_Mu_MassB_MassWB(bool flag = true);
+   void flag_no_convergence_ml2_me2(bool flag = true);
    void flag_tachyon(const std::string&);
    bool have_problem() const;
    bool have_warning() const;
@@ -41,6 +42,7 @@ public:
 
 private:
    bool have_no_convergence_Mu_MassB_MassWB;
+   bool have_no_convergence_ml2_me2;
    bool have_tachyon;
    std::string tachyonic_particle;
 };

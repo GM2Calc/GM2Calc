@@ -26,6 +26,7 @@ namespace gm2calc {
 
 MSSMNoFV_onshell_problems::MSSMNoFV_onshell_problems()
    : have_no_convergence_Mu_MassB_MassWB(false)
+   , have_no_convergence_ml2_me2(false)
    , have_tachyon(false)
    , tachyonic_particle("")
 {
@@ -40,6 +41,7 @@ void MSSMNoFV_onshell_problems::clear_problems()
 void MSSMNoFV_onshell_problems::clear_warnings()
 {
    have_no_convergence_Mu_MassB_MassWB = false;
+   have_no_convergence_ml2_me2 = false;
 }
 
 void MSSMNoFV_onshell_problems::clear()
@@ -59,6 +61,11 @@ void MSSMNoFV_onshell_problems::flag_no_convergence_Mu_MassB_MassWB(bool flag)
    have_no_convergence_Mu_MassB_MassWB = flag;
 }
 
+void MSSMNoFV_onshell_problems::flag_no_convergence_ml2_me2(bool flag)
+{
+   have_no_convergence_ml2_me2 = flag;
+}
+
 bool MSSMNoFV_onshell_problems::have_problem() const
 {
    return have_tachyon;
@@ -66,7 +73,7 @@ bool MSSMNoFV_onshell_problems::have_problem() const
 
 bool MSSMNoFV_onshell_problems::have_warning() const
 {
-   return have_no_convergence_Mu_MassB_MassWB;
+   return have_no_convergence_Mu_MassB_MassWB || have_no_convergence_ml2_me2;
 }
 
 std::string MSSMNoFV_onshell_problems::get_warning() const
@@ -84,8 +91,14 @@ void MSSMNoFV_onshell_problems::print_problems(std::ostream& ostr) const
 
 void MSSMNoFV_onshell_problems::print_warnings(std::ostream& ostr) const
 {
+   if (have_warning())
+      ostr << "Warning:";
+
    if (have_no_convergence_Mu_MassB_MassWB)
-      ostr << "Warning: DR-bar to on-shell conversion for Mu, M1, M2 failed";
+      ostr << " DR-bar to on-shell conversion for Mu, M1, M2 failed";
+
+   if (have_no_convergence_ml2_me2)
+      ostr << " DR-bar to on-shell conversion for ml2, me2 failed";
 }
 
 void MSSMNoFV_onshell_problems::print(std::ostream& ostr) const

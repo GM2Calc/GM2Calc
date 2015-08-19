@@ -453,8 +453,12 @@ void MSSMNoFV_onshell::convert_mf2(
       it++;
    }
 
-   if (it == max_iterations)
+   if (it == max_iterations) {
       WARNING("DR-bar to on-shell conversion for ml2 and me2 did not converge.");
+      get_problems().flag_no_convergence_ml2_me2();
+   } else {
+      get_problems().flag_no_convergence_ml2_me2(false);
+   }
 }
 
 std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)
