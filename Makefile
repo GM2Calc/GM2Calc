@@ -96,3 +96,10 @@ release-tag:
 	git archive --worktree-attributes --prefix=gm2calc-v$(VERSION)/ \
 		--output=gm2calc-v$(VERSION).tar.gz v$(VERSION)
 	md5sum gm2calc-v$(VERSION).tar.gz > gm2calc-v$(VERSION).tar.gz.md5
+
+release-head:
+	$(eval GIT_HEAD_DESCR := $(shell git describe --tags HEAD))
+	git archive --worktree-attributes --prefix=gm2calc-$(GIT_HEAD_DESCR)/ \
+		--output=gm2calc-$(GIT_HEAD_DESCR).tar.gz v$(GIT_HEAD_DESCR)
+	md5sum gm2calc-$(GIT_HEAD_DESCR).tar.gz \
+		> gm2calc-$(GIT_HEAD_DESCR).tar.gz.md5
