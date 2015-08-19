@@ -329,6 +329,33 @@ void print_error(const gm2calc::Error& error,
    }
 }
 
+/**
+ * Prints SLHA output if there is a warning.
+ *
+ * @param model model
+ * @param slha_io SLHA object
+ * @param config_options configuration options
+ */
+void print_warnings(const gm2calc::MSSMNoFV_onshell& model,
+                    gm2calc::GM2_slha_io& slha_io,
+                    const gm2calc::Config_options& config_options)
+{
+   if (model.get_problems().have_warning()) {
+      switch (config_options.output_format) {
+      case gm2calc::Config_options::NMSSMTools:
+      case gm2calc::Config_options::SPheno:
+         // print SPINFO block with warning description
+         slha_io.fill_block_entry("SPINFO", 1, "GM2Calc");
+         slha_io.fill_block_entry("SPINFO", 2, GM2CALC_VERSION);
+         slha_io.fill_block_entry("SPINFO", 3, model.get_problems().get_warning());
+         slha_io.write_to_stream(std::cout);
+         break;
+      default:
+         break;
+      }
+   }
+}
+
 int main(int argc, const char* argv[])
 {
    Gm2_cmd_line_options options(get_cmd_line_options(argc, argv));
@@ -355,6 +382,8 @@ int main(int argc, const char* argv[])
       print_error(error, slha_io, config_options);
       exit_code = EXIT_FAILURE;
    }
+
+   print_warnings(model, slha_io, config_options);
 
    exit_code |= model.get_problems().have_problem();
 
