@@ -237,7 +237,6 @@ public:
 
 private:
    bool force_output;             ///< switch to force output of pole masses
-   double precision;              ///< RG running precision
    MSSMNoFV_onshell_physical physical; ///< contains the pole masses and mixings
    MSSMNoFV_onshell_problems problems; ///< problems
 

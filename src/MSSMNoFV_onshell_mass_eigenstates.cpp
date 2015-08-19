@@ -75,7 +75,6 @@ using namespace flexiblesusy;
 CLASSNAME::MSSMNoFV_onshell_mass_eigenstates()
    : MSSMNoFV_onshell_soft_parameters()
    , force_output(false)
-   , precision(1.0e-3)
    , physical()
    , problems()
    , MVG(0), MGlu(0), MVP(0), MVZ(0), MFd(0), MFs(0), MFb(0), MFu(0), MFc(0),
