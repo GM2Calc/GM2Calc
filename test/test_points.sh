@@ -44,6 +44,8 @@ if test ! -x "${GM2CALC}"; then
 fi
 
 errors=0
+passes=0
+count=0
 
 for point in ${points}
 do
@@ -82,18 +84,21 @@ EOF
 
     if [ $error -eq 0 ] ; then
         echo "result         : OK"
+        passes=$(expr $passes + 1)
     else
         echo "result         : FAIL"
-        errors=1
+        errors=$(expr $errors + 1)
     fi
+
+    count=$(expr $count + 1)
 
     echo ""
 done
 
 if [ $errors -eq 0 ] ; then
-    echo "Test result: OK"
+    echo "Test result: OK [${passes}/${count}]"
 else
-    echo "Test result: FAIL"
+    echo "Test result: FAIL [${passes}/${count}]"
 fi
 
 exit ${errors}
