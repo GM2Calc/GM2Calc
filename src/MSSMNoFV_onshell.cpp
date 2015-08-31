@@ -366,6 +366,15 @@ unsigned MSSMNoFV_onshell::find_bino_like_neutralino(
    return max_bino;
 }
 
+/**
+ * Determines the Mu parameter and the soft-breaking Bino and Wino
+ * mass parameters from the two chargino pole masses and the most
+ * bino-like neutralino pole mass.  The function uses a fixed-point
+ * iteration.
+ *
+ * @param precision_goal precision goal of iteration
+ * @param max_iterations maximum number of iterations
+ */
 void MSSMNoFV_onshell::convert_Mu_M1_M2(
    double precision_goal,
    unsigned max_iterations)
@@ -439,6 +448,9 @@ void MSSMNoFV_onshell::convert_ml2()
 /**
  * Determines soft-breaking right-handed smuon mass parameter from one
  * smuon pole mass.
+ *
+ * @param precision_goal precision goal of iteration
+ * @param max_iterations maximum number of iterations
  */
 void MSSMNoFV_onshell::convert_me2(
    double precision_goal,
@@ -451,6 +463,9 @@ void MSSMNoFV_onshell::convert_me2(
  * Determines soft-breaking right-handed smuon mass parameter from one
  * smuon pole mass.  The function uses a one-dimensional root-finding
  * algorithm.
+ *
+ * @param precision_goal precision goal for the root finding algorithm
+ * @param max_iterations maximum number of iterations
  */
 void MSSMNoFV_onshell::convert_me2_root(
    double precision_goal,
@@ -502,6 +517,9 @@ void MSSMNoFV_onshell::convert_me2_root(
 /**
  * Determines soft-breaking right-handed smuon mass parameter from one
  * smuon pole mass.  The function uses a fixed-point iteration.
+ *
+ * @param precision_goal precision goal of iteration
+ * @param max_iterations maximum number of iterations
  */
 void MSSMNoFV_onshell::convert_me2_fpi(
    double precision_goal,
