@@ -1,0 +1,90 @@
+/**
+\mainpage GM2Calc
+
+GM2Calc is a C++ program which calculates the SUSY contributions to
+the anomalous magnetic moment of the muon \f$a_\mu = (g-2)_\mu/2\f$ in
+the real MSSM at the 1- and leading 2-loop level.
+
+\section Download
+
+GM2Calc can be downloaded from the GM2Calc homepage:
+<a href="https://gm2calc.hepforge.org">https://gm2calc.hepforge.org</a>
+
+\section Compilation
+
+To compile GM2Calc run
+
+    make
+
+Without any arguments, `make` will search in the default directories
+for the BOOST, Eigen, BLAS and LAPACK libraries and compile GM2Calc
+using the g++ and gfortran compilers.  For customization of the
+library paths and used compilers, see the *compilation* section in the
+\ref README file.
+
+\section Usage
+
+GM2Calc can be run with (i) either an SLHA interface or with (ii) a
+custom GM2Calc interface (similar to SLHA, but different definition of
+input parameters).  See `bin/gm2calc.x --help` for all options.
+
+Example using the SLHA interface:
+
+    bin/gm2calc.x --slha-input-file=input/slha.in
+
+or
+
+    cat input/slha.in | bin/gm2calc.x --slha-input-file=-
+
+Example using the GM2Calc interface:
+
+    bin/gm2calc.x --gm2calc-input-file=input/gm2calc.in
+
+or
+
+    cat input/gm2calc.in | bin/gm2calc.x --gm2calc-input-file=-
+
+\section Directories
+
+ - <code>bin/</code> after compilation, the <code>bin/</code>
+   directory contains executables for the numerical calculation of
+   \f$a_\mu\f$
+
+ - <code>doc/</code> contains files for generating the GM2Calc source
+   code documentation.  The GM2Calc source code documentation can be
+   generated in HTML format by running
+
+       make doc
+
+   The generated HTML pages can be found in the directory
+   <code>doc/html/</code> and can be viewed with your favourite web
+   browser, e.g.
+
+       firefox doc/html/index.html
+
+ - <code>input/</code> contains GM2Calc example input files in SLHA
+   and GM2Calc format
+
+ - <code>src/</code> contains the GM2Calc C++ source code
+
+ - <code>test/</code> contains tests for GM2Calc (not included in the
+   release tarballs; only available in the git repository)
+
+\section References
+
+GM2Calc has been published in
+
+- P. Athron, M. Bach, H. G. Fargnoli, C. Gnendiger, R. Greifenhagen,
+  J. Park, S. Paßehr, D. Stöckinger, H. Stöckinger-Kim, A. Voigt:
+  "GM2Calc — A program to numerically calculate the anomalous magnetic
+  moment of the muon in the real MSSM at 1- and leading 2-loop level"
+  [<a href="http://arxiv.org/abs/XXXX.YYYY">CPC 000 (2015)
+  000-999</a>]
+
+The expressions implemented in GM2Calc have been taken from
+[<a href="http://arxiv.org/abs/1003.5820">Phys.Rev. D81 (2010) 093004</a>,
+ <a href="http://arxiv.org/abs/1309.0980">Phys.Lett. B726 (2013) 717-724</a>,
+ <a href="http://arxiv.org/abs/1311.1775">JHEP 1402 (2014) 070</a>,
+ <a href="http://arxiv.org/abs/1504.05500">arXiv:1504.05500</a>]
+
+*/
