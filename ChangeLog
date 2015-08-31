@@ -9,6 +9,9 @@ GM2Calc-0.2.9 [not released yet]
  * Bugfix (commit d3cc2de): Determine soft-breaking left-handed smuon
    mass parameter from the muon sneutrino pole mass.
 
+ * Change (commit 6fc7ed4): add 2-loop 2L(a) corrections to best
+   approximation for amu.  Patch: Markus Bach.
+
 GM2Calc-0.2.8 [August, 06 2015]
 
  * Change (commit 2260ac4): If a physical problem has occured, the
