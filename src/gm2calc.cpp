@@ -133,7 +133,7 @@ void setup_model(gm2calc::MSSMNoFV_onshell& model,
 
 /**
  * Prints detailed a_mu calculation (1-loop w/ and w/o tan(beta)
- * resumation, 2-loop, and differenc contributions).
+ * resummation, 2-loop, and different contributions).
  */
 void print_amu_detailed(const gm2calc::MSSMNoFV_onshell& model)
 {
@@ -144,7 +144,9 @@ void print_amu_detailed(const gm2calc::MSSMNoFV_onshell& model)
    const double gm2_2l_tan_beta_resummed =
       + gm2calc::amu2LFSfapprox(model)
       + gm2calc::amuChipmPhotonic(model)
-      + gm2calc::amuChi0Photonic(model);
+      + gm2calc::amuChi0Photonic(model)
+      + gm2calc::amu2LaSferm(model)
+      + gm2calc::amu2LaCha(model);
    const double tan_beta_cor = gm2calc::tan_beta_cor(model);
    const double gm2_2l_tanb_approx =
       + (tan_beta_cor - 1.) * gm2_1l;
@@ -254,7 +256,9 @@ double calculate_amu(const gm2calc::MSSMNoFV_onshell& model,
       result = gm2calc::calculate_amu_1loop(model)
          + gm2calc::amu2LFSfapprox(model)
          + gm2calc::amuChipmPhotonic(model)
-         + gm2calc::amuChi0Photonic(model);
+         + gm2calc::amuChi0Photonic(model)
+         + gm2calc::amu2LaSferm(model)
+         + gm2calc::amu2LaCha(model);
       break;
    default:
       ERROR("loop orders > 2 not supported!");
