@@ -29,6 +29,8 @@ MSSMNoFV_onshell_problems::MSSMNoFV_onshell_problems()
    , have_no_convergence_me2(false)
    , have_tachyon(false)
    , tachyonic_particle("")
+   , convergence_problem_Mu_MassB_MassWB()
+   , convergence_problem_me2()
 {
 }
 
@@ -42,6 +44,8 @@ void MSSMNoFV_onshell_problems::clear_warnings()
 {
    have_no_convergence_Mu_MassB_MassWB = false;
    have_no_convergence_me2 = false;
+   convergence_problem_Mu_MassB_MassWB.clear();
+   convergence_problem_me2.clear();
 }
 
 void MSSMNoFV_onshell_problems::clear()
@@ -56,14 +60,32 @@ void MSSMNoFV_onshell_problems::flag_tachyon(const std::string& particle_name)
    tachyonic_particle = particle_name;
 }
 
-void MSSMNoFV_onshell_problems::flag_no_convergence_Mu_MassB_MassWB(bool flag)
+void MSSMNoFV_onshell_problems::flag_no_convergence_Mu_MassB_MassWB(
+   double precision, unsigned iterations)
 {
-   have_no_convergence_Mu_MassB_MassWB = flag;
+   have_no_convergence_Mu_MassB_MassWB = true;
+   convergence_problem_Mu_MassB_MassWB.precision = precision;
+   convergence_problem_Mu_MassB_MassWB.iterations = iterations;
 }
 
-void MSSMNoFV_onshell_problems::flag_no_convergence_me2(bool flag)
+void MSSMNoFV_onshell_problems::unflag_no_convergence_Mu_MassB_MassWB()
 {
-   have_no_convergence_me2 = flag;
+   have_no_convergence_Mu_MassB_MassWB = false;
+   convergence_problem_Mu_MassB_MassWB.clear();
+}
+
+void MSSMNoFV_onshell_problems::flag_no_convergence_me2(
+   double precision, unsigned iterations)
+{
+   have_no_convergence_me2 = true;
+   convergence_problem_me2.precision = precision;
+   convergence_problem_me2.iterations = iterations;
+}
+
+void MSSMNoFV_onshell_problems::unflag_no_convergence_me2()
+{
+   have_no_convergence_me2 = false;
+   convergence_problem_me2.clear();
 }
 
 bool MSSMNoFV_onshell_problems::have_problem() const
@@ -95,10 +117,14 @@ void MSSMNoFV_onshell_problems::print_warnings(std::ostream& ostr) const
       ostr << "Warning:";
 
    if (have_no_convergence_Mu_MassB_MassWB)
-      ostr << " DR-bar to on-shell conversion for Mu, M1, M2 failed";
+      ostr << " DR-bar to on-shell conversion for Mu, M1, M2 failed"
+              " (reached accuracy: "
+           << convergence_problem_Mu_MassB_MassWB.precision << "),";
 
    if (have_no_convergence_me2)
-      ostr << " DR-bar to on-shell conversion for me2 failed";
+      ostr << " DR-bar to on-shell conversion for me2 failed"
+              " (reached accuracy: "
+           << convergence_problem_me2.precision << ")";
 }
 
 void MSSMNoFV_onshell_problems::print(std::ostream& ostr) const

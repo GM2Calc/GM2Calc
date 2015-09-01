@@ -416,12 +416,17 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
    }
 
    if (it == max_iterations) {
+      const double precision =
+         std::max((MCha_goal - get_MCha()).cwiseAbs().maxCoeff(),
+                  std::abs(MChi_goal(max_bino) - get_MChi(max_bino)));
       WARNING("DR-bar to on-shell conversion for Mu, M1 and M2 did"
-              " not converge (accuracy goal: " << precision_goal
-              << ", max. iterations: " << max_iterations);
-      get_problems().flag_no_convergence_Mu_MassB_MassWB();
+              " not converge"
+              " (reached accuracy: " << precision <<
+              ", accuracy goal: " << precision_goal <<
+              ", max. iterations: " << max_iterations << ")");
+      get_problems().flag_no_convergence_Mu_MassB_MassWB(precision, it);
    } else {
-      get_problems().flag_no_convergence_Mu_MassB_MassWB(false);
+      get_problems().unflag_no_convergence_Mu_MassB_MassWB();
    }
 }
 
@@ -501,17 +506,19 @@ void MSSMNoFV_onshell::convert_me2_root(
    const std::pair<double,double> root =
       boost::math::tools::toms748_solve(Difference_MSm(*this), 0., 1e16, Stop_crit, it);
 
-   if (it >= max_iterations) {
-      WARNING("DR-bar to on-shell conversion for me2 did not converge "
-              " (precision goal: " << precision_goal
-              << ", max iterations: " << max_iterations << ")");
-      get_problems().flag_no_convergence_me2();
-   } else {
-      get_problems().flag_no_convergence_me2(false);
-   }
-
    set_me2(1,1,0.5*(root.first + root.second));
    calculate_MSm();
+
+   if (it >= max_iterations) {
+      const double precision = std::abs(Difference_MSm(*this)(get_me2(1,1)));
+      WARNING("DR-bar to on-shell conversion for me2 did not converge "
+              " (reached accuracy: " << precision <<
+              ", accuracy goal: " << precision_goal <<
+              ", max. iterations: " << max_iterations << ")");
+      get_problems().flag_no_convergence_me2(precision, it);
+   } else {
+      get_problems().unflag_no_convergence_me2();
+   }
 }
 
 /**
@@ -562,10 +569,16 @@ void MSSMNoFV_onshell::convert_me2_fpi(
    }
 
    if (it == max_iterations) {
-      WARNING("DR-bar to on-shell conversion for me2 did not converge.");
-      get_problems().flag_no_convergence_me2();
+      const int right_index = (get_ZM(0,0) > get_ZM(0,1)) ? 1 : 0;
+      const double precision =
+         std::abs(get_MSm(right_index) - MSm_pole(right_index));
+      WARNING("DR-bar to on-shell conversion for me2 did not converge."
+              " (reached accuracy: " << precision <<
+              ", accuracy goal: " << precision_goal <<
+              ", max. iterations: " << max_iterations << ")");
+      get_problems().flag_no_convergence_me2(precision, it);
    } else {
-      get_problems().flag_no_convergence_me2(false);
+      get_problems().unflag_no_convergence_me2();
    }
 }
 
