@@ -375,7 +375,7 @@ int main(int argc, const char* argv[])
    gm2calc::MSSMNoFV_onshell model;
    gm2calc::GM2_slha_io slha_io;
    gm2calc::Config_options config_options;
-   int exit_code = 0;
+   int exit_code = EXIT_SUCCESS;
 
    try {
       slha_io.read_from_source(options.input_source);
@@ -389,7 +389,8 @@ int main(int argc, const char* argv[])
       exit_code = EXIT_FAILURE;
    }
 
-   exit_code |= model.get_problems().have_problem();
+   if (model.get_problems().have_problem())
+      exit_code = EXIT_FAILURE;
 
    return exit_code;
 }
