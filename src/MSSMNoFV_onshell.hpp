@@ -99,9 +99,6 @@ private:
    template <class Derived>
    static bool is_zero(const Eigen::ArrayBase<Derived>&,
                        double eps = std::numeric_limits<double>::epsilon());
-   template <class Derived>
-   static bool is_zero(const Eigen::MatrixBase<Derived>&,
-                       double eps = std::numeric_limits<double>::epsilon());
 
    template <class Derived>
    static unsigned find_bino_like_neutralino(const Eigen::MatrixBase<Derived>&);

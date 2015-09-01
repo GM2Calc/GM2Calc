@@ -333,7 +333,7 @@ bool MSSMNoFV_onshell::is_equal(const Eigen::ArrayBase<Derived>& a,
 
 bool MSSMNoFV_onshell::is_equal(double a, double b, double precision_goal)
 {
-   return std::abs(a - b) < precision_goal;
+   return flexiblesusy::is_equal(a, b, precision_goal);
 }
 
 template <class Derived>
@@ -343,16 +343,9 @@ bool MSSMNoFV_onshell::is_zero(const Eigen::ArrayBase<Derived>& a,
    return a.cwiseAbs().maxCoeff() < eps;
 }
 
-template <class Derived>
-bool MSSMNoFV_onshell::is_zero(const Eigen::MatrixBase<Derived>& a,
-                               double eps)
-{
-   return a.cwiseAbs().maxCoeff() < eps;
-}
-
 bool MSSMNoFV_onshell::is_zero(double a, double eps)
 {
-   return std::abs(a) < eps;
+   return flexiblesusy::is_zero(a, eps);
 }
 
 /**
