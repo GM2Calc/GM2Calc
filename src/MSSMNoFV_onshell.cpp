@@ -340,14 +340,14 @@ template <class Derived>
 bool MSSMNoFV_onshell::is_zero(const Eigen::ArrayBase<Derived>& a,
                                double eps)
 {
-   return a.cwiseAbs().minCoeff() < eps;
+   return a.cwiseAbs().maxCoeff() < eps;
 }
 
 template <class Derived>
 bool MSSMNoFV_onshell::is_zero(const Eigen::MatrixBase<Derived>& a,
                                double eps)
 {
-   return a.cwiseAbs().minCoeff() < eps;
+   return a.cwiseAbs().maxCoeff() < eps;
 }
 
 bool MSSMNoFV_onshell::is_zero(double a, double eps)
