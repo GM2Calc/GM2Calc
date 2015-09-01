@@ -1,0 +1,37 @@
+GM2Calc release procedure
+=========================
+
+When releasing GM2Calc, please follow these steps:
+
+ 0. Checkout the master branch and merge all branches that should go
+    into the release
+
+      git co master
+
+ 1. Create a new commit with the updated version number in the
+    Makefile and in the ChangeLog
+
+      edit Makefile
+      edit ChangeLog
+      git ci -a -m 'version <version>'
+
+    <version> is of the form x.y.z with x = major, y = minor, z =
+    patch level.
+
+ 2. Create a non-annotated tag via
+
+      make tag
+
+ 3. Create the release tarball and a corresponding .md5 file via
+
+      make release-tag
+
+ 4. Push everything:
+
+      git push origin master
+      git push origin v<version>
+
+    and copy the tarball and the .md5 file to Hepforge
+
+      scp gm2calc-v<version>.tar.gz* \
+         USERNAME@login.hepforge.org:/hepforge/home/gm2calc/downloads/
