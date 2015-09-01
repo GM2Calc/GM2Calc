@@ -1,4 +1,4 @@
-GM2Calc-0.2.9 [not released yet]
+GM2Calc-0.2.9 [September, 01 2015]
 
  * Bugfix (commit 4a5725a): Use default muon mass if no muon mass is
    given in the SMINPUTS block.
