@@ -335,7 +335,8 @@ void print_error(const gm2calc::Error& error,
 }
 
 /**
- * Prints SLHA output if there is a warning.
+ * Adds SPINFO block with warning message to SLHA output if there is a
+ * warning.
  *
  * @param model model
  * @param slha_io SLHA object
@@ -353,7 +354,6 @@ void print_warnings(const gm2calc::MSSMNoFV_onshell& model,
          slha_io.fill_block_entry("SPINFO", 1, "GM2Calc");
          slha_io.fill_block_entry("SPINFO", 2, GM2CALC_VERSION);
          slha_io.fill_block_entry("SPINFO", 3, model.get_problems().get_warning());
-         slha_io.write_to_stream(std::cout);
          break;
       default:
          break;
@@ -382,13 +382,12 @@ int main(int argc, const char* argv[])
       fill(slha_io, config_options);
       model.do_force_output(config_options.force_output);
       setup_model(model, slha_io, options);
+      print_warnings(model, slha_io, config_options);
       print_amu(model, slha_io, config_options);
    } catch (const gm2calc::Error& error) {
       print_error(error, slha_io, config_options);
       exit_code = EXIT_FAILURE;
    }
-
-   print_warnings(model, slha_io, config_options);
 
    exit_code |= model.get_problems().have_problem();
 
