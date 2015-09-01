@@ -96,7 +96,7 @@ void MSSMNoFV_onshell::set_TB(double tanb)
 }
 
 /**
- * Returns the electromagnetig gauge coupling in the Thompson limit.
+ * Returns the electromagnetic gauge coupling in the Thompson limit.
  */
 double MSSMNoFV_onshell::get_EL() const {
    return EL;
@@ -109,8 +109,13 @@ double MSSMNoFV_onshell::get_EL() const {
  * The function assumes that the physical struct is filled with pole
  * masses and corresponding mixing matrices.  From these quantities,
  * the on-shell model parameters are calculated.
+ *
+ * @param precision accuracy goal for the conversion
+ * @param max_iterations maximum number of iterations
  */
-void MSSMNoFV_onshell::convert_to_onshell(double precision) {
+void MSSMNoFV_onshell::convert_to_onshell(
+   double precision, unsigned max_iterations)
+{
    check_input();
    calculate_DRbar_masses();
    copy_susy_masses_to_pole();
@@ -119,10 +124,10 @@ void MSSMNoFV_onshell::convert_to_onshell(double precision) {
    convert_BMu();
    convert_vev();
    convert_yukawa_couplings_treelevel();
-   convert_Mu_M1_M2(precision, 1000);
+   convert_Mu_M1_M2(precision, max_iterations);
    convert_yukawa_couplings(); // first guess of resummed yukawas
    convert_ml2();
-   convert_me2(precision, 1000);
+   convert_me2(precision, max_iterations);
    convert_yukawa_couplings();
 
    // final mass spectrum
