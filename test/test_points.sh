@@ -4,7 +4,7 @@ BASEDIR=$(dirname $0)
 HOMEDIR=$(readlink -f "${BASEDIR}/../")
 BINDIR="${HOMEDIR}/bin"
 GM2CALC="${BINDIR}/gm2calc.x"
-frac_diff=0.0000000000001
+frac_diff=0.00000000001
 
 . "${BASEDIR}/compare.sh"
 
