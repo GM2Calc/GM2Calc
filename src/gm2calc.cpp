@@ -205,7 +205,7 @@ void print_amu_detailed(
       " (" << FORMAT_PCT(100. * amu_2l_non_tan_beta_resummed
                          / amu_1l_non_tan_beta_resummed) << "%)\n"
       "\n"
-      "photonic:\n"
+      "photonic with tan(beta) resummation:\n"
       "   chi^+-    " << FORMAT_AMU(amu_2l_photonic_chipm) << '\n' <<
       "   chi^0     " << FORMAT_AMU(amu_2l_photonic_chi0) << '\n' <<
       "   -------------------------------\n"
@@ -214,7 +214,7 @@ void print_amu_detailed(
       " (" << FORMAT_PCT(100. * (amu_2l_photonic_chipm + amu_2l_photonic_chi0)
                          / amu_1l) << "%)\n"
       "\n"
-      "fermion/sfermion approximation:\n"
+      "fermion/sfermion approximation with tan(beta) resummation:\n"
       "   W-H-nu    " << FORMAT_AMU(gm2calc::amuWHnu2L(model) * tan_beta_cor) << '\n' <<
       "   W-H-muL   " << FORMAT_AMU(gm2calc::amuWHmuL2L(model) * tan_beta_cor) << '\n' <<
       "   B-H-muL   " << FORMAT_AMU(gm2calc::amuBHmuL2L(model) * tan_beta_cor) << '\n' <<
@@ -224,7 +224,7 @@ void print_amu_detailed(
       "   sum       " << FORMAT_AMU(amu_2l_ferm_sferm_approx) <<
       " (" << FORMAT_PCT(100. * amu_2l_ferm_sferm_approx / amu_1l) << "%)\n"
       "\n"
-      "2L(a) (1L insertions into 1L SM diagram)\n"
+      "2L(a) (1L insertions into 1L SM diagram) with tan(beta) resummation\n"
       "   sfermion  " << FORMAT_AMU(amu_2l_a_sfermion) << '\n' <<
       "   cha^+     " << FORMAT_AMU(amu_2l_a_cha) << '\n' <<
       "   -------------------------------\n"
