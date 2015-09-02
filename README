@@ -144,6 +144,8 @@ The calculation of a_mu can be controlled in the GM2CalcConfig block.
    (0 or 1).  WARNING: The result might not be trusted if a problem
    has occured!
 
+ * GM2CalcConfig[4]: disable/enable verbose output (0 or 1).
+
 
 Source code documentation
 =========================
