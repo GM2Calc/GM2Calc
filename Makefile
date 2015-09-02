@@ -1,6 +1,6 @@
 # Package information
 PKGNAME         := gm2calc
-VERSION         := 0.2.9
+VERSION         := 0.2.10
 
 # Variables for compilation
 CXX             := g++
