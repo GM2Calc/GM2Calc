@@ -177,7 +177,6 @@ void MSSMNoFV_onshell::check_input()
    WARN_OR_THROW_IF_ZERO(MM    , "Muon mass is zero");
    WARN_OR_THROW_IF_ZERO(MassB , "Bino mass M1 is zero");
    WARN_OR_THROW_IF_ZERO(MassWB, "Wino mass M2 is zero");
-   WARN_OR_THROW_IF_ZERO(MassG , "Gluino mass M3 is zero");
 
 #undef WARN_OR_THROW_IF_ZERO
 }
