@@ -496,8 +496,8 @@ void MSSMNoFV_onshell::convert_me2_root(
    boost::uintmax_t it = max_iterations;
 
    // stopping criterion, given two brackets a, b
-   auto Stop_crit = [precision_goal](double a, double b) {
-      return MSSMNoFV_onshell::is_equal(a,b,precision_goal);
+   auto Stop_crit = [precision_goal](double a, double b) -> bool {
+      return flexiblesusy::is_equal(a,b,precision_goal);
    };
 
    // find the root
