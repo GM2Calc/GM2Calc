@@ -13,7 +13,7 @@ References:              arxiv:XXXX.YYYY
 Requirements
 ============
 
- * C++ compiler (g++ >= 4.8.4 or clang++ >= 3.4 or icpc >= 14.0.3)
+ * C++ compiler (g++ >= 4.7.4 or clang++ >= 3.4 or icpc >= 14.0.3)
  * Fortran compiler (gfortran, ifort >= 12.1.5)
  * Boost (version 1.37.0 or higher)   http://www.boost.org
  * Eigen 3 (version 3.1 or higher)    http://eigen.tuxfamily.org
