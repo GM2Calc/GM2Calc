@@ -134,8 +134,12 @@ void setup_model(gm2calc::MSSMNoFV_onshell& model,
 /**
  * Prints detailed a_mu calculation (1-loop w/ and w/o tan(beta)
  * resummation, 2-loop, and different contributions).
+ *
+ * @param model model object (contains parameters)
+ * @param verbose_output verbose output
  */
-void print_amu_detailed(const gm2calc::MSSMNoFV_onshell& model)
+void print_amu_detailed(
+   const gm2calc::MSSMNoFV_onshell& model, bool verbose_output)
 {
    const double gm2_1l =
       gm2calc::calculate_amu_1loop_non_tan_beta_resummed(model);
@@ -153,7 +157,8 @@ void print_amu_detailed(const gm2calc::MSSMNoFV_onshell& model)
 
    const double gm2_best = gm2_1l_tan_beta_resummed + gm2_2l_tan_beta_resummed;
 
-   std::cout << model << '\n';
+   if (verbose_output)
+      std::cout << model << '\n';
 
    // set high output precision
    std::ios_base::fmtflags flags(std::cout.flags());
@@ -287,7 +292,7 @@ void print_amu(const gm2calc::MSSMNoFV_onshell& model,
                 << calculate_amu(model, config_options) << '\n';
       break;
    case gm2calc::Config_options::Detailed:
-      print_amu_detailed(model);
+      print_amu_detailed(model, config_options.verbose_output);
       break;
    case gm2calc::Config_options::NMSSMTools:
       slha_io.fill_block_entry("LOWEN", 6,

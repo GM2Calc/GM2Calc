@@ -61,6 +61,7 @@ struct Config_options {
    unsigned loop_order = 2;
    bool tanb_resummation = true;
    bool force_output = false;
+   bool verbose_output = false;
 };
 
 class GM2_slha_io {
