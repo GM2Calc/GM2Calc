@@ -148,12 +148,17 @@ void print_amu_detailed(
       gm2calc::calculate_amu_1loop_non_tan_beta_resummed(model);
    const double amu_1l_tan_beta_resummed =
       gm2calc::calculate_amu_1loop(model);
+   const double amu_2l_photonic_chipm = gm2calc::amuChipmPhotonic(model);
+   const double amu_2l_photonic_chi0 = gm2calc::amuChi0Photonic(model);
+   const double amu_2l_a_sfermion = gm2calc::amu2LaSferm(model);
+   const double amu_2l_a_cha = gm2calc::amu2LaCha(model);
+   const double amu_2l_ferm_sferm_approx = gm2calc::amu2LFSfapprox(model);
    const double amu_2l_tan_beta_resummed =
-      + gm2calc::amu2LFSfapprox(model)
-      + gm2calc::amuChipmPhotonic(model)
-      + gm2calc::amuChi0Photonic(model)
-      + gm2calc::amu2LaSferm(model)
-      + gm2calc::amu2LaCha(model);
+      + amu_2l_ferm_sferm_approx
+      + amu_2l_photonic_chipm
+      + amu_2l_photonic_chi0
+      + amu_2l_a_sfermion
+      + amu_2l_a_cha;
    const double tan_beta_cor = gm2calc::tan_beta_cor(model);
    const double amu_2l_tanb_approx =
       + (tan_beta_cor - 1.) * amu_1l;
@@ -200,13 +205,12 @@ void print_amu_detailed(
       "%)\n"
       "\n"
       "photonic:\n"
-      "   chi^+-    " << FORMAT_AMU(gm2calc::amuChipmPhotonic(model)) << '\n' <<
-      "   chi^0     " << FORMAT_AMU(gm2calc::amuChi0Photonic(model)) << '\n' <<
+      "   chi^+-    " << FORMAT_AMU(amu_2l_photonic_chipm) << '\n' <<
+      "   chi^0     " << FORMAT_AMU(amu_2l_photonic_chi0) << '\n' <<
       "   -------------------------------\n"
-      "   sum       " << FORMAT_AMU(gm2calc::amuChipmPhotonic(model)
-                              + gm2calc::amuChi0Photonic(model)) <<
-      " (" << FORMAT_PCT(100. * (gm2calc::amuChipmPhotonic(model)
-                                 + gm2calc::amuChi0Photonic(model))
+      "   sum       " << FORMAT_AMU(amu_2l_photonic_chipm
+                                    + amu_2l_photonic_chi0) <<
+      " (" << FORMAT_PCT(100. * (amu_2l_photonic_chipm + amu_2l_photonic_chi0)
                          / amu_1l_tan_beta_resummed) << "%)\n"
       "\n"
       "fermion/sfermion approximation:\n"
@@ -216,16 +220,15 @@ void print_amu_detailed(
       "   B-H-muR   " << FORMAT_AMU(gm2calc::amuBHmuR2L(model)* tan_beta_cor) << '\n' <<
       "   B-muL-muR " << FORMAT_AMU(gm2calc::amuBmuLmuR2L(model) * tan_beta_cor) << '\n' <<
       "   -------------------------------\n"
-      "   sum       " << FORMAT_AMU(gm2calc::amu2LFSfapprox(model)) <<
-      " (" << FORMAT_PCT(100. * gm2calc::amu2LFSfapprox(model) /
+      "   sum       " << FORMAT_AMU(amu_2l_ferm_sferm_approx) <<
+      " (" << FORMAT_PCT(100. * amu_2l_ferm_sferm_approx /
                          amu_1l_tan_beta_resummed) << "%)\n"
       "\n"
       "2L(a) (1L insertions into 1L SM diagram)\n"
-      "   sfermion " << FORMAT_AMU(gm2calc::amu2LaSferm(model)) << '\n' <<
-      "   cha^+    " << FORMAT_AMU(gm2calc::amu2LaCha(model)) << '\n' <<
+      "   sfermion " << FORMAT_AMU(amu_2l_a_sfermion) << '\n' <<
+      "   cha^+    " << FORMAT_AMU(amu_2l_a_cha) << '\n' <<
       "   -------------------------------\n"
-      "   sum      " << FORMAT_AMU(gm2calc::amu2LaSferm(model)
-                                   + gm2calc::amu2LaCha(model)) << "\n"
+      "   sum      " << FORMAT_AMU(amu_2l_a_sfermion + amu_2l_a_cha) << "\n"
       "\n"
       "tan(beta) correction:\n"
       "   amu(1L) * (1 / (1 + Delta_mu) - 1) = " << FORMAT_AMU(amu_2l_tanb_approx) <<
