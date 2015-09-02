@@ -33,6 +33,30 @@ namespace gm2calc {
  * for g-2 at the 2-loop level.
  */
 
+/**
+ * \fn calculate_amu_2loop_non_tan_beta_resummed
+ *
+ * Calculates best 2-loop SUSY contribution to a_mu without tan(beta)
+ * resummation.
+ *
+ * This function re-defines the muon Yukawa coupling in terms of the
+ * tree-level relation with the muon pole mass, i.e. \f$y_\mu =
+ * \frac{\sqrt{2} m_\mu^\text{pole}}{v_d}\f$.  Therefore, this
+ * function does not use tan(beta) resummation.
+ */
+double calculate_amu_2loop_non_tan_beta_resummed(const MSSMNoFV_onshell& model)
+{
+   MSSMNoFV_onshell model_ytree(model);
+   model_ytree.convert_yukawa_couplings_treelevel();
+   model_ytree.calculate_DRbar_masses();
+
+   return amu2LFSfapprox_non_tan_beta_resummed(model_ytree)
+      + amuChipmPhotonic(model_ytree)
+      + amuChi0Photonic(model_ytree)
+      + amu2LaSferm(model_ytree)
+      + amu2LaCha(model_ytree);
+}
+
 // fermion/sfermion corrections, log-approximations
 
 /**

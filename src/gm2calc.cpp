@@ -153,6 +153,8 @@ void print_amu_detailed(
    const double amu_2l_a_sfermion = gm2calc::amu2LaSferm(model);
    const double amu_2l_a_cha = gm2calc::amu2LaCha(model);
    const double amu_2l_ferm_sferm_approx = gm2calc::amu2LFSfapprox(model);
+   const double amu_2l =
+      gm2calc::calculate_amu_2loop_non_tan_beta_resummed(model);
    const double amu_2l_tan_beta_resummed =
       + amu_2l_ferm_sferm_approx
       + amu_2l_photonic_chipm
@@ -203,6 +205,10 @@ void print_amu_detailed(
       "   amu =     " << FORMAT_AMU(amu_2l_tan_beta_resummed) <<
       " (" << FORMAT_PCT(100. * amu_2l_tan_beta_resummed / amu_1l_tan_beta_resummed) <<
       "%)\n"
+      "\n"
+      "2L best without tan(beta) resummation\n"
+      "   amu =     " << FORMAT_AMU(amu_2l) <<
+      " (" << FORMAT_PCT(100. * amu_2l / amu_1l) << "%)\n"
       "\n"
       "photonic:\n"
       "   chi^+-    " << FORMAT_AMU(amu_2l_photonic_chipm) << '\n' <<
