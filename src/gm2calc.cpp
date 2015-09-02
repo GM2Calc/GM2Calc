@@ -225,10 +225,10 @@ void print_amu_detailed(
                          amu_1l_tan_beta_resummed) << "%)\n"
       "\n"
       "2L(a) (1L insertions into 1L SM diagram)\n"
-      "   sfermion " << FORMAT_AMU(amu_2l_a_sfermion) << '\n' <<
-      "   cha^+    " << FORMAT_AMU(amu_2l_a_cha) << '\n' <<
+      "   sfermion  " << FORMAT_AMU(amu_2l_a_sfermion) << '\n' <<
+      "   cha^+     " << FORMAT_AMU(amu_2l_a_cha) << '\n' <<
       "   -------------------------------\n"
-      "   sum      " << FORMAT_AMU(amu_2l_a_sfermion + amu_2l_a_cha) << "\n"
+      "   sum       " << FORMAT_AMU(amu_2l_a_sfermion + amu_2l_a_cha) << "\n"
       "\n"
       "tan(beta) correction:\n"
       "   amu(1L) * (1 / (1 + Delta_mu) - 1) = " << FORMAT_AMU(amu_2l_tanb_approx) <<
