@@ -186,7 +186,7 @@ void print_amu_detailed(
       "full 1L without tan(beta) resummation:\n"
       "   amu =     " << FORMAT_AMU(amu_1l) << '\n' <<
       "\n"
-      "1L approximation:\n"
+      "1L approximation with tan(beta) resummation:\n"
       "   W-H-nu    " << FORMAT_AMU(gm2calc::amuWHnu(model) * tan_beta_cor) << '\n' <<
       "   B-muL-muR " << FORMAT_AMU(gm2calc::amuBmuLmuR(model) * tan_beta_cor) << '\n' <<
       "   B-H-muL   " << FORMAT_AMU(gm2calc::amuBHmuL(model) * tan_beta_cor) << '\n' <<
