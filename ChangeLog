@@ -2,6 +2,11 @@ GM2Calc-0.2.10 [not released yet]
 
  * Bugfix (commit d4baa95): fix compilation with g++ 4.7.4
 
+ * Feature (commit 8993e26): New flag GM2CalcConfig[4] to
+   enable/disable verbose output.
+
+ * Change: Nicer formatting of detailed output.
+
 GM2Calc-0.2.9 [September, 01 2015]
 
  * Bugfix (commit 4a5725a): Use default muon mass if no muon mass is
