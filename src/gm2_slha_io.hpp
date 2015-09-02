@@ -175,8 +175,13 @@ double GM2_slha_io::read_block(const std::string& block_name, Eigen::MatrixBase<
    return scale;
 }
 
+/// read model parameters (GM2Calc input format)
 void fill_gm2calc(const GM2_slha_io&, MSSMNoFV_onshell&);
+
+/// read model parameters (SLHA input format)
 void fill_slha(const GM2_slha_io&, MSSMNoFV_onshell&);
+
+/// read configuration
 void fill(const GM2_slha_io&, Config_options&);
 
 } // namespace gm2calc
