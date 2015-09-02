@@ -41,7 +41,7 @@ gm2calc::MSSMNoFV_onshell setup()
    const double MM = 0.105658;
    const double ML = 1.777;
    const double MT = 173.5;
-   const double MB = 3.;
+   const double MB = 4.18;
    const double cW = MW / MZ;
    const double EL = model.get_EL(); // default
    const double g2 = EL / std::sqrt(1. - cW*cW);
@@ -54,18 +54,13 @@ gm2calc::MSSMNoFV_onshell setup()
    Eigen::Matrix<double,3,3> md2;
    Eigen::Matrix<double,3,3> mu2;
    Eigen::Matrix<double,3,3> me2;
-   double Mu, M1, M2, M3;
-   double scale;
-   double MA0;
-   double TB;
-
-   Mu = 350;
-   M1 = 150;
-   M2 = 300;
-   M3 = 1;
-   TB = 10.;
-   scale = 454.7;
-   MA0 = 1500;
+   const double Mu = 350;
+   const double M1 = 150;
+   const double M2 = 300;
+   const double M3 = 1;
+   const double scale = 454.7;
+   const double MA0 = 1500;
+   const double TB = 10;
 
    Au.setZero();
    Ad.setZero();
