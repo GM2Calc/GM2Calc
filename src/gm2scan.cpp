@@ -66,9 +66,9 @@ gm2calc::MSSMNoFV_onshell setup()
    Ad.setZero();
    Ae.setZero();
 
-   mq2 << 400*400,           0,           0,
-                    0, 400*400,           0,
-                    0,       0,      400*400;
+   mq2 << 500*500,           0,           0,
+                    0, 500*500,           0,
+                    0,       0,      500*500;
 
    ml2 = md2 = mu2 = me2 = mq2;
 
@@ -110,11 +110,12 @@ int main()
    const double tanb_stop = 100.;
    const unsigned nsteps = 100;
 
-   printf("# %14s %16s\n", "tan(beta)", "amu");
+   printf("# %14s %16s %16s\n", "tan(beta)", "amu", "error");
 
    for (unsigned n = 0; n < nsteps; n++) {
       double amu;
       const double tanb = tanb_start + (tanb_stop - tanb_start) * n / nsteps;
+      std::string error;
 
       gm2calc::MSSMNoFV_onshell model(setup());
       model.do_force_output(false); // throw exception in case of problem
@@ -124,11 +125,11 @@ int main()
          model.calculate_masses();
          amu = calculate_amu(model);
       } catch (const gm2calc::Error& e) {
-         std::cerr << "Error: " << e.what() << std::endl;
+         error = "# " + e.what();
          amu = std::numeric_limits<double>::signaling_NaN();
       }
 
-      printf("%16.8e %16.8e\n", tanb, amu);
+      printf("%16.8e %16.8e %s\n", tanb, amu, error.c_str());
    }
 
    return 0;
