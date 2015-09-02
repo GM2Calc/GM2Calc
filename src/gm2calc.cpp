@@ -156,11 +156,7 @@ void print_amu_detailed(
    const double amu_2l =
       gm2calc::calculate_amu_2loop_non_tan_beta_resummed(model);
    const double amu_2l_tan_beta_resummed =
-      + amu_2l_ferm_sferm_approx
-      + amu_2l_photonic_chipm
-      + amu_2l_photonic_chi0
-      + amu_2l_a_sfermion
-      + amu_2l_a_cha;
+      gm2calc::calculate_amu_2loop(model);
    const double tan_beta_cor = gm2calc::tan_beta_cor(model);
    const double amu_2l_tanb_approx =
       + (tan_beta_cor - 1.) * amu_1l;
@@ -270,15 +266,12 @@ double calculate_amu(const gm2calc::MSSMNoFV_onshell& model,
          result = gm2calc::calculate_amu_1loop_non_tan_beta_resummed(model);
       break;
    case 2:
-      if (!config_options.tanb_resummation)
-         WARNING("tan(beta) resummation is always enabled at 2-loop level");
-      // calculate amu w/ resummation
-      result = gm2calc::calculate_amu_1loop(model)
-         + gm2calc::amu2LFSfapprox(model)
-         + gm2calc::amuChipmPhotonic(model)
-         + gm2calc::amuChi0Photonic(model)
-         + gm2calc::amu2LaSferm(model)
-         + gm2calc::amu2LaCha(model);
+      if (config_options.tanb_resummation)
+         result = gm2calc::calculate_amu_1loop(model)
+            + gm2calc::calculate_amu_2loop(model);
+      else
+         result = gm2calc::calculate_amu_1loop_non_tan_beta_resummed(model)
+            + gm2calc::calculate_amu_2loop_non_tan_beta_resummed(model);
       break;
    default:
       ERROR("loop orders > 2 not supported!");

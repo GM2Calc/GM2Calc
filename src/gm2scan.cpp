@@ -27,9 +27,7 @@
 double calculate_amu(gm2calc::MSSMNoFV_onshell& model)
 {
    return gm2calc::calculate_amu_1loop(model)
-      + gm2calc::amu2LFSfapprox(model)
-      + gm2calc::amuChipmPhotonic(model)
-      + gm2calc::amuChi0Photonic(model);
+      + gm2calc::calculate_amu_2loop(model);
 }
 
 gm2calc::MSSMNoFV_onshell setup()

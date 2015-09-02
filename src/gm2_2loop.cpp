@@ -57,6 +57,21 @@ double calculate_amu_2loop_non_tan_beta_resummed(const MSSMNoFV_onshell& model)
       + amu2LaCha(model_ytree);
 }
 
+/**
+ * \fn calculate_amu_2loop
+ *
+ * Calculates best 2-loop SUSY contribution to a_mu with tan(beta)
+ * resummation.
+ */
+double calculate_amu_2loop(const MSSMNoFV_onshell& model)
+{
+   return amu2LFSfapprox(model)
+      + amuChipmPhotonic(model)
+      + amuChi0Photonic(model)
+      + amu2LaSferm(model)
+      + amu2LaCha(model);
+}
+
 // fermion/sfermion corrections, log-approximations
 
 /**

@@ -25,6 +25,9 @@ namespace gm2calc {
 
 class MSSMNoFV_onshell;
 
+/// calculates best 2-loop SUSY contributions to a_mu in the MSSM (with tan(beta) resummation)
+double calculate_amu_2loop(const MSSMNoFV_onshell&);
+
 /// calculates best 2-loop SUSY contributions to a_mu in the MSSM (no tan(beta) resummation)
 double calculate_amu_2loop_non_tan_beta_resummed(const MSSMNoFV_onshell&);
 
