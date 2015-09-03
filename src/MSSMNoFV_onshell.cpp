@@ -54,6 +54,7 @@ namespace gm2calc {
 
 MSSMNoFV_onshell::MSSMNoFV_onshell()
    : MSSMNoFV_onshell_mass_eigenstates()
+   , verbose_output(false)
    , EL(calculate_e(ALPHA_EM_MZ))
    , EL0(calculate_e(ALPHA_EM_THOMPSON))
    , Ae(Eigen::Matrix<double,3,3>::Zero())
@@ -68,6 +69,7 @@ MSSMNoFV_onshell::MSSMNoFV_onshell()
 
 MSSMNoFV_onshell::MSSMNoFV_onshell(const MSSMNoFV_onshell_mass_eigenstates& model_)
    : MSSMNoFV_onshell_mass_eigenstates(model_)
+   , verbose_output(false)
    , EL(calculate_e(ALPHA_EM_MZ))
    , EL0(calculate_e(ALPHA_EM_THOMPSON))
    , Ae(get_Ae())
@@ -364,6 +366,19 @@ unsigned MSSMNoFV_onshell::find_bino_like_neutralino(
 }
 
 /**
+ * Returns index of most right-handed smuon.  The function extracts
+ * this information from the given smuon mixing matrix.
+ *
+ * @param ZM smuon mixing matrix
+ */
+template <class Derived>
+unsigned MSSMNoFV_onshell::find_right_like_smuon(
+   const Eigen::MatrixBase<Derived>& ZM)
+{
+   return (ZM(0,0) > ZM(0,1)) ? 1 : 0;
+}
+
+/**
  * Determines the Mu parameter and the soft-breaking Bino and Wino
  * mass parameters from the two chargino pole masses and the most
  * bino-like neutralino pole mass.  The function uses a fixed-point
@@ -382,6 +397,13 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
    const auto MCha_goal(get_physical().MCha);
    auto MChi_goal(get_MChi());
    MChi_goal(max_bino) = get_physical().MChi(max_bino);
+
+   if (verbose_output) {
+      std::cout << "Converting Mu, M1, M2 to on-shell scheme ..." << '\n'
+                << "   Goal: MCha = " << MCha_goal.transpose()
+                << ", MChi(" << max_bino << ") = " << MChi_goal(max_bino)
+                << '\n';
+   }
 
    bool accuracy_goal_reached =
       MSSMNoFV_onshell::is_equal(MCha_goal, get_MCha(), precision_goal) &&
@@ -405,6 +427,16 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       MChi_goal = get_MChi();
       MChi_goal(max_bino) = get_physical().MChi(max_bino);
 
+      if (verbose_output) {
+         std::cout << "   Iteration " << it << ": "
+                   << "Mu = " << get_Mu()
+                   << ", M1 = " << get_MassB()
+                   << ", M2 = " << get_MassWB()
+                   << ", MCha = " << get_MCha().transpose()
+                   << ", MChi(" << max_bino << ") = " << get_MChi(max_bino)
+                   << '\n';
+      }
+
       accuracy_goal_reached =
          MSSMNoFV_onshell::is_equal(MCha_goal, get_MCha(), precision_goal) &&
          MSSMNoFV_onshell::is_equal(MChi_goal(max_bino), get_MChi(max_bino), precision_goal);
@@ -424,6 +456,13 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       get_problems().flag_no_convergence_Mu_MassB_MassWB(precision, it);
    } else {
       get_problems().unflag_no_convergence_Mu_MassB_MassWB();
+   }
+
+   if (verbose_output) {
+      std::cout << "   Achieved accuracy: "
+                << (std::max((MCha_goal - get_MCha()).cwiseAbs().maxCoeff(),
+                             std::abs(MChi_goal(max_bino) - get_MChi(max_bino))))
+                << '\n';
    }
 }
 
@@ -484,7 +523,7 @@ void MSSMNoFV_onshell::convert_me2_root(
 
          Eigen::Array<double,2,1> MSm_pole(model.get_physical().MSm);
          std::sort(MSm_pole.data(), MSm_pole.data() + MSm_pole.size());
-         const int right_index = (model.get_ZM(0,0) > model.get_ZM(0,1)) ? 1 : 0;
+         const int right_index = find_right_like_smuon(model.get_ZM());
 
          return model.get_MSm(right_index) - MSm_pole(right_index);
       }
@@ -534,6 +573,13 @@ void MSSMNoFV_onshell::convert_me2_fpi(
    std::sort(MSm_pole.data(), MSm_pole.data() + MSm_pole.size());
    const Eigen::Array<double,2,1> MSm(get_MSm());
 
+   if (verbose_output) {
+      const int right_index = find_right_like_smuon(get_ZM());
+      std::cout << "Converting mse(2,2) to on-shell scheme ..." << '\n'
+                << "   Goal: MSm(" << right_index << ") = "
+                << MSm_pole(right_index) << '\n';
+   }
+
    bool accuracy_goal_reached =
       MSSMNoFV_onshell::is_equal(MSm, MSm_pole, precision_goal);
    unsigned it = 0;
@@ -553,10 +599,15 @@ void MSSMNoFV_onshell::convert_me2_fpi(
       set_me2(1,1,me211);
       calculate_MSm();
 
-      const int right_index = (ZM(0,0) > ZM(0,1)) ? 1 : 0;
+      const int right_index = find_right_like_smuon(ZM);
 
       MSm_pole = get_MSm();
       MSm_pole(right_index) = get_physical().MSm(right_index);
+
+      if (verbose_output) {
+         std::cout << "   Iteration " << it << ": mse(2,2) = "
+                   << signed_abs_sqrt(me211) << '\n';
+      }
 
       accuracy_goal_reached =
          MSSMNoFV_onshell::is_equal(get_MSm(right_index), MSm_pole(right_index),
@@ -566,7 +617,7 @@ void MSSMNoFV_onshell::convert_me2_fpi(
    }
 
    if (it == max_iterations) {
-      const int right_index = (get_ZM(0,0) > get_ZM(0,1)) ? 1 : 0;
+      const int right_index = find_right_like_smuon(get_ZM());
       const double precision =
          std::abs(get_MSm(right_index) - MSm_pole(right_index));
       WARNING("DR-bar to on-shell conversion for me2 did not converge."
@@ -576,6 +627,13 @@ void MSSMNoFV_onshell::convert_me2_fpi(
       get_problems().flag_no_convergence_me2(precision, it);
    } else {
       get_problems().unflag_no_convergence_me2();
+   }
+
+   if (verbose_output) {
+      const int right_index = find_right_like_smuon(get_ZM());
+      std::cout << "   Achieved accuracy: "
+                << std::abs(get_MSm(right_index) - MSm_pole(right_index))
+                << '\n';
    }
 }
 
