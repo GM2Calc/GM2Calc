@@ -9,7 +9,7 @@ doc: doc-html
 doc-html: $(LIBsrc_SRC)
 	( cat $(DIR)/Doxyfile ; \
 	  echo "PROJECT_NUMBER = $(VERSION)" ; \
-	  echo "INPUT = src README doc/mainpage.dox" ; \
+	  echo "INPUT = src README $(DIR)/mainpage.dox" ; \
 	  echo "OUTPUT_DIRECTORY = $(HTML_OUTPUT_DIR)" ; \
 	  echo "EXCLUDE = $(ALLDEP)"; \
 	) | doxygen -
