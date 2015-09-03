@@ -34,7 +34,7 @@ namespace gm2calc {
 /**
  * \fn calculate_amu_1loop_non_tan_beta_resummed
  *
- * Calculates full 1-loop SUSY contribution to (g-2), Eq. (45) of
+ * Calculates full 1-loop SUSY contribution to (g-2), Eq (45) of
  * arXiv:hep-ph/0609168.
  *
  * This function re-defines the muon Yukawa coupling in terms of the
@@ -53,7 +53,7 @@ double calculate_amu_1loop_non_tan_beta_resummed(const MSSMNoFV_onshell& model)
 }
 
 /**
- * Calculates full 1-loop SUSY contribution to (g-2), Eq. (45) of
+ * Calculates full 1-loop SUSY contribution to (g-2), Eq (45) of
  * arXiv:hep-ph/0609168.
  *
  * This function assumes that the Yukawa coupling is defined according
@@ -66,7 +66,7 @@ double calculate_amu_1loop(const MSSMNoFV_onshell& model)
 }
 
 /**
- * Calculates 1-loop chargino contribution to (g-2), Eq. (2.11a) of
+ * Calculates 1-loop chargino contribution to (g-2), Eq (2.11a) of
  * arXiv:1311.1775.
  */
 double amuChi0(const MSSMNoFV_onshell& model) {
@@ -89,7 +89,7 @@ double amuChi0(const MSSMNoFV_onshell& model) {
 }
 
 /**
- * Calculates 1-loop chargino contribution to (g-2), Eq. (2.11b) of
+ * Calculates 1-loop chargino contribution to (g-2), Eq (2.11b) of
  * arXiv:1311.1775.
  */
 double amuChipm(const MSSMNoFV_onshell& model) {
@@ -110,7 +110,7 @@ double amuChipm(const MSSMNoFV_onshell& model) {
 }
 
 /**
- * Calculates \f$n^L_{i\tilde{l}_k}\f$, Eq. (2.5o) of arXiv:1311.1775,
+ * Calculates \f$n^L_{i\tilde{l}_k}\f$, Eq (2.5o) of arXiv:1311.1775,
  * for \f$l=\mu\f$
  */
 Eigen::Matrix<std::complex<double>,4,2> n_L(const MSSMNoFV_onshell& model) {
@@ -135,7 +135,7 @@ Eigen::Matrix<std::complex<double>,4,2> n_L(const MSSMNoFV_onshell& model) {
 }
 
 /**
- * Calculates \f$n^R_{i\tilde{l}_k}\f$, Eq. (2.5p) of arXiv:1311.1775,
+ * Calculates \f$n^R_{i\tilde{l}_k}\f$, Eq (2.5p) of arXiv:1311.1775,
  * with \f$l=\mu\f$.
  */
 Eigen::Matrix<std::complex<double>,4,2> n_R(const MSSMNoFV_onshell& model) {
@@ -157,7 +157,7 @@ Eigen::Matrix<std::complex<double>,4,2> n_R(const MSSMNoFV_onshell& model) {
 }
 
 /**
- * Calculates \f$c^L_{i\tilde{\nu}_\mu}\f$, Eq. (2.5a) of
+ * Calculates \f$c^L_{i\tilde{\nu}_\mu}\f$, Eq (2.5a) of
  * arXiv:1311.1775 for \f$l=\mu\f$.
  *
  * This expression is the complex conjugate of Eq. (50) of
@@ -176,7 +176,7 @@ Eigen::Array<std::complex<double>,2,1> c_L(const MSSMNoFV_onshell& model) {
 }
 
 /**
- * Calculates \f$c^R_{i\tilde{\nu}_\mu}\f$, Eq. (2.5b) of
+ * Calculates \f$c^R_{i\tilde{\nu}_\mu}\f$, Eq (2.5b) of
  * arXiv:1311.1775 for \f$l=\mu\f$.
  *
  * This expression is equal to Eq. (51) of arXiv:hep-ph/0609168.
@@ -196,7 +196,7 @@ Eigen::Array<std::complex<double>,2,1> c_R(const MSSMNoFV_onshell& model) {
 /**
  * Calculates \f$\mathcal{A}^{c+}_{ii\tilde{\nu}_\mu} =
  * |c^L_{i\tilde{\nu}_\mu}|^2 + |c^R_{i\tilde{\nu}_\mu}|^2\f$,
- * Eqs. (2.11b), (2.7a) in arXiv:1311.1775.
+ * Eqs (2.11b), (2.7a) in arXiv:1311.1775.
  *
  * This expression is identical to \f$|c^L_{im}|^2 + |c^R_{im}|^2\f$,
  * which appears in Eq. (47) of arXiv:hep-ph/0609168.
@@ -216,7 +216,7 @@ Eigen::Array<double,2,1> AAC(const MSSMNoFV_onshell& model) {
 /**
  * Calculates \f$\mathcal{A}^{n+}_{ii\tilde{\mu}_m} =
  * |n^L_{i\tilde{\mu}_m}|^2 + |n^R_{i\tilde{\mu}_m}|^2\f$,
- * Eqs. (2.11a), (2.7a) in arXiv:1311.1775.
+ * Eqs (2.11a), (2.7a) in arXiv:1311.1775.
  *
  * This expression is identical to \f$|n^L_{im}|^2 + |n^R_{im}|^2\f$,
  * which appears in Eq. (46) of arXiv:hep-ph/0609168.
@@ -238,7 +238,7 @@ Eigen::Matrix<double,4,2> AAN(const MSSMNoFV_onshell& model) {
 /**
  * Calculates \f$\mathcal{B}^{c+}_{ii\tilde{\nu}_\mu} = 2 \text{Re}
  * [(c^L_{i\tilde{\nu}_\mu})^* c^R_{i\tilde{\nu}_\mu}]\f$,
- * Eqs. (2.11b), (2.7b) in arXiv:1311.1775.
+ * Eqs (2.11b), (2.7b) in arXiv:1311.1775.
  */
 Eigen::Array<double,2,1> BBC(const MSSMNoFV_onshell& model) {
    Eigen::Array<double,2,1> result;
@@ -254,7 +254,7 @@ Eigen::Array<double,2,1> BBC(const MSSMNoFV_onshell& model) {
 
 /**
  * Calculates \f$\mathcal{B}^{n+}_{ii\tilde{\mu}_m} = 2 \text{Re}
- * [(n^L_{i\tilde{\mu}_m})^* n^R_{i\tilde{\mu}_m}]\f$, Eqs. (2.11a),
+ * [(n^L_{i\tilde{\mu}_m})^* n^R_{i\tilde{\mu}_m}]\f$, Eqs (2.11a),
  * (2.7b) in arXiv:1311.1775.
  */
 Eigen::Matrix<double,4,2> BBN(const MSSMNoFV_onshell& model) {
@@ -273,7 +273,7 @@ Eigen::Matrix<double,4,2> BBN(const MSSMNoFV_onshell& model) {
 
 /**
  * Calculates \f$x_{im} = m^2_{\chi_i^0} / m^2_{\tilde{\mu}_m}\f$,
- * which appears in Eq. (46) of arXiv:hep-ph/0609168.
+ * which appears in Eq (46) of arXiv:hep-ph/0609168.
  */
 Eigen::Matrix<double,4,2> x_im(const MSSMNoFV_onshell& model) {
    Eigen::Matrix<double,4,2> result;
@@ -292,7 +292,7 @@ Eigen::Matrix<double,4,2> x_im(const MSSMNoFV_onshell& model) {
 
 /**
  * Calculates \f$x_k = m^2_{\chi_k^\pm} / m^2_{\tilde{\nu}_\mu}\f$,
- * which appears in Eq. (47) of arXiv:hep-ph/0609168.
+ * which appears in Eq (47) of arXiv:hep-ph/0609168.
  */
 Eigen::Array<double,2,1> x_k(const MSSMNoFV_onshell& model) {
    Eigen::Array<double,2,1> result;
@@ -308,7 +308,7 @@ Eigen::Array<double,2,1> x_k(const MSSMNoFV_onshell& model) {
 
 /**
  * Calculates the 1-loop leading log approximation: Wino--Higgsino,
- * muon-sneutrino, Eq. (6.2a) arXiv:1311.1775
+ * muon-sneutrino, Eq (6.2a) arXiv:1311.1775
  */
 double amuWHnu(const MSSMNoFV_onshell& model) {
    const double tan_beta = model.get_TB();
@@ -324,7 +324,7 @@ double amuWHnu(const MSSMNoFV_onshell& model) {
 
 /**
  * Calculates the 1-loop leading log approximation: Wino--Higgsino,
- * left-handed smuon, Eq. (6.2b) arXiv:1311.1775
+ * left-handed smuon, Eq (6.2b) arXiv:1311.1775
  */
 double amuWHmuL(const MSSMNoFV_onshell& model) {
    const double tan_beta = model.get_TB();
@@ -340,7 +340,7 @@ double amuWHmuL(const MSSMNoFV_onshell& model) {
 
 /**
  * Calculates the 1-loop leading log approximation: Bino--Higgsino,
- * left-handed smuon, Eq. (6.2c) arXiv:1311.1775
+ * left-handed smuon, Eq (6.2c) arXiv:1311.1775
  */
 double amuBHmuL(const MSSMNoFV_onshell& model) {
    const double tan_beta = model.get_TB();
@@ -357,7 +357,7 @@ double amuBHmuL(const MSSMNoFV_onshell& model) {
 
 /**
  * Calculates the 1-loop leading log approximation: Bino--Higgsino,
- * right-handed smuon, Eq. (6.2d) arXiv:1311.1775
+ * right-handed smuon, Eq (6.2d) arXiv:1311.1775
  */
 double amuBHmuR(const MSSMNoFV_onshell& model) {
    const double tan_beta = model.get_TB();
@@ -374,7 +374,7 @@ double amuBHmuR(const MSSMNoFV_onshell& model) {
 
 /**
  * Calculates the 1-loop leading log approximation: Bino, left-handed
- * smuon, right-handed smuon, Eq. (6.2e) arXiv:1311.1775
+ * smuon, right-handed smuon, Eq (6.2e) arXiv:1311.1775
  */
 double amuBmuLmuR(const MSSMNoFV_onshell& model) {
    const double tan_beta = model.get_TB();
@@ -391,7 +391,7 @@ double amuBmuLmuR(const MSSMNoFV_onshell& model) {
 }
 
 /**
- * Calculates the full 1-loop leading log approximation, Eq. (6.1)
+ * Calculates the full 1-loop leading log approximation, Eq (6.1)
  * arXiv:1311.1775
  * as it stands, without tan(beta) resummation
  */
@@ -402,7 +402,7 @@ double amu1Lapprox_non_tan_beta_resummed(const MSSMNoFV_onshell& model) {
 }
 
 /**
- * Calculates the full 1-loop leading log approximation, Eq. (6.1)
+ * Calculates the full 1-loop leading log approximation, Eq (6.1)
  * arXiv:1311.1775
  * but include tan(beta) resummation
  */
@@ -460,7 +460,7 @@ double delta_tau_correction(const MSSMNoFV_onshell& model)
 
 /**
  * Returns the \f$\Delta_b\f$ corrections from arxiv:0901.2065,
- * Eq. (103) and Eqs. (31)-(35)
+ * Eq (103) and Eqs (31)-(35)
  */
 double delta_bottom_correction(const MSSMNoFV_onshell& model)
 {
