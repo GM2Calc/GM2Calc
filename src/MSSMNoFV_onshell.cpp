@@ -399,8 +399,8 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
    MChi_goal(max_bino) = get_physical().MChi(max_bino);
 
    if (verbose_output) {
-      std::cout << "Converting Mu, M1, M2 to on-shell scheme ..." << '\n'
-                << "   Goal: MCha = " << MCha_goal.transpose()
+      std::cout << "Converting Mu, M1, M2 to on-shell scheme ...\n"
+                   "   Goal: MCha = " << MCha_goal.transpose()
                 << ", MChi(" << max_bino << ") = " << MChi_goal(max_bino)
                 << '\n';
    }
@@ -428,8 +428,7 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       MChi_goal(max_bino) = get_physical().MChi(max_bino);
 
       if (verbose_output) {
-         std::cout << "   Iteration " << it << ": "
-                   << "Mu = " << get_Mu()
+         std::cout << "   Iteration " << it << ": Mu = " << get_Mu()
                    << ", M1 = " << get_MassB()
                    << ", M2 = " << get_MassWB()
                    << ", MCha = " << get_MCha().transpose()
@@ -575,8 +574,8 @@ void MSSMNoFV_onshell::convert_me2_fpi(
 
    if (verbose_output) {
       const int right_index = find_right_like_smuon(get_ZM());
-      std::cout << "Converting mse(2,2) to on-shell scheme ..." << '\n'
-                << "   Goal: MSm(" << right_index << ") = "
+      std::cout << "Converting mse(2,2) to on-shell scheme ...\n"
+                   "   Goal: MSm(" << right_index << ") = "
                 << MSm_pole(right_index) << '\n';
    }
 
