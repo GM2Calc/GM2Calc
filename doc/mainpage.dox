@@ -5,10 +5,15 @@ GM2Calc is a C++ program which calculates the SUSY contributions to
 the anomalous magnetic moment of the muon \f$a_\mu = (g-2)_\mu/2\f$ in
 the real MSSM at the 1- and leading 2-loop level.
 
+\par
+
+The official project homepage of GM2Calc is: <a
+href="https://gm2calc.hepforge.org">https://gm2calc.hepforge.org</a>
+
 \section Download
 
-GM2Calc can be downloaded from the GM2Calc homepage:
-<a href="https://gm2calc.hepforge.org">https://gm2calc.hepforge.org</a>
+GM2Calc can be downloaded from the <a
+href="https://gm2calc.hepforge.org">GM2Calc homepage</a>
 
 \section Compilation
 
@@ -24,9 +29,11 @@ library paths and used compilers, see the *compilation* section in the
 
 \section Usage
 
-GM2Calc can be run with (i) either an SLHA interface or with (ii) a
-custom GM2Calc interface (similar to SLHA, but different definition of
-input parameters).  See `bin/gm2calc.x --help` for all options.
+GM2Calc can be run with either an SLHA interface or with a
+GM2Calc-specific interface (similar to SLHA, but input parameters are
+in the on-shell scheme).  See `bin/gm2calc.x --help` for all options.
+
+\subsection SLHAInterface SLHA interface
 
 Example using the SLHA interface:
 
@@ -35,6 +42,8 @@ Example using the SLHA interface:
 or
 
     cat input/slha.in | bin/gm2calc.x --slha-input-file=-
+
+\subsection GM2CalcInterface GM2Calc interface
 
 Example using the GM2Calc interface:
 
