@@ -605,7 +605,8 @@ void MSSMNoFV_onshell::convert_me2_fpi(
 
       if (verbose_output) {
          std::cout << "   Iteration " << it << ": mse(2,2) = "
-                   << signed_abs_sqrt(me211) << '\n';
+                   << signed_abs_sqrt(me211) << ", MSm(" << right_index
+                   << ") = " << get_MSm(right_index) << '\n';
       }
 
       accuracy_goal_reached =
