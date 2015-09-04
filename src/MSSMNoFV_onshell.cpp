@@ -458,10 +458,10 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
    }
 
    if (verbose_output) {
-      std::cout << "   Achieved accuracy: "
+      std::cout << "   Achieved absolute accuracy: "
                 << (std::max((MCha_goal - get_MCha()).cwiseAbs().maxCoeff(),
                              std::abs(MChi_goal(max_bino) - get_MChi(max_bino))))
-                << '\n';
+                << " GeV\n";
    }
 }
 
@@ -630,9 +630,9 @@ void MSSMNoFV_onshell::convert_me2_fpi(
 
    if (verbose_output) {
       const int right_index = find_right_like_smuon(get_ZM());
-      std::cout << "   Achieved accuracy: "
+      std::cout << "   Achieved absolute accuracy: "
                 << std::abs(get_MSm(right_index) - MSm_pole(right_index))
-                << '\n';
+                << " GeV\n";
    }
 }
 
