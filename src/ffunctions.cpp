@@ -310,7 +310,7 @@ double G4(double x) {
 }
 
 /**
- * \f$H_2(x,y)\f$ function from Eq. (34) of arxiv:0901.2065 .
+ * \f$H_2(x,y)\f$ function from Eq (34) of arxiv:0901.2065 .
  *
  * The \f$H_2(x,y)\f$ function is related to \f$I(a,b,c)\f$ by
  * \f$\frac{1}{z^2} H_2(\frac{x^2}{z^2},\frac{y^2}{z^2}) = - I(x,y,z)\f$.
@@ -368,7 +368,7 @@ double Iabc(double a, double b, double c) {
 }
 
 /**
- * Calculates \f$f_{PS}(z)\f$, Eq. (70) arXiv:hep-ph/0609168
+ * Calculates \f$f_{PS}(z)\f$, Eq (70) arXiv:hep-ph/0609168
  */
 double f_PS(double z) {
    double result = 0.;
@@ -385,7 +385,7 @@ double f_PS(double z) {
 }
 
 /**
- * Calculates \f$f_S(z)\f$, Eq. (71) arXiv:hep-ph/0609168
+ * Calculates \f$f_S(z)\f$, Eq (71) arXiv:hep-ph/0609168
  */
 double f_S(double z) {
    if(z < 0.)
@@ -395,7 +395,7 @@ double f_S(double z) {
 }
 
 /**
- * Calculates \f$f_{\tilde{f}}(z)\f$, Eq. (72) arXiv:hep-ph/0609168
+ * Calculates \f$f_{\tilde{f}}(z)\f$, Eq (72) arXiv:hep-ph/0609168
  */
 double f_sferm(double z) {
    if(z < 0.)
