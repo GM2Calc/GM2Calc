@@ -31,6 +31,9 @@ public:
    MSSMNoFV_onshell(const MSSMNoFV_onshell_mass_eigenstates&);
    virtual ~MSSMNoFV_onshell() {}
 
+   void set_verbose_output(bool flag) { verbose_output = flag; }
+   bool do_verbose_output() const { return verbose_output; }
+
    /// set alpha(MZ)
    void set_alpha_MZ(double);
    /// set alpha in the Thompson limit
@@ -86,6 +89,7 @@ public:
    friend std::ostream& operator<<(std::ostream&, const MSSMNoFV_onshell&);
 
 private:
+   bool verbose_output; ///< verbose output
    double EL;  ///< electromagnetic gauge coupling at MZ w/o hadronic corrections
    double EL0; ///< electromagnetic gauge coupling in the Thompson limit
    Eigen::Matrix<double,3,3> Ae, Au, Ad; ///< trilinear couplings
@@ -102,6 +106,8 @@ private:
 
    template <class Derived>
    static unsigned find_bino_like_neutralino(const Eigen::MatrixBase<Derived>&);
+   template <class Derived>
+   static unsigned find_right_like_smuon(const Eigen::MatrixBase<Derived>&);
 
    void check_input();
    void check_problems();

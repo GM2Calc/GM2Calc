@@ -107,11 +107,15 @@ Gm2_cmd_line_options get_cmd_line_options(int argc, const char* argv[])
  * @param model model parameters (and particle masses)
  * @param slha_io object with numerical values of input parameters
  * @param options command line options (defines meaning of input parameter set)
+ * @param config_options configuration options for the calculation
  */
 void setup_model(gm2calc::MSSMNoFV_onshell& model,
                  const gm2calc::GM2_slha_io& slha_io,
-                 const Gm2_cmd_line_options& options)
+                 const Gm2_cmd_line_options& options,
+                 const gm2calc::Config_options& config_options)
 {
+   model.set_verbose_output(config_options.verbose_output);
+
    switch (options.input_type) {
    case Gm2_cmd_line_options::SLHA:
       // determine on-shell model parameters from an SLHA parameter
@@ -129,6 +133,9 @@ void setup_model(gm2calc::MSSMNoFV_onshell& model,
       throw gm2calc::SetupError("Unknown input option");
       break;
    }
+
+   if (model.do_verbose_output())
+      std::cout << model << '\n';
 }
 
 /**
@@ -136,10 +143,9 @@ void setup_model(gm2calc::MSSMNoFV_onshell& model,
  * resummation, 2-loop, and different contributions).
  *
  * @param model model object (contains parameters)
- * @param verbose_output verbose output
  */
 void print_amu_detailed(
-   const gm2calc::MSSMNoFV_onshell& model, bool verbose_output)
+   const gm2calc::MSSMNoFV_onshell& model)
 {
 #define FORMAT_AMU(amu) boost::format("% 16.14e") % (amu)
 #define FORMAT_PCT(pct) boost::format("%2.1f") % (pct)
@@ -160,9 +166,6 @@ void print_amu_detailed(
       + (tan_beta_cor - 1.) * amu_1l_non_tan_beta_resummed;
 
    const double amu_best = amu_1l + amu_2l;
-
-   if (verbose_output)
-      std::cout << model << '\n';
 
    std::cout <<
       "========================================================\n"
@@ -297,7 +300,7 @@ void print_amu(const gm2calc::MSSMNoFV_onshell& model,
                 << calculate_amu(model, config_options) << '\n';
       break;
    case gm2calc::Config_options::Detailed:
-      print_amu_detailed(model, config_options.verbose_output);
+      print_amu_detailed(model);
       break;
    case gm2calc::Config_options::NMSSMTools:
       slha_io.fill_block_entry("LOWEN", 6,
@@ -391,7 +394,7 @@ int main(int argc, const char* argv[])
       slha_io.read_from_source(options.input_source);
       fill(slha_io, config_options);
       model.do_force_output(config_options.force_output);
-      setup_model(model, slha_io, options);
+      setup_model(model, slha_io, options, config_options);
       print_warnings(model, slha_io, config_options);
       print_amu(model, slha_io, config_options);
    } catch (const gm2calc::Error& error) {
