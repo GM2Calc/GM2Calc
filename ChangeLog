@@ -3,6 +3,10 @@ GM2Calc-0.2.11 [not released yet]
  * Change (commit 16a8118): Don't throw an exception if gluino mass,
    M3, is zero, as it contributes at the 2-loop level.
 
+ * Change (commit 53cbee3): Always print model parameters in verbose
+   mode.  In addition, in verbose mode the DR-bar to on-shell
+   conversion iteration steps are printed.
+
 GM2Calc-0.2.10 [September, 02 2015]
 
  * Bugfix (commit d4baa95): fix compilation with g++ 4.7.4
