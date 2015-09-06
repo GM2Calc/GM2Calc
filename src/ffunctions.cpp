@@ -105,7 +105,7 @@ std::complex<double> dilog(const std::complex<double>& x) {
    double a = x.real(), b = x.imag();
    double ansreal = 0., ansimag = 0.;
 
-   dilogwrap_(&a, &b, &ansreal, &ansimag);
+   dilogc_(&a, &b, &ansreal, &ansimag);
 
    return std::complex<double>(ansreal, ansimag);
 }

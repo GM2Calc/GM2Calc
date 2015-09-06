@@ -1,4 +1,4 @@
-
-// dilog wrapper for complex variables: inputs are a.real and b.imag, outputs
-// c.real and d.imag
-extern "C" void dilogwrap_(double * a, double * b, double * c, double * d);
+/// Complex dilogarithm \f$\mathrm{Li}_2(z)\f$ (a,b: real and imag
+/// parts of \f$z\f$; c,d: real and imag parts of
+/// \f$\mathrm{Li}_2(z)\f$)
+extern "C" void dilogc_(double* a, double* b, double* c, double* d);
