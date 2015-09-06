@@ -379,7 +379,7 @@ double f_PS(double z) {
    } else {
       const std::complex<double> y(sqrt(std::complex<double>(1. - 4. * z, 0.)));
       const std::complex<double> zc(z, 0.);
-      result = real(2. * zc / y * (dilog(1. - 0.5 * (1. - y) / zc) - dilog(1. - 0.5 * (1. + y) / zc)));
+      result = std::real(2. * zc / y * (dilog(1. - 0.5 * (1. - y) / zc) - dilog(1. - 0.5 * (1. + y) / zc)));
    }
 
    return result;
