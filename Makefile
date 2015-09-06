@@ -8,7 +8,7 @@ CPPFLAGS        := -Isrc
 CXXFLAGS        := -O2 -std=c++11
 CXX_DEP_GEN     := g++
 FC              := gfortran
-FFLAGS          := -O2 -frecursive
+FFLAGS          := -O2
 FLIBS           := -lgfortran -lm
 FOR_DEP_GEN     := gfortran
 MAKELIB         := ar cru
