@@ -372,12 +372,13 @@ double Iabc(double a, double b, double c) {
  */
 double f_PS(double z) {
    double result = 0.;
-   if(z < 0.25) {
-      double y = sqrt(1. - 4. * z);
+
+   if (z < 0.25) {
+      const double y = sqrt(1. - 4. * z);
       result = 2. * z / y * (dilog(1. - 0.5 * (1. - y) / z) - dilog(1. - 0.5 * (1. + y) / z));
    } else {
-      std::complex<double> y = sqrt(std::complex<double>(1. - 4. * z, 0.));
-      std::complex<double> zc(z, 0.);
+      const std::complex<double> y(sqrt(std::complex<double>(1. - 4. * z, 0.)));
+      const std::complex<double> zc(z, 0.);
       result = real(2. * zc / y * (dilog(1. - 0.5 * (1. - y) / zc) - dilog(1. - 0.5 * (1. + y) / zc)));
    }
 
