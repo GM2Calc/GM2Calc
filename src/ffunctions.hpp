@@ -25,13 +25,17 @@ namespace gm2calc {
 double F1C(double);
 /// \f$F_2^C(x)\f$, Eq (55) arXiv:hep-ph/0609168
 double F2C(double);
+/// \f$F_3^C(x)\f$, Eq (37) arXiv:1003.5820
 double F3C(double);
+/// \f$F_4^C(x)\f$, Eq (38) arXiv:1003.5820
 double F4C(double);
 /// \f$F_1^N(x)\f$, Eq (52) arXiv:hep-ph/0609168
 double F1N(double);
 /// \f$F_2^N(x)\f$, Eq (53) arXiv:hep-ph/0609168
 double F2N(double);
+/// \f$F_3^N(x)\f$, Eq (39) arXiv:1003.5820
 double F3N(double);
+/// \f$F_4^N(x)\f$, Eq (40) arXiv:1003.5820
 double F4N(double);
 /// \f$F_a(x)\f$, Eq (6.3a) arXiv:1311.1775
 double Fa(double, double);
@@ -43,6 +47,7 @@ double G3(double);
 double G4(double);
 /// \f$H_2(x,y)\f$, Eq (34) of arxiv:0901.2065
 double H2(double, double);
+/// \f$I_{abc}(a,b,c)\f$ (arguments are interpreted as unsquared)
 double Iabc(double, double, double);
 /// \f$f_{PS}(z)\f$, Eq (70) arXiv:hep-ph/0609168
 double f_PS(double);
@@ -51,11 +56,17 @@ double f_S(double);
 /// \f$f_{\tilde{f}}(z)\f$, Eq (72) arXiv:hep-ph/0609168
 double f_sferm(double);
 
+/// returns number squared
 template <typename T> T sqr(T x) { return x*x; }
+/// returns number cubed
 template <typename T> T cube(T x) { return x*x*x; }
+/// returns number to the power 4
 template <typename T> T quad(T x) { return x*x*x*x; }
+/// returns sign of real number
 int sign(double);
+/// returns square root of absolute of number, times sign
 double signed_abs_sqrt(double);
+/// returns square of number, times sign
 double signed_sqr(double);
 
 } // namespace gm2calc
