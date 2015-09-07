@@ -31,11 +31,11 @@ ${BASEDIR}/test_points/BM1-1504.05500_2L_resummed.in,gm2calc,1,2.67321328584044e
 ${BASEDIR}/test_points/BM2-1504.05500_1L_resummed.in,gm2calc,1,3.0339292608166e-09
 ${BASEDIR}/test_points/BM2-1504.05500_2L_resummed.in,gm2calc,1,2.87958582098365e-09
 ${BASEDIR}/test_points/BM3-1504.05500_1L_resummed.in,gm2calc,0,2.61994966785813e-09
-${BASEDIR}/test_points/BM3-1504.05500_2L_resummed.in,gm2calc,0,2.08900966809353e-09
+${BASEDIR}/test_points/BM3-1504.05500_2L_resummed.in,gm2calc,0,2.08900966953303e-09
 ${BASEDIR}/test_points/BM4-1504.05500_1L_resummed.in,gm2calc,1,2.76249843887181e-09
 ${BASEDIR}/test_points/BM4-1504.05500_2L_resummed.in,gm2calc,1,2.4357222606711e-09
 ${BASEDIR}/test_points/BM5-1504.05500_1L_resummed.in,gm2calc,0,2.88732972683492e-09
-${BASEDIR}/test_points/BM5-1504.05500_2L_resummed.in,gm2calc,0,2.94607528454977e-09
+${BASEDIR}/test_points/BM5-1504.05500_2L_resummed.in,gm2calc,0,2.94607528394706-09
 "
 
 if test ! -x "${GM2CALC}"; then

@@ -56,7 +56,7 @@ double quad(double);
 int sign(double);
 double signed_abs_sqrt(double);
 double signed_sqr(double);
-double sqr(double);
+template <typename T> T sqr(T x) { return x*x; }
 
 } // namespace gm2calc
 

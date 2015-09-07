@@ -7,10 +7,6 @@ CXX             := g++
 CPPFLAGS        := -Isrc
 CXXFLAGS        := -O2 -std=c++11
 CXX_DEP_GEN     := g++
-FC              := gfortran
-FFLAGS          := -O2
-FLIBS           := -lgfortran -lm
-FOR_DEP_GEN     := gfortran
 MAKELIB         := ar cru
 BLASLIBS        := -lblas
 BOOSTFLAGS      := -I/usr/include
@@ -68,10 +64,6 @@ make.args:
 	       'CPPFLAGS="$(CPPFLAGS)"' \
 	       'CXXFLAGS="$(CXXFLAGS)"' \
 	       'CXX_DEP_GEN="$(CXX_DEP_GEN)"' \
-	       'FC="$(FC)"' \
-	       'FFLAGS="$(FFLAGS)"' \
-	       'FLIBS="$(FLIBS)"' \
-	       'FOR_DEP_GEN="$(FOR_DEP_GEN)"' \
 	       'MAKELIB="$(MAKELIB)"' \
 	       'BLASLIBS="$(BLASLIBS)"' \
 	       'BOOSTFLAGS="$(BOOSTFLAGS)"' \
@@ -82,10 +74,6 @@ make.args:
 
 %.d: %.cpp | $(CONFIG_H)
 	$(CXX_DEP_GEN) $(CPPFLAGS) -MM -MP -MG -o $@ -MT '$*.o' $^
-
-%.d: %.f | $(CONFIG_H)
-	$(FOR_DEP_GEN) $(CPPFLAGS) -cpp -MM -MP -MG $^ -MT '$*.o' | \
-	sed 's|.*\.o:|$*.o:|' > $@
 
 print-% : ; @echo $* = $($*)
 

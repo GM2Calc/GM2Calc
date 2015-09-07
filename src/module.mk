@@ -3,7 +3,6 @@ MODNAME      := gm2calc
 
 # source files
 LIBsrc_SRC := \
-		$(DIR)/dilog.f \
 		$(DIR)/ffunctions.cpp \
 		$(DIR)/gm2_1loop.cpp \
 		$(DIR)/gm2_2loop.cpp \
@@ -21,8 +20,7 @@ EXEsrc_SRC := \
 		$(DIR)/gm2scan.cpp
 
 LIBsrc_OBJ := \
-		$(patsubst %.cpp, %.o, $(filter %.cpp, $(LIBsrc_SRC))) \
-		$(patsubst %.f, %.o, $(filter %.f, $(LIBsrc_SRC)))
+		$(patsubst %.cpp, %.o, $(filter %.cpp, $(LIBsrc_SRC)))
 
 EXEsrc_OBJ := \
 		$(EXEsrc_SRC:.cpp=.o)

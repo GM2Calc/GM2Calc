@@ -14,7 +14,6 @@ Requirements
 ============
 
  * C++ compiler (g++ >= 4.7.4 or clang++ >= 3.4 or icpc >= 14.0.3)
- * Fortran compiler (gfortran, ifort >= 12.1.5)
  * Boost (version 1.37.0 or higher)   http://www.boost.org
  * Eigen 3 (version 3.1 or higher)    http://eigen.tuxfamily.org
  * Lapack / Blas                      http://www.netlib.org/lapack/
@@ -32,8 +31,6 @@ argument to make.  For example:
 
   $ make \
        CXX=icpc \
-       FC=ifort \
-       FLIBS="-L/opt/intel/2015/lib/intel64 -lifcore -limf -lintlc" \
        EIGENFLAGS="-I/opt/eigen3/eigen3" \
        BOOSTFLAGS="-I/opt/boost/include"
 
@@ -44,10 +41,6 @@ are given:
   CPPFLAGS        := -Isrc
   CXXFLAGS        := -O2 -std=c++11
   CXX_DEP_GEN     := g++
-  FC              := gfortran
-  FFLAGS          := -O2 -frecursive
-  FLIBS           := -lgfortran -lm
-  FOR_DEP_GEN     := gfortran
   MAKELIB         := ar cru
   BLASLIBS        := -lblas
   BOOSTFLAGS      := -I/usr/include
