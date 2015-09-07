@@ -7,6 +7,10 @@ GM2Calc-0.2.11 [not released yet]
    mode.  In addition, in verbose mode the DR-bar to on-shell
    conversion iteration steps are printed.
 
+ * Change (commit 5854532): Replace Fortran implementation of Li2(z)
+   by C++ implementation.  The C++ implementation is faster and
+   eliminates the need of a Fortran compiler.
+
 GM2Calc-0.2.10 [September, 02 2015]
 
  * Bugfix (commit d4baa95): fix compilation with g++ 4.7.4
