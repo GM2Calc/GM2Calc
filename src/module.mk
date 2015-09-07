@@ -3,6 +3,7 @@ MODNAME      := gm2calc
 
 # source files
 LIBsrc_SRC := \
+		$(DIR)/dilog.cpp \
 		$(DIR)/ffunctions.cpp \
 		$(DIR)/gm2_1loop.cpp \
 		$(DIR)/gm2_2loop.cpp \
