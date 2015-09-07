@@ -51,12 +51,12 @@ double f_S(double);
 /// \f$f_{\tilde{f}}(z)\f$, Eq (72) arXiv:hep-ph/0609168
 double f_sferm(double);
 
-double cube(double);
-double quad(double);
+template <typename T> T sqr(T x) { return x*x; }
+template <typename T> T cube(T x) { return x*x*x; }
+template <typename T> T quad(T x) { return x*x*x*x; }
 int sign(double);
 double signed_abs_sqrt(double);
 double signed_sqr(double);
-template <typename T> T sqr(T x) { return x*x; }
 
 } // namespace gm2calc
 
