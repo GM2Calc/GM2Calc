@@ -103,6 +103,7 @@ double dilog(double x) {
 /**
  * @brief Complex dilogarithm \f$\mathrm{Li}_2(z)\f$
  * @param z complex argument
+ * @note Implementation translated from SPheno to C++
  * @return \f$\mathrm{Li}_2(z)\f$
  */
 std::complex<double> dilog(const std::complex<double>& z) {
