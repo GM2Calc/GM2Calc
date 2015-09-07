@@ -32,9 +32,13 @@ ifneq ($(MAKECMDGOALS),clean)
 ifneq ($(MAKECMDGOALS),depend)
 ifneq ($(MAKECMDGOALS),doc)
 ifneq ($(MAKECMDGOALS),make.args)
+ifneq ($(MAKECMDGOALS),tag)
 ifeq ($(findstring doc-,$(MAKECMDGOALS)),)
 ifeq ($(findstring print-,$(MAKECMDGOALS)),)
+ifeq ($(findstring release-,$(MAKECMDGOALS)),)
 -include $(ALLDEP)
+endif
+endif
 endif
 endif
 endif
