@@ -11,6 +11,10 @@ GM2Calc-0.2.11 [not released yet]
    by C++ implementation.  The C++ implementation is faster and
    eliminates the need of a Fortran compiler.
 
+ * Change (commit d31daa0): Make use of LAPACK library optional.  By
+   default the Eigen library is used for diagonalization of mass
+   matrices.
+
 GM2Calc-0.2.10 [September, 02 2015]
 
  * Bugfix (commit d4baa95): fix compilation with g++ 4.7.4
