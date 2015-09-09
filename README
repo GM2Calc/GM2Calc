@@ -16,7 +16,10 @@ Requirements
  * C++ compiler (g++ >= 4.7.4 or clang++ >= 3.4 or icpc >= 14.0.3)
  * Boost (version 1.37.0 or higher)   http://www.boost.org
  * Eigen 3 (version 3.1 or higher)    http://eigen.tuxfamily.org
- * Lapack / Blas                      http://www.netlib.org/lapack/
+
+Optional:
+
+ * LAPACK                             http://www.netlib.org/lapack/
 
 
 Compilation
@@ -42,16 +45,27 @@ are given:
   CXXFLAGS        := -O2 -std=c++11
   CXX_DEP_GEN     := g++
   MAKELIB         := ar cru
-  BLASLIBS        := -lblas
   BOOSTFLAGS      := -I/usr/include
   EIGENFLAGS      := -I/usr/include/eigen3
-  LAPACKLIBS      := -llapack
 
 The command line arguments passed to `make' are stored in the file
 `make.args'.  To (re-)run `make' with the command line arguments
 stored in `make.args' run
 
   $ cat make.args | xargs make
+
+
+Using LAPACK (optional)
+-----------------------
+
+The routines which diagonalize the mass matrices by default use the
+algorithms provided by Eigen.  However, the routines provided by
+LAPACK can be used alternatively.  In order to make use of the LAPACK
+routines one has to pass `ENABLE_LAPACK=1' to the make command.  In
+addition, the LAPACK and BLAS libraries to be linked have to be passed
+in the `LDFLAGS' variable to the make command:
+
+  $ make ENABLE_LAPACK=1 LDLIBS="-llapack -lblas"
 
 
 Running GM2Calc

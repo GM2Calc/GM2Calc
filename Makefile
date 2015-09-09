@@ -8,13 +8,14 @@ CPPFLAGS        := -Isrc
 CXXFLAGS        := -O2 -std=c++11
 CXX_DEP_GEN     := g++
 MAKELIB         := ar cru
-BLASLIBS        := -lblas
 BOOSTFLAGS      := -I/usr/include
 EIGENFLAGS      := -I/usr/include/eigen3
-LAPACKLIBS      := -llapack
 LIBEXT          := .a
 BINDIR          := bin
 CONFIG_H        := src/config.h
+
+# Flags (set to 1 to enable, leave empty to disable)
+ENABLE_LAPACK   :=
 
 .PHONY:         all allexec alllib clean depend make.args
 
@@ -59,6 +60,9 @@ $(CONFIG_H): Makefile
 	  echo ''; \
 	  echo '/* program version */'; \
 	  echo '#define GM2CALC_VERSION "$(VERSION)"'; \
+	  echo ''; \
+	  echo '/* enable/disable LAPACK */'; \
+	  echo '#define ENABLE_LAPACK "$(ENABLE_LAPACK)"'; \
 	} | sed '/""/d' > $@-t
 	mv $@-t $@
 
