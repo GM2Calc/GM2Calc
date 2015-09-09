@@ -53,7 +53,7 @@ $(LIBsrc): $(LIBsrc_OBJ)
 		$(MAKELIB) $@ $^
 
 $(BINDIR)/%.x: $(DIR)/%.o $(LIBsrc) $(LIBFLEXI) | $(BINDIR)
-		$(CXX) -o $@ $^ $(LAPACKLIBS) $(BLASLIBS) $(FLIBS)
+		$(CXX) -o $@ $^ $(LAPACKLIBS) $(BLASLIBS)
 
 ALLDEP += $(LIBsrc_DEP) $(EXEsrc_DEP)
 ALLLIB += $(LIBsrc)
