@@ -22,10 +22,9 @@ To compile GM2Calc run
     make
 
 Without any arguments, `make` will search in the default directories
-for the BOOST, Eigen, BLAS and LAPACK libraries and compile GM2Calc
-using the g++ and gfortran compilers.  For customization of the
-library paths and used compilers, see the *compilation* section in the
-\ref README file.
+for the BOOST and Eigen headers and compile GM2Calc using the g++ and
+gfortran compilers.  For customization of the include paths and used
+compilers, see the *Compilation* section in the \ref README file.
 
 \section Usage
 
