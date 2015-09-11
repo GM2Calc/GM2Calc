@@ -52,7 +52,7 @@ $(LIBsrc_DEP) $(EXEsrc_DEP) $(LIBsrc_OBJ) $(EXEsrc_OBJ): \
 $(LIBsrc): $(LIBsrc_OBJ)
 		$(MAKELIB) $@ $^
 
-$(BINDIR)/%.x: $(DIR)/%.o $(LIBsrc) $(LIBFLEXI) | $(BINDIR)
+$(BINDIR)/%.x: $(DIR)/%.o $(LIBsrc) | $(BINDIR)
 		$(CXX) -o $@ $^ $(LDLIBS)
 
 ALLDEP += $(LIBsrc_DEP) $(EXEsrc_DEP)
