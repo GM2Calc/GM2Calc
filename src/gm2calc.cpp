@@ -92,6 +92,30 @@ Gm2_cmd_line_options get_cmd_line_options(int argc, const char* argv[])
 }
 
 /**
+ * Set the config options to default values, depending on the input
+ * parameter set (chosen by the user).
+ *
+ * If SLHA input format has been selected, the default output format
+ * will be SLHA format.  By default \f$a_\mu\f$ will be written to the
+ * SPheno block SPhenoLowEnergy[21].
+ *
+ * If GM2Calc input format has been chosen, the default values set in
+ * \a Config_options are used.
+ */
+void set_to_default(gm2calc::Config_options& config_options,
+                    const Gm2_cmd_line_options& options)
+{
+   switch (options.input_type) {
+   case Gm2_cmd_line_options::SLHA:
+      config_options.output_format = gm2calc::Config_options::SPheno;
+      break;
+   default:
+      throw gm2calc::SetupError("Unknown input option");
+      break;
+   }
+}
+
+/**
  * Setup the model parameters consistently, depending on the input
  * parameter set (chosen by the user).
  *
@@ -391,6 +415,7 @@ int main(int argc, const char* argv[])
    int exit_code = EXIT_SUCCESS;
 
    try {
+      set_to_default(config_options, options);
       slha_io.read_from_source(options.input_source);
       fill(slha_io, config_options);
       model.do_force_output(config_options.force_output);
