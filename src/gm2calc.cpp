@@ -283,7 +283,7 @@ double calculate_amu(const gm2calc::MSSMNoFV_onshell& model,
 
    switch (config_options.loop_order) {
    case 0:
-      ERROR("0-loop order not supported!");
+      result = 0.;
       break;
    case 1:
       if (config_options.tanb_resummation)
