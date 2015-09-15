@@ -109,6 +109,8 @@ void set_to_default(gm2calc::Config_options& config_options,
    case Gm2_cmd_line_options::SLHA:
       config_options.output_format = gm2calc::Config_options::SPheno;
       break;
+   case Gm2_cmd_line_options::GM2Calc:
+      break;
    default:
       throw gm2calc::SetupError("Unknown input option");
       break;
