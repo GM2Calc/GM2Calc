@@ -688,7 +688,8 @@ std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)
       "msd         = " << model.get_md2().diagonal().transpose().unaryExpr(std::ptr_fun(signed_abs_sqrt)) << '\n' <<
       "Au          = " << model.get_Au().diagonal().transpose() << '\n' <<
       "Ad          = " << model.get_Ad().diagonal().transpose() << '\n' <<
-      "Ae          = " << model.get_Ae().diagonal().transpose() << '\n'
+      "Ae          = " << model.get_Ae().diagonal().transpose() << '\n' <<
+      "ren. scale  = " << model.get_scale() << '\n'
       ;
 
    return os;
