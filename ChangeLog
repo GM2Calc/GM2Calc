@@ -15,6 +15,11 @@ GM2Calc-0.2.11 [not released yet]
    default the Eigen library is used for diagonalization of mass
    matrices.
 
+ * Change (commit f105385): If SLHA input format has been chosen and
+   no GM2CalcConfig input block is provided, the default output format
+   will be SLHA and the value of amu will be written to the SPheno
+   bock SPhenoLowEnergy[21].
+
 GM2Calc-0.2.10 [September, 02 2015]
 
  * Bugfix (commit d4baa95): fix compilation with g++ 4.7.4
