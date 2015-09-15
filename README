@@ -29,16 +29,15 @@ To compile GM2Calc run
 
   $ make
 
-The used compilers, include paths and libraries can be passed as an
-argument to make.  For example:
+The used compiler and include paths can be passed as an argument to
+make.  For example:
 
   $ make \
        CXX=icpc \
        EIGENFLAGS="-I/opt/eigen3/eigen3" \
        BOOSTFLAGS="-I/opt/boost/include"
 
-In the following list all supported variables and their default values
-are given:
+The following default values are set in the makefile:
 
   CXX             := g++
   CPPFLAGS        := -Isrc
