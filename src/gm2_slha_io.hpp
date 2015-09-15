@@ -53,15 +53,19 @@ struct MSSMNoFV_onshell_physical;
 #define FORMAT_SPINFO(n,str)                                            \
    boost::format(spinfo_formatter) % n % str
 
+/**
+ * @class Config_options
+ * @brief configuration for the calculation of \f$a_\mu\f$
+ */
 struct Config_options {
    enum E_output_format : unsigned {
       Minimal = 0, Detailed = 1, NMSSMTools = 2, SPheno = 3 };
 
-   E_output_format output_format = Minimal;
-   unsigned loop_order = 2;
-   bool tanb_resummation = true;
-   bool force_output = false;
-   bool verbose_output = false;
+   E_output_format output_format = Minimal; ///< output format
+   unsigned loop_order = 2;      ///< loop order
+   bool tanb_resummation = true; ///< tan(beta) resummation
+   bool force_output = false;    ///< print output even if error occured
+   bool verbose_output = false;  ///< print additional information
 };
 
 class GM2_slha_io {
