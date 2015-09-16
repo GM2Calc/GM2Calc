@@ -567,20 +567,23 @@ void MSSMNoFV_onshell::convert_me2_fpi(
    double precision_goal,
    unsigned max_iterations)
 {
-   Eigen::Array<double,2,1> MSm_pole(get_physical().MSm);
-   // pole masses should be mass ordered for this to work
-   std::sort(MSm_pole.data(), MSm_pole.data() + MSm_pole.size());
-   const Eigen::Array<double,2,1> MSm(get_MSm());
+   // sorted pole masses
+   Eigen::Array<double,2,1> MSm_pole_sorted(get_physical().MSm);
+   std::sort(MSm_pole_sorted.data(), MSm_pole_sorted.data() + MSm_pole_sorted.size());
+
+   Eigen::Array<double,2,1> MSm_pole(MSm_pole_sorted);
+
+   int right_index = find_right_like_smuon(get_ZM());
 
    if (verbose_output) {
-      const int right_index = find_right_like_smuon(get_ZM());
       std::cout << "Converting mse(2,2) to on-shell scheme ...\n"
                    "   Goal: MSm(" << right_index << ") = "
                 << MSm_pole(right_index) << '\n';
    }
 
    bool accuracy_goal_reached =
-      MSSMNoFV_onshell::is_equal(MSm, MSm_pole, precision_goal);
+      MSSMNoFV_onshell::is_equal(get_MSm(right_index), MSm_pole(right_index),
+                                 precision_goal);
    unsigned it = 0;
 
    while (!accuracy_goal_reached && it < max_iterations) {
@@ -598,10 +601,10 @@ void MSSMNoFV_onshell::convert_me2_fpi(
       set_me2(1,1,me211);
       calculate_MSm();
 
-      const int right_index = find_right_like_smuon(ZM);
+      right_index = find_right_like_smuon(get_ZM());
 
       MSm_pole = get_MSm();
-      MSm_pole(right_index) = get_physical().MSm(right_index);
+      MSm_pole(right_index) = MSm_pole_sorted(right_index);
 
       if (verbose_output) {
          std::cout << "   Iteration " << it << ": mse(2,2) = "
@@ -617,7 +620,6 @@ void MSSMNoFV_onshell::convert_me2_fpi(
    }
 
    if (it == max_iterations) {
-      const int right_index = find_right_like_smuon(get_ZM());
       const double precision =
          std::abs(get_MSm(right_index) - MSm_pole(right_index));
       WARNING("DR-bar to on-shell conversion for me2 did not converge."
@@ -630,7 +632,6 @@ void MSSMNoFV_onshell::convert_me2_fpi(
    }
 
    if (verbose_output) {
-      const int right_index = find_right_like_smuon(get_ZM());
       std::cout << "   Achieved absolute accuracy: "
                 << std::abs(get_MSm(right_index) - MSm_pole(right_index))
                 << " GeV\n";
