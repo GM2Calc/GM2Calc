@@ -99,8 +99,6 @@ public:
    void calculate_masses();
    void convert_yukawa_couplings_treelevel();
 
-   friend std::ostream& operator<<(std::ostream&, const MSSMNoFV_onshell&);
-
 private:
    bool verbose_output; ///< verbose output
    double EL;  ///< electromagnetic gauge coupling at MZ w/o hadronic corrections
@@ -135,6 +133,8 @@ private:
    void convert_yukawa_couplings();
    void copy_susy_masses_to_pole();
 };
+
+std::ostream& operator<<(std::ostream&, const MSSMNoFV_onshell&);
 
 } // namespace gm2calc
 
