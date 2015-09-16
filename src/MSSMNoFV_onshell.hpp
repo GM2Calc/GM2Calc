@@ -25,6 +25,19 @@
 
 namespace gm2calc {
 
+/**
+ * @class MSSMNoFV_onshell
+ * @brief contains the MSSMNoFV parameters in the on-shell scheme
+ *
+ * In addition, the class stores parameters necessary for the
+ * calculation of \f$a_\mu\f$: The electromagnetic coupling at MZ w/o
+ * hadronic corrections, \f$\alpha_{\text{em}}(M_Z)\f$, and the
+ * electromagnetic coupling in the Thompson limit,
+ * \f$\alpha_{\text{em},0}\f$.
+ *
+ * The class also contains helper functions to convert DR-bar
+ * parameters to the on-shell scheme.
+ */
 class MSSMNoFV_onshell : public MSSMNoFV_onshell_mass_eigenstates {
 public:
    MSSMNoFV_onshell();
