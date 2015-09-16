@@ -569,26 +569,28 @@ void MSSMNoFV_onshell::convert_me2_fpi(
 {
    // sorted pole masses
    Eigen::Array<double,2,1> MSm_pole_sorted(get_physical().MSm);
-   std::sort(MSm_pole_sorted.data(), MSm_pole_sorted.data() + MSm_pole_sorted.size());
+   std::sort(MSm_pole_sorted.data(),
+             MSm_pole_sorted.data() + MSm_pole_sorted.size());
 
-   Eigen::Array<double,2,1> MSm_pole(MSm_pole_sorted);
+   Eigen::Array<double,2,1> MSm_goal(MSm_pole_sorted);
 
    int right_index = find_right_like_smuon(get_ZM());
 
    if (verbose_output) {
       std::cout << "Converting mse(2,2) to on-shell scheme ...\n"
                    "   Goal: MSm(" << right_index << ") = "
-                << MSm_pole(right_index) << '\n';
+                << MSm_goal(right_index) << '\n';
    }
 
    bool accuracy_goal_reached =
-      MSSMNoFV_onshell::is_equal(get_MSm(right_index), MSm_pole(right_index),
+      MSSMNoFV_onshell::is_equal(get_MSm(right_index), MSm_goal(right_index),
                                  precision_goal);
    unsigned it = 0;
 
    while (!accuracy_goal_reached && it < max_iterations) {
       const Eigen::Matrix<double,2,2> ZM(get_ZM()); // smuon mixing matrix
-      const Eigen::Matrix<double,2,2> M(ZM.adjoint() * MSm_pole.square().matrix().asDiagonal() * ZM);
+      const Eigen::Matrix<double,2,2> M(
+         ZM.adjoint() * MSm_goal.square().matrix().asDiagonal() * ZM);
 
       const double vd2 = sqr(get_vd());
       const double vu2 = sqr(get_vu());
@@ -603,8 +605,8 @@ void MSSMNoFV_onshell::convert_me2_fpi(
 
       right_index = find_right_like_smuon(get_ZM());
 
-      MSm_pole = get_MSm();
-      MSm_pole(right_index) = MSm_pole_sorted(right_index);
+      MSm_goal = get_MSm();
+      MSm_goal(right_index) = MSm_pole_sorted(right_index);
 
       if (verbose_output) {
          std::cout << "   Iteration " << it << ": mse(2,2) = "
@@ -613,7 +615,7 @@ void MSSMNoFV_onshell::convert_me2_fpi(
       }
 
       accuracy_goal_reached =
-         MSSMNoFV_onshell::is_equal(get_MSm(right_index), MSm_pole(right_index),
+         MSSMNoFV_onshell::is_equal(get_MSm(right_index), MSm_goal(right_index),
                                     precision_goal);
 
       it++;
@@ -621,7 +623,7 @@ void MSSMNoFV_onshell::convert_me2_fpi(
 
    if (it == max_iterations) {
       const double precision =
-         std::abs(get_MSm(right_index) - MSm_pole(right_index));
+         std::abs(get_MSm(right_index) - MSm_goal(right_index));
       WARNING("DR-bar to on-shell conversion for me2 did not converge."
               " (reached accuracy: " << precision <<
               ", accuracy goal: " << precision_goal <<
@@ -633,7 +635,7 @@ void MSSMNoFV_onshell::convert_me2_fpi(
 
    if (verbose_output) {
       std::cout << "   Achieved absolute accuracy: "
-                << std::abs(get_MSm(right_index) - MSm_pole(right_index))
+                << std::abs(get_MSm(right_index) - MSm_goal(right_index))
                 << " GeV\n";
    }
 }
