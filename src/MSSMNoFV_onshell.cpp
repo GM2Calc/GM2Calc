@@ -496,7 +496,15 @@ void MSSMNoFV_onshell::convert_me2(
    double precision_goal,
    unsigned max_iterations)
 {
-   convert_me2_fpi(precision_goal, max_iterations);
+   double precision = convert_me2_fpi(precision_goal, max_iterations);
+
+   if (precision > precision_goal)
+      precision = convert_me2_root(precision_goal, max_iterations);
+
+   if (precision > precision_goal)
+      get_problems().flag_no_convergence_me2(precision, max_iterations);
+   else
+      get_problems().unflag_no_convergence_me2();
 }
 
 /**
@@ -506,8 +514,9 @@ void MSSMNoFV_onshell::convert_me2(
  *
  * @param precision_goal precision goal for the root finding algorithm
  * @param max_iterations maximum number of iterations
+ * @return achieved precision
  */
-void MSSMNoFV_onshell::convert_me2_root(
+double MSSMNoFV_onshell::convert_me2_root(
    double precision_goal,
    unsigned max_iterations)
 {
@@ -537,6 +546,11 @@ void MSSMNoFV_onshell::convert_me2_root(
       return flexiblesusy::is_equal(a,b,precision_goal);
    };
 
+   if (verbose_output) {
+      std::cout << "Converting mse(2,2) to on-shell scheme with "
+         "root finder ...\n";
+   }
+
    // find the root
    const std::pair<double,double> root =
       boost::math::tools::toms748_solve(Difference_MSm(*this), 0., 1e16, Stop_crit, it);
@@ -544,16 +558,21 @@ void MSSMNoFV_onshell::convert_me2_root(
    set_me2(1,1,0.5*(root.first + root.second));
    calculate_MSm();
 
+   const double precision = std::abs(Difference_MSm(*this)(get_me2(1,1)));
+
    if (it >= max_iterations) {
-      const double precision = std::abs(Difference_MSm(*this)(get_me2(1,1)));
-      WARNING("DR-bar to on-shell conversion for me2 did not converge "
-              " (reached accuracy: " << precision <<
+      WARNING("DR-bar to on-shell conversion for mse did not converge with"
+              " root finder (reached accuracy: " << precision <<
               ", accuracy goal: " << precision_goal <<
               ", max. iterations: " << max_iterations << ")");
-      get_problems().flag_no_convergence_me2(precision, it);
-   } else {
-      get_problems().unflag_no_convergence_me2();
    }
+
+   if (verbose_output) {
+      std::cout << "   Achieved absolute accuracy: "
+                << precision << " GeV\n";
+   }
+
+   return precision;
 }
 
 /**
@@ -562,8 +581,9 @@ void MSSMNoFV_onshell::convert_me2_root(
  *
  * @param precision_goal precision goal of iteration
  * @param max_iterations maximum number of iterations
+ * @return achieved precision
  */
-void MSSMNoFV_onshell::convert_me2_fpi(
+double MSSMNoFV_onshell::convert_me2_fpi(
    double precision_goal,
    unsigned max_iterations)
 {
@@ -577,7 +597,7 @@ void MSSMNoFV_onshell::convert_me2_fpi(
    int right_index = find_right_like_smuon(get_ZM());
 
    if (verbose_output) {
-      std::cout << "Converting mse(2,2) to on-shell scheme ...\n"
+      std::cout << "Converting mse(2,2) to on-shell scheme with FPI ...\n"
                    "   Goal: MSm(" << right_index << ") = "
                 << MSm_goal(right_index) << '\n';
    }
@@ -621,23 +641,22 @@ void MSSMNoFV_onshell::convert_me2_fpi(
       it++;
    }
 
+   const double precision =
+      std::abs(get_MSm(right_index) - MSm_goal(right_index));
+
    if (it == max_iterations) {
-      const double precision =
-         std::abs(get_MSm(right_index) - MSm_goal(right_index));
-      WARNING("DR-bar to on-shell conversion for me2 did not converge."
-              " (reached accuracy: " << precision <<
+      WARNING("DR-bar to on-shell conversion for mse did not converge with"
+              " FPI (reached accuracy: " << precision <<
               ", accuracy goal: " << precision_goal <<
               ", max. iterations: " << max_iterations << ")");
-      get_problems().flag_no_convergence_me2(precision, it);
-   } else {
-      get_problems().unflag_no_convergence_me2();
    }
 
    if (verbose_output) {
       std::cout << "   Achieved absolute accuracy: "
-                << std::abs(get_MSm(right_index) - MSm_goal(right_index))
-                << " GeV\n";
+                << precision << " GeV\n";
    }
+
+   return precision;
 }
 
 std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)
