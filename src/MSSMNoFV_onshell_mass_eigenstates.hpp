@@ -19,8 +19,7 @@
 /**
  * @file MSSMNoFV_onshell_mass_eigenstates.hpp
  *
- * @brief contains class for model with routines needed to solve boundary
- *        value problem using the two_scale solver by solving EWSB
+ * @brief contains class for MSSMNoFV with routines needed to solve EWSB
  *        and determine the pole masses and mixings
  *
  * This file was generated at Wed 22 Jul 2015 18:14:31 with FlexibleSUSY
