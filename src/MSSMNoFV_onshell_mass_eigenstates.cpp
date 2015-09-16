@@ -31,7 +31,6 @@
 #include "MSSMNoFV_onshell_mass_eigenstates.hpp"
 #include "eigen_utils.hpp"
 #include "linalg2.hpp"
-#include "ffunctions.hpp"
 
 #include <cmath>
 #include <iostream>
@@ -61,6 +60,9 @@ void Hermitianize(Eigen::MatrixBase<Derived>& m)
       for (int k = 0; k < i; k++)
          m(i,k) = std::conj(m(k,i));
 }
+
+template <typename T> T sqr(T x) { return x*x; }
+
 } // anonymous namespace
 
 namespace gm2calc {
