@@ -68,6 +68,10 @@ struct Config_options {
    bool verbose_output = false;  ///< print additional information
 };
 
+/**
+ * @class GM2_slha_io
+ * @brief class for reading input files and writing SLHA output files
+ */
 class GM2_slha_io {
 public:
    typedef std::function<void(int, double)> Tuple_processor;

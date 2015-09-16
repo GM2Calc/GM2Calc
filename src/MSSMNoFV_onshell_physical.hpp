@@ -25,6 +25,10 @@
 
 namespace gm2calc {
 
+/**
+ * @class MSSMNoFV_onshell_physical
+ * @brief MSSMNoFV pole masses and corresponding mixings
+ */
 struct MSSMNoFV_onshell_physical {
    MSSMNoFV_onshell_physical();
    void clear();

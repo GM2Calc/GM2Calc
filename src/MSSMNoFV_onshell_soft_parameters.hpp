@@ -25,6 +25,15 @@
 
 namespace gm2calc {
 
+/**
+ * @class MSSMNoFV_onshell_soft_parameters
+ * @brief contains soft-breaking parameters of the MSSMNoFV model
+ *
+ * Soft-breaking parameters are: soft-breaking squared mass parameters
+ * for the sfermions and Higgs dupletts, soft-breaking gaugino mass
+ * parameters, soft-breaking trilinear couplings and the BMu
+ * parameter.
+ */
 class MSSMNoFV_onshell_soft_parameters : public MSSMNoFV_onshell_susy_parameters {
 public:
    explicit MSSMNoFV_onshell_soft_parameters();
