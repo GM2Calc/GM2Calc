@@ -46,7 +46,7 @@ namespace gm2calc {
  */
 class MSSMNoFV_onshell_mass_eigenstates : public MSSMNoFV_onshell_soft_parameters {
 public:
-   explicit MSSMNoFV_onshell_mass_eigenstates();
+   MSSMNoFV_onshell_mass_eigenstates();
    virtual ~MSSMNoFV_onshell_mass_eigenstates();
 
    /// number of EWSB equations

@@ -36,7 +36,7 @@ namespace gm2calc {
  */
 class MSSMNoFV_onshell_soft_parameters : public MSSMNoFV_onshell_susy_parameters {
 public:
-   explicit MSSMNoFV_onshell_soft_parameters();
+   MSSMNoFV_onshell_soft_parameters();
    MSSMNoFV_onshell_soft_parameters(const MSSMNoFV_onshell_susy_parameters& , const Eigen::Matrix<double,3,3>& TYd_, const Eigen::Matrix<double,3,3>&
    TYe_, const Eigen::Matrix<double,3,3>& TYu_, double BMu_, const
    Eigen::Matrix<double,3,3>& mq2_, const Eigen::Matrix<double,3,3>& ml2_,

@@ -34,7 +34,7 @@ namespace gm2calc {
  */
 class MSSMNoFV_onshell_susy_parameters {
 public:
-   explicit MSSMNoFV_onshell_susy_parameters();
+   MSSMNoFV_onshell_susy_parameters();
    MSSMNoFV_onshell_susy_parameters(double scale_,
       const Eigen::Matrix<double,3,3>& Yd_, const Eigen::Matrix<double,3,3>& Ye_,
       const Eigen::Matrix<double,3,3>& Yu_, double Mu_, double g1_, double g2_,
