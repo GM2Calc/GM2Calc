@@ -84,9 +84,6 @@ protected:
    double g3;
    double vd;
    double vu;
-
-private:
-   static const int numberOfParameters = 33;
 };
 
 std::ostream& operator<<(std::ostream&, const MSSMNoFV_onshell_susy_parameters&);

@@ -110,10 +110,6 @@ protected:
    double MassB;
    double MassWB;
    double MassG;
-
-
-private:
-   static const int numberOfParameters = 111;
 };
 
 std::ostream& operator<<(std::ostream&, const MSSMNoFV_onshell_soft_parameters&);
