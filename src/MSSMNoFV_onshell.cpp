@@ -98,13 +98,6 @@ void MSSMNoFV_onshell::set_TB(double tanb)
 }
 
 /**
- * Returns the electromagnetic gauge coupling in the Thompson limit.
- */
-double MSSMNoFV_onshell::get_EL() const {
-   return EL;
-}
-
-/**
  * Converts the model parameters from the DR-bar scheme to the
  * on-shell scheme.
  *

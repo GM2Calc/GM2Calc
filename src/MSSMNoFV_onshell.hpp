@@ -47,7 +47,7 @@ public:
    void set_verbose_output(bool flag) { verbose_output = flag; }
    bool do_verbose_output() const { return verbose_output; }
 
-   /// set alpha(MZ)
+   /// set alpha(MZ) w/o hadronic corrections
    void set_alpha_MZ(double);
    /// set alpha in the Thompson limit
    void set_alpha_thompson(double);
@@ -58,14 +58,21 @@ public:
    void set_Ae(unsigned i, unsigned k, double a) { Ae(i,k) = a; }
    void set_Au(unsigned i, unsigned k, double a) { Au(i,k) = a; }
    void set_Ad(unsigned i, unsigned k, double a) { Ad(i,k) = a; }
+   /// set CP-odd Higgs pole mass
    void set_MA0(double m) { get_physical().MAh(1) = m; }
+   /// set tan(beta)
    void set_TB(double);
 
-   double get_MUDIM() const {return get_scale();}
-   double get_EL0() const {return EL0;}
-   double get_gY() const {return sqrt(0.6) * get_g1();}
-   double get_EL() const;
-   double get_TB() const {return get_vu() / get_vd();}
+   /// electromagnetic gauge coupling at MZ w/o hadronic corrections
+   double get_EL() const { return EL; }
+   /// electromagnetic gauge coupling in Thompson limit
+   double get_EL0() const { return EL0; }
+   /// Hypercharge gauge coupling
+   double get_gY() const { return sqrt(0.6) * get_g1(); }
+   /// renormalization scale
+   double get_MUDIM() const { return get_scale(); }
+   /// tan(beta)
+   double get_TB() const { return get_vu() / get_vd(); }
    const Eigen::Matrix<double,3,3>& get_Ae() const { return Ae; }
    const Eigen::Matrix<double,3,3>& get_Au() const { return Au; }
    const Eigen::Matrix<double,3,3>& get_Ad() const { return Ad; }
