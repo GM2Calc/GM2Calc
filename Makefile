@@ -1,6 +1,9 @@
 # Package information
 PKGNAME         := gm2calc
-VERSION         := 0.2.10
+MAJOR           := 0
+MINOR           := 2
+PATCH           := 10
+VERSION         := $(MAJOR).$(MINOR).$(PATCH)
 
 # Variables for compilation
 CXX             := g++
@@ -60,6 +63,9 @@ $(CONFIG_H): Makefile
 	  echo ''; \
 	  echo '/* program version */'; \
 	  echo '#define GM2CALC_VERSION "$(VERSION)"'; \
+	  echo '#define GM2CALC_VERSION_MAJOR $(MAJOR)'; \
+	  echo '#define GM2CALC_VERSION_MINOR $(MINOR)'; \
+	  echo '#define GM2CALC_VERSION_PATCH $(PATCH)'; \
 	  echo ''; \
 	  echo '/* enable/disable LAPACK */'; \
 	  echo '#define ENABLE_LAPACK "$(ENABLE_LAPACK)"'; \
