@@ -116,7 +116,7 @@ void set_to_default(gm2calc::Config_options& config_options,
    case Gm2_cmd_line_options::GM2Calc:
       break;
    default:
-      throw gm2calc::SetupError("Unknown input option");
+      throw gm2calc::ESetupError("Unknown input option");
       break;
    }
 }
@@ -160,7 +160,7 @@ void setup_model(gm2calc::MSSMNoFV_onshell& model,
       model.calculate_masses();
       break;
    default:
-      throw gm2calc::SetupError("Unknown input option");
+      throw gm2calc::ESetupError("Unknown input option");
       break;
    }
 

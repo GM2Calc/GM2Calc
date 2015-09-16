@@ -62,7 +62,7 @@ void GM2_slha_io::read_from_file(const std::string& file_name)
    } else {
       std::ostringstream msg;
       msg << "cannot read SLHA file: \"" << file_name << "\"";
-      throw ReadError(msg.str());
+      throw EReadError(msg.str());
    }
 }
 

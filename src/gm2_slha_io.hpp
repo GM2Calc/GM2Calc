@@ -121,7 +121,7 @@ Scalar GM2_slha_io::convert_to(const std::string& str)
    }  catch (const boost::bad_lexical_cast& error) {
       const std::string msg("cannot convert string \"" + str + "\" to "
                             + typeid(Scalar).name());
-      throw ReadError(msg);
+      throw EReadError(msg);
    }
    return value;
 }

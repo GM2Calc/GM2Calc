@@ -28,13 +28,13 @@ public:
 };
 
 /**
- * @class SetupError
+ * @class ESetupError
  * @brief Spectrum generator was not setup correctly
  */
-class SetupError : public Error {
+class ESetupError : public Error {
 public:
-   explicit SetupError(const std::string& message_) : message(message_) {}
-   virtual ~SetupError() {}
+   explicit ESetupError(const std::string& message_) : message(message_) {}
+   virtual ~ESetupError() {}
    virtual std::string what() const { return message; }
 private:
    std::string message;
@@ -58,10 +58,10 @@ private:
    std::string message;
 };
 
-class ReadError : public Error {
+class EReadError : public Error {
 public:
-   ReadError(const std::string& message_) : message(message_) {}
-   virtual ~ReadError() {}
+   EReadError(const std::string& message_) : message(message_) {}
+   virtual ~EReadError() {}
    virtual std::string what() const { return message; }
 private:
    std::string message;
