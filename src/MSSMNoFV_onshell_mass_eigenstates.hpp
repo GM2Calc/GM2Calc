@@ -49,9 +49,6 @@ public:
    MSSMNoFV_onshell_mass_eigenstates();
    virtual ~MSSMNoFV_onshell_mass_eigenstates();
 
-   /// number of EWSB equations
-   static const std::size_t number_of_ewsb_equations = 2;
-
    void calculate_DRbar_masses();
    virtual void clear();
    void clear_DRbar_parameters();
