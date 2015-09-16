@@ -80,15 +80,18 @@ Gm2_cmd_line_options get_cmd_line_options(int argc, const char* argv[])
 
       if (option == "--help" || option == "-h") {
          print_usage(argv[0]);
+         option.std::basic_string<char>::~basic_string<char>();
          exit(EXIT_SUCCESS);
       }
 
       if (option == "--version" || option == "-v") {
          std::cout << GM2CALC_VERSION << '\n';
+         option.std::basic_string<char>::~basic_string<char>();
          exit(EXIT_SUCCESS);
       }
 
       ERROR("Unrecognized command line option: " << option);
+      option.std::basic_string<char>::~basic_string<char>();
       exit(EXIT_FAILURE);
    }
 
