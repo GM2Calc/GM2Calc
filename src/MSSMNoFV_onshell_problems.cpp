@@ -98,10 +98,17 @@ bool MSSMNoFV_onshell_problems::have_warning() const
    return have_no_convergence_Mu_MassB_MassWB || have_no_convergence_me2;
 }
 
-std::string MSSMNoFV_onshell_problems::get_warning() const
+std::string MSSMNoFV_onshell_problems::get_warnings() const
 {
    std::ostringstream ostr;
    print_warnings(ostr);
+   return ostr.str();
+}
+
+std::string MSSMNoFV_onshell_problems::get_problems() const
+{
+   std::ostringstream ostr;
+   print_problems(ostr);
    return ostr.str();
 }
 

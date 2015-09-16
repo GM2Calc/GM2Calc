@@ -396,7 +396,7 @@ void print_warnings(const gm2calc::MSSMNoFV_onshell& model,
          // print SPINFO block with warning description
          slha_io.fill_block_entry("SPINFO", 1, "GM2Calc");
          slha_io.fill_block_entry("SPINFO", 2, GM2CALC_VERSION);
-         slha_io.fill_block_entry("SPINFO", 3, model.get_problems().get_warning());
+         slha_io.fill_block_entry("SPINFO", 3, model.get_problems().get_warnings());
          break;
       default:
          break;

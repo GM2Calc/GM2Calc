@@ -46,7 +46,8 @@ public:
    void unflag_no_convergence_me2();
    bool have_problem() const; ///< returns true if problem has occurred
    bool have_warning() const; ///< returns true if there is a warning
-   std::string get_warning() const; ///< get warnings as string
+   std::string get_warnings() const; ///< get warnings as string
+   std::string get_problems() const; ///< get problems as string
    void print(std::ostream&) const; ///< print problems and warnings to stream
    void print_problems(std::ostream&) const; ///< print problems to stream
    void print_warnings(std::ostream&) const; ///< print warnings to stream
