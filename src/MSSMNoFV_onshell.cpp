@@ -25,7 +25,6 @@
 #include <cmath>
 #include <complex>
 #include <iostream>
-#include <sstream>
 #include <algorithm>
 
 #include <boost/math/tools/roots.hpp>
@@ -179,12 +178,10 @@ void MSSMNoFV_onshell::check_input()
 void MSSMNoFV_onshell::check_problems()
 {
    if (get_problems().have_problem()) {
-      std::ostringstream sstr;
-      sstr << get_problems();
       if (do_force_output())
-         WARNING(sstr.str());
+         WARNING(get_problems().get_problems());
       else
-         throw EPhysicalProblem(sstr.str());
+         throw EPhysicalProblem(get_problems().get_problems());
    }
 }
 
