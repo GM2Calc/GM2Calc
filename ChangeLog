@@ -21,7 +21,7 @@ GM2Calc-0.2.11 [not released yet]
    bock SPhenoLowEnergy[21].
 
  * Change (commit 3f6d5db): If the conversion of the right-handed
-   soft-breaking smuon mass parameter from the MS-bar to OS scheme
+   soft-breaking smuon mass parameter from the DR-bar to OS scheme
    fails using a FPI, a root finding algorithm is tried.
 
  * Bugfix (commit 2f481f5): The sorting of the smuon pole masses got
