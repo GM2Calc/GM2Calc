@@ -456,7 +456,6 @@ void GM2_slha_io::process_mass_tuple(
    case 1000024: physical.MCha(0) = value;  break;
    case 1000037: physical.MCha(1) = value;  break;
    default:
-      WARNING("Unrecognized entry in block MASS: " << key);
       break;
    }
 }
