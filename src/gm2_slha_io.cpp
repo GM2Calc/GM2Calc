@@ -261,29 +261,6 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
    }
 }
 
-double read_scale(const GM2_slha_io& slha_io)
-{
-   char const * const drbar_blocks[] =
-      { "Yu", "Yd", "Ye", "Ae", "Ad", "Au", "HMIX", "MSOFT" };
-
-   double scale = 0.;
-
-   for (unsigned i = 0; i < sizeof(drbar_blocks)/sizeof(*drbar_blocks); i++) {
-      const double block_scale = slha_io.read_scale(drbar_blocks[i]);
-      if (!is_zero(block_scale)) {
-         scale = block_scale;
-         break;
-      }
-   }
-
-   if (is_zero(scale)) {
-      std::cerr << "could not find renormalization scale in any"
-         " SLHA block.\n";
-   }
-
-   return scale;
-}
-
 void fill_alpha_s(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
 {
    const double alpha_S = slha_io.read_entry("SMINPUTS", 3);
@@ -332,6 +309,8 @@ void GM2_slha_io::process_msoft_tuple(
 
 void fill_drbar_parameters(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
 {
+   model.set_scale(slha_io.read_scale("HMIX"));
+
    {
       Eigen::Matrix<double,3,3> Ae(Eigen::Matrix<double,3,3>::Zero());
       slha_io.read_block("AE", Ae);
@@ -365,8 +344,6 @@ void fill_drbar_parameters(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
    model.set_vd(vev * cosb);
    model.set_vu(vev * sinb);
    model.set_BMu(MA2_drbar * sinb * cosb);
-
-   model.set_scale(read_scale(slha_io));
 }
 
 void fill_pole_masses_from_sminputs(
