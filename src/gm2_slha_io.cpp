@@ -85,7 +85,8 @@ void GM2_slha_io::read_from_stream(std::istream& istr)
    data.read(istr);
 }
 
-double GM2_slha_io::read_entry(const std::string& block_name, int key) const
+double GM2_slha_io::read_entry(const std::string& block_name, int key,
+                               double scale) const
 {
    SLHAea::Coll::const_iterator block =
       data.find(data.cbegin(), data.cend(), block_name);
@@ -95,6 +96,9 @@ double GM2_slha_io::read_entry(const std::string& block_name, int key) const
    SLHAea::Block::const_iterator line;
 
    while (block != data.cend()) {
+      if (!at_scale(*block, scale))
+         continue;
+
       line = block->find(keys);
 
       if (line != block->end() && line->is_data_line() && line->size() > 1)
@@ -139,6 +143,29 @@ bool GM2_slha_io::block_exists(const std::string& block_name) const
    return data.find(block_name) != data.cend();
 }
 
+/**
+ * Returns true if the block scale after Q= matches \a scale, false
+ * otherwise.  If scale == 0, the functions returns true.
+ */
+bool GM2_slha_io::at_scale(const SLHAea::Block& block, double scale)
+{
+   if (flexiblesusy::is_zero(scale))
+      return true;
+
+   for (SLHAea::Block::const_iterator line = block.cbegin(),
+           end = block.cend(); line != end; ++line) {
+      // check scale from block definition matches argument
+      if (!line->is_data_line() && line->size() > 3 &&
+          to_lower((*line)[0]) == "block" && (*line)[2] == "Q=") {
+         const double block_scale = convert_to<double>((*line)[3]);
+         if (flexiblesusy::is_equal(scale, block_scale))
+            return true;
+      }
+   }
+
+   return false;
+}
+
 std::string GM2_slha_io::to_lower(const std::string& str)
 {
    std::string lower(str.size(), ' ');
@@ -152,26 +179,23 @@ std::string GM2_slha_io::to_lower(const std::string& str)
  *
  * @param block_name block name
  * @param processor tuple processor to be applied
- *
- * @return scale (or 0 if no scale is defined)
+ * @param scale (or 0 if scale should be ignored)
  */
-double GM2_slha_io::read_block(const std::string& block_name, const Tuple_processor& processor) const
+void GM2_slha_io::read_block(const std::string& block_name,
+                             const Tuple_processor& processor,
+                             double scale) const
 {
    SLHAea::Coll::const_iterator block =
       data.find(data.cbegin(), data.cend(), block_name);
 
-   double scale = 0.;
-
    while (block != data.cend()) {
+      if (!at_scale(*block, scale))
+         continue;
+
       for (SLHAea::Block::const_iterator line = block->cbegin(),
               end = block->cend(); line != end; ++line) {
-         if (!line->is_data_line()) {
-            // read scale from block definition
-            if (line->size() > 3 &&
-                to_lower((*line)[0]) == "block" && (*line)[2] == "Q=")
-               scale = convert_to<double>((*line)[3]);
+         if (!line->is_data_line())
             continue;
-         }
 
          if (line->size() >= 2) {
             const int key = convert_to<int>((*line)[0]);
@@ -183,8 +207,6 @@ double GM2_slha_io::read_block(const std::string& block_name, const Tuple_proces
       ++block;
       block = data.find(block, data.cend(), block_name);
    }
-
-   return scale;
 }
 
 void GM2_slha_io::set_block(const std::ostringstream& lines, Position position)
@@ -277,14 +299,15 @@ void fill_alpha_s(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
    model.set_g3(std::sqrt(4*M_PI*alpha_S));
 }
 
-void fill_soft_parameters_from_msoft(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
+void fill_soft_parameters_from_msoft(const GM2_slha_io& slha_io,
+                                     MSSMNoFV_onshell& model, double scale)
 {
    using namespace std::placeholders;
 
    GM2_slha_io::Tuple_processor processor
       = std::bind(process_msoft_tuple, std::ref(model), _1, _2);
 
-   slha_io.read_block("MSOFT", processor);
+   slha_io.read_block("MSOFT", processor, scale);
 }
 
 void fill_drbar_parameters(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
@@ -293,26 +316,26 @@ void fill_drbar_parameters(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
 
    {
       Eigen::Matrix<double,3,3> Ae(Eigen::Matrix<double,3,3>::Zero());
-      slha_io.read_block("AE", Ae);
+      slha_io.read_block("AE", Ae, scale);
       model.set_Ae(Ae);
    }
    {
       Eigen::Matrix<double,3,3> Au(Eigen::Matrix<double,3,3>::Zero());
-      slha_io.read_block("AU", Au);
+      slha_io.read_block("AU", Au, scale);
       model.set_Au(Au);
    }
    {
       Eigen::Matrix<double,3,3> Ad(Eigen::Matrix<double,3,3>::Zero());
-      slha_io.read_block("AD", Ad);
+      slha_io.read_block("AD", Ad, scale);
       model.set_Ad(Ad);
    }
 
-   fill_soft_parameters_from_msoft(slha_io, model);
+   fill_soft_parameters_from_msoft(slha_io, model, scale);
 
-   model.set_Mu(slha_io.read_entry("HMIX", 1));
+   model.set_Mu(slha_io.read_entry("HMIX", 1, scale));
 
-   const double tanb = slha_io.read_entry("HMIX", 2);
-   const double MA2_drbar = slha_io.read_entry("HMIX", 4);
+   const double tanb = slha_io.read_entry("HMIX", 2, scale);
+   const double MA2_drbar = slha_io.read_entry("HMIX", 4, scale);
    const double MW = model.get_MW();
    const double MZ = model.get_MZ();
    const double cW = MW/MZ;

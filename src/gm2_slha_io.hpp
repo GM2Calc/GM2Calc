@@ -85,10 +85,10 @@ public:
    void read_from_file(const std::string&);
    void read_from_source(const std::string&);
    void read_from_stream(std::istream&);
-   double read_block(const std::string&, const Tuple_processor&) const;
+   void read_block(const std::string&, const Tuple_processor&, double scale = 0) const;
    template <class Derived>
-   double read_block(const std::string&, Eigen::MatrixBase<Derived>&) const;
-   double read_entry(const std::string&, int) const;
+   void read_block(const std::string&, Eigen::MatrixBase<Derived>&, double scale = 0) const;
+   double read_entry(const std::string&, int, double scale = 0) const;
    double read_scale(const std::string&) const;
 
    // writing functions
@@ -104,6 +104,7 @@ private:
    template <class Scalar>
    static Scalar convert_to(const std::string&); ///< convert string
    static std::string to_lower(const std::string&); ///< string to lower case
+   static bool at_scale(const SLHAea::Block&, double); ///< check block scale
 };
 
 template <class Scalar>
@@ -125,28 +126,26 @@ Scalar GM2_slha_io::convert_to(const std::string& str)
  *
  * @param block_name block name
  * @param matrix matrix to be filled
- *
- * @return scale (or 0 if no scale is defined)
+ * @param scale (or 0 if scale should be ignored)
  */
 template <class Derived>
-double GM2_slha_io::read_block(const std::string& block_name, Eigen::MatrixBase<Derived>& matrix) const
+void GM2_slha_io::read_block(const std::string& block_name,
+                             Eigen::MatrixBase<Derived>& matrix,
+                             double scale) const
 {
    SLHAea::Coll::const_iterator block =
       data.find(data.cbegin(), data.cend(), block_name);
 
    const int cols = matrix.cols(), rows = matrix.rows();
-   double scale = 0.;
 
    while (block != data.cend()) {
+      if (!at_scale(*block, scale))
+         continue;
+
       for (SLHAea::Block::const_iterator line = block->cbegin(),
               end = block->cend(); line != end; ++line) {
-         if (!line->is_data_line()) {
-            // read scale from block definition
-            if (line->size() > 3 &&
-                to_lower((*line)[0]) == "block" && (*line)[2] == "Q=")
-               scale = convert_to<double>((*line)[3]);
+         if (!line->is_data_line())
             continue;
-         }
 
          if (cols == 1) {
             // vector
@@ -173,8 +172,6 @@ double GM2_slha_io::read_block(const std::string& block_name, Eigen::MatrixBase<
       ++block;
       block = data.find(block, data.cend(), block_name);
    }
-
-   return scale;
 }
 
 /// read model parameters (GM2Calc input format)
