@@ -35,7 +35,6 @@ using namespace flexiblesusy;
 
 namespace {
 
-   void check_slha_input(const GM2_slha_io&);
    void process_gm2calcconfig_tuple(Config_options&, int, double);
    void process_gm2calcinput_tuple(MSSMNoFV_onshell&, int, double);
    void process_fermion_sminputs_tuple(MSSMNoFV_onshell_physical&, int, double);
@@ -86,16 +85,6 @@ void GM2_slha_io::read_from_stream(std::istream& istr)
    data.read(istr);
 }
 
-/**
- * Read entry \a key from SLHA block \a block_name defined at scale \a
- * scale.
- *
- * @param block_name block name
- * @param key entry key
- * @param scale scale
- *
- * @return value of entry (or 0 if not present)
- */
 double GM2_slha_io::read_entry(const std::string& block_name, int key,
                                double scale) const
 {
@@ -458,7 +447,6 @@ void fill_gm2calc(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
  */
 void fill_slha(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
 {
-   check_slha_input(slha_io);
    fill_pole_masses_from_sminputs_and_mass(slha_io, model.get_physical());
    fill_alpha_s(slha_io, model);
    fill_drbar_parameters(slha_io, model);
@@ -482,21 +470,6 @@ void fill(const GM2_slha_io& slha_io, Config_options& config_options)
 }
 
 namespace {
-
-/**
- * Check the SLHA object for consistency.
- *
- * @param slha_io SLHA object
- */
-void check_slha_input(const GM2_slha_io& slha_io)
-{
-   if (slha_io.read_entry("MODSEL", 11) > 1) {
-      WARNING("blocks with DR-bar parameters at multiple scales"
-              " are given (MODSEL[11] > 1).  The parameter set"
-              " which appears first will be used.");
-   }
-}
-
 void process_gm2calcconfig_tuple(Config_options& config_options,
                                  int key, double value)
 {
