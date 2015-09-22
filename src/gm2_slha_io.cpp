@@ -96,13 +96,12 @@ double GM2_slha_io::read_entry(const std::string& block_name, int key,
    SLHAea::Block::const_iterator line;
 
    while (block != data.cend()) {
-      if (!at_scale(*block, scale))
-         continue;
+      if (at_scale(*block, scale)) {
+         line = block->find(keys);
 
-      line = block->find(keys);
-
-      if (line != block->end() && line->is_data_line() && line->size() > 1)
-         entry = convert_to<double>(line->at(1));
+         if (line != block->end() && line->is_data_line() && line->size() > 1)
+            entry = convert_to<double>(line->at(1));
+      }
 
       ++block;
       block = data.find(block, data.cend(), block_name);
@@ -189,18 +188,17 @@ void GM2_slha_io::read_block(const std::string& block_name,
       data.find(data.cbegin(), data.cend(), block_name);
 
    while (block != data.cend()) {
-      if (!at_scale(*block, scale))
-         continue;
+      if (at_scale(*block, scale)) {
+         for (SLHAea::Block::const_iterator line = block->cbegin(),
+                 end = block->cend(); line != end; ++line) {
+            if (!line->is_data_line())
+               continue;
 
-      for (SLHAea::Block::const_iterator line = block->cbegin(),
-              end = block->cend(); line != end; ++line) {
-         if (!line->is_data_line())
-            continue;
-
-         if (line->size() >= 2) {
-            const int key = convert_to<int>((*line)[0]);
-            const double value = convert_to<double>((*line)[1]);
-            processor(key, value);
+            if (line->size() >= 2) {
+               const int key = convert_to<int>((*line)[0]);
+               const double value = convert_to<double>((*line)[1]);
+               processor(key, value);
+            }
          }
       }
 

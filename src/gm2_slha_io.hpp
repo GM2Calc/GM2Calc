@@ -139,31 +139,30 @@ void GM2_slha_io::read_block(const std::string& block_name,
    const int cols = matrix.cols(), rows = matrix.rows();
 
    while (block != data.cend()) {
-      if (!at_scale(*block, scale))
-         continue;
+      if (at_scale(*block, scale)) {
+         for (SLHAea::Block::const_iterator line = block->cbegin(),
+                 end = block->cend(); line != end; ++line) {
+            if (!line->is_data_line())
+               continue;
 
-      for (SLHAea::Block::const_iterator line = block->cbegin(),
-              end = block->cend(); line != end; ++line) {
-         if (!line->is_data_line())
-            continue;
-
-         if (cols == 1) {
-            // vector
-            if (line->size() >= 2) {
-               const int i = convert_to<int>((*line)[0]) - 1;
-               if (0 <= i && i < rows) {
-                  const double value = convert_to<double>((*line)[1]);
-                  matrix(i,0) = value;
+            if (cols == 1) {
+               // vector
+               if (line->size() >= 2) {
+                  const int i = convert_to<int>((*line)[0]) - 1;
+                  if (0 <= i && i < rows) {
+                     const double value = convert_to<double>((*line)[1]);
+                     matrix(i,0) = value;
+                  }
                }
-            }
-         } else {
-            // martix
-            if (line->size() >= 3) {
-               const int i = convert_to<int>((*line)[0]) - 1;
-               const int k = convert_to<int>((*line)[1]) - 1;
-               if (0 <= i && i < rows && 0 <= k && k < cols) {
-                  const double value = convert_to<double>((*line)[2]);
-                  matrix(i,k) = value;
+            } else {
+               // martix
+               if (line->size() >= 3) {
+                  const int i = convert_to<int>((*line)[0]) - 1;
+                  const int k = convert_to<int>((*line)[1]) - 1;
+                  if (0 <= i && i < rows && 0 <= k && k < cols) {
+                     const double value = convert_to<double>((*line)[2]);
+                     matrix(i,k) = value;
+                  }
                }
             }
          }
