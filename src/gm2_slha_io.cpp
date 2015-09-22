@@ -289,7 +289,7 @@ void fill_soft_parameters_from_msoft(const GM2_slha_io& slha_io, MSSMNoFV_onshel
 
 void fill_drbar_parameters(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
 {
-   model.set_scale(slha_io.read_scale("HMIX"));
+   const double scale = slha_io.read_scale("HMIX");
 
    {
       Eigen::Matrix<double,3,3> Ae(Eigen::Matrix<double,3,3>::Zero());
@@ -324,6 +324,7 @@ void fill_drbar_parameters(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
    model.set_vd(vev * cosb);
    model.set_vu(vev * sinb);
    model.set_BMu(MA2_drbar * sinb * cosb);
+   model.set_scale(scale);
 }
 
 void fill_pole_masses_from_sminputs(
