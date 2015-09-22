@@ -33,6 +33,16 @@ using namespace flexiblesusy;
 #define ERROR(message) std::cerr << "Error: " << message << '\n';
 #define WARNING(message) std::cerr << "Warning: " << message << '\n';
 
+namespace {
+
+   void process_gm2calcconfig_tuple(Config_options&, int, double);
+   void process_gm2calcinput_tuple(MSSMNoFV_onshell&, int, double);
+   void process_fermion_sminputs_tuple(MSSMNoFV_onshell_physical&, int, double);
+   void process_mass_tuple(MSSMNoFV_onshell_physical&, int, double);
+   void process_msoft_tuple(MSSMNoFV_onshell&, int, double);
+
+} // anonymous namespace
+
 /**
  * @brief reads from source
  *
@@ -272,12 +282,13 @@ void fill_soft_parameters_from_msoft(const GM2_slha_io& slha_io, MSSMNoFV_onshel
    using namespace std::placeholders;
 
    GM2_slha_io::Tuple_processor processor
-      = std::bind(GM2_slha_io::process_msoft_tuple, std::ref(model), _1, _2);
+      = std::bind(process_msoft_tuple, std::ref(model), _1, _2);
 
    slha_io.read_block("MSOFT", processor);
 }
 
-void GM2_slha_io::process_msoft_tuple(
+namespace {
+void process_msoft_tuple(
    MSSMNoFV_onshell& model, int key, double value)
 {
    switch (key) {
@@ -306,6 +317,7 @@ void GM2_slha_io::process_msoft_tuple(
       break;
    }
 }
+} // anonymous namespace
 
 void fill_drbar_parameters(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
 {
@@ -352,12 +364,13 @@ void fill_pole_masses_from_sminputs(
    using namespace std::placeholders;
 
    GM2_slha_io::Tuple_processor processor
-      = std::bind(GM2_slha_io::process_fermion_sminputs_tuple, std::ref(physical), _1, _2);
+      = std::bind(process_fermion_sminputs_tuple, std::ref(physical), _1, _2);
 
    slha_io.read_block("SMINPUTS", processor);
 }
 
-void GM2_slha_io::process_fermion_sminputs_tuple(
+namespace {
+void process_fermion_sminputs_tuple(
    MSSMNoFV_onshell_physical& physical, int key, double value)
 {
    switch (key) {
@@ -383,6 +396,7 @@ void GM2_slha_io::process_fermion_sminputs_tuple(
       break;
    }
 }
+} // anonymous namespace
 
 void fill_susy_masses_from_mass(
    const GM2_slha_io& slha_io, MSSMNoFV_onshell_physical& physical)
@@ -390,12 +404,13 @@ void fill_susy_masses_from_mass(
    using namespace std::placeholders;
 
    GM2_slha_io::Tuple_processor processor
-      = std::bind(GM2_slha_io::process_mass_tuple, std::ref(physical), _1, _2);
+      = std::bind(process_mass_tuple, std::ref(physical), _1, _2);
 
    slha_io.read_block("MASS", processor);
 }
 
-void GM2_slha_io::process_mass_tuple(
+namespace {
+void process_mass_tuple(
    MSSMNoFV_onshell_physical& physical, int key, double value)
 {
    switch (key) {
@@ -436,6 +451,7 @@ void GM2_slha_io::process_mass_tuple(
       break;
    }
 }
+} // anonymous namespace
 
 void fill_physical(const GM2_slha_io& slha_io, MSSMNoFV_onshell_physical& physical)
 {
@@ -481,12 +497,13 @@ void fill_gm2_specific_onshell_parameters(const GM2_slha_io& slha_io, MSSMNoFV_o
    using namespace std::placeholders;
 
    GM2_slha_io::Tuple_processor processor
-      = std::bind(GM2_slha_io::process_gm2calcinput_tuple, std::ref(model), _1, _2);
+      = std::bind(process_gm2calcinput_tuple, std::ref(model), _1, _2);
 
    slha_io.read_block("GM2CalcInput", processor);
 }
 
-void GM2_slha_io::process_gm2calcinput_tuple(MSSMNoFV_onshell& model,
+namespace {
+void process_gm2calcinput_tuple(MSSMNoFV_onshell& model,
                                              int key, double value)
 {
    switch (key) {
@@ -540,6 +557,7 @@ void GM2_slha_io::process_gm2calcinput_tuple(MSSMNoFV_onshell& model,
       break;
    }
 }
+} // anonymous namespace
 
 /**
  * Reads model parameters in GM2Calc format from GM2CalcInput and
@@ -581,13 +599,14 @@ void fill(const GM2_slha_io& slha_io, Config_options& config_options)
    using namespace std::placeholders;
 
    GM2_slha_io::Tuple_processor processor
-      = std::bind(GM2_slha_io::process_gm2calcconfig_tuple, std::ref(config_options), _1, _2);
+      = std::bind(process_gm2calcconfig_tuple, std::ref(config_options), _1, _2);
 
    slha_io.read_block("GM2CalcConfig", processor);
 }
 
-void GM2_slha_io::process_gm2calcconfig_tuple(Config_options& config_options,
-                                              int key, double value)
+namespace {
+void process_gm2calcconfig_tuple(Config_options& config_options,
+                                 int key, double value)
 {
    switch (key) {
    case 0:
@@ -611,5 +630,6 @@ void GM2_slha_io::process_gm2calcconfig_tuple(Config_options& config_options,
       break;
    }
 }
+} // anonymous namespace
 
 } // namespace gm2calc
