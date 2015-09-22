@@ -323,6 +323,11 @@ void fill_drbar_parameters(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
 {
    const double scale = slha_io.read_scale("HMIX");
 
+   if (flexiblesusy::is_zero(scale)) {
+      throw EInvalidInput("Could not determine renormalization scale"
+                          " from HMIX block");
+   }
+
    {
       Eigen::Matrix<double,3,3> Ae(Eigen::Matrix<double,3,3>::Zero());
       slha_io.read_block("AE", Ae, scale);
