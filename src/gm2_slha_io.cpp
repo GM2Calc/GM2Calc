@@ -287,38 +287,6 @@ void fill_soft_parameters_from_msoft(const GM2_slha_io& slha_io, MSSMNoFV_onshel
    slha_io.read_block("MSOFT", processor);
 }
 
-namespace {
-void process_msoft_tuple(
-   MSSMNoFV_onshell& model, int key, double value)
-{
-   switch (key) {
-   case 21: model.set_mHd2(                value) ; break;
-   case 22: model.set_mHu2(                value) ; break;
-   case 31: model.set_ml2(0, 0, signed_sqr(value)); break;
-   case 32: model.set_ml2(1, 1, signed_sqr(value)); break;
-   case 33: model.set_ml2(2, 2, signed_sqr(value)); break;
-   case 34: model.set_me2(0, 0, signed_sqr(value)); break;
-   case 35: model.set_me2(1, 1, signed_sqr(value)); break;
-   case 36: model.set_me2(2, 2, signed_sqr(value)); break;
-   case 41: model.set_mq2(0, 0, signed_sqr(value)); break;
-   case 42: model.set_mq2(1, 1, signed_sqr(value)); break;
-   case 43: model.set_mq2(2, 2, signed_sqr(value)); break;
-   case 44: model.set_mu2(0, 0, signed_sqr(value)); break;
-   case 45: model.set_mu2(1, 1, signed_sqr(value)); break;
-   case 46: model.set_mu2(2, 2, signed_sqr(value)); break;
-   case 47: model.set_md2(0, 0, signed_sqr(value)); break;
-   case 48: model.set_md2(1, 1, signed_sqr(value)); break;
-   case 49: model.set_md2(2, 2, signed_sqr(value)); break;
-   case  1: model.set_MassB(               value) ; break;
-   case  2: model.set_MassWB(              value) ; break;
-   case  3: model.set_MassG(               value) ; break;
-   default:
-      WARNING("Unrecognized entry in block MSOFT: " << key);
-      break;
-   }
-}
-} // anonymous namespace
-
 void fill_drbar_parameters(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
 {
    model.set_scale(slha_io.read_scale("HMIX"));
@@ -369,35 +337,6 @@ void fill_pole_masses_from_sminputs(
    slha_io.read_block("SMINPUTS", processor);
 }
 
-namespace {
-void process_fermion_sminputs_tuple(
-   MSSMNoFV_onshell_physical& physical, int key, double value)
-{
-   switch (key) {
-   case  1: /* alpha_em(MZ) */      break;
-   case  2: /* G_F */               break;
-   case  3: /* alpha_s(MZ) */       break;
-   case  4: physical.MVZ = value;   break;
-   case  5: physical.MFb = value;   break;
-   case  6: physical.MFt = value;   break;
-   case  7: physical.MFtau = value; break;
-   case  8: /* nu_3 */              break;
-   case  9: physical.MVWm = value;  break;
-   case 11: physical.MFe = value;   break;
-   case 12: /* nu_1 */              break;
-   case 13: physical.MFm = value;   break;
-   case 14: /* nu_2 */              break;
-   case 21: physical.MFd = value;   break;
-   case 23: physical.MFs = value;   break;
-   case 22: physical.MFu = value;   break;
-   case 24: physical.MFc = value;   break;
-   default:
-      WARNING("Unrecognized entry in block SMINPUTS: " << key);
-      break;
-   }
-}
-} // anonymous namespace
-
 void fill_susy_masses_from_mass(
    const GM2_slha_io& slha_io, MSSMNoFV_onshell_physical& physical)
 {
@@ -408,50 +347,6 @@ void fill_susy_masses_from_mass(
 
    slha_io.read_block("MASS", processor);
 }
-
-namespace {
-void process_mass_tuple(
-   MSSMNoFV_onshell_physical& physical, int key, double value)
-{
-   switch (key) {
-   case 1000012: physical.MSveL = value;    break;
-   case 1000014: physical.MSvmL = value;    break;
-   case 1000016: physical.MSvtL = value;    break;
-   case 1000001: physical.MSd(0) = value;   break;
-   case 2000001: physical.MSd(1) = value;   break;
-   case 1000002: physical.MSu(0) = value;   break;
-   case 2000002: physical.MSu(1) = value;   break;
-   case 1000011: physical.MSe(0) = value;   break;
-   case 2000011: physical.MSe(1) = value;   break;
-   case 1000013: physical.MSm(0) = value;   break;
-   case 2000013: physical.MSm(1) = value;   break;
-   case 1000015: physical.MStau(0) = value; break;
-   case 2000015: physical.MStau(1) = value; break;
-   case 1000003: physical.MSs(0) = value;   break;
-   case 2000003: physical.MSs(1) = value;   break;
-   case 1000004: physical.MSc(0) = value;   break;
-   case 2000004: physical.MSc(1) = value;   break;
-   case 1000005: physical.MSb(0) = value;   break;
-   case 2000005: physical.MSb(1) = value;   break;
-   case 1000006: physical.MSt(0) = value;   break;
-   case 2000006: physical.MSt(1) = value;   break;
-   case 24     : /* MW */                   break;
-   case 25     : physical.Mhh(0) = value;   break;
-   case 35     : physical.Mhh(1) = value;   break;
-   case 36     : physical.MAh(1) = value;   break;
-   case 37     : physical.MHpm(1) = value;  break;
-   case 1000021: /* gluino */               break;
-   case 1000022: physical.MChi(0) = value;  break;
-   case 1000023: physical.MChi(1) = value;  break;
-   case 1000025: physical.MChi(2) = value;  break;
-   case 1000035: physical.MChi(3) = value;  break;
-   case 1000024: physical.MCha(0) = value;  break;
-   case 1000037: physical.MCha(1) = value;  break;
-   default:
-      break;
-   }
-}
-} // anonymous namespace
 
 void fill_physical(const GM2_slha_io& slha_io, MSSMNoFV_onshell_physical& physical)
 {
@@ -501,63 +396,6 @@ void fill_gm2_specific_onshell_parameters(const GM2_slha_io& slha_io, MSSMNoFV_o
 
    slha_io.read_block("GM2CalcInput", processor);
 }
-
-namespace {
-void process_gm2calcinput_tuple(MSSMNoFV_onshell& model,
-                                             int key, double value)
-{
-   switch (key) {
-   case 0: model.set_scale(value);          break;
-   case 1: model.set_alpha_MZ(value);       break;
-   case 2: model.set_alpha_thompson(value); break;
-   case 3: {
-      const double tanb = value;
-      const double MW = model.get_MW();
-      const double MZ = model.get_MZ();
-      const double cW = MW/MZ;
-      const double sW = std::sqrt(1. - cW*cW);
-      const double vev = 2. * MW * sW / model.get_EL();
-      const double sinb = tanb / std::sqrt(1 + tanb*tanb);
-      const double cosb = 1.   / std::sqrt(1 + tanb*tanb);
-      model.set_vd(vev * cosb);
-      model.set_vu(vev * sinb);
-      }
-      break;
-   case  4: model.set_Mu(    value); break;
-   case  5: model.set_MassB( value); break;
-   case  6: model.set_MassWB(value); break;
-   case  7: model.set_MassG( value); break;
-   case  8: model.set_MA0(   value); break;
-   case  9: model.set_ml2(0, 0, signed_sqr(value)); break;
-   case 10: model.set_ml2(1, 1, signed_sqr(value)); break;
-   case 11: model.set_ml2(2, 2, signed_sqr(value)); break;
-   case 12: model.set_me2(0, 0, signed_sqr(value)); break;
-   case 13: model.set_me2(1, 1, signed_sqr(value)); break;
-   case 14: model.set_me2(2, 2, signed_sqr(value)); break;
-   case 15: model.set_mq2(0, 0, signed_sqr(value)); break;
-   case 16: model.set_mq2(1, 1, signed_sqr(value)); break;
-   case 17: model.set_mq2(2, 2, signed_sqr(value)); break;
-   case 18: model.set_mu2(0, 0, signed_sqr(value)); break;
-   case 19: model.set_mu2(1, 1, signed_sqr(value)); break;
-   case 20: model.set_mu2(2, 2, signed_sqr(value)); break;
-   case 21: model.set_md2(0, 0, signed_sqr(value)); break;
-   case 22: model.set_md2(1, 1, signed_sqr(value)); break;
-   case 23: model.set_md2(2, 2, signed_sqr(value)); break;
-   case 24: model.set_Ae( 0, 0, value); break;
-   case 25: model.set_Ae( 1, 1, value); break;
-   case 26: model.set_Ae( 2, 2, value); break;
-   case 27: model.set_Ad( 0, 0, value); break;
-   case 28: model.set_Ad( 1, 1, value); break;
-   case 29: model.set_Ad( 2, 2, value); break;
-   case 30: model.set_Au( 0, 0, value); break;
-   case 31: model.set_Au( 1, 1, value); break;
-   case 32: model.set_Au( 2, 2, value); break;
-   default:
-      WARNING("Unrecognized entry in block GM2CalcInput: " << key);
-      break;
-   }
-}
-} // anonymous namespace
 
 /**
  * Reads model parameters in GM2Calc format from GM2CalcInput and
@@ -627,6 +465,160 @@ void process_gm2calcconfig_tuple(Config_options& config_options,
       break;
    default:
       WARNING("Unrecognized entry in block GM2CalcConfig: " << key);
+      break;
+   }
+}
+
+void process_gm2calcinput_tuple(MSSMNoFV_onshell& model,
+                                             int key, double value)
+{
+   switch (key) {
+   case 0: model.set_scale(value);          break;
+   case 1: model.set_alpha_MZ(value);       break;
+   case 2: model.set_alpha_thompson(value); break;
+   case 3: {
+      const double tanb = value;
+      const double MW = model.get_MW();
+      const double MZ = model.get_MZ();
+      const double cW = MW/MZ;
+      const double sW = std::sqrt(1. - cW*cW);
+      const double vev = 2. * MW * sW / model.get_EL();
+      const double sinb = tanb / std::sqrt(1 + tanb*tanb);
+      const double cosb = 1.   / std::sqrt(1 + tanb*tanb);
+      model.set_vd(vev * cosb);
+      model.set_vu(vev * sinb);
+      }
+      break;
+   case  4: model.set_Mu(    value); break;
+   case  5: model.set_MassB( value); break;
+   case  6: model.set_MassWB(value); break;
+   case  7: model.set_MassG( value); break;
+   case  8: model.set_MA0(   value); break;
+   case  9: model.set_ml2(0, 0, signed_sqr(value)); break;
+   case 10: model.set_ml2(1, 1, signed_sqr(value)); break;
+   case 11: model.set_ml2(2, 2, signed_sqr(value)); break;
+   case 12: model.set_me2(0, 0, signed_sqr(value)); break;
+   case 13: model.set_me2(1, 1, signed_sqr(value)); break;
+   case 14: model.set_me2(2, 2, signed_sqr(value)); break;
+   case 15: model.set_mq2(0, 0, signed_sqr(value)); break;
+   case 16: model.set_mq2(1, 1, signed_sqr(value)); break;
+   case 17: model.set_mq2(2, 2, signed_sqr(value)); break;
+   case 18: model.set_mu2(0, 0, signed_sqr(value)); break;
+   case 19: model.set_mu2(1, 1, signed_sqr(value)); break;
+   case 20: model.set_mu2(2, 2, signed_sqr(value)); break;
+   case 21: model.set_md2(0, 0, signed_sqr(value)); break;
+   case 22: model.set_md2(1, 1, signed_sqr(value)); break;
+   case 23: model.set_md2(2, 2, signed_sqr(value)); break;
+   case 24: model.set_Ae( 0, 0, value); break;
+   case 25: model.set_Ae( 1, 1, value); break;
+   case 26: model.set_Ae( 2, 2, value); break;
+   case 27: model.set_Ad( 0, 0, value); break;
+   case 28: model.set_Ad( 1, 1, value); break;
+   case 29: model.set_Ad( 2, 2, value); break;
+   case 30: model.set_Au( 0, 0, value); break;
+   case 31: model.set_Au( 1, 1, value); break;
+   case 32: model.set_Au( 2, 2, value); break;
+   default:
+      WARNING("Unrecognized entry in block GM2CalcInput: " << key);
+      break;
+   }
+}
+
+void process_fermion_sminputs_tuple(
+   MSSMNoFV_onshell_physical& physical, int key, double value)
+{
+   switch (key) {
+   case  1: /* alpha_em(MZ) */      break;
+   case  2: /* G_F */               break;
+   case  3: /* alpha_s(MZ) */       break;
+   case  4: physical.MVZ = value;   break;
+   case  5: physical.MFb = value;   break;
+   case  6: physical.MFt = value;   break;
+   case  7: physical.MFtau = value; break;
+   case  8: /* nu_3 */              break;
+   case  9: physical.MVWm = value;  break;
+   case 11: physical.MFe = value;   break;
+   case 12: /* nu_1 */              break;
+   case 13: physical.MFm = value;   break;
+   case 14: /* nu_2 */              break;
+   case 21: physical.MFd = value;   break;
+   case 23: physical.MFs = value;   break;
+   case 22: physical.MFu = value;   break;
+   case 24: physical.MFc = value;   break;
+   default:
+      WARNING("Unrecognized entry in block SMINPUTS: " << key);
+      break;
+   }
+}
+
+void process_msoft_tuple(
+   MSSMNoFV_onshell& model, int key, double value)
+{
+   switch (key) {
+   case 21: model.set_mHd2(                value) ; break;
+   case 22: model.set_mHu2(                value) ; break;
+   case 31: model.set_ml2(0, 0, signed_sqr(value)); break;
+   case 32: model.set_ml2(1, 1, signed_sqr(value)); break;
+   case 33: model.set_ml2(2, 2, signed_sqr(value)); break;
+   case 34: model.set_me2(0, 0, signed_sqr(value)); break;
+   case 35: model.set_me2(1, 1, signed_sqr(value)); break;
+   case 36: model.set_me2(2, 2, signed_sqr(value)); break;
+   case 41: model.set_mq2(0, 0, signed_sqr(value)); break;
+   case 42: model.set_mq2(1, 1, signed_sqr(value)); break;
+   case 43: model.set_mq2(2, 2, signed_sqr(value)); break;
+   case 44: model.set_mu2(0, 0, signed_sqr(value)); break;
+   case 45: model.set_mu2(1, 1, signed_sqr(value)); break;
+   case 46: model.set_mu2(2, 2, signed_sqr(value)); break;
+   case 47: model.set_md2(0, 0, signed_sqr(value)); break;
+   case 48: model.set_md2(1, 1, signed_sqr(value)); break;
+   case 49: model.set_md2(2, 2, signed_sqr(value)); break;
+   case  1: model.set_MassB(               value) ; break;
+   case  2: model.set_MassWB(              value) ; break;
+   case  3: model.set_MassG(               value) ; break;
+   default:
+      WARNING("Unrecognized entry in block MSOFT: " << key);
+      break;
+   }
+}
+
+void process_mass_tuple(
+   MSSMNoFV_onshell_physical& physical, int key, double value)
+{
+   switch (key) {
+   case 1000012: physical.MSveL = value;    break;
+   case 1000014: physical.MSvmL = value;    break;
+   case 1000016: physical.MSvtL = value;    break;
+   case 1000001: physical.MSd(0) = value;   break;
+   case 2000001: physical.MSd(1) = value;   break;
+   case 1000002: physical.MSu(0) = value;   break;
+   case 2000002: physical.MSu(1) = value;   break;
+   case 1000011: physical.MSe(0) = value;   break;
+   case 2000011: physical.MSe(1) = value;   break;
+   case 1000013: physical.MSm(0) = value;   break;
+   case 2000013: physical.MSm(1) = value;   break;
+   case 1000015: physical.MStau(0) = value; break;
+   case 2000015: physical.MStau(1) = value; break;
+   case 1000003: physical.MSs(0) = value;   break;
+   case 2000003: physical.MSs(1) = value;   break;
+   case 1000004: physical.MSc(0) = value;   break;
+   case 2000004: physical.MSc(1) = value;   break;
+   case 1000005: physical.MSb(0) = value;   break;
+   case 2000005: physical.MSb(1) = value;   break;
+   case 1000006: physical.MSt(0) = value;   break;
+   case 2000006: physical.MSt(1) = value;   break;
+   case 24     : /* MW */                   break;
+   case 25     : physical.Mhh(0) = value;   break;
+   case 35     : physical.Mhh(1) = value;   break;
+   case 36     : physical.MAh(1) = value;   break;
+   case 37     : physical.MHpm(1) = value;  break;
+   case 1000021: /* gluino */               break;
+   case 1000022: physical.MChi(0) = value;  break;
+   case 1000023: physical.MChi(1) = value;  break;
+   case 1000025: physical.MChi(2) = value;  break;
+   case 1000035: physical.MChi(3) = value;  break;
+   case 1000024: physical.MCha(0) = value;  break;
+   case 1000037: physical.MCha(1) = value;  break;
+   default:
       break;
    }
 }
