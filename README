@@ -142,7 +142,7 @@ The calculation of a_mu can be controlled in the GM2CalcConfig block.
    2: write the value of (g-2)/2 into LOWEN block, entry 6
    3: write the value of (g-2)/2 into SPhenoLowEnergy block, entry 21
 
- * GM2CalcConfig[1]: loop order of the calculation (1 or 2)
+ * GM2CalcConfig[1]: loop order of the calculation (0, 1 or 2)
 
  * GM2CalcConfig[2]: disable/enable tan(beta) resummation (0 or 1)
 
