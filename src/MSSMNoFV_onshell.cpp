@@ -60,6 +60,7 @@ MSSMNoFV_onshell::MSSMNoFV_onshell()
    , Au(Eigen::Matrix<double,3,3>::Zero())
    , Ad(Eigen::Matrix<double,3,3>::Zero())
 {
+   set_g3(calculate_e(0.1184));
    get_physical().MFt = 173.34;
    get_physical().MFb = 4.18;
    get_physical().MFe = 0.000510998928;
