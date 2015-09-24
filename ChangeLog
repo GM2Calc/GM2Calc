@@ -1,4 +1,4 @@
-GM2Calc-0.2.11 [not released yet]
+GM2Calc-0.2.11 [September, 24 2015]
 
  * Change (commit 16a8118): Don't throw an exception if gluino mass,
    M3, is zero, as it contributes at the 2-loop level.
