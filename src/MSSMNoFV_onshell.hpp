@@ -73,6 +73,8 @@ public:
    double get_MUDIM() const { return get_scale(); }
    /// tan(beta)
    double get_TB() const { return get_vu() / get_vd(); }
+   /// Vacuum expectation value v
+   double get_vev() const;
    const Eigen::Matrix<double,3,3>& get_Ae() const { return Ae; }
    const Eigen::Matrix<double,3,3>& get_Au() const { return Au; }
    const Eigen::Matrix<double,3,3>& get_Ad() const { return Ad; }
