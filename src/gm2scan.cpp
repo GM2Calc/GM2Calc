@@ -42,18 +42,8 @@ gm2calc::MSSMNoFV_onshell setup()
    const double ML = 1.777;
    const double MT = 173.5;
    const double MB = 4.18;
-   const double cW = MW / MZ;
-   const double EL = model.get_EL(); // default
-   const double g2 = EL / std::sqrt(1. - cW*cW);
-   const double vev = 2. * MW / g2;
-   Eigen::Matrix<double,3,3> Ae;
-   Eigen::Matrix<double,3,3> Au;
-   Eigen::Matrix<double,3,3> Ad;
-   Eigen::Matrix<double,3,3> mq2;
-   Eigen::Matrix<double,3,3> ml2;
-   Eigen::Matrix<double,3,3> md2;
-   Eigen::Matrix<double,3,3> mu2;
-   Eigen::Matrix<double,3,3> me2;
+   Eigen::Matrix<double,3,3> Ae, Au, Ad;
+   Eigen::Matrix<double,3,3> mq2, ml2, md2, mu2, me2;
    const double Mu = 350;
    const double M1 = 150;
    const double M2 = 300;
@@ -66,18 +56,20 @@ gm2calc::MSSMNoFV_onshell setup()
    Ad.setZero();
    Ae.setZero();
 
-   mq2 << 500*500,           0,           0,
-                    0, 500*500,           0,
-                    0,       0,      500*500;
-
+   mq2.diagonal().setConstant(500 * 500);
    ml2 = md2 = mu2 = me2 = mq2;
 
    // set parameters
-   model.set_g1(std::sqrt(5. / 3.) * EL / cW);
-   model.set_g2(g2);
+   model.get_physical().MVWm = MW;
+   model.get_physical().MVZ = MZ;
+   model.get_physical().MFe = ME;
+   model.get_physical().MFm = MM;
+   model.get_physical().MFtau = ML;
+   model.get_physical().MFt = MT;
+   model.get_physical().MFb = MB;
+
    model.set_g3(g3);
-   model.set_vu(vev / sqrt(1. + 1. / (TB*TB)));
-   model.set_vd(model.get_vu() / TB);
+   model.set_TB(TB);
    model.set_Ae(Ae);
    model.set_Ad(Ad);
    model.set_Au(Au);
@@ -92,14 +84,6 @@ gm2calc::MSSMNoFV_onshell setup()
    model.set_MassG(M3);
    model.set_scale(scale);
    model.set_MA0(MA0);
-
-   model.get_physical().MVWm = MW;
-   model.get_physical().MVZ = MZ;
-   model.get_physical().MFe = ME;
-   model.get_physical().MFm = MM;
-   model.get_physical().MFtau = ML;
-   model.get_physical().MFt = MT;
-   model.get_physical().MFb = MB;
 
    return model;
 }
