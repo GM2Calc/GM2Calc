@@ -3,6 +3,11 @@ GM2Calc-0.2.12 [not released yet]
  * Change (commit 6205c0b): The strong gauge coupling g3 is now set to
    the non-zero PDG default value of 0.1184.
 
+ * Change (commit 45b914c): The C++ user interface for changing the
+   values of vu and vd has been simplified: Now the user only needs to
+   set TB.  The VEV v = sqrt(vu^2 + vd^2) is calculated internally
+   using the W and Z pole masses.
+
 GM2Calc-0.2.11 [September, 24 2015]
 
  * Change (commit 16a8118): Don't throw an exception if gluino mass,
