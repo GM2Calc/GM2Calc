@@ -8,6 +8,11 @@ GM2Calc-0.2.12 [not released yet]
    set TB.  The VEV v = sqrt(vu^2 + vd^2) is calculated internally
    using the W and Z pole masses.
 
+ * Change (commit 0659005): Regenerate default SLHA input file (CMSSM
+   10.1.1, arXiv:1109.3859) with FlexibleSUSY 1.2.2.  Note: slightly
+   updated SM input parameters are used compared to SoftSUSY's CMSSM
+   10.1.1 version inOutFiles/lesHouchesInput .
+
 GM2Calc-0.2.11 [September, 24 2015]
 
  * Change (commit 16a8118): Don't throw an exception if gluino mass,
