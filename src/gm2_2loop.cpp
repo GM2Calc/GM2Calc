@@ -108,7 +108,11 @@ double Delta_g1(const MSSMNoFV_onshell& model) {
              + 1. / 6. * log(sqrt(mq2(0, 0)) / LogScale)
              + 1. / 6. * log(sqrt(mq2(1, 1)) / LogScale)
              + 1. / 6. * log(sqrt(mq2(2, 2)) / LogScale)
+             + log(sqrt(me2(0, 0)) / LogScale)
+             + log(sqrt(me2(1, 1)) / LogScale)
              + log(sqrt(me2(2, 2)) / LogScale)
+             + 0.5 * log(sqrt(ml2(0, 0)) / LogScale)
+             + 0.5 * log(sqrt(ml2(1, 1)) / LogScale)
              + 0.5 * log(sqrt(ml2(2, 2)) / LogScale)) );
 }
 
@@ -161,6 +165,8 @@ double Delta_g2(const MSSMNoFV_onshell& model) {
             * (1.5 * log(sqrt(mq2(0, 0)) / LogScale)
              + 1.5 * log(sqrt(mq2(1, 1)) / LogScale)
              + 1.5 * log(sqrt(mq2(2, 2)) / LogScale)
+             + 0.5 * log(sqrt(ml2(0, 0)) / LogScale)
+             + 0.5 * log(sqrt(ml2(1, 1)) / LogScale)
              + 0.5 * log(sqrt(ml2(2, 2)) / LogScale)) );
 }
 
