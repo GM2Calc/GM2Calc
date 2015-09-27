@@ -34,6 +34,8 @@ double calculate_amu_1loop(const MSSMNoFV_onshell&);
 /// calculates full 1-loop SUSY contributions to (g-2) in the MSSM (no tan(beta) resummation)
 double calculate_amu_1loop_non_tan_beta_resummed(const MSSMNoFV_onshell&);
 
+// === routines for individual 1-loop contributions ===
+
 /// 1-loop neutralino contribution
 double amuChi0(const MSSMNoFV_onshell&);
 
@@ -42,11 +44,15 @@ double amuChipm(const MSSMNoFV_onshell&);
 
 // === approximations ===
 
+// main routines
+
 /// 1-loop leading log approximation
 double amu1Lapprox(const MSSMNoFV_onshell&);
 
 /// 1-loop leading log approximation w/o explicit tan(beta) resummation
 double amu1Lapprox_non_tan_beta_resummed(const MSSMNoFV_onshell&);
+
+// routines for individual contributions
 
 /// 1-loop wino--Higgsino, muon-sneutrino leading log approximation
 double amuWHnu(const MSSMNoFV_onshell&);

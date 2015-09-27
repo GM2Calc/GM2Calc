@@ -33,14 +33,20 @@ double calculate_amu_2loop_non_tan_beta_resummed(const MSSMNoFV_onshell&);
 
 // === 2-loop fermion/sfermion approximations ===
 
+// main routines
+
 double amu2LFSfapprox(const MSSMNoFV_onshell&);
 double amu2LFSfapprox_non_tan_beta_resummed(const MSSMNoFV_onshell&);
+
+// routines for individual contributions
 
 double amuWHnu2L(const MSSMNoFV_onshell&);
 double amuWHmuL2L(const MSSMNoFV_onshell&);
 double amuBHmuL2L(const MSSMNoFV_onshell&);
 double amuBHmuR2L(const MSSMNoFV_onshell&);
 double amuBmuLmuR2L(const MSSMNoFV_onshell&);
+
+// routines for sub-expressions
 
 double LogNorm(const MSSMNoFV_onshell&);
 
@@ -51,7 +57,6 @@ double Delta_YukBinoHiggsino(const MSSMNoFV_onshell&);
 double Delta_YukWinoHiggsino(const MSSMNoFV_onshell&);
 double Delta_TanBeta(const MSSMNoFV_onshell&);
 
-
 // === photonic 2-loop corrections ===
 
 double amuChipmPhotonic(const MSSMNoFV_onshell&);
@@ -59,8 +64,12 @@ double amuChi0Photonic(const MSSMNoFV_onshell&);
 
 // === SUSY 2L(a) diagrams ===
 
+// main routines
+
 double amu2LaSferm(const MSSMNoFV_onshell&);
 double amu2LaCha(const MSSMNoFV_onshell&);
+
+// routines for sub-expressions (with tan(beta) resummation)
 
 double tan_alpha(const MSSMNoFV_onshell&);
 Eigen::Matrix<std::complex<double>,3,3> lambda_mu_cha(const MSSMNoFV_onshell&);
