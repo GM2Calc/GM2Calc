@@ -1,4 +1,4 @@
-GM2Calc-0.2.12 [not released yet]
+GM2Calc-0.2.12 [September, 27 2015]
 
  * Change (commit 6205c0b): The strong gauge coupling g3 is now set to
    the non-zero PDG default value of 0.1184.
