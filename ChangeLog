@@ -15,7 +15,8 @@ GM2Calc-0.2.12 [September, 27 2015]
 
  * Change (commit 5e993dd): 2-loop fermion/sfermion contributions from
    1st and 2nd generation sleptons have been added to Delta_g1 and
-   Delta_g2 (Eq (6.6a) arxiv:1311.1775).  Patch: Dominik Stöckinger.
+   Delta_g2 (Eqs. (6.6a)-(6.6b) arxiv:1311.1775).  Patch: Dominik
+   Stöckinger.
 
 GM2Calc-0.2.11 [September, 24 2015]
 
