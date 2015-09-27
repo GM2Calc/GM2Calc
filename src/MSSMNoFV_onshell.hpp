@@ -33,7 +33,7 @@ namespace gm2calc {
  * calculation of \f$a_\mu\f$: The electromagnetic coupling at MZ w/o
  * hadronic corrections, \f$\alpha_{\text{em}}(M_Z)\f$, and the
  * electromagnetic coupling in the Thompson limit,
- * \f$\alpha_{\text{em},0}\f$.
+ * \f$\alpha_{\text{em}}(0)\f$.
  *
  * The class also contains helper functions to convert DR-bar
  * parameters to the on-shell scheme.
