@@ -88,6 +88,9 @@ double LogNorm(const MSSMNoFV_onshell& model) {
 
 /**
  * Calculates \f$\Delta_{g_1}\f$, Eq (6.6a) arxiv:1311.1775.
+ *
+ * Contributions from 1st and 2nd generation sleptons have been
+ * included in addition.
  */
 double Delta_g1(const MSSMNoFV_onshell& model) {
    const double gY = model.get_gY();
@@ -154,6 +157,9 @@ double Delta_YukBinoHiggsino(const MSSMNoFV_onshell& model) {
 
 /**
  * Calculates \f$\Delta_{g_2}\f$, Eq (6.6b) arxiv:1311.1775.
+ *
+ * Contributions from 1st and 2nd generation sleptons have been
+ * included in addition.
  */
 double Delta_g2(const MSSMNoFV_onshell& model) {
    const double g2 = model.get_g2();
