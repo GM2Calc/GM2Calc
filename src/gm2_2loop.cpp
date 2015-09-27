@@ -185,7 +185,7 @@ double Delta_YukWinoHiggsino(const MSSMNoFV_onshell& model) {
    const Eigen::Matrix<double,3,3> mq2(model.get_mq2());
    const double LogScale = LogNorm(model);
 
-   return oneOver16PiSqr * - 6. * sqr(ytop) * log(sqrt(mq2(2, 2)) / LogScale);
+   return oneOver16PiSqr * (-6.) * sqr(ytop) * log(sqrt(mq2(2, 2)) / LogScale);
 }
 
 /**
