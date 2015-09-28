@@ -341,16 +341,10 @@ void fill_drbar_parameters(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
 
    const double tanb = slha_io.read_entry("HMIX", 2, scale);
    const double MA2_drbar = slha_io.read_entry("HMIX", 4, scale);
-   const double MW = model.get_MW();
-   const double MZ = model.get_MZ();
-   const double cW = MW/MZ;
-   const double sW = std::sqrt(1. - cW*cW);
-   const double vev = 2. * model.get_MW() * sW / model.get_EL();
    const double sinb = tanb / std::sqrt(1 + tanb*tanb);
    const double cosb = 1.   / std::sqrt(1 + tanb*tanb);
 
-   model.set_vd(vev * cosb);
-   model.set_vu(vev * sinb);
+   model.set_TB(tanb);
    model.set_BMu(MA2_drbar * sinb * cosb);
    model.set_scale(scale);
 }
