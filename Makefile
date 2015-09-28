@@ -81,8 +81,7 @@ make.args:
 	       'MAKELIB="$(MAKELIB)"' \
 	       'BLASLIBS="$(BLASLIBS)"' \
 	       'BOOSTFLAGS="$(BOOSTFLAGS)"' \
-	       'EIGENFLAGS="$(EIGENFLAGS)"' \
-	       'LAPACKLIBS="$(LAPACKLIBS)"'; \
+	       'EIGENFLAGS="$(EIGENFLAGS)"'; \
 	} > $@-t
 	mv $@-t $@
 
