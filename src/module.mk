@@ -21,7 +21,7 @@ EXEsrc_SRC := \
 		$(DIR)/gm2scan.cpp
 
 LIBsrc_OBJ := \
-		$(patsubst %.cpp, %.o, $(filter %.cpp, $(LIBsrc_SRC)))
+		$(patsubst %.cpp, %.o, $(LIBsrc_SRC))
 
 EXEsrc_OBJ := \
 		$(EXEsrc_SRC:.cpp=.o)
