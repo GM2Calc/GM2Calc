@@ -578,8 +578,8 @@ void process_msoft_tuple(
    MSSMNoFV_onshell& model, int key, double value)
 {
    switch (key) {
-   case 21: model.set_mHd2(                value) ; break;
-   case 22: model.set_mHu2(                value) ; break;
+   case 21: /* mHd2 */                            ; break;
+   case 22: /* mHu2 */                            ; break;
    case 31: model.set_ml2(0, 0, signed_sqr(value)); break;
    case 32: model.set_ml2(1, 1, signed_sqr(value)); break;
    case 33: model.set_ml2(2, 2, signed_sqr(value)); break;
