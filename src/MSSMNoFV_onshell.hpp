@@ -93,7 +93,10 @@ public:
    double get_MT() const { return get_physical().MFt; }
    double get_MD() const { return get_physical().MFd; }
    double get_MS() const { return get_physical().MFs; }
-   double get_MB() const { return get_physical().MFb; }
+   /// returns mb(mb) MS-bar
+   double get_MBMB() const { return get_physical().MFb; }
+   /// returns mb(MZ) DR-bar
+   double get_MB() const;
    double get_MA0() const { return get_physical().MAh(1); }
    const Eigen::Array<double,2,1>&  get_MSmu() const { return get_MSm(); }
    const Eigen::Matrix<double,2,2>& get_USmu() const { return get_ZM(); }

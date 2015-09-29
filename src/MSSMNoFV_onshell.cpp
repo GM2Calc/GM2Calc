@@ -20,6 +20,7 @@
 #include "numerics2.hpp"
 #include "gm2_error.hpp"
 #include "gm2_1loop.hpp"
+#include "gm2_mb.hpp"
 #include "ffunctions.hpp"
 
 #include <cmath>
@@ -266,6 +267,23 @@ void MSSMNoFV_onshell::convert_vev()
 
    set_vu(vev / sqrt(1. + 1. / sqr(TB)));
    set_vd(get_vu() / TB);
+}
+
+/**
+ * Returns mb(MZ) in DR-bar scheme.
+ *
+ * mb(MZ) DR-bar is calculated from mb(mb) MS-bar using the function
+ * \a calculate_mb_SM5_DRbar .
+ *
+ * @return mb(MZ) DR-bar
+ */
+double MSSMNoFV_onshell::get_MB() const
+{
+   const double mb_mb = get_MBMB();
+   const double alpha_s = calculate_alpha(get_g3());
+   const double mb_DRbar = calculate_mb_SM5_DRbar(mb_mb, alpha_s, get_MZ());
+
+   return mb_DRbar;
 }
 
 void MSSMNoFV_onshell::convert_yukawa_couplings_treelevel()
@@ -678,7 +696,8 @@ std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)
       "--------------------------------------\n"
       "MM          = " << model.get_MM() << '\n' <<
       "MT          = " << model.get_MT() << '\n' <<
-      "mb(mb)      = " << model.get_MB() << '\n' <<
+      "mb(mb)      = " << model.get_MBMB() << '\n' <<
+      "mb(MZ)      = " << model.get_MB() << '\n' <<
       "MTau        = " << model.get_ML() << '\n' <<
       "MW          = " << model.get_MW() << '\n' <<
       "MZ          = " << model.get_MZ() << '\n' <<
