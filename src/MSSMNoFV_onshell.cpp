@@ -696,7 +696,15 @@ std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)
       "UStau       = " << model.get_UStau().row(0) << ' '
                        << model.get_UStau().row(1) << '\n' <<
       "MCha        = " << model.get_MCha().transpose() << '\n' <<
+      "UM          = " << model.get_UM().row(0) << ' '
+                       << model.get_UM().row(1) << '\n' <<
+      "UP          = " << model.get_UP().row(0) << ' '
+                       << model.get_UP().row(1) << '\n' <<
       "MChi        = " << model.get_MChi().transpose() << '\n' <<
+      "ZN          = " << model.get_ZN().row(0) << '\n' <<
+      "              " << model.get_ZN().row(1) << '\n' <<
+      "              " << model.get_ZN().row(2) << '\n' <<
+      "              " << model.get_ZN().row(3) << '\n' <<
       "MA0         = " << model.get_MA0() << '\n' <<
       "MH          = " << model.get_Mhh().transpose() << '\n' <<
       "tan(beta)   = " << model.get_TB() << '\n' <<
