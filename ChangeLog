@@ -1,3 +1,8 @@
+GM2Calc-0.2.13 [not released yet]
+
+ * Change (commit 9230209): Print neutralino and chargino mixing
+   matrices in verbose output.
+
 GM2Calc-0.2.12 [September, 27 2015]
 
  * Change (commit 6205c0b): The strong gauge coupling g3 is now set to
