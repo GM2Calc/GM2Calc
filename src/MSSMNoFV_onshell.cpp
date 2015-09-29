@@ -678,7 +678,7 @@ std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)
       "--------------------------------------\n"
       "MM          = " << model.get_MM() << '\n' <<
       "MT          = " << model.get_MT() << '\n' <<
-      "MB          = " << model.get_MB() << '\n' <<
+      "mb(mb)      = " << model.get_MB() << '\n' <<
       "MTau        = " << model.get_ML() << '\n' <<
       "MW          = " << model.get_MW() << '\n' <<
       "MZ          = " << model.get_MZ() << '\n' <<
