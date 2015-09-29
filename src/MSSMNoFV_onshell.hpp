@@ -32,7 +32,7 @@ namespace gm2calc {
  * In addition, the class stores parameters necessary for the
  * calculation of \f$a_\mu\f$: The electromagnetic coupling at MZ w/o
  * hadronic corrections, \f$\alpha_{\text{em}}(M_Z)\f$, and the
- * electromagnetic coupling in the Thompson limit,
+ * electromagnetic coupling in the Thomson limit,
  * \f$\alpha_{\text{em}}(0)\f$.
  *
  * The class also contains helper functions to convert DR-bar
@@ -49,7 +49,7 @@ public:
 
    /// set alpha(MZ) w/o hadronic corrections
    void set_alpha_MZ(double);
-   /// set alpha in the Thompson limit
+   /// set alpha in the Thomson limit
    void set_alpha_thompson(double);
 
    void set_Ae(const Eigen::Matrix<double,3,3>& A) { Ae = A; }
@@ -65,7 +65,7 @@ public:
 
    /// electromagnetic gauge coupling at MZ w/o hadronic corrections
    double get_EL() const { return EL; }
-   /// electromagnetic gauge coupling in Thompson limit
+   /// electromagnetic gauge coupling in Thomson limit
    double get_EL0() const { return EL0; }
    /// Hypercharge gauge coupling
    double get_gY() const { return sqrt(0.6) * get_g1(); }
@@ -111,7 +111,7 @@ public:
 private:
    bool verbose_output; ///< verbose output
    double EL;  ///< electromagnetic gauge coupling at MZ w/o hadronic corrections
-   double EL0; ///< electromagnetic gauge coupling in the Thompson limit
+   double EL0; ///< electromagnetic gauge coupling in the Thomson limit
    Eigen::Matrix<double,3,3> Ae, Au, Ad; ///< trilinear couplings
 
    static bool is_equal(double, double, double);

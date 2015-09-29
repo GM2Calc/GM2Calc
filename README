@@ -112,7 +112,7 @@ reads the input parameters from the following blocks:
  * MSOFT: soft-breaking gaugino masses, soft-breaking sfermion masses,
    renormalization scale
 
- * GM2CalcInput: alpha_em(MZ), alpha_em in the Thompson limit
+ * GM2CalcInput: alpha_em(MZ), alpha_em in the Thomson limit
 
 
 GM2Calc interface
@@ -125,7 +125,7 @@ GM2Calc reads the input parameters from the following blocks:
    alpha_s(MZ)
 
  * GM2CalcInput: renormalization scale, alpha_em(MZ), alpha_em in the
-   Thompson limit, tan(beta), mu parameter, soft-breaking gaugino
+   Thomson limit, tan(beta), mu parameter, soft-breaking gaugino
    masses, soft-breaking Bmu parameter, soft-breaking sfermion masses,
    soft-breaking trilinear couplings
 

@@ -14,7 +14,7 @@ Block GM2CalcConfig
      4     0     # verbose output (0 or 1)
 Block GM2CalcInput
      1     0.00775531       # alpha(MZ)
-     2     0.00729735       # alpha in Thompson limit
+     2     0.00729735       # alpha in Thomson limit
 Block SMINPUTS
      3     0.1184           # alpha_s(MZ) SM MSbar
      4     9.11876000E+01   # MZ(pole)

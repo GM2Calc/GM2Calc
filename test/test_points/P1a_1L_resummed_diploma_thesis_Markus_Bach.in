@@ -7,7 +7,7 @@ Block GM2CalcConfig
 Block GM2CalcInput
      0     8.66360379E+02   # ren. scale
      1     0.007755313      # alpha(MZ)
-     2     0.00729735       # alpha in Thompson limit
+     2     0.00729735       # alpha in Thomson limit
      3     100000000        # tan(beta) DR-bar at ren. scale
      4     2000             # Mu parameter
      5     200              # M1
