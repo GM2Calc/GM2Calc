@@ -130,14 +130,14 @@ double conversion_mb_MSbar_to_DRbar(double alpha) {
 } // namespace gm2calc_mb
 
 /**
- * Calculates mb(Q) in the DR-bar scheme using the approach described
- * in arxiv:hep-ph/0207126 .
+ * Calculates mb(Q) in the DR-bar scheme in the SM w/ 5 active quark
+ * flavours using the approach described in arxiv:hep-ph/0207126 .
  *
  * @param mb_mb mb(mb) MS-bar in SM w/ 5 active quark flavours
  * @param alpha_s alpha_s MS-bar in SM w/ 5 quark flavours at scale Q
  * @param scale renormalization scale Q
  *
- * @return mb(Q) DR-bar
+ * @return mb(Q) DR-bar in the SM w/ 5 quarks
  */
 double calculate_mb_SM5_DRbar(
    double mb_mb, double alpha_s, double scale)
@@ -149,6 +149,7 @@ double calculate_mb_SM5_DRbar(
    const double alpha_s_mb = mb::calculate_alpha_s_SM5_at(mb_mb, lambda_qcd);
 
    // run mb to destination scale
+   // Here alpha_s must be given at the destination scale `scale'.
    const double mb = mb_mb * mb::Fb(alpha_s) / mb::Fb(alpha_s_mb);
 
    // DR-bar conversion
