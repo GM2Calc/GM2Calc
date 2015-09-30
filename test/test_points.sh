@@ -17,25 +17,25 @@ points="\
 ${BASEDIR}/test_points/problems_funcs_Fa_Fb.in,gm2calc,0,-7.26010839613302e-09
 ${BASEDIR}/test_points/problems_funcs_I_FC_FN.in,gm2calc,0,-7.38800970725992e-09
 ${BASEDIR}/test_points/P1a_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.80707343687898e-09
-${BASEDIR}/test_points/P1a_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.21415341983917e-09
+${BASEDIR}/test_points/P1a_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.16049628914016e-09
 ${BASEDIR}/test_points/P1b_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.22472102858175e-09
-${BASEDIR}/test_points/P1b_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.12156115512701e-09
+${BASEDIR}/test_points/P1b_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.11758474096628e-09
 ${BASEDIR}/test_points/P1c_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.00765380788945e-09
-${BASEDIR}/test_points/P1c_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.86037459467277e-09
+${BASEDIR}/test_points/P1c_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.86038731887328e-09
 ${BASEDIR}/test_points/P2_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,0,3.1272477101719e-09
-${BASEDIR}/test_points/P2_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,0,3.19468836113327e-09
+${BASEDIR}/test_points/P2_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,0,3.19581635023783e-09
 ${BASEDIR}/test_points/P3_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.78175706564947e-09
-${BASEDIR}/test_points/P3_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.15092158538593e-09
+${BASEDIR}/test_points/P3_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.09394324876113e-09
 ${BASEDIR}/test_points/BM1-1504.05500_1L_resummed.in,gm2calc,1,2.81168064521252e-09
-${BASEDIR}/test_points/BM1-1504.05500_2L_resummed.in,gm2calc,1,2.67367735217833e-09
+${BASEDIR}/test_points/BM1-1504.05500_2L_resummed.in,gm2calc,1,2.67369843449255e-09
 ${BASEDIR}/test_points/BM2-1504.05500_1L_resummed.in,gm2calc,1,3.0339292608166e-09
-${BASEDIR}/test_points/BM2-1504.05500_2L_resummed.in,gm2calc,1,2.88007964291865e-09
+${BASEDIR}/test_points/BM2-1504.05500_2L_resummed.in,gm2calc,1,2.88017459112086e-09
 ${BASEDIR}/test_points/BM3-1504.05500_1L_resummed.in,gm2calc,0,2.61994966785813e-09
-${BASEDIR}/test_points/BM3-1504.05500_2L_resummed.in,gm2calc,0,2.09119724379825e-09
+${BASEDIR}/test_points/BM3-1504.05500_2L_resummed.in,gm2calc,0,2.09846138842161e-09
 ${BASEDIR}/test_points/BM4-1504.05500_1L_resummed.in,gm2calc,1,2.76249843887181e-09
-${BASEDIR}/test_points/BM4-1504.05500_2L_resummed.in,gm2calc,1,2.44109516458416e-09
+${BASEDIR}/test_points/BM4-1504.05500_2L_resummed.in,gm2calc,1,2.44726408970207e-09
 ${BASEDIR}/test_points/BM5-1504.05500_1L_resummed.in,gm2calc,0,2.88732972683492e-09
-${BASEDIR}/test_points/BM5-1504.05500_2L_resummed.in,gm2calc,0,2.95099965363229e-09
+${BASEDIR}/test_points/BM5-1504.05500_2L_resummed.in,gm2calc,0,2.98718794395183e-09
 "
 
 if test ! -x "${GM2CALC}"; then
