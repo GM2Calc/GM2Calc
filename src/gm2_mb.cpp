@@ -19,6 +19,7 @@
 #include "gm2_mb.hpp"
 #include "ffunctions.hpp"
 #include <cmath>
+#include <iostream>
 #include <boost/math/tools/roots.hpp>
 
 /**
@@ -27,6 +28,9 @@
  * Contains functions necessary to calculate the mb(Q) in the DR-bar
  * scheme.
  */
+
+#define WARNING(message)                                                \
+   do { std::cerr << "Warning: " << message << '\n'; } while (0)
 
 namespace gm2calc {
 
@@ -94,6 +98,14 @@ double calculate_lambda_qcd(double alpha, double scale,
                                         lambda_qcd_max, Stop_crit, it);
 
    const double lambda_qcd = 0.5 * (root.first + root.second);
+
+   if (it >= max_iterations) {
+      const double precision = std::abs(Difference_alpha(lambda_qcd));
+      WARNING("Calculation of Lambda_QCD did not converge"
+              " (reached accuracy: " << precision <<
+              ", accuracy goal: " << precision_goal <<
+              ", max. iterations: " << max_iterations << ")");
+   }
 
    return lambda_qcd;
 }
