@@ -1,3 +1,10 @@
+GM2Calc-0.2.15 [not released yet]
+
+ * Bugfix (commit 585614f): Be less strict in checking if scales of
+   two SLHA blocks are the same, as SPheno might write the value of
+   the scale with different numerical precision to the block header.
+   Thanks to Björn Sarrazin.
+
 GM2Calc-0.2.14 [September, 30 2015]
 
  * Bugfix (commit 53187a9): Fix compilation error with g++ 4.6.3.
