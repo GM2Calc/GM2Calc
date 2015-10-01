@@ -1,4 +1,4 @@
-GM2Calc-0.2.15 [not released yet]
+GM2Calc-0.2.15 [October, 01 2015]
 
  * Bugfix (commit 585614f): Be less strict in checking if scales of
    two SLHA blocks are the same, as SPheno might write the value of
