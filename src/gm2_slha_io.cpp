@@ -145,8 +145,12 @@ bool GM2_slha_io::block_exists(const std::string& block_name) const
 /**
  * Returns true if the block scale after Q= matches \a scale, false
  * otherwise.  If scale == 0, the functions returns true.
+ *
+ * @param block SLHA block
+ * @param scale scale
+ * @param eps absolute tolerance to treat two scales being the same
  */
-bool GM2_slha_io::at_scale(const SLHAea::Block& block, double scale)
+bool GM2_slha_io::at_scale(const SLHAea::Block& block, double scale, double eps)
 {
    if (flexiblesusy::is_zero(scale))
       return true;
@@ -157,7 +161,7 @@ bool GM2_slha_io::at_scale(const SLHAea::Block& block, double scale)
       if (!line->is_data_line() && line->size() > 3 &&
           to_lower((*line)[0]) == "block" && (*line)[2] == "Q=") {
          const double block_scale = convert_to<double>((*line)[3]);
-         if (flexiblesusy::is_equal(scale, block_scale))
+         if (flexiblesusy::is_equal(scale, block_scale, eps))
             return true;
       }
    }
