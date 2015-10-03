@@ -36,21 +36,21 @@ in the on-shell scheme).  See `bin/gm2calc.x --help` for all options.
 
 Example using the SLHA interface:
 
-    bin/gm2calc.x --slha-input-file=input/slha.in
+    bin/gm2calc.x --slha-input-file=input/example.slha
 
 or
 
-    cat input/slha.in | bin/gm2calc.x --slha-input-file=-
+    cat input/example.slha | bin/gm2calc.x --slha-input-file=-
 
 \subsection GM2CalcInterface GM2Calc interface
 
 Example using the GM2Calc interface:
 
-    bin/gm2calc.x --gm2calc-input-file=input/gm2calc.in
+    bin/gm2calc.x --gm2calc-input-file=input/example.gm2
 
 or
 
-    cat input/gm2calc.in | bin/gm2calc.x --gm2calc-input-file=-
+    cat input/example.gm2 | bin/gm2calc.x --gm2calc-input-file=-
 
 \section Directories
 

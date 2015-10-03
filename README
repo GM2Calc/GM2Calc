@@ -76,19 +76,19 @@ input parameters).  See `bin/gm2calc.x --help' for all options.
 
 Example using the SLHA interface:
 
-  $ bin/gm2calc.x --slha-input-file=input/slha.in
+  $ bin/gm2calc.x --slha-input-file=input/example.slha
 
 or
 
-  $ cat input/slha.in | bin/gm2calc.x --slha-input-file=-
+  $ cat input/example.slha | bin/gm2calc.x --slha-input-file=-
 
 Example using the GM2Calc interface:
 
-  $ bin/gm2calc.x --gm2calc-input-file=input/gm2calc.in
+  $ bin/gm2calc.x --gm2calc-input-file=input/example.gm2
 
 or
 
-  $ cat input/gm2calc.in | bin/gm2calc.x --gm2calc-input-file=-
+  $ cat input/example.gm2 | bin/gm2calc.x --gm2calc-input-file=-
 
 
 SLHA interface
