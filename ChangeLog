@@ -1,3 +1,10 @@
+GM2Calc-0.2.16 [not released yet]
+
+ * Change (commit 7a4f62a): The example input files have been renamed
+   such that their file name extension reflects their input format.
+   input/slha.in -> input/example.slha
+   input/gm2calc.in -> input/example.gm2
+
 GM2Calc-0.2.15 [October, 01 2015]
 
  * Bugfix (commit 585614f): Be less strict in checking if scales of
