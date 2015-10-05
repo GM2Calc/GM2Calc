@@ -480,27 +480,27 @@ double delta_bottom_correction(const MSSMNoFV_onshell& model)
    const double msbR2 = std::abs(model.get_md2(1,1));
 
    const double eps_0 =
-      - 2. * alpha_S / (3*M_PI) * std::conj(mu) / M3
+      - 2. * alpha_S / (3*M_PI) * mu / M3
         * H2(msbL2 / std::norm(M3), msbR2 / std::norm(M3))
 
-      + sqr(gY) / (96.*sqr(M_PI)) * std::conj(mu) / M1
+      + sqr(gY) / (96.*sqr(M_PI)) * mu / M1
         * (H2(msbL2 / std::norm(M1), std::norm(mu) / std::norm(M1))
            + 2. * H2(msbR2 / std::norm(M1), std::norm(mu) / std::norm(M1)))
 
-      + sqr(gY) / (144.*sqr(M_PI)) * std::conj(mu) / M1
+      + sqr(gY) / (144.*sqr(M_PI)) * mu / M1
         * H2(msbL2 / std::norm(M1), msbR2 / std::norm(M1))
 
-      + 3. * sqr(g2) / (32.*sqr(M_PI)) * std::conj(mu) / M2
+      + 3. * sqr(g2) / (32.*sqr(M_PI)) * mu / M2
         * H2(msbL2 / std::norm(M2), std::norm(mu) / std::norm(M2))
       ;
 
    const double eps_Y_vM =
-      oneOver16PiSqr * std::conj(At) / mu
+      oneOver16PiSqr * At / mu
       * H2(mstL2 / std::norm(mu), mstR2 / std::norm(mu))
       // term ~ self-energy neglected
       ;
 
-   const double eps_Y = - oneOver16PiSqr * std::conj(At) / mu
+   const double eps_Y = - oneOver16PiSqr * At / mu
       * H2(mstL2 / std::norm(mu), mstR2 / std::norm(mu))
       + eps_Y_vM;
 
