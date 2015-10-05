@@ -5,6 +5,10 @@ GM2Calc-0.2.16 [not released yet]
    input/slha.in -> input/example.slha
    input/gm2calc.in -> input/example.gm2
 
+ * Bugfix (commits e784353, c194f9c): Fix compilation problem with
+   clang++ on Mac due to different STL implementation of std::conj().
+   Thanks to Björn Sarrazin.
+
 GM2Calc-0.2.15 [October, 01 2015]
 
  * Bugfix (commit 585614f): Be less strict in checking if scales of
