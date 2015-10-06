@@ -1,3 +1,14 @@
+GM2Calc-0.2.17 [not released yet]
+
+ * Change (commit 3bf585a): Memorize all tachyonic particles (not only
+   one).
+
+ * Change (commit af21077): Print warning if tachyons exist in
+   detailed output without tan(beta) resummation.
+
+ * Bugfix (commit 4b3f634): Check for tachyons if tan(beta)
+   resummation is disabled.
+
 GM2Calc-0.2.16 [October, 05 2015]
 
  * Change (commit 7a4f62a): The example input files have been renamed
