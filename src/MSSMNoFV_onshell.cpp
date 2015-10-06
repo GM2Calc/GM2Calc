@@ -728,8 +728,14 @@ std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)
       "MH          = " << model.get_Mhh().transpose() << '\n' <<
       "tan(beta)   = " << model.get_TB() << '\n' <<
       "yu          = " << model.get_Yu().diagonal().transpose() << '\n' <<
-      "yd          = " << model.get_Yd().diagonal().transpose() << '\n' <<
-      "ye          = " << model.get_Ye().diagonal().transpose() << '\n' <<
+      "yd resummed = " << model.get_Yd().diagonal().transpose() << '\n' <<
+      "ye resummed = " << model.get_Ye().diagonal().transpose() << '\n' <<
+      "yd non res. = " << (sqrt(2.) * model.get_MD() / model.get_vd()) <<
+                   " " << (sqrt(2.) * model.get_MS() / model.get_vd()) <<
+                   " " << (sqrt(2.) * model.get_MB() / model.get_vd()) << '\n' <<
+      "ye non res. = " << (sqrt(2.) * model.get_ME() / model.get_vd()) <<
+                   " " << (sqrt(2.) * model.get_MM() / model.get_vd()) <<
+                   " " << (sqrt(2.) * model.get_ML() / model.get_vd()) << '\n' <<
       "Mu          = " << model.get_Mu() << '\n' <<
       "M1          = " << model.get_MassB() << '\n' <<
       "M2          = " << model.get_MassWB() << '\n' <<
