@@ -17,6 +17,7 @@
 // ====================================================================
 
 #include "gm2_uncertainty.hpp"
+#include <cmath>
 
 /**
  * \file gm2_uncertainty.cpp
@@ -45,7 +46,7 @@ namespace gm2calc {
  */
 double calculate_uncertainty_amu_2loop(double amu_1L)
 {
-   return 0.02 * amu_1L + 2.5e-10;
+   return 0.02 * std::abs(amu_1L) + 2.5e-10;
 }
 
 } // namespace gm2calc
