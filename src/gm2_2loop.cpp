@@ -49,6 +49,7 @@ double calculate_amu_2loop_non_tan_beta_resummed(const MSSMNoFV_onshell& model)
    MSSMNoFV_onshell model_ytree(model);
    model_ytree.convert_yukawa_couplings_treelevel();
    model_ytree.calculate_DRbar_masses();
+   model_ytree.check_problems();
 
    return amu2LFSfapprox_non_tan_beta_resummed(model_ytree)
       + amuChipmPhotonic(model_ytree)

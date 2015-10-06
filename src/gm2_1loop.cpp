@@ -48,6 +48,7 @@ double calculate_amu_1loop_non_tan_beta_resummed(const MSSMNoFV_onshell& model)
    MSSMNoFV_onshell model_ytree(model);
    model_ytree.convert_yukawa_couplings_treelevel();
    model_ytree.calculate_DRbar_masses();
+   model_ytree.check_problems();
 
    return amuChi0(model_ytree) + amuChipm(model_ytree);
 }
