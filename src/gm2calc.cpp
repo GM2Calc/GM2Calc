@@ -180,18 +180,42 @@ void print_amu_detailed(
 #define FORMAT_AMU(amu) boost::format("% 16.14e") % (amu)
 #define FORMAT_PCT(pct) boost::format("%2.1f") % (pct)
 
+   std::string error_str;
+   if (model.get_problems().have_problem()) {
+      error_str = model.get_problems().get_problems()
+         + " (with tan(beta) resummation)\n\n";
+   }
+
    const double amu_1l = gm2calc::calculate_amu_1loop(model);
-   const double amu_1l_non_tan_beta_resummed =
-      gm2calc::calculate_amu_1loop_non_tan_beta_resummed(model);
    const double amu_2l_photonic_chipm = gm2calc::amuChipmPhotonic(model);
    const double amu_2l_photonic_chi0 = gm2calc::amuChi0Photonic(model);
    const double amu_2l_a_sfermion = gm2calc::amu2LaSferm(model);
    const double amu_2l_a_cha = gm2calc::amu2LaCha(model);
    const double amu_2l_ferm_sferm_approx = gm2calc::amu2LFSfapprox(model);
    const double amu_2l = gm2calc::calculate_amu_2loop(model);
-   const double amu_2l_non_tan_beta_resummed =
-      gm2calc::calculate_amu_2loop_non_tan_beta_resummed(model);
    const double tan_beta_cor = gm2calc::tan_beta_cor(model);
+
+   // no tan(beta) resummation
+   double amu_1l_non_tan_beta_resummed = 0.;
+   double amu_2l_non_tan_beta_resummed = 0.;
+   std::string error_str_non_tan_beta_resummation;
+
+   try {
+      amu_1l_non_tan_beta_resummed =
+         gm2calc::calculate_amu_1loop_non_tan_beta_resummed(model);
+      amu_2l_non_tan_beta_resummed =
+         gm2calc::calculate_amu_2loop_non_tan_beta_resummed(model);
+   } catch (const gm2calc::Error& error) {
+      error_str_non_tan_beta_resummation = " (" + error.what() + ")";
+      // try to redo calculation w/o throwing an exception
+      gm2calc::MSSMNoFV_onshell model_no_except(model);
+      model_no_except.do_force_output(true);
+      amu_1l_non_tan_beta_resummed =
+         gm2calc::calculate_amu_1loop_non_tan_beta_resummed(model_no_except);
+      amu_2l_non_tan_beta_resummed =
+         gm2calc::calculate_amu_2loop_non_tan_beta_resummed(model_no_except);
+   }
+
    const double amu_2l_tanb_approx =
       + (tan_beta_cor - 1.) * amu_1l_non_tan_beta_resummed;
 
@@ -201,7 +225,8 @@ void print_amu_detailed(
       "========================================================\n"
       "   amu (1-loop + 2-loop best) = " << FORMAT_AMU(amu_best) << '\n' <<
       "========================================================\n"
-      "\n"
+      "\n" <<
+      error_str <<
       "==============================\n"
       "   amu (1-loop) corrections\n"
       "==============================\n"
@@ -214,7 +239,8 @@ void print_amu_detailed(
       " (" << FORMAT_PCT(100. * amu_1l / amu_best) << "% of full 1L + 2L result)\n"
       "\n"
       "full 1L without tan(beta) resummation:\n"
-      "             " << FORMAT_AMU(amu_1l_non_tan_beta_resummed) << '\n' <<
+      "             " << FORMAT_AMU(amu_1l_non_tan_beta_resummed) <<
+      error_str_non_tan_beta_resummation << '\n' <<
       "\n"
       "1L approximation with tan(beta) resummation:\n"
       "   W-H-nu    " << FORMAT_AMU(gm2calc::amuWHnu(model) * tan_beta_cor) << '\n' <<
@@ -234,7 +260,8 @@ void print_amu_detailed(
       " (" << FORMAT_PCT(100. * amu_2l / amu_best) << "% of full 1L + 2L result)\n"
       "\n"
       "2L best without tan(beta) resummation:\n"
-      "             " << FORMAT_AMU(amu_2l_non_tan_beta_resummed) << '\n' <<
+      "             " << FORMAT_AMU(amu_2l_non_tan_beta_resummed) <<
+      error_str_non_tan_beta_resummation << '\n' <<
       "\n"
       "photonic with tan(beta) resummation:\n"
       "   chi^0     " << FORMAT_AMU(amu_2l_photonic_chi0) << '\n' <<

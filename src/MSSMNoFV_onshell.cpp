@@ -171,7 +171,7 @@ void MSSMNoFV_onshell::calculate_masses() {
    get_physical().Mhh = get_Mhh();
 }
 
-void MSSMNoFV_onshell::check_input()
+void MSSMNoFV_onshell::check_input() const
 {
 #define WARN_OR_THROW_IF_ZERO(mass,msg)         \
    if (is_zero(get_##mass())) {                 \
@@ -190,7 +190,7 @@ void MSSMNoFV_onshell::check_input()
 #undef WARN_OR_THROW_IF_ZERO
 }
 
-void MSSMNoFV_onshell::check_problems()
+void MSSMNoFV_onshell::check_problems() const
 {
    if (get_problems().have_problem()) {
       if (do_force_output())

@@ -109,6 +109,7 @@ public:
    void convert_to_onshell(double precision = 1e-8,
                            unsigned max_iterations = 1000);
    void calculate_masses();
+   void check_problems() const;
    void convert_yukawa_couplings_treelevel();
 
 private:
@@ -132,8 +133,7 @@ private:
    template <class Derived>
    static unsigned find_right_like_smuon(const Eigen::MatrixBase<Derived>&);
 
-   void check_input();
-   void check_problems();
+   void check_input() const;
    void convert_gauge_couplings();
    void convert_BMu();
    void convert_ml2();
