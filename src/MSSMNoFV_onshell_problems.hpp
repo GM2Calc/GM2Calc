@@ -21,6 +21,7 @@
 
 #include <iosfwd>
 #include <string>
+#include <vector>
 
 namespace gm2calc {
 
@@ -66,8 +67,7 @@ private:
 
    bool have_no_convergence_Mu_MassB_MassWB;
    bool have_no_convergence_me2;
-   bool have_tachyons;
-   std::string tachyonic_particle;
+   std::vector<std::string> tachyons;
    Convergence_problem convergence_problem_Mu_MassB_MassWB;
    Convergence_problem convergence_problem_me2;
 };
