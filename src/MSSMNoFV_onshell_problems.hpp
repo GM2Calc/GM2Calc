@@ -44,6 +44,7 @@ public:
    void flag_tachyon(const std::string&);
    void unflag_no_convergence_Mu_MassB_MassWB();
    void unflag_no_convergence_me2();
+   bool have_tachyon() const; ///< returns true if tachyon exists
    bool have_problem() const; ///< returns true if problem has occurred
    bool have_warning() const; ///< returns true if there is a warning
    std::string get_warnings() const; ///< get warnings as string
@@ -65,7 +66,7 @@ private:
 
    bool have_no_convergence_Mu_MassB_MassWB;
    bool have_no_convergence_me2;
-   bool have_tachyon;
+   bool have_tachyons;
    std::string tachyonic_particle;
    Convergence_problem convergence_problem_Mu_MassB_MassWB;
    Convergence_problem convergence_problem_me2;

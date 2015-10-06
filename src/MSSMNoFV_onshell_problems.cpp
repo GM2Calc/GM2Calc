@@ -27,7 +27,7 @@ namespace gm2calc {
 MSSMNoFV_onshell_problems::MSSMNoFV_onshell_problems()
    : have_no_convergence_Mu_MassB_MassWB(false)
    , have_no_convergence_me2(false)
-   , have_tachyon(false)
+   , have_tachyons(false)
    , tachyonic_particle("")
    , convergence_problem_Mu_MassB_MassWB()
    , convergence_problem_me2()
@@ -36,7 +36,7 @@ MSSMNoFV_onshell_problems::MSSMNoFV_onshell_problems()
 
 void MSSMNoFV_onshell_problems::clear_problems()
 {
-   have_tachyon = false;
+   have_tachyons = false;
    tachyonic_particle.clear();
 }
 
@@ -56,7 +56,7 @@ void MSSMNoFV_onshell_problems::clear()
 
 void MSSMNoFV_onshell_problems::flag_tachyon(const std::string& particle_name)
 {
-   have_tachyon = true;
+   have_tachyons = true;
    tachyonic_particle = particle_name;
 }
 
@@ -88,9 +88,14 @@ void MSSMNoFV_onshell_problems::unflag_no_convergence_me2()
    convergence_problem_me2.clear();
 }
 
+bool MSSMNoFV_onshell_problems::have_tachyon() const
+{
+   return have_tachyons;
+}
+
 bool MSSMNoFV_onshell_problems::have_problem() const
 {
-   return have_tachyon;
+   return have_tachyons;
 }
 
 bool MSSMNoFV_onshell_problems::have_warning() const
@@ -114,7 +119,7 @@ std::string MSSMNoFV_onshell_problems::get_problems() const
 
 void MSSMNoFV_onshell_problems::print_problems(std::ostream& ostr) const
 {
-   if (have_tachyon)
+   if (have_tachyons)
       ostr << "Problem: " << tachyonic_particle << " tachyon";
 }
 
