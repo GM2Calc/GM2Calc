@@ -193,9 +193,7 @@ void MSSMNoFV_onshell::check_input() const
 void MSSMNoFV_onshell::check_problems() const
 {
    if (get_problems().have_problem()) {
-      if (do_force_output())
-         WARNING(get_problems().get_problems());
-      else
+      if (!do_force_output())
          throw EPhysicalProblem(get_problems().get_problems());
    }
 }
