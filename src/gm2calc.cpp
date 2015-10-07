@@ -201,10 +201,13 @@ void print_amu_detailed(
    std::string error_str_non_tan_beta_resummation;
 
    try {
+      // w/o tan(beta) resummation, allow throwing exceptions
+      gm2calc::MSSMNoFV_onshell model_except(model);
+      model_except.do_force_output(false);
       amu_1l_non_tan_beta_resummed =
-         gm2calc::calculate_amu_1loop_non_tan_beta_resummed(model);
+         gm2calc::calculate_amu_1loop_non_tan_beta_resummed(model_except);
       amu_2l_non_tan_beta_resummed =
-         gm2calc::calculate_amu_2loop_non_tan_beta_resummed(model);
+         gm2calc::calculate_amu_2loop_non_tan_beta_resummed(model_except);
    } catch (const gm2calc::Error& error) {
       error_str_non_tan_beta_resummation = " (" + error.what() + ")";
       // try to redo calculation w/o throwing an exception
