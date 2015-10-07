@@ -419,7 +419,9 @@ void print_warnings(const gm2calc::MSSMNoFV_onshell& model,
                     gm2calc::GM2_slha_io& slha_io,
                     const gm2calc::Config_options& config_options)
 {
-   WARNING(model.get_problems());
+   if (model.get_problems().have_problem() ||
+       model.get_problems().have_warning())
+      WARNING(model.get_problems());
 
    if (model.get_problems().have_warning()) {
       switch (config_options.output_format) {
