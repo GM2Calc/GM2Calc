@@ -1,7 +1,7 @@
 DIR          := src
 MODNAME      := gm2calc
 
-# source files
+# source files for library
 LIBsrc_SRC := \
 		$(DIR)/dilog.cpp \
 		$(DIR)/ffunctions.cpp \
@@ -17,45 +17,39 @@ LIBsrc_SRC := \
 		$(DIR)/MSSMNoFV_onshell_soft_parameters.cpp \
 		$(DIR)/MSSMNoFV_onshell_susy_parameters.cpp
 
-# main()
+# source files with main()
 EXEsrc_SRC := \
 		$(DIR)/gm2calc.cpp \
 		$(DIR)/gm2scan.cpp
 
-LIBsrc_OBJ := \
-		$(LIBsrc_SRC:.cpp=.o)
+LIBsrc_OBJ := $(LIBsrc_SRC:.cpp=.o)
 
-EXEsrc_OBJ := \
-		$(EXEsrc_SRC:.cpp=.o)
+EXEsrc_OBJ := $(EXEsrc_SRC:.cpp=.o)
 
-LIBsrc_DEP := \
-		$(LIBsrc_OBJ:.o=.d)
+LIBsrc_DEP := $(LIBsrc_OBJ:.o=.d)
 
-EXEsrc_DEP := \
-		$(EXEsrc_OBJ:.o=.d)
+EXEsrc_DEP := $(EXEsrc_OBJ:.o=.d)
 
-EXEsrc_EXE := \
-		$(patsubst $(DIR)/%.o, $(BINDIR)/%.x, $(EXEsrc_OBJ))
+EXEsrc_EXE := $(patsubst $(DIR)/%.o, $(BINDIR)/%.x, $(EXEsrc_OBJ))
 
-LIBsrc     := \
-		$(DIR)/lib$(MODNAME)$(LIBEXT)
+LIBsrc     := $(DIR)/lib$(MODNAME)$(LIBEXT)
 
 clean::
-		-rm -f $(LIBsrc_DEP)
-		-rm -f $(EXEsrc_DEP)
-		-rm -f $(LIBsrc_OBJ)
-		-rm -f $(EXEsrc_OBJ)
-		-rm -f $(LIBsrc)
-		-rm -f $(EXEsrc_EXE)
+	-rm -f $(LIBsrc_DEP)
+	-rm -f $(EXEsrc_DEP)
+	-rm -f $(LIBsrc_OBJ)
+	-rm -f $(EXEsrc_OBJ)
+	-rm -f $(LIBsrc)
+	-rm -f $(EXEsrc_EXE)
 
 $(LIBsrc_DEP) $(EXEsrc_DEP) $(LIBsrc_OBJ) $(EXEsrc_OBJ): \
-		override CPPFLAGS += $(EIGENFLAGS) $(BOOSTFLAGS)
+	override CPPFLAGS += $(EIGENFLAGS) $(BOOSTFLAGS)
 
 $(LIBsrc): $(LIBsrc_OBJ)
-		$(MAKELIB) $@ $^
+	$(MAKELIB) $@ $^
 
 $(BINDIR)/%.x: $(DIR)/%.o $(LIBsrc) | $(BINDIR)
-		$(CXX) -o $@ $^ $(LDLIBS)
+	$(CXX) -o $@ $^ $(LDLIBS)
 
 ALLDEP += $(LIBsrc_DEP) $(EXEsrc_DEP)
 ALLLIB += $(LIBsrc)
