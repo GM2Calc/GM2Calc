@@ -17,6 +17,7 @@
 // ====================================================================
 
 #include "gm2_uncertainty.hpp"
+#include "gm2_2loop.hpp"
 #include <cmath>
 
 /**
@@ -29,24 +30,21 @@
 namespace gm2calc {
 
 /**
- * Calculates uncertainty associated with amu(2-loop) using Eq (84),
- * arXiv:hep-ph/0609168 .
+ * Calculates uncertainty associated with amu(2-loop) using Eq (4).
  *
- * @note Eq (84), arXiv:hep-ph/0609168 takes into account photonic
- * 2-loop corrections and 2-loop fermion/sfermion corrections, which
- * were unknown at the time arXiv:hep-ph/0609168 was published.
- * However, GM2Calc includes the complete photonic 2-loop corrections
- * and approximations for the 2-loop fermion/sfermion corrections.
- * For this reason it is debatable whether Eq. (84) (especially the
- * finite offset) is applicable for the 2-loop calculation of GM2Calc.
+ * Eq. (4) takes into account the unknown two-loop contributions and
+ * the employed approximation for the 2L(a) contributions.
  *
- * @param amu_1L amu at 1-loop level
+ * @param model model parameters
  *
  * @return uncertainty for amu(2-loop)
  */
-double calculate_uncertainty_amu_2loop(double amu_1L)
+double calculate_uncertainty_amu_2loop(const MSSMNoFV_onshell& model)
 {
-   return 0.02 * std::abs(amu_1L) + 2.5e-10;
+   const double amu_2La_Cha = amu2LaCha(model);
+   const double amu_2La_Sferm = amu2LaSferm(model);
+
+   return 2.3e-10 + 0.3 * (amu_2La_Cha + amu_2La_Sferm);
 }
 
 } // namespace gm2calc
