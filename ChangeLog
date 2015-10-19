@@ -1,5 +1,22 @@
 GM2Calc-0.2.17 [not released yet]
 
+ * Feature (commit 132851): The uncertainty of amu(2L,TB resummed) can
+   be calculated by setting GM2CalcConfig[5] to 1.  Depending on the
+   chosen output format (GM2CalcConfig[0]) the uncertainty is written
+
+   as a sigle number to stdout    in case of minimal output,
+   to the first line              in case of detailed output,
+   to GM2CalcOutput[1]            in case of NMSSMTools output,
+   to GM2CalcOutput[1]            in case of SPheno output,
+   to GM2CalcOutput[1]            in case of GM2Calc output.
+
+ * Feature (commit 02841d): A new SLHA-compliant output format
+   "GM2Calc" has been added to avoid interference with SPheno or
+   NMSSMTools: If GM2CalcConfig[0] is set to 4, the value of amu is
+   written to GM2CalcOutput[0].  If uncertainty estimation has been
+   enabled in addition, the uncertainty is written to
+   GM2CalcOutput[1].
+
  * Change (commit 3bf585a): Memorize all tachyonic particles (not only
    one).
 
