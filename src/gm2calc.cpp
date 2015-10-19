@@ -19,6 +19,7 @@
 #include "gm2_1loop.hpp"
 #include "gm2_2loop.hpp"
 #include "gm2_error.hpp"
+#include "gm2_uncertainty.hpp"
 #include "config.h"
 
 #include "gm2_slha_io.hpp"
@@ -178,6 +179,7 @@ void print_amu_detailed(
    const gm2calc::MSSMNoFV_onshell& model)
 {
 #define FORMAT_AMU(amu) boost::format("% 16.14e") % (amu)
+#define FORMAT_DEL(amu) boost::format("%16.14e") % (amu)
 #define FORMAT_PCT(pct) boost::format("%2.1f") % (pct)
 
    std::string error_str;
@@ -193,6 +195,7 @@ void print_amu_detailed(
    const double amu_2l_a_cha = gm2calc::amu2LaCha(model);
    const double amu_2l_ferm_sferm_approx = gm2calc::amu2LFSfapprox(model);
    const double amu_2l = gm2calc::calculate_amu_2loop(model);
+   const double amu_2l_uncertainty = gm2calc::calculate_uncertainty_amu_2loop(model);
    const double tan_beta_cor = gm2calc::tan_beta_cor(model);
 
    // no tan(beta) resummation
@@ -225,9 +228,10 @@ void print_amu_detailed(
    const double amu_best = amu_1l + amu_2l;
 
    std::cout <<
-      "========================================================\n"
-      "   amu (1-loop + 2-loop best) = " << FORMAT_AMU(amu_best) << '\n' <<
-      "========================================================\n"
+      "===============================================================================\n"
+      "   amu (1-loop + 2-loop best) = " << FORMAT_AMU(amu_best) << ' ' <<
+      "+- " << FORMAT_DEL(amu_2l_uncertainty) << '\n' <<
+      "===============================================================================\n"
       "\n" <<
       error_str <<
       "==============================\n"
@@ -357,7 +361,10 @@ void print_amu(const gm2calc::MSSMNoFV_onshell& model,
    case gm2calc::Config_options::Minimal:
       std::cout << std::setprecision(std::numeric_limits<double>::digits10)
                 << std::scientific
-                << calculate_amu(model, config_options) << '\n';
+                << (!config_options.calculate_uncertainty ?
+                    calculate_amu(model, config_options) :
+                    calculate_uncertainty_amu_2loop(model))
+                << '\n';
       break;
    case gm2calc::Config_options::Detailed:
       print_amu_detailed(model);
@@ -366,12 +373,22 @@ void print_amu(const gm2calc::MSSMNoFV_onshell& model,
       slha_io.fill_block_entry("LOWEN", 6,
                                calculate_amu(model, config_options),
                                "Delta(g-2)_muon/2");
+      if (config_options.calculate_uncertainty) {
+         slha_io.fill_block_entry("GM2CalcOutput", 1,
+                                  calculate_uncertainty_amu_2loop(model),
+                                  "uncertainty of a_mu(2-loop, tan(beta) resummation)");
+      }
       slha_io.write_to_stream(std::cout);
       break;
    case gm2calc::Config_options::SPheno:
       slha_io.fill_block_entry("SPhenoLowEnergy", 21,
                                calculate_amu(model, config_options),
                                "Delta(g-2)_muon/2");
+      if (config_options.calculate_uncertainty) {
+         slha_io.fill_block_entry("GM2CalcOutput", 1,
+                                  calculate_uncertainty_amu_2loop(model),
+                                  "uncertainty of a_mu(2-loop, tan(beta) resummation)");
+      }
       slha_io.write_to_stream(std::cout);
       break;
    default:
