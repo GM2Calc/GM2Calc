@@ -490,6 +490,9 @@ void process_gm2calcconfig_tuple(Config_options& config_options,
    case 4:
       config_options.verbose_output = value;
       break;
+   case 5:
+      config_options.calculate_uncertainty = value;
+      break;
    default:
       WARNING("Unrecognized entry in block GM2CalcConfig: " << key);
       break;

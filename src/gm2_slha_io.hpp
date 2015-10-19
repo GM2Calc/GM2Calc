@@ -67,6 +67,7 @@ struct Config_options {
      , tanb_resummation(true)
      , force_output(false)
      , verbose_output(false)
+     , calculate_uncertainty(false)
   {}
 
    E_output_format output_format; ///< output format
@@ -74,6 +75,7 @@ struct Config_options {
    bool tanb_resummation;    ///< tan(beta) resummation
    bool force_output;        ///< print output even if error occured
    bool verbose_output;      ///< print additional information
+   bool calculate_uncertainty;    ///< calculate uncertainty
 };
 
 /**
