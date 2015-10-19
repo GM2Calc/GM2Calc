@@ -135,12 +135,13 @@ Configuration options
 
 The calculation of a_mu can be controlled in the GM2CalcConfig block.
 
- * GM2CalcConfig[0]: output format (0 ... 3)
+ * GM2CalcConfig[0]: output format (0 ... 4)
 
    0: minimal output (a single number)
    1: detailed (a detailed output of the various contributions)
    2: write the value of (g-2)/2 into LOWEN block, entry 6
    3: write the value of (g-2)/2 into SPhenoLowEnergy block, entry 21
+   4: write the value of (g-2)/2 into GM2CalcOutput block, entry 0
 
  * GM2CalcConfig[1]: loop order of the calculation (0, 1 or 2)
 
@@ -151,6 +152,15 @@ The calculation of a_mu can be controlled in the GM2CalcConfig block.
    has occured!
 
  * GM2CalcConfig[4]: disable/enable verbose output (0 or 1).
+
+ * GM2CalcConfig[5]: disable/enable uncertainty estimation (0 or 1).
+
+   Depending on the chosen output format, GM2CalcConfig[0], the
+   uncertainty is written
+
+   as a sigle number to stdout    in case of minimal output,
+   to the first line              in case of detailed output,
+   to GM2CalcOutput[1]            otherwise.
 
 
 Source code documentation

@@ -391,6 +391,17 @@ void print_amu(const gm2calc::MSSMNoFV_onshell& model,
       }
       slha_io.write_to_stream(std::cout);
       break;
+   case gm2calc::Config_options::GM2Calc:
+      slha_io.fill_block_entry("GM2CalcOutput", 0,
+                               calculate_amu(model, config_options),
+                               "Delta(g-2)_muon/2");
+      if (config_options.calculate_uncertainty) {
+         slha_io.fill_block_entry("GM2CalcOutput", 1,
+                                  calculate_uncertainty_amu_2loop(model),
+                                  "uncertainty of a_mu(2-loop, tan(beta) resummation)");
+      }
+      slha_io.write_to_stream(std::cout);
+      break;
    default:
       ERROR("Unknown output format: " << config_options.output_format);
       break;
@@ -413,6 +424,7 @@ void print_error(const gm2calc::Error& error,
    switch (config_options.output_format) {
    case gm2calc::Config_options::NMSSMTools:
    case gm2calc::Config_options::SPheno:
+   case gm2calc::Config_options::GM2Calc:
       // print SPINFO block with error description
       slha_io.fill_block_entry("SPINFO", 1, "GM2Calc");
       slha_io.fill_block_entry("SPINFO", 2, GM2CALC_VERSION);
@@ -444,6 +456,7 @@ void print_warnings(const gm2calc::MSSMNoFV_onshell& model,
       switch (config_options.output_format) {
       case gm2calc::Config_options::NMSSMTools:
       case gm2calc::Config_options::SPheno:
+      case gm2calc::Config_options::GM2Calc:
          // print SPINFO block with warning description
          slha_io.fill_block_entry("SPINFO", 1, "GM2Calc");
          slha_io.fill_block_entry("SPINFO", 2, GM2CALC_VERSION);
