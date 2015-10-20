@@ -506,19 +506,7 @@ void process_gm2calcinput_tuple(MSSMNoFV_onshell& model,
    case 0: model.set_scale(value);          break;
    case 1: model.set_alpha_MZ(value);       break;
    case 2: model.set_alpha_thompson(value); break;
-   case 3: {
-      const double tanb = value;
-      const double MW = model.get_MW();
-      const double MZ = model.get_MZ();
-      const double cW = MW/MZ;
-      const double sW = std::sqrt(1. - cW*cW);
-      const double vev = 2. * MW * sW / model.get_EL();
-      const double sinb = tanb / std::sqrt(1 + tanb*tanb);
-      const double cosb = 1.   / std::sqrt(1 + tanb*tanb);
-      model.set_vd(vev * cosb);
-      model.set_vu(vev * sinb);
-      }
-      break;
+   case  3: model.set_TB(    value); break;
    case  4: model.set_Mu(    value); break;
    case  5: model.set_MassB( value); break;
    case  6: model.set_MassWB(value); break;
