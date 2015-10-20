@@ -79,7 +79,6 @@ make.args:
 	       'CXXFLAGS="$(CXXFLAGS)"' \
 	       'CXX_DEP_GEN="$(CXX_DEP_GEN)"' \
 	       'MAKELIB="$(MAKELIB)"' \
-	       'BLASLIBS="$(BLASLIBS)"' \
 	       'BOOSTFLAGS="$(BOOSTFLAGS)"' \
 	       'EIGENFLAGS="$(EIGENFLAGS)"'; \
 	} > $@-t
