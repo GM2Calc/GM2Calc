@@ -41,10 +41,11 @@ namespace gm2calc {
  */
 double calculate_uncertainty_amu_2loop(const MSSMNoFV_onshell& model)
 {
+   using std::abs;
    const double amu_2La_Cha = amu2LaCha(model);
    const double amu_2La_Sferm = amu2LaSferm(model);
 
-   return 2.3e-10 + 0.3 * (amu_2La_Cha + amu_2La_Sferm);
+   return 2.3e-10 + 0.3 * (abs(amu_2La_Cha) + abs(amu_2La_Sferm));
 }
 
 } // namespace gm2calc
