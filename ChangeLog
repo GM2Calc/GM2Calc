@@ -4,7 +4,7 @@ GM2Calc-0.2.17 [not released yet]
    be calculated by setting GM2CalcConfig[5] to 1.  Depending on the
    chosen output format (GM2CalcConfig[0]) the uncertainty is written
 
-   as a sigle number to stdout    in case of minimal output,
+   as a single number to stdout   in case of minimal output,
    to the first line              in case of detailed output,
    to GM2CalcOutput[1]            in case of NMSSMTools output,
    to GM2CalcOutput[1]            in case of SPheno output,
