@@ -137,7 +137,7 @@ void MSSMNoFV_onshell::convert_to_onshell(
    convert_yukawa_couplings(); // first guess of resummed yukawas
    convert_ml2();
    convert_yukawa_couplings();
-   calculate_MSm(); // calculate MSm with new value of ml2(1,1)
+   calculate_MSm(); // calculate MSm with new value of ml2(1,1) and ym
    convert_me2(precision, max_iterations);
    convert_yukawa_couplings();
 
