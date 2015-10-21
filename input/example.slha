@@ -1,10 +1,3 @@
-# CMSSM parameter point 10.1.1, arXiv:1109.3859
-# Block MINPAR
-#     1   125.                 # m0
-#     2   500.                 # m12
-#     3   10.                  # TanBeta
-#     4   1                    # SignMu
-#     5   0                    # Azero
 Block GM2CalcConfig
      0     3     # output format (0 = minimal, 1 = detailed,
                  #  2 = NMSSMTools, 3 = SPheno, 4 = GM2Calc)
@@ -14,82 +7,83 @@ Block GM2CalcConfig
      4     0     # verbose output (0 or 1)
      5     0     # calculate uncertainty
 Block GM2CalcInput
-     1     0.00775531       # alpha(MZ)
-     2     0.00729735       # alpha in Thomson limit
+     1     0.00775531       # alpha(MZ)             [1L]
+     2     0.00729735       # alpha(0)              [2L]
 Block SMINPUTS
-     3     0.1184           # alpha_s(MZ) SM MSbar
-     4     9.11876000E+01   # MZ(pole)
-     5     4.18000000E+00   # mb(mb) SM MSbar
-     6     1.73340000E+02   # mtop(pole)
-     7     1.77700000E+00   # mtau(pole)
-     8     0.00000000E+00   # mnu3(pole)
-    11     0.000510998928   # melectron(pole)
-    12     0.00000000E+00   # mnu1(pole)
-    13     0.1056583715     # mmuon(pole)
-    14     0.00000000E+00   # mnu2(pole)
-    21     4.76052706E-03   # md
-    22     2.40534062E-03   # mu
-    23     1.04230487E-01   # ms
-    24     1.27183378E+00   # mc
-Block MASS
-        24     8.03933863E+01   # VWm
-   1000012     3.52702003E+02   # SveL
-   1000014     3.52693688E+02   # SvmL
-   1000016     3.51533929E+02   # SvtL
-   1000024     3.85988934E+02   # Cha(1)
-   1000037     6.50709035E+02   # Cha(2)
-        25     1.14863491E+02   # hh(1)
-        35     7.19752811E+02   # hh(2)
-        37     7.24214922E+02   # Hpm(2)
-        36     7.19480165E+02   # Ah(2)
-   1000001     1.01544493E+03   # Sd(1)
-   2000001     1.05975972E+03   # Sd(2)
-   1000003     1.01544114E+03   # Ss(1)
-   2000003     1.05975787E+03   # Ss(2)
-   1000005     9.70864119E+02   # Sb(1)
-   2000005     1.01231331E+03   # Sb(2)
-   1000011     2.29840252E+02   # Se(1)
-   2000011     3.61609040E+02   # Se(2)
-   1000013     2.29789268E+02   # Sm(1)
-   2000013     3.61617754E+02   # Sm(2)
-   1000015     2.22687306E+02   # Stau(1)
-   2000015     3.62761762E+02   # Stau(2)
-   1000002     1.01873843E+03   # Su(1)
-   2000002     1.05693320E+03   # Su(2)
-   1000004     1.01873236E+03   # Sc(1)
-   2000004     1.05693385E+03   # Sc(2)
-   1000006     8.09088787E+02   # St(1)
-   2000006     1.01626608E+03   # St(2)
-   1000022     2.04267616E+02   # Chi(1)
-   1000023     3.85975573E+02   # Chi(2)
-   1000025    -6.36794092E+02   # Chi(3)
-   1000035     6.50380139E+02   # Chi(4)
-Block HMIX Q= 8.79028867E+02
-     1     6.31273245E+02   # Mu
-     2     9.67313083E+00   # vu/vd
-Block Au Q= 8.79028867E+02
-  3  3    -8.88841564E+02   # TYu(3,3)/Yu(3,3)
-Block Ad Q= 8.79028867E+02
-  3  3    -1.31251838E+03   # TYd(3,3)/Yd(3,3)
-Block Ae Q= 8.79028867E+02
-  2  2    -2.99494259E+02   # TYe(2,2)/Ye(2,2)
-  3  3    -2.97870372E+02   # TYe(3,3)/Ye(3,3)
-Block MSOFT Q= 8.79028867E+02
-     1     2.09353661E+02   # MassB
-     2     3.88423131E+02   # MassWB
-     3     1.11722397E+03   # MassG
-    31     3.54086560E+02   # SignedAbsSqrt(ml2(1,1))
-    32     3.54079405E+02   # SignedAbsSqrt(ml2(2,2))
-    33     3.53081486E+02   # SignedAbsSqrt(ml2(3,3))
-    34     2.21971801E+02   # SignedAbsSqrt(me2(1,1))
-    35     2.21948532E+02   # SignedAbsSqrt(me2(2,2))
-    36     2.18682727E+02   # SignedAbsSqrt(me2(3,3))
-    41     1.02234871E+03   # SignedAbsSqrt(mq2(1,1))
-    42     1.02234616E+03   # SignedAbsSqrt(mq2(2,2))
-    43     9.42833969E+02   # SignedAbsSqrt(mq2(3,3))
-    44     9.84576587E+02   # SignedAbsSqrt(mu2(1,1))
-    45     9.84573885E+02   # SignedAbsSqrt(mu2(2,2))
-    46     8.11699109E+02   # SignedAbsSqrt(mu2(3,3))
-    47     9.80007845E+02   # SignedAbsSqrt(md2(1,1))
-    48     9.80005159E+02   # SignedAbsSqrt(md2(2,2))
-    49     9.75269422E+02   # SignedAbsSqrt(md2(3,3))
+     3     0.1184           # alpha_s(MZ) SM MSbar  [2L]
+     4     9.11876000E+01   # MZ(pole)              [1L]
+     5     4.18000000E+00   # mb(mb) SM MSbar       [2L]
+     6     1.73340000E+02   # mtop(pole)            [2L]
+     7     1.77700000E+00   # mtau(pole)            [2L]
+     8     0.00000000E+00   # mnu3(pole)            [irrelevant]
+    11     0.000510998928   # melectron(pole)       [irrelevant]
+    12     0.00000000E+00   # mnu1(pole)            [irrelevant]
+    13     0.1056583715     # mmuon(pole)           [1L]
+    14     0.00000000E+00   # mnu2(pole)            [irrelevant]
+    21     4.76052706E-03   # md                    [irrelevant]
+    22     2.40534062E-03   # mu                    [irrelevant]
+    23     1.04230487E-01   # ms                    [irrelevant]
+    24     1.27183378E+00   # mc                    [irrelevant]
+Block MASS                      # Mass spectrum
+        24     8.03773317e+01   # W                 [1L]
+        25     1.25712136e+02   # h0                [irrelevant]
+        35     1.50002058e+03   # H0                [irrelevant]
+        36     1.50000000e+03   # A0                [2L]
+        37     1.50241108e+03   # H+                [irrelevant]
+   1000021     2.27707784e+03   # ~g                [irrelevant]
+   1000022     2.01611468e+02   # neutralino(1)     [1L]
+   1000023     4.10040273e+02   # neutralino(2)     [1L]
+   1000024     4.09989890e+02   # chargino(1)       [1L]
+   1000025    -5.16529941e+02   # neutralino(3)     [1L]
+   1000035     5.45628749e+02   # neutralino(4)     [1L]
+   1000037     5.46057190e+02   # chargino(2)       [1L]
+   1000001     7.06303219e+03   # ~d_L              [irrelevant]
+   1000002     7.06271372e+03   # ~u_L              [irrelevant]
+   1000003     7.06305914e+03   # ~s_L              [irrelevant]
+   1000004     7.06274067e+03   # ~c_L              [irrelevant]
+   1000005     7.10826650e+03   # ~b_1              [irrelevant]
+   1000006     7.16237728e+03   # ~t_1              [irrelevant]
+   1000011     5.25167746e+02   # ~e_L              [irrelevant]
+   1000012     5.18841083e+02   # ~nu_e_L           [irrelevant]
+   1000013     5.25187016e+02   # ~mu_L             [1L]
+   1000014     5.18860573e+02   # ~nu_mu_L          [1L]
+   1000015     3.00151415e+03   # ~tau_1            [irrelevant]
+   1000016     3.00880751e+03   # ~nu_tau_L         [irrelevant]
+   2000001     7.04938393e+03   # ~d_R              [irrelevant]
+   2000002     7.05136356e+03   # ~u_R              [irrelevant]
+   2000003     7.04943468e+03   # ~s_R              [irrelevant]
+   2000004     7.05136702e+03   # ~c_R              [irrelevant]
+   2000005     7.16151312e+03   # ~b_2              [irrelevant]
+   2000006     7.19205727e+03   # ~t_2              [irrelevant]
+   2000011     5.05054724e+02   # ~e_R              [irrelevant]
+   2000013     5.05095249e+02   # ~mu_R             [1L]
+   2000015     3.01426808e+03   # ~tau_2            [irrelevant]
+Block HMIX Q= 1.00000000e+03
+     1     4.89499929e+02      # mu(Q) MSSM DRbar   [initial guess]
+     2     3.93371545e+01      # tan(beta)(Q) MSSM DRbar Feynman gauge [1L]
+Block MSOFT Q= 1.00000000e+03  # MSSM DRbar SUSY breaking parameters
+     1     2.00000000e+02      # M_1(Q)             [initial guess]
+     2     4.00000000e+02      # M_2(Q)             [initial guess]
+     3     2.00000000e+03      # M_3(Q)             [2L]
+    31     5.00000000e+02      # meL(Q)             [2L]
+    32     5.00000000e+02      # mmuL(Q)            [irrelevant]
+    33     3.00000000e+03      # mtauL(Q)           [2L]
+    34     4.99999999e+02      # meR(Q)             [2L]
+    35     4.99999999e+02      # mmuR(Q)            [initial guess]
+    36     3.00000000e+03      # mtauR(Q)           [2L]
+    41     7.00000000e+03      # mqL1(Q)            [2L]
+    42     7.00000000e+03      # mqL2(Q)            [2L]
+    43     6.99999999e+03      # mqL3(Q)            [2L]
+    44     7.00000000e+03      # muR(Q)             [2L]
+    45     7.00000000e+03      # mcR(Q)             [2L]
+    46     6.99999999e+03      # mtR(Q)             [2L]
+    47     7.00000000e+03      # mdR(Q)             [2L]
+    48     7.00000000e+03      # msR(Q)             [2L]
+    49     7.00000000e+03      # mbR(Q)             [2L]
+Block AU Q= 1.00000000e+03
+  3  3     1.57871614e-05      # At(Q)              [2L]
+Block AD Q= 1.00000000e+03
+  3  3     8.99561673e-06      # Ab(Q)              [2L]
+Block AE Q= 1.00000000e+03
+  2  2     2.84230475e-06      # Amu(Q) MSSM DR-bar [1L]
+  3  3     3.02719242e-06      # Atau(Q)            [2L]
