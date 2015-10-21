@@ -178,8 +178,8 @@ void setup_model(gm2calc::MSSMNoFV_onshell& model,
 void print_amu_detailed(
    const gm2calc::MSSMNoFV_onshell& model)
 {
-#define FORMAT_AMU(amu) boost::format("% 16.14e") % (amu)
-#define FORMAT_DEL(amu) boost::format("%16.14e") % (amu)
+#define FORMAT_AMU(amu) boost::format("% 14.8e") % (amu)
+#define FORMAT_DEL(amu) boost::format("%14.8e") % (amu)
 #define FORMAT_PCT(pct) boost::format("%2.1f") % (pct)
 
    std::string error_str;
@@ -228,10 +228,10 @@ void print_amu_detailed(
    const double amu_best = amu_1l + amu_2l;
 
    std::cout <<
-      "===============================================================================\n"
+      "====================================================================\n"
       "   amu (1-loop + 2-loop best) = " << FORMAT_AMU(amu_best) << ' ' <<
       "+- " << FORMAT_DEL(amu_2l_uncertainty) << '\n' <<
-      "===============================================================================\n"
+      "====================================================================\n"
       "\n" <<
       error_str <<
       "==============================\n"
