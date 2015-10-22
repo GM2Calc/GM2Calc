@@ -4,7 +4,7 @@ BASEDIR=$(dirname $0)
 HOMEDIR=$(readlink -f "${BASEDIR}/../")
 BINDIR="${HOMEDIR}/bin"
 GM2CALC="${BINDIR}/gm2calc.x"
-frac_diff=0.00000000001
+frac_diff=0.000000001
 
 . "${BASEDIR}/compare.sh"
 
@@ -14,29 +14,29 @@ frac_diff=0.00000000001
 # 3: expected exit code
 # 4: expected amu (minimal output)
 points="\
-${BASEDIR}/test_points/problems_funcs_Fa_Fb.in,gm2calc,0,-7.26010839613302e-09
-${BASEDIR}/test_points/problems_funcs_I_FC_FN.in,gm2calc,0,-7.38800970725992e-09
-${BASEDIR}/test_points/problems_hmix_scale.in,slha,0,3.89245056181094e-10
-${BASEDIR}/test_points/P1a_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.80707343687898e-09
-${BASEDIR}/test_points/P1a_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.16049628914016e-09
-${BASEDIR}/test_points/P1b_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.22472102858175e-09
-${BASEDIR}/test_points/P1b_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.11758474096628e-09
-${BASEDIR}/test_points/P1c_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.00765380788945e-09
-${BASEDIR}/test_points/P1c_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.86038731887328e-09
-${BASEDIR}/test_points/P2_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,0,3.1272477101719e-09
-${BASEDIR}/test_points/P2_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,0,3.19581635023783e-09
-${BASEDIR}/test_points/P3_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.78175706564947e-09
-${BASEDIR}/test_points/P3_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.09394324876113e-09
-${BASEDIR}/test_points/BM1-1504.05500_1L_resummed.in,gm2calc,1,2.81168064521252e-09
-${BASEDIR}/test_points/BM1-1504.05500_2L_resummed.in,gm2calc,1,2.67369843449255e-09
-${BASEDIR}/test_points/BM2-1504.05500_1L_resummed.in,gm2calc,1,3.0339292608166e-09
-${BASEDIR}/test_points/BM2-1504.05500_2L_resummed.in,gm2calc,1,2.88017459112086e-09
-${BASEDIR}/test_points/BM3-1504.05500_1L_resummed.in,gm2calc,0,2.61994966785813e-09
-${BASEDIR}/test_points/BM3-1504.05500_2L_resummed.in,gm2calc,0,2.09846138842161e-09
-${BASEDIR}/test_points/BM4-1504.05500_1L_resummed.in,gm2calc,1,2.76249843887181e-09
-${BASEDIR}/test_points/BM4-1504.05500_2L_resummed.in,gm2calc,1,2.44726408970207e-09
-${BASEDIR}/test_points/BM5-1504.05500_1L_resummed.in,gm2calc,0,2.88732972683492e-09
-${BASEDIR}/test_points/BM5-1504.05500_2L_resummed.in,gm2calc,0,2.98718794395183e-09
+${BASEDIR}/test_points/problems_funcs_Fa_Fb.in,gm2calc,0,-7.26010840E-09
+${BASEDIR}/test_points/problems_funcs_I_FC_FN.in,gm2calc,0,-7.38800971E-09
+${BASEDIR}/test_points/problems_hmix_scale.in,slha,0,3.89245056E-10
+${BASEDIR}/test_points/P1a_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.80707344E-09
+${BASEDIR}/test_points/P1a_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.16049629E-09
+${BASEDIR}/test_points/P1b_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.22472103E-09
+${BASEDIR}/test_points/P1b_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.11758474E-09
+${BASEDIR}/test_points/P1c_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.00765381E-09
+${BASEDIR}/test_points/P1c_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.86038732E-09
+${BASEDIR}/test_points/P2_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,0,3.12724771E-09
+${BASEDIR}/test_points/P2_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,0,3.19581635E-09
+${BASEDIR}/test_points/P3_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.78175707E-09
+${BASEDIR}/test_points/P3_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.09394325E-09
+${BASEDIR}/test_points/BM1-1504.05500_1L_resummed.in,gm2calc,1,2.81168065E-09
+${BASEDIR}/test_points/BM1-1504.05500_2L_resummed.in,gm2calc,1,2.67369843E-09
+${BASEDIR}/test_points/BM2-1504.05500_1L_resummed.in,gm2calc,1,3.03392926E-09
+${BASEDIR}/test_points/BM2-1504.05500_2L_resummed.in,gm2calc,1,2.88017459E-09
+${BASEDIR}/test_points/BM3-1504.05500_1L_resummed.in,gm2calc,0,2.61994967E-09
+${BASEDIR}/test_points/BM3-1504.05500_2L_resummed.in,gm2calc,0,2.09846139E-09
+${BASEDIR}/test_points/BM4-1504.05500_1L_resummed.in,gm2calc,1,2.76249844E-09
+${BASEDIR}/test_points/BM4-1504.05500_2L_resummed.in,gm2calc,1,2.44726409E-09
+${BASEDIR}/test_points/BM5-1504.05500_1L_resummed.in,gm2calc,0,2.88732973E-09
+${BASEDIR}/test_points/BM5-1504.05500_2L_resummed.in,gm2calc,0,2.98718794E-09
 "
 
 if test ! -x "${GM2CALC}"; then

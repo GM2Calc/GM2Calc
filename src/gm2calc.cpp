@@ -359,9 +359,8 @@ void print_amu(const gm2calc::MSSMNoFV_onshell& model,
 {
    switch (config_options.output_format) {
    case gm2calc::Config_options::Minimal:
-      std::cout << std::setprecision(std::numeric_limits<double>::digits10)
-                << std::scientific
-                << (!config_options.calculate_uncertainty ?
+      std::cout << boost::format("%.8e") %
+                   (!config_options.calculate_uncertainty ?
                     calculate_amu(model, config_options) :
                     calculate_uncertainty_amu_2loop(model))
                 << '\n';
