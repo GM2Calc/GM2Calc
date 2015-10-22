@@ -17,11 +17,20 @@ GM2Calc-0.2.17 [not released yet]
    enabled in addition, the uncertainty is written to
    GM2CalcOutput[1].
 
+ * Feature (commits 25eee8d, 148adaf): Adding two C++ interface
+   examples for the SLHA-compliant and the GM2Calc-specific input
+   format.  The examples can be found in the files
+   src/example-slha.cpp and src/example-gm2calc.cpp .
+
  * Change (commit 3bf585a): Memorize all tachyonic particles (not only
    one).
 
  * Change (commit af21077): Print warning if tachyons exist in
    detailed output without tan(beta) resummation.
+
+ * Change (commits 1426497, f558f22): Reduce number of digits after
+   the decimal point to 8 digits in the printed result for amu and its
+   uncertainty.
 
  * Bugfix (commit 4b3f634): Check for tachyons if tan(beta)
    resummation is disabled.
