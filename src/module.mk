@@ -22,27 +22,40 @@ EXEsrc_SRC := \
 		$(DIR)/gm2calc.cpp \
 		$(DIR)/gm2scan.cpp
 
+# example programs
+EXAsrc_SRC := \
+		$(DIR)/example-gm2calc.cpp \
+		$(DIR)/example-slha.cpp
+
 LIBsrc_OBJ := $(LIBsrc_SRC:.cpp=.o)
 
 EXEsrc_OBJ := $(EXEsrc_SRC:.cpp=.o)
+
+EXAsrc_OBJ := $(EXAsrc_SRC:.cpp=.o)
 
 LIBsrc_DEP := $(LIBsrc_OBJ:.o=.d)
 
 EXEsrc_DEP := $(EXEsrc_OBJ:.o=.d)
 
+EXAsrc_DEP := $(EXAsrc_OBJ:.o=.d)
+
 EXEsrc_EXE := $(patsubst $(DIR)/%.o, $(BINDIR)/%.x, $(EXEsrc_OBJ))
+
+EXAsrc_EXE := $(patsubst $(DIR)/%.o, $(BINDIR)/%.x, $(EXAsrc_OBJ))
 
 LIBsrc     := $(DIR)/lib$(MODNAME)$(LIBEXT)
 
-clean::
-	-rm -f $(LIBsrc_DEP)
-	-rm -f $(EXEsrc_DEP)
-	-rm -f $(LIBsrc_OBJ)
-	-rm -f $(EXEsrc_OBJ)
-	-rm -f $(LIBsrc)
-	-rm -f $(EXEsrc_EXE)
+.PHONY: examples
 
-$(LIBsrc_DEP) $(EXEsrc_DEP) $(LIBsrc_OBJ) $(EXEsrc_OBJ): \
+clean::
+	-rm -f $(LIBsrc_DEP) $(EXEsrc_DEP) $(EXAsrc_DEP)
+	-rm -f $(LIBsrc_OBJ) $(EXEsrc_OBJ) $(EXAsrc_OBJ)
+	-rm -f $(LIBsrc)
+	-rm -f $(EXEsrc_EXE) $(EXAsrc_EXE)
+
+examples: $(EXAsrc_EXE) make.args
+
+$(LIBsrc_DEP) $(EXEsrc_DEP) $(EXAsrc_DEP) $(LIBsrc_OBJ) $(EXEsrc_OBJ) $(EXAsrc_OBJ): \
 	override CPPFLAGS += $(EIGENFLAGS) $(BOOSTFLAGS)
 
 $(LIBsrc): $(LIBsrc_OBJ)
@@ -51,6 +64,6 @@ $(LIBsrc): $(LIBsrc_OBJ)
 $(BINDIR)/%.x: $(DIR)/%.o $(LIBsrc) | $(BINDIR)
 	$(CXX) -o $@ $^ $(LDLIBS)
 
-ALLDEP += $(LIBsrc_DEP) $(EXEsrc_DEP)
+ALLDEP += $(LIBsrc_DEP) $(EXEsrc_DEP) $(EXAsrc_DEP)
 ALLLIB += $(LIBsrc)
 ALLEXE += $(EXEsrc_EXE)

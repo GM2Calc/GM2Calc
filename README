@@ -54,6 +54,20 @@ stored in `make.args' run
   $ cat make.args | xargs make
 
 
+Compilation of the example programs
+-----------------------------------
+
+GM2Calc ships the two C++ example programs
+
+  src/example-gm2calc.cpp
+  src/example-slha.cpp
+
+which illustrate how to use routines of GM2Calc at the C++ level.  The
+examples can be compiled by running
+
+  $ make examples
+
+
 Using LAPACK (optional)
 -----------------------
 
