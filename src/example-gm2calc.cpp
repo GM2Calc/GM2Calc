@@ -10,24 +10,24 @@ gm2calc::MSSMNoFV_onshell setup() {
       = Eigen::Matrix<double,3,3>::Identity();
 
    // fill DR-bar parameters
-   model.set_TB(10);
-   model.set_Ae(1,1,0);
+   model.set_TB(10);                      // 1L
+   model.set_Ae(1,1,0);                   // 1L
 
    // fill on-shell parameters
-   model.set_Mu(350);
-   model.set_MassB(150);
-   model.set_MassWB(300);
-   model.set_MassG(1000);
-   model.set_mq2(500 * 500 * UnitMatrix);
-   model.set_ml2(500 * 500 * UnitMatrix);
-   model.set_md2(500 * 500 * UnitMatrix);
-   model.set_mu2(500 * 500 * UnitMatrix);
-   model.set_me2(500 * 500 * UnitMatrix);
-   model.set_Au(2,2,0);
-   model.set_Ad(2,2,0);
-   model.set_Ae(2,2,0);
-   model.set_MA0(1500);
-   model.set_scale(454.7);
+   model.set_Mu(350);                     // 1L
+   model.set_MassB(150);                  // 1L
+   model.set_MassWB(300);                 // 1L
+   model.set_MassG(1000);                 // 2L
+   model.set_mq2(500 * 500 * UnitMatrix); // 2L
+   model.set_ml2(500 * 500 * UnitMatrix); // 1L(smuon)/2L
+   model.set_md2(500 * 500 * UnitMatrix); // 2L
+   model.set_mu2(500 * 500 * UnitMatrix); // 2L
+   model.set_me2(500 * 500 * UnitMatrix); // 1L(smuon)/2L
+   model.set_Au(2,2,0);                   // 2L
+   model.set_Ad(2,2,0);                   // 2L
+   model.set_Ae(2,2,0);                   // 2L
+   model.set_MA0(1500);                   // 2L
+   model.set_scale(454.7);                // 2L
 
    // calculate mass spectrum
    model.calculate_masses();

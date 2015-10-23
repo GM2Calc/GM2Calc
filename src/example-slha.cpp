@@ -24,8 +24,8 @@ gm2calc::MSSMNoFV_onshell setup() {
    // fill DR-bar parameters
    model.set_TB(40);                        // 1L
    model.set_Mu(500);                       // initial guess
-   model.set_MassB(150);                    // initial guess
-   model.set_MassWB(200);                   // initial guess
+   model.set_MassB(200);                    // initial guess
+   model.set_MassWB(400);                   // initial guess
    model.set_MassG(2000);                   // 2L
    model.set_mq2(7000 * 7000 * UnitMatrix); // 2L
    model.set_ml2(0, 0, 500 * 500);          // 2L
