@@ -1,4 +1,4 @@
-GM2Calc-0.2.17 [not released yet]
+GM2Calc-0.2.17 [October, 26 2015]
 
  * Feature (commit 132851): The uncertainty of amu(2L,TB resummed) can
    be calculated by setting GM2CalcConfig[5] to 1.  Depending on the

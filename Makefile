@@ -2,7 +2,7 @@
 PKGNAME         := gm2calc
 MAJOR           := 0
 MINOR           := 2
-PATCH           := 16
+PATCH           := 17
 VERSION         := $(MAJOR).$(MINOR).$(PATCH)
 
 # Variables for compilation
