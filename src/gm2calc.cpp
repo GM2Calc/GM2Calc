@@ -449,7 +449,7 @@ void print_warnings(const gm2calc::MSSMNoFV_onshell& model,
 {
    if (model.get_problems().have_problem() ||
        model.get_problems().have_warning())
-      WARNING(model.get_problems());
+      std::cerr << model.get_problems() << '\n';
 
    if (model.get_problems().have_warning()) {
       switch (config_options.output_format) {
