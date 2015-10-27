@@ -469,21 +469,23 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       const double precision =
          std::max((MCha_goal - get_MCha()).cwiseAbs().maxCoeff(),
                   std::abs(MChi_goal(max_bino) - get_MChi(max_bino)));
-      WARNING("DR-bar to on-shell conversion for Mu, M1 and M2 did"
-              " not converge"
-              " (reached accuracy: " << precision <<
-              ", accuracy goal: " << precision_goal <<
-              ", max. iterations: " << max_iterations << ")");
       get_problems().flag_no_convergence_Mu_MassB_MassWB(precision, it);
    } else {
       get_problems().unflag_no_convergence_Mu_MassB_MassWB();
    }
 
    if (verbose_output) {
-      std::cout << "   Achieved absolute accuracy: "
-                << (std::max((MCha_goal - get_MCha()).cwiseAbs().maxCoeff(),
-                             std::abs(MChi_goal(max_bino) - get_MChi(max_bino))))
-                << " GeV\n";
+      const double precision =
+         std::max((MCha_goal - get_MCha()).cwiseAbs().maxCoeff(),
+                  std::abs(MChi_goal(max_bino) - get_MChi(max_bino)));
+      if (it == max_iterations) {
+         std::cout <<
+            "   DR-bar to on-shell conversion for Mu, M1 and M2 did"
+            " not converge (reached absolute accuracy: " << precision <<
+            " GeV, accuracy goal: " << precision_goal <<
+            ", max. iterations: " << max_iterations << ")\n";
+      }
+      std::cout << "   Achieved absolute accuracy: " << precision << " GeV\n";
    }
 }
 
@@ -582,14 +584,14 @@ double MSSMNoFV_onshell::convert_me2_root(
 
    const double precision = std::abs(Difference_MSm(*this)(get_me2(1,1)));
 
-   if (it >= max_iterations) {
-      WARNING("DR-bar to on-shell conversion for mse did not converge with"
-              " root finder (reached accuracy: " << precision <<
-              ", accuracy goal: " << precision_goal <<
-              ", max. iterations: " << max_iterations << ")");
-   }
-
    if (verbose_output) {
+      if (it >= max_iterations) {
+         std::cout <<
+            "   DR-bar to on-shell conversion for mse did not converge with"
+            " root finder (reached absolute accuracy: " << precision <<
+            " GeV, accuracy goal: " << precision_goal <<
+            ", max. iterations: " << max_iterations << ")\n";
+      }
       std::cout << "   Achieved absolute accuracy: "
                 << precision << " GeV\n";
    }
@@ -666,14 +668,14 @@ double MSSMNoFV_onshell::convert_me2_fpi(
    const double precision =
       std::abs(get_MSm(right_index) - MSm_goal(right_index));
 
-   if (it == max_iterations) {
-      WARNING("DR-bar to on-shell conversion for mse did not converge with"
-              " FPI (reached accuracy: " << precision <<
-              ", accuracy goal: " << precision_goal <<
-              ", max. iterations: " << max_iterations << ")");
-   }
-
    if (verbose_output) {
+      if (it == max_iterations) {
+         std::cout <<
+            "   DR-bar to on-shell conversion for mse did not converge with"
+            " FPI (reached absolute accuracy: " << precision <<
+            " GeV, accuracy goal: " << precision_goal <<
+            ", max. iterations: " << max_iterations << ")\n";
+      }
       std::cout << "   Achieved absolute accuracy: "
                 << precision << " GeV\n";
    }
