@@ -139,13 +139,13 @@ void MSSMNoFV_onshell_problems::print_warnings(std::ostream& ostr) const
 
    if (have_no_convergence_Mu_MassB_MassWB)
       ostr << " DR-bar to on-shell conversion for Mu, M1, M2 failed"
-              " (reached accuracy: "
-           << convergence_problem_Mu_MassB_MassWB.precision << "),";
+              " (reached absolute accuracy: "
+           << convergence_problem_Mu_MassB_MassWB.precision << " GeV),";
 
    if (have_no_convergence_me2)
       ostr << " DR-bar to on-shell conversion for me2 failed"
-              " (reached accuracy: "
-           << convergence_problem_me2.precision << ")";
+              " (reached absolute accuracy: "
+           << convergence_problem_me2.precision << " GeV)";
 }
 
 void MSSMNoFV_onshell_problems::print(std::ostream& ostr) const
