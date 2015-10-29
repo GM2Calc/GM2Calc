@@ -82,11 +82,11 @@ or
 
 GM2Calc has been published in
 
-- P. Athron, M. Bach, H. G. Fargnoli, C. Gnendiger, R. Greifenhagen,
-  J. Park, S. Paßehr, D. Stöckinger, H. Stöckinger-Kim, A. Voigt:
-  "Precise MSSM prediction for (g-2) of the muon"
-  [<a href="http://arxiv.org/abs/XXXX.YYYY">CPC 000 (2015)
-  000-999</a>]
+- Peter Athron, Markus Bach, Helvecio G. Fargnoli, Christoph
+  Gnendiger, Robert Greifenhagen, Jae-hyeon Park, Sebastian Paßehr,
+  Dominik Stöckinger, Hyejung Stöckinger-Kim, Alexander Voigt:
+  "GM2Calc: Precise MSSM prediction for (g-2) of the muon" [<a
+  href="http://arxiv.org/abs/1510.08071">arxiv:1510.08071</a>]
 
 The expressions implemented in GM2Calc have been taken from
 [<a href="http://arxiv.org/abs/1003.5820">Phys.Rev. D81 (2010) 093004</a>,
