@@ -1,8 +1,8 @@
 # Package information
 PKGNAME         := gm2calc
-MAJOR           := 0
-MINOR           := 2
-PATCH           := 17
+MAJOR           := 1
+MINOR           := 0
+PATCH           := 0
 VERSION         := $(MAJOR).$(MINOR).$(PATCH)
 
 # Variables for compilation
