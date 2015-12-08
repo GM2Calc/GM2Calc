@@ -30,6 +30,7 @@ clean::
 	-rm -f make.args
 
 include src/module.mk
+include examples/module.mk
 include doc/module.mk
 
 ifneq ($(MAKECMDGOALS),clean)
