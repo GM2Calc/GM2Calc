@@ -25,12 +25,12 @@ Optional:
 Compilation
 ===========
 
-To compile GM2Calc run
+To compile GM2Calc run GNU `make':
 
   $ make
 
 The used compiler and include paths can be passed as an argument to
-make.  For example:
+GNU `make'.  For example:
 
   $ make \
        CXX=icpc \
