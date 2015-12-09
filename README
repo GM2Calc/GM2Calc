@@ -15,7 +15,6 @@ Requirements
 
  * C++ compiler (g++ >= 4.6.3 or clang++ >= 3.4 or icpc >= 14.0.3)
  * Boost (version 1.37.0 or higher)   http://www.boost.org
- * Eigen 3 (version 3.1 or higher)    http://eigen.tuxfamily.org
 
 Optional:
 
@@ -45,7 +44,7 @@ The following default values are set in the makefile:
   CXX_DEP_GEN     := g++
   MAKELIB         := ar cru
   BOOSTFLAGS      := -I/usr/include
-  EIGENFLAGS      := -I/usr/include/eigen3
+  EIGENFLAGS      := -I.
 
 The command line arguments passed to `make' are stored in the file
 `make.args'.  To (re-)run `make' with the command line arguments
