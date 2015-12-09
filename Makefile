@@ -12,7 +12,7 @@ CXXFLAGS        := -O2 -std=c++11
 CXX_DEP_GEN     := g++
 MAKELIB         := ar cru
 BOOSTFLAGS      := -I/usr/include
-EIGENFLAGS      := -I/usr/include/eigen3
+EIGENFLAGS      := -I.
 LIBEXT          := .a
 BINDIR          := bin
 CONFIG_H        := src/config.h
