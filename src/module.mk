@@ -11,6 +11,7 @@ LIBsrc_SRC := \
 		$(DIR)/gm2_uncertainty.cpp \
 		$(DIR)/gm2_slha_io.cpp \
 		$(DIR)/MSSMNoFV_onshell.cpp \
+		$(DIR)/MSSMNoFV_onshell_c.cpp \
 		$(DIR)/MSSMNoFV_onshell_mass_eigenstates.cpp \
 		$(DIR)/MSSMNoFV_onshell_physical.cpp \
 		$(DIR)/MSSMNoFV_onshell_problems.cpp \

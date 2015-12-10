@@ -6,6 +6,9 @@ PATCH           := 0
 VERSION         := $(MAJOR).$(MINOR).$(PATCH)
 
 # Variables for compilation
+CC              := gcc
+CFLAGS          := -O2
+CLIBS           := -lstdc++ -lm
 CXX             := g++
 CPPFLAGS        := -Isrc
 CXXFLAGS        := -O2 -std=c++11
@@ -86,6 +89,9 @@ make.args:
 	mv $@-t $@
 
 %.d: %.cpp | $(CONFIG_H)
+	$(CXX_DEP_GEN) $(CPPFLAGS) -MM -MP -MG -o $@ -MT '$*.o' $^
+
+%.d: %.c | $(CONFIG_H)
 	$(CXX_DEP_GEN) $(CPPFLAGS) -MM -MP -MG -o $@ -MT '$*.o' $^
 
 print-% : ; @echo $* = $($*)
