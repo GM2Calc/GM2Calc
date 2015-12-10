@@ -8,6 +8,7 @@ LIBsrc_SRC := \
 		$(DIR)/gm2_1loop.cpp \
 		$(DIR)/gm2_1loop_c.cpp \
 		$(DIR)/gm2_2loop.cpp \
+		$(DIR)/gm2_2loop_c.cpp \
 		$(DIR)/gm2_mb.cpp \
 		$(DIR)/gm2_uncertainty.cpp \
 		$(DIR)/gm2_slha_io.cpp \
