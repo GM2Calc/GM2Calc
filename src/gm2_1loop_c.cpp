@@ -18,7 +18,6 @@
 
 #include "gm2_1loop.h"
 #include "gm2_1loop.hpp"
-#include "MSSMNoFV_onshell.hpp"
 
 extern "C" {
 
