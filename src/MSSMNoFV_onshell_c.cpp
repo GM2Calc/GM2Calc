@@ -107,4 +107,9 @@ void c_mssm_onshell_set_scale(C_MSSMNoFV_onshell* model, double scale)
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_scale(scale);
 }
 
+void c_mssm_onshell_calculate_masses(C_MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->calculate_masses();
+}
+
 } // extern "C"

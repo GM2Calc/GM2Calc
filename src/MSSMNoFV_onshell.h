@@ -63,6 +63,9 @@ void c_mssm_onshell_set_me2(C_MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set renormalization scale */
 void c_mssm_onshell_set_scale(C_MSSMNoFV_onshell*, double);
 
+/** set calculate mass spectrum */
+void c_mssm_onshell_calculate_masses(C_MSSMNoFV_onshell*);
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
