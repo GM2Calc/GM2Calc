@@ -3,7 +3,7 @@
 #include "MSSMNoFV_onshell.h"
 #include <stdio.h>
 
-void setup(C_MSSMNoFV_onshell* model) {
+void setup(MSSMNoFV_onshell* model) {
    /* fill DR-bar parameters */
    c_mssm_onshell_set_TB(model, 10);      /* 1L */
    c_mssm_onshell_set_Ae(model,1,1,0);    /* 1L */
@@ -34,7 +34,7 @@ void setup(C_MSSMNoFV_onshell* model) {
 }
 
 int main() {
-   C_MSSMNoFV_onshell* model = c_mssm_onshell_new();
+   MSSMNoFV_onshell* model = c_mssm_onshell_new();
 
    setup(model);
 
