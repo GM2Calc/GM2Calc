@@ -77,6 +77,31 @@ void c_mssm_onshell_set_MA0(C_MSSMNoFV_onshell* model, double MA0)
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_MA0(MA0);
 }
 
+void c_mssm_onshell_set_mq2(C_MSSMNoFV_onshell* model, unsigned i, unsigned k, double mq2)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_mq2(i,k,mq2);
+}
+
+void c_mssm_onshell_set_mu2(C_MSSMNoFV_onshell* model, unsigned i, unsigned k, double mu2)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_mu2(i,k,mu2);
+}
+
+void c_mssm_onshell_set_md2(C_MSSMNoFV_onshell* model, unsigned i, unsigned k, double md2)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_md2(i,k,md2);
+}
+
+void c_mssm_onshell_set_ml2(C_MSSMNoFV_onshell* model, unsigned i, unsigned k, double ml2)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_ml2(i,k,ml2);
+}
+
+void c_mssm_onshell_set_me2(C_MSSMNoFV_onshell* model, unsigned i, unsigned k, double me2)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_me2(i,k,me2);
+}
+
 void c_mssm_onshell_set_scale(C_MSSMNoFV_onshell* model, double scale)
 {
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_scale(scale);
