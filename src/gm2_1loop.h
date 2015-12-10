@@ -1,0 +1,48 @@
+// ====================================================================
+// This file is part of GM2Calc.
+//
+// GM2Calc is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published
+// by the Free Software Foundation, either version 3 of the License,
+// or (at your option) any later version.
+//
+// GM2Calc is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with GM2Calc.  If not, see
+// <http://www.gnu.org/licenses/>.
+// ====================================================================
+
+#ifndef GM2_1LOOP_C_H
+#define GM2_1LOOP_C_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/** handle */
+struct MSSMNoFV_onshell;
+typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
+
+/** calculates full 1-loop SUSY contributions to (g-2) in the MSSM (w/ tan(beta) resummation) */
+double gm2calc_calculate_amu_1loop(MSSMNoFV_onshell*);
+
+/** calculates full 1-loop SUSY contributions to (g-2) in the MSSM (no tan(beta) resummation) */
+double gm2calc_calculate_amu_1loop_non_tan_beta_resummed(MSSMNoFV_onshell*);
+
+/* === routines for individual 1-loop contributions === */
+
+/** 1-loop neutralino contribution */
+double gm2calc_amuChi0(MSSMNoFV_onshell*);
+
+/** 1-loop chargino contribution */
+double gm2calc_amuChipm(MSSMNoFV_onshell*);
+
+#ifdef __cplusplus
+} /* extern "C" */
+#endif
+
+#endif
