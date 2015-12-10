@@ -28,43 +28,43 @@ struct MSSMNoFV_onshell;
 typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
 
 /** allocate new MSSM model */
-MSSMNoFV_onshell* c_mssm_onshell_new(void);
+MSSMNoFV_onshell* gm2calc_mssmnofv_new(void);
 /** delete MSSM model */
-void c_mssm_onshell_free(MSSMNoFV_onshell*);
+void gm2calc_mssmnofv_free(MSSMNoFV_onshell*);
 
 /** set tan(beta) */
-void c_mssm_onshell_set_TB(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_TB(MSSMNoFV_onshell*, double);
 /** set Ae */
-void c_mssm_onshell_set_Ae(MSSMNoFV_onshell*, unsigned, unsigned, double);
+void gm2calc_mssmnofv_set_Ae(MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set Au */
-void c_mssm_onshell_set_Au(MSSMNoFV_onshell*, unsigned, unsigned, double);
+void gm2calc_mssmnofv_set_Au(MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set Ad */
-void c_mssm_onshell_set_Ad(MSSMNoFV_onshell*, unsigned, unsigned, double);
+void gm2calc_mssmnofv_set_Ad(MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set Mu parameter */
-void c_mssm_onshell_set_Mu(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_Mu(MSSMNoFV_onshell*, double);
 /** set bino mass */
-void c_mssm_onshell_set_MassB(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_MassB(MSSMNoFV_onshell*, double);
 /** set wino mass */
-void c_mssm_onshell_set_MassWB(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_MassWB(MSSMNoFV_onshell*, double);
 /** set gluino mass */
-void c_mssm_onshell_set_MassG(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_MassG(MSSMNoFV_onshell*, double);
 /** set MA0 */
-void c_mssm_onshell_set_MA0(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_MA0(MSSMNoFV_onshell*, double);
 /** set mq2 */
-void c_mssm_onshell_set_mq2(MSSMNoFV_onshell*, unsigned, unsigned, double);
+void gm2calc_mssmnofv_set_mq2(MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set mu2 */
-void c_mssm_onshell_set_mu2(MSSMNoFV_onshell*, unsigned, unsigned, double);
+void gm2calc_mssmnofv_set_mu2(MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set md2 */
-void c_mssm_onshell_set_md2(MSSMNoFV_onshell*, unsigned, unsigned, double);
+void gm2calc_mssmnofv_set_md2(MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set ml2 */
-void c_mssm_onshell_set_ml2(MSSMNoFV_onshell*, unsigned, unsigned, double);
+void gm2calc_mssmnofv_set_ml2(MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set me2 */
-void c_mssm_onshell_set_me2(MSSMNoFV_onshell*, unsigned, unsigned, double);
+void gm2calc_mssmnofv_set_me2(MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set renormalization scale */
-void c_mssm_onshell_set_scale(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_scale(MSSMNoFV_onshell*, double);
 
 /** set calculate mass spectrum */
-void c_mssm_onshell_calculate_masses(MSSMNoFV_onshell*);
+void gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell*);
 
 #ifdef __cplusplus
 } /* extern "C" */
