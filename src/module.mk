@@ -11,6 +11,7 @@ LIBsrc_SRC := \
 		$(DIR)/gm2_2loop_c.cpp \
 		$(DIR)/gm2_mb.cpp \
 		$(DIR)/gm2_uncertainty.cpp \
+		$(DIR)/gm2_uncertainty_c.cpp \
 		$(DIR)/gm2_slha_io.cpp \
 		$(DIR)/MSSMNoFV_onshell.cpp \
 		$(DIR)/MSSMNoFV_onshell_c.cpp \
