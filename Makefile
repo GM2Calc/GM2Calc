@@ -7,7 +7,7 @@ VERSION         := $(MAJOR).$(MINOR).$(PATCH)
 
 # Variables for compilation
 CC              := gcc
-CFLAGS          := -O2
+CFLAGS          := -O2 -std=c11
 CLIBS           := -lstdc++ -lm
 CXX             := g++
 CPPFLAGS        := -Isrc
