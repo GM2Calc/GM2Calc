@@ -18,6 +18,7 @@
 
 #include "MSSMNoFV_onshell.h"
 #include "MSSMNoFV_onshell.hpp"
+#include <iostream>
 
 extern "C"
 {
@@ -110,6 +111,11 @@ void gm2calc_mssmnofv_set_scale(MSSMNoFV_onshell* model, double scale)
 void gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell* model)
 {
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->calculate_masses();
+}
+
+void print_mssmnofv(const MSSMNoFV_onshell* model)
+{
+   std::cout << *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model);
 }
 
 } // extern "C"

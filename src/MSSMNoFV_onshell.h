@@ -66,6 +66,9 @@ void gm2calc_mssmnofv_set_scale(MSSMNoFV_onshell*, double);
 /** set calculate mass spectrum */
 void gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell*);
 
+/** print model */
+void print_mssmnofv(const MSSMNoFV_onshell*);
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
