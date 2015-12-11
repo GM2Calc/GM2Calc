@@ -57,15 +57,27 @@ stored in `make.args' run
 Compilation of the example programs
 -----------------------------------
 
-GM2Calc ships the two C++ example programs
+GM2Calc ships two C++ example programs:
 
   examples/example-gm2calc.cpp
   examples/example-slha.cpp
 
-which illustrate how to use routines of GM2Calc at the C++ level.  The
-examples can be compiled by running
+and two C example programs:
+
+  examples/example-gm2calc_c.cpp
+  examples/example-slha_c.cpp
+
+These example programs illustrate how to use routines of GM2Calc at
+the C/C++ level.  The examples can be compiled by running
 
   $ make examples
+
+For the compilation of the C programs a C compiler is needed.  The
+used C compiler, the compiler flags and the linked libraries can be
+customized as:
+
+  $ make examples \
+       CC=icpc CFLAGS="-O2" CLIBS="-lstdc++ -lm"
 
 
 Using LAPACK (optional)
