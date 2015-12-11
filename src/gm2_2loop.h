@@ -19,6 +19,8 @@
 #ifndef GM2_2LOOP_C_H
 #define GM2_2LOOP_C_H
 
+#include "MSSMNoFV_onshell.h"
+
 /**
  * @file gm2_2loop.h
  * @brief contains declarations of C interface functions for 2-loop calculation
@@ -30,10 +32,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-/** handle */
-struct MSSMNoFV_onshell;
-typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
 
 /** calculates best 2-loop SUSY contributions to a_mu in the MSSM (with tan(beta) resummation) */
 double gm2calc_calculate_amu_2loop(const MSSMNoFV_onshell*);
