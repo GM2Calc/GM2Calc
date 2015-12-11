@@ -27,6 +27,9 @@ extern "C" {
 struct MSSMNoFV_onshell;
 typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
 
+/** error codes */
+enum EError { NoError = 0, InvalidInput, PhysicalProblem, UnknownError };
+
 /** allocate new MSSM model */
 MSSMNoFV_onshell* gm2calc_mssmnofv_new(void);
 /** delete MSSM model */
@@ -74,46 +77,46 @@ void gm2calc_mssmnofv_set_scale(MSSMNoFV_onshell*, double);
 void gm2calc_mssmnofv_set_MAh_pole(MSSMNoFV_onshell*, double);
 
 /** set Z boson pole mass */
-double gm2calc_mssmnofv_set_MZ_pole(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_MZ_pole(MSSMNoFV_onshell*, double);
 
 /** set W boson pole mass */
-double gm2calc_mssmnofv_set_MW_pole(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_MW_pole(MSSMNoFV_onshell*, double);
 
 /** set top-Quark pole mass */
-double gm2calc_mssmnofv_set_MFt_pole(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_MFt_pole(MSSMNoFV_onshell*, double);
 
 /** set running bottom-Quark mass mb(mb) */
-double gm2calc_mssmnofv_set_MFb_running(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_MFb_running(MSSMNoFV_onshell*, double);
 
 /** set tau-Lepton pole mass */
-double gm2calc_mssmnofv_set_MFtau_pole(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_MFtau_pole(MSSMNoFV_onshell*, double);
 
 /** set muon pole mass */
-double gm2calc_mssmnofv_set_MFm_pole(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_MFm_pole(MSSMNoFV_onshell*, double);
 
 /** set smuon pole masses */
-double gm2calc_mssmnofv_set_MSm_pole(MSSMNoFV_onshell*, unsigned, double);
+void gm2calc_mssmnofv_set_MSm_pole(MSSMNoFV_onshell*, unsigned, double);
 
 /** set sneutrino pole mass */
-double gm2calc_mssmnofv_set_MSvmL_pole(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_MSvmL_pole(MSSMNoFV_onshell*, double);
 
 /** set chargino pole mass */
-double gm2calc_mssmnofv_set_MCha_pole(MSSMNoFV_onshell*, unsigned, double);
+void gm2calc_mssmnofv_set_MCha_pole(MSSMNoFV_onshell*, unsigned, double);
 
 /** set neutralino pole mass */
-double gm2calc_mssmnofv_set_MChi_pole(MSSMNoFV_onshell*, unsigned, double);
+void gm2calc_mssmnofv_set_MChi_pole(MSSMNoFV_onshell*, unsigned, double);
 
 /** set verbose output */
 void gm2calc_mssmnofv_set_verbose_output(MSSMNoFV_onshell*, int);
 
 /** convert parameters to mixed on-shell/DR-bar scheme */
-void gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell*);
+int gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell*);
 
-void gm2calc_mssmnofv_convert_to_onshell_params(
+int gm2calc_mssmnofv_convert_to_onshell_params(
    MSSMNoFV_onshell*, double precision, unsigned max_iterations);
 
 /** set calculate mass spectrum */
-void gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell*);
+int gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell*);
 
 /** print model */
 void print_mssmnofv(const MSSMNoFV_onshell*);
