@@ -2,10 +2,12 @@
 
 #include "gm2_1loop.h"
 #include "gm2_2loop.h"
+#include "gm2_uncertainty.h"
 #include "MSSMNoFV_onshell.h"
 
 #include "gm2_1loop.hpp"
 #include "gm2_2loop.hpp"
+#include "gm2_uncertainty.hpp"
 #include "MSSMNoFV_onshell.hpp"
 
 using namespace gm2calc_test;
@@ -141,7 +143,7 @@ void test_parameters(const MSSMNoFV_onshell* model)
    test_parameters(model, mcpp);
 }
 
-void test_1_loop(MSSMNoFV_onshell* model)
+void test_1_loop(const MSSMNoFV_onshell* model)
 {
    const gm2calc::MSSMNoFV_onshell mcpp(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
@@ -154,7 +156,7 @@ void test_1_loop(MSSMNoFV_onshell* model)
                gm2calc::calculate_amu_1loop_non_tan_beta_resummed(mcpp));
 }
 
-void test_2_loop(MSSMNoFV_onshell* model)
+void test_2_loop(const MSSMNoFV_onshell* model)
 {
    const gm2calc::MSSMNoFV_onshell mcpp(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
@@ -175,6 +177,15 @@ void test_2_loop(MSSMNoFV_onshell* model)
    CHECK_EQUAL(gm2calc_calculate_amu_2loop(model), gm2calc::calculate_amu_2loop(mcpp));
    CHECK_EQUAL(gm2calc_calculate_amu_2loop_non_tan_beta_resummed(model),
                gm2calc::calculate_amu_2loop_non_tan_beta_resummed(mcpp));
+}
+
+void test_uncertainty(const MSSMNoFV_onshell* model)
+{
+   const gm2calc::MSSMNoFV_onshell mcpp(
+      *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
+
+   CHECK_EQUAL(gm2calc_calculate_uncertainty_amu_2loop(model),
+               gm2calc::calculate_uncertainty_amu_2loop(mcpp));
 }
 
 int main()
@@ -214,6 +225,13 @@ int main()
    printf("==============================\n");
 
    test_2_loop(model);
+
+   printf("\n");
+   printf("==============================\n");
+   printf("testing uncertainty calculation\n");
+   printf("==============================\n");
+
+   test_uncertainty(model);
 
    printf("\n");
    printf("==============================\n");
