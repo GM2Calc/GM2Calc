@@ -54,7 +54,7 @@ or
 
 \section Directories
 
- - <code>bin/</code> after compilation, the <code>bin/</code>
+ - <code>bin/</code> after running `make`, the <code>bin/</code>
    directory contains executables for the numerical calculation of
    \f$a_\mu\f$
 
