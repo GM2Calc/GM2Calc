@@ -156,6 +156,29 @@ GM2Calc reads the input parameters from the following blocks:
    soft-breaking trilinear couplings
 
 
+C/C++ interface
+===============
+
+GM2Calc provides a C and a C++ interface.  To use the routines of
+GM2Calc in a C++ program, the following C++ header files have to be
+included:
+
+   src/gm2_1loop.hpp
+   src/gm2_2loop.hpp
+   src/MSSMNoFV_onshell.hpp
+
+To use the routines of GM2Calc in a C program, the following C header
+files have to be included:
+
+   src/gm2_1loop.h
+   src/gm2_2loop.h
+   src/MSSMNoFV_onshell.h
+
+Please refer to the content of these header files for a precise
+definition of all interface functions.  The C/C++ example programs
+also serve as an illustration of the interface routines.
+
+
 Configuration options
 =====================
 
