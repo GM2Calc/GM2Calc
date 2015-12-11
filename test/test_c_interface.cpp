@@ -156,7 +156,6 @@ int main()
    printf("==============================\n");
    printf("testing parameter getters\n");
    printf("==============================\n");
-   printf("\n");
 
    test_parameters(model);
 
@@ -164,7 +163,6 @@ int main()
    printf("==============================\n");
    printf("testing amu 1-loop calculation\n");
    printf("==============================\n");
-   printf("\n");
 
    test_1_loop(model);
 
@@ -172,7 +170,6 @@ int main()
    printf("==============================\n");
    printf("testing amu 2-loop calculation\n");
    printf("==============================\n");
-   printf("\n");
 
    test_2_loop(model);
 
