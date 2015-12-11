@@ -106,6 +106,12 @@ double gm2calc_mssmnofv_set_MChi_pole(MSSMNoFV_onshell*, unsigned, double);
 /** set verbose output */
 void gm2calc_mssmnofv_set_verbose_output(MSSMNoFV_onshell*, int);
 
+/** convert parameters to mixed on-shell/DR-bar scheme */
+void gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell*);
+
+void gm2calc_mssmnofv_convert_to_onshell_params(
+   MSSMNoFV_onshell*, double precision, unsigned max_iterations);
+
 /** set calculate mass spectrum */
 void gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell*);
 

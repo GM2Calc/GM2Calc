@@ -178,6 +178,17 @@ void gm2calc_mssmnofv_set_verbose_output(MSSMNoFV_onshell* model, int verbose_ou
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_verbose_output(verbose_output);
 }
 
+void gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->convert_to_onshell();
+}
+
+void gm2calc_mssmnofv_convert_to_onshell_params(
+   MSSMNoFV_onshell* model, double precision, unsigned max_iterations)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->convert_to_onshell(precision, max_iterations);
+}
+
 void gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell* model)
 {
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->calculate_masses();
