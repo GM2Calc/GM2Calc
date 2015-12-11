@@ -20,9 +20,9 @@ CONFIG_H        := src/config.h
 # Flags (set to 1 to enable, leave empty to disable)
 ENABLE_LAPACK   :=
 
-.PHONY:         all allexec alllib clean depend make.args
-
 all: alllib allexec make.args
+
+.PHONY: all allexec alllib clean depend make.args
 
 clean::
 	-rm -f $(CONFIG_H)
