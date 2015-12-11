@@ -86,16 +86,16 @@ void gm2calc_mssmnofv_set_MZ_pole(MSSMNoFV_onshell*, double);
 void gm2calc_mssmnofv_set_MW_pole(MSSMNoFV_onshell*, double);
 
 /** set top-Quark pole mass */
-void gm2calc_mssmnofv_set_MFt_pole(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_MT_pole(MSSMNoFV_onshell*, double);
 
 /** set running bottom-Quark mass mb(mb) */
-void gm2calc_mssmnofv_set_MFb_running(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_MB_running(MSSMNoFV_onshell*, double);
 
 /** set tau-Lepton pole mass */
-void gm2calc_mssmnofv_set_MFtau_pole(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_ML_pole(MSSMNoFV_onshell*, double);
 
 /** set muon pole mass */
-void gm2calc_mssmnofv_set_MFm_pole(MSSMNoFV_onshell*, double);
+void gm2calc_mssmnofv_set_MM_pole(MSSMNoFV_onshell*, double);
 
 /** set smuon pole masses */
 void gm2calc_mssmnofv_set_MSm_pole(MSSMNoFV_onshell*, unsigned, double);
