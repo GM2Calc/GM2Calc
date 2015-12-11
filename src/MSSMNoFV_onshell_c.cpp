@@ -225,204 +225,204 @@ void gm2calc_mssmnofv_set_verbose_output(MSSMNoFV_onshell* model, int verbose_ou
    reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_verbose_output(verbose_output);
 }
 
-double gm2calc_mssmnofv_get_Ae(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+double gm2calc_mssmnofv_get_Ae(const MSSMNoFV_onshell* model, unsigned i, unsigned k)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_Ae(i,k);
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_Ae(i,k);
 }
 
-double gm2calc_mssmnofv_get_Ad(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+double gm2calc_mssmnofv_get_Ad(const MSSMNoFV_onshell* model, unsigned i, unsigned k)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_Ad(i,k);
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_Ad(i,k);
 }
 
-double gm2calc_mssmnofv_get_Au(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+double gm2calc_mssmnofv_get_Au(const MSSMNoFV_onshell* model, unsigned i, unsigned k)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_Au(i,k);
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_Au(i,k);
 }
 
-double gm2calc_mssmnofv_get_EL(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_EL(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_EL();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_EL();
 }
 
-double gm2calc_mssmnofv_get_EL0(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_EL0(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_EL0();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_EL0();
 }
 
-double gm2calc_mssmnofv_get_gY(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_gY(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_gY();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_gY();
 }
 
-double gm2calc_mssmnofv_get_g1(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_g1(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_g1();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_g1();
 }
 
-double gm2calc_mssmnofv_get_g2(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_g2(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_g2();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_g2();
 }
 
-double gm2calc_mssmnofv_get_g3(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_g3(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_g3();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_g3();
 }
 
-double gm2calc_mssmnofv_get_TB(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_TB(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_TB();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_TB();
 }
 
-double gm2calc_mssmnofv_get_MassB(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_MassB(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MassB();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MassB();
 }
 
-double gm2calc_mssmnofv_get_MassWB(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_MassWB(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MassWB();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MassWB();
 }
 
-double gm2calc_mssmnofv_get_MassG(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_MassG(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MassG();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MassG();
 }
 
-double gm2calc_mssmnofv_get_Mu(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_Mu(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_Mu();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_Mu();
 }
 
-double gm2calc_mssmnofv_get_mq2(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+double gm2calc_mssmnofv_get_mq2(const MSSMNoFV_onshell* model, unsigned i, unsigned k)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_mq2(i,k);
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_mq2(i,k);
 }
 
-double gm2calc_mssmnofv_get_md2(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+double gm2calc_mssmnofv_get_md2(const MSSMNoFV_onshell* model, unsigned i, unsigned k)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_md2(i,k);
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_md2(i,k);
 }
 
-double gm2calc_mssmnofv_get_mu2(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+double gm2calc_mssmnofv_get_mu2(const MSSMNoFV_onshell* model, unsigned i, unsigned k)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_mu2(i,k);
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_mu2(i,k);
 }
 
-double gm2calc_mssmnofv_get_ml2(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+double gm2calc_mssmnofv_get_ml2(const MSSMNoFV_onshell* model, unsigned i, unsigned k)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_ml2(i,k);
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_ml2(i,k);
 }
 
-double gm2calc_mssmnofv_get_me2(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+double gm2calc_mssmnofv_get_me2(const MSSMNoFV_onshell* model, unsigned i, unsigned k)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_me2(i,k);
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_me2(i,k);
 }
 
-double gm2calc_mssmnofv_get_vev(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_vev(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_vev();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_vev();
 }
 
-double gm2calc_mssmnofv_get_MW(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_MW(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MW();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MW();
 }
 
-double gm2calc_mssmnofv_get_MZ(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_MZ(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MZ();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MZ();
 }
 
-double gm2calc_mssmnofv_get_ME(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_ME(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_ME();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_ME();
 }
 
-double gm2calc_mssmnofv_get_MM(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_MM(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MM();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MM();
 }
 
-double gm2calc_mssmnofv_get_ML(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_ML(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_ML();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_ML();
 }
 
-double gm2calc_mssmnofv_get_MU(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_MU(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MU();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MU();
 }
 
-double gm2calc_mssmnofv_get_MC(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_MC(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MC();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MC();
 }
 
-double gm2calc_mssmnofv_get_MT(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_MT(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MT();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MT();
 }
 
-double gm2calc_mssmnofv_get_MD(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_MD(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MD();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MD();
 }
 
-double gm2calc_mssmnofv_get_MS(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_MS(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MS();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MS();
 }
 
-double gm2calc_mssmnofv_get_MB(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_MB(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MB();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MB();
 }
 
-double gm2calc_mssmnofv_get_MBMB(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_MBMB(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MBMB();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MBMB();
 }
 
-double gm2calc_mssmnofv_get_MAh(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_MAh(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MAh(1);
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MAh(1);
 }
 
-double gm2calc_mssmnofv_get_MCha(MSSMNoFV_onshell* model, unsigned i)
+double gm2calc_mssmnofv_get_MCha(const MSSMNoFV_onshell* model, unsigned i)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MCha(i);
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MCha(i);
 }
 
-double gm2calc_mssmnofv_get_MChi(MSSMNoFV_onshell* model, unsigned i)
+double gm2calc_mssmnofv_get_MChi(const MSSMNoFV_onshell* model, unsigned i)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MChi(i);
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MChi(i);
 }
 
-double gm2calc_mssmnofv_get_MSm(MSSMNoFV_onshell* model, unsigned i)
+double gm2calc_mssmnofv_get_MSm(const MSSMNoFV_onshell* model, unsigned i)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MSm(i);
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MSm(i);
 }
 
-double gm2calc_mssmnofv_get_MSvmL(MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_get_MSvmL(const MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MSvmL();
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MSvmL();
 }
 
-double gm2calc_mssmnofv_get_Ye(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+double gm2calc_mssmnofv_get_Ye(const MSSMNoFV_onshell* model, unsigned i, unsigned k)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_Ye(i,k);
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_Ye(i,k);
 }
 
-double gm2calc_mssmnofv_get_Yd(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+double gm2calc_mssmnofv_get_Yd(const MSSMNoFV_onshell* model, unsigned i, unsigned k)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_Yd(i,k);
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_Yd(i,k);
 }
 
-double gm2calc_mssmnofv_get_Yu(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+double gm2calc_mssmnofv_get_Yu(const MSSMNoFV_onshell* model, unsigned i, unsigned k)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_Yu(i,k);
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_Yu(i,k);
 }
 
 /**

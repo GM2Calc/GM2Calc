@@ -122,127 +122,127 @@ void gm2calc_mssmnofv_set_MChi_pole(MSSMNoFV_onshell*, unsigned, double);
 void gm2calc_mssmnofv_set_verbose_output(MSSMNoFV_onshell*, int);
 
 /** get Ae(i,k) */
-double gm2calc_mssmnofv_get_Ae(MSSMNoFV_onshell*, unsigned, unsigned);
+double gm2calc_mssmnofv_get_Ae(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 /** get Ad(i,k) */
-double gm2calc_mssmnofv_get_Ad(MSSMNoFV_onshell*, unsigned, unsigned);
+double gm2calc_mssmnofv_get_Ad(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 /** get Au(i,k) */
-double gm2calc_mssmnofv_get_Au(MSSMNoFV_onshell*, unsigned, unsigned);
+double gm2calc_mssmnofv_get_Au(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 /** get electromagnetic gauge coupling at MZ w/o hadronic corrections */
-double gm2calc_mssmnofv_get_EL(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_EL(const MSSMNoFV_onshell*);
 
 /** get electromagnetic gauge coupling in Thomson limit */
-double gm2calc_mssmnofv_get_EL0(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_EL0(const MSSMNoFV_onshell*);
 
 /** get Hypercharge gauge coupling (not GUT normalized) */
-double gm2calc_mssmnofv_get_gY(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_gY(const MSSMNoFV_onshell*);
 
 /** get Hypercharge gauge coupling (GUT normalized) */
-double gm2calc_mssmnofv_get_g1(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_g1(const MSSMNoFV_onshell*);
 
 /** get left gauge coupling */
-double gm2calc_mssmnofv_get_g2(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_g2(const MSSMNoFV_onshell*);
 
 /** get strong gauge coupling */
-double gm2calc_mssmnofv_get_g3(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_g3(const MSSMNoFV_onshell*);
 
 /** get tan(beta) */
-double gm2calc_mssmnofv_get_TB(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_TB(const MSSMNoFV_onshell*);
 
 /** get bino mass */
-double gm2calc_mssmnofv_get_MassB(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_MassB(const MSSMNoFV_onshell*);
 
 /** get wino mass */
-double gm2calc_mssmnofv_get_MassWB(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_MassWB(const MSSMNoFV_onshell*);
 
 /** get gluino mass */
-double gm2calc_mssmnofv_get_MassG(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_MassG(const MSSMNoFV_onshell*);
 
 /** get Mu parameter */
-double gm2calc_mssmnofv_get_Mu(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_Mu(const MSSMNoFV_onshell*);
 
 /** get left-handed up-Squark soft-breaking squared mass */
-double gm2calc_mssmnofv_get_mq2(MSSMNoFV_onshell*, unsigned, unsigned);
+double gm2calc_mssmnofv_get_mq2(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 /** get right-handed down-Squark soft-breaking squared mass */
-double gm2calc_mssmnofv_get_md2(MSSMNoFV_onshell*, unsigned, unsigned);
+double gm2calc_mssmnofv_get_md2(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 /** get right-handed up-Squark soft-breaking squared mass */
-double gm2calc_mssmnofv_get_mu2(MSSMNoFV_onshell*, unsigned, unsigned);
+double gm2calc_mssmnofv_get_mu2(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 /** get left-handed up-Lepton soft-breaking squared mass */
-double gm2calc_mssmnofv_get_ml2(MSSMNoFV_onshell*, unsigned, unsigned);
+double gm2calc_mssmnofv_get_ml2(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 /** get right-handed down-Lepton soft-breaking squared mass */
-double gm2calc_mssmnofv_get_me2(MSSMNoFV_onshell*, unsigned, unsigned);
+double gm2calc_mssmnofv_get_me2(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 /** get vacuum expectation value */
-double gm2calc_mssmnofv_get_vev(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_vev(const MSSMNoFV_onshell*);
 
 /** get renormalization scale */
-double gm2calc_mssmnofv_get_scale(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_scale(const MSSMNoFV_onshell*);
 
 /** get MW */
-double gm2calc_mssmnofv_get_MW(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_MW(const MSSMNoFV_onshell*);
 
 /** get MZ */
-double gm2calc_mssmnofv_get_MZ(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_MZ(const MSSMNoFV_onshell*);
 
 /** get electron mass */
-double gm2calc_mssmnofv_get_ME(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_ME(const MSSMNoFV_onshell*);
 
 /** get muon pole mass */
-double gm2calc_mssmnofv_get_MM(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_MM(const MSSMNoFV_onshell*);
 
 /** get tau mass */
-double gm2calc_mssmnofv_get_ML(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_ML(const MSSMNoFV_onshell*);
 
 /** get up-Quark mass */
-double gm2calc_mssmnofv_get_MU(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_MU(const MSSMNoFV_onshell*);
 
 /** get charm-Quark mass */
-double gm2calc_mssmnofv_get_MC(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_MC(const MSSMNoFV_onshell*);
 
 /** get top-Quark mass */
-double gm2calc_mssmnofv_get_MT(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_MT(const MSSMNoFV_onshell*);
 
 /** get down-Quark mass */
-double gm2calc_mssmnofv_get_MD(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_MD(const MSSMNoFV_onshell*);
 
 /** get strange-Quark mass */
-double gm2calc_mssmnofv_get_MS(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_MS(const MSSMNoFV_onshell*);
 
 /** get bottom-Quark DR-bar mass mb(MZ) */
-double gm2calc_mssmnofv_get_MB(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_MB(const MSSMNoFV_onshell*);
 
 /** get bottom-Quark MS-bar mass mb(mb) */
-double gm2calc_mssmnofv_get_MBMB(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_MBMB(const MSSMNoFV_onshell*);
 
 /** get CP-odde Higgs pole mass */
-double gm2calc_mssmnofv_get_MAh(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_MAh(const MSSMNoFV_onshell*);
 
 /** get chargino pole mass */
-double gm2calc_mssmnofv_get_MCha(MSSMNoFV_onshell*, unsigned);
+double gm2calc_mssmnofv_get_MCha(const MSSMNoFV_onshell*, unsigned);
 
 /** get neutralino pole mass */
-double gm2calc_mssmnofv_get_MChi(MSSMNoFV_onshell*, unsigned);
+double gm2calc_mssmnofv_get_MChi(const MSSMNoFV_onshell*, unsigned);
 
 /** get smuon pole masses */
-double gm2calc_mssmnofv_get_MSm(MSSMNoFV_onshell*, unsigned);
+double gm2calc_mssmnofv_get_MSm(const MSSMNoFV_onshell*, unsigned);
 
 /** get sneutrino pole mass */
-double gm2calc_mssmnofv_get_MSvmL(MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_get_MSvmL(const MSSMNoFV_onshell*);
 
 /** get lepton Yukawa coupling */
-double gm2calc_mssmnofv_get_Ye(MSSMNoFV_onshell*, unsigned, unsigned);
+double gm2calc_mssmnofv_get_Ye(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 /** get down-Quark Yukawa coupling */
-double gm2calc_mssmnofv_get_Yd(MSSMNoFV_onshell*, unsigned, unsigned);
+double gm2calc_mssmnofv_get_Yd(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 /** get up-Quark Yukawa coupling */
-double gm2calc_mssmnofv_get_Yu(MSSMNoFV_onshell*, unsigned, unsigned);
+double gm2calc_mssmnofv_get_Yu(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 
 /** convert parameters to mixed on-shell/DR-bar scheme */
