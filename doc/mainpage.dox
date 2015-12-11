@@ -70,6 +70,12 @@ or
 
        firefox doc/html/index.html
 
+ - <code>examples/</code> contains C and C++ example programs which
+   illustrate the use of the GM2Calc routines.  The example programs
+   can be compiled by running
+
+       make examples
+
  - <code>input/</code> contains GM2Calc example input files in SLHA
    and GM2Calc format
 
