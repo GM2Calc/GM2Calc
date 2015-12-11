@@ -43,7 +43,7 @@ void setup(MSSMNoFV_onshell* model) {
    /* convert DR-bar parameters to on-shell */
    const enum EError error = gm2calc_mssmnofv_convert_to_onshell(model);
 
-   if (error != 0) {
+   if (error != NoError) {
       printf("Error: %s\n", gm2calc_error_str(error));
       abort();
    }
