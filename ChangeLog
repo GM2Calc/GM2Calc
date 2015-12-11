@@ -3,6 +3,23 @@ GM2Calc-1.1.0 [not released yet]
  * Change (commit 5cbbc50): The example programs have been moved to a
    separate examples/ directory.
 
+ * Change (commit 873133f): Adding a C interface.  The new headers
+
+      src/gm2_1loop.h
+      src/gm2_2loop.h
+      src/gm2_uncertainty.h
+      src/MSSMNoFV_onshell.h
+
+   declare C interface functions for GM2Calc routines.  In addition,
+   two example C programs
+
+      examples/example-gm2calc_c.c
+      examples/example-slha_c.c
+
+   have been added to illustrate the C interface.  These two C example
+   programs behave exactly like their C++ counterparts.  They can be
+   compiled by running `make examples'.
+
 GM2Calc-1.0.0 [October, 29 2015]
 
  * Official release 1.0.0.
