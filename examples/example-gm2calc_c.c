@@ -20,13 +20,11 @@ void setup(MSSMNoFV_onshell* model) {
    gm2calc_mssmnofv_set_scale(model,454.7); /* 2L */
 
    for (unsigned i = 0; i < 3; i++) {
-      for (unsigned k = 0; k < 3; k++) {
-         gm2calc_mssmnofv_set_mq2(model,i,k,500*500); /* 2L */
-         gm2calc_mssmnofv_set_ml2(model,i,k,500*500); /* 1L(smuon)/2L */
-         gm2calc_mssmnofv_set_md2(model,i,k,500*500); /* 2L */
-         gm2calc_mssmnofv_set_mu2(model,i,k,500*500); /* 2L */
-         gm2calc_mssmnofv_set_me2(model,i,k,500*500); /* 1L(smuon)/2L */
-      }
+      gm2calc_mssmnofv_set_mq2(model,i,i,500*500); /* 2L */
+      gm2calc_mssmnofv_set_ml2(model,i,i,500*500); /* 1L(smuon)/2L */
+      gm2calc_mssmnofv_set_md2(model,i,i,500*500); /* 2L */
+      gm2calc_mssmnofv_set_mu2(model,i,i,500*500); /* 2L */
+      gm2calc_mssmnofv_set_me2(model,i,i,500*500); /* 1L(smuon)/2L */
    }
 
    /* calculate mass spectrum */
