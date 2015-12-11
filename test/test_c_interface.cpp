@@ -39,17 +39,42 @@ void setup(MSSMNoFV_onshell* model)
    gm2calc_mssmnofv_calculate_masses(model);
 }
 
-void test_parameters(MSSMNoFV_onshell* model)
-{
-   const gm2calc::MSSMNoFV_onshell mcpp(
-      *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
+void setup(gm2calc::MSSMNoFV_onshell& model) {
+   const Eigen::Matrix<double,3,3> UnitMatrix
+      = Eigen::Matrix<double,3,3>::Identity();
 
+   // fill DR-bar parameters
+   model.set_TB(10);                      // 1L
+   model.set_Ae(1,1,0);                   // 1L
+
+   // fill on-shell parameters
+   model.set_Mu(350);                     // 1L
+   model.set_MassB(150);                  // 1L
+   model.set_MassWB(300);                 // 1L
+   model.set_MassG(1000);                 // 2L
+   model.set_mq2(500 * 500 * UnitMatrix); // 2L
+   model.set_ml2(500 * 500 * UnitMatrix); // 1L(smuon)/2L
+   model.set_md2(500 * 500 * UnitMatrix); // 2L
+   model.set_mu2(500 * 500 * UnitMatrix); // 2L
+   model.set_me2(500 * 500 * UnitMatrix); // 1L(smuon)/2L
+   model.set_Au(2,2,0);                   // 2L
+   model.set_Ad(2,2,0);                   // 2L
+   model.set_Ae(2,2,0);                   // 2L
+   model.set_MA0(1500);                   // 2L
+   model.set_scale(454.7);                // 2L
+
+   // calculate mass spectrum
+   model.calculate_masses();
+}
+
+void test_parameters(const MSSMNoFV_onshell* model, const gm2calc::MSSMNoFV_onshell& model2)
+{
 #define COMPARE_0(a)                                                    \
-   CHECK_EQUAL(gm2calc_mssmnofv_get_ ## a(model), mcpp.get_ ## a())
+   CHECK_EQUAL(gm2calc_mssmnofv_get_ ## a(model), model2.get_ ## a())
 #define COMPARE_1(a,i)                                                  \
-   CHECK_EQUAL(gm2calc_mssmnofv_get_ ## a(model,i), mcpp.get_ ## a(i))
+   CHECK_EQUAL(gm2calc_mssmnofv_get_ ## a(model,i), model2.get_ ## a(i))
 #define COMPARE_2(a,i,k)                                                \
-   CHECK_EQUAL(gm2calc_mssmnofv_get_ ## a(model,i,k), mcpp.get_ ## a(i,k))
+   CHECK_EQUAL(gm2calc_mssmnofv_get_ ## a(model,i,k), model2.get_ ## a(i,k))
 
    for (unsigned i = 0; i < 3; i++) {
       for (unsigned k = 0; k < 3; k++) {
@@ -101,11 +126,19 @@ void test_parameters(MSSMNoFV_onshell* model)
    COMPARE_1(MSm,1);
    COMPARE_0(MSvmL);
 
-   CHECK_EQUAL(gm2calc_mssmnofv_get_MAh(model), mcpp.get_MAh(1));
+   CHECK_EQUAL(gm2calc_mssmnofv_get_MAh(model), model2.get_MAh(1));
 
 #undef COMPARE_0
 #undef COMPARE_1
 #undef COMPARE_2
+}
+
+void test_parameters(const MSSMNoFV_onshell* model)
+{
+   const gm2calc::MSSMNoFV_onshell mcpp(
+      *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
+
+   test_parameters(model, mcpp);
 }
 
 void test_1_loop(MSSMNoFV_onshell* model)
@@ -147,10 +180,19 @@ void test_2_loop(MSSMNoFV_onshell* model)
 int main()
 {
    MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
+   gm2calc::MSSMNoFV_onshell model2;
 
    setup(model);
+   setup(model2);
 
    print_mssmnofv(model);
+
+   printf("\n");
+   printf("==============================\n");
+   printf("testing parameter setters\n");
+   printf("==============================\n");
+
+   test_parameters(model, model2);
 
    printf("\n");
    printf("==============================\n");
