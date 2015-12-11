@@ -33,6 +33,3 @@ double gm2calc_calculate_uncertainty_amu_2loop(const MSSMNoFV_onshell*);
 #endif
 
 #endif
-
-
-
