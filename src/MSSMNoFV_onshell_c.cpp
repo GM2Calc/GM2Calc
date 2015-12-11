@@ -230,6 +230,11 @@ double gm2calc_mssmnofv_get_gY(MSSMNoFV_onshell* model)
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_gY();
 }
 
+double gm2calc_mssmnofv_get_g1(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_g1();
+}
+
 double gm2calc_mssmnofv_get_g2(MSSMNoFV_onshell* model)
 {
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_g2();

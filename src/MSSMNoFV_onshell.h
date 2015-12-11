@@ -127,8 +127,11 @@ double gm2calc_mssmnofv_get_EL(MSSMNoFV_onshell*);
 /** get electromagnetic gauge coupling in Thomson limit */
 double gm2calc_mssmnofv_get_EL0(MSSMNoFV_onshell*);
 
-/** get Hypercharge gauge coupling */
+/** get Hypercharge gauge coupling (not GUT normalized) */
 double gm2calc_mssmnofv_get_gY(MSSMNoFV_onshell*);
+
+/** get Hypercharge gauge coupling (GUT normalized) */
+double gm2calc_mssmnofv_get_g1(MSSMNoFV_onshell*);
 
 /** get left gauge coupling */
 double gm2calc_mssmnofv_get_g2(MSSMNoFV_onshell*);

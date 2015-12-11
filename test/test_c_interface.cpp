@@ -70,6 +70,7 @@ void test_parameters(MSSMNoFV_onshell* model)
    COMPARE_0(EL);
    COMPARE_0(EL0);
    COMPARE_0(gY);
+   COMPARE_0(g1);
    COMPARE_0(g2);
    COMPARE_0(g3);
    COMPARE_0(TB);
