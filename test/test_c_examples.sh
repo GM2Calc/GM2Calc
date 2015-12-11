@@ -22,6 +22,17 @@ for e in ${EXAMPLES}; do
     ex_cpp=$(echo "$e" | tr ',' ' ' | awk '{ print $1 }')
     ex_c=$(echo "$e" | tr ',' ' ' | awk '{ print $2 }')
 
+    [ -x "$ex_cpp" ] || {
+        echo "Error: $ex_cpp not built"
+        errors=$(expr $errors + 1);
+        continue;
+    }
+    [ -x "$ex_c" ] || {
+        echo "Error: $ex_cpp not built"
+        errors=$(expr $errors + 1);
+        continue;
+    }
+
     out_cpp=$("$ex_cpp" | awk '{ print $3 }')
     out_c=$("$ex_c" | awk '{ print $3 }')
 
