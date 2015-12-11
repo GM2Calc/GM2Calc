@@ -33,9 +33,14 @@ void gm2calc_mssmnofv_free(MSSMNoFV_onshell* model)
    delete reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model);
 }
 
-void gm2calc_mssmnofv_set_TB(MSSMNoFV_onshell* model, double tan_beta)
+void gm2calc_mssmnofv_set_alpha_MZ(MSSMNoFV_onshell* model, double alpha_MZ)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_TB(tan_beta);
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_alpha_MZ(alpha_MZ);
+}
+
+void gm2calc_mssmnofv_set_alpha_thompson(MSSMNoFV_onshell* model, double alpha_0)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_alpha_thompson(alpha_0);
 }
 
 void gm2calc_mssmnofv_set_Ae(MSSMNoFV_onshell* model, unsigned i, unsigned k, double a)
@@ -53,9 +58,14 @@ void gm2calc_mssmnofv_set_Ad(MSSMNoFV_onshell* model, unsigned i, unsigned k, do
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_Ad(i,k,a);
 }
 
-void gm2calc_mssmnofv_set_Mu(MSSMNoFV_onshell* model, double mu)
+void gm2calc_mssmnofv_set_g3(MSSMNoFV_onshell* model, double g3)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_Mu(mu);
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_g3(g3);
+}
+
+void gm2calc_mssmnofv_set_MA0(MSSMNoFV_onshell* model, double MA0)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_MA0(MA0);
 }
 
 void gm2calc_mssmnofv_set_MassB(MSSMNoFV_onshell* model, double mass_b)
@@ -71,11 +81,6 @@ void gm2calc_mssmnofv_set_MassWB(MSSMNoFV_onshell* model, double mass_wb)
 void gm2calc_mssmnofv_set_MassG(MSSMNoFV_onshell* model, double mass_g)
 {
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_MassG(mass_g);
-}
-
-void gm2calc_mssmnofv_set_MA0(MSSMNoFV_onshell* model, double MA0)
-{
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_MA0(MA0);
 }
 
 void gm2calc_mssmnofv_set_mq2(MSSMNoFV_onshell* model, unsigned i, unsigned k, double mq2)
@@ -103,9 +108,24 @@ void gm2calc_mssmnofv_set_me2(MSSMNoFV_onshell* model, unsigned i, unsigned k, d
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_me2(i,k,me2);
 }
 
+void gm2calc_mssmnofv_set_Mu(MSSMNoFV_onshell* model, double mu)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_Mu(mu);
+}
+
+void gm2calc_mssmnofv_set_TB(MSSMNoFV_onshell* model, double tan_beta)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_TB(tan_beta);
+}
+
 void gm2calc_mssmnofv_set_scale(MSSMNoFV_onshell* model, double scale)
 {
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_scale(scale);
+}
+
+void gm2calc_mssmnofv_set_verbose_output(MSSMNoFV_onshell* model, int verbose_output)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_verbose_output(verbose_output);
 }
 
 void gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell* model)

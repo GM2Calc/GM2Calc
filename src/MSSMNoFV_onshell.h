@@ -32,24 +32,29 @@ MSSMNoFV_onshell* gm2calc_mssmnofv_new(void);
 /** delete MSSM model */
 void gm2calc_mssmnofv_free(MSSMNoFV_onshell*);
 
-/** set tan(beta) */
-void gm2calc_mssmnofv_set_TB(MSSMNoFV_onshell*, double);
+/** set alpha_em(MZ) */
+void gm2calc_mssmnofv_set_alpha_MZ(MSSMNoFV_onshell*, double);
+
+/** set alpha_em(0) */
+void gm2calc_mssmnofv_set_alpha_thompson(MSSMNoFV_onshell*, double);
+
+
 /** set Ae */
 void gm2calc_mssmnofv_set_Ae(MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set Au */
 void gm2calc_mssmnofv_set_Au(MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set Ad */
 void gm2calc_mssmnofv_set_Ad(MSSMNoFV_onshell*, unsigned, unsigned, double);
-/** set Mu parameter */
-void gm2calc_mssmnofv_set_Mu(MSSMNoFV_onshell*, double);
+/** set gauge coupling g3 */
+void gm2calc_mssmnofv_set_g3(MSSMNoFV_onshell*, double);
+/** set MA0 */
+void gm2calc_mssmnofv_set_MA0(MSSMNoFV_onshell*, double);
 /** set bino mass */
 void gm2calc_mssmnofv_set_MassB(MSSMNoFV_onshell*, double);
 /** set wino mass */
 void gm2calc_mssmnofv_set_MassWB(MSSMNoFV_onshell*, double);
 /** set gluino mass */
 void gm2calc_mssmnofv_set_MassG(MSSMNoFV_onshell*, double);
-/** set MA0 */
-void gm2calc_mssmnofv_set_MA0(MSSMNoFV_onshell*, double);
 /** set mq2 */
 void gm2calc_mssmnofv_set_mq2(MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set mu2 */
@@ -60,8 +65,16 @@ void gm2calc_mssmnofv_set_md2(MSSMNoFV_onshell*, unsigned, unsigned, double);
 void gm2calc_mssmnofv_set_ml2(MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set me2 */
 void gm2calc_mssmnofv_set_me2(MSSMNoFV_onshell*, unsigned, unsigned, double);
+/** set Mu parameter */
+void gm2calc_mssmnofv_set_Mu(MSSMNoFV_onshell*, double);
+/** set tan(beta) */
+void gm2calc_mssmnofv_set_TB(MSSMNoFV_onshell*, double);
+
 /** set renormalization scale */
 void gm2calc_mssmnofv_set_scale(MSSMNoFV_onshell*, double);
+
+/** set verbose output */
+void gm2calc_mssmnofv_set_verbose_output(MSSMNoFV_onshell*, int);
 
 /** set calculate mass spectrum */
 void gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell*);
