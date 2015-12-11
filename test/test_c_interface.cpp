@@ -1,3 +1,5 @@
+#include "test.hpp"
+
 #include "gm2_1loop.h"
 #include "gm2_2loop.h"
 #include "MSSMNoFV_onshell.h"
@@ -6,32 +8,7 @@
 #include "gm2_2loop.hpp"
 #include "MSSMNoFV_onshell.hpp"
 
-#include <iostream>
-#include <string>
-
-static int g_error = 0;
-static bool verbose = false;
-
-#define VERBOSE_MSG(...)                        \
-   do {                                         \
-   if (verbose) {                               \
-      std::cout << __VA_ARGS__ << std::endl;    \
-   }                                            \
-   } while (0)
-
-#define CHECK_EQUAL(a, b) \
-   check_equal((a), (b), #a, #b)
-
-void check_equal(double a, double b, const std::string& astr, const std::string& bstr)
-{
-   if (a == b) {
-      VERBOSE_MSG("test passed: " << astr << " == " << bstr);
-   } else {
-      std::cout << "test failed: " << astr << " == " << bstr
-                << ": " << a << " != " << b << std::endl;
-      g_error = 1;
-   }
-}
+using namespace gm2calc_test;
 
 void setup(MSSMNoFV_onshell* model)
 {
