@@ -165,6 +165,7 @@ included:
 
    src/gm2_1loop.hpp
    src/gm2_2loop.hpp
+   src/gm2_uncertainty.hpp
    src/MSSMNoFV_onshell.hpp
 
 To use the routines of GM2Calc in a C program, the following C header
@@ -172,6 +173,7 @@ files have to be included:
 
    src/gm2_1loop.h
    src/gm2_2loop.h
+   src/gm2_uncertainty.h
    src/MSSMNoFV_onshell.h
 
 Please refer to the content of these header files for a precise
