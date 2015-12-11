@@ -9,3 +9,4 @@ bin/
 doc/html/
 src/config.h
 test/*.x
+test/*.log
