@@ -24,6 +24,27 @@
 extern "C"
 {
 
+const char* gm2calc_error_str(enum EError error)
+{
+   const char* error_str = "Unknown error";
+
+   switch (error) {
+   case NoError:
+      error_str = "no error";
+      break;
+   case InvalidInput:
+      error_str = "Input parameter set to invalid value";
+      break;
+   case PhysicalProblem:
+      error_str = "Physical problem has occurred during calculation";
+      break;
+   default:
+      break;
+   }
+
+   return error_str;
+}
+
 MSSMNoFV_onshell* gm2calc_mssmnofv_new()
 {
    return reinterpret_cast<MSSMNoFV_onshell*>(new gm2calc::MSSMNoFV_onshell());

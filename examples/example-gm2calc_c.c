@@ -2,6 +2,7 @@
 #include "gm2_2loop.h"
 #include "MSSMNoFV_onshell.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void setup(MSSMNoFV_onshell* model) {
    /* fill DR-bar parameters */
@@ -28,7 +29,12 @@ void setup(MSSMNoFV_onshell* model) {
    }
 
    /* calculate mass spectrum */
-   gm2calc_mssmnofv_calculate_masses(model);
+   const enum EError error = gm2calc_mssmnofv_calculate_masses(model);
+
+   if (error != 0) {
+      printf("Error: %s\n", gm2calc_error_str(error));
+      abort();
+   }
 }
 
 int main() {

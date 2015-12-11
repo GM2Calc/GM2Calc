@@ -30,6 +30,9 @@ typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
 /** error codes */
 enum EError { NoError = 0, InvalidInput, PhysicalProblem, UnknownError };
 
+/** translate error codes into a string */
+const char* gm2calc_error_str(enum EError);
+
 /** allocate new MSSM model */
 MSSMNoFV_onshell* gm2calc_mssmnofv_new(void);
 /** delete MSSM model */

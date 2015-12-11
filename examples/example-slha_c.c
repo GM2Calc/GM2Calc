@@ -2,6 +2,7 @@
 #include "gm2_2loop.h"
 #include "MSSMNoFV_onshell.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void setup(MSSMNoFV_onshell* model) {
    /* fill pole masses */
@@ -40,7 +41,12 @@ void setup(MSSMNoFV_onshell* model) {
    gm2calc_mssmnofv_set_scale(model, 1000);                   /* 2L */
 
    /* convert DR-bar parameters to on-shell */
-   gm2calc_mssmnofv_convert_to_onshell(model);
+   const enum EError error = gm2calc_mssmnofv_convert_to_onshell(model);
+
+   if (error != 0) {
+      printf("Error: %s\n", gm2calc_error_str(error));
+      abort();
+   }
 }
 
 int main() {
