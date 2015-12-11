@@ -6,11 +6,15 @@ LIBsrc_SRC := \
 		$(DIR)/dilog.cpp \
 		$(DIR)/ffunctions.cpp \
 		$(DIR)/gm2_1loop.cpp \
+		$(DIR)/gm2_1loop_c.cpp \
 		$(DIR)/gm2_2loop.cpp \
+		$(DIR)/gm2_2loop_c.cpp \
 		$(DIR)/gm2_mb.cpp \
 		$(DIR)/gm2_uncertainty.cpp \
+		$(DIR)/gm2_uncertainty_c.cpp \
 		$(DIR)/gm2_slha_io.cpp \
 		$(DIR)/MSSMNoFV_onshell.cpp \
+		$(DIR)/MSSMNoFV_onshell_c.cpp \
 		$(DIR)/MSSMNoFV_onshell_mass_eigenstates.cpp \
 		$(DIR)/MSSMNoFV_onshell_physical.cpp \
 		$(DIR)/MSSMNoFV_onshell_problems.cpp \
