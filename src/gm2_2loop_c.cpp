@@ -19,6 +19,14 @@
 #include "gm2_2loop.h"
 #include "gm2_2loop.hpp"
 
+/**
+ * @file gm2_2loop_c.cpp
+ * @brief contains definitions of C interface functions for 2-loop calculation
+ *
+ * This file contains the definitions for the C interface functions
+ * used to calculate \f$a_\mu\f$ at the 2-loop level.
+ */
+
 extern "C" {
 
 /** calculates best 2-loop SUSY contributions to a_mu in the MSSM (with tan(beta) resummation) */

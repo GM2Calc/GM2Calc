@@ -21,6 +21,14 @@
 #include "gm2_error.hpp"
 #include <iostream>
 
+/**
+ * @file MSSMNoFV_onshell_c.cpp
+ * @brief contains definitions of C interface functions for the model
+ *
+ * This file contains the definitions for the C interface functions
+ * used to set and retrieve the model parameters and masses.
+ */
+
 extern "C"
 {
 
@@ -45,11 +53,28 @@ const char* gm2calc_error_str(enum EError error)
    return error_str;
 }
 
+/**
+ * @brief Allocate a new MSSMNoFV model.
+ *
+ * This function allocates a new MSSMNoFV model and returns a pointer
+ * to the created object.  To prevent a resource leak, the model
+ * should be destroyed using gm2calc_mssmnofv_free() .
+ *
+ * @return pointer to model object
+ */
 MSSMNoFV_onshell* gm2calc_mssmnofv_new()
 {
    return reinterpret_cast<MSSMNoFV_onshell*>(new gm2calc::MSSMNoFV_onshell());
 }
 
+/**
+ * @brief Deletes a MSSMNoFV model.
+ *
+ * This function deletes a MSSMNoFV model object, which has been
+ * created using gm2calc_mssmnofv_new() .
+ *
+ * @param model pointer to model object
+ */
 void gm2calc_mssmnofv_free(MSSMNoFV_onshell* model)
 {
    delete reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model);
@@ -400,6 +425,16 @@ double gm2calc_mssmnofv_get_Yu(MSSMNoFV_onshell* model, unsigned i, unsigned k)
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_Yu(i,k);
 }
 
+/**
+ * This function converts the model parameters to a mixed
+ * on-shell/DR-bar scheme, used to calculate \f$a_\mu\f$.  The
+ * function uses default values for the conversion precision goal and
+ * the maximum number of iterations.
+ *
+ * @param model pointer to model object
+ *
+ * @return error code EError
+ */
 int gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell* model)
 {
    int error = NoError;
@@ -417,6 +452,16 @@ int gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell* model)
    return error;
 }
 
+/**
+ * This function converts the model parameters to a mixed
+ * on-shell/DR-bar scheme, used to calculate \f$a_\mu\f$.
+ *
+ * @param model pointer to model object
+ * @param precision precision goal of the conversion
+ * @param max_iterations maximum number of iterations
+ *
+ * @return error code EError
+ */
 int gm2calc_mssmnofv_convert_to_onshell_params(
    MSSMNoFV_onshell* model, double precision, unsigned max_iterations)
 {
@@ -435,6 +480,13 @@ int gm2calc_mssmnofv_convert_to_onshell_params(
    return error;
 }
 
+/**
+ * This function calculates the masses of the particles in the model.
+ *
+ * @param model pointer to model object
+ *
+ * @return error code EError
+ */
 int gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell* model)
 {
    int error = NoError;

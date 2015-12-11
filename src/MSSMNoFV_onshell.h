@@ -19,6 +19,14 @@
 #ifndef GM2_MSSMNoFV_onshell_C_H
 #define GM2_MSSMNoFV_onshell_C_H
 
+/**
+ * @file MSSMNoFV_onshell.h
+ * @brief contains declarations of C interface functions for the model
+ *
+ * This file contains the declarations for the C interface functions
+ * used to set and retrieve the model parameters and masses.
+ */
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -33,9 +41,10 @@ enum EError { NoError = 0, InvalidInput, PhysicalProblem, UnknownError };
 /** translate error codes into a string */
 const char* gm2calc_error_str(enum EError);
 
-/** allocate new MSSM model */
+/** allocate new MSSMNoFV model */
 MSSMNoFV_onshell* gm2calc_mssmnofv_new(void);
-/** delete MSSM model */
+
+/** delete MSSMNoFV model */
 void gm2calc_mssmnofv_free(MSSMNoFV_onshell*);
 
 /** set alpha_em(MZ) */
@@ -44,11 +53,11 @@ void gm2calc_mssmnofv_set_alpha_MZ(MSSMNoFV_onshell*, double);
 /** set alpha_em(0) */
 void gm2calc_mssmnofv_set_alpha_thompson(MSSMNoFV_onshell*, double);
 
-/** set Ae */
+/** set trilinear coupling Ae(i,k) */
 void gm2calc_mssmnofv_set_Ae(MSSMNoFV_onshell*, unsigned, unsigned, double);
-/** set Au */
+/** set trilinear coupling Au(i,k) */
 void gm2calc_mssmnofv_set_Au(MSSMNoFV_onshell*, unsigned, unsigned, double);
-/** set Ad */
+/** set trilinear coupling Ad(i,k) */
 void gm2calc_mssmnofv_set_Ad(MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set gauge coupling g3 */
 void gm2calc_mssmnofv_set_g3(MSSMNoFV_onshell*, double);
@@ -58,17 +67,17 @@ void gm2calc_mssmnofv_set_MassB(MSSMNoFV_onshell*, double);
 void gm2calc_mssmnofv_set_MassWB(MSSMNoFV_onshell*, double);
 /** set gluino mass */
 void gm2calc_mssmnofv_set_MassG(MSSMNoFV_onshell*, double);
-/** set mq2 */
+/** set soft-breaking squared mass parameter mq2(i,k) */
 void gm2calc_mssmnofv_set_mq2(MSSMNoFV_onshell*, unsigned, unsigned, double);
-/** set mu2 */
+/** set soft-breaking squared mass parameter mu2(i,k) */
 void gm2calc_mssmnofv_set_mu2(MSSMNoFV_onshell*, unsigned, unsigned, double);
-/** set md2 */
+/** set soft-breaking squared mass parameter md2(i,k) */
 void gm2calc_mssmnofv_set_md2(MSSMNoFV_onshell*, unsigned, unsigned, double);
-/** set ml2 */
+/** set soft-breaking squared mass parameter ml2(i,k) */
 void gm2calc_mssmnofv_set_ml2(MSSMNoFV_onshell*, unsigned, unsigned, double);
-/** set me2 */
+/** set soft-breaking squared mass parameter me2(i,k) */
 void gm2calc_mssmnofv_set_me2(MSSMNoFV_onshell*, unsigned, unsigned, double);
-/** set Mu parameter */
+/** set soft-breaking squared mass parameter Mu parameter */
 void gm2calc_mssmnofv_set_Mu(MSSMNoFV_onshell*, double);
 /** set tan(beta) */
 void gm2calc_mssmnofv_set_TB(MSSMNoFV_onshell*, double);
@@ -239,6 +248,7 @@ double gm2calc_mssmnofv_get_Yu(MSSMNoFV_onshell*, unsigned, unsigned);
 /** convert parameters to mixed on-shell/DR-bar scheme */
 int gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell*);
 
+/** convert parameters to mixed on-shell/DR-bar scheme */
 int gm2calc_mssmnofv_convert_to_onshell_params(
    MSSMNoFV_onshell*, double precision, unsigned max_iterations);
 

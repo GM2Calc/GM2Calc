@@ -19,6 +19,14 @@
 #ifndef GM2_2LOOP_C_H
 #define GM2_2LOOP_C_H
 
+/**
+ * @file gm2_2loop.h
+ * @brief contains declarations of C interface functions for 2-loop calculation
+ *
+ * This file contains the declarations for the C interface functions
+ * used to calculate \f$a_\mu\f$ at the 2-loop level.
+ */
+
 #ifdef __cplusplus
 extern "C" {
 #endif

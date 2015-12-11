@@ -19,6 +19,14 @@
 #include "gm2_1loop.h"
 #include "gm2_1loop.hpp"
 
+/**
+ * @file gm2_1loop_c.cpp
+ * @brief contains definitions of C interface functions for 1-loop calculation
+ *
+ * This file contains the definitions for the C interface functions
+ * used to calculate \f$a_\mu\f$ at the 1-loop level.
+ */
+
 extern "C" {
 
 /** calculates full 1-loop SUSY contributions to (g-2) in the MSSM (w/ tan(beta) resummation) */
