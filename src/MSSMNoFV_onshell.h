@@ -38,7 +38,6 @@ void gm2calc_mssmnofv_set_alpha_MZ(MSSMNoFV_onshell*, double);
 /** set alpha_em(0) */
 void gm2calc_mssmnofv_set_alpha_thompson(MSSMNoFV_onshell*, double);
 
-
 /** set Ae */
 void gm2calc_mssmnofv_set_Ae(MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set Au */
@@ -47,8 +46,6 @@ void gm2calc_mssmnofv_set_Au(MSSMNoFV_onshell*, unsigned, unsigned, double);
 void gm2calc_mssmnofv_set_Ad(MSSMNoFV_onshell*, unsigned, unsigned, double);
 /** set gauge coupling g3 */
 void gm2calc_mssmnofv_set_g3(MSSMNoFV_onshell*, double);
-/** set MA0 */
-void gm2calc_mssmnofv_set_MA0(MSSMNoFV_onshell*, double);
 /** set bino mass */
 void gm2calc_mssmnofv_set_MassB(MSSMNoFV_onshell*, double);
 /** set wino mass */
@@ -72,6 +69,39 @@ void gm2calc_mssmnofv_set_TB(MSSMNoFV_onshell*, double);
 
 /** set renormalization scale */
 void gm2calc_mssmnofv_set_scale(MSSMNoFV_onshell*, double);
+
+/** set CP-odd Higgs pole mass */
+void gm2calc_mssmnofv_set_MAh_pole(MSSMNoFV_onshell*, double);
+
+/** set Z boson pole mass */
+double gm2calc_mssmnofv_set_MZ_pole(MSSMNoFV_onshell*, double);
+
+/** set W boson pole mass */
+double gm2calc_mssmnofv_set_MW_pole(MSSMNoFV_onshell*, double);
+
+/** set top-Quark pole mass */
+double gm2calc_mssmnofv_set_MFt_pole(MSSMNoFV_onshell*, double);
+
+/** set running bottom-Quark mass mb(mb) */
+double gm2calc_mssmnofv_set_MFb_running(MSSMNoFV_onshell*, double);
+
+/** set tau-Lepton pole mass */
+double gm2calc_mssmnofv_set_MFtau_pole(MSSMNoFV_onshell*, double);
+
+/** set muon pole mass */
+double gm2calc_mssmnofv_set_MFm_pole(MSSMNoFV_onshell*, double);
+
+/** set smuon pole masses */
+double gm2calc_mssmnofv_set_MSm_pole(MSSMNoFV_onshell*, unsigned, double);
+
+/** set sneutrino pole mass */
+double gm2calc_mssmnofv_set_MSvmL_pole(MSSMNoFV_onshell*, double);
+
+/** set chargino pole mass */
+double gm2calc_mssmnofv_set_MCha_pole(MSSMNoFV_onshell*, unsigned, double);
+
+/** set neutralino pole mass */
+double gm2calc_mssmnofv_set_MChi_pole(MSSMNoFV_onshell*, unsigned, double);
 
 /** set verbose output */
 void gm2calc_mssmnofv_set_verbose_output(MSSMNoFV_onshell*, int);

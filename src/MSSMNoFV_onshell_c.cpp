@@ -63,11 +63,6 @@ void gm2calc_mssmnofv_set_g3(MSSMNoFV_onshell* model, double g3)
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_g3(g3);
 }
 
-void gm2calc_mssmnofv_set_MA0(MSSMNoFV_onshell* model, double MA0)
-{
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_MA0(MA0);
-}
-
 void gm2calc_mssmnofv_set_MassB(MSSMNoFV_onshell* model, double mass_b)
 {
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_MassB(mass_b);
@@ -121,6 +116,61 @@ void gm2calc_mssmnofv_set_TB(MSSMNoFV_onshell* model, double tan_beta)
 void gm2calc_mssmnofv_set_scale(MSSMNoFV_onshell* model, double scale)
 {
    return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_scale(scale);
+}
+
+void gm2calc_mssmnofv_set_MAh_pole(MSSMNoFV_onshell* model, double MA0)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_MA0(MA0);
+}
+
+double gm2calc_mssmnofv_set_MZ_pole(MSSMNoFV_onshell* model, double MZ)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_physical().MVZ = MZ;
+}
+
+double gm2calc_mssmnofv_set_MW_pole(MSSMNoFV_onshell* model, double MW)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_physical().MVWm = MW;
+}
+
+double gm2calc_mssmnofv_set_MFt_pole(MSSMNoFV_onshell* model, double MFt)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_physical().MFt = MFt;
+}
+
+double gm2calc_mssmnofv_set_MFb_running(MSSMNoFV_onshell* model, double MFb)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_physical().MFb = MFb;
+}
+
+double gm2calc_mssmnofv_set_MFtau_pole(MSSMNoFV_onshell* model, double MFtau)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_physical().MFtau = MFtau;
+}
+
+double gm2calc_mssmnofv_set_MFm_pole(MSSMNoFV_onshell* model, double MFm)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_physical().MFm = MFm;
+}
+
+double gm2calc_mssmnofv_set_MSm_pole(MSSMNoFV_onshell* model, unsigned i, double MSm)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_physical().MSm(i) = MSm;
+}
+
+double gm2calc_mssmnofv_set_MSvmL_pole(MSSMNoFV_onshell* model, double MSvmL)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_physical().MSvmL = MSvmL;
+}
+
+double gm2calc_mssmnofv_set_MCha_pole(MSSMNoFV_onshell* model, unsigned i, double MCha)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_physical().MCha(i) = MCha;
+}
+
+double gm2calc_mssmnofv_set_MChi_pole(MSSMNoFV_onshell* model, unsigned i, double MChi)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_physical().MChi(i) = MChi;
 }
 
 void gm2calc_mssmnofv_set_verbose_output(MSSMNoFV_onshell* model, int verbose_output)

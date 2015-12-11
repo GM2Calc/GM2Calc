@@ -16,7 +16,7 @@ void setup(MSSMNoFV_onshell* model) {
    gm2calc_mssmnofv_set_Au(model,2,2,0);    /* 2L */
    gm2calc_mssmnofv_set_Ad(model,2,2,0);    /* 2L */
    gm2calc_mssmnofv_set_Ae(model,2,2,0);    /* 2L */
-   gm2calc_mssmnofv_set_MA0(model,1500);    /* 2L */
+   gm2calc_mssmnofv_set_MAh_pole(model,1500);    /* 2L */
    gm2calc_mssmnofv_set_scale(model,454.7); /* 2L */
 
    for (unsigned i = 0; i < 3; i++) {
