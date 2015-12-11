@@ -52,6 +52,29 @@ void test_1_loop(MSSMNoFV_onshell* model)
                gm2calc::calculate_amu_1loop_non_tan_beta_resummed(mcpp));
 }
 
+void test_2_loop(MSSMNoFV_onshell* model)
+{
+   const gm2calc::MSSMNoFV_onshell mcpp(
+      *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
+
+   // fermion/sfermion 2L corrections
+   CHECK_EQUAL(gm2calc_amu2LFSfapprox(model), gm2calc::amu2LFSfapprox(mcpp));
+   CHECK_EQUAL(gm2calc_amu2LFSfapprox_non_tan_beta_resummed(model),
+               gm2calc::amu2LFSfapprox_non_tan_beta_resummed(mcpp));
+
+   // photonic 2L corrections
+   CHECK_EQUAL(gm2calc_amuChi0Photonic(model), gm2calc::amuChi0Photonic(mcpp));
+   CHECK_EQUAL(gm2calc_amuChipmPhotonic(model), gm2calc::amuChipmPhotonic(mcpp));
+
+   // 2L(a) diagrams
+   CHECK_EQUAL(gm2calc_amu2LaSferm(model), gm2calc::amu2LaSferm(mcpp));
+   CHECK_EQUAL(gm2calc_amu2LaCha(model), gm2calc::amu2LaCha(mcpp));
+
+   CHECK_EQUAL(gm2calc_calculate_amu_2loop(model), gm2calc::calculate_amu_2loop(mcpp));
+   CHECK_EQUAL(gm2calc_calculate_amu_2loop_non_tan_beta_resummed(model),
+               gm2calc::calculate_amu_2loop_non_tan_beta_resummed(mcpp));
+}
+
 int main()
 {
    MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
@@ -67,6 +90,14 @@ int main()
    printf("\n");
 
    test_1_loop(model);
+
+   printf("\n");
+   printf("==============================\n");
+   printf("testing amu 2-loop calculation\n");
+   printf("==============================\n");
+   printf("\n");
+
+   test_2_loop(model);
 
    printf("\n");
    printf("==============================\n");
