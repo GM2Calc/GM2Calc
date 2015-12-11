@@ -200,6 +200,201 @@ void gm2calc_mssmnofv_set_verbose_output(MSSMNoFV_onshell* model, int verbose_ou
    reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_verbose_output(verbose_output);
 }
 
+double gm2calc_mssmnofv_get_Ae(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_Ae(i,k);
+}
+
+double gm2calc_mssmnofv_get_Ad(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_Ad(i,k);
+}
+
+double gm2calc_mssmnofv_get_Au(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_Au(i,k);
+}
+
+double gm2calc_mssmnofv_get_EL(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_EL();
+}
+
+double gm2calc_mssmnofv_get_EL0(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_EL0();
+}
+
+double gm2calc_mssmnofv_get_gY(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_gY();
+}
+
+double gm2calc_mssmnofv_get_g2(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_g2();
+}
+
+double gm2calc_mssmnofv_get_g3(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_g3();
+}
+
+double gm2calc_mssmnofv_get_TB(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_TB();
+}
+
+double gm2calc_mssmnofv_get_MassB(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MassB();
+}
+
+double gm2calc_mssmnofv_get_MassWB(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MassWB();
+}
+
+double gm2calc_mssmnofv_get_MassG(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MassG();
+}
+
+double gm2calc_mssmnofv_get_Mu(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_Mu();
+}
+
+double gm2calc_mssmnofv_get_mq2(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_mq2(i,k);
+}
+
+double gm2calc_mssmnofv_get_md2(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_md2(i,k);
+}
+
+double gm2calc_mssmnofv_get_mu2(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_mu2(i,k);
+}
+
+double gm2calc_mssmnofv_get_ml2(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_ml2(i,k);
+}
+
+double gm2calc_mssmnofv_get_me2(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_me2(i,k);
+}
+
+double gm2calc_mssmnofv_get_vev(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_vev();
+}
+
+double gm2calc_mssmnofv_get_MW(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MW();
+}
+
+double gm2calc_mssmnofv_get_MZ(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MZ();
+}
+
+double gm2calc_mssmnofv_get_ME(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_ME();
+}
+
+double gm2calc_mssmnofv_get_MM(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MM();
+}
+
+double gm2calc_mssmnofv_get_ML(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_ML();
+}
+
+double gm2calc_mssmnofv_get_MU(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MU();
+}
+
+double gm2calc_mssmnofv_get_MC(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MC();
+}
+
+double gm2calc_mssmnofv_get_MT(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MT();
+}
+
+double gm2calc_mssmnofv_get_MD(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MD();
+}
+
+double gm2calc_mssmnofv_get_MS(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MS();
+}
+
+double gm2calc_mssmnofv_get_MB(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MB();
+}
+
+double gm2calc_mssmnofv_get_MBMB(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MBMB();
+}
+
+double gm2calc_mssmnofv_get_MAh(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MAh(1);
+}
+
+double gm2calc_mssmnofv_get_MCha(MSSMNoFV_onshell* model, unsigned i)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MCha(i);
+}
+
+double gm2calc_mssmnofv_get_MChi(MSSMNoFV_onshell* model, unsigned i)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MChi(i);
+}
+
+double gm2calc_mssmnofv_get_MSm(MSSMNoFV_onshell* model, unsigned i)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MSm(i);
+}
+
+double gm2calc_mssmnofv_get_MSvmL(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_MSvmL();
+}
+
+double gm2calc_mssmnofv_get_Ye(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_Ye(i,k);
+}
+
+double gm2calc_mssmnofv_get_Yd(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_Yd(i,k);
+}
+
+double gm2calc_mssmnofv_get_Yu(MSSMNoFV_onshell* model, unsigned i, unsigned k)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_Yu(i,k);
+}
+
 int gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell* model)
 {
    int error = NoError;

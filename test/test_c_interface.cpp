@@ -39,6 +39,74 @@ void setup(MSSMNoFV_onshell* model)
    gm2calc_mssmnofv_calculate_masses(model);
 }
 
+void test_parameters(MSSMNoFV_onshell* model)
+{
+   const gm2calc::MSSMNoFV_onshell mcpp(
+      *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
+
+#define COMPARE_0(a)                                                    \
+   CHECK_EQUAL(gm2calc_mssmnofv_get_ ## a(model), mcpp.get_ ## a())
+#define COMPARE_1(a,i)                                                  \
+   CHECK_EQUAL(gm2calc_mssmnofv_get_ ## a(model,i), mcpp.get_ ## a(i))
+#define COMPARE_2(a,i,k)                                                \
+   CHECK_EQUAL(gm2calc_mssmnofv_get_ ## a(model,i,k), mcpp.get_ ## a(i,k))
+
+   for (unsigned i = 0; i < 3; i++) {
+      for (unsigned k = 0; k < 3; k++) {
+         COMPARE_2(Ae,i,k);
+         COMPARE_2(Ad,i,k);
+         COMPARE_2(Au,i,k);
+         COMPARE_2(mq2,i,k);
+         COMPARE_2(md2,i,k);
+         COMPARE_2(mu2,i,k);
+         COMPARE_2(ml2,i,k);
+         COMPARE_2(me2,i,k);
+         COMPARE_2(Ye,i,k);
+         COMPARE_2(Yd,i,k);
+         COMPARE_2(Yu,i,k);
+      }
+   }
+
+   COMPARE_0(EL);
+   COMPARE_0(EL0);
+   COMPARE_0(gY);
+   COMPARE_0(g2);
+   COMPARE_0(g3);
+   COMPARE_0(TB);
+   COMPARE_0(MassB);
+   COMPARE_0(MassWB);
+   COMPARE_0(MassG);
+   COMPARE_0(Mu);
+   COMPARE_0(vev);
+   COMPARE_0(MW);
+   COMPARE_0(MZ);
+   COMPARE_0(ME);
+   COMPARE_0(MM);
+   COMPARE_0(ML);
+   COMPARE_0(MU);
+   COMPARE_0(MC);
+   COMPARE_0(MT);
+   COMPARE_0(MD);
+   COMPARE_0(MS);
+   COMPARE_0(MB);
+   COMPARE_0(MBMB);
+   COMPARE_1(MCha,0);
+   COMPARE_1(MCha,1);
+   COMPARE_1(MChi,0);
+   COMPARE_1(MChi,1);
+   COMPARE_1(MChi,2);
+   COMPARE_1(MChi,3);
+   COMPARE_1(MSm,0);
+   COMPARE_1(MSm,1);
+   COMPARE_0(MSvmL);
+
+   CHECK_EQUAL(gm2calc_mssmnofv_get_MAh(model), mcpp.get_MAh(1));
+
+#undef COMPARE_0
+#undef COMPARE_1
+#undef COMPARE_2
+}
+
 void test_1_loop(MSSMNoFV_onshell* model)
 {
    const gm2calc::MSSMNoFV_onshell mcpp(
@@ -82,6 +150,14 @@ int main()
    setup(model);
 
    print_mssmnofv(model);
+
+   printf("\n");
+   printf("==============================\n");
+   printf("testing parameter getters\n");
+   printf("==============================\n");
+   printf("\n");
+
+   test_parameters(model);
 
    printf("\n");
    printf("==============================\n");
