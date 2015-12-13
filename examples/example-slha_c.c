@@ -60,6 +60,7 @@ int main() {
 
    printf("amu = %e\n", amu);
 
+   /* destroy model to prevent resource leak */
    gm2calc_mssmnofv_free(model);
 
    return 0;
