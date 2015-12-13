@@ -33,19 +33,19 @@
 extern "C" {
 #endif
 
-/** calculates full 1-loop SUSY contributions to (g-2) in the MSSM (w/ tan(beta) resummation) */
-double gm2calc_calculate_amu_1loop(const MSSMNoFV_onshell*);
+/** calculates full 1-loop SUSY contributions to (g-2) in the MSSMNoFV (w/ tan(beta) resummation) */
+double gm2calc_mssmnofv_calculate_amu_1loop(const MSSMNoFV_onshell*);
 
-/** calculates full 1-loop SUSY contributions to (g-2) in the MSSM (no tan(beta) resummation) */
-double gm2calc_calculate_amu_1loop_non_tan_beta_resummed(const MSSMNoFV_onshell*);
+/** calculates full 1-loop SUSY contributions to (g-2) in the MSSMNoFV (no tan(beta) resummation) */
+double gm2calc_mssmnofv_calculate_amu_1loop_non_tan_beta_resummed(const MSSMNoFV_onshell*);
 
 /* === routines for individual 1-loop contributions === */
 
 /** 1-loop neutralino contribution */
-double gm2calc_amuChi0(const MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_amuChi0(const MSSMNoFV_onshell*);
 
 /** 1-loop chargino contribution */
-double gm2calc_amuChipm(const MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_amuChipm(const MSSMNoFV_onshell*);
 
 #ifdef __cplusplus
 } /* extern "C" */

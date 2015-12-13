@@ -21,7 +21,7 @@
 
 extern "C" {
 
-double gm2calc_calculate_uncertainty_amu_2loop(const MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_calculate_uncertainty_amu_2loop(const MSSMNoFV_onshell* model)
 {
    return gm2calc::calculate_uncertainty_amu_2loop(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));

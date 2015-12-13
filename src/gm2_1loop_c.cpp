@@ -30,14 +30,14 @@
 extern "C" {
 
 /** calculates full 1-loop SUSY contributions to (g-2) in the MSSM (w/ tan(beta) resummation) */
-double gm2calc_calculate_amu_1loop(const MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_calculate_amu_1loop(const MSSMNoFV_onshell* model)
 {
    return gm2calc::calculate_amu_1loop(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
 }
 
 /** calculates full 1-loop SUSY contributions to (g-2) in the MSSM (no tan(beta) resummation) */
-double gm2calc_calculate_amu_1loop_non_tan_beta_resummed(const MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_calculate_amu_1loop_non_tan_beta_resummed(const MSSMNoFV_onshell* model)
 {
    return gm2calc::calculate_amu_1loop_non_tan_beta_resummed(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
@@ -46,14 +46,14 @@ double gm2calc_calculate_amu_1loop_non_tan_beta_resummed(const MSSMNoFV_onshell*
 /* === routines for individual 1-loop contributions === */
 
 /** 1-loop neutralino contribution */
-double gm2calc_amuChi0(const MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_amuChi0(const MSSMNoFV_onshell* model)
 {
    return gm2calc::amuChi0(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
 }
 
 /** 1-loop chargino contribution */
-double gm2calc_amuChipm(const MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_amuChipm(const MSSMNoFV_onshell* model)
 {
    return gm2calc::amuChipm(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));

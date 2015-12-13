@@ -43,8 +43,8 @@ int main() {
    setup(model);
 
    const double amu =
-      + gm2calc_calculate_amu_1loop(model)
-      + gm2calc_calculate_amu_2loop(model);
+      + gm2calc_mssmnofv_calculate_amu_1loop(model)
+      + gm2calc_mssmnofv_calculate_amu_2loop(model);
 
    printf("amu = %e\n", amu);
 

@@ -25,8 +25,8 @@
 extern "C" {
 #endif
 
-/** calculates uncertainty for amu(2-loop) */
-double gm2calc_calculate_uncertainty_amu_2loop(const MSSMNoFV_onshell*);
+/** calculates uncertainty for amu(2-loop) in the MSSMNoFV */
+double gm2calc_mssmnofv_calculate_uncertainty_amu_2loop(const MSSMNoFV_onshell*);
 
 #ifdef __cplusplus
 } /* extern "C" */
