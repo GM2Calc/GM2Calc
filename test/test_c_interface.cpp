@@ -201,45 +201,45 @@ int main()
    print_mssmnofv(model);
 
    printf("\n");
-   printf("==============================\n");
+   printf("===============================\n");
    printf("testing parameter setters\n");
-   printf("==============================\n");
+   printf("===============================\n");
 
    test_parameters(model, model2);
 
    printf("\n");
-   printf("==============================\n");
+   printf("===============================\n");
    printf("testing parameter getters\n");
-   printf("==============================\n");
+   printf("===============================\n");
 
    test_parameters(model);
 
    printf("\n");
-   printf("==============================\n");
+   printf("===============================\n");
    printf("testing amu 1-loop calculation\n");
-   printf("==============================\n");
+   printf("===============================\n");
 
    test_1_loop(model);
 
    printf("\n");
-   printf("==============================\n");
+   printf("===============================\n");
    printf("testing amu 2-loop calculation\n");
-   printf("==============================\n");
+   printf("===============================\n");
 
    test_2_loop(model);
 
    printf("\n");
-   printf("==============================\n");
+   printf("===============================\n");
    printf("testing uncertainty calculation\n");
-   printf("==============================\n");
+   printf("===============================\n");
 
    test_uncertainty(model);
 
    printf("\n");
-   printf("==============================\n");
+   printf("===============================\n");
    printf("Test results: %s [%u/%u]\n",
           (g_failed ? "FAIL" : "OK"), (g_tested - g_failed), g_tested);
-   printf("==============================\n");
+   printf("===============================\n");
 
    gm2calc_mssmnofv_free(model);
 
