@@ -246,14 +246,14 @@ double gm2calc_mssmnofv_get_Yu(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 
 /** convert parameters to mixed on-shell/DR-bar scheme */
-int gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell*);
+enum EError gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell*);
 
 /** convert parameters to mixed on-shell/DR-bar scheme */
-int gm2calc_mssmnofv_convert_to_onshell_params(
+enum EError gm2calc_mssmnofv_convert_to_onshell_params(
    MSSMNoFV_onshell*, double precision, unsigned max_iterations);
 
 /** set calculate mass spectrum */
-int gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell*);
+enum EError gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell*);
 
 /** print model */
 void print_mssmnofv(const MSSMNoFV_onshell*);

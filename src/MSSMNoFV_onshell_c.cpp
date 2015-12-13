@@ -435,9 +435,9 @@ double gm2calc_mssmnofv_get_Yu(const MSSMNoFV_onshell* model, unsigned i, unsign
  *
  * @return error code EError
  */
-int gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell* model)
+enum EError gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell* model)
 {
-   int error = NoError;
+   enum EError error = NoError;
 
    try {
       reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->convert_to_onshell();
@@ -462,10 +462,10 @@ int gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell* model)
  *
  * @return error code EError
  */
-int gm2calc_mssmnofv_convert_to_onshell_params(
+enum EError gm2calc_mssmnofv_convert_to_onshell_params(
    MSSMNoFV_onshell* model, double precision, unsigned max_iterations)
 {
-   int error = NoError;
+   enum EError error = NoError;
 
    try {
       reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->convert_to_onshell(precision, max_iterations);
@@ -487,9 +487,9 @@ int gm2calc_mssmnofv_convert_to_onshell_params(
  *
  * @return error code EError
  */
-int gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell* model)
+enum EError gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell* model)
 {
-   int error = NoError;
+   enum EError error = NoError;
 
    try {
       reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->calculate_masses();
