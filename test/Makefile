@@ -19,7 +19,9 @@ LIBGM2Calc := $(SRC_DIR)/libgm2calc.a
 
 all: $(TEST_EXE)
 
+ifneq ($(MAKECMDGOALS),clean)
 -include $(TEST_DEP)
+endif
 
 .PHONY: all clean execute-tests
 
