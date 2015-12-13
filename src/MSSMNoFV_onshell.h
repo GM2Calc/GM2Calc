@@ -252,7 +252,7 @@ enum EError gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell*);
 enum EError gm2calc_mssmnofv_convert_to_onshell_params(
    MSSMNoFV_onshell*, double precision, unsigned max_iterations);
 
-/** set calculate mass spectrum */
+/** calculate mass spectrum */
 enum EError gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell*);
 
 /** print model */
