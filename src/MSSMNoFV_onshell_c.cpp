@@ -32,7 +32,7 @@
 extern "C"
 {
 
-const char* gm2calc_error_str(enum EError error)
+const char* gm2calc_error_str(gm2calc_error error)
 {
    const char* error_str = "Unknown error";
 
@@ -433,11 +433,11 @@ double gm2calc_mssmnofv_get_Yu(const MSSMNoFV_onshell* model, unsigned i, unsign
  *
  * @param model pointer to model object
  *
- * @return error code EError
+ * @return error code gm2calc_error
  */
-enum EError gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell* model)
+gm2calc_error gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell* model)
 {
-   enum EError error = NoError;
+   gm2calc_error error = NoError;
 
    try {
       reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->convert_to_onshell();
@@ -460,12 +460,12 @@ enum EError gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell* model)
  * @param precision precision goal of the conversion
  * @param max_iterations maximum number of iterations
  *
- * @return error code EError
+ * @return error code gm2calc_error
  */
-enum EError gm2calc_mssmnofv_convert_to_onshell_params(
+gm2calc_error gm2calc_mssmnofv_convert_to_onshell_params(
    MSSMNoFV_onshell* model, double precision, unsigned max_iterations)
 {
-   enum EError error = NoError;
+   gm2calc_error error = NoError;
 
    try {
       reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->convert_to_onshell(precision, max_iterations);
@@ -485,11 +485,11 @@ enum EError gm2calc_mssmnofv_convert_to_onshell_params(
  *
  * @param model pointer to model object
  *
- * @return error code EError
+ * @return error code gm2calc_error
  */
-enum EError gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell* model)
+gm2calc_error gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell* model)
 {
-   enum EError error = NoError;
+   gm2calc_error error = NoError;
 
    try {
       reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->calculate_masses();

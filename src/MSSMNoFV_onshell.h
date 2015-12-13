@@ -36,10 +36,10 @@ struct MSSMNoFV_onshell;
 typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
 
 /** error codes */
-enum EError { NoError = 0, InvalidInput, PhysicalProblem, UnknownError };
+typedef enum { NoError = 0, InvalidInput, PhysicalProblem, UnknownError }  gm2calc_error;
 
 /** translate error codes into a string */
-const char* gm2calc_error_str(enum EError);
+const char* gm2calc_error_str(gm2calc_error);
 
 /** allocate new MSSMNoFV model */
 MSSMNoFV_onshell* gm2calc_mssmnofv_new(void);
@@ -246,14 +246,14 @@ double gm2calc_mssmnofv_get_Yu(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 
 /** convert parameters to mixed on-shell/DR-bar scheme */
-enum EError gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell*);
+gm2calc_error gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell*);
 
 /** convert parameters to mixed on-shell/DR-bar scheme */
-enum EError gm2calc_mssmnofv_convert_to_onshell_params(
+gm2calc_error gm2calc_mssmnofv_convert_to_onshell_params(
    MSSMNoFV_onshell*, double precision, unsigned max_iterations);
 
 /** calculate mass spectrum */
-enum EError gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell*);
+gm2calc_error gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell*);
 
 /** print model */
 void print_mssmnofv(const MSSMNoFV_onshell*);
