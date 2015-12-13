@@ -190,6 +190,8 @@ void test_uncertainty(const MSSMNoFV_onshell* model)
 
 int main()
 {
+   g_verbose = false; // verbose test output
+
    MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
    gm2calc::MSSMNoFV_onshell model2;
 
