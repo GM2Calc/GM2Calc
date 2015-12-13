@@ -237,7 +237,7 @@ int main()
 
    printf("\n");
    printf("===============================\n");
-   printf("Test results: %s [%u/%u]\n",
+   printf("Test results: %s [%li/%lu]\n",
           (g_failed ? "FAIL" : "OK"), (g_tested - g_failed), g_tested);
    printf("===============================\n");
 
