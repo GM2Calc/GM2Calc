@@ -8,7 +8,8 @@
 
 namespace gm2calc_test {
 
-static unsigned long g_error = 0;
+static unsigned long g_failed = 0;
+static unsigned long g_tested = 0;
 static bool g_verbose = false;
 
 #define VERBOSE_MSG(msg)                          \
@@ -62,10 +63,11 @@ void check_equal(double a, double b, const std::string& astr, const std::string&
    if (a == b) {
       VERBOSE_MSG("test passed: " << astr << " == " << bstr
                   << ": " << a << " == " << b);
+      g_tested++;
    } else {
       std::cout << "test failed: " << astr << " == " << bstr
                 << ": " << a << " != " << b << std::endl;
-      g_error++;
+      g_failed++;
    }
 }
 
@@ -75,12 +77,13 @@ void check_close_abs(double a, double b, double eps, const std::string& astr, co
       VERBOSE_MSG("test passed: " << astr << " ~ " << bstr
                   << ": " << a << " ~ " << b
                   << " (required maximum absolute difference: " << eps << ")");
+      g_tested++;
    } else {
       std::cout << "test failed: " << astr << " ~ " << bstr
                 << ": " << a << " !~ " << b
                 << " (required maximum absolute difference: " << eps << ")"
                 << std::endl;
-      g_error++;
+      g_failed++;
    }
 }
 
@@ -90,12 +93,13 @@ void check_close_rel(double a, double b, double eps, const std::string& astr, co
       VERBOSE_MSG("test passed: " << astr << " ~ " << bstr
                   << ": " << a << " ~ " << b
                   << " (required maximum relative difference: " << eps);
+      g_tested++;
    } else {
       std::cout << "test failed: " << astr << " ~ " << bstr
                 << ": " << a << " !~ " << b
                 << " (required maximum relative difference: " << eps << ")"
                 << std::endl;
-      g_error++;
+      g_failed++;
    }
 }
 

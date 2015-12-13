@@ -237,10 +237,11 @@ int main()
 
    printf("\n");
    printf("==============================\n");
-   printf("Test results: %s\n", (g_error ? "FAIL" : "OK"));
+   printf("Test results: %s [%u/%u]\n",
+          (g_failed ? "FAIL" : "OK"), (g_tested - g_failed), g_tested);
    printf("==============================\n");
 
    gm2calc_mssmnofv_free(model);
 
-   return g_error;
+   return g_failed;
 }
