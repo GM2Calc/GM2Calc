@@ -6,7 +6,7 @@
 
 namespace gm2calc_test {
 
-static int g_error = 0;
+static unsigned long g_error = 0;
 static bool g_verbose = false;
 
 #define VERBOSE_MSG(msg)                          \
@@ -27,7 +27,7 @@ void check_equal(double a, double b, const std::string& astr, const std::string&
    } else {
       std::cout << "test failed: " << astr << " == " << bstr
                 << ": " << a << " != " << b << std::endl;
-      g_error = 1;
+      g_error++;
    }
 }
 
