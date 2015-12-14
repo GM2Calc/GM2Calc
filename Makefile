@@ -97,7 +97,7 @@ make.args:
 print-% : ; @echo $* = $($*)
 
 tag:
-	git tag v$(VERSION)
+	git tag v$(VERSION)-eigen
 
 release-tag:
 	git archive --worktree-attributes --prefix=gm2calc-$(VERSION)-eigen/ \
