@@ -1,11 +1,14 @@
 # Package information
 PKGNAME         := gm2calc
 MAJOR           := 1
-MINOR           := 0
+MINOR           := 1
 PATCH           := 0
 VERSION         := $(MAJOR).$(MINOR).$(PATCH)
 
 # Variables for compilation
+CC              := gcc
+CFLAGS          := -O2 -std=c99
+CLIBS           := -lstdc++ -lm
 CXX             := g++
 CPPFLAGS        := -Isrc
 CXXFLAGS        := -O2 -std=c++11
@@ -20,9 +23,9 @@ CONFIG_H        := src/config.h
 # Flags (set to 1 to enable, leave empty to disable)
 ENABLE_LAPACK   :=
 
-.PHONY:         all allexec alllib clean depend make.args
-
 all: alllib allexec make.args
+
+.PHONY: all allexec alllib clean depend make.args
 
 clean::
 	-rm -f $(CONFIG_H)
@@ -86,6 +89,9 @@ make.args:
 	mv $@-t $@
 
 %.d: %.cpp | $(CONFIG_H)
+	$(CXX_DEP_GEN) $(CPPFLAGS) -MM -MP -MG -o $@ -MT '$*.o' $^
+
+%.d: %.c | $(CONFIG_H)
 	$(CXX_DEP_GEN) $(CPPFLAGS) -MM -MP -MG -o $@ -MT '$*.o' $^
 
 print-% : ; @echo $* = $($*)

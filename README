@@ -56,15 +56,27 @@ stored in `make.args' run
 Compilation of the example programs
 -----------------------------------
 
-GM2Calc ships the two C++ example programs
+GM2Calc ships two C++ example programs:
 
   examples/example-gm2calc.cpp
   examples/example-slha.cpp
 
-which illustrate how to use routines of GM2Calc at the C++ level.  The
-examples can be compiled by running
+and two C example programs:
+
+  examples/example-gm2calc_c.c
+  examples/example-slha_c.c
+
+These example programs illustrate how to use routines of GM2Calc at
+the C/C++ level.  The examples can be compiled by running
 
   $ make examples
+
+For the compilation of the C programs a C compiler is needed.  The
+used C compiler, the compiler flags and the linked libraries can be
+customized as:
+
+  $ make examples \
+       CC=icc CFLAGS="-O2" CLIBS="-lstdc++ -lm" LDLIBS="-lirc"
 
 
 Using LAPACK (optional)
@@ -141,6 +153,31 @@ GM2Calc reads the input parameters from the following blocks:
    Thomson limit, tan(beta), mu parameter, soft-breaking gaugino
    masses, soft-breaking Bmu parameter, soft-breaking sfermion masses,
    soft-breaking trilinear couplings
+
+
+C/C++ interface
+===============
+
+GM2Calc provides a C and a C++ interface.  To use the routines of
+GM2Calc in a C++ program, the following C++ header files have to be
+included:
+
+   src/gm2_1loop.hpp
+   src/gm2_2loop.hpp
+   src/gm2_uncertainty.hpp
+   src/MSSMNoFV_onshell.hpp
+
+To use the routines of GM2Calc in a C program, the following C header
+files have to be included:
+
+   src/gm2_1loop.h
+   src/gm2_2loop.h
+   src/gm2_uncertainty.h
+   src/MSSMNoFV_onshell.h
+
+Please refer to the content of these header files for a precise
+definition of all interface functions.  The C/C++ example programs
+also serve as an illustration of the interface routines.
 
 
 Configuration options
