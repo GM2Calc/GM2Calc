@@ -37,13 +37,13 @@ const char* gm2calc_error_str(gm2calc_error error)
    const char* error_str = "Unknown error";
 
    switch (error) {
-   case NoError:
+   case gm2calc_NoError:
       error_str = "no error";
       break;
-   case InvalidInput:
+   case gm2calc_InvalidInput:
       error_str = "Input parameter set to invalid value";
       break;
-   case PhysicalProblem:
+   case gm2calc_PhysicalProblem:
       error_str = "Physical problem has occurred during calculation";
       break;
    default:
@@ -437,16 +437,16 @@ double gm2calc_mssmnofv_get_Yu(const MSSMNoFV_onshell* model, unsigned i, unsign
  */
 gm2calc_error gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell* model)
 {
-   gm2calc_error error = NoError;
+   gm2calc_error error = gm2calc_NoError;
 
    try {
       reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->convert_to_onshell();
    } catch (const gm2calc::EInvalidInput&) {
-      error = InvalidInput;
+      error = gm2calc_InvalidInput;
    } catch (const gm2calc::EPhysicalProblem&) {
-      error = InvalidInput;
+      error = gm2calc_PhysicalProblem;
    } catch (...) {
-      error = UnknownError;
+      error = gm2calc_UnknownError;
    }
 
    return error;
@@ -465,16 +465,16 @@ gm2calc_error gm2calc_mssmnofv_convert_to_onshell(MSSMNoFV_onshell* model)
 gm2calc_error gm2calc_mssmnofv_convert_to_onshell_params(
    MSSMNoFV_onshell* model, double precision, unsigned max_iterations)
 {
-   gm2calc_error error = NoError;
+   gm2calc_error error = gm2calc_NoError;
 
    try {
       reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->convert_to_onshell(precision, max_iterations);
    } catch (const gm2calc::EInvalidInput&) {
-      error = InvalidInput;
+      error = gm2calc_InvalidInput;
    } catch (const gm2calc::EPhysicalProblem&) {
-      error = InvalidInput;
+      error = gm2calc_PhysicalProblem;
    } catch (...) {
-      error = UnknownError;
+      error = gm2calc_UnknownError;
    }
 
    return error;
@@ -489,16 +489,16 @@ gm2calc_error gm2calc_mssmnofv_convert_to_onshell_params(
  */
 gm2calc_error gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell* model)
 {
-   gm2calc_error error = NoError;
+   gm2calc_error error = gm2calc_NoError;
 
    try {
       reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->calculate_masses();
    } catch (const gm2calc::EInvalidInput&) {
-      error = InvalidInput;
+      error = gm2calc_InvalidInput;
    } catch (const gm2calc::EPhysicalProblem&) {
-      error = InvalidInput;
+      error = gm2calc_PhysicalProblem;
    } catch (...) {
-      error = UnknownError;
+      error = gm2calc_UnknownError;
    }
 
    return error;
