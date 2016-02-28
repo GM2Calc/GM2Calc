@@ -1,3 +1,8 @@
+GM2Calc-1.1.1 [not released yet]
+
+ * Bugfix (commit 9ca7890): implement limit of Iabc() function when
+   one or more masses go to zero.
+
 GM2Calc-1.1.0 [December, 14 2015]
 
  * Change (commit 5cbbc50): The example programs have been moved to a
