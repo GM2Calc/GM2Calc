@@ -28,7 +28,7 @@ for e in ${EXAMPLES}; do
         continue;
     }
     [ -x "$ex_c" ] || {
-        echo "Error: $ex_cpp not built"
+        echo "Error: $ex_c not built"
         errors=$(expr $errors + 1);
         continue;
     }
