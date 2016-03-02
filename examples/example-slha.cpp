@@ -50,7 +50,15 @@ gm2calc::MSSMNoFV_onshell setup() {
 
 int main() {
    gm2calc::MSSMNoFV_onshell model(setup());
-
+   /// check for problems 
+   if( model.get_problems().have_problem() == true) {
+     std::cout << model.get_problems().get_problems()  << std::endl;
+   }
+   /// check for warnings
+   if( model.get_problems().have_warning() == true) {
+     std::cout << model.get_problems().get_warnings()  << std::endl;
+   }
+   
    const double amu =
       + gm2calc::calculate_amu_1loop(model)
       + gm2calc::calculate_amu_2loop(model);
