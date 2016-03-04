@@ -273,6 +273,11 @@ double Iaa0(double a)
    return 1./sqr(a);
 }
 
+/// Iabc(0,b,c)
+double I0bc(double a, double b, double c) {
+   return -(std::log(sqr(c/b))/(sqr(b) - sqr(c)));
+}
+
 double Iabc(double a, double b, double c) {
    if (is_zero(a) && is_zero(b) && is_zero(c) ||
        is_zero(a) && is_zero(b) ||
@@ -300,6 +305,15 @@ double Iabc(double a, double b, double c) {
          return Iaa0(a);
       return Iaac(std::abs(a),std::abs(c),b);
    }
+
+   if (is_zero(a, 1e-5))
+      return I0bc(a,b,c);
+
+   if (is_zero(b, 1e-5))
+      return I0bc(b,c,a);
+
+   if (is_zero(c, 1e-5))
+      return I0bc(c,a,b);
 
    return ( (sqr(a * b) * log(sqr(a / b))
            + sqr(b * c) * log(sqr(b / c))
