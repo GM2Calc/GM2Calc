@@ -268,14 +268,13 @@ double Iaac(double a, double b, double c) {
 }
 
 /// Iabc(a,a,0)
-double Iaa0(double a)
-{
-   return 1./sqr(a);
+double Iaa0(double a, double b) {
+   return (17.*sqr(a) - 16.*a*b + 5.*sqr(b)) / (6.*quad(a));
 }
 
 /// Iabc(0,b,c)
-double I0bc(double a, double b, double c) {
-   return -(std::log(sqr(c/b))/(sqr(b) - sqr(c)));
+double I0bc(double b, double c) {
+   return log(sqr(b/c))/(sqr(b) - sqr(c));
 }
 
 double Iabc(double a, double b, double c) {
@@ -289,31 +288,31 @@ double Iabc(double a, double b, double c) {
       return Iaaa(std::abs(a),std::abs(b),std::abs(c));
 
    if (is_equal_rel(std::abs(a), std::abs(b), 0.01)) {
-      if (is_zero(c,1e-5))
-         return Iaa0(a);
+      if (is_zero(c))
+         return Iaa0(std::abs(a),std::abs(b));
       return Iaac(std::abs(a),std::abs(b),c);
    }
 
    if (is_equal_rel(std::abs(b), std::abs(c), 0.01)) {
-      if (is_zero(a,1e-5))
-         return Iaa0(b);
+      if (is_zero(a))
+         return Iaa0(std::abs(b),std::abs(c));
       return Iaac(std::abs(b),std::abs(c),a);
    }
 
    if (is_equal_rel(std::abs(a), std::abs(c), 0.01)) {
-      if (is_zero(b,1e-5))
-         return Iaa0(a);
+      if (is_zero(b))
+         return Iaa0(std::abs(a),std::abs(c));
       return Iaac(std::abs(a),std::abs(c),b);
    }
 
-   if (is_zero(a, 1e-5))
-      return I0bc(a,b,c);
+   if (is_zero(a))
+      return I0bc(b,c);
 
-   if (is_zero(b, 1e-5))
-      return I0bc(b,c,a);
+   if (is_zero(b))
+      return I0bc(c,a);
 
-   if (is_zero(c, 1e-5))
-      return I0bc(c,a,b);
+   if (is_zero(c))
+      return I0bc(a,b);
 
    return ( (sqr(a * b) * log(sqr(a / b))
            + sqr(b * c) * log(sqr(b / c))
