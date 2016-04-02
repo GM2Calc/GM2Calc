@@ -30,6 +30,10 @@ namespace gm2calc {
 
 using namespace flexiblesusy;
 
+double abs_sqrt(double x) {
+   return std::sqrt(std::abs(x));
+}
+
 int sign(double x) { return x < 0 ? -1 : 1; }
 
 double signed_sqr(double x) { return sign(x) * x * x; }
