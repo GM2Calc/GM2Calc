@@ -449,16 +449,16 @@ double delta_down_lepton_correction(const MSSMNoFV_onshell& model, int gen) {
    const double SW = sqrt(1. - sqr(MW / MZ));
 
    const double m1 =
-      sqrt(0.5 * (sqr(M2) + sqr(mu) + 2. * sqr(MW)
-                  - sqrt(sqr(sqr(M2) + sqr(mu) + 2. * sqr(MW))
-                         - sqr(2. * M2 * mu))));
+      abs_sqrt(0.5 * (sqr(M2) + sqr(mu) + 2. * sqr(MW)
+                      - abs_sqrt(sqr(sqr(M2) + sqr(mu) + 2. * sqr(MW))
+                                 - sqr(2. * M2 * mu))));
    const double m2 =
-      sqrt(0.5 * (sqr(M2) + sqr(mu) + 2. * sqr(MW)
-                  + sqrt(sqr(sqr(M2) + sqr(mu) + 2. * sqr(MW))
-                         - sqr(2. * M2 * mu))));
-   const double m_sneu_lep = sqrt(model.get_ml2(gen, gen) - 0.5 * sqr(MZ));
-   const double m_slep_L = sqrt(model.get_ml2(gen, gen) - sqr(MZ) * (sqr(SW) - 0.5));
-   const double m_slep_R = sqrt(model.get_me2(gen, gen) + sqr(MZ * SW));
+      abs_sqrt(0.5 * (sqr(M2) + sqr(mu) + 2. * sqr(MW)
+                      + abs_sqrt(sqr(sqr(M2) + sqr(mu) + 2. * sqr(MW))
+                                 - sqr(2. * M2 * mu))));
+   const double m_sneu_lep = abs_sqrt(model.get_ml2(gen, gen) - 0.5 * sqr(MZ));
+   const double m_slep_L = abs_sqrt(model.get_ml2(gen, gen) - sqr(MZ) * (sqr(SW) - 0.5));
+   const double m_slep_R = abs_sqrt(model.get_me2(gen, gen) + sqr(MZ * SW));
 
    const double delta_lep =
       - mu * TB * oneOver16PiSqr
