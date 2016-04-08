@@ -169,7 +169,7 @@ double Fbx(double x, double y) {
 }
 
 double Fb(double x, double y) {
-   if (is_zero(x) && is_zero(y) || is_zero(x) || is_zero(y))
+   if ((is_zero(x) && is_zero(y)) || is_zero(x) || is_zero(y))
       return 0.;
 
    if (is_equal(x, 1., 0.01) && is_equal(y, 1., 0.01))
@@ -212,7 +212,7 @@ double Fax(double x, double y) {
 }
 
 double Fa(double x, double y) {
-   if (is_zero(x) && is_zero(y) || is_zero(x) || is_zero(y))
+   if ((is_zero(x) && is_zero(y)) || is_zero(x) || is_zero(y))
       return 0.;
 
    if (is_equal(x, 1., 0.01) && is_equal(y, 1., 0.01))
@@ -266,10 +266,10 @@ double I0bc(double b, double c) {
 }
 
 double Iabc(double a, double b, double c) {
-   if (is_zero(a) && is_zero(b) && is_zero(c) ||
-       is_zero(a) && is_zero(b) ||
-       is_zero(a) && is_zero(c) ||
-       is_zero(b) && is_zero(c))
+   if ((is_zero(a) && is_zero(b) && is_zero(c)) ||
+       (is_zero(a) && is_zero(b)) ||
+       (is_zero(a) && is_zero(c)) ||
+       (is_zero(b) && is_zero(c)))
       return 0.;
 
    if (is_equal_rel(std::abs(a), std::abs(b), 0.01) && is_equal_rel(std::abs(a), std::abs(c), 0.01))
