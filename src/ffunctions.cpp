@@ -30,6 +30,10 @@ namespace gm2calc {
 
 using namespace flexiblesusy;
 
+double abs_sqrt(double x) {
+   return std::sqrt(std::abs(x));
+}
+
 int sign(double x) { return x < 0 ? -1 : 1; }
 
 double signed_sqr(double x) { return sign(x) * x * x; }
@@ -165,6 +169,9 @@ double Fbx(double x, double y) {
 }
 
 double Fb(double x, double y) {
+   if ((is_zero(x) && is_zero(y)) || is_zero(x) || is_zero(y))
+      return 0.;
+
    if (is_equal(x, 1., 0.01) && is_equal(y, 1., 0.01))
       return Fb11(x,y);
 
@@ -205,6 +212,9 @@ double Fax(double x, double y) {
 }
 
 double Fa(double x, double y) {
+   if ((is_zero(x) && is_zero(y)) || is_zero(x) || is_zero(y))
+      return 0.;
+
    if (is_equal(x, 1., 0.01) && is_equal(y, 1., 0.01))
       return Fa11(x,y);
 
@@ -226,28 +236,6 @@ double G3(double x) {
 
 double G4(double x) {
    return 1. / (2. * cube(x - 1.)) * ((x - 1.) * (x + 1.) - 2. * x * log(x));
-}
-
-/**
- * \f$H_2(x,y)\f$ function from Eq (34) of arxiv:0901.2065 .
- *
- * The \f$H_2(x,y)\f$ function is related to \f$I(a,b,c)\f$ by
- * \f$\frac{1}{z^2} H_2(\frac{x^2}{z^2},\frac{y^2}{z^2}) = - I(x,y,z)\f$.
- */
-double H2(double x, double y) {
-   if (is_equal(x, 1., 1e-8) && is_equal(y, 1., 1e-8))
-      return -0.5;
-
-   if (is_equal(x, 1., 1e-8))
-      return (-1. + y - y*log(y))/sqr(-1. + y);
-
-   if (is_equal(y, 1., 1e-8))
-      return (-1. + x - x*log(x))/sqr(-1. + x);
-
-   if (is_equal(x, y, 1e-8))
-      return (1 - y + log(y))/sqr(-1 + y);
-
-   return x * log(x) / ((1-x)*(x-y)) + y * log(y) / ((1-y)*(y-x));
 }
 
 /// Iabc(a,a,a)
@@ -278,10 +266,10 @@ double I0bc(double b, double c) {
 }
 
 double Iabc(double a, double b, double c) {
-   if (is_zero(a) && is_zero(b) && is_zero(c) ||
-       is_zero(a) && is_zero(b) ||
-       is_zero(a) && is_zero(c) ||
-       is_zero(b) && is_zero(c))
+   if ((is_zero(a) && is_zero(b) && is_zero(c)) ||
+       (is_zero(a) && is_zero(b)) ||
+       (is_zero(a) && is_zero(c)) ||
+       (is_zero(b) && is_zero(c)))
       return 0.;
 
    if (is_equal_rel(std::abs(a), std::abs(b), 0.01) && is_equal_rel(std::abs(a), std::abs(c), 0.01))
