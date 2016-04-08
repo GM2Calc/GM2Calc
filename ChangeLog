@@ -1,4 +1,4 @@
-GM2Calc-1.1.2 [not released yet]
+GM2Calc-1.1.2 [April, 08 2016]
 
  * Bugfix (commit a374bf7): Reformulate Delta_b corrections to avoid
    numerical problems when Mu, M3 or M1 are zero.
