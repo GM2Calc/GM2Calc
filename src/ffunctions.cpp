@@ -238,28 +238,6 @@ double G4(double x) {
    return 1. / (2. * cube(x - 1.)) * ((x - 1.) * (x + 1.) - 2. * x * log(x));
 }
 
-/**
- * \f$H_2(x,y)\f$ function from Eq (34) of arxiv:0901.2065 .
- *
- * The \f$H_2(x,y)\f$ function is related to \f$I(a,b,c)\f$ by
- * \f$\frac{1}{z^2} H_2(\frac{x^2}{z^2},\frac{y^2}{z^2}) = - I(x,y,z)\f$.
- */
-double H2(double x, double y) {
-   if (is_equal(x, 1., 1e-8) && is_equal(y, 1., 1e-8))
-      return -0.5;
-
-   if (is_equal(x, 1., 1e-8))
-      return (-1. + y - y*log(y))/sqr(-1. + y);
-
-   if (is_equal(y, 1., 1e-8))
-      return (-1. + x - x*log(x))/sqr(-1. + x);
-
-   if (is_equal(x, y, 1e-8))
-      return (1 - y + log(y))/sqr(-1 + y);
-
-   return x * log(x) / ((1-x)*(x-y)) + y * log(y) / ((1-y)*(y-x));
-}
-
 /// Iabc(a,a,a)
 double Iaaa(double a, double b, double c) {
    return (151.*quad(a) + 13.*sqr(b)*sqr(c) - 128.*cube(a)*(b + c) - 40.*a*b*c*(b + c)
