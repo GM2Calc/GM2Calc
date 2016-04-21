@@ -9,9 +9,9 @@ CHECK_EQUAL_FRACTION() {
         exit 1
     fi
 
-    local num1=$(echo $1 | sed 's/e/E/')
-    local num2=$(echo $2 | sed 's/e/E/')
-    local frac=$(echo $3 | sed 's/e/E/')
+    local num1=$(echo "$1" | sed -e 's/[eE]+*/*10^/')
+    local num2=$(echo "$2" | sed -e 's/[eE]+*/*10^/')
+    local frac=$(echo "$3" | sed -e 's/[eE]+*/*10^/')
 
     local scale=15
 
