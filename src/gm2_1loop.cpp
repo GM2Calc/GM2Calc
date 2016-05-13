@@ -515,8 +515,8 @@ double delta_bottom_correction(const MSSMNoFV_onshell& model)
    const double M3 = model.get_MassG();
    const double mstL2 = std::abs(model.get_mq2(2,2));
    const double mstR2 = std::abs(model.get_mu2(2,2));
-   const double msbL2 = std::abs(model.get_mq2(1,1));
-   const double msbR2 = std::abs(model.get_md2(1,1));
+   const double msbL2 = std::abs(model.get_mq2(2,2));
+   const double msbR2 = std::abs(model.get_md2(2,2));
 
    const double eps_0 =
         2. * alpha_S / (3*M_PI) * mu * M3
