@@ -2,12 +2,24 @@
 #include "gm2_2loop.hpp"
 #include "MSSMNoFV_onshell.hpp"
 #include <iostream>
+#include <cmath>
 
 gm2calc::MSSMNoFV_onshell setup() {
    gm2calc::MSSMNoFV_onshell model;
 
    const Eigen::Matrix<double,3,3> UnitMatrix
       = Eigen::Matrix<double,3,3>::Identity();
+
+   // fill SM parameters
+   model.set_alpha_MZ(0.00775531);              // 1L
+   model.set_alpha_thompson(0.00729735);        // 2L
+   model.set_g3(std::sqrt(4 * M_PI * 0.1184));  // 2L
+   model.get_physical().MFt   = 173.34;         // 2L
+   model.get_physical().MFb   = 4.18;           // 2L, mb(mb) MS-bar
+   model.get_physical().MFm   = 0.1056583715;   // 1L
+   model.get_physical().MFtau = 1.777;          // 2L
+   model.get_physical().MVWm  = 80.385;         // 1L
+   model.get_physical().MVZ   = 91.1876;        // 1L
 
    // fill DR-bar parameters
    model.set_TB(10);                      // 1L

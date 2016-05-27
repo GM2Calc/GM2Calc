@@ -3,8 +3,24 @@
 #include "MSSMNoFV_onshell.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 void setup(MSSMNoFV_onshell* model) {
+   /* fill SM parameters */
+   gm2calc_mssmnofv_set_alpha_MZ(model,0.00775531);           /* 1L */
+   gm2calc_mssmnofv_set_alpha_thompson(model,0.00729735);     /* 2L */
+   gm2calc_mssmnofv_set_g3(model,sqrt(4 * M_PI * 0.1184));    /* 2L */
+   gm2calc_mssmnofv_set_MT_pole(model,173.34);                /* 2L */
+   gm2calc_mssmnofv_set_MB_running(model,4.18);               /* 2L, mb(mb) MS-bar */
+   gm2calc_mssmnofv_set_MM_pole(model,0.1056583715);          /* 1L */
+   gm2calc_mssmnofv_set_ML_pole(model,1.777);                 /* 2L */
+   gm2calc_mssmnofv_set_MW_pole(model,80.385);                /* 1L */
+   gm2calc_mssmnofv_set_MZ_pole(model,91.1876);               /* 1L */
+
    /* fill pole masses */
    gm2calc_mssmnofv_set_MSvmL_pole(model, 5.18860573e+02);    /* 1L */
    gm2calc_mssmnofv_set_MSm_pole(model, 0, 5.05095249e+02);   /* 1L */
