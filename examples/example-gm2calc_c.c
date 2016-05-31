@@ -47,6 +47,12 @@ void setup(MSSMNoFV_onshell* model) {
    /* calculate mass spectrum */
    const gm2calc_error error = gm2calc_mssmnofv_calculate_masses(model);
 
+   if (gm2calc_mssmnofv_have_warning(model)) {
+      char warning[100];
+      gm2calc_mssmnofv_get_warnings(model, warning, 100);
+      printf("Warning: %s\n", warning);
+   }
+
    if (error != gm2calc_NoError) {
       printf("Error: %s\n", gm2calc_error_str(error));
       abort();
