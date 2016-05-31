@@ -260,6 +260,18 @@ gm2calc_error gm2calc_mssmnofv_convert_to_onshell_params(
 /** calculate mass spectrum */
 gm2calc_error gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell*);
 
+/** check for problems */
+int gm2calc_mssmnofv_have_problem(MSSMNoFV_onshell*);
+
+/** check for warnings */
+int gm2calc_mssmnofv_have_warning(MSSMNoFV_onshell*);
+
+/** get problem descriptions */
+void gm2calc_mssmnofv_get_problems(MSSMNoFV_onshell*, char*, unsigned);
+
+/** get warning descriptions */
+void gm2calc_mssmnofv_get_warnings(MSSMNoFV_onshell*, char*, unsigned);
+
 /** print model */
 void print_mssmnofv(const MSSMNoFV_onshell*);
 

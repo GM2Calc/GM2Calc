@@ -504,6 +504,58 @@ gm2calc_error gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell* model)
    return error;
 }
 
+/**
+ * Returns true if there are problems
+ *
+ * @param model pointer to model object
+ *
+ * @return true if there are problems, false otherwise
+ */
+int gm2calc_mssmnofv_have_problem(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_problems().have_problem();
+}
+
+/**
+ * Returns true if there are warnings
+ *
+ * @param model pointer to model object
+ *
+ * @return true if there are warnings, false otherwise
+ */
+int gm2calc_mssmnofv_have_warning(MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_problems().have_warning();
+}
+
+/**
+ * Fills string with problem descriptions
+ *
+ * @param model pointer to model object
+ * @param msg buffer for message string
+ * @param len available length of message string
+ *
+ */
+void gm2calc_mssmnofv_get_problems(MSSMNoFV_onshell* model, char* msg, unsigned len)
+{
+   const std::string str(reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_problems().get_problems());
+   strncpy(msg, str.c_str(), len);
+}
+
+/**
+ * Fills string with warning descriptions
+ *
+ * @param model pointer to model object
+ * @param msg buffer for message string
+ * @param len available length of message string
+ *
+ */
+void gm2calc_mssmnofv_get_warnings(MSSMNoFV_onshell* model, char* msg, unsigned len)
+{
+   const std::string str(reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_problems().get_warnings());
+   strncpy(msg, str.c_str(), len);
+}
+
 void print_mssmnofv(const MSSMNoFV_onshell* model)
 {
    std::cout << *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model);
