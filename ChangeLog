@@ -1,5 +1,8 @@
 GM2Calc-1.1.3 [not released yet]
 
+ * Feature (commit b65d75d): Adding C interface functions to
+   retrieving warnings and problems in form of C strings.
+
  * Bugfix (commit 0665a09): Correcting the used sbottom masses in
    Delta_b corrections.
 
