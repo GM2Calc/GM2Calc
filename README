@@ -77,7 +77,7 @@ used C compiler, the compiler flags and the linked libraries can be
 customized as:
 
   $ make examples \
-       CC=icc CFLAGS="-O2" CLIBS="-lstdc++ -lm" LDLIBS="-lirc"
+       CC=icc CFLAGS="-O2 -std=c99" CLIBS="-lstdc++ -lm" LDLIBS="-lirc"
 
 
 Using LAPACK (optional)
