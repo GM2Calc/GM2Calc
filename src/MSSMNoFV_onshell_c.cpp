@@ -20,6 +20,7 @@
 #include "MSSMNoFV_onshell.hpp"
 #include "gm2_error.hpp"
 #include <iostream>
+#include <cstring>
 
 /**
  * @file MSSMNoFV_onshell_c.cpp
@@ -539,7 +540,8 @@ int gm2calc_mssmnofv_have_warning(MSSMNoFV_onshell* model)
 void gm2calc_mssmnofv_get_problems(MSSMNoFV_onshell* model, char* msg, unsigned len)
 {
    const std::string str(reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_problems().get_problems());
-   strncpy(msg, str.c_str(), len);
+   strncpy(msg, str.c_str(), len - 1);
+   msg[len - 1] = '\0';
 }
 
 /**
