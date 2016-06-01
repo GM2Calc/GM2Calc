@@ -21,6 +21,7 @@
 #include "gm2_error.hpp"
 #include <iostream>
 #include <cstring>
+#include <complex>
 
 /**
  * @file MSSMNoFV_onshell_c.cpp
@@ -321,6 +322,11 @@ double gm2calc_mssmnofv_get_me2(const MSSMNoFV_onshell* model, unsigned i, unsig
    return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_me2(i,k);
 }
 
+double gm2calc_mssmnofv_get_scale(const MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_scale();
+}
+
 double gm2calc_mssmnofv_get_vev(const MSSMNoFV_onshell* model)
 {
    return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_vev();
@@ -391,14 +397,62 @@ double gm2calc_mssmnofv_get_MAh(const MSSMNoFV_onshell* model)
    return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MAh(1);
 }
 
+double gm2calc_mssmnofv_get_Mhh(const MSSMNoFV_onshell* model, unsigned i)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_Mhh(i);
+}
+
 double gm2calc_mssmnofv_get_MCha(const MSSMNoFV_onshell* model, unsigned i)
 {
    return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MCha(i);
 }
 
+double gm2calc_mssmnofv_get_UM(const MSSMNoFV_onshell* model, unsigned i, unsigned j, double* u_imag)
+{
+   const std::complex<double> U_ij =
+      reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_UM(i,j);
+
+   if (u_imag)
+      *u_imag = std::imag(U_ij);
+
+   return std::real(U_ij);
+}
+
+double gm2calc_mssmnofv_get_UP(const MSSMNoFV_onshell* model, unsigned i, unsigned j, double* u_imag)
+{
+   const std::complex<double> U_ij =
+      reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_UP(i,j);
+
+   if (u_imag)
+      *u_imag = std::imag(U_ij);
+
+   return std::real(U_ij);
+}
+
 double gm2calc_mssmnofv_get_MChi(const MSSMNoFV_onshell* model, unsigned i)
 {
    return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MChi(i);
+}
+
+double gm2calc_mssmnofv_get_ZN(const MSSMNoFV_onshell* model, unsigned i, unsigned j, double* u_imag)
+{
+   const std::complex<double> U_ij =
+      reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_ZN(i,j);
+
+   if (u_imag)
+      *u_imag = std::imag(U_ij);
+
+   return std::real(U_ij);
+}
+
+double gm2calc_mssmnofv_get_MSe(const MSSMNoFV_onshell* model, unsigned i)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MSe(i);
+}
+
+double gm2calc_mssmnofv_get_MSveL(const MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MSveL();
 }
 
 double gm2calc_mssmnofv_get_MSm(const MSSMNoFV_onshell* model, unsigned i)
@@ -409,6 +463,91 @@ double gm2calc_mssmnofv_get_MSm(const MSSMNoFV_onshell* model, unsigned i)
 double gm2calc_mssmnofv_get_MSvmL(const MSSMNoFV_onshell* model)
 {
    return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MSvmL();
+}
+
+double gm2calc_mssmnofv_get_MStau(const MSSMNoFV_onshell* model, unsigned i)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MStau(i);
+}
+
+double gm2calc_mssmnofv_get_MSvtL(const MSSMNoFV_onshell* model)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MSvtL();
+}
+
+double gm2calc_mssmnofv_get_MSu(const MSSMNoFV_onshell* model, unsigned i)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MSu(i);
+}
+
+double gm2calc_mssmnofv_get_MSd(const MSSMNoFV_onshell* model, unsigned i)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MSd(i);
+}
+
+double gm2calc_mssmnofv_get_MSc(const MSSMNoFV_onshell* model, unsigned i)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MSc(i);
+}
+
+double gm2calc_mssmnofv_get_MSs(const MSSMNoFV_onshell* model, unsigned i)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MSs(i);
+}
+
+double gm2calc_mssmnofv_get_MSt(const MSSMNoFV_onshell* model, unsigned i)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MSt(i);
+}
+
+double gm2calc_mssmnofv_get_MSb(const MSSMNoFV_onshell* model, unsigned i)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_MSb(i);
+}
+
+double gm2calc_mssmnofv_get_USe(const MSSMNoFV_onshell* model, unsigned i, unsigned j)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_ZE(i,j);
+}
+
+double gm2calc_mssmnofv_get_USm(const MSSMNoFV_onshell* model, unsigned i, unsigned j)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_ZM(i,j);
+}
+
+double gm2calc_mssmnofv_get_UStau(const MSSMNoFV_onshell* model, unsigned i, unsigned j)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_ZTau(i,j);
+}
+
+double gm2calc_mssmnofv_get_USu(const MSSMNoFV_onshell* model, unsigned i, unsigned j)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_ZU(i,j);
+}
+
+double gm2calc_mssmnofv_get_USd(const MSSMNoFV_onshell* model, unsigned i, unsigned j)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_ZD(i,j);
+}
+
+double gm2calc_mssmnofv_get_USc(const MSSMNoFV_onshell* model, unsigned i, unsigned j)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_ZC(i,j);
+}
+
+double gm2calc_mssmnofv_get_USs(const MSSMNoFV_onshell* model, unsigned i, unsigned j)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_ZS(i,j);
+}
+
+double gm2calc_mssmnofv_get_USt(const MSSMNoFV_onshell* model, unsigned i, unsigned j)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_ZT(i,j);
+}
+
+double gm2calc_mssmnofv_get_USb(const MSSMNoFV_onshell* model, unsigned i, unsigned j)
+{
+   return reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_ZB(i,j);
 }
 
 double gm2calc_mssmnofv_get_Ye(const MSSMNoFV_onshell* model, unsigned i, unsigned k)
