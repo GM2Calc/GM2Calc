@@ -78,13 +78,17 @@ $(CONFIG_H): Makefile
 
 make.args:
 	rm -f $@-t $@
-	{ echo 'CXX="$(CXX)"' \
+	{ echo 'CC="$(CC)"' \
+	       'CFLAGS="$(CFLAGS)"' \
+	       'CLIBS="$(CLIBS)"' \
+	       'CXX="$(CXX)"' \
 	       'CPPFLAGS="$(CPPFLAGS)"' \
 	       'CXXFLAGS="$(CXXFLAGS)"' \
 	       'CXX_DEP_GEN="$(CXX_DEP_GEN)"' \
 	       'MAKELIB="$(MAKELIB)"' \
 	       'BOOSTFLAGS="$(BOOSTFLAGS)"' \
-	       'EIGENFLAGS="$(EIGENFLAGS)"'; \
+	       'EIGENFLAGS="$(EIGENFLAGS)"' \
+	       'LIBEXT="$(LIBEXT)"'; \
 	} > $@-t
 	mv $@-t $@
 
