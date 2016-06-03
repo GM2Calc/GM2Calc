@@ -25,7 +25,7 @@ void setup(MSSMNoFV_onshell* model) {
    gm2calc_mssmnofv_set_MSvmL_pole(model, 5.18860573e+02);    /* 1L */
    gm2calc_mssmnofv_set_MSm_pole(model, 0, 5.05095249e+02);   /* 1L */
    gm2calc_mssmnofv_set_MSm_pole(model, 1, 5.25187016e+02);   /* 1L */
-   gm2calc_mssmnofv_set_MChi_pole(model, 0, 2.01611468e+02);  /* 1L */
+   gm2calc_mssmnofv_set_MChi_pole(model, 0, 4.10040273e+02);  /* 1L */
    gm2calc_mssmnofv_set_MChi_pole(model, 1, 4.10040273e+02);  /* 1L */
    gm2calc_mssmnofv_set_MChi_pole(model, 2, -5.16529941e+02); /* 1L */
    gm2calc_mssmnofv_set_MChi_pole(model, 3, 5.45628749e+02);  /* 1L */

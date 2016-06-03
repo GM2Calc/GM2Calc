@@ -694,7 +694,8 @@ void gm2calc_mssmnofv_get_problems(MSSMNoFV_onshell* model, char* msg, unsigned 
 void gm2calc_mssmnofv_get_warnings(MSSMNoFV_onshell* model, char* msg, unsigned len)
 {
    const std::string str(reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_problems().get_warnings());
-   strncpy(msg, str.c_str(), len);
+   strncpy(msg, str.c_str(), len - 1);
+   msg[len - 1] = '\0';
 }
 
 void print_mssmnofv(const MSSMNoFV_onshell* model)
