@@ -60,8 +60,8 @@ void setup(MSSMNoFV_onshell* model) {
    const gm2calc_error error = gm2calc_mssmnofv_convert_to_onshell(model);
 
    if (gm2calc_mssmnofv_have_warning(model)) {
-      char warning[100];
-      gm2calc_mssmnofv_get_warnings(model, warning, 100);
+      char warning[400];
+      gm2calc_mssmnofv_get_warnings(model, warning, 400);
       printf("Warning: %s\n", warning);
    }
 
