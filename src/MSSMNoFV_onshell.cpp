@@ -703,16 +703,16 @@ std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)
       "MTau        = " << model.get_ML() << '\n' <<
       "MW          = " << model.get_MW() << '\n' <<
       "MZ          = " << model.get_MZ() << '\n' <<
-      "MSm         = " << model.get_MSmu().transpose() << '\n' <<
-      "USm         = " << model.get_USmu().row(0) << ' '
-                       << model.get_USmu().row(1) << '\n' <<
+      "MSm         = " << model.get_MSm().transpose() << '\n' <<
+      "USm         = " << model.get_USm().row(0) << ' '
+                       << model.get_USm().row(1) << '\n' <<
       "MSvm        = " << model.get_MSvmL() << '\n' <<
-      "MSb         = " << model.get_MSbot().transpose() << '\n' <<
-      "USb         = " << model.get_USbot().row(0) << ' '
-                       << model.get_USbot().row(1) << '\n' <<
-      "MSt         = " << model.get_MStop().transpose() << '\n' <<
-      "USt         = " << model.get_UStop().row(0) << ' '
-                       << model.get_UStop().row(1) << '\n' <<
+      "MSb         = " << model.get_MSb().transpose() << '\n' <<
+      "USb         = " << model.get_USb().row(0) << ' '
+                       << model.get_USb().row(1) << '\n' <<
+      "MSt         = " << model.get_MSt().transpose() << '\n' <<
+      "USt         = " << model.get_USt().row(0) << ' '
+                       << model.get_USt().row(1) << '\n' <<
       "MStau       = " << model.get_MStau().transpose() << '\n' <<
       "UStau       = " << model.get_UStau().row(0) << ' '
                        << model.get_UStau().row(1) << '\n' <<
