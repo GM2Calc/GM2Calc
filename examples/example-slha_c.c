@@ -61,7 +61,7 @@ void setup(MSSMNoFV_onshell* model) {
 
    if (gm2calc_mssmnofv_have_warning(model)) {
       char warning[400];
-      gm2calc_mssmnofv_get_warnings(model, warning, 400);
+      gm2calc_mssmnofv_get_warnings(model, warning, sizeof(warning));
       printf("Warning: %s\n", warning);
    }
 
