@@ -1,5 +1,6 @@
 #include "gm2_1loop.hpp"
 #include "gm2_2loop.hpp"
+#include "gm2_uncertainty.hpp"
 #include "MSSMNoFV_onshell.hpp"
 #include <iostream>
 
@@ -74,7 +75,10 @@ int main() {
       + gm2calc::calculate_amu_1loop(model)
       + gm2calc::calculate_amu_2loop(model);
 
-   std::cout << "amu = " << amu << std::endl;
+   const double delta_amu =
+      gm2calc::calculate_uncertainty_amu_2loop(model);
+
+   std::cout << "amu = " << amu << " +- " << delta_amu << std::endl;
 
    return 0;
 }
