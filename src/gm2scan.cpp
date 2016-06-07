@@ -18,6 +18,7 @@
 
 #include "gm2_1loop.hpp"
 #include "gm2_2loop.hpp"
+#include "gm2_uncertainty.hpp"
 #include "gm2_error.hpp"
 #include "MSSMNoFV_onshell.hpp"
 
@@ -77,10 +78,11 @@ int main()
    const double tanb_stop = 100.;
    const unsigned nsteps = 100;
 
-   printf("# %14s %16s %16s\n", "tan(beta)", "amu", "error");
+   printf("# %14s %16s %16s %16s\n",
+          "tan(beta)", "amu", "uncertainty", "error");
 
    for (unsigned n = 0; n < nsteps; n++) {
-      double amu;
+      double amu, delta_amu;
       const double tanb = tanb_start + (tanb_stop - tanb_start) * n / nsteps;
       std::string error;
 
@@ -91,12 +93,14 @@ int main()
       try {
          model.calculate_masses();
          amu = calculate_amu(model);
+         delta_amu = gm2calc::calculate_uncertainty_amu_2loop(model);
       } catch (const gm2calc::Error& e) {
          error = "# " + e.what();
-         amu = std::numeric_limits<double>::signaling_NaN();
+         amu = delta_amu = std::numeric_limits<double>::signaling_NaN();
       }
 
-      printf("%16.8e %16.8e %s\n", tanb, amu, error.c_str());
+      printf("%16.8e %16.8e %16.8e %s\n",
+             tanb, amu, delta_amu, error.c_str());
    }
 
    return 0;
