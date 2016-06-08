@@ -3,6 +3,12 @@ GM2Calc-1.1.3 [not released yet]
  * Feature (commit b65d75d): Adding C interface functions to
    retrieving warnings and problems in form of C strings.
 
+ * Feature (commit ffe9b50): Perform the calculation of the
+   uncertainty of a_mu(0-loop) and a_mu(1-loop).  The uncertainty of
+   a_mu(0-loop) is the magnitude of a_mu(1-loop).  The uncertainty of
+   a_mu(1-loop) is the sum of the magnitudes of a_mu(2-loop,best) and
+   the uncertainty of a_mu(2-loop,best).
+
  * Change (commit fbee2e3): Adding calculation of amu uncertainty to
    the C/C++ example programs.
 
