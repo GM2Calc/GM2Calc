@@ -17,6 +17,7 @@
 // ====================================================================
 
 #include "gm2_uncertainty.hpp"
+#include "gm2_1loop.hpp"
 #include "gm2_2loop.hpp"
 #include <cmath>
 
@@ -28,6 +29,44 @@
  */
 
 namespace gm2calc {
+
+/**
+ * Calculates uncertainty associated with amu(0-loop) including
+ * tan(beta) resummation.
+ *
+ * The estimated uncertainty is the magnitude amu(1-loop) (including
+ * tan(beta) resummation).
+ *
+ * @param model model parameters
+ *
+ * @return uncertainty for amu(0-loop) w/ tan(beta) resummation
+ */
+double calculate_uncertainty_amu_0loop(const MSSMNoFV_onshell& model)
+{
+   const double amu_1L = calculate_amu_1loop(model);
+
+   return std::abs(amu_1L);
+}
+
+/**
+ * Calculates uncertainty associated with amu(1-loop) including
+ * tan(beta) resummation.
+ *
+ * The estimated uncertainty is the sum of magnitude amu(2-loop)
+ * (including tan(beta) resummation) and the 2-loop uncertainty,
+ * calculated by calculate_uncertainty_amu_2loop().
+ *
+ * @param model model parameters
+ *
+ * @return uncertainty for amu(1-loop) w/ tan(beta) resummation
+ */
+double calculate_uncertainty_amu_1loop(const MSSMNoFV_onshell& model)
+{
+   const double amu_2L = calculate_amu_2loop(model);
+   const double delta_amu_2L = calculate_uncertainty_amu_2loop(model);
+
+   return std::abs(amu_2L) + std::abs(delta_amu_2L);
+}
 
 /**
  * Calculates uncertainty associated with amu(2-loop) using Eq (4).
