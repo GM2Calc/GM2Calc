@@ -1,5 +1,5 @@
 Block GM2CalcConfig
-     0     3     # output format (0 = minimal, 1 = detailed,
+     0     4     # output format (0 = minimal, 1 = detailed,
                  #  2 = NMSSMTools, 3 = SPheno, 4 = GM2Calc)
      1     2     # loop order (0, 1 or 2)
      2     1     # disable/enable tan(beta) resummation (0 or 1)
