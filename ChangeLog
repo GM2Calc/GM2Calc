@@ -23,6 +23,10 @@ GM2Calc-1.1.3 [not released yet]
    mass parameter of the right-handed smuon from the mostly
    right-handed smuon pole mass.
 
+ * Bugfix (commit 9eecf61): Catching potential exception during the
+   DR-bar to on-shell conversion of the soft-breaking squared mass
+   parameter of the right-handed smuon.
+
 GM2Calc-1.1.2 [April, 08 2016]
 
  * Bugfix (commit a374bf7): Reformulate Delta_b corrections to avoid
