@@ -64,6 +64,7 @@ do
           cat <<EOF
 Block GM2CalcConfig
      0     0     # minimal output
+     4     0     # non-verbose
 EOF
         } | ${GM2CALC} "--${format}-input-file=-" 2>/dev/null
     )
