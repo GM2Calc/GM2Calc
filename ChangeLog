@@ -18,6 +18,11 @@ GM2Calc-1.1.3 [not released yet]
  * Bugfix (commit 71b0cf3): Do not allow the calculation of amu for
    negative soft-breaking squared sfermion mass parameters.
 
+ * Bugfix (commit 7d4d4e7): Use better initial guess for the
+   root-finding algorithm, which determines the soft-breaking squared
+   mass parameter of the right-handed smuon from the mostly
+   right-handed smuon pole mass.
+
 GM2Calc-1.1.2 [April, 08 2016]
 
  * Bugfix (commit a374bf7): Reformulate Delta_b corrections to avoid
