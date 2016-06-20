@@ -572,7 +572,6 @@ double MSSMNoFV_onshell::convert_me2_root(
    };
 
    boost::uintmax_t it = max_iterations;
-   const double me211_initial = get_me2(1,1);
 
    // stopping criterion, given two brackets a, b
    auto Stop_crit = [precision_goal](double a, double b) -> bool {
@@ -598,7 +597,6 @@ double MSSMNoFV_onshell::convert_me2_root(
             "   DR-bar to on-shell conversion for mse failed with"
             " root finder: " << e.what() << '\n';
       }
-      set_me2(1, 1, me211_initial);
    }
 
    calculate_MSm();
