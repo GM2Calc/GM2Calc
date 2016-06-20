@@ -583,9 +583,13 @@ double MSSMNoFV_onshell::convert_me2_root(
          "root finder ...\n";
    }
 
+   // initial guess for the brackets of me2(1,1)
+   const double initial_bracket = sqr(1e3 * get_MSm().cwiseAbs().maxCoeff());
+
    // find the root
    const std::pair<double,double> root =
-      boost::math::tools::toms748_solve(Difference_MSm(*this), 0., 1e16, Stop_crit, it);
+      boost::math::tools::toms748_solve(
+         Difference_MSm(*this), 0., initial_bracket, Stop_crit, it);
 
    set_me2(1,1,0.5*(root.first + root.second));
    calculate_MSm();
