@@ -572,6 +572,7 @@ double MSSMNoFV_onshell::convert_me2_root(
    };
 
    boost::uintmax_t it = max_iterations;
+   const double me211_initial = get_me2(1,1);
 
    // stopping criterion, given two brackets a, b
    auto Stop_crit = [precision_goal](double a, double b) -> bool {
@@ -587,11 +588,14 @@ double MSSMNoFV_onshell::convert_me2_root(
    const double initial_bracket = sqr(1e3 * get_MSm().cwiseAbs().maxCoeff());
 
    // find the root
-   const std::pair<double,double> root =
-      boost::math::tools::toms748_solve(
+   try {
+      const std::pair<double,double> root = boost::math::tools::toms748_solve(
          Difference_MSm(*this), 0., initial_bracket, Stop_crit, it);
+      set_me2(1, 1, 0.5*(root.first + root.second));
+   } catch (const std::exception& e) {
+      set_me2(1, 1, me211_initial);
+   }
 
-   set_me2(1,1,0.5*(root.first + root.second));
    calculate_MSm();
 
    const double precision = std::abs(Difference_MSm(*this)(get_me2(1,1)));
