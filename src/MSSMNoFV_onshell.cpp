@@ -593,6 +593,11 @@ double MSSMNoFV_onshell::convert_me2_root(
          Difference_MSm(*this), 0., initial_bracket, Stop_crit, it);
       set_me2(1, 1, 0.5*(root.first + root.second));
    } catch (const std::exception& e) {
+      if (verbose_output) {
+         std::cout <<
+            "   DR-bar to on-shell conversion for mse failed with"
+            " root finder: " << e.what() << '\n';
+      }
       set_me2(1, 1, me211_initial);
    }
 
