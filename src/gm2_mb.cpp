@@ -113,8 +113,7 @@ double calculate_lambda_qcd(double alpha, double scale,
 /**
  * Calculates \f$F_b(\mu)\f$, Eq (5) of arxiv:hep-ph/0207126 .
  *
- * @param scale renormalization scale
- * @param alpha strong coupling constant
+ * @param alpha strong coupling constant at the scale \f$\mu\f$
  *
  * @return \f$F_b(\mu)\f$, Eq (5) of arxiv:hep-ph/0207126
  */

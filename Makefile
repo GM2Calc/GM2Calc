@@ -1,8 +1,8 @@
 # Package information
 PKGNAME         := gm2calc
 MAJOR           := 1
-MINOR           := 1
-PATCH           := 2
+MINOR           := 2
+PATCH           := 0
 VERSION         := $(MAJOR).$(MINOR).$(PATCH)
 
 # Variables for compilation
@@ -78,13 +78,17 @@ $(CONFIG_H): Makefile
 
 make.args:
 	rm -f $@-t $@
-	{ echo 'CXX="$(CXX)"' \
+	{ echo 'CC="$(CC)"' \
+	       'CFLAGS="$(CFLAGS)"' \
+	       'CLIBS="$(CLIBS)"' \
+	       'CXX="$(CXX)"' \
 	       'CPPFLAGS="$(CPPFLAGS)"' \
 	       'CXXFLAGS="$(CXXFLAGS)"' \
 	       'CXX_DEP_GEN="$(CXX_DEP_GEN)"' \
 	       'MAKELIB="$(MAKELIB)"' \
 	       'BOOSTFLAGS="$(BOOSTFLAGS)"' \
-	       'EIGENFLAGS="$(EIGENFLAGS)"'; \
+	       'EIGENFLAGS="$(EIGENFLAGS)"' \
+	       'LIBEXT="$(LIBEXT)"'; \
 	} > $@-t
 	mv $@-t $@
 

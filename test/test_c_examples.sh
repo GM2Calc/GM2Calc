@@ -33,10 +33,17 @@ for e in ${EXAMPLES}; do
         continue;
     }
 
-    out_cpp=$("$ex_cpp" | awk '{ print $3 }')
-    out_c=$("$ex_c" | awk '{ print $3 }')
+    out_cpp=$("$ex_cpp")
+    out_c=$("$ex_c")
+    amu_cpp=$(echo "$out_cpp" | awk '{ print $3 }')
+    amu_c=$(echo "$out_c" | awk '{ print $3 }')
+    delta_amu_cpp=$(echo "$out_cpp" | awk '{ print $5 }')
+    delta_amu_c=$(echo "$out_c" | awk '{ print $5 }')
 
-    CHECK_EQUAL_FRACTION "$out_cpp" "$out_c" "$frac_diff"
+    CHECK_EQUAL_FRACTION "$amu_cpp" "$amu_c" "$frac_diff"
+    [ $? -ne 0 ] && error=1
+
+    CHECK_EQUAL_FRACTION "$delta_amu_cpp" "$delta_amu_c" "$frac_diff"
     [ $? -ne 0 ] && error=1
 
     if [ $error -eq 0 ] ; then
@@ -54,8 +61,10 @@ for e in ${EXAMPLES}; do
     echo "   $ex_cpp"
     echo "   $ex_c"
     echo "output:"
-    echo "   $out_cpp"
-    echo "   $out_c"
+    echo "   amu       (C++) = $amu_cpp"
+    echo "   amu       (C)   = $amu_c"
+    echo "   delta amu (C++) = $delta_amu_cpp"
+    echo "   delta amu (C)   = $delta_amu_c"
     echo "result: $result"
     echo "========================="
     echo ""

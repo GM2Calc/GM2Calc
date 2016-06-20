@@ -307,7 +307,7 @@ void print_amu_detailed(
 
 /**
  * Calculates a_mu for a given set of configuration options (loop
- * order, tan(beta) resummation.
+ * order, tan(beta) resummation).
  *
  * @param model model parameters
  * @param config_options configuration options
@@ -346,6 +346,38 @@ double calculate_amu(const gm2calc::MSSMNoFV_onshell& model,
 }
 
 /**
+ * Calculates uncertainty of a_mu for a given set of configuration
+ * options (loop order, tan(beta) resummation).
+ *
+ * @param model model parameters
+ * @param config_options configuration options
+ *
+ * @return a_mu
+ */
+double calculate_uncertainty(const gm2calc::MSSMNoFV_onshell& model,
+                             const gm2calc::Config_options& config_options)
+{
+   double result = std::numeric_limits<double>::signaling_NaN();
+
+   switch (config_options.loop_order) {
+   case 0:
+      result = gm2calc::calculate_uncertainty_amu_0loop(model);
+      break;
+   case 1:
+      result = gm2calc::calculate_uncertainty_amu_1loop(model);
+      break;
+   case 2:
+      result = gm2calc::calculate_uncertainty_amu_2loop(model);
+      break;
+   default:
+      ERROR("loop orders > 2 not supported!");
+      break;
+   }
+
+   return result;
+}
+
+/**
  * Calculates amu and prints it to std::cout.  The output format
  * depends on the \a config_options .
  *
@@ -362,7 +394,7 @@ void print_amu(const gm2calc::MSSMNoFV_onshell& model,
       std::cout << boost::format("%.8e") %
                    (!config_options.calculate_uncertainty ?
                     calculate_amu(model, config_options) :
-                    calculate_uncertainty_amu_2loop(model))
+                    calculate_uncertainty(model, config_options))
                 << '\n';
       break;
    case gm2calc::Config_options::Detailed:
@@ -374,8 +406,8 @@ void print_amu(const gm2calc::MSSMNoFV_onshell& model,
                                "Delta(g-2)_muon/2");
       if (config_options.calculate_uncertainty) {
          slha_io.fill_block_entry("GM2CalcOutput", 1,
-                                  calculate_uncertainty_amu_2loop(model),
-                                  "uncertainty of a_mu(2-loop, tan(beta) resummation)");
+                                  calculate_uncertainty(model, config_options),
+                                  "uncertainty of Delta(g-2)_muon/2");
       }
       slha_io.write_to_stream(std::cout);
       break;
@@ -385,8 +417,8 @@ void print_amu(const gm2calc::MSSMNoFV_onshell& model,
                                "Delta(g-2)_muon/2");
       if (config_options.calculate_uncertainty) {
          slha_io.fill_block_entry("GM2CalcOutput", 1,
-                                  calculate_uncertainty_amu_2loop(model),
-                                  "uncertainty of a_mu(2-loop, tan(beta) resummation)");
+                                  calculate_uncertainty(model, config_options),
+                                  "uncertainty of Delta(g-2)_muon/2");
       }
       slha_io.write_to_stream(std::cout);
       break;
@@ -396,8 +428,8 @@ void print_amu(const gm2calc::MSSMNoFV_onshell& model,
                                "Delta(g-2)_muon/2");
       if (config_options.calculate_uncertainty) {
          slha_io.fill_block_entry("GM2CalcOutput", 1,
-                                  calculate_uncertainty_amu_2loop(model),
-                                  "uncertainty of a_mu(2-loop, tan(beta) resummation)");
+                                  calculate_uncertainty(model, config_options),
+                                  "uncertainty of Delta(g-2)_muon/2");
       }
       slha_io.write_to_stream(std::cout);
       break;

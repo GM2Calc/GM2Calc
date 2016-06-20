@@ -1,3 +1,32 @@
+GM2Calc-1.2.0 [June, 21 2016]
+
+ * Feature (commit b65d75d): Adding C interface functions to
+   retrieving warnings and problems in form of C strings.
+
+ * Feature (commit ffe9b50): Perform the calculation of the
+   uncertainty of a_mu(0-loop) and a_mu(1-loop).  The uncertainty of
+   a_mu(0-loop) is the magnitude of a_mu(1-loop).  The uncertainty of
+   a_mu(1-loop) is the sum of the magnitudes of a_mu(2-loop,best) and
+   the uncertainty of a_mu(2-loop,best).
+
+ * Change (commit fbee2e3): Adding calculation of amu uncertainty to
+   the C/C++ example programs.
+
+ * Bugfix (commit 0665a09): Correcting the used sbottom masses in
+   Delta_b corrections.
+
+ * Bugfix (commit 71b0cf3): Do not allow the calculation of amu for
+   negative soft-breaking squared sfermion mass parameters.
+
+ * Bugfix (commit 7d4d4e7): Use better initial guess for the
+   root-finding algorithm, which determines the soft-breaking squared
+   mass parameter of the right-handed smuon from the mostly
+   right-handed smuon pole mass.
+
+ * Bugfix (commit 9eecf61): Catching potential exception during the
+   DR-bar to on-shell conversion of the soft-breaking squared mass
+   parameter of the right-handed smuon.
+
 GM2Calc-1.1.2 [April, 08 2016]
 
  * Bugfix (commit a374bf7): Reformulate Delta_b corrections to avoid

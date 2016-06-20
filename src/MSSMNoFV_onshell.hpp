@@ -98,13 +98,15 @@ public:
    /// returns mb(MZ) DR-bar
    double get_MB() const;
    double get_MA0() const { return get_physical().MAh(1); }
-   const Eigen::Array<double,2,1>&  get_MSmu() const { return get_MSm(); }
-   const Eigen::Matrix<double,2,2>& get_USmu() const { return get_ZM(); }
+   const Eigen::Matrix<double,2,2>& get_USe() const { return get_ZE(); }
+   const Eigen::Matrix<double,2,2>& get_USm() const { return get_ZM(); }
    const Eigen::Matrix<double,2,2>& get_UStau() const { return get_ZTau(); }
-   const Eigen::Array<double,2,1>&  get_MSbot() const { return get_MSb(); }
-   const Eigen::Matrix<double,2,2>& get_USbot() const { return get_ZB(); }
-   const Eigen::Array<double,2,1>&  get_MStop() const { return get_MSt(); }
-   const Eigen::Matrix<double,2,2>& get_UStop() const { return get_ZT(); }
+   const Eigen::Matrix<double,2,2>& get_USu() const { return get_ZU(); }
+   const Eigen::Matrix<double,2,2>& get_USd() const { return get_ZD(); }
+   const Eigen::Matrix<double,2,2>& get_USc() const { return get_ZC(); }
+   const Eigen::Matrix<double,2,2>& get_USs() const { return get_ZS(); }
+   const Eigen::Matrix<double,2,2>& get_USb() const { return get_ZB(); }
+   const Eigen::Matrix<double,2,2>& get_USt() const { return get_ZT(); }
 
    void convert_to_onshell(double precision = 1e-8,
                            unsigned max_iterations = 1000);

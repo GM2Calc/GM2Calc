@@ -23,6 +23,12 @@ namespace gm2calc {
 
 class MSSMNoFV_onshell;
 
+/// calculates uncertainty for amu(0-loop) w/ tan(beta) resummation
+double calculate_uncertainty_amu_0loop(const MSSMNoFV_onshell&);
+
+/// calculates uncertainty for amu(1-loop) w/ tan(beta) resummation
+double calculate_uncertainty_amu_1loop(const MSSMNoFV_onshell&);
+
 /// calculates uncertainty for amu(2-loop)
 double calculate_uncertainty_amu_2loop(const MSSMNoFV_onshell&);
 

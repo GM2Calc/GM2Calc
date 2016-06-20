@@ -225,20 +225,89 @@ double gm2calc_mssmnofv_get_MB(const MSSMNoFV_onshell*);
 /** get bottom-Quark MS-bar mass mb(mb) */
 double gm2calc_mssmnofv_get_MBMB(const MSSMNoFV_onshell*);
 
-/** get CP-odde Higgs pole mass */
+/** get CP-odd Higgs pole mass */
 double gm2calc_mssmnofv_get_MAh(const MSSMNoFV_onshell*);
+
+/** get CP-even Higgs pole mass */
+double gm2calc_mssmnofv_get_Mhh(const MSSMNoFV_onshell*, unsigned);
 
 /** get chargino pole mass */
 double gm2calc_mssmnofv_get_MCha(const MSSMNoFV_onshell*, unsigned);
 
+/** get chargino pole mixing matrix UM */
+double gm2calc_mssmnofv_get_UM(const MSSMNoFV_onshell*, unsigned, unsigned, double*);
+
+/** get chargino pole mixing matrix UP */
+double gm2calc_mssmnofv_get_UP(const MSSMNoFV_onshell*, unsigned, unsigned, double*);
+
 /** get neutralino pole mass */
 double gm2calc_mssmnofv_get_MChi(const MSSMNoFV_onshell*, unsigned);
+
+/** get neutralino pole mixing matrix ZN */
+double gm2calc_mssmnofv_get_ZN(const MSSMNoFV_onshell*, unsigned, unsigned, double*);
+
+/** get selectron masses */
+double gm2calc_mssmnofv_get_MSe(const MSSMNoFV_onshell*, unsigned);
+
+/** get electron sneutrino mass */
+double gm2calc_mssmnofv_get_MSveL(const MSSMNoFV_onshell*);
 
 /** get smuon pole masses */
 double gm2calc_mssmnofv_get_MSm(const MSSMNoFV_onshell*, unsigned);
 
 /** get sneutrino pole mass */
 double gm2calc_mssmnofv_get_MSvmL(const MSSMNoFV_onshell*);
+
+/** get stau pole masses */
+double gm2calc_mssmnofv_get_MStau(const MSSMNoFV_onshell*, unsigned);
+
+/** get tau sneutrino mass */
+double gm2calc_mssmnofv_get_MSvtL(const MSSMNoFV_onshell*);
+
+/** get sup masses */
+double gm2calc_mssmnofv_get_MSu(const MSSMNoFV_onshell*, unsigned);
+
+/** get sdown masses */
+double gm2calc_mssmnofv_get_MSd(const MSSMNoFV_onshell*, unsigned);
+
+/** get scharm masses */
+double gm2calc_mssmnofv_get_MSc(const MSSMNoFV_onshell*, unsigned);
+
+/** get sstrange masses */
+double gm2calc_mssmnofv_get_MSs(const MSSMNoFV_onshell*, unsigned);
+
+/** get stop masses */
+double gm2calc_mssmnofv_get_MSt(const MSSMNoFV_onshell*, unsigned);
+
+/** get sbottom mass */
+double gm2calc_mssmnofv_get_MSb(const MSSMNoFV_onshell*, unsigned);
+
+/** get selectron pole mixing matrix masses */
+double gm2calc_mssmnofv_get_USe(const MSSMNoFV_onshell*, unsigned, unsigned);
+
+/** get smuon pole mixing matrix masses */
+double gm2calc_mssmnofv_get_USm(const MSSMNoFV_onshell*, unsigned, unsigned);
+
+/** get stau pole mixing matrix masses */
+double gm2calc_mssmnofv_get_UStau(const MSSMNoFV_onshell*, unsigned, unsigned);
+
+/** get sup pole mixing matrix masses */
+double gm2calc_mssmnofv_get_USu(const MSSMNoFV_onshell*, unsigned, unsigned);
+
+/** get sdown pole mixing matrix masses */
+double gm2calc_mssmnofv_get_USd(const MSSMNoFV_onshell*, unsigned, unsigned);
+
+/** get scharm pole mixing matrix masses */
+double gm2calc_mssmnofv_get_USc(const MSSMNoFV_onshell*, unsigned, unsigned);
+
+/** get sstrange pole mixing matrix masses */
+double gm2calc_mssmnofv_get_USs(const MSSMNoFV_onshell*, unsigned, unsigned);
+
+/** get sstop pole mixing matrix masses */
+double gm2calc_mssmnofv_get_USt(const MSSMNoFV_onshell*, unsigned, unsigned);
+
+/** get sbottom pole mixing matrix masses */
+double gm2calc_mssmnofv_get_USb(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 /** get lepton Yukawa coupling */
 double gm2calc_mssmnofv_get_Ye(const MSSMNoFV_onshell*, unsigned, unsigned);
@@ -259,6 +328,18 @@ gm2calc_error gm2calc_mssmnofv_convert_to_onshell_params(
 
 /** calculate mass spectrum */
 gm2calc_error gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell*);
+
+/** check for problems */
+int gm2calc_mssmnofv_have_problem(MSSMNoFV_onshell*);
+
+/** check for warnings */
+int gm2calc_mssmnofv_have_warning(MSSMNoFV_onshell*);
+
+/** get problem descriptions */
+void gm2calc_mssmnofv_get_problems(MSSMNoFV_onshell*, char*, unsigned);
+
+/** get warning descriptions */
+void gm2calc_mssmnofv_get_warnings(MSSMNoFV_onshell*, char*, unsigned);
 
 /** print model */
 void print_mssmnofv(const MSSMNoFV_onshell*);

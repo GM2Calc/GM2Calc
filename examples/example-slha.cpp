@@ -1,5 +1,6 @@
 #include "gm2_1loop.hpp"
 #include "gm2_2loop.hpp"
+#include "gm2_uncertainty.hpp"
 #include "MSSMNoFV_onshell.hpp"
 #include <iostream>
 
@@ -8,6 +9,17 @@ gm2calc::MSSMNoFV_onshell setup() {
 
    const Eigen::Matrix<double,3,3> UnitMatrix
       = Eigen::Matrix<double,3,3>::Identity();
+
+   // fill SM parameters
+   model.set_alpha_MZ(0.00775531);              // 1L
+   model.set_alpha_thompson(0.00729735);        // 2L
+   model.set_g3(std::sqrt(4 * M_PI * 0.1184));  // 2L
+   model.get_physical().MFt   = 173.34;         // 2L
+   model.get_physical().MFb   = 4.18;           // 2L, mb(mb) MS-bar
+   model.get_physical().MFm   = 0.1056583715;   // 1L
+   model.get_physical().MFtau = 1.777;          // 2L
+   model.get_physical().MVWm  = 80.385;         // 1L
+   model.get_physical().MVZ   = 91.1876;        // 1L
 
    // fill pole masses
    model.get_physical().MSvmL   =  5.18860573e+02; // 1L
@@ -63,7 +75,10 @@ int main() {
       + gm2calc::calculate_amu_1loop(model)
       + gm2calc::calculate_amu_2loop(model);
 
-   std::cout << "amu = " << amu << std::endl;
+   const double delta_amu =
+      gm2calc::calculate_uncertainty_amu_2loop(model);
+
+   std::cout << "amu = " << amu << " +- " << delta_amu << std::endl;
 
    return 0;
 }

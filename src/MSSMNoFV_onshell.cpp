@@ -198,6 +198,14 @@ void MSSMNoFV_onshell::check_problems() const
       if (!do_force_output())
          throw EPhysicalProblem(get_problems().get_problems());
    }
+   if (get_mu2().diagonal().minCoeff() < 0. ||
+       get_md2().diagonal().minCoeff() < 0. ||
+       get_mq2().diagonal().minCoeff() < 0. ||
+       get_me2().diagonal().minCoeff() < 0. ||
+       get_ml2().diagonal().minCoeff() < 0.) {
+      if (!do_force_output())
+         throw EPhysicalProblem("soft mass squared < 0");
+   }
 }
 
 void MSSMNoFV_onshell::copy_susy_masses_to_pole()
@@ -575,11 +583,22 @@ double MSSMNoFV_onshell::convert_me2_root(
          "root finder ...\n";
    }
 
-   // find the root
-   const std::pair<double,double> root =
-      boost::math::tools::toms748_solve(Difference_MSm(*this), 0., 1e16, Stop_crit, it);
+   // initial guess for the brackets of me2(1,1)
+   const double initial_bracket = sqr(1e3 * get_MSm().cwiseAbs().maxCoeff());
 
-   set_me2(1,1,0.5*(root.first + root.second));
+   // find the root
+   try {
+      const std::pair<double,double> root = boost::math::tools::toms748_solve(
+         Difference_MSm(*this), 0., initial_bracket, Stop_crit, it);
+      set_me2(1, 1, 0.5*(root.first + root.second));
+   } catch (const std::exception& e) {
+      if (verbose_output) {
+         std::cout <<
+            "   DR-bar to on-shell conversion for mse failed with"
+            " root finder: " << e.what() << '\n';
+      }
+   }
+
    calculate_MSm();
 
    const double precision = std::abs(Difference_MSm(*this)(get_me2(1,1)));
@@ -703,16 +722,16 @@ std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)
       "MTau        = " << model.get_ML() << '\n' <<
       "MW          = " << model.get_MW() << '\n' <<
       "MZ          = " << model.get_MZ() << '\n' <<
-      "MSm         = " << model.get_MSmu().transpose() << '\n' <<
-      "USm         = " << model.get_USmu().row(0) << ' '
-                       << model.get_USmu().row(1) << '\n' <<
+      "MSm         = " << model.get_MSm().transpose() << '\n' <<
+      "USm         = " << model.get_USm().row(0) << ' '
+                       << model.get_USm().row(1) << '\n' <<
       "MSvm        = " << model.get_MSvmL() << '\n' <<
-      "MSb         = " << model.get_MSbot().transpose() << '\n' <<
-      "USb         = " << model.get_USbot().row(0) << ' '
-                       << model.get_USbot().row(1) << '\n' <<
-      "MSt         = " << model.get_MStop().transpose() << '\n' <<
-      "USt         = " << model.get_UStop().row(0) << ' '
-                       << model.get_UStop().row(1) << '\n' <<
+      "MSb         = " << model.get_MSb().transpose() << '\n' <<
+      "USb         = " << model.get_USb().row(0) << ' '
+                       << model.get_USb().row(1) << '\n' <<
+      "MSt         = " << model.get_MSt().transpose() << '\n' <<
+      "USt         = " << model.get_USt().row(0) << ' '
+                       << model.get_USt().row(1) << '\n' <<
       "MStau       = " << model.get_MStau().transpose() << '\n' <<
       "UStau       = " << model.get_UStau().row(0) << ' '
                        << model.get_UStau().row(1) << '\n' <<

@@ -25,6 +25,12 @@
 extern "C" {
 #endif
 
+/** calculates uncertainty for amu(0-loop) in the MSSMNoFV w/ tan(beta) resummation */
+double gm2calc_mssmnofv_calculate_uncertainty_amu_0loop(const MSSMNoFV_onshell*);
+
+/** calculates uncertainty for amu(1-loop) in the MSSMNoFV w/ tan(beta) resummation */
+double gm2calc_mssmnofv_calculate_uncertainty_amu_1loop(const MSSMNoFV_onshell*);
+
 /** calculates uncertainty for amu(2-loop) in the MSSMNoFV */
 double gm2calc_mssmnofv_calculate_uncertainty_amu_2loop(const MSSMNoFV_onshell*);
 

@@ -1,10 +1,27 @@
 #include "gm2_1loop.h"
 #include "gm2_2loop.h"
+#include "gm2_uncertainty.h"
 #include "MSSMNoFV_onshell.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 void setup(MSSMNoFV_onshell* model) {
+   /* fill SM parameters */
+   gm2calc_mssmnofv_set_alpha_MZ(model,0.00775531);           /* 1L */
+   gm2calc_mssmnofv_set_alpha_thompson(model,0.00729735);     /* 2L */
+   gm2calc_mssmnofv_set_g3(model,sqrt(4 * M_PI * 0.1184));    /* 2L */
+   gm2calc_mssmnofv_set_MT_pole(model,173.34);                /* 2L */
+   gm2calc_mssmnofv_set_MB_running(model,4.18);               /* 2L, mb(mb) MS-bar */
+   gm2calc_mssmnofv_set_MM_pole(model,0.1056583715);          /* 1L */
+   gm2calc_mssmnofv_set_ML_pole(model,1.777);                 /* 2L */
+   gm2calc_mssmnofv_set_MW_pole(model,80.385);                /* 1L */
+   gm2calc_mssmnofv_set_MZ_pole(model,91.1876);               /* 1L */
+
    /* fill pole masses */
    gm2calc_mssmnofv_set_MSvmL_pole(model, 5.18860573e+02);    /* 1L */
    gm2calc_mssmnofv_set_MSm_pole(model, 0, 5.05095249e+02);   /* 1L */
@@ -43,6 +60,12 @@ void setup(MSSMNoFV_onshell* model) {
    /* convert DR-bar parameters to on-shell */
    const gm2calc_error error = gm2calc_mssmnofv_convert_to_onshell(model);
 
+   if (gm2calc_mssmnofv_have_warning(model)) {
+      char warning[400];
+      gm2calc_mssmnofv_get_warnings(model, warning, sizeof(warning));
+      printf("Warning: %s\n", warning);
+   }
+
    if (error != gm2calc_NoError) {
       printf("Error: %s\n", gm2calc_error_str(error));
       abort();
@@ -58,7 +81,10 @@ int main() {
       + gm2calc_mssmnofv_calculate_amu_1loop(model)
       + gm2calc_mssmnofv_calculate_amu_2loop(model);
 
-   printf("amu = %e\n", amu);
+   const double delta_amu =
+      gm2calc_mssmnofv_calculate_uncertainty_amu_2loop(model);
+
+   printf("amu = %e +- %e\n", amu, delta_amu);
 
    /* destroy model to prevent resource leak */
    gm2calc_mssmnofv_free(model);

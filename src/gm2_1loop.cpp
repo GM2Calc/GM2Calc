@@ -73,7 +73,7 @@ double calculate_amu_1loop(const MSSMNoFV_onshell& model)
  */
 double amuChi0(const MSSMNoFV_onshell& model) {
    double result = 0.;
-   const Eigen::Array<double,2,1> m_smu(model.get_MSmu());
+   const Eigen::Array<double,2,1> m_smu(model.get_MSm());
    const Eigen::Matrix<double,4,2> AAN_(AAN(model));
    const Eigen::Matrix<double,4,2> BBN_(BBN(model));
    const Eigen::Matrix<double,4,2> x__im(x_im(model));
@@ -121,8 +121,8 @@ Eigen::Matrix<std::complex<double>,4,2> n_L(const MSSMNoFV_onshell& model) {
    const double g2(model.get_g2());
    const double ymu(model.get_Ye(1, 1));
    const Eigen::Matrix<std::complex<double>,4,4> ZN(model.get_ZN());
-   const Eigen::Array<double,2,1> m_smu(model.get_MSmu());
-   const Eigen::Matrix<double,2,2> u_smu(model.get_USmu());
+   const Eigen::Array<double,2,1> m_smu(model.get_MSm());
+   const Eigen::Matrix<double,2,2> u_smu(model.get_USm());
 
    for(int i=0; i <4; ++i) {
       for(int m=0; m <2; ++m) {
@@ -145,8 +145,8 @@ Eigen::Matrix<std::complex<double>,4,2> n_R(const MSSMNoFV_onshell& model) {
    const double gY(model.get_gY());
    const double ymu(model.get_Ye(1, 1));
    const Eigen::Matrix<std::complex<double>,4,4> ZN(model.get_ZN());
-   const Eigen::Array<double,2,1> m_smu(model.get_MSmu());
-   const Eigen::Matrix<double,2,2> u_smu(model.get_USmu());
+   const Eigen::Array<double,2,1> m_smu(model.get_MSm());
+   const Eigen::Matrix<double,2,2> u_smu(model.get_USm());
 
    for(int i=0; i <4; ++i) {
       for(int m=0; m <2; ++m) {
@@ -279,8 +279,8 @@ Eigen::Matrix<double,4,2> BBN(const MSSMNoFV_onshell& model) {
  */
 Eigen::Matrix<double,4,2> x_im(const MSSMNoFV_onshell& model) {
    Eigen::Matrix<double,4,2> result;
-   const Eigen::Array<double,2,1> m_smu(model.get_MSmu());
-   const Eigen::Matrix<double,2,2> u_smu(model.get_USmu());
+   const Eigen::Array<double,2,1> m_smu(model.get_MSm());
+   const Eigen::Matrix<double,2,2> u_smu(model.get_USm());
    const Eigen::Array<double,4,1> MChi(model.get_MChi());
 
    for(int i=0; i <4; ++i) {
@@ -515,8 +515,8 @@ double delta_bottom_correction(const MSSMNoFV_onshell& model)
    const double M3 = model.get_MassG();
    const double mstL2 = std::abs(model.get_mq2(2,2));
    const double mstR2 = std::abs(model.get_mu2(2,2));
-   const double msbL2 = std::abs(model.get_mq2(1,1));
-   const double msbR2 = std::abs(model.get_md2(1,1));
+   const double msbL2 = std::abs(model.get_mq2(2,2));
+   const double msbR2 = std::abs(model.get_md2(2,2));
 
    const double eps_0 =
         2. * alpha_S / (3*M_PI) * mu * M3

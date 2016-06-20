@@ -18,6 +18,7 @@
 
 #include "gm2_1loop.hpp"
 #include "gm2_2loop.hpp"
+#include "gm2_uncertainty.hpp"
 #include "gm2_error.hpp"
 #include "MSSMNoFV_onshell.hpp"
 
@@ -34,56 +35,39 @@ gm2calc::MSSMNoFV_onshell setup()
 {
    gm2calc::MSSMNoFV_onshell model;
 
-   const double g3 = 1.06459;
-   const double MW = 80.385;
-   const double MZ = 91.1876;
-   const double ME = 0.00051;
-   const double MM = 0.105658;
-   const double ML = 1.777;
-   const double MT = 173.5;
-   const double MB = 4.18;
-   Eigen::Matrix<double,3,3> Ae, Au, Ad;
-   Eigen::Matrix<double,3,3> mq2, ml2, md2, mu2, me2;
-   const double Mu = 350;
-   const double M1 = 150;
-   const double M2 = 300;
-   const double M3 = 1;
-   const double scale = 454.7;
-   const double MA0 = 1500;
-   const double TB = 10;
+   const Eigen::Matrix<double,3,3> UnitMatrix
+      = Eigen::Matrix<double,3,3>::Identity();
 
-   Au.setZero();
-   Ad.setZero();
-   Ae.setZero();
+   // fill SM parameters
+   model.set_alpha_MZ(0.00775531);              // 1L
+   model.set_alpha_thompson(0.00729735);        // 2L
+   model.set_g3(std::sqrt(4 * M_PI * 0.1184));  // 2L
+   model.get_physical().MFt   = 173.34;         // 2L
+   model.get_physical().MFb   = 4.18;           // 2L, mb(mb) MS-bar
+   model.get_physical().MFm   = 0.1056583715;   // 1L
+   model.get_physical().MFtau = 1.777;          // 2L
+   model.get_physical().MVWm  = 80.385;         // 1L
+   model.get_physical().MVZ   = 91.1876;        // 1L
 
-   mq2.diagonal().setConstant(500 * 500);
-   ml2 = md2 = mu2 = me2 = mq2;
+   // fill DR-bar parameters
+   model.set_TB(10);                      // 1L
+   model.set_Ae(1,1,0);                   // 1L
 
-   // set parameters
-   model.get_physical().MVWm = MW;
-   model.get_physical().MVZ = MZ;
-   model.get_physical().MFe = ME;
-   model.get_physical().MFm = MM;
-   model.get_physical().MFtau = ML;
-   model.get_physical().MFt = MT;
-   model.get_physical().MFb = MB;
-
-   model.set_g3(g3);
-   model.set_TB(TB);
-   model.set_Ae(Ae);
-   model.set_Ad(Ad);
-   model.set_Au(Au);
-   model.set_Mu(Mu);
-   model.set_mq2(mq2);
-   model.set_ml2(ml2);
-   model.set_md2(md2);
-   model.set_mu2(mu2);
-   model.set_me2(me2);
-   model.set_MassB(M1);
-   model.set_MassWB(M2);
-   model.set_MassG(M3);
-   model.set_scale(scale);
-   model.set_MA0(MA0);
+   // fill on-shell parameters
+   model.set_Mu(350);                     // 1L
+   model.set_MassB(150);                  // 1L
+   model.set_MassWB(300);                 // 1L
+   model.set_MassG(1000);                 // 2L
+   model.set_mq2(500 * 500 * UnitMatrix); // 2L
+   model.set_ml2(500 * 500 * UnitMatrix); // 1L(smuon)/2L
+   model.set_md2(500 * 500 * UnitMatrix); // 2L
+   model.set_mu2(500 * 500 * UnitMatrix); // 2L
+   model.set_me2(500 * 500 * UnitMatrix); // 1L(smuon)/2L
+   model.set_Au(2,2,0);                   // 2L
+   model.set_Ad(2,2,0);                   // 2L
+   model.set_Ae(2,2,0);                   // 2L
+   model.set_MA0(1500);                   // 2L
+   model.set_scale(454.7);                // 2L
 
    return model;
 }
@@ -94,10 +78,11 @@ int main()
    const double tanb_stop = 100.;
    const unsigned nsteps = 100;
 
-   printf("# %14s %16s %16s\n", "tan(beta)", "amu", "error");
+   printf("# %14s %16s %16s %16s\n",
+          "tan(beta)", "amu", "uncertainty", "error");
 
    for (unsigned n = 0; n < nsteps; n++) {
-      double amu;
+      double amu, delta_amu;
       const double tanb = tanb_start + (tanb_stop - tanb_start) * n / nsteps;
       std::string error;
 
@@ -108,12 +93,14 @@ int main()
       try {
          model.calculate_masses();
          amu = calculate_amu(model);
+         delta_amu = gm2calc::calculate_uncertainty_amu_2loop(model);
       } catch (const gm2calc::Error& e) {
          error = "# " + e.what();
-         amu = std::numeric_limits<double>::signaling_NaN();
+         amu = delta_amu = std::numeric_limits<double>::signaling_NaN();
       }
 
-      printf("%16.8e %16.8e %s\n", tanb, amu, error.c_str());
+      printf("%16.8e %16.8e %16.8e %s\n",
+             tanb, amu, delta_amu, error.c_str());
    }
 
    return 0;

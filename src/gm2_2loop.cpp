@@ -320,7 +320,7 @@ double amuChi0Photonic(const MSSMNoFV_onshell& model) {
    const Eigen::Matrix<double,4,2> AAN_(AAN(model));
    const Eigen::Matrix<double,4,2> BBN_(BBN(model));
    const Eigen::Array<double,4,1> MNeu(model.get_MChi());
-   const Eigen::Array<double,2,1> MSmu(model.get_MSmu());
+   const Eigen::Array<double,2,1> MSmu(model.get_MSm());
    const Eigen::Matrix<double,4,2> x__im(x_im(model));
    const double mu_DREG = model.get_MUDIM();
 
@@ -415,8 +415,8 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_stop(const MSSMNoFV_onshell& mode
    const double CA = 1. / sqrt(1. + sqr(TA));
    const double SA = - sqrt(1. - sqr(CA));
    const double MT(model.get_MT());
-   const Eigen::Array<double,2,1> MStop(model.get_MStop());
-   const Eigen::Matrix<double,2,2> UStop(model.get_UStop());
+   const Eigen::Array<double,2,1> MStop(model.get_MSt());
+   const Eigen::Matrix<double,2,2> UStop(model.get_USt());
    const double At(model.get_Au(2, 2));
    const double Mu(model.get_Mu());
 
@@ -441,8 +441,8 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_sbot(const MSSMNoFV_onshell& mode
    const double TA(tan_alpha(model));
    const double CA = 1. / sqrt(1. + sqr(TA));
    const double SA = - sqrt(1. - sqr(CA));
-   const Eigen::Array<double,2,1> MSbot(model.get_MSbot());
-   const Eigen::Matrix<double,2,2> USbot(model.get_USbot());
+   const Eigen::Array<double,2,1> MSbot(model.get_MSb());
+   const Eigen::Matrix<double,2,2> USbot(model.get_USb());
    const double Ab(model.get_Ad(2, 2));
    const double Mu(model.get_Mu());
    const double mb_over_cb_eff = sqrt(2.) * model.get_Yd(2,2)
@@ -498,8 +498,8 @@ double amu2LaSferm(const MSSMNoFV_onshell& model) {
    const double MW(model.get_MW());
    const double SW = sqrt(1. - sqr(MW / model.get_MZ()));
    const double EL(model.get_EL());
-   const Eigen::Array<double,2,1> m_stop(model.get_MStop());
-   const Eigen::Array<double,2,1> m_sbot(model.get_MSbot());
+   const Eigen::Array<double,2,1> m_stop(model.get_MSt());
+   const Eigen::Array<double,2,1> m_sbot(model.get_MSb());
    const Eigen::Array<double,2,1> m_stau(model.get_MStau());
    const Eigen::Array<double,2,1> M_higgs(model.get_Mhh());
    Eigen::Array<std::complex<double>,2,1> lambda_mu;

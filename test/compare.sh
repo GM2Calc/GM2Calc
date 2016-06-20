@@ -2,6 +2,8 @@
 
 # compares two floating point numbers for equality
 # with a given maximum relative deviation
+#
+# Note: scientific notation is allowed
 CHECK_EQUAL_FRACTION() {
     if test $# -lt 3 ; then
         echo "Error: CHECK_EQUAL_FRACTION: Too few arguments"
@@ -9,13 +11,13 @@ CHECK_EQUAL_FRACTION() {
         exit 1
     fi
 
-    local num1=$(echo $1 | sed 's/e/E/')
-    local num2=$(echo $2 | sed 's/e/E/')
-    local frac=$(echo $3 | sed 's/e/E/')
+    local num1="$(echo "$1" | sed -e 's/[eE]+*/*10^/')"
+    local num2="$(echo "$2" | sed -e 's/[eE]+*/*10^/')"
+    local frac="$(echo "$3" | sed -e 's/[eE]+*/*10^/')"
 
     local scale=15
 
-    error=$(cat <<EOF | bc
+    local error=$(cat <<EOF | bc
 define abs(i) {
     if (i < 0) return (-i)
     return i
@@ -34,14 +36,15 @@ define max(i,j) {
 # precision of calculation
 scale=${scale}
 
-mmin=min(abs($num1),abs($num2))
-mmax=max(abs($num1),abs($num2))
+mmin=min($num1,$num2)
+mmax=max($num1,$num2)
+amax=max(abs($num1),abs($num2))
 
-(mmax - mmin) > $frac * mmax
+(mmax - mmin) > $frac * amax
 EOF
     )
 
-    if test "$error" != "0" ; then
+    if test "x$error" != "x0" ; then
         echo "Test failed: $num1 =r= $num2 with fraction $frac"
     fi
 
