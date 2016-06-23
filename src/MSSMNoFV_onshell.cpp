@@ -111,6 +111,13 @@ double MSSMNoFV_onshell::get_vev() const
    return vev;
 }
 
+double MSSMNoFV_onshell::get_TB() const
+{
+   if (MSSMNoFV_onshell::is_zero(get_vd()))
+      return 0.;
+   return get_vu() / get_vd();
+}
+
 /**
  * Converts the model parameters from the DR-bar scheme to the
  * on-shell scheme.
@@ -188,6 +195,7 @@ void MSSMNoFV_onshell::check_input() const
    WARN_OR_THROW_IF_ZERO(MM    , "Muon mass is zero");
    WARN_OR_THROW_IF_ZERO(MassB , "Bino mass M1 is zero");
    WARN_OR_THROW_IF_ZERO(MassWB, "Wino mass M2 is zero");
+   WARN_OR_THROW_IF_ZERO(TB    , "tan(beta) is zero");
 
 #undef WARN_OR_THROW_IF_ZERO
 }

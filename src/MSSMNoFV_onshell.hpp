@@ -72,7 +72,7 @@ public:
    /// renormalization scale
    double get_MUDIM() const { return get_scale(); }
    /// tan(beta)
-   double get_TB() const { return get_vu() / get_vd(); }
+   double get_TB() const;
    /// Vacuum expectation value v
    double get_vev() const;
    const Eigen::Matrix<double,3,3>& get_Ae() const { return Ae; }
