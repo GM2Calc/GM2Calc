@@ -1,3 +1,8 @@
+GM2Calc-1.2.1 [not release yet]
+
+ * Change (commit b3c7357): Abort calculation if tan(beta) is
+   undefined or zero.
+
 GM2Calc-1.2.0 [June, 21 2016]
 
  * Feature (commit b65d75d): Adding C interface functions to
