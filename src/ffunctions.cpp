@@ -63,6 +63,9 @@ double F2C(double x) {
          + 1/3.*std::pow(-1 + x,6);
    }
 
+   if (is_zero(x))
+      return 0.;
+
    return 3. / (2. * cube(1. - x)) * (- 3. + 4. * x - sqr(x) - 2. * log(x));
 }
 
@@ -91,6 +94,9 @@ double F4C(double x) {
          + 177/6832.*std::pow(-1 + x,5)
          - 47021/1076040.*std::pow(-1 + x,6);
    }
+
+   if (is_zero(x))
+      return 0.;
 
    return ( - 9. / (122. * cube(1. - x)) * (8. * (sqr(x) - 3. * x + 2.)
              +  (11. * sqr(x) - 40. * x + 5.) * log(x)
