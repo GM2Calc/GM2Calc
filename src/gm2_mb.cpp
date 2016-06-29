@@ -31,6 +31,8 @@
 
 #define WARNING(message)                                                \
    do { std::cerr << "Warning: " << message << '\n'; } while (0)
+#define ERROR(message)                                                  \
+   do { std::cerr << "Error: " << message << '\n'; } while (0)
 
 namespace gm2calc {
 
@@ -92,12 +94,19 @@ double calculate_lambda_qcd(double alpha, double scale,
       return std::abs(a - b) < precision_goal;
    };
 
-   // find the root
-   const std::pair<double,double> root =
-      boost::math::tools::toms748_solve(Difference_alpha, lambda_qcd_min,
-                                        lambda_qcd_max, Stop_crit, it);
+   double lambda_qcd = 0.217; // Nf = 5, PDG
 
-   const double lambda_qcd = 0.5 * (root.first + root.second);
+   // find the root
+   try {
+      const std::pair<double,double> root =
+         boost::math::tools::toms748_solve(Difference_alpha, lambda_qcd_min,
+                                           lambda_qcd_max, Stop_crit, it);
+
+      lambda_qcd = 0.5 * (root.first + root.second);
+   } catch (const std::exception& e) {
+      ERROR("Error: Could not determine lambda_QCD: " << e.what()
+            << ".  Using lambda_QCD = " << lambda_qcd);
+   }
 
    if (it >= max_iterations) {
       const double precision = std::abs(Difference_alpha(lambda_qcd));
