@@ -193,6 +193,7 @@ void MSSMNoFV_onshell::check_input() const
    WARN_OR_THROW_IF_ZERO(MW    , "W mass is zero");
    WARN_OR_THROW_IF_ZERO(MZ    , "Z mass is zero");
    WARN_OR_THROW_IF_ZERO(MM    , "Muon mass is zero");
+   WARN_OR_THROW_IF_ZERO(Mu    , "mu parameter is zero");
    WARN_OR_THROW_IF_ZERO(MassB , "Bino mass M1 is zero");
    WARN_OR_THROW_IF_ZERO(MassWB, "Wino mass M2 is zero");
    WARN_OR_THROW_IF_ZERO(TB    , "tan(beta) is zero");
