@@ -3,8 +3,20 @@ GM2Calc-1.2.1 [not release yet]
  * Change (commit b3c7357): Abort calculation if tan(beta) is
    undefined or zero.
 
+ * Change (commit 910b1bd): Abort calculation if the mu parameter is
+   zero.  For mu = 0 the approximate fermion/sfermion 2-loop
+   corrections are ill-defined.
+
+ * Change (commit 16b181b): Abort calculation if the lightest chargino
+   mass is zero.  In that case the photonic 2-loop contribution
+   originating from loop function F3C is ill-defined.
+
  * Bugfix (commit b3d3c0f): Implementation of the x = 0 limits of the
    F1N[x], F2N[x], F3N[x], F4N[x] and F1C[x] functions.
+
+ * Bugfix (commit 3ec5df4): Catch potential exception during iteration
+   to determine the QCD scale, Lambda_QCD.  This exception is thrown,
+   for example, if the Z pole mass is set to be larger than 5 TeV.
 
 GM2Calc-1.2.0 [June, 21 2016]
 
