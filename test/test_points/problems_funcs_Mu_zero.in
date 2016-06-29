@@ -5,7 +5,7 @@ Block GM2CalcConfig
      2     1     # disable/enable tan(beta) resummation (0 or 1)
      3     1     # force output
      4     0     # verbose output (0 or 1)
-     5     1     # calculate uncertainty
+     5     0     # calculate uncertainty
 Block GM2CalcInput
      0     8.66360379E+02   # ren. scale
      1     0.007755313      # alpha(MZ)
