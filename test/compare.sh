@@ -17,6 +17,8 @@ CHECK_EQUAL_FRACTION() {
 
     local scale=15
 
+    [ "x$num1" = "x$num2" ] && return 0
+
     local error=$(cat <<EOF | bc
 define abs(i) {
     if (i < 0) return (-i)
@@ -35,6 +37,9 @@ define max(i,j) {
 
 # precision of calculation
 scale=${scale}
+
+# define nan to some arbitrary number
+nan=9.999*10^99
 
 mmin=min($num1,$num2)
 mmax=max($num1,$num2)
