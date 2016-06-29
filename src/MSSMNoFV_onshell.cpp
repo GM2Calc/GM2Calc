@@ -215,6 +215,10 @@ void MSSMNoFV_onshell::check_problems() const
       if (!do_force_output())
          throw EPhysicalProblem("soft mass squared < 0");
    }
+   if (is_zero(get_MCha(0))) {
+      if (!do_force_output())
+         throw EPhysicalProblem("lightest chargino mass = 0");
+   }
 }
 
 void MSSMNoFV_onshell::copy_susy_masses_to_pole()
