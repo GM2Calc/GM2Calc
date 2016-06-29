@@ -16,7 +16,8 @@ frac_diff=0.000000001
 points="\
 ${BASEDIR}/test_points/problems_funcs_Fa_Fb.in,gm2calc,0,-7.26010840E-09
 ${BASEDIR}/test_points/problems_funcs_I_FC_FN.in,gm2calc,0,-7.38800971E-09
-${BASEDIR}/test_points/problems_funcs_Mu_zero.in,gm2calc,0,2.31106491e-10
+${BASEDIR}/test_points/problems_funcs_Mu_zero_1L.in,gm2calc,0,5.78789509e-04
+${BASEDIR}/test_points/problems_funcs_Mu_zero_2L.in,gm2calc,0,-nan
 ${BASEDIR}/test_points/problems_funcs_M1_zero.in,gm2calc,0,2.57054680e-10
 ${BASEDIR}/test_points/problems_funcs_xim_zero.in,gm2calc,0,-2.26641081e-10
 ${BASEDIR}/test_points/problems_hmix_scale.in,slha,0,3.89209714e-10
