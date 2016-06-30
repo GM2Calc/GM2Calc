@@ -11,22 +11,22 @@
        Au, Ad, Ae, Q, Yu, Yd, Ye }
 
 :Evaluate: GM2CalcSetFlags::usage =
-    "GM2CalcSetFlags sets the configuration flags for GM2Calc."
+    "GM2CalcSetFlags sets the configuration flags for GM2Calc.  Available flags are: {loopOrder, tanBetaResummation, forceOutput}.  Unset flags are set to their default values, see Options[GM2CalcSetFlags].  Use GM2CalcGetFlags[] to retrieve the flags currently set."
 
 :Evaluate: GM2CalcGetFlags::usage =
-    "GM2CalcGetFlags returns the configuration flags for GM2Calc."
+    "GM2CalcGetFlags returns the current configuration flags for GM2Calc."
 
 :Evaluate: GM2CalcSetSMParameters::usage =
-    "GM2CalcSetSMParameters sets the Standard Model parameters."
+    "GM2CalcSetSMParameters sets the Standard Model parameters input parameters.  Available Standard Model parameters are: {alphaMZ, alpha0, alphaS, MW, MZ, MT, mbmb, mbMZ, ML, MM}.  Unset parameters are set to their default values, see Options[GM2CalcSetSMParameters].  Use GM2CalcGetSMParameters[] to retrieve the current values of the Standard Model parameters."
 
 :Evaluate: GM2CalcGetSMParameters::usage =
     "GM2CalcGetSMParameters returns the Standard Model parameters."
 
 :Evaluate: GM2CalcAmuSLHAScheme::usage =
-    "GM2CalcAmuSLHAScheme calculates amu and its uncertainty using the given SLHA parameters (SLHA interface)."
+    "GM2CalcAmuSLHAScheme calculates amu and its uncertainty using the given SLHA parameters (SLHA interface).  Unset SLHA parameters are set to zero.  See Options[GM2CalcAmuSLHAScheme] for all SLHA parameters and their default values."
 
 :Evaluate: GM2CalcAmuGM2CalcScheme::usage =
-    "GM2CalcAmuGM2CalcScheme calculates amu and its uncertainty using the given parameters in the GM2Calc-specific renormalization scheme (GM2Calc interface)."
+    "GM2CalcAmuGM2CalcScheme calculates amu and its uncertainty using the given parameters in the GM2Calc-specific renormalization scheme (GM2Calc interface).  Unset parameters are set to zero.  See Options[GM2CalcAmuGM2CalcScheme] for all input parameters in the GM2Calc scheme and their default values."
 
 :Evaluate: GM2CalcAmuSLHAScheme::error = "`1`";
 :Evaluate: GM2CalcAmuSLHAScheme::warning = "`1`";
