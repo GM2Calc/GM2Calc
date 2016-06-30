@@ -1,5 +1,10 @@
 Install["bin/gm2calc.mx"];
 
+GM2CalcSetFlags[
+    loopOrder -> 2,
+    tanBetaResummation -> True,
+    forceOutput -> False];
+
 GM2CalcSetSMParameters[
     alphaMZ -> 0.00775531,  (* 1L *)
     alpha0 -> 0.00729735,   (* 2L *)
