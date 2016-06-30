@@ -1,4 +1,18 @@
-GM2Calc-1.2.1 [not release yet]
+GM2Calc-1.3.0 [not release yet]
+
+ * Feature: A Mathematica interface for GM2Calc has been added.  To
+   build it, run `make mathlink'.  The compiled MathLink executable
+   can then be found in bin/gm2calc.mx .  To use it, the MathLink
+   executable must be installed in Mathematica via
+
+      Install["bin/gm2calc.mx"];
+
+   Two examples using the Mathematica interface of GM2Calc can be found in
+
+      examples/example-gm2calc.m
+      examples/example-slha.m
+
+   These two examples behave exactly like their C/C++ counterparts.
 
  * Change (commit b3c7357): Abort calculation if tan(beta) is
    undefined or zero.
