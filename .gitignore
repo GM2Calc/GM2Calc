@@ -5,7 +5,9 @@
 
 make.args
 
-bin/
+bin/*.x
+bin/*.mx
+bin/f++
 doc/html/
 src/config.h
 test/*.x

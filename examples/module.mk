@@ -28,10 +28,10 @@ examples: $(EXEexamples_EXE) make.args
 $(EXEexamples_DEP) $(EXEexamples_OBJ): \
 	override CPPFLAGS += $(EIGENFLAGS) $(BOOSTFLAGS)
 
-$(BINDIR)/%_c.x: $(DIR)/%_c.o $(LIBsrc) | $(BINDIR)
+$(BINDIR)/%_c.x: $(DIR)/%_c.o $(LIBsrc)
 	$(CC) -o $@ $^ $(LDLIBS) $(CLIBS)
 
-$(BINDIR)/%.x: $(DIR)/%.o $(LIBsrc) | $(BINDIR)
+$(BINDIR)/%.x: $(DIR)/%.o $(LIBsrc)
 	$(CXX) -o $@ $^ $(LDLIBS)
 
 ALLDEP += $(EXEexamples_DEP)
