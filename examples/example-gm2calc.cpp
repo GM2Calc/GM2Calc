@@ -1,6 +1,7 @@
 #include "gm2_1loop.hpp"
 #include "gm2_2loop.hpp"
 #include "gm2_uncertainty.hpp"
+#include "gm2_error.hpp"
 #include "MSSMNoFV_onshell.hpp"
 #include <iostream>
 #include <cmath>
@@ -49,16 +50,20 @@ gm2calc::MSSMNoFV_onshell setup() {
 }
 
 int main() {
-   gm2calc::MSSMNoFV_onshell model(setup());
+   try {
+      gm2calc::MSSMNoFV_onshell model(setup());
 
-   const double amu =
-      + gm2calc::calculate_amu_1loop(model)
-      + gm2calc::calculate_amu_2loop(model);
+      const double amu =
+         + gm2calc::calculate_amu_1loop(model)
+         + gm2calc::calculate_amu_2loop(model);
 
-   const double delta_amu =
-      gm2calc::calculate_uncertainty_amu_2loop(model);
+      const double delta_amu =
+         gm2calc::calculate_uncertainty_amu_2loop(model);
 
-   std::cout << "amu = " << amu << " +- " << delta_amu << std::endl;
+      std::cout << "amu = " << amu << " +- " << delta_amu << std::endl;
+   } catch (const gm2calc::Error& e) {
+      std::cout << e.what() << std::endl;
+   }
 
    return 0;
 }
