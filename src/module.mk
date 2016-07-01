@@ -23,8 +23,7 @@ LIBsrc_SRC := \
 
 # source files with main()
 EXEsrc_SRC := \
-		$(DIR)/gm2calc.cpp \
-		$(DIR)/gm2scan.cpp
+		$(DIR)/gm2calc.cpp
 
 MATHLINK_SRC := $(DIR)/gm2calc.tm
 

@@ -5,6 +5,7 @@ MODNAME      := examples
 EXEexamples_SRC := \
 	$(DIR)/example-gm2calc_c.c \
 	$(DIR)/example-gm2calc.cpp \
+	$(DIR)/example-gm2scan.cpp \
 	$(DIR)/example-slha_c.cpp \
 	$(DIR)/example-slha.cpp
 
