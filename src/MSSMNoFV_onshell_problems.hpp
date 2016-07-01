@@ -36,6 +36,16 @@ namespace gm2calc {
  */
 class MSSMNoFV_onshell_problems {
 public:
+   struct Convergence_problem {
+      Convergence_problem() : precision(0.), iterations(0) {}
+      void clear() {
+         precision = 0.;
+         iterations = 0;
+      }
+      double precision;    ///< achieved accuracy (in GeV)
+      unsigned iterations; ///< used number of iterations
+   };
+
    MSSMNoFV_onshell_problems();
    void clear();              ///< delete all problems and warnings
    void clear_problems();     ///< delete all problems
@@ -45,6 +55,10 @@ public:
    void flag_tachyon(const std::string&);
    void unflag_no_convergence_Mu_MassB_MassWB();
    void unflag_no_convergence_me2();
+   bool no_Mu_MassB_MassWB_convergence() const;
+   bool no_me2_convergence() const;
+   Convergence_problem get_Mu_MassB_MassWB_convergence_problem() const;
+   Convergence_problem get_me2_convergence_problem() const;
    bool have_tachyon() const; ///< returns true if tachyon exists
    bool have_problem() const; ///< returns true if problem has occurred
    bool have_warning() const; ///< returns true if there is a warning
@@ -55,16 +69,6 @@ public:
    void print_warnings(std::ostream&) const; ///< print warnings to stream
 
 private:
-   struct Convergence_problem {
-      Convergence_problem() : precision(0.), iterations(0) {}
-      void clear() {
-         precision = 0.;
-         iterations = 0;
-      }
-      double precision;    ///< achieved accuracy
-      unsigned iterations; ///< used number of iterations
-   };
-
    bool have_no_convergence_Mu_MassB_MassWB;
    bool have_no_convergence_me2;
    std::vector<std::string> tachyons;
