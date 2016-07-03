@@ -17,19 +17,21 @@ CXX_DEP_GEN     := g++
 FCC             := $(BINDIR)/fcc
 FXX             := $(BINDIR)/f++
 MAKELIB         := ar cru
+MAKESHAREDLIB   := $(CXX) -shared
 MATH            := math
 MCC             := $(BINDIR)/mcc
 BOOSTFLAGS      := -I/usr/include
 EIGENFLAGS      := -I/usr/include/eigen3
 LIBEXT          := .a
+SHAREDLIBEXT    := .so
 CONFIG_H        := src/config.h
 
 # Flags (set to 1 to enable, leave empty to disable)
 ENABLE_LAPACK   :=
 
-all: alllib allexec make.args
+all: alllib allexec make.args sharedlib
 
-.PHONY: all allexec alllib clean depend make.args
+.PHONY: all allexec alllib clean depend make.args sharedlib
 
 clean::
 	-rm -f $(CONFIG_H)
@@ -61,6 +63,7 @@ endif
 allexec:  $(ALLEXE)
 alllib:   $(ALLLIB)
 depend:   $(ALLDEP)
+sharedlib: $(SHAREDLIB)
 
 $(FXX): $(FCC)
 	-rm -f $@
