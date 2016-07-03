@@ -1,29 +1,11 @@
 DIR          := src
 MODNAME      := gm2calc
 
-# source files for library
-LIBsrc_SRC := \
-		$(DIR)/dilog.cpp \
-		$(DIR)/ffunctions.cpp \
-		$(DIR)/gm2_1loop.cpp \
-		$(DIR)/gm2_1loop_c.cpp \
-		$(DIR)/gm2_2loop.cpp \
-		$(DIR)/gm2_2loop_c.cpp \
-		$(DIR)/gm2_mb.cpp \
-		$(DIR)/gm2_uncertainty.cpp \
-		$(DIR)/gm2_uncertainty_c.cpp \
-		$(DIR)/gm2_slha_io.cpp \
-		$(DIR)/MSSMNoFV_onshell.cpp \
-		$(DIR)/MSSMNoFV_onshell_c.cpp \
-		$(DIR)/MSSMNoFV_onshell_mass_eigenstates.cpp \
-		$(DIR)/MSSMNoFV_onshell_physical.cpp \
-		$(DIR)/MSSMNoFV_onshell_problems.cpp \
-		$(DIR)/MSSMNoFV_onshell_soft_parameters.cpp \
-		$(DIR)/MSSMNoFV_onshell_susy_parameters.cpp
-
 # source files with main()
-EXEsrc_SRC := \
-		$(DIR)/gm2calc.cpp
+EXEsrc_SRC := $(DIR)/gm2calc.cpp
+
+# source files for library
+LIBsrc_SRC := $(filter-out $(EXEsrc_SRC),$(wildcard $(DIR)/*.cpp))
 
 MATHLINK_SRC := $(DIR)/gm2calc.tm
 
