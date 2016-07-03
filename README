@@ -41,9 +41,10 @@ The following default values are set in the makefile:
 
   CXX             := g++
   CPPFLAGS        := -Isrc
-  CXXFLAGS        := -O2 -std=c++11
+  CXXFLAGS        := -O2 -std=c++11 -fPIC
   CXX_DEP_GEN     := g++
   MAKELIB         := ar cru
+  MAKESHAREDLIB   := $(CXX) -shared
   BOOSTFLAGS      := -I/usr/include
   EIGENFLAGS      := -I/usr/include/eigen3
 

@@ -12,7 +12,7 @@ CFLAGS          := -O2 -std=c99
 CLIBS           := -lstdc++ -lm
 CXX             := g++
 CPPFLAGS        := -Isrc
-CXXFLAGS        := -O2 -std=c++11
+CXXFLAGS        := -O2 -std=c++11 -fPIC
 CXX_DEP_GEN     := g++
 FCC             := $(BINDIR)/fcc
 FXX             := $(BINDIR)/f++
@@ -29,9 +29,9 @@ CONFIG_H        := src/config.h
 # Flags (set to 1 to enable, leave empty to disable)
 ENABLE_LAPACK   :=
 
-all: alllib allexec make.args sharedlib
+all: alllib allexec make.args
 
-.PHONY: all allexec alllib clean depend make.args sharedlib
+.PHONY: all allexec alllib clean depend make.args
 
 clean::
 	-rm -f $(CONFIG_H)
@@ -63,7 +63,6 @@ endif
 allexec:  $(ALLEXE)
 alllib:   $(ALLLIB)
 depend:   $(ALLDEP)
-sharedlib: $(SHAREDLIB)
 
 $(FXX): $(FCC)
 	-rm -f $@
@@ -94,11 +93,13 @@ make.args:
 	       'CXXFLAGS="$(CXXFLAGS)"' \
 	       'CXX_DEP_GEN="$(CXX_DEP_GEN)"' \
 	       'MAKELIB="$(MAKELIB)"' \
+	       'MAKESHAREDLIB="$(MAKESHAREDLIB)"' \
 	       'MATH="$(MATH)"' \
 	       'MCC="$(MCC)"' \
 	       'BOOSTFLAGS="$(BOOSTFLAGS)"' \
 	       'EIGENFLAGS="$(EIGENFLAGS)"' \
-	       'LIBEXT="$(LIBEXT)"'; \
+	       'LIBEXT="$(LIBEXT)"' \
+	       'SHAREDLIBEXT="$(SHAREDLIBEXT)"'; \
 	} > $@-t
 	mv $@-t $@
 

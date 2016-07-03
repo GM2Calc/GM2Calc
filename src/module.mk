@@ -41,12 +41,14 @@ MATHLINK_EXE := $(patsubst $(DIR)/%.tm, $(BINDIR)/%.mx, $(MATHLINK_SRC))
 
 LIBsrc     := $(DIR)/lib$(MODNAME)$(LIBEXT)
 
+SHAREDLIBsrc := $(DIR)/lib$(MODNAME)$(SHAREDLIBEXT)
+
 .PHONY: mathlink
 
 clean::
 	-rm -f $(LIBsrc_DEP) $(EXEsrc_DEP)
 	-rm -f $(LIBsrc_OBJ) $(EXEsrc_OBJ)
-	-rm -f $(LIBsrc)
+	-rm -f $(LIBsrc) $(SHAREDLIBsrc)
 	-rm -f $(EXEsrc_EXE)
 	-rm -f $(MATHLINK_EXE)
 
@@ -58,6 +60,9 @@ $(LIBsrc_DEP) $(EXEsrc_DEP) $(LIBsrc_OBJ) $(EXEsrc_OBJ): \
 $(LIBsrc): $(LIBsrc_OBJ)
 	$(MAKELIB) $@ $^
 
+$(SHAREDLIBsrc): $(LIBsrc_OBJ)
+	$(MAKESHAREDLIB) -o $@ $^
+
 $(BINDIR)/%.x: $(DIR)/%.o $(LIBsrc)
 	$(CXX) -o $@ $^ $(LDLIBS)
 
@@ -67,5 +72,5 @@ $(BINDIR)/%.mx: $(DIR)/%.tm $(LIBsrc) | $(FCC) $(FXX)
 	$(MCC) -o $@ $(CPPFLAGS) $(CFLAGS) $^ $(LDLIBS)
 
 ALLDEP += $(LIBsrc_DEP) $(EXEsrc_DEP)
-ALLLIB += $(LIBsrc)
+ALLLIB += $(LIBsrc) $(SHAREDLIBsrc)
 ALLEXE += $(EXEsrc_EXE)
