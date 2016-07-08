@@ -81,7 +81,6 @@ int main()
       std::string error;
 
       gm2calc::MSSMNoFV_onshell model(setup());
-      model.do_force_output(false); // throw exception in case of problem
       model.set_TB(tanb);
 
       try {
