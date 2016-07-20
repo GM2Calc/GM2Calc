@@ -294,7 +294,7 @@
             MLPutComplex(link, re, im);                           \
          }                                                        \
       }                                                           \
-   } while (0);
+   } while (0)
 
 #define MLPutRuleToRealVectorInterface(link,M,name,dim)  \
    MLPutFunction(link, "Rule", 2);                       \
