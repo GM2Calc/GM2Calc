@@ -49,6 +49,7 @@ $(BINDIR)/%.x: $(DIR)/%.o $(LIBsrc)
 	$(CXX) -o $@ $^ $(LDLIBS)
 
 $(BINDIR)/%.mx: $(DIR)/%.tm $(LIBsrc) | $(FCC) $(FXX)
+	NM="$(NM)" DLLTOOL="$(DLLTOOL)" \
 	CXX="$(FXX)" REALCXX="$(CXX) $(CXXFLAGS)" \
 	CC="$(FCC)" REALCC="$(CC) $(CFLAGS)" MATH="$(MATH)" \
 	$(MCC) -o $@ $(CPPFLAGS) $(CFLAGS) $^ $(LDLIBS)
