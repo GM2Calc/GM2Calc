@@ -4,8 +4,6 @@
 # - on Cygwin it substitutes mcc completely
 # last modified 16 Jan 15 th
 
-MATH_CMD=${MATH:-math}
-
 sdkpath()
 {
   mathcmd="$1"
@@ -39,7 +37,7 @@ sdkpath()
 
 cygmcc()
 {
-  sdkpath "${MATH_CMD}" \
+  sdkpath "${MATH:-math}" \
     "`cygpath '$ProgramW6432'`/Wolfram Research/Mathematica"/* \
     "`cygpath '$PROGRAMFILES'`/Wolfram Research/Mathematica"/* \
     "/cygdrive/c/Program Files/Wolfram Research/Mathematica"/* \
@@ -100,7 +98,7 @@ macmcc()
 
 defaultmcc()
 {
-  sdkpath "${MATH_CMD}" \
+  sdkpath "${MATH:-math}" \
     /usr/local/bin \
     /usr/local/Wolfram/bin \
     /usr/local/Wolfram/Mathematica/*/Executables \
