@@ -48,7 +48,10 @@ while test $# -gt 0 ; do
   *.tm.o)
 	objs="'$1' $objs"
 	;;
-  *.a | *.o | *.so)
+  *.o)
+	objs="'$1' $objs"
+	;;
+  *.a | *.so)
 	objs="$objs '$1'"
 	;;
   *.cc)
