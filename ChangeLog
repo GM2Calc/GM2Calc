@@ -1,4 +1,4 @@
-GM2Calc-1.3.0 [not release yet]
+GM2Calc-1.3.0 [July, 21 2016]
 
  * Feature: A Mathematica interface for GM2Calc has been added.  To
    build it, run `make mathlink'.  The compiled MathLink executable
