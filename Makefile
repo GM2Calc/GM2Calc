@@ -1,23 +1,29 @@
 # Package information
 PKGNAME         := gm2calc
 MAJOR           := 1
-MINOR           := 2
+MINOR           := 3
 PATCH           := 0
 VERSION         := $(MAJOR).$(MINOR).$(PATCH)
 
 # Variables for compilation
+BINDIR          := bin
 CC              := gcc
 CFLAGS          := -O2 -std=c99
 CLIBS           := -lstdc++ -lm
 CXX             := g++
 CPPFLAGS        := -Isrc
-CXXFLAGS        := -O2 -std=c++11
+CXXFLAGS        := -O2 -std=c++11 -fPIC
 CXX_DEP_GEN     := g++
+FCC             := $(BINDIR)/fcc
+FXX             := $(BINDIR)/f++
 MAKELIB         := ar cru
+MAKESHAREDLIB   := $(CXX) -shared
+MATH            := math
+MCC             := $(BINDIR)/mcc
 BOOSTFLAGS      := -I/usr/include
 EIGENFLAGS      := -I.
 LIBEXT          := .a
-BINDIR          := bin
+SHAREDLIBEXT    := .so
 CONFIG_H        := src/config.h
 
 # Flags (set to 1 to enable, leave empty to disable)
@@ -29,8 +35,8 @@ all: alllib allexec make.args
 
 clean::
 	-rm -f $(CONFIG_H)
-	-rm -rf $(BINDIR)
 	-rm -f make.args
+	-rm -f $(FXX)
 
 include src/module.mk
 include examples/module.mk
@@ -58,8 +64,9 @@ allexec:  $(ALLEXE)
 alllib:   $(ALLLIB)
 depend:   $(ALLDEP)
 
-$(BINDIR):
-	mkdir $(BINDIR)
+$(FXX): $(FCC)
+	-rm -f $@
+	ln -s $(notdir $<) $@
 
 $(CONFIG_H): Makefile
 	rm -f $@-t $@
@@ -86,9 +93,13 @@ make.args:
 	       'CXXFLAGS="$(CXXFLAGS)"' \
 	       'CXX_DEP_GEN="$(CXX_DEP_GEN)"' \
 	       'MAKELIB="$(MAKELIB)"' \
+	       'MAKESHAREDLIB="$(MAKESHAREDLIB)"' \
+	       'MATH="$(MATH)"' \
+	       'MCC="$(MCC)"' \
 	       'BOOSTFLAGS="$(BOOSTFLAGS)"' \
 	       'EIGENFLAGS="$(EIGENFLAGS)"' \
-	       'LIBEXT="$(LIBEXT)"'; \
+	       'LIBEXT="$(LIBEXT)"' \
+	       'SHAREDLIBEXT="$(SHAREDLIBEXT)"'; \
 	} > $@-t
 	mv $@-t $@
 

@@ -1,3 +1,46 @@
+GM2Calc-1.3.0 [July, 21 2016]
+
+ * Feature: A Mathematica interface for GM2Calc has been added.  To
+   build it, run `make mathlink'.  The compiled MathLink executable
+   can then be found in bin/gm2calc.mx .  To use it, the MathLink
+   executable must be installed in Mathematica via
+
+      Install["bin/gm2calc.mx"];
+
+   Two examples using the Mathematica interface of GM2Calc can be found in
+
+      examples/example-gm2calc.m
+      examples/example-slha.m
+
+   These two examples behave exactly like their C/C++ counterparts.
+
+ * Change (commit b3c7357): Abort calculation if tan(beta) is
+   undefined or zero.
+
+ * Change (commit 910b1bd): Abort calculation if the mu parameter is
+   zero.  For mu = 0 the approximate fermion/sfermion 2-loop
+   corrections are ill-defined.
+
+ * Change (commit 16b181b): Abort calculation if the lightest chargino
+   mass is zero.  In that case the photonic 2-loop contribution
+   originating from loop function F3C is ill-defined.
+
+ * Change (commits 6d2a8b3, 2a8b2ed): Create shared library
+   src/libgm2calc.so (in addition to the static library) for
+   convenience.
+
+ * Change (commit c0b5923): Compile all .cpp files in src/ and put all
+   generated object files into the libraries, except for
+   src/gm2calc.o.  In this way, there is no need for GAMBIT to modify
+   src/module.mk to add further .cpp files for compilation.
+
+ * Bugfix (commit b3d3c0f): Implementation of the x = 0 limits of the
+   F1N[x], F2N[x], F3N[x], F4N[x] and F1C[x] functions.
+
+ * Bugfix (commit 3ec5df4): Catch potential exception during iteration
+   to determine the QCD scale, Lambda_QCD.  This exception is thrown,
+   for example, if the Z pole mass is set to be larger than 5 TeV.
+
 GM2Calc-1.2.0 [June, 21 2016]
 
  * Feature (commit b65d75d): Adding C interface functions to

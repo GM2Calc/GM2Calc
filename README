@@ -40,9 +40,10 @@ The following default values are set in the makefile:
 
   CXX             := g++
   CPPFLAGS        := -Isrc
-  CXXFLAGS        := -O2 -std=c++11
+  CXXFLAGS        := -O2 -std=c++11 -fPIC
   CXX_DEP_GEN     := g++
   MAKELIB         := ar cru
+  MAKESHAREDLIB   := $(CXX) -shared
   BOOSTFLAGS      := -I/usr/include
   EIGENFLAGS      := -I.
 
@@ -178,6 +179,39 @@ files have to be included:
 Please refer to the content of these header files for a precise
 definition of all interface functions.  The C/C++ example programs
 also serve as an illustration of the interface routines.
+
+
+Mathematica interface
+=====================
+
+In order to use GM2Calc from within Mathematica, first create
+GM2Calc's MathLink executable by running
+
+  $ make mathlink
+
+By default the MathLink compiler is the bin/mcc script, which finds
+the location of the MathLink compiler for most UNIX-like environments
+using the Mathematica kernel.  The Mathematica kernel can be given via
+the MATH variable.  Alternatively, the MathLink compiler can be set
+explicitly via the MCC variable.
+
+Example:
+
+  $ make \
+       CXX=icpc CC=icc \
+       LDLIBS="-lboost_math_c99" \
+       MATH=math10.1
+
+The MathLink executable can be found in
+
+  bin/gm2calc.mx
+
+This executable can be installed in Mathematica by calling
+
+  Install["bin/gm2calc.mx"]
+
+Afterwards, the GM2Calc Mathematica interface functions can be used,
+see examples/example-slha.m and examples/example-gm2calc.m .
 
 
 Configuration options

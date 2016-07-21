@@ -5,6 +5,7 @@ MODNAME      := examples
 EXEexamples_SRC := \
 	$(DIR)/example-gm2calc_c.c \
 	$(DIR)/example-gm2calc.cpp \
+	$(DIR)/example-gm2scan.cpp \
 	$(DIR)/example-slha_c.cpp \
 	$(DIR)/example-slha.cpp
 
@@ -28,10 +29,10 @@ examples: $(EXEexamples_EXE) make.args
 $(EXEexamples_DEP) $(EXEexamples_OBJ): \
 	override CPPFLAGS += $(EIGENFLAGS) $(BOOSTFLAGS)
 
-$(BINDIR)/%_c.x: $(DIR)/%_c.o $(LIBsrc) | $(BINDIR)
+$(BINDIR)/%_c.x: $(DIR)/%_c.o $(LIBsrc)
 	$(CC) -o $@ $^ $(LDLIBS) $(CLIBS)
 
-$(BINDIR)/%.x: $(DIR)/%.o $(LIBsrc) | $(BINDIR)
+$(BINDIR)/%.x: $(DIR)/%.o $(LIBsrc)
 	$(CXX) -o $@ $^ $(LDLIBS)
 
 ALLDEP += $(EXEexamples_DEP)

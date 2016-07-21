@@ -49,6 +49,9 @@ double F1C(double x) {
          + 2/15.*std::pow(-1 + x,6);
    }
 
+   if (is_zero(x))
+      return 4.;
+
    return 2. / quad(1. - x) * (2. + 3. * x - 6. * sqr(x)
                                + cube(x) + 6. * x * log(x));
 }
@@ -59,6 +62,9 @@ double F2C(double x) {
          + 3/7.*quad(-1 + x) - 0.375*std::pow(-1 + x,5)
          + 1/3.*std::pow(-1 + x,6);
    }
+
+   if (is_zero(x))
+      return 0.;
 
    return 3. / (2. * cube(1. - x)) * (- 3. + 4. * x - sqr(x) - 2. * log(x));
 }
@@ -89,6 +95,9 @@ double F4C(double x) {
          - 47021/1076040.*std::pow(-1 + x,6);
    }
 
+   if (is_zero(x))
+      return 0.;
+
    return ( - 9. / (122. * cube(1. - x)) * (8. * (sqr(x) - 3. * x + 2.)
              +  (11. * sqr(x) - 40. * x + 5.) * log(x)
              - 2. * (sqr(x) - 2. * x - 2.) * sqr(log(x))
@@ -102,6 +111,9 @@ double F1N(double x) {
          + 1/30.*std::pow(-1 + x,6);
    }
 
+   if (is_zero(x))
+      return 2.;
+
    return 2. / quad(1. - x) * (1. - 6. * x + 3. * sqr(x)
                                + 2. * cube(x) - 6. * sqr(x) * log(x));
 }
@@ -112,6 +124,9 @@ double F2N(double x) {
          + 1/7.*quad(-1 + x) - 3/28.*std::pow(-1 + x,5)
          + 1/12.*std::pow(-1 + x,6);
    }
+
+   if (is_zero(x))
+      return 3.;
 
    return 3. / cube(1. - x) * (1. - sqr(x) + 2. * x * log(x));
 }
@@ -126,6 +141,9 @@ double F3N(double x) {
          - 4381/73500.*std::pow(-1 + x,6);
    }
 
+   if (is_zero(x))
+      return 8./105.;
+
    return 4. / (105. * quad(1. - x)) * ((1. - x) * (- 97. * sqr(x) - 529. * x + 2.)
             + 6. * sqr(x) * (13. * x + 81.) * log(x)
             + 108. * x * (7. * x + 4.) * dilog(1. - x));
@@ -139,6 +157,9 @@ double F4N(double x) {
          + 177/1568.*std::pow(-1 + x,5)
          - 775/8064.*std::pow(-1 + x,6);
    }
+
+   if (is_zero(x))
+      return -(3./4.)*(-9. + sqr(M_PI));
 
    return - 2.25 / cube(1. - x) * ((x + 3.) * (x * log(x) + x - 1.)
                                    + (6. * x + 2.) * dilog(1. - x));

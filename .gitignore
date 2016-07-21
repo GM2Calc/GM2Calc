@@ -1,11 +1,14 @@
 *.a
 *.d
 *.o
+*.so
 *~
 
 make.args
 
-bin/
+bin/*.x
+bin/*.mx
+bin/f++
 doc/html/
 src/config.h
 test/*.x

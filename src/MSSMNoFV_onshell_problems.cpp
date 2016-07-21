@@ -103,6 +103,32 @@ bool MSSMNoFV_onshell_problems::have_warning() const
    return have_no_convergence_Mu_MassB_MassWB || have_no_convergence_me2;
 }
 
+/// returns true if DR-bar to OS conversion for Mu, M1, M2 did not converge
+bool MSSMNoFV_onshell_problems::no_Mu_MassB_MassWB_convergence() const
+{
+   return have_no_convergence_Mu_MassB_MassWB;
+}
+
+/// returns true if DR-bar to OS conversion for me2(1,1) did not converge
+bool MSSMNoFV_onshell_problems::no_me2_convergence() const
+{
+   return have_no_convergence_me2;
+}
+
+/// returns information about convergence problem for Mu, M1, M2 iteration
+MSSMNoFV_onshell_problems::Convergence_problem
+MSSMNoFV_onshell_problems::get_Mu_MassB_MassWB_convergence_problem() const
+{
+   return convergence_problem_Mu_MassB_MassWB;
+}
+
+/// returns information about convergence problem for me2(1,1) iteration
+MSSMNoFV_onshell_problems::Convergence_problem
+MSSMNoFV_onshell_problems::get_me2_convergence_problem() const
+{
+   return convergence_problem_me2;
+}
+
 std::string MSSMNoFV_onshell_problems::get_warnings() const
 {
    std::ostringstream ostr;

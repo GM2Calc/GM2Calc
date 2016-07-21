@@ -284,7 +284,7 @@ double amu2LFSfapprox(const MSSMNoFV_onshell& model) {
 
 /**
  * Calculates the photonic 2-loop contribution to the 1-loop chargino
- * diagram, Eq (36) arXiv:1003.5820.
+ * diagram, Eq (35) arXiv:1003.5820.
  */
 double amuChipmPhotonic(const MSSMNoFV_onshell& model) {
    double result = 0.;
@@ -312,7 +312,7 @@ double amuChipmPhotonic(const MSSMNoFV_onshell& model) {
 
 /**
  * Calculates the photonic 2-loop contribution to the 1-loop
- * neutralino diagram, Eq (35) arXiv:1003.5820.
+ * neutralino diagram, Eq (36) arXiv:1003.5820.
  */
 double amuChi0Photonic(const MSSMNoFV_onshell& model) {
    double result = 0.;

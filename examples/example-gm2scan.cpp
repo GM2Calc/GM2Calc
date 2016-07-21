@@ -25,12 +25,6 @@
 #include <cstdio>
 #include <iostream>
 
-double calculate_amu(gm2calc::MSSMNoFV_onshell& model)
-{
-   return gm2calc::calculate_amu_1loop(model)
-      + gm2calc::calculate_amu_2loop(model);
-}
-
 gm2calc::MSSMNoFV_onshell setup()
 {
    gm2calc::MSSMNoFV_onshell model;
@@ -87,12 +81,12 @@ int main()
       std::string error;
 
       gm2calc::MSSMNoFV_onshell model(setup());
-      model.do_force_output(false); // throw exception in case of problem
       model.set_TB(tanb);
 
       try {
          model.calculate_masses();
-         amu = calculate_amu(model);
+         amu = gm2calc::calculate_amu_1loop(model)
+             + gm2calc::calculate_amu_2loop(model);
          delta_amu = gm2calc::calculate_uncertainty_amu_2loop(model);
       } catch (const gm2calc::Error& e) {
          error = "# " + e.what();
