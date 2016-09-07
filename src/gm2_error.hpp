@@ -19,6 +19,8 @@
 #ifndef GM2_ERROR_H
 #define GM2_ERROR_H
 
+#include <string>
+
 namespace gm2calc {
 
 class Error {
