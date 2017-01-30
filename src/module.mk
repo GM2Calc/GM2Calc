@@ -33,6 +33,7 @@ clean::
 	-rm -f $(LIBsrc) $(SHAREDLIBsrc)
 	-rm -f $(EXEsrc_EXE)
 	-rm -f $(MATHLINK_EXE)
+	-rm -f =$(BINDIR)
 
 mathlink: $(BINDIR)/gm2calc.mx
 
@@ -49,6 +50,7 @@ $(BINDIR)/%.x: $(DIR)/%.o $(LIBsrc)
 	$(CXX) -o $@ $^ $(LDLIBS)
 
 $(BINDIR)/%.mx: $(DIR)/%.tm $(LIBsrc) | $(FCC) $(FXX)
+	test -d =$(BINDIR) || ln -s $(BINDIR) =$(BINDIR) # workaround bug in mcc 11.0.0
 	NM="$(NM)" DLLTOOL="$(DLLTOOL)" \
 	CXX="$(FXX)" REALCXX="$(CXX) $(CXXFLAGS)" \
 	CC="$(FCC)" REALCC="$(CC) $(CFLAGS)" MATH="$(MATH)" \
