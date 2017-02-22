@@ -32,15 +32,27 @@ extern "C" {
 /** calculates best 2-loop SUSY contributions to a_mu in the MSSM (with tan(beta) resummation) */
 double gm2calc_mssmnofv_calculate_amu_2loop(const MSSMNoFV_onshell* model)
 {
-   return gm2calc::calculate_amu_2loop(
-      *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
+   double amu = 0.;
+
+   try {
+      amu = gm2calc::calculate_amu_2loop(
+         *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
+   } catch (...) {}
+
+   return amu;
 }
 
 /** calculates best 2-loop SUSY contributions to a_mu in the MSSM (no tan(beta) resummation) */
 double gm2calc_mssmnofv_calculate_amu_2loop_non_tan_beta_resummed(const MSSMNoFV_onshell* model)
 {
-   return gm2calc::calculate_amu_2loop_non_tan_beta_resummed(
-      *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
+   double amu = 0.;
+
+   try {
+      amu = gm2calc::calculate_amu_2loop_non_tan_beta_resummed(
+         *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
+   } catch (...) {}
+
+   return amu;
 }
 
 /* === 2-loop fermion/sfermion approximations === */

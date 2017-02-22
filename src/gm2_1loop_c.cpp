@@ -32,15 +32,27 @@ extern "C" {
 /** calculates full 1-loop SUSY contributions to (g-2) in the MSSM (w/ tan(beta) resummation) */
 double gm2calc_mssmnofv_calculate_amu_1loop(const MSSMNoFV_onshell* model)
 {
-   return gm2calc::calculate_amu_1loop(
-      *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
+   double amu = 0.;
+
+   try {
+      amu = gm2calc::calculate_amu_1loop(
+         *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
+   } catch (...) {}
+
+   return amu;
 }
 
 /** calculates full 1-loop SUSY contributions to (g-2) in the MSSM (no tan(beta) resummation) */
 double gm2calc_mssmnofv_calculate_amu_1loop_non_tan_beta_resummed(const MSSMNoFV_onshell* model)
 {
-   return gm2calc::calculate_amu_1loop_non_tan_beta_resummed(
-      *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
+   double amu = 0.;
+
+   try {
+      amu = gm2calc::calculate_amu_1loop_non_tan_beta_resummed(
+         *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
+   } catch (...) {}
+
+   return amu;
 }
 
 /* === routines for individual 1-loop contributions === */
