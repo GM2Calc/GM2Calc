@@ -38,6 +38,10 @@ namespace gm2calc {
 
 namespace mb {
 
+namespace {
+   const double Pi = 3.14159265358979323846;
+}
+
 /**
  * Calculates the strong coupling constant \f$\alpha_s(Q)\f$ in the
  * Standard Model with 5 active quark flavours in the MS-bar scheme at
@@ -52,7 +56,7 @@ double calculate_alpha_s_SM5_at(double scale, double lambda_qcd) {
    using std::log;
    const double t = log(sqr(scale/lambda_qcd));
 
-   return 12.*M_PI/(23.*t) * (
+   return 12.*Pi/(23.*t) * (
       1 - 348./529. * log(t)/t
       + sqr(348./529.)/sqr(t) * (sqr(log(t) - 0.5) - 78073./242208.)
       );
@@ -127,7 +131,7 @@ double calculate_lambda_qcd(double alpha, double scale,
  * @return \f$F_b(\mu)\f$, Eq (5) of arxiv:hep-ph/0207126
  */
 double Fb(double alpha) {
-   const double as = alpha / M_PI;
+   const double as = alpha / Pi;
 
    return std::pow(23.*as/6., 12./23.) * (
       1 + 3731./3174. * as + 1.500706 * as * as
@@ -142,7 +146,7 @@ double Fb(double alpha) {
  * @return MS-bar to DR-bar conversion factor Eq (11)
  */
 double conversion_mb_MSbar_to_DRbar(double alpha) {
-   const double as = alpha / M_PI;
+   const double as = alpha / Pi;
 
    return 1. - as/3. - 29./72. * as * as;
 }

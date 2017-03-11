@@ -34,7 +34,7 @@ namespace {
  * @return \f$\mathrm{Li}_2(z)\f$
  */
 double dilog(double x) {
-   const double PI = M_PI;
+   const double PI = 3.14159265358979323846;
    const double HF  = 0.5;
    const double PI2 = PI*PI;
    const double PI3 = PI2/3;
@@ -108,6 +108,7 @@ double dilog(double x) {
  * @return \f$\mathrm{Li}_2(z)\f$
  */
 std::complex<double> dilog(const std::complex<double>& z) {
+   const double PI = 3.14159265358979323846;
    std::complex<double> cy, cz;
    int jsgn, ipi12;
    static const unsigned N = 20;
@@ -146,7 +147,7 @@ std::complex<double> dilog(const std::complex<double>& z) {
       if (rz <= 1.)
          return std::complex<double>(dilog(rz), 0.);
       if (rz > 1.)
-         return std::complex<double>(dilog(rz), -M_PI*std::log(rz));
+         return std::complex<double>(dilog(rz), -PI*std::log(rz));
    } else if (az < std::numeric_limits<double>::epsilon()) {
       return z;
    }
@@ -189,7 +190,7 @@ std::complex<double> dilog(const std::complex<double>& z) {
    sumC = cz + cz2 * (bf[0] + cz * (bf[1] + sumC));
 
    const std::complex<double> result
-      = double(jsgn) * sumC + cy + ipi12 * M_PI * M_PI / 12.;
+      = double(jsgn) * sumC + cy + ipi12 * PI * PI / 12.;
 
    return result;
 }

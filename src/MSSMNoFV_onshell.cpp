@@ -43,10 +43,12 @@ namespace {
       ALPHA_EM_THOMPSON / (1. - DELTA_ALPHA_EM_MZ);
 
    double calculate_e(double alpha) {
-      return std::sqrt(4. * M_PI * alpha);
+      using gm2calc::Pi;
+      return std::sqrt(4. * Pi * alpha);
    }
    double calculate_alpha(double e) {
-      return e * e / (4. * M_PI);
+      using gm2calc::Pi;
+      return e * e / (4. * Pi);
    }
 }
 

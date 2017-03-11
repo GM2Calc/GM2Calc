@@ -508,7 +508,7 @@ double delta_bottom_correction(const MSSMNoFV_onshell& model)
    const double yt = model.get_Yu(2,2);
    const double gY = model.get_gY();
    const double g2 = model.get_g2();
-   const double alpha_S = sqr(model.get_g3()) / (4*M_PI);
+   const double alpha_S = sqr(model.get_g3()) / (4*Pi);
    const double mu = model.get_Mu();
    const double M1 = model.get_MassB();
    const double M2 = model.get_MassWB();
@@ -519,17 +519,17 @@ double delta_bottom_correction(const MSSMNoFV_onshell& model)
    const double msbR2 = std::abs(model.get_md2(2,2));
 
    const double eps_0 =
-        2. * alpha_S / (3*M_PI) * mu * M3
+        2. * alpha_S / (3*Pi) * mu * M3
         * Iabc(abs_sqrt(msbL2), abs_sqrt(msbR2), std::abs(M3))
 
-      - sqr(gY) / (96.*sqr(M_PI)) * mu * M1
+      - sqr(gY) / (96.*sqr(Pi)) * mu * M1
         * (Iabc(abs_sqrt(msbL2), std::abs(mu), std::abs(M1))
            + 2. * Iabc(abs_sqrt(msbR2), std::abs(mu), std::abs(M1)))
 
-      - sqr(gY) / (144.*sqr(M_PI)) * mu * M1
+      - sqr(gY) / (144.*sqr(Pi)) * mu * M1
         * Iabc(abs_sqrt(msbL2), abs_sqrt(msbR2), std::abs(M1))
 
-      - 3. * sqr(g2) / (32.*sqr(M_PI)) * mu * M2
+      - 3. * sqr(g2) / (32.*sqr(Pi)) * mu * M2
         * Iabc(abs_sqrt(msbL2), std::abs(mu), std::abs(M2))
       ;
 

@@ -297,10 +297,11 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
 
 void fill_alpha_s(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
 {
+   const double Pi = 3.14159265358979323846;
    const double alpha_S = slha_io.read_entry("SMINPUTS", 3);
 
    if (!is_zero(alpha_S))
-      model.set_g3(std::sqrt(4*M_PI*alpha_S));
+      model.set_g3(std::sqrt(4*Pi*alpha_S));
 }
 
 void fill_soft_parameters_from_msoft(const GM2_slha_io& slha_io,

@@ -26,7 +26,8 @@ namespace gm2calc {
 
 class MSSMNoFV_onshell;
 
-static const double oneOver16PiSqr = 1./(16. * M_PI * M_PI);
+static const double Pi = 3.14159265358979323846;
+static const double oneOver16PiSqr = 1./(16. * Pi * Pi);
 
 /// calculates full 1-loop SUSY contributions to (g-2) in the MSSM (w/ tan(beta) resummation)
 double calculate_amu_1loop(const MSSMNoFV_onshell&);

@@ -28,6 +28,10 @@
 
 namespace gm2calc {
 
+namespace {
+   const double Pi = 3.14159265358979323846;
+}
+
 using namespace flexiblesusy;
 
 double abs_sqrt(double x) {
@@ -159,7 +163,7 @@ double F4N(double x) {
    }
 
    if (is_zero(x))
-      return -(3./4.)*(-9. + sqr(M_PI));
+      return -(3./4.)*(-9. + sqr(Pi));
 
    return - 2.25 / cube(1. - x) * ((x + 3.) * (x * log(x) + x - 1.)
                                    + (6. * x + 2.) * dilog(1. - x));
