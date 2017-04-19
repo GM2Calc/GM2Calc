@@ -502,9 +502,10 @@ double amu2LaSferm(const MSSMNoFV_onshell& model) {
    const Eigen::Array<double,2,1> m_sbot(model.get_MSb());
    const Eigen::Array<double,2,1> m_stau(model.get_MStau());
    const Eigen::Array<double,2,1> M_higgs(model.get_Mhh());
+   const Eigen::Matrix<std::complex<double>,3,3> lambda(lambda_mu_cha(model));
    Eigen::Array<std::complex<double>,2,1> lambda_mu;
-   lambda_mu(0) = lambda_mu_cha(model)(2, 0);
-   lambda_mu(1) = lambda_mu_cha(model)(2, 1);
+   lambda_mu(0) = lambda(2, 0);
+   lambda_mu(1) = lambda(2, 1);
    const Eigen::Matrix<std::complex<double>,2,2> lambdastop(lambda_stop(model));
    const Eigen::Matrix<std::complex<double>,2,2> lambdasbot(lambda_sbot(model));
    const Eigen::Matrix<std::complex<double>,2,2> lambdastau(lambda_stau(model));
