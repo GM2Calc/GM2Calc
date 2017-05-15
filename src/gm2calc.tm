@@ -229,6 +229,7 @@
 #include "gm2_2loop.h"
 #include "gm2_uncertainty.h"
 #include "MSSMNoFV_onshell.h"
+#include "config.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -589,9 +590,30 @@ double calculate_uncertainty(MSSMNoFV_onshell* model)
 
 /******************************************************************/
 
+static void print_package()
+{
+   static int do_print = 1;
+
+   if (do_print) {
+      printf("=======================================================\n");
+      printf("GM2Calc " GM2CALC_VERSION "\n");
+      printf("P. Athron, M. Bach, H. G. Fargnoli, C. Gnendiger,\n");
+      printf("R. Greifenhagen, J.-h. Park, S. Paßehr, D. Stöckinger,\n");
+      printf("H. Stöckinger-Kim, A. Voigt\n");
+      printf("http://gm2calc.hepforge.org\n");
+      printf("=======================================================\n");
+
+      do_print = 0;
+   }
+}
+
+/******************************************************************/
+
 int GM2CalcSetFlags(int loopOrder_, int tanBetaResummation_, int forceOutput_)
 {
    char loop_order_str[12];
+
+   print_package();
 
    if (loopOrder_ < 0 || loopOrder_ > 2) {
       snprintf(loop_order_str, 12, "%d", loopOrder_);
