@@ -18,12 +18,13 @@ GM2CalcSetSMParameters[
 
 (* calculate amu using the SLHA parameters *)
 Print[{amu, Damu} /. GM2CalcAmuSLHAScheme[
+    (* pole masses *)
     MSvmL  -> 5.18860573 10^2,                    (* 1L *)
     MSm    -> {5.05095249 10^2, 5.25187016 10^2}, (* 1L *)
     MChi   -> {2.01611468 10^2, 4.10040273 10^2, -5.16529941 10^2, 5.45628749 10^2},  (* 1L *)
     MCha   -> {4.0998989 10^2, 5.46057190 10^2},  (* 1L *)
     MAh    -> 1.5 10^3,                           (* 2L *)
-    TB     -> 40,                                 (* 1L *)
+    TB     -> 40,                                 (* 1L, DR-bar scheme *)
     Mu     -> 500,                                (* initial guess *)
     MassB  -> 200,                                (* initial guess *)
     MassWB -> 400,                                (* initial guess *)
@@ -35,6 +36,6 @@ Print[{amu, Damu} /. GM2CalcAmuSLHAScheme[
     me2    -> 500^2 IdentityMatrix[3],            (* 2L *)
     Au     -> 0 IdentityMatrix[3],                (* 2L *)
     Ad     -> 0 IdentityMatrix[3],                (* 2L *)
-    Ae     -> 0 IdentityMatrix[3],                (* 1L *)
+    Ae     -> 0 IdentityMatrix[3],                (* 1L, DR-bar scheme *)
     Q      -> 1000]                               (* 2L *)
 ];
