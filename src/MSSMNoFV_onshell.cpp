@@ -524,12 +524,22 @@ void MSSMNoFV_onshell::convert_ml2()
    const double g12 = sqr(get_g1());
    const double g22 = sqr(get_g2());
 
+   if (verbose_output) {
+      std::cout << "Converting msl(2,2) to on-shell scheme ...\n"
+         "   Using MSvm_pole = " << MSvmL_pole << '\n';
+   }
+
    // calculate ml2(1,1) from muon sneutrino pole mass
    const double ml211
       = sqr(MSvmL_pole) + 0.125*(0.6*g12*(vu2 - vd2) + g22*(vu2 - vd2));
 
    set_ml2(1,1,ml211);
    calculate_MSvmL();
+
+   if (verbose_output) {
+      std::cout << "   New msl(2,2) = " << ml211
+                << ", new MSvmL = " << get_MSvmL() << '\n';
+   }
 }
 
 /**
