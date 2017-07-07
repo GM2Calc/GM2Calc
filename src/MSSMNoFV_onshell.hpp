@@ -141,7 +141,9 @@ private:
    void convert_ml2();
    void convert_me2(double, unsigned);
    double convert_me2_fpi(double, unsigned);
+   double convert_me2_fpi_modify(double, unsigned);
    double convert_me2_root(double, unsigned);
+   double convert_me2_root_modify(double, unsigned);
    void convert_Mu_M1_M2(double, unsigned);
    void convert_vev();
    void convert_yukawa_couplings();
