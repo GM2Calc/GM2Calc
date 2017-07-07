@@ -6,9 +6,9 @@ GM2Calc-1.3.3 [not released yet]
  * Bugfix (commit cbb4df2): Fix compilation error on Cygwin where M_PI
    might not be defined in <math.h>.
 
- * Bugfix (commit 9d4f768): Catch floating point overflow/underflow
-   from diagonalization of mass matrices during DR-bar to on-shell
-   conversion.
+ * Bugfix (commits 9d4f768, d820a53): Catch floating point
+   overflow/underflow from diagonalization of mass matrices during
+   DR-bar to on-shell conversion.
 
 GM2Calc-1.3.2 [February, 22 2017]
 
