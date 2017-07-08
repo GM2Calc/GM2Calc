@@ -664,7 +664,7 @@ double MSSMNoFV_onshell::convert_me2_root(
    const double me2_save = get_me2(1,1);
    const double precision = convert_me2_root_modify(precision_goal, max_iterations);
 
-   if (!std::isfinite(precision_goal) ||
+   if (!std::isfinite(precision) ||
        !std::isfinite(get_me2(1,1)) ||
        !get_MSm().allFinite() ||
        !get_ZM().allFinite()) {
@@ -792,7 +792,7 @@ double MSSMNoFV_onshell::convert_me2_fpi(
    const double me2_save = get_me2(1,1);
    const double precision = convert_me2_fpi_modify(precision_goal, max_iterations);
 
-   if (!std::isfinite(precision_goal) ||
+   if (!std::isfinite(precision) ||
        !std::isfinite(get_me2(1,1)) ||
        !get_MSm().allFinite() ||
        !get_ZM().allFinite()) {
