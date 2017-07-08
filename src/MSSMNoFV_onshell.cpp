@@ -730,7 +730,7 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
          if (verbose_output) {
             std::cout << "   NaN appearing in DR-bar to on-shell conversion"
                " for mse with FPI:\n"
-               "      mse2(1,1) = " << me211 <<
+               "      mse2(2,2) = " << me211 <<
                ", MSm = " << get_MSm().transpose() <<
                ", ZM = " << get_ZM().row(0) << ' ' << get_ZM().row(1) << '\n';
          }
