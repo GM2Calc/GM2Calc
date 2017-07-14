@@ -11,6 +11,9 @@ GM2Calc-1.3.3 [not released yet]
    during DR-bar to on-shell conversion of right-handed smuon mass
    parameter.
 
+ * Bugfix (commit 54b86e8): A small coefficient in the complex dilog
+   has been corrected.  However, the complex dilog is not used so far.
+
 GM2Calc-1.3.2 [February, 22 2017]
 
  * Bugfix (commit e8af0c9): Catch potential exceptions from C
