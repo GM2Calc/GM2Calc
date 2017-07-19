@@ -1,4 +1,4 @@
-GM2Calc-1.3.3 [not released yet]
+GM2Calc-1.3.3 [July, 19 2017]
 
  * Optimization (commit aa7afc0): Avoid redundant calls to complicated
    lambda_mu_cha() function.
