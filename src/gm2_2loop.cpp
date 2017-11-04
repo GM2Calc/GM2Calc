@@ -192,7 +192,7 @@ double Delta_YukWinoHiggsino(const MSSMNoFV_onshell& model) {
 /**
  * Calculates \f$\Delta_{t_\beta}\f$, Eq (6.6f) arxiv:1311.1775.
  */
-double Delta_TanBeta(const MSSMNoFV_onshell& model) {;
+double Delta_TanBeta(const MSSMNoFV_onshell& model) {
    const double ytau = model.get_Ye(2, 2);
    const double ytop = model.get_Yu(2, 2);
    const double ybot = model.get_Yd(2, 2);
