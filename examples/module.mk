@@ -25,6 +25,7 @@ clean::
 	-rm -f $(EXEexamples_EXE)
 
 examples: $(EXEexamples_EXE) make.args
+	@true
 
 $(EXEexamples_DEP) $(EXEexamples_OBJ): \
 	override CPPFLAGS += $(EIGENFLAGS) $(BOOSTFLAGS)
