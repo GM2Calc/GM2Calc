@@ -34,26 +34,24 @@
 #define WARNING(message)                                                \
    do { std::cerr << "Warning: " << message << '\n'; } while (0)
 
+namespace gm2calc {
+
 namespace {
-   static const double ALPHA_EM_THOMPSON = 1./137.035999074;
-   static const double DELTA_ALPHA_EM_MZ =
+   const double ALPHA_EM_THOMPSON = 1./137.035999074;
+   const double DELTA_ALPHA_EM_MZ =
       + 0.031498 /*leptonic*/
       - 0.0000728 /*top*/
       + 0.027626 /*hadronic, arXiv:1105.3149v2 */;
-   static const double ALPHA_EM_MZ =
+   const double ALPHA_EM_MZ =
       ALPHA_EM_THOMPSON / (1. - DELTA_ALPHA_EM_MZ);
 
    double calculate_e(double alpha) {
-      using gm2calc::Pi;
       return std::sqrt(4. * Pi * alpha);
    }
    double calculate_alpha(double e) {
-      using gm2calc::Pi;
       return e * e / (4. * Pi);
    }
-}
-
-namespace gm2calc {
+} // anonymous namespace
 
 MSSMNoFV_onshell::MSSMNoFV_onshell()
    : MSSMNoFV_onshell_mass_eigenstates()
