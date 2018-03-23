@@ -1,5 +1,4 @@
 configure_file(config.h.in config.h)
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_library(gm2calc
   dilog.cpp
@@ -25,5 +24,6 @@ target_include_directories(gm2calc PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 # GM2Calc main executable
 add_executable(gm2calc.x gm2calc.cpp)
 target_link_libraries(gm2calc.x gm2calc)
+target_include_directories(gm2calc.x PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 # MathML executable
