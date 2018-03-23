@@ -18,3 +18,11 @@ if(BASH_PROGRAM)
     COMMAND ${BASH_PROGRAM} -c
     "GM2CALC=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/gm2calc.x ${CMAKE_CURRENT_SOURCE_DIR}/test_points.sh > test_points.sh.out 2>&1")
 endif (BASH_PROGRAM)
+
+# test Mathematica scripts
+if(Mathematica_FOUND)
+  Mathematica_MathLink_ADD_TEST(
+    NAME test_mathlink_interface
+    TARGET gm2calc.mx
+    SCRIPT test_mathlink_interface.m)
+endif()

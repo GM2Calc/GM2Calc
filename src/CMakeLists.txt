@@ -27,3 +27,11 @@ target_link_libraries(gm2calc.x gm2calc)
 target_include_directories(gm2calc.x PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 # MathML executable
+if(Mathematica_FOUND)
+  Mathematica_MathLink_ADD_EXECUTABLE(
+    gm2calc.mx
+    gm2calc.tm)
+  target_link_libraries(gm2calc.mx gm2calc)
+  target_include_directories(gm2calc.mx
+    PRIVATE ${Mathematica_MathLink_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
+endif()
