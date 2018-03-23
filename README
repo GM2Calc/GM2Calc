@@ -7,7 +7,7 @@ leading 2-loop level.
 
 Homepage:                https://gm2calc.hepforge.org
 Source code repository:  https://github.com/gm2calc
-References:              arxiv:1510.08071
+References:              Eur.Phys.J. C76 (2016) no.2, 62 [arxiv:1510.08071]
 
 
 Requirements
@@ -17,42 +17,25 @@ Requirements
  * Boost (version 1.37.0 or higher)   http://www.boost.org
  * Eigen 3 (version 3.1 or higher)    http://eigen.tuxfamily.org
 
-Optional:
-
- * LAPACK                             http://www.netlib.org/lapack/
-
 
 Compilation
 ===========
 
-To compile GM2Calc run GNU `make':
+To compile GM2Calc run:
 
+  $ mkdir build
+  $ cd build
+  $ cmake ..
   $ make
 
-The used compiler and include paths can be passed as an argument to
-GNU `make'.  For example:
+The used compiler and package paths can be passed as arguments to
+cmake.  For example:
 
-  $ make \
-       CXX=icpc \
-       EIGENFLAGS="-I/opt/eigen3/eigen3" \
-       BOOSTFLAGS="-I/opt/boost/include"
-
-The following default values are set in the makefile:
-
-  CXX             := g++
-  CPPFLAGS        := -Isrc
-  CXXFLAGS        := -O2 -std=c++11 -fPIC
-  CXX_DEP_GEN     := g++
-  MAKELIB         := ar cru
-  MAKESHAREDLIB   := $(CXX) -shared
-  BOOSTFLAGS      := -I/usr/include
-  EIGENFLAGS      := -I/usr/include/eigen3
-
-The command line arguments passed to `make' are stored in the file
-`make.args'.  To (re-)run `make' with the command line arguments
-stored in `make.args' run
-
-  $ cat make.args | xargs make
+  $ cmake \
+      -DCMAKE_CXX_COMPILER=icpc \
+      -DEIGEN3_INCLUDE_DIR=/opt/eigen3/eigen3 \
+      -DBOOST_ROOT=/opt/boost \
+      ..
 
 
 Compilation of the example programs
@@ -69,29 +52,8 @@ and two C example programs:
   examples/example-slha_c.c
 
 These example programs illustrate how to use routines of GM2Calc at
-the C/C++ level.  The examples can be compiled by running
-
-  $ make examples
-
-For the compilation of the C programs a C compiler is needed.  The
-used C compiler, the compiler flags and the linked libraries can be
-customized as:
-
-  $ make examples \
-       CC=icc CFLAGS="-O2 -std=c99" CLIBS="-lstdc++ -lm" LDLIBS="-lirc"
-
-
-Using LAPACK (optional)
------------------------
-
-The routines which diagonalize the mass matrices by default use the
-algorithms provided by Eigen.  However, the routines provided by
-LAPACK can be used alternatively.  In order to make use of the LAPACK
-routines one has to pass `ENABLE_LAPACK=1' to the make command.  In
-addition, the LAPACK and BLAS libraries to be linked have to be passed
-in the `LDFLAGS' variable to the make command:
-
-  $ make ENABLE_LAPACK=1 LDLIBS="-llapack -lblas"
+the C/C++ level.  The examples are build by default and the compiled
+executables can be found in the bin/ directory.
 
 
 Running GM2Calc
@@ -185,25 +147,9 @@ also serve as an illustration of the interface routines.
 Mathematica interface
 =====================
 
-In order to use GM2Calc from within Mathematica, first create
-GM2Calc's MathLink executable by running
-
-  $ make mathlink
-
-By default the MathLink compiler is the bin/mcc script, which finds
-the location of the MathLink compiler for most UNIX-like environments
-using the Mathematica kernel.  The Mathematica kernel can be given via
-the MATH variable.  Alternatively, the MathLink compiler can be set
-explicitly via the MCC variable.
-
-Example:
-
-  $ make \
-       CXX=icpc CC=icc \
-       LDLIBS="-lboost_math_c99" \
-       MATH=math10.1
-
-The MathLink executable can be found in
+When Mathematica is installed, a MathLink executable for GM2Calc is
+build, which allows one to run GM2Calc from within Mathematica.  The
+MathLink executable can be found in
 
   bin/gm2calc.mx
 
