@@ -1,16 +1,1 @@
-*.a
-*.d
-*.o
-*.so
 *~
-
-=bin
-make.args
-
-bin/*.x
-bin/*.mx
-bin/f++
-doc/html/
-src/config.h
-test/*.x
-test/*.log
