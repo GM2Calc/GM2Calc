@@ -1,5 +1,4 @@
-find_program(BASH_PROGRAM bash)
-
+# test C/C++ executables
 function(add_gm2calc_test name ext)
   add_executable(${name}.x ${name}.${ext})
   target_link_libraries(${name}.x gm2calc)
@@ -7,6 +6,9 @@ function(add_gm2calc_test name ext)
 endfunction()
 
 add_gm2calc_test(test_c_interface cpp)
+
+# test shell scripts
+find_program(BASH_PROGRAM bash)
 
 if(BASH_PROGRAM)
   add_test(NAME test_c_examples
