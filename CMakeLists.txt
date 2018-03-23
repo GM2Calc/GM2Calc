@@ -15,6 +15,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 find_package(Eigen3 REQUIRED)
+find_package(Boost REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
 find_package(Mathematica COMPONENTS MathLink)
 
