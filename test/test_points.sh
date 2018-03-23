@@ -1,9 +1,7 @@
 #!/bin/sh
 
-BASEDIR=$(dirname $0)
-HOMEDIR=$(readlink -f "${BASEDIR}/../")
-BINDIR="${HOMEDIR}/bin"
-GM2CALC="${BINDIR}/gm2calc.x"
+BASEDIR="$(dirname $0)"
+GM2CALC=${GM2CALC:-bin/gm2calc.x}
 frac_diff=0.000000001
 
 . "${BASEDIR}/compare.sh"
@@ -46,7 +44,7 @@ ${BASEDIR}/test_points/BM5-1504.05500_2L_resummed.in,gm2calc,0,2.98718794E-09
 "
 
 if test ! -x "${GM2CALC}"; then
-    echo "Error: ${GM2CALC} not built"
+    echo "Error: GM2Calc not executable: \"${GM2CALC}\""
     exit 1
 fi
 

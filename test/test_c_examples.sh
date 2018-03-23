@@ -1,8 +1,7 @@
 #!/bin/sh
 
 BASEDIR=$(dirname $0)
-HOMEDIR=$(readlink -f "${BASEDIR}/../")
-BINDIR="${HOMEDIR}/bin"
+BINDIR=${BINDIR:-bin}
 EXAMPLES="\
 ${BINDIR}/example-gm2calc.x,${BINDIR}/example-gm2calc_c.x \
 ${BINDIR}/example-slha.x,${BINDIR}/example-slha_c.x \

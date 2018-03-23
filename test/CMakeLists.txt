@@ -1,3 +1,5 @@
+find_program(BASH_PROGRAM bash)
+
 function(add_gm2calc_test name ext)
   add_executable(${name}.x ${name}.${ext})
   target_link_libraries(${name}.x gm2calc)
@@ -5,3 +7,12 @@ function(add_gm2calc_test name ext)
 endfunction()
 
 add_gm2calc_test(test_c_interface cpp)
+
+if(BASH_PROGRAM)
+  add_test(NAME test_c_examples
+    COMMAND ${BASH_PROGRAM} -c
+    "BINDIR=${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${CMAKE_CURRENT_SOURCE_DIR}/test_c_examples.sh > test_c_examples.sh.out 2>&1")
+  add_test(NAME test_points
+    COMMAND ${BASH_PROGRAM} -c
+    "GM2CALC=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/gm2calc.x ${CMAKE_CURRENT_SOURCE_DIR}/test_points.sh > test_points.sh.out 2>&1")
+endif (BASH_PROGRAM)
