@@ -27,7 +27,6 @@
 #include <Eigen/Core>
 #include <Eigen/SVD>
 #include <Eigen/Eigenvalues>
-#include "config.h"
 #include "compare.hpp"
 
 namespace flexiblesusy {
@@ -60,98 +59,6 @@ void hermitian_eigen
     w = es.eigenvalues();
     if (z) *z = es.eigenvectors();
 }
-
-#ifdef ENABLE_LAPACK
-
-extern "C" void zgesvd_
-(const char& JOBU, const char& JOBVT, const int& M, const int& N,
- std::complex<double> *A, const int& LDA, double *S, std::complex<double> *U,
- const int& LDU, std::complex<double> *VT, const int& LDVT,
- std::complex<double> *WORK, const int& LWORK, double *RWORK, int& INFO);
-
-extern "C" void dgesvd_
-(const char& JOBU, const char& JOBVT, const int& M, const int& N,
- double *A, const int& LDA, double *S, double *U,
- const int& LDU, double *VT, const int& LDVT,
- double *WORK, const int& LWORK, int& INFO);
-
-extern "C" void zheev_
-(const char& JOBZ, const char& UPLO, const int& N, std::complex<double> *A,
- const int& LDA, double *W, std::complex<double> *WORK, const int& LWORK,
- double *RWORK, int& INFO);
-
-extern "C" void dsyev_
-(const char& JOBZ, const char& UPLO, const int& N, double *A,
- const int& LDA, double *W, double *WORK, const int& LWORK,
- int& INFO);
-
-#define def_svd_lapack(t, f, ...)					\
-template<int M, int N>							\
-void svd_lapack								\
-(const Eigen::Matrix<t, M, N>& m,					\
- Eigen::Array<double, MIN_(M, N), 1>& s,				\
- Eigen::Matrix<t, M, M> *u  = 0,					\
- Eigen::Matrix<t, N, N> *vh = 0)					\
-{									\
-    const     char JOBU  = u  ? 'A' : 'N';				\
-    const     char JOBVT = vh ? 'A' : 'N';				\
-    Eigen::Matrix<t, M, N> A = m;					\
-    const     int LDA   = M;						\
-              t   *U    = u ? u->data() : 0;				\
-    const     int LDU   = M;						\
-              t   *VT   = vh ? vh->data() : 0;				\
-    const     int LDVT  = N;						\
-    const     int LWORK = get_lwork(__VA_ARGS__,);			\
-    Eigen::Array<t, LWORK, 1> WORK;					\
-    decl_rwork(__VA_ARGS__);						\
-    int INFO;								\
-    f(JOBU, JOBVT, M, N, A.data(), LDA, s.data(), U, LDU, VT, LDVT,	\
-      WORK.data(), LWORK, put_rwork(__VA_ARGS__) INFO);			\
-}
-
-#define def_hermitian_lapack(s, f, ...)					\
-template<int N>								\
-void hermitian_lapack							\
-(const Eigen::Matrix<s, N, N>& m,					\
- Eigen::Array<double, N, 1>& w,						\
- Eigen::Matrix<s, N, N> *z = 0)						\
-{									\
-    const     char JOBZ = z ? 'V' : 'N';				\
-    const     char UPLO = 'L';						\
-    Eigen::Matrix<s, N, N> A = m;					\
-    const     int LDA   = N;						\
-    const     int LWORK = get_lwork(__VA_ARGS__,);			\
-    Eigen::Array<s, LWORK, 1> WORK;					\
-    decl_rwork(__VA_ARGS__);						\
-    int INFO;								\
-    f(JOBZ, UPLO, N, A.data(), LDA, w.data(), WORK.data(), LWORK,	\
-      put_rwork(__VA_ARGS__) INFO);					\
-    if (z) *z = A;							\
-}
-
-#define get_lwork(lwork, ...) (lwork)
-
-#define get_rwork_macro(_1, _2, name, ...) name
-
-#define nop_(_1)
-
-#define do_decl_rwork(_1, lrwork) Eigen::Array<double, (lrwork), 1> RWORK
-
-#define decl_rwork(...) \
-    get_rwork_macro(__VA_ARGS__, do_decl_rwork, nop_,)(__VA_ARGS__)
-
-#define do_put_rwork(_1, _2) RWORK.data(),
-
-#define put_rwork(...) \
-    get_rwork_macro(__VA_ARGS__, do_put_rwork, nop_,)(__VA_ARGS__)
-
-def_svd_lapack(std::complex<double>, zgesvd_, 3*MAX_(M,N), 5*MIN_(M,N))
-def_svd_lapack(double, dgesvd_, MAX_(3*MIN_(M,N)+MAX_(M,N),5*MIN_(M,N)))
-
-def_hermitian_lapack(std::complex<double>, zheev_, 2*N-1, 3*N-2)
-def_hermitian_lapack(double, dsyev_, 3*N-1)
-
-#endif // ENABLE_LAPACK
 
 /**
  * Template version of DDISNA from LAPACK.
@@ -268,42 +175,6 @@ void svd_internal
 {
     svd_eigen(m, s, u, vh);
 }
-
-#ifdef ENABLE_LAPACK
-
-// ZGESVD of ATLAS seems to be faster than Eigen::JacobiSVD for M, N >= 4
-
-template<class Scalar, int M, int N>
-void svd_internal
-(const Eigen::Matrix<Scalar, M, N>& m,
- Eigen::Array<double, MIN_(M, N), 1>& s,
- Eigen::Matrix<Scalar, M, M> *u,
- Eigen::Matrix<Scalar, N, N> *vh)
-{
-    svd_lapack(m, s, u, vh);
-}
-
-template<class Scalar>
-void svd_internal
-(const Eigen::Matrix<Scalar, 3, 3>& m,
- Eigen::Array<double, 3, 1>& s,
- Eigen::Matrix<Scalar, 3, 3> *u,
- Eigen::Matrix<Scalar, 3, 3> *vh)
-{
-    svd_eigen(m, s, u, vh);
-}
-
-template<class Scalar>
-void svd_internal
-(const Eigen::Matrix<Scalar, 2, 2>& m,
- Eigen::Array<double, 2, 1>& s,
- Eigen::Matrix<Scalar, 2, 2> *u,
- Eigen::Matrix<Scalar, 2, 2> *vh)
-{
-    svd_eigen(m, s, u, vh);
-}
-
-#endif // ENABLE_LAPACK
 
 template<class Real, class Scalar, int M, int N>
 void svd_errbd
