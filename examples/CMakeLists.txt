@@ -1,0 +1,10 @@
+function(add_gm2calc_example name ext)
+  add_executable(${name}.x ${name}.${ext})
+  target_link_libraries(${name}.x gm2calc)
+endfunction()
+
+add_gm2calc_example(example-gm2calc   cpp)
+add_gm2calc_example(example-gm2scan   cpp)
+add_gm2calc_example(example-slha      cpp)
+add_gm2calc_example(example-gm2calc_c c  )
+add_gm2calc_example(example-slha_c    c  )
