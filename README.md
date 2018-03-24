@@ -40,6 +40,18 @@ For example:
        -DBOOST_ROOT=/opt/boost \
        ..
 
+If Eigen is not installed on your system or your cmake installation
+does not contain a `FindEigen3.cmake` file, then the path to the
+`FindEigen3.cmake` file can be given explicitly as
+
+    EIGEN_DIR=/path/to/eigen3
+    cmake \
+       -DCMAKE_MODULE_PATH=$EIGEN_DIR/cmake/ \
+       -DEIGEN3_INCLUDE_DIR=$EIGEN_DIR \
+       ..
+
+Here `EIGEN_DIR` contains the path to the `eigen3` directory.
+
 
 Example programs
 ----------------
