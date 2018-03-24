@@ -21,8 +21,11 @@ find_package(Boost 1.37.0 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
 find_package(Mathematica COMPONENTS MathLink)
 
-enable_testing()
 add_subdirectory(src)
 add_subdirectory(examples)
-add_subdirectory(test)
 add_subdirectory(doc)
+
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test)
+  enable_testing()
+  add_subdirectory(test)
+endif()
