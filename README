@@ -28,28 +28,29 @@ To compile GM2Calc run:
     cmake ..
     make
 
-The used compiler and package paths can be passed as arguments to
-cmake.  For example:
+The GM2Calc executable can then be found in bin/gm2calc.x.  The used
+compiler and package paths can be passed as arguments to cmake.  For
+example:
 
     cmake \
-      -DCMAKE_CXX_COMPILER=icpc \
-      -DEIGEN3_INCLUDE_DIR=/opt/eigen3/eigen3 \
-      -DBOOST_ROOT=/opt/boost \
-      ..
+       -DCMAKE_CXX_COMPILER=icpc \
+       -DEIGEN3_INCLUDE_DIR=/opt/eigen3/eigen3 \
+       -DBOOST_ROOT=/opt/boost \
+       ..
 
 
-Compilation of the example programs
------------------------------------
+Example programs
+----------------
 
 GM2Calc ships two C++ example programs:
 
-  examples/example-gm2calc.cpp
-  examples/example-slha.cpp
+    examples/example-gm2calc.cpp
+    examples/example-slha.cpp
 
 and two C example programs:
 
-  examples/example-gm2calc_c.c
-  examples/example-slha_c.c
+    examples/example-gm2calc_c.c
+    examples/example-slha_c.c
 
 These example programs illustrate how to use routines of GM2Calc at
 the C/C++ level.  The examples are build by default and the compiled
@@ -126,18 +127,18 @@ GM2Calc provides a C and a C++ interface.  To use the routines of
 GM2Calc in a C++ program, the following C++ header files have to be
 included:
 
-   src/gm2_1loop.hpp
-   src/gm2_2loop.hpp
-   src/gm2_uncertainty.hpp
-   src/MSSMNoFV_onshell.hpp
+    src/gm2_1loop.hpp
+    src/gm2_2loop.hpp
+    src/gm2_uncertainty.hpp
+    src/MSSMNoFV_onshell.hpp
 
 To use the routines of GM2Calc in a C program, the following C header
 files have to be included:
 
-   src/gm2_1loop.h
-   src/gm2_2loop.h
-   src/gm2_uncertainty.h
-   src/MSSMNoFV_onshell.h
+    src/gm2_1loop.h
+    src/gm2_2loop.h
+    src/gm2_uncertainty.h
+    src/MSSMNoFV_onshell.h
 
 Please refer to the content of these header files for a precise
 definition of all interface functions.  The C/C++ example programs
@@ -151,11 +152,11 @@ When Mathematica is installed, a MathLink executable for GM2Calc is
 build, which allows one to run GM2Calc from within Mathematica.  The
 MathLink executable can be found in
 
-  bin/gm2calc.mx
+    bin/gm2calc.mx
 
 This executable can be installed in Mathematica by calling
 
-  Install["bin/gm2calc.mx"]
+    Install["bin/gm2calc.mx"]
 
 Afterwards, the GM2Calc Mathematica interface functions can be used,
 see examples/example-slha.m and examples/example-gm2calc.m .
