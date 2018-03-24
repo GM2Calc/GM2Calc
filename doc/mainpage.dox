@@ -25,7 +25,7 @@ To compile GM2Calc run:
     make
 
 For customization of the include paths and used compilers, see the
-*Compilation* section in the \ref README file.
+*Compilation* section in the \ref README.md file.
 
 \section Usage
 
