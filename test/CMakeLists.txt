@@ -1,7 +1,7 @@
 # test C/C++ executables
 function(add_gm2calc_test name ext)
   add_executable(${name}.x ${name}.${ext})
-  target_link_libraries(${name}.x gm2calc)
+  target_link_libraries(${name}.x GM2Calc::gm2calc)
   add_test(NAME ${name} COMMAND ${name}.x)
 endfunction()
 
