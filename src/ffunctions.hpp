@@ -58,10 +58,6 @@ double f_sferm(double);
 
 /// returns number squared
 template <typename T> T sqr(T x) { return x*x; }
-/// returns number cubed
-template <typename T> T cube(T x) { return x*x*x; }
-/// returns number to the power 4
-template <typename T> T quad(T x) { return x*x*x*x; }
 /// returns square root of absolute of number
 double abs_sqrt(double);
 /// returns sign of real number
