@@ -29,3 +29,11 @@ if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test)
   enable_testing()
   add_subdirectory(test)
 endif()
+
+# make release target
+find_package(Git)
+if(Git_FOUND)
+  add_custom_target(release ${GIT_EXECUTABLE} archive --worktree-attributes --output=${PROJECT_NAME}-${PROJECT_VERSION}.tar.gz --prefix=${PROJECT_NAME}-${PROJECT_VERSION}/ HEAD
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    COMMENT "Creating ${PROJECT_NAME}-${PROJECT_VERSION}.tar.gz")
+endif()
