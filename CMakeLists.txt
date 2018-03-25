@@ -30,7 +30,7 @@ if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test)
   add_subdirectory(test)
 endif()
 
-# make release target
+# make tag/release-* targets
 find_package(Git)
 
 if(Git_FOUND)
