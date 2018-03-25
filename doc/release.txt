@@ -11,22 +11,28 @@ When releasing GM2Calc, please follow these steps:
  1. Create a new commit with the updated version number in the
     Makefile and in the ChangeLog
 
-      edit Makefile
+      edit CMakeLists.txt
       edit ChangeLog
       git ci -a -m 'version <version>'
 
     <version> is of the form x.y.z with x = major, y = minor, z =
     patch level.
 
- 2. Create a non-annotated tag via
+ 2. Create a build directory and configure:
+
+      mkdir build
+      cd build
+      cmake ..
+
+ 3. Create a non-annotated tag via
 
       make tag
 
- 3. Create the release tarball and a corresponding .md5 file via
+ 4. Create the release tarball and a corresponding .md5 file via
 
       make release-tag
 
- 4. Push everything:
+ 5. Push everything:
 
       git push origin master
       git push origin v<version>
