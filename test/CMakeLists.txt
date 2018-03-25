@@ -8,7 +8,7 @@ endfunction()
 add_gm2calc_test(test_c_interface cpp)
 
 # test shell scripts
-find_program(BASH_PROGRAM bash)
+find_program(BASH_PROGRAM sh)
 
 if(BASH_PROGRAM)
   add_test(NAME test_c_examples
