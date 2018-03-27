@@ -1,6 +1,8 @@
 GM2Calc
 =======
 
+[![Build Status](https://travis-ci.org/GM2Calc/GM2Calc.svg?branch=master)](https://travis-ci.org/GM2Calc/GM2Calc)
+
 GM2Calc calculates the SUSY contributions to the anomalous magnetic
 moment of the muon a_mu = (g-2)/2 in the real MSSM at the 1- and
 leading 2-loop level.
