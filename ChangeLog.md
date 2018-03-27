@@ -1,3 +1,12 @@
+GM2Calc-1.4.0 [not released yet]
+================================
+
+ * Feature: Replace GNU make build system by cmake to improve platform
+   independence.  See the `README.md` file for build instructions.
+
+ * Bugfix (commit 8d0bac6): Reame `quad()` function to fix a
+   compilation error on Windows/Cygwin.
+
 GM2Calc-1.3.3 [July, 19 2017]
 =============================
 
