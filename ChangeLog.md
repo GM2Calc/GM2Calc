@@ -1,5 +1,5 @@
-GM2Calc-1.4.0 [not released yet]
-================================
+GM2Calc-1.4.0 [March, 27 2018]
+==============================
 
  * Feature: Replace GNU make build system by cmake to improve platform
    independence.  See the `README.md` file for build instructions.
