@@ -29,28 +29,17 @@ To compile GM2Calc run:
     cmake ..
     make
 
-The GM2Calc executable can then be found in `bin/gm2calc.x`.  The
+The GM2Calc executable can then be found in `bin/gm2calc.x` and the
 GM2Calc library can be found in the `lib/` directory.  The used
-compiler and package paths can be passed as arguments to cmake.  
-For example:
+compiler and package paths can be passed as arguments to cmake.
+
+Example:
 
     cmake \
        -DCMAKE_CXX_COMPILER=icpc \
        -DEIGEN3_INCLUDE_DIR=/opt/eigen3/eigen3 \
        -DBOOST_ROOT=/opt/boost \
        ..
-
-If Eigen is not installed on your system or your cmake installation
-does not contain a `FindEigen3.cmake` file, then the path to the
-`FindEigen3.cmake` file can be given explicitly as
-
-    EIGEN_DIR=/path/to/eigen3
-    cmake \
-       -DCMAKE_MODULE_PATH=$EIGEN_DIR/cmake/ \
-       -DEIGEN3_INCLUDE_DIR=$EIGEN_DIR \
-       ..
-
-Here `EIGEN_DIR` contains the path to the `eigen3` directory.
 
 
 Example programs
@@ -74,9 +63,9 @@ executables can be found in the `bin/` directory.
 Running GM2Calc
 ===============
 
-GM2Calc can be run with (i) either an SLHA interface or with (ii) a
-custom GM2Calc interface (similar to SLHA, but different definition of
-input parameters).  See `bin/gm2calc.x --help` for all options.
+GM2Calc can be run with either an SLHA interface or with a custom
+GM2Calc interface (similar to SLHA, but different definition of input
+parameters).  See `bin/gm2calc.x --help` for all options.
 
 Example using the SLHA interface:
 
