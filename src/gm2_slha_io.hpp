@@ -19,6 +19,7 @@
 #ifndef GM2_SLHA_IO_H
 #define GM2_SLHA_IO_H
 
+#include <cmath>
 #include <string>
 #include <iosfwd>
 #include <functional>
@@ -123,6 +124,8 @@ Scalar GM2_slha_io::convert_to(const std::string& str)
    Scalar value;
    try {
       value = SLHAea::to<Scalar>(str);
+      if (!std::isfinite(value))
+         throw boost::bad_lexical_cast();
    }  catch (const boost::bad_lexical_cast& error) {
       const std::string msg("cannot convert string \"" + str + "\" to "
                             + typeid(Scalar).name());
