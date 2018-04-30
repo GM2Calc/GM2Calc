@@ -180,15 +180,18 @@ The calculation of a_mu can be controlled in the GM2CalcConfig block.
    `3`: write the value of (g-2)/2 into `SPhenoLowEnergy` block, entry `21`  
    `4`: write the value of (g-2)/2 into `GM2CalcOutput` block, entry `0`
 
- * `GM2CalcConfig[1]`: loop order of the calculation (`0`, `1` or `2`)
+ * `GM2CalcConfig[1]`: loop order of the calculation (`0`, `1` or `2`).
+   We recommend to use `2`.
 
- * `GM2CalcConfig[2]`: disable/enable tan(beta) resummation (`0` or `1`)
+ * `GM2CalcConfig[2]`: disable/enable tan(beta) resummation (`0` or `1`).
+   We recommend to use `1`.
 
  * `GM2CalcConfig[3]`: force output even if physical problem has
    occured (`0` or `1`).  **WARNING**: The result might not be trusted
-   if a problem has occured!
+   if a problem has occured!  We recommend to use `0`.
 
  * `GM2CalcConfig[4]`: disable/enable verbose output (`0` or `1`).
+   We recommend to use `0` by default, and `1` only for debugging.
 
  * `GM2CalcConfig[5]`: disable/enable uncertainty estimation (`0` or `1`).
    Depending on the chosen output format, `GM2CalcConfig[0]`, the
@@ -197,6 +200,18 @@ The calculation of a_mu can be controlled in the GM2CalcConfig block.
    * as a single number to stdout   in case of minimal output,
    * to the first line              in case of detailed output,
    * to `GM2CalcOutput[1]`          otherwise.
+
+We recommend to use the following GM2Calc configuration SLHA input
+block:
+
+    Block GM2CalcConfig
+         0     4     # output format (0 = minimal, 1 = detailed,
+                     #  2 = NMSSMTools, 3 = SPheno, 4 = GM2Calc)
+         1     2     # loop order (0, 1 or 2)
+         2     1     # disable/enable tan(beta) resummation (0 or 1)
+         3     0     # force output (0 or 1)
+         4     0     # verbose output (0 or 1)
+         5     1     # calculate uncertainty
 
 
 Source code documentation
