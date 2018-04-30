@@ -1,3 +1,9 @@
+GM2Calc-1.4.1 [not released yet]
+================================
+
+ * Bugfix (commit 304d771): Catch non-numeric SLHA input.
+   Thanks to Peter Athron and the GAMBIT collaboration.
+
 GM2Calc-1.4.0 [March, 27 2018]
 ==============================
 
