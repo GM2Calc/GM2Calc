@@ -1,6 +1,13 @@
 GM2Calc-1.4.1 [not released yet]
 ================================
 
+ * Change (commit 2114aef): The default output format of the command
+   line program `gm2calc.x` has been changed: If no `GM2CalcConfig[0]`
+   entry is provided, then the output is
+
+    * written to the `GM2CalcOutput` block for SLHA input
+    * written in detailed form to stdout for GM2Calc input
+
  * Bugfix (commit 304d771): Catch non-numeric SLHA input.
    Thanks to Peter Athron and the GAMBIT collaboration.
 
