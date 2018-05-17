@@ -35,7 +35,7 @@ The GM2Calc executable can then be found in `bin/gm2calc.x` and the
 GM2Calc library can be found in the `lib/` directory.  The used
 compiler and package paths can be passed as arguments to cmake.
 
-Example:
+**Example:**
 
     cmake \
        -DCMAKE_CXX_COMPILER=icpc \
@@ -44,53 +44,64 @@ Example:
        ..
 
 
-Example programs
-----------------
-
-GM2Calc ships two C++ example programs:
-
-    examples/example-gm2calc.cpp
-    examples/example-slha.cpp
-
-and two C example programs:
-
-    examples/example-gm2calc_c.c
-    examples/example-slha_c.c
-
-These example programs illustrate how to use routines of GM2Calc at
-the C/C++ level.  The examples are build by default and the compiled
-executables can be found in the `bin/` directory.
-
-
 Running GM2Calc
 ===============
 
-GM2Calc can be run with either an SLHA interface or with a custom
-GM2Calc interface (similar to SLHA, but different definition of input
-parameters).  See `bin/gm2calc.x --help` for all options.
+From the command line
+---------------------
 
-Example using the SLHA interface:
+GM2Calc can be run from the command line using an SLHA input file or a
+custom GM2Calc input file (similar to SLHA, but different definition
+of input parameters).  See `bin/gm2calc.x --help` for all options.
 
-    bin/gm2calc.x --slha-input-file=input/example.slha
+**Example:** Running GM2Calc with an SLHA input file:
 
-or
-
-    cat input/example.slha | bin/gm2calc.x --slha-input-file=-
-
-Example using the GM2Calc interface:
-
-    bin/gm2calc.x --gm2calc-input-file=input/example.gm2
+    bin/gm2calc.x --slha-input-file=../input/example.slha
 
 or
 
-    cat input/example.gm2 | bin/gm2calc.x --gm2calc-input-file=-
+    cat ../input/example.slha | bin/gm2calc.x --slha-input-file=-
+
+**Example:** Running GM2Calc with a custom GM2Calc input file:
+
+    bin/gm2calc.x --gm2calc-input-file=../input/example.gm2
+
+or
+
+    cat ../input/example.gm2 | bin/gm2calc.x --gm2calc-input-file=-
 
 
-SLHA interface
-==============
+From within Mathematica
+-----------------------
 
-When the input parameters are provided in SLHA-compliant form, GM2Calc
-reads the input parameters from the following blocks:
+When Mathematica is installed, a MathLink executable for GM2Calc is
+build, which allows one to run GM2Calc from within Mathematica.  The
+MathLink executable can be found in `bin/gm2calc.mx`.  This executable
+can be installed in Mathematica by calling
+
+    Install["bin/gm2calc.mx"]
+
+Afterwards, the GM2Calc Mathematica interface functions can be used.
+See `examples/example-slha.m` and `examples/example-gm2calc.m` for
+examples with SLHA and GM2Calc input parameters, respectively.
+
+**Example:**
+
+    math -run "<< ../examples/example-slha.m"
+    math -run "<< ../examples/example-gm2calc.m"
+
+
+Input parameters
+================
+
+SLHA input parameters
+---------------------
+
+When GM2Calc is called with an SLHA input file, for example as
+
+    bin/gm2calc.x --slha-input-file=../input/example.slha
+
+then the input parameters are read from the following blocks:
 
  * `SMINPUTS`: Standard Model fermion masses, W and Z pole masses,
    alpha_s(MZ)
@@ -109,12 +120,18 @@ reads the input parameters from the following blocks:
 
  * `GM2CalcInput`: alpha_em(MZ), alpha_em in the Thomson limit
 
+See `input/example.slha` for an example SLHA input file.
 
-GM2Calc interface
-=================
 
-When the input parameters are provided in GM2Calc specific form,
-GM2Calc reads the input parameters from the following blocks:
+GM2Calc input parameters
+------------------------
+
+When GM2Calc is called with an input file in the custom GM2Calc
+format, for example as
+
+    bin/gm2calc.x --gm2calc-input-file=../input/example.gm2
+
+then the input parameters are read from the following blocks:
 
  * `SMINPUTS`: Standard Model fermion masses, W and Z pole masses,
    alpha_s(MZ)
@@ -123,6 +140,70 @@ GM2Calc reads the input parameters from the following blocks:
    the Thomson limit, tan(beta), mu parameter, soft-breaking gaugino
    masses, soft-breaking Bmu parameter, soft-breaking sfermion masses,
    soft-breaking trilinear couplings
+
+See `input/example.gm2` for an example input file with custom GM2Calc
+input parameters.
+
+
+Block `GM2CalcConfig`
+---------------------
+
+When running GM2Calc from the command line with an (SLHA or custom
+GM2Calc) input file, the input file may contain the `GM2CalcConfig`
+configuration block to customize the calculation and the output.  The
+`GM2CalcConfig` block entries are summarized in the following table
+and are described below:
+
+| Entry    | Description           | Possible values | Defaul value                              |
+|----------|-----------------------|-----------------|-------------------------------------------|
+| 0        | output format         | `0`, ..., `4`   | `4` for SLHA input, `1` for GM2Calc input |
+| 1        | loop order            | `0`, `1`, `2`   | `2`                                       |
+| 2        | force output          | `0`, `1`        | `0`                                       |
+| 3        | verboe output         | `0`, `1`        | `0`                                       |
+| 4        | estimate uncertainty  | `0`, `1`        | `0`                                       |
+
+Description:
+
+ * `GM2CalcConfig[0]`: defines the output format (`0` ... `4`)
+
+   `0`: minimal output (a single number)  
+   `1`: detailed (a detailed output of the various contributions)  
+   `2`: write the value of a_mu into `LOWEN` block, entry `6`  
+   `3`: write the value of a_mu into `SPhenoLowEnergy` block, entry `21`  
+   `4`: write the value of a_mu into `GM2CalcOutput` block, entry `0`
+
+ * `GM2CalcConfig[1]`: loop order of the calculation (`0`, `1` or `2`).
+   We recommend to use `2`.
+
+ * `GM2CalcConfig[2]`: disable/enable tan(beta) resummation (`0` or `1`).
+   We recommend to use `1`.
+
+ * `GM2CalcConfig[3]`: force output even if physical problem has
+   occured (`0` or `1`).  **WARNING**: The result might not be trusted
+   if a problem has occured!  We recommend to use `0`.
+
+ * `GM2CalcConfig[4]`: disable/enable verbose output (`0` or `1`).
+   We recommend to use `0` by default, and `1` only for debugging.
+
+ * `GM2CalcConfig[5]`: disable/enable uncertainty estimation (`0` or `1`).
+   Depending on the chosen output format (see `GM2CalcConfig[0]`) the
+   uncertainty is written
+
+   * as a single number to stdout   in case of minimal output,
+   * to the first line              in case of detailed output,
+   * to `GM2CalcOutput[1]`          otherwise.
+
+We recommend to use the following configuration block in an SLHA input
+file:
+
+    Block GM2CalcConfig
+         0     4     # output format (0 = minimal, 1 = detailed,
+                     #  2 = NMSSMTools, 3 = SPheno, 4 = GM2Calc)
+         1     2     # loop order (0, 1 or 2)
+         2     1     # disable/enable tan(beta) resummation (0 or 1)
+         3     0     # force output (0 or 1)
+         4     0     # verbose output (0 or 1)
+         5     1     # calculate uncertainty
 
 
 C/C++ interface
@@ -146,72 +227,9 @@ files have to be included:
     src/MSSMNoFV_onshell.h
 
 Please refer to the content of these header files for a precise
-definition of all interface functions.  The C/C++ example programs
-also serve as an illustration of the interface routines.
-
-
-Mathematica interface
-=====================
-
-When Mathematica is installed, a MathLink executable for GM2Calc is
-build, which allows one to run GM2Calc from within Mathematica.  The
-MathLink executable can be found in
-
-    bin/gm2calc.mx
-
-This executable can be installed in Mathematica by calling
-
-    Install["bin/gm2calc.mx"]
-
-Afterwards, the GM2Calc Mathematica interface functions can be used,
-see `examples/example-slha.m` and `examples/example-gm2calc.m`.
-
-
-Configuration options
-=====================
-
-The calculation of a_mu can be controlled in the GM2CalcConfig block.
-
- * `GM2CalcConfig[0]`: output format (`0` ... `4`)
-
-   `0`: minimal output (a single number)  
-   `1`: detailed (a detailed output of the various contributions)  
-   `2`: write the value of (g-2)/2 into `LOWEN` block, entry `6`  
-   `3`: write the value of (g-2)/2 into `SPhenoLowEnergy` block, entry `21`  
-   `4`: write the value of (g-2)/2 into `GM2CalcOutput` block, entry `0`
-
- * `GM2CalcConfig[1]`: loop order of the calculation (`0`, `1` or `2`).
-   We recommend to use `2`.
-
- * `GM2CalcConfig[2]`: disable/enable tan(beta) resummation (`0` or `1`).
-   We recommend to use `1`.
-
- * `GM2CalcConfig[3]`: force output even if physical problem has
-   occured (`0` or `1`).  **WARNING**: The result might not be trusted
-   if a problem has occured!  We recommend to use `0`.
-
- * `GM2CalcConfig[4]`: disable/enable verbose output (`0` or `1`).
-   We recommend to use `0` by default, and `1` only for debugging.
-
- * `GM2CalcConfig[5]`: disable/enable uncertainty estimation (`0` or `1`).
-   Depending on the chosen output format, `GM2CalcConfig[0]`, the
-   uncertainty is written
-
-   * as a single number to stdout   in case of minimal output,
-   * to the first line              in case of detailed output,
-   * to `GM2CalcOutput[1]`          otherwise.
-
-We recommend to use the following GM2Calc configuration SLHA input
-block:
-
-    Block GM2CalcConfig
-         0     4     # output format (0 = minimal, 1 = detailed,
-                     #  2 = NMSSMTools, 3 = SPheno, 4 = GM2Calc)
-         1     2     # loop order (0, 1 or 2)
-         2     1     # disable/enable tan(beta) resummation (0 or 1)
-         3     0     # force output (0 or 1)
-         4     0     # verbose output (0 or 1)
-         5     1     # calculate uncertainty
+definition of all interface functions.  The C/C++ example programs in
+the `examples/` directory serve as an illustration of the interface
+routines.
 
 
 Source code documentation
