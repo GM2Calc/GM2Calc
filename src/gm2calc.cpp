@@ -146,6 +146,7 @@ void setup_model(gm2calc::MSSMNoFV_onshell& model,
                  const Gm2_cmd_line_options& options,
                  const gm2calc::Config_options& config_options)
 {
+   model.do_force_output(config_options.force_output);
    model.set_verbose_output(config_options.verbose_output);
 
    switch (options.input_type) {
@@ -520,7 +521,6 @@ int main(int argc, const char* argv[])
       set_to_default(config_options, options);
       slha_io.read_from_source(options.input_source);
       fill(slha_io, config_options);
-      model.do_force_output(config_options.force_output);
       setup_model(model, slha_io, options, config_options);
       print_warnings(model, slha_io, config_options);
       print_amu(model, slha_io, config_options);
