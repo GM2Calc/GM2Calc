@@ -153,13 +153,13 @@ void setup_model(gm2calc::MSSMNoFV_onshell& model,
    case Gm2_cmd_line_options::SLHA:
       // determine on-shell model parameters from an SLHA parameter
       // set
-      fill_slha(slha_io, model);
+      slha_io.fill_slha(model);
       model.convert_to_onshell();
       break;
    case Gm2_cmd_line_options::GM2Calc:
       // on-shell parameters are directly given, calculate mass
       // spectrum
-      fill_gm2calc(slha_io, model);
+      slha_io.fill_gm2calc(model);
       model.calculate_masses();
       break;
    default:
@@ -520,7 +520,7 @@ int main(int argc, const char* argv[])
    try {
       set_to_default(config_options, options);
       slha_io.read_from_source(options.input_source);
-      fill(slha_io, config_options);
+      slha_io.fill(config_options);
       setup_model(model, slha_io, options, config_options);
       print_warnings(model, slha_io, config_options);
       print_amu(model, slha_io, config_options);

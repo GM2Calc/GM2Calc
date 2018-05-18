@@ -295,29 +295,28 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
    }
 }
 
-void fill_alpha_s(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
+void GM2_slha_io::fill_alpha_s(MSSMNoFV_onshell& model) const
 {
    const double Pi = 3.14159265358979323846;
-   const double alpha_S = slha_io.read_entry("SMINPUTS", 3);
+   const double alpha_S = read_entry("SMINPUTS", 3);
 
    if (!is_zero(alpha_S))
       model.set_g3(std::sqrt(4*Pi*alpha_S));
 }
 
-void fill_soft_parameters_from_msoft(const GM2_slha_io& slha_io,
-                                     MSSMNoFV_onshell& model, double scale)
+void GM2_slha_io::fill_soft_parameters_from_msoft(MSSMNoFV_onshell& model, double scale) const
 {
    using namespace std::placeholders;
 
    GM2_slha_io::Tuple_processor processor
       = std::bind(process_msoft_tuple, std::ref(model), _1, _2);
 
-   slha_io.read_block("MSOFT", processor, scale);
+   read_block("MSOFT", processor, scale);
 }
 
-void fill_drbar_parameters(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
+void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
 {
-   const double scale = slha_io.read_scale("HMIX");
+   const double scale = read_scale("HMIX");
 
    if (flexiblesusy::is_zero(scale)) {
       throw EInvalidInput("Could not determine renormalization scale"
@@ -326,26 +325,26 @@ void fill_drbar_parameters(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
 
    {
       Eigen::Matrix<double,3,3> Ae(Eigen::Matrix<double,3,3>::Zero());
-      slha_io.read_block("AE", Ae, scale);
+      read_block("AE", Ae, scale);
       model.set_Ae(Ae);
    }
    {
       Eigen::Matrix<double,3,3> Au(Eigen::Matrix<double,3,3>::Zero());
-      slha_io.read_block("AU", Au, scale);
+      read_block("AU", Au, scale);
       model.set_Au(Au);
    }
    {
       Eigen::Matrix<double,3,3> Ad(Eigen::Matrix<double,3,3>::Zero());
-      slha_io.read_block("AD", Ad, scale);
+      read_block("AD", Ad, scale);
       model.set_Ad(Ad);
    }
 
-   fill_soft_parameters_from_msoft(slha_io, model, scale);
+   fill_soft_parameters_from_msoft(model, scale);
 
-   model.set_Mu(slha_io.read_entry("HMIX", 1, scale));
+   model.set_Mu(read_entry("HMIX", 1, scale));
 
-   const double tanb = slha_io.read_entry("HMIX", 2, scale);
-   const double MA2_drbar = slha_io.read_entry("HMIX", 4, scale);
+   const double tanb = read_entry("HMIX", 2, scale);
+   const double MA2_drbar = read_entry("HMIX", 4, scale);
    const double sinb = tanb / std::sqrt(1 + tanb*tanb);
    const double cosb = 1.   / std::sqrt(1 + tanb*tanb);
 
@@ -354,54 +353,51 @@ void fill_drbar_parameters(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
    model.set_scale(scale);
 }
 
-void fill_pole_masses_from_sminputs(
-   const GM2_slha_io& slha_io, MSSMNoFV_onshell_physical& physical)
+void GM2_slha_io::fill_pole_masses_from_sminputs(MSSMNoFV_onshell_physical& physical) const
 {
    using namespace std::placeholders;
 
    GM2_slha_io::Tuple_processor processor
       = std::bind(process_fermion_sminputs_tuple, std::ref(physical), _1, _2);
 
-   slha_io.read_block("SMINPUTS", processor);
+   read_block("SMINPUTS", processor);
 }
 
-void fill_susy_masses_from_mass(
-   const GM2_slha_io& slha_io, MSSMNoFV_onshell_physical& physical)
+void GM2_slha_io::fill_susy_masses_from_mass(MSSMNoFV_onshell_physical& physical) const
 {
    using namespace std::placeholders;
 
    GM2_slha_io::Tuple_processor processor
       = std::bind(process_mass_tuple, std::ref(physical), _1, _2);
 
-   slha_io.read_block("MASS", processor);
+   read_block("MASS", processor);
 }
 
-void fill_physical(const GM2_slha_io& slha_io, MSSMNoFV_onshell_physical& physical)
+void GM2_slha_io::fill_physical(MSSMNoFV_onshell_physical& physical) const
 {
    // read all pole masses (includin MW) from SMINPUTS
-   fill_pole_masses_from_sminputs(slha_io, physical);
+   fill_pole_masses_from_sminputs(physical);
 
    // if MW if given in MASS[24], prefer this value
-   const double MW = slha_io.read_entry("MASS", 24);
+   const double MW = read_entry("MASS", 24);
    if (!is_zero(MW))
       physical.MVWm = MW;
 
-   fill_susy_masses_from_mass(slha_io, physical);
+   fill_susy_masses_from_mass(physical);
 }
 
-void fill_pole_masses_from_sminputs_and_mass(
-   const GM2_slha_io& slha_io, MSSMNoFV_onshell_physical& physical)
+void GM2_slha_io::fill_pole_masses_from_sminputs_and_mass(MSSMNoFV_onshell_physical& physical) const
 {
    MSSMNoFV_onshell_physical physical_hk(physical);
-   fill_physical(slha_io, physical_hk);
+   fill_physical(physical_hk);
    physical_hk.convert_to_hk();
    physical = physical_hk;
 }
 
-void fill_gm2_specific_alphas(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
+void GM2_slha_io::fill_gm2_specific_alphas(MSSMNoFV_onshell& model) const
 {
-   const double alpha_MZ = std::abs(slha_io.read_entry("GM2CalcInput", 1));
-   const double alpha_thompson = std::abs(slha_io.read_entry("GM2CalcInput", 2));
+   const double alpha_MZ = std::abs(read_entry("GM2CalcInput", 1));
+   const double alpha_thompson = std::abs(read_entry("GM2CalcInput", 2));
 
    if (alpha_MZ > std::numeric_limits<double>::epsilon())
       model.set_alpha_MZ(alpha_MZ);
@@ -415,59 +411,56 @@ void fill_gm2_specific_alphas(const GM2_slha_io& slha_io, MSSMNoFV_onshell& mode
  *
  * This function assumes that MW(pole) and MZ(pole) are non-zero.
  */
-void fill_gm2_specific_onshell_parameters(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
+void GM2_slha_io::fill_gm2_specific_onshell_parameters(MSSMNoFV_onshell& model) const
 {
    using namespace std::placeholders;
 
    GM2_slha_io::Tuple_processor processor
       = std::bind(process_gm2calcinput_tuple, std::ref(model), _1, _2);
 
-   slha_io.read_block("GM2CalcInput", processor);
+   read_block("GM2CalcInput", processor);
 }
 
 /**
  * Reads model parameters in GM2Calc format from GM2CalcInput and
  * SMINPUTS blocks
  *
- * @param slha_io SLHA object
  * @param model model
  */
-void fill_gm2calc(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
+void GM2_slha_io::fill_gm2calc(MSSMNoFV_onshell& model) const
 {
-   fill_pole_masses_from_sminputs(slha_io, model.get_physical());
-   fill_alpha_s(slha_io, model);
-   fill_gm2_specific_onshell_parameters(slha_io, model);
+   fill_pole_masses_from_sminputs(model.get_physical());
+   fill_alpha_s(model);
+   fill_gm2_specific_onshell_parameters(model);
 }
 
 /**
  * Reads model parameters in SLHA format (from SLHA and GM2CalcInput
  * input blocks)
  *
- * @param slha_io SLHA object
  * @param model model
  */
-void fill_slha(const GM2_slha_io& slha_io, MSSMNoFV_onshell& model)
+void GM2_slha_io::fill_slha(MSSMNoFV_onshell& model) const
 {
-   fill_pole_masses_from_sminputs_and_mass(slha_io, model.get_physical());
-   fill_alpha_s(slha_io, model);
-   fill_drbar_parameters(slha_io, model);
-   fill_gm2_specific_alphas(slha_io, model);
+   fill_pole_masses_from_sminputs_and_mass(model.get_physical());
+   fill_alpha_s(model);
+   fill_drbar_parameters(model);
+   fill_gm2_specific_alphas(model);
 }
 
 /**
  * Reads configuration from GM2CalcConfig block
  *
- * @param slha_io SLHA object
  * @param config_options configuration settings
  */
-void fill(const GM2_slha_io& slha_io, Config_options& config_options)
+void GM2_slha_io::fill(Config_options& config_options) const
 {
    using namespace std::placeholders;
 
    GM2_slha_io::Tuple_processor processor
       = std::bind(process_gm2calcconfig_tuple, std::ref(config_options), _1, _2);
 
-   slha_io.read_block("GM2CalcConfig", processor);
+   read_block("GM2CalcConfig", processor);
 }
 
 namespace {

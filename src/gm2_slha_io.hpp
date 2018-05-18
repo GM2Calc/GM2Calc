@@ -110,12 +110,31 @@ public:
    void fill_block_entry(const std::string&, unsigned, double, const std::string&);
    void fill_block_entry(const std::string&, unsigned, const std::string&);
 
+   /// read model parameters (GM2Calc input format)
+   void fill_gm2calc(MSSMNoFV_onshell&) const;
+
+   /// read model parameters (SLHA input format)
+   void fill_slha(MSSMNoFV_onshell&) const;
+
+   /// read configuration
+   void fill(Config_options&) const;
+
 private:
    SLHAea::Coll data;          ///< SHLA data
    template <class Scalar>
    static Scalar convert_to(const std::string&); ///< convert string
    static std::string to_lower(const std::string&); ///< string to lower case
    static bool at_scale(const SLHAea::Block&, double, double eps = 0.01); ///< check block scale
+
+   void fill_alpha_s(MSSMNoFV_onshell&) const;
+   void fill_soft_parameters_from_msoft(MSSMNoFV_onshell&, double scale) const;
+   void fill_drbar_parameters(MSSMNoFV_onshell&) const;
+   void fill_pole_masses_from_sminputs(MSSMNoFV_onshell_physical&) const;
+   void fill_susy_masses_from_mass(MSSMNoFV_onshell_physical&) const;
+   void fill_physical(MSSMNoFV_onshell_physical&) const;
+   void fill_pole_masses_from_sminputs_and_mass(MSSMNoFV_onshell_physical&) const;
+   void fill_gm2_specific_alphas(MSSMNoFV_onshell&) const;
+   void fill_gm2_specific_onshell_parameters(MSSMNoFV_onshell&) const;
 };
 
 template <class Scalar>
@@ -185,15 +204,6 @@ void GM2_slha_io::read_block(const std::string& block_name,
       block = data.find(block, data.cend(), block_name);
    }
 }
-
-/// read model parameters (GM2Calc input format)
-void fill_gm2calc(const GM2_slha_io&, MSSMNoFV_onshell&);
-
-/// read model parameters (SLHA input format)
-void fill_slha(const GM2_slha_io&, MSSMNoFV_onshell&);
-
-/// read configuration
-void fill(const GM2_slha_io&, Config_options&);
 
 } // namespace gm2calc
 
