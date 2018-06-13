@@ -1,5 +1,5 @@
-GM2Calc-1.4.1 [not released yet]
-================================
+GM2Calc-1.4.1 [June, 13 2018]
+=============================
 
  * Change (commit 2114aef): The default output format of the command
    line program `gm2calc.x` has been changed: If no `GM2CalcConfig[0]`
