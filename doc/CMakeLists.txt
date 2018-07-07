@@ -1,3 +1,7 @@
+if(POLICY CMP0057)
+  cmake_policy(SET CMP0057 NEW)
+endif()
+
 find_package(Doxygen)
 
 if(DOXYGEN_FOUND)
