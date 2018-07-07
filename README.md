@@ -244,3 +244,22 @@ Afterwards, the generated HTML pages can be found in `doc/html/` and
 can be openend with your favourite web browser, e.g.
 
     firefox doc/html/index.html
+
+
+References
+==========
+
+GM2Calc has been published in
+
+- Peter Athron, Markus Bach, Helvecio G. Fargnoli, Christoph
+  Gnendiger, Robert Greifenhagen, Jae-hyeon Park, Sebastian Paßehr,
+  Dominik Stöckinger, Hyejung Stöckinger-Kim, Alexander Voigt:
+  *GM2Calc: Precise MSSM prediction for (g-2) of the muon* [<a
+  href="http://arxiv.org/abs/1510.08071">Eur.Phys.J. C76 (2016) no.2,
+  62</a>]
+
+The expressions implemented in GM2Calc have been taken from
+[<a href="http://arxiv.org/abs/1003.5820">Phys.Rev. D81 (2010) 093004</a>,
+ <a href="http://arxiv.org/abs/1309.0980">Phys.Lett. B726 (2013) 717-724</a>,
+ <a href="http://arxiv.org/abs/1311.1775">JHEP 1402 (2014) 070</a>,
+ <a href="http://arxiv.org/abs/1504.05500">JHEP 1510 (2015) 026</a>]
