@@ -1,5 +1,5 @@
-GM2Calc-1.4.2 [not released yet]
-================================
+GM2Calc-1.4.2 [July, 14 2018]
+=============================
 
  * Bugfix (commit e784837c): Fix cmake error from FindDoxygen.cmake
    when building with cmake < 3.3, by enabling policy CMP0057.
