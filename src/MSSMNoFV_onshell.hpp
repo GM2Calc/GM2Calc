@@ -120,21 +120,6 @@ private:
    double EL0; ///< electromagnetic gauge coupling in the Thomson limit
    Eigen::Matrix<double,3,3> Ae, Au, Ad; ///< trilinear couplings
 
-   static bool is_equal(double, double, double);
-   static bool is_zero(double,
-                       double eps = std::numeric_limits<double>::epsilon());
-   template <class Derived>
-   static bool is_equal(const Eigen::ArrayBase<Derived>&,
-                        const Eigen::ArrayBase<Derived>&, double);
-   template <class Derived>
-   static bool is_zero(const Eigen::ArrayBase<Derived>&,
-                       double eps = std::numeric_limits<double>::epsilon());
-
-   template <class Derived>
-   static unsigned find_bino_like_neutralino(const Eigen::MatrixBase<Derived>&);
-   template <class Derived>
-   static unsigned find_right_like_smuon(const Eigen::MatrixBase<Derived>&);
-
    void check_input() const;
    void convert_gauge_couplings();
    void convert_BMu();

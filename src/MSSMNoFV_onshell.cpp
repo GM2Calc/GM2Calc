@@ -74,6 +74,62 @@ namespace {
    }
 } // anonymous namespace
 
+namespace detail {
+
+template <class Derived>
+bool is_equal(const Eigen::ArrayBase<Derived>& a,
+              const Eigen::ArrayBase<Derived>& b,
+              double precision_goal)
+{
+   return (a - b).cwiseAbs().maxCoeff() < precision_goal;
+}
+
+bool is_equal(double a, double b, double precision_goal)
+{
+   return flexiblesusy::is_equal(a, b, precision_goal);
+}
+
+template <class Derived>
+bool is_zero(const Eigen::ArrayBase<Derived>& a,
+             double eps = std::numeric_limits<double>::epsilon())
+{
+   return a.cwiseAbs().maxCoeff() < eps;
+}
+
+bool is_zero(double a, double eps = std::numeric_limits<double>::epsilon())
+{
+   return flexiblesusy::is_zero(a, eps);
+}
+
+/**
+ * Returns index of most bino-like neutralino.  The function extracts
+ * this information from the given neutralino mixing matrix.
+ *
+ * @param ZN neutralino mixing matrix
+ */
+template <class Derived>
+unsigned find_bino_like_neutralino(const Eigen::MatrixBase<Derived>& ZN)
+{
+   unsigned max_bino;
+   ZN.col(0).cwiseAbs().maxCoeff(&max_bino);
+
+   return max_bino;
+}
+
+/**
+ * Returns index of most right-handed smuon.  The function extracts
+ * this information from the given smuon mixing matrix.
+ *
+ * @param ZM smuon mixing matrix
+ */
+template <class Derived>
+unsigned find_right_like_smuon(const Eigen::MatrixBase<Derived>& ZM)
+{
+   return (ZM(0,0) > ZM(0,1)) ? 1 : 0;
+}
+
+} // namespace detail
+
 MSSMNoFV_onshell::MSSMNoFV_onshell()
    : MSSMNoFV_onshell_mass_eigenstates()
    , verbose_output(false)
@@ -135,7 +191,7 @@ double MSSMNoFV_onshell::get_vev() const
 
 double MSSMNoFV_onshell::get_TB() const
 {
-   if (MSSMNoFV_onshell::is_zero(get_vd()))
+   if (gm2calc::detail::is_zero(get_vd()))
       return 0.;
    return get_vu() / get_vd();
 }
@@ -204,12 +260,12 @@ void MSSMNoFV_onshell::calculate_masses() {
 
 void MSSMNoFV_onshell::check_input() const
 {
-#define WARN_OR_THROW_IF_ZERO(mass,msg)         \
-   if (is_zero(get_##mass())) {                 \
-      if (do_force_output())                    \
-         WARNING(msg);                          \
-      else                                      \
-         throw EInvalidInput(msg);              \
+#define WARN_OR_THROW_IF_ZERO(mass,msg)                 \
+   if (gm2calc::detail::is_zero(get_##mass())) {        \
+      if (do_force_output())                            \
+         WARNING(msg);                                  \
+      else                                              \
+         throw EInvalidInput(msg);                      \
    }
 
    WARN_OR_THROW_IF_ZERO(MW    , "W mass is zero");
@@ -237,7 +293,7 @@ void MSSMNoFV_onshell::check_problems() const
       if (!do_force_output())
          throw EInvalidInput("soft mass squared < 0");
    }
-   if (is_zero(get_MCha(0))) {
+   if (gm2calc::detail::is_zero(get_MCha(0))) {
       if (!do_force_output())
          throw EInvalidInput("lightest chargino mass = 0");
    }
@@ -249,15 +305,15 @@ void MSSMNoFV_onshell::copy_susy_masses_to_pole()
    // masses
 
 #define COPY_IF_ZERO_0(m)                                               \
-   if (MSSMNoFV_onshell::is_zero(get_physical().m))                     \
+   if (gm2calc::detail::is_zero(get_physical().m))                      \
       get_physical().m = get_##m();
 #define COPY_IF_ZERO_1(m,z)                                             \
-   if (MSSMNoFV_onshell::is_zero(get_physical().m)) {                   \
+   if (gm2calc::detail::is_zero(get_physical().m)) {                    \
       get_physical().m = get_##m();                                     \
       get_physical().z = get_##z();                                     \
    }
 #define COPY_IF_ZERO_2(m,u,v)                                           \
-   if (MSSMNoFV_onshell::is_zero(get_physical().m)) {                   \
+   if (gm2calc::detail::is_zero(get_physical().m)) {                    \
       get_physical().m = get_##m();                                     \
       get_physical().u = get_##u();                                     \
       get_physical().v = get_##v();                                     \
@@ -388,61 +444,6 @@ void MSSMNoFV_onshell::convert_yukawa_couplings()
    set_TYd(Yd_neu * Ad);
 }
 
-
-template <class Derived>
-bool MSSMNoFV_onshell::is_equal(const Eigen::ArrayBase<Derived>& a,
-                                const Eigen::ArrayBase<Derived>& b,
-                                double precision_goal)
-{
-   return (a - b).cwiseAbs().maxCoeff() < precision_goal;
-}
-
-bool MSSMNoFV_onshell::is_equal(double a, double b, double precision_goal)
-{
-   return flexiblesusy::is_equal(a, b, precision_goal);
-}
-
-template <class Derived>
-bool MSSMNoFV_onshell::is_zero(const Eigen::ArrayBase<Derived>& a,
-                               double eps)
-{
-   return a.cwiseAbs().maxCoeff() < eps;
-}
-
-bool MSSMNoFV_onshell::is_zero(double a, double eps)
-{
-   return flexiblesusy::is_zero(a, eps);
-}
-
-/**
- * Returns index of most bino-like neutralino.  The function extracts
- * this information from the given neutralino mixing matrix.
- *
- * @param ZN neutralino mixing matrix
- */
-template <class Derived>
-unsigned MSSMNoFV_onshell::find_bino_like_neutralino(
-   const Eigen::MatrixBase<Derived>& ZN)
-{
-   unsigned max_bino;
-   ZN.col(0).cwiseAbs().maxCoeff(&max_bino);
-
-   return max_bino;
-}
-
-/**
- * Returns index of most right-handed smuon.  The function extracts
- * this information from the given smuon mixing matrix.
- *
- * @param ZM smuon mixing matrix
- */
-template <class Derived>
-unsigned MSSMNoFV_onshell::find_right_like_smuon(
-   const Eigen::MatrixBase<Derived>& ZM)
-{
-   return (ZM(0,0) > ZM(0,1)) ? 1 : 0;
-}
-
 /**
  * Determines the Mu parameter and the soft-breaking Bino and Wino
  * mass parameters from the two chargino pole masses and the most
@@ -457,7 +458,7 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
    unsigned max_iterations)
 {
    // find neutralino, which is most bino like
-   const unsigned max_bino = find_bino_like_neutralino(get_physical().ZN);
+   const unsigned max_bino = detail::find_bino_like_neutralino(get_physical().ZN);
 
    const auto MCha_goal(get_physical().MCha);
    auto MChi_goal(get_MChi());
@@ -471,8 +472,8 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
    }
 
    bool accuracy_goal_reached =
-      MSSMNoFV_onshell::is_equal(MCha_goal, get_MCha(), precision_goal) &&
-      MSSMNoFV_onshell::is_equal(MChi_goal(max_bino), get_MChi(max_bino), precision_goal);
+      detail::is_equal(MCha_goal, get_MCha(), precision_goal) &&
+      detail::is_equal(MChi_goal(max_bino), get_MChi(max_bino), precision_goal);
    unsigned it = 0;
 
    while (!accuracy_goal_reached && it < max_iterations) {
@@ -502,8 +503,8 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       }
 
       accuracy_goal_reached =
-         MSSMNoFV_onshell::is_equal(MCha_goal, get_MCha(), precision_goal) &&
-         MSSMNoFV_onshell::is_equal(MChi_goal(max_bino), get_MChi(max_bino), precision_goal);
+         detail::is_equal(MCha_goal, get_MCha(), precision_goal) &&
+         detail::is_equal(MChi_goal(max_bino), get_MChi(max_bino), precision_goal);
 
       it++;
    }
@@ -608,7 +609,7 @@ double MSSMNoFV_onshell::convert_me2_root_modify(
 
          Eigen::Array<double,2,1> MSm_pole(model.get_physical().MSm);
          std::sort(MSm_pole.data(), MSm_pole.data() + MSm_pole.size());
-         const int right_index = find_right_like_smuon(model.get_ZM());
+         const int right_index = detail::find_right_like_smuon(model.get_ZM());
 
          return model.get_MSm(right_index) - MSm_pole(right_index);
       }
@@ -716,7 +717,7 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
 
    Eigen::Array<double,2,1> MSm_goal(MSm_pole_sorted);
 
-   int right_index = find_right_like_smuon(get_ZM());
+   int right_index = detail::find_right_like_smuon(get_ZM());
 
    if (verbose_output) {
       std::cout << "Converting mse(2,2) to on-shell scheme with FPI ...\n"
@@ -725,8 +726,8 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
    }
 
    bool accuracy_goal_reached =
-      MSSMNoFV_onshell::is_equal(get_MSm(right_index), MSm_goal(right_index),
-                                 precision_goal);
+      detail::is_equal(get_MSm(right_index), MSm_goal(right_index),
+                       precision_goal);
    unsigned it = 0;
 
    while (!accuracy_goal_reached && it < max_iterations) {
@@ -756,7 +757,7 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
          return std::numeric_limits<double>::max();
       }
 
-      right_index = find_right_like_smuon(get_ZM());
+      right_index = detail::find_right_like_smuon(get_ZM());
 
       MSm_goal = get_MSm();
       MSm_goal(right_index) = MSm_pole_sorted(right_index);
@@ -768,8 +769,8 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
       }
 
       accuracy_goal_reached =
-         MSSMNoFV_onshell::is_equal(get_MSm(right_index), MSm_goal(right_index),
-                                    precision_goal);
+         detail::is_equal(get_MSm(right_index), MSm_goal(right_index),
+                          precision_goal);
 
       it++;
    }
