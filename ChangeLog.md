@@ -1,4 +1,4 @@
-GM2Calc-1.4.3 [not released yet]
+GM2Calc-1.4.3 [October, 07 2018]
 ================================
 
  * Bugfix (commit cd218cd): Properly initialize trilinear A parameters
