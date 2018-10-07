@@ -51,6 +51,27 @@ namespace {
    double calculate_alpha(double e) {
       return e * e / (4. * Pi);
    }
+   /// returns a/b if result is finite, otherwise 0.
+   double divide_finite(double a, double b) noexcept {
+      const double result = a / b;
+      return std::isfinite(result) ? result : 0.;
+   }
+   /// element-wise division
+   template <int Rows, int Cols>
+   Eigen::Matrix<double,Rows,Cols> cwise_div(
+         const Eigen::Matrix<double,Rows,Cols>& a,
+         const Eigen::Matrix<double,Rows,Cols>& b) noexcept
+   {
+      Eigen::Matrix<double,Rows,Cols> result(Eigen::Matrix<double,Rows,Cols>::Zero());
+
+      for (int i = 0; i < Rows; i++) {
+         for (int k = 0; k < Cols; k++) {
+            result(i,k) = divide_finite(a(i,k), b(i,k));
+         }
+      }
+
+      return result;
+   }
 } // anonymous namespace
 
 MSSMNoFV_onshell::MSSMNoFV_onshell()
@@ -78,9 +99,9 @@ MSSMNoFV_onshell::MSSMNoFV_onshell(const MSSMNoFV_onshell_mass_eigenstates& mode
    , verbose_output(false)
    , EL(calculate_e(ALPHA_EM_MZ))
    , EL0(calculate_e(ALPHA_EM_THOMPSON))
-   , Ae(get_Ae())
-   , Au(get_Au())
-   , Ad(get_Ad())
+   , Ae(cwise_div(model_.get_TYe(), model_.get_Ye()))
+   , Au(cwise_div(model_.get_TYu(), model_.get_Yu()))
+   , Ad(cwise_div(model_.get_TYd(), model_.get_Yd()))
 {
 }
 
