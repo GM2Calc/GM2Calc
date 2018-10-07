@@ -1,3 +1,10 @@
+GM2Calc-1.4.3 [not released yet]
+================================
+
+ * Bugfix (commit cd218cd): Properly initialize trilinear A parameters
+   in copy constructor of `MSSMNoFV_onshell`.  
+   Note: This copy constructor is never used in GM2Calc.
+
 GM2Calc-1.4.2 [July, 14 2018]
 =============================
 
