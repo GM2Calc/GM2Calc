@@ -68,10 +68,7 @@ using namespace flexiblesusy;
 #define MODELPARAMETER(parameter) model->get_##parameter()
 
 CLASSNAME::MSSMNoFV_onshell_mass_eigenstates()
-   : MSSMNoFV_onshell_soft_parameters()
-   , force_output(false)
-   , physical()
-   , problems()
+   : force_output(false)
    , MVG(0), MGlu(0), MVP(0), MVZ(0), MFd(0), MFs(0), MFb(0), MFu(0), MFc(0),
       MFt(0), MFve(0), MFvm(0), MFvt(0), MFe(0), MFm(0), MFtau(0), MSveL(0), MSvmL
       (0), MSvtL(0), MSd(Eigen::Array<double,2,1>::Zero()), MSu(Eigen::Array<
@@ -95,10 +92,6 @@ CLASSNAME::MSSMNoFV_onshell_mass_eigenstates()
 
    , PhaseGlu(1,0)
 
-{
-}
-
-CLASSNAME::~MSSMNoFV_onshell_mass_eigenstates()
 {
 }
 
@@ -153,16 +146,17 @@ int CLASSNAME::solve_ewsb_tree_level_via_soft_higgs_masses()
       BMu - 3*std::pow(vu,3)*sqr(g1) - 5*std::pow(vu,3)*sqr(g2) + 3*vu*sqr(g1)*sqr
       (vd) + 5*vu*sqr(g2)*sqr(vd)))/vu;
 
-   if (std::isfinite(new_mHd2))
+   if (std::isfinite(new_mHd2)) {
       mHd2 = new_mHd2;
-   else
+   } else {
       error = 1;
+   }
 
-   if (std::isfinite(new_mHu2))
+   if (std::isfinite(new_mHu2)) {
       mHu2 = new_mHu2;
-   else
+   } else {
       error = 1;
-
+   }
 
    return error;
 }

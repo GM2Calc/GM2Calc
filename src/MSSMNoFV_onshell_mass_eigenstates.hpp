@@ -47,7 +47,7 @@ namespace gm2calc {
 class MSSMNoFV_onshell_mass_eigenstates : public MSSMNoFV_onshell_soft_parameters {
 public:
    MSSMNoFV_onshell_mass_eigenstates();
-   virtual ~MSSMNoFV_onshell_mass_eigenstates();
+   virtual ~MSSMNoFV_onshell_mass_eigenstates() {}
 
    void calculate_DRbar_masses();
    virtual void clear();

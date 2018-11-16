@@ -139,7 +139,7 @@ void convert_symmetric_fermion_mixings_to_slha(Eigen::Array<double, N, 1>& m,
    }
 }
 
-}
+} // anonymous namespace
 
 /**
  * Convert masses and mixing matrices to Haber-Kane convention:

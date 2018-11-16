@@ -25,7 +25,7 @@ namespace gm2calc {
 namespace {
    template <typename T>
    T sqr(T x) { return x*x; }
-}
+} // anonymous namespace
 
 /**
  * @brief Real dilogarithm \f$\mathrm{Li}_2(z)\f$

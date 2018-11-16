@@ -38,8 +38,7 @@ public:
    MSSMNoFV_onshell_susy_parameters(double scale_,
       const Eigen::Matrix<double,3,3>& Yd_, const Eigen::Matrix<double,3,3>& Ye_,
       const Eigen::Matrix<double,3,3>& Yu_, double Mu_, double g1_, double g2_,
-      double g3_, double vd_, double vu_
-   );
+      double g3_, double vd_, double vu_);
    virtual ~MSSMNoFV_onshell_susy_parameters() {}
    virtual void print(std::ostream&) const;
    virtual void clear();

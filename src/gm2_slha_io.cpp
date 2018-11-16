@@ -88,8 +88,7 @@ void GM2_slha_io::read_from_stream(std::istream& istr)
 double GM2_slha_io::read_entry(const std::string& block_name, int key,
                                double scale) const
 {
-   SLHAea::Coll::const_iterator block =
-      data.find(data.cbegin(), data.cend(), block_name);
+   auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
 
    double entry = 0.;
    const SLHAea::Block::key_type keys(1, std::to_string(key));
@@ -124,12 +123,11 @@ double GM2_slha_io::read_scale(const std::string& block_name) const
 
    double scale = 0.;
 
-   for (SLHAea::Block::const_iterator line = data.at(block_name).cbegin(),
-        end = data.at(block_name).cend(); line != end; ++line) {
-      if (!line->is_data_line()) {
-         if (line->size() > 3 &&
-             to_lower((*line)[0]) == "block" && (*line)[2] == "Q=")
-            scale = convert_to<double>((*line)[3]);
+   for (const auto& line : data.at(block_name)) {
+      if (!line.is_data_line()) {
+         if (line.size() > 3 &&
+             to_lower(line[0]) == "block" && line[2] == "Q=")
+            scale = convert_to<double>(line[3]);
          break;
       }
    }
@@ -155,12 +153,11 @@ bool GM2_slha_io::at_scale(const SLHAea::Block& block, double scale, double eps)
    if (flexiblesusy::is_zero(scale))
       return true;
 
-   for (SLHAea::Block::const_iterator line = block.cbegin(),
-           end = block.cend(); line != end; ++line) {
+   for (const auto& line : block) {
       // check scale from block definition matches argument
-      if (!line->is_data_line() && line->size() > 3 &&
-          to_lower((*line)[0]) == "block" && (*line)[2] == "Q=") {
-         const double block_scale = convert_to<double>((*line)[3]);
+      if (!line.is_data_line() && line.size() > 3 &&
+          to_lower(line[0]) == "block" && line[2] == "Q=") {
+         const auto block_scale = convert_to<double>(line[3]);
          if (flexiblesusy::is_equal(scale, block_scale, eps))
             return true;
       }
@@ -188,19 +185,17 @@ void GM2_slha_io::read_block(const std::string& block_name,
                              const Tuple_processor& processor,
                              double scale) const
 {
-   SLHAea::Coll::const_iterator block =
-      data.find(data.cbegin(), data.cend(), block_name);
+   auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
 
    while (block != data.cend()) {
       if (at_scale(*block, scale)) {
-         for (SLHAea::Block::const_iterator line = block->cbegin(),
-                 end = block->cend(); line != end; ++line) {
-            if (!line->is_data_line())
+         for (const auto& line : *block) {
+            if (!line.is_data_line())
                continue;
 
-            if (line->size() >= 2) {
-               const int key = convert_to<int>((*line)[0]);
-               const double value = convert_to<double>((*line)[1]);
+            if (line.size() >= 2) {
+               const auto key = convert_to<int>(line[0]);
+               const auto value = convert_to<double>(line[1]);
                processor(key, value);
             }
          }
@@ -252,8 +247,7 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
    std::ostringstream sstr;
    sstr << FORMAT_ELEMENT(entry, value, description);
 
-   SLHAea::Coll::const_iterator block =
-      data.find(data.cbegin(), data.cend(), block_name);
+   auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
 
    if (block == data.cend()) {
       // create new block
@@ -281,8 +275,7 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
    std::ostringstream sstr;
    sstr << FORMAT_SPINFO(entry, description);
 
-   SLHAea::Coll::const_iterator block =
-      data.find(data.cbegin(), data.cend(), block_name);
+   auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
 
    if (block == data.cend()) {
       // create new block

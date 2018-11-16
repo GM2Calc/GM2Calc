@@ -131,8 +131,7 @@ unsigned find_right_like_smuon(const Eigen::MatrixBase<Derived>& ZM)
 } // namespace detail
 
 MSSMNoFV_onshell::MSSMNoFV_onshell()
-   : MSSMNoFV_onshell_mass_eigenstates()
-   , verbose_output(false)
+   : verbose_output(false)
    , EL(calculate_e(ALPHA_EM_MZ))
    , EL0(calculate_e(ALPHA_EM_THOMPSON))
    , Ae(Eigen::Matrix<double,3,3>::Zero())
@@ -262,10 +261,11 @@ void MSSMNoFV_onshell::check_input() const
 {
 #define WARN_OR_THROW_IF_ZERO(mass,msg)                 \
    if (gm2calc::detail::is_zero(get_##mass())) {        \
-      if (do_force_output())                            \
+      if (do_force_output()) {                          \
          WARNING(msg);                                  \
-      else                                              \
+      } else {                                          \
          throw EInvalidInput(msg);                      \
+      }                                                 \
    }
 
    WARN_OR_THROW_IF_ZERO(MW    , "W mass is zero");
@@ -282,20 +282,23 @@ void MSSMNoFV_onshell::check_input() const
 void MSSMNoFV_onshell::check_problems() const
 {
    if (get_problems().have_problem()) {
-      if (!do_force_output())
+      if (!do_force_output()) {
          throw EPhysicalProblem(get_problems().get_problems());
+      }
    }
    if (get_mu2().diagonal().minCoeff() < 0. ||
        get_md2().diagonal().minCoeff() < 0. ||
        get_mq2().diagonal().minCoeff() < 0. ||
        get_me2().diagonal().minCoeff() < 0. ||
        get_ml2().diagonal().minCoeff() < 0.) {
-      if (!do_force_output())
+      if (!do_force_output()) {
          throw EInvalidInput("soft mass squared < 0");
+      }
    }
    if (gm2calc::detail::is_zero(get_MCha(0))) {
-      if (!do_force_output())
+      if (!do_force_output()) {
          throw EInvalidInput("lightest chargino mass = 0");
+      }
    }
 }
 
@@ -576,13 +579,15 @@ void MSSMNoFV_onshell::convert_me2(
 {
    double precision = convert_me2_fpi(precision_goal, max_iterations);
 
-   if (precision > precision_goal)
+   if (precision > precision_goal) {
       precision = convert_me2_root(precision_goal, max_iterations);
+   }
 
-   if (precision > precision_goal)
+   if (precision > precision_goal) {
       get_problems().flag_no_convergence_me2(precision, max_iterations);
-   else
+   } else {
       get_problems().unflag_no_convergence_me2();
+   }
 }
 
 /**
@@ -600,7 +605,7 @@ double MSSMNoFV_onshell::convert_me2_root_modify(
 {
    class Difference_MSm {
    public:
-      Difference_MSm(const MSSMNoFV_onshell& model_)
+      explicit Difference_MSm(const MSSMNoFV_onshell& model_)
          : model(model_) {}
 
       double operator()(double me211) {
@@ -899,4 +904,4 @@ std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)
    return os;
 }
 
-} // gm2calc
+} // namespace gm2calc

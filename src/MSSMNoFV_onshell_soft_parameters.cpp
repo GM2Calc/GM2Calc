@@ -23,14 +23,12 @@
 namespace gm2calc {
 
 MSSMNoFV_onshell_soft_parameters::MSSMNoFV_onshell_soft_parameters()
-   : MSSMNoFV_onshell_susy_parameters()
-   , TYd(Eigen::Matrix<double,3,3>::Zero()), TYe(Eigen::Matrix<double,3,3>
+   : TYd(Eigen::Matrix<double,3,3>::Zero()), TYe(Eigen::Matrix<double,3,3>
    ::Zero()), TYu(Eigen::Matrix<double,3,3>::Zero()), BMu(0), mq2(Eigen::Matrix
    <double,3,3>::Zero()), ml2(Eigen::Matrix<double,3,3>::Zero()), mHd2(0), mHu2
    (0), md2(Eigen::Matrix<double,3,3>::Zero()), mu2(Eigen::Matrix<double,3,3>
    ::Zero()), me2(Eigen::Matrix<double,3,3>::Zero()), MassB(0), MassWB(0),
    MassG(0)
-
 {
 }
 
@@ -48,7 +46,6 @@ MSSMNoFV_onshell_soft_parameters::MSSMNoFV_onshell_soft_parameters(
    , TYd(TYd_), TYe(TYe_), TYu(TYu_), BMu(BMu_), mq2(mq2_), ml2(ml2_), mHd2(
    mHd2_), mHu2(mHu2_), md2(md2_), mu2(mu2_), me2(me2_), MassB(MassB_), MassWB(
    MassWB_), MassG(MassG_)
-
 {
 }
 

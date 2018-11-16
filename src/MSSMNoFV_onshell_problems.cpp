@@ -19,18 +19,15 @@
 #include "MSSMNoFV_onshell_problems.hpp"
 #include "numerics2.hpp"
 
+#include <algorithm>
 #include <iostream>
 #include <sstream>
-#include <algorithm>
 
 namespace gm2calc {
 
 MSSMNoFV_onshell_problems::MSSMNoFV_onshell_problems()
    : have_no_convergence_Mu_MassB_MassWB(false)
    , have_no_convergence_me2(false)
-   , tachyons()
-   , convergence_problem_Mu_MassB_MassWB()
-   , convergence_problem_me2()
 {
 }
 
@@ -149,8 +146,7 @@ void MSSMNoFV_onshell_problems::print_problems(std::ostream& ostr) const
       ostr << "Problem: ";
 
    if (have_tachyon()) {
-      for (std::vector<std::string>::const_iterator it = tachyons.begin(),
-              end = tachyons.end(); it != end; ++it) {
+      for (auto it = tachyons.cbegin(), end = tachyons.cend(); it != end; ++it) {
          if (it != tachyons.begin())
             ostr << ", ";
          ostr << *it << " tachyon";

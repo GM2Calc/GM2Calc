@@ -41,7 +41,7 @@ struct Gm2_cmd_line_options {
    enum E_input_type { SLHA, GM2Calc };
 
    std::string input_source; ///< input source (file name or `-' for stdin)
-   E_input_type input_type;  ///< input format (SLHA or GM2Calc)
+   E_input_type input_type{SLHA}; ///< input format (SLHA or GM2Calc)
 
    static bool starts_with(const std::string& str, const std::string& prefix) {
       return !str.compare(0, prefix.size(), prefix);
