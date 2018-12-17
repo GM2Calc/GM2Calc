@@ -1,3 +1,17 @@
+GM2Calc-1.4.4 [not released yet]
+================================
+
+ * Feature: New `make install` target, so GM2Calc can be installed.
+   The installation includes the executable `gm2calc.x`, the GM2Calc
+   library, the public headers and a corresponding `gm2calc.pc` file
+   for `pkg-config`.
+
+   Example:
+
+       cmake -DCMAKE_INSTALL_PREFIX=${HOME}/.local/ ..
+       make
+       make install
+
 GM2Calc-1.4.3 [October, 07 2018]
 ================================
 
