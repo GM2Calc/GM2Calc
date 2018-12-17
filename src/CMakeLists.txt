@@ -36,3 +36,28 @@ if(Mathematica_FOUND)
   target_include_directories(gm2calc.mx
     PRIVATE ${Mathematica_MathLink_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
+
+# installation
+set(gm2calc_public_headers
+  gm2_1loop.hpp
+  gm2_2loop.hpp
+  gm2_error.hpp
+  gm2_uncertainty.hpp
+  MSSMNoFV_onshell.hpp
+  MSSMNoFV_onshell_mass_eigenstates.hpp
+  MSSMNoFV_onshell_physical.hpp
+  MSSMNoFV_onshell_problems.hpp
+  MSSMNoFV_onshell_soft_parameters.hpp
+  MSSMNoFV_onshell_susy_parameters.hpp
+  )
+
+install(
+  TARGETS gm2calc
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  )
+
+install(
+  FILES ${gm2calc_public_headers}
+  DESTINATION "${INCLUDE_INSTALL_DIR}"
+  )

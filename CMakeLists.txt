@@ -17,6 +17,15 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(EXEC_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include/gm2calc")
+set(LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib")
+
+# generate gm2calc.pc file for pkg-config
+configure_file (
+  "${PROJECT_SOURCE_DIR}/cmake/gm2calc.pc.in"
+  "${CMAKE_BINARY_DIR}/gm2calc.pc"
+  @ONLY)
 
 find_package(Boost 1.37.0 REQUIRED)
 find_package(Eigen3 3.1 REQUIRED)
@@ -51,3 +60,8 @@ if(Git_FOUND)
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     COMMENT "Creating ${PROJECT_NAME}-HEAD.tar.gz")
 endif()
+
+# install gm2calc.pc file
+install(FILES
+  "${CMAKE_BINARY_DIR}/gm2calc.pc"
+  DESTINATION "${LIB_INSTALL_DIR}/pkgconfig")

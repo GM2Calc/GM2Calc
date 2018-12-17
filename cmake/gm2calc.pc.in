@@ -1,0 +1,11 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=@EXEC_INSTALL_PREFIX@
+libdir=@LIB_INSTALL_DIR@
+includedir=@INCLUDE_INSTALL_DIR@
+
+Name: GM2Calc
+Description: Calculates MSSM contributions to the anomalous magnetic moment of the muon
+Version: @PROJECT_VERSION@
+Requires: eigen3 >= 3.1.0
+Libs: -L${libdir} -lgm2calc
+Cflags: -I${includedir}
