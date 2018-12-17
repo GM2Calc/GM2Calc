@@ -39,6 +39,10 @@ endif()
 
 # installation
 set(gm2calc_public_headers
+  gm2_1loop.h
+  gm2_2loop.h
+  gm2_uncertainty.h
+  MSSMNoFV_onshell.h
   gm2_1loop.hpp
   gm2_2loop.hpp
   gm2_error.hpp
