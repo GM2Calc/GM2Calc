@@ -62,6 +62,11 @@ install(
   )
 
 install(
+  TARGETS gm2calc.x
+  RUNTIME DESTINATION bin
+  )
+
+install(
   FILES ${gm2calc_public_headers}
   DESTINATION "${INCLUDE_INSTALL_DIR}"
   )
