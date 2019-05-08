@@ -569,8 +569,12 @@ void MSSMNoFV_onshell::convert_ml2()
    const double ml211
       = sqr(MSvmL_pole) + 0.125*(0.6*g12*(vu2 - vd2) + g22*(vu2 - vd2));
 
-   set_ml2(1,1,ml211);
-   calculate_MSvmL();
+   if (std::isfinite(ml211)) {
+      set_ml2(1,1,ml211);
+      calculate_MSvmL();
+   } else {
+      WARNING("msl(2,2) is NaN");
+   }
 
    if (verbose_output) {
       std::cout << "   New msl(2,2) = " << ml211
@@ -760,8 +764,13 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
       const double me211 = M(1,1)
          - (0.5*ymu2*vd2 - 0.15*g12*vd2 + 0.15*g12*vu2);
 
-      set_me2(1,1,me211);
-      calculate_MSm();
+      if (std::isfinite(me211)) {
+         set_me2(1,1,me211);
+         calculate_MSm();
+      } else {
+         WARNING("mse2(2,2) is NaN");
+         break;
+      }
 
       if (!std::isfinite(me211) || !get_MSm().allFinite() || !get_ZM().allFinite()) {
          if (verbose_output) {
