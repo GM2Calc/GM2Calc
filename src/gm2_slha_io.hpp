@@ -21,7 +21,7 @@
 
 #include <cmath>
 #include <string>
-#include <iosfwd>
+#include <iostream>
 #include <functional>
 #include <Eigen/Core>
 #include <boost/format.hpp>
@@ -146,9 +146,9 @@ Scalar GM2_slha_io::convert_to(const std::string& str)
       if (!std::isfinite(value))
          throw boost::bad_lexical_cast();
    }  catch (const boost::bad_lexical_cast& error) {
-      const std::string msg("cannot convert string \"" + str + "\" to "
-                            + typeid(Scalar).name());
-      throw EReadError(msg);
+      std::cerr << "cannot convert string \"" << str << "\" to "
+                <<  typeid(Scalar).name() << std::endl;
+      throw EReadError("non-numeric input");
    }
    return value;
 }

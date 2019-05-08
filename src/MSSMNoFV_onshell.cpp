@@ -291,7 +291,8 @@ void MSSMNoFV_onshell::check_problems() const
 {
    if (get_problems().have_problem()) {
       if (!do_force_output()) {
-         throw EPhysicalProblem(get_problems().get_problems());
+         std::cerr << "Error: " << get_problems().get_problems() << std::endl;
+         throw EPhysicalProblem("physical problem detected");
       }
    }
    if (get_mu2().diagonal().minCoeff() < 0. ||

@@ -24,6 +24,7 @@
 
 #include <cstdio>
 #include <iostream>
+#include <string>
 
 gm2calc::MSSMNoFV_onshell setup()
 {
@@ -89,7 +90,7 @@ int main()
              + gm2calc::calculate_amu_2loop(model);
          delta_amu = gm2calc::calculate_uncertainty_amu_2loop(model);
       } catch (const gm2calc::Error& e) {
-         error = "# " + e.what();
+         error = "# " + std::string(e.what());
          amu = delta_amu = std::numeric_limits<double>::signaling_NaN();
       }
 

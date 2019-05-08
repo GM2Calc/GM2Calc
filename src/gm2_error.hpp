@@ -19,14 +19,13 @@
 #ifndef GM2_ERROR_H
 #define GM2_ERROR_H
 
-#include <string>
+#include <stdexcept>
 
 namespace gm2calc {
 
-class Error {
+class Error : public std::runtime_error {
 public:
-   virtual ~Error() {}
-   virtual std::string what() const = 0;
+   Error(const char* msg) : std::runtime_error(msg) {}
 };
 
 /**
@@ -35,38 +34,22 @@ public:
  */
 class ESetupError : public Error {
 public:
-   explicit ESetupError(const std::string& message_) : message(message_) {}
-   virtual ~ESetupError() {}
-   virtual std::string what() const { return message; }
-private:
-   std::string message;
+   ESetupError(const char* msg) : Error(msg) {}
 };
 
 class EInvalidInput : public Error {
 public:
-   explicit EInvalidInput(const std::string& message_) : message(message_) {}
-   virtual ~EInvalidInput() {}
-   virtual std::string what() const { return message; }
-private:
-   std::string message;
+   EInvalidInput(const char* msg) : Error(msg) {}
 };
 
 class EPhysicalProblem : public Error {
 public:
-   explicit EPhysicalProblem(const std::string& message_) : message(message_) {}
-   virtual ~EPhysicalProblem() {}
-   virtual std::string what() const { return message; }
-private:
-   std::string message;
+   EPhysicalProblem(const char* msg) : Error(msg) {}
 };
 
 class EReadError : public Error {
 public:
-   EReadError(const std::string& message_) : message(message_) {}
-   virtual ~EReadError() {}
-   virtual std::string what() const { return message; }
-private:
-   std::string message;
+   EReadError(const char* msg) : Error(msg) {}
 };
 
 } // namespace gm2calc

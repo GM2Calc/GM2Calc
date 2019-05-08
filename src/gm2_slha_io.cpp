@@ -22,6 +22,7 @@
 
 #include <cmath>
 #include <fstream>
+#include <iostream>
 #include <limits>
 
 #include <Eigen/Core>
@@ -70,9 +71,9 @@ void GM2_slha_io::read_from_file(const std::string& file_name)
       data.clear();
       data.read(ifs);
    } else {
-      std::ostringstream msg;
-      msg << "cannot read SLHA file: \"" << file_name << "\"";
-      throw EReadError(msg.str());
+      std::cerr << "cannot read input file: \"" << file_name << "\""
+                << std::endl;
+      throw EReadError("cannot read input file");
    }
 }
 

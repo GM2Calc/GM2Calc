@@ -339,7 +339,7 @@ const Writer Detailed_writer = [](const gm2calc::MSSMNoFV_onshell& model,
       amu_2l_non_tan_beta_resummed =
          gm2calc::calculate_amu_2loop_non_tan_beta_resummed(model_except);
    } catch (const gm2calc::Error& error) {
-      error_str_non_tan_beta_resummation = " (" + error.what() + ")";
+      error_str_non_tan_beta_resummation = " (" + std::string(error.what()) + ")";
       // try to redo calculation w/o throwing an exception
       gm2calc::MSSMNoFV_onshell model_no_except(model);
       model_no_except.do_force_output(true);
