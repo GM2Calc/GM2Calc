@@ -12,6 +12,9 @@ GM2Calc-1.4.4 [not released yet]
        make
        make install
 
+ * Change (commit 577815e): `gm2calc::Error` now inherits from
+   `std::runtime_error`.
+
  * Bugfix (commit 2ea83e8): Catch unphysical input parameter where
    `MW >= MZ`.
 
