@@ -12,6 +12,9 @@ GM2Calc-1.4.4 [not released yet]
        make
        make install
 
+ * Bugfix (commit 2ea83e8): Catch unphysical input parameter where
+   `MW >= MZ`.
+
 GM2Calc-1.4.3 [October, 07 2018]
 ================================
 
