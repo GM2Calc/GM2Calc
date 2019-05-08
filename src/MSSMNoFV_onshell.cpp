@@ -489,19 +489,13 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
 
       if (!X.allFinite()) {
          WARNING("chargino mixing matrix contains NaNs");
-         const double precision =
-            std::max((MCha_goal - get_MCha()).cwiseAbs().maxCoeff(),
-                     std::abs(MChi_goal(max_bino) - get_MChi(max_bino)));
-         get_problems().flag_no_convergence_Mu_MassB_MassWB(precision, it);
+         it = max_iterations;
          break;
       }
 
       if (!Y.allFinite()) {
          WARNING("neutralino mixing matrix contains NaNs");
-         const double precision =
-            std::max((MCha_goal - get_MCha()).cwiseAbs().maxCoeff(),
-                     std::abs(MChi_goal(max_bino) - get_MChi(max_bino)));
-         get_problems().flag_no_convergence_Mu_MassB_MassWB(precision, it);
+         it = max_iterations;
          break;
       }
 
