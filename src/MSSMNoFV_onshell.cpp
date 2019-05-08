@@ -259,8 +259,8 @@ void MSSMNoFV_onshell::calculate_masses() {
 
 void MSSMNoFV_onshell::check_input() const
 {
-#define WARN_OR_THROW_IF_ZERO(mass,msg)                 \
-   if (gm2calc::detail::is_zero(get_##mass())) {        \
+#define WARN_OR_THROW_IF(cond,msg)                      \
+   if (cond) {                                          \
       if (do_force_output()) {                          \
          WARNING(msg);                                  \
       } else {                                          \
@@ -268,6 +268,13 @@ void MSSMNoFV_onshell::check_input() const
       }                                                 \
    }
 
+#define WARN_OR_THROW_IF_ZERO(mass,msg)                         \
+   WARN_OR_THROW_IF(gm2calc::detail::is_zero(get_##mass()),msg)
+
+   const double MW = get_MW();
+   const double MZ = get_MZ();
+
+   WARN_OR_THROW_IF(MW >= MZ   , "MW >= MZ cannot be treated with GM2Calc");
    WARN_OR_THROW_IF_ZERO(MW    , "W mass is zero");
    WARN_OR_THROW_IF_ZERO(MZ    , "Z mass is zero");
    WARN_OR_THROW_IF_ZERO(MM    , "Muon mass is zero");
@@ -276,6 +283,7 @@ void MSSMNoFV_onshell::check_input() const
    WARN_OR_THROW_IF_ZERO(MassWB, "Wino mass M2 is zero");
    WARN_OR_THROW_IF_ZERO(TB    , "tan(beta) is zero");
 
+#undef WARN_OR_THROW_IF
 #undef WARN_OR_THROW_IF_ZERO
 }
 
