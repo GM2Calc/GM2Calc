@@ -18,6 +18,9 @@ GM2Calc-1.4.4 [not released yet]
  * Bugfix (commit 2ea83e8): Catch unphysical input parameter where
    `MW >= MZ`.
 
+ * Bugfix (commit 674cc13): If there is more than one entry with the
+   same key in an SLHA block, use the last one.
+
 GM2Calc-1.4.3 [October, 07 2018]
 ================================
 
