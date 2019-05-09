@@ -93,14 +93,19 @@ double GM2_slha_io::read_entry(const std::string& block_name, int key,
 
    double entry = 0.;
    const SLHAea::Block::key_type keys(1, std::to_string(key));
-   SLHAea::Block::const_iterator line;
 
    while (block != data.cend()) {
       if (at_scale(*block, scale)) {
-         line = block->find(keys);
+         SLHAea::Block::const_iterator line = block->find(keys);
 
-         if (line != block->end() && line->is_data_line() && line->size() > 1)
-            entry = convert_to<double>(line->at(1));
+         while (line != block->end()) {
+            if (line->is_data_line() && line->size() > 1) {
+               entry = convert_to<double>(line->at(1));
+            }
+
+            ++line;
+            line = block->find(line, block->end(), keys);
+         }
       }
 
       ++block;
