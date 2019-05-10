@@ -1,4 +1,4 @@
-GM2Calc-1.4.4 [not released yet]
+GM2Calc-1.5.0 [not released yet]
 ================================
 
  * Feature: New `make install` target, so GM2Calc can be installed.
@@ -12,14 +12,26 @@ GM2Calc-1.4.4 [not released yet]
        make
        make install
 
+ * Feature: The required Boost and Eigen libraries can now be
+   installed with [Conan](https://conan.io/):
+
+       mkdir -p build
+       cd build
+
+       # install dependencies
+       conan install ..
+
+       # invoke cmake as usual
+       cmake ..
+
  * Change (commit 577815e): `gm2calc::Error` now inherits from
    `std::runtime_error`.
 
+ * Change (commit 674cc13): If there is more than one entry with the
+   same key in an SLHA block, use the last one.
+
  * Bugfix (commit 2ea83e8): Catch unphysical input parameter where
    `MW >= MZ`.
-
- * Bugfix (commit 674cc13): If there is more than one entry with the
-   same key in an SLHA block, use the last one.
 
 GM2Calc-1.4.3 [October, 07 2018]
 ================================
