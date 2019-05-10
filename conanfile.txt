@@ -1,0 +1,6 @@
+[requires]
+eigen/[>=3.1]@conan/stable
+boost/[>=1.37.0]@conan/stable
+
+[generators]
+cmake

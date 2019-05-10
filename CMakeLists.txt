@@ -27,6 +27,11 @@ configure_file (
   "${CMAKE_BINARY_DIR}/gm2calc.pc"
   @ONLY)
 
+if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+  include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+  conan_basic_setup()
+endif()
+
 find_package(Boost 1.37.0 REQUIRED)
 find_package(Eigen3 3.1 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})

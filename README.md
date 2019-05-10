@@ -21,12 +21,31 @@ Requirements
  * Eigen 3 (version 3.1 or higher) [http://eigen.tuxfamily.org]
 
 
-Compilation
-===========
+Building GM2Calc
+================
+
+Installation of dependencies
+----------------------------
+
+The dependencies listed above can be installed using the package
+manager of your Linux distribution.  On Debian/Ubuntu, for example,
+one may run:
+
+    sudo apt-get install libeigen3-dev libboost-all-dev
+
+Alternatively, the [Conan](https://conan.io/) package manager can be
+used to install the dependencies:
+
+    mkdir -p build
+    cd build
+    conan install ..
+
+Compilation of GM2Calc
+----------------------
 
 To compile GM2Calc run:
 
-    mkdir build
+    mkdir -p build
     cd build
     cmake ..
     make
