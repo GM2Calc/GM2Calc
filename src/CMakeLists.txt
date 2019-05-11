@@ -68,5 +68,5 @@ install(
 
 install(
   FILES ${gm2calc_public_headers}
-  DESTINATION "${INCLUDE_INSTALL_DIR}"
+  DESTINATION "${INCLUDE_INSTALL_SUB_DIR}"
   )
