@@ -1,5 +1,5 @@
-GM2Calc-1.5.0 [not released yet]
-================================
+GM2Calc-1.5.0 [May, 11 2019]
+============================
 
  * Feature: New `make install` target, so GM2Calc can be installed.
    The installation includes the executable `gm2calc.x`, the GM2Calc
