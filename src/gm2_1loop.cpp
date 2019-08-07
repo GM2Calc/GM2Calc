@@ -68,7 +68,7 @@ double calculate_amu_1loop(const MSSMNoFV_onshell& model)
 }
 
 /**
- * Calculates 1-loop chargino contribution to (g-2), Eq (2.11a) of
+ * Calculates 1-loop neutralino contribution to (g-2), Eq (2.11a) of
  * arXiv:1311.1775.
  */
 double amuChi0(const MSSMNoFV_onshell& model) {
