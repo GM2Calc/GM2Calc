@@ -84,7 +84,7 @@ double F2C(double x) {
 double F3C(double x) {
    const double d = x - 1.0;
 
-   if (is_equal(x, 1., 0.07)) {
+   if (is_equal(x, 1.0, 0.07)) {
       return 1.0
          + d*(1059.0/1175.0
          + d*(-4313.0/3525.0
@@ -94,10 +94,12 @@ double F3C(double x) {
          - 80755.0/82908.0*d)))));
    }
 
+   const double lx = std::log(x);
+
    return 4.0/(141.0*pow4(d)) * (
       + (1.0 - x) * (151.0 * sqr(x) - 335.0 * x + 592.0)
-      + 6.0 * (21.0 * pow3(x) - 108.0 * sqr(x) - 93.0 * x + 50.0) * std::log(x)
-      - 54.0 * x * (sqr(x) - 2.0 * x - 2.0) * sqr(std::log(x))
+      + 6.0 * (21.0 * pow3(x) - 108.0 * sqr(x) - 93.0 * x + 50.0) * lx
+      - 54.0 * x * (sqr(x) - 2.0 * x - 2.0) * sqr(lx)
       - 108.0 * x * (sqr(x) - 2.0 * x + 12.0) * dilog(1.0 - x)
       );
 }
@@ -116,9 +118,11 @@ double F4C(double x) {
          - 47021/1076040.*std::pow(-1 + x,6);
    }
 
+   const double lx = std::log(x);
+
    return ( - 9. / (122. * pow3(1. - x)) * (8. * (sqr(x) - 3. * x + 2.)
-             +  (11. * sqr(x) - 40. * x + 5.) * std::log(x)
-             - 2. * (sqr(x) - 2. * x - 2.) * sqr(std::log(x))
+             +  (11. * sqr(x) - 40. * x + 5.) * lx
+             - 2. * (sqr(x) - 2. * x - 2.) * sqr(lx)
              - 4. * (sqr(x) - 2. * x + 9.) * dilog(1.- x)) );
 }
 
