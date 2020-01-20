@@ -150,13 +150,14 @@ double F2N(double x) {
       return 3.0;
    }
 
-   if (is_equal(x, 1., 0.04)) {
-      return 1. - 0.5*(-1 + x) + 0.3*sqr(-1 + x) - 0.2*pow3(-1 + x)
-         + 1/7.*pow4(-1 + x) - 3/28.*std::pow(-1 + x,5)
-         + 1/12.*std::pow(-1 + x,6);
+   if (is_equal(x, 1.0, 0.04)) {
+      const double d = x - 1.0;
+
+      return 1. + d*(-0.5 + d*(0.3 + d*(-0.2
+         + d*(1.0/7.0 + d*(-3.0/28.0 + 1.0/12.0*d)))));
    }
 
-   return 3. / pow3(1. - x) * (1. - sqr(x) + 2. * x * std::log(x));
+   return 3.0/pow3(1.0 - x) * (1.0 + x*(2.0 * std::log(x) - x));
 }
 
 double F3N(double x) {
