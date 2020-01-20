@@ -63,8 +63,7 @@ double F1C(double x) {
          + 2.0/15.0*d)))));
    }
 
-   return 2. / pow4(d) * (2. + 3. * x - 6. * sqr(x)
-                          + pow3(x) + 6. * x * std::log(x));
+   return 2.0/pow4(d)*(2.0 + x*(3.0 + 6.0*std::log(x) + x*(-6.0 + x)));
 }
 
 double F2C(double x) {
