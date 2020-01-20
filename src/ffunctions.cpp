@@ -202,8 +202,13 @@ double F4N(double x) {
 
 /// Fb(1,1)
 double Fb11(double x, double y) {
-   return (293. - 216.*y + 63.*sqr(y) + sqr(x)*(63. - 50.*y + 15.*sqr(y))
-           - 2.*x*(108. - 84.*y + 25.*sqr(y))) / 840.;
+   const double x1 = x - 1.0;
+   const double y1 = y - 1.0;
+
+   return
+      + 1.0/12.0 + (-0.05 + y1/30.)*y1
+      + x1*(-0.05 + (1.0/30.0 - y1/42.0)*y1
+      + x1*(1.0/30.0 + (-1.0/42.0 + y1/56.0)*y1));
 }
 
 /// Fb(x,1)
@@ -225,20 +230,25 @@ double Fbx(double x, double y) {
 }
 
 double Fb(double x, double y) {
-   if ((is_zero(x) && is_zero(y)) || is_zero(x) || is_zero(y))
-      return 0.;
+   if ((is_zero(x) && is_zero(y)) || is_zero(x) || is_zero(y)) {
+      return 0.0;
+   }
 
-   if (is_equal(x, 1., 0.01) && is_equal(y, 1., 0.01))
-      return Fb11(x,y);
+   if (is_equal(x, 1.0, 0.01) && is_equal(y, 1.0, 0.01)) {
+      return Fb11(x, y);
+   }
 
-   if (is_equal(x, 1., 0.01))
-      return Fb1(y,x);
+   if (is_equal(x, 1.0, 0.01)) {
+      return Fb1(y, x);
+   }
 
-   if (is_equal(y, 1., 0.01))
-      return Fb1(x,y);
+   if (is_equal(y, 1.0, 0.01)) {
+      return Fb1(x, y);
+   }
 
-   if (is_equal_rel(x, y, 0.01))
-      return Fbx(x,y);
+   if (is_equal_rel(x, y, 0.01)) {
+      return Fbx(x, y);
+   }
 
    return - (G4(x) - G4(y)) / (x - y);
 }

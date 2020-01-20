@@ -34,4 +34,6 @@ TEST_CASE("limits -> 1")
    CHECK_CLOSE(F2N(1.0), 1.0, eps);
    CHECK_CLOSE(F3N(1.0), 1.0, eps);
    CHECK_CLOSE(F4N(1.0), 1.0, eps);
+
+   CHECK_CLOSE(Fb(1.0, 1.0), 1.0/12.0, eps);
 }
