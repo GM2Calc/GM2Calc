@@ -135,14 +135,14 @@ double F1N(double x) {
       return 2.0;
    }
 
-   if (is_equal(x, 1., 0.06)) {
-      return 1. - 0.4*(-1 + x) + 0.2*sqr(-1 + x) - 4/35.*pow3(-1 + x)
-         + 1/14.*pow4(-1 + x) - 1/21.*std::pow(-1 + x,5)
-         + 1/30.*std::pow(-1 + x,6);
+   const double d = x - 1.0;
+
+   if (is_equal(x, 1.0, 0.06)) {
+      return 1.0 + d*(-0.4 + d*(0.2 + d*(-4.0/35.0
+         + d*(1.0/14.0 + d*(-1.0/21.0 + 1.0/30.0*d)))));
    }
 
-   return 2. / pow4(1. - x) * (1. - 6. * x + 3. * sqr(x)
-                               + 2. * pow3(x) - 6. * sqr(x) * std::log(x));
+   return 2.0/pow4(d)*(1.0 + x*(-6.0 + x*(+3.0 - 6.0 * std::log(x) + 2.0 * x)));
 }
 
 double F2N(double x) {
