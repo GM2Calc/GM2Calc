@@ -78,7 +78,7 @@ double F2C(double x) {
          + 1/3.*std::pow(-1 + x,6);
    }
 
-   return 3. / (2. * pow3(1. - x)) * (- 3. + 4. * x - sqr(x) - 2. * log(x));
+   return 3. / (2. * pow3(1. - x)) * (- 3. + 4. * x - sqr(x) - 2. * std::log(x));
 }
 
 double F3C(double x) {
@@ -92,8 +92,8 @@ double F3C(double x) {
    }
 
    return ( 4. / (141. * pow4(1. - x)) * ((1. - x) * (151. * sqr(x) - 335. * x + 592.)
-             + 6. * (21. * pow3(x) - 108. * sqr(x) - 93. * x + 50.) * log(x)
-             - 54. * x * (sqr(x) - 2. * x - 2.) * sqr(log(x))
+             + 6. * (21. * pow3(x) - 108. * sqr(x) - 93. * x + 50.) * std::log(x)
+             - 54. * x * (sqr(x) - 2. * x - 2.) * sqr(std::log(x))
              - 108. * x * (sqr(x) - 2. * x + 12.) * dilog(1.- x)) );
 }
 
@@ -112,8 +112,8 @@ double F4C(double x) {
    }
 
    return ( - 9. / (122. * pow3(1. - x)) * (8. * (sqr(x) - 3. * x + 2.)
-             +  (11. * sqr(x) - 40. * x + 5.) * log(x)
-             - 2. * (sqr(x) - 2. * x - 2.) * sqr(log(x))
+             +  (11. * sqr(x) - 40. * x + 5.) * std::log(x)
+             - 2. * (sqr(x) - 2. * x - 2.) * sqr(std::log(x))
              - 4. * (sqr(x) - 2. * x + 9.) * dilog(1.- x)) );
 }
 
@@ -129,7 +129,7 @@ double F1N(double x) {
    }
 
    return 2. / pow4(1. - x) * (1. - 6. * x + 3. * sqr(x)
-                               + 2. * pow3(x) - 6. * sqr(x) * log(x));
+                               + 2. * pow3(x) - 6. * sqr(x) * std::log(x));
 }
 
 double F2N(double x) {
@@ -143,7 +143,7 @@ double F2N(double x) {
          + 1/12.*std::pow(-1 + x,6);
    }
 
-   return 3. / pow3(1. - x) * (1. - sqr(x) + 2. * x * log(x));
+   return 3. / pow3(1. - x) * (1. - sqr(x) + 2. * x * std::log(x));
 }
 
 double F3N(double x) {
@@ -161,7 +161,7 @@ double F3N(double x) {
    }
 
    return 4. / (105. * pow4(1. - x)) * ((1. - x) * (- 97. * sqr(x) - 529. * x + 2.)
-            + 6. * sqr(x) * (13. * x + 81.) * log(x)
+            + 6. * sqr(x) * (13. * x + 81.) * std::log(x)
             + 108. * x * (7. * x + 4.) * dilog(1. - x));
 }
 
@@ -181,7 +181,7 @@ double F4N(double x) {
          - 775/8064.*std::pow(-1 + x,6);
    }
 
-   return - 2.25 / pow3(1. - x) * ((x + 3.) * (x * log(x) + x - 1.)
+   return - 2.25 / pow3(1. - x) * ((x + 3.) * (x * std::log(x) + x - 1.)
                                    + (6. * x + 2.) * dilog(1. - x));
 }
 
@@ -193,20 +193,20 @@ double Fb11(double x, double y) {
 
 /// Fb(x,1)
 double Fb1(double x, double y) {
-   return (2. + 3.*x - 6.*sqr(x) + pow3(x) + 6.*x*log(x)) / (6.*pow4(-1. + x))
-      + (-1. + y) * (3. + 10.*x - 18.*sqr(x) + 6.*pow3(x) - pow4(x) + 12.*x*log(x))
+   return (2. + 3.*x - 6.*sqr(x) + pow3(x) + 6.*x*std::log(x)) / (6.*pow4(-1. + x))
+      + (-1. + y) * (3. + 10.*x - 18.*sqr(x) + 6.*pow3(x) - pow4(x) + 12.*x*std::log(x))
       / (12.*std::pow(-1. + x,5))
       + sqr(-1. + y) * (12. + 65.*x - 120.*sqr(x) + 60.*pow3(x) - 20.*pow4(x)
-                        + 3.*std::pow(x,5) + 60.*x*log(x)) / (60.*std::pow(-1. + x,6));
+                        + 3.*std::pow(x,5) + 60.*x*std::log(x)) / (60.*std::pow(-1. + x,6));
 }
 
 /// Fb(x,x)
 double Fbx(double x, double y) {
-   return (-5. + 4.*x + sqr(x) - 2.*log(x) - 4.*x*log(x)) / (2.*pow4(-1. + x))
-      - (-x + y) * (-1. - 9.*x + 9.*sqr(x) + pow3(x) - 6.*x*log(x) - 6.*sqr(x)*log(x))
+   return (-5. + 4.*x + sqr(x) - 2.*std::log(x) - 4.*x*std::log(x)) / (2.*pow4(-1. + x))
+      - (-x + y) * (-1. - 9.*x + 9.*sqr(x) + pow3(x) - 6.*x*std::log(x) - 6.*sqr(x)*std::log(x))
       / (2.*std::pow(-1. + x,5)*x)
-      - sqr(-x + y) * (-1. + 12.*x + 36.*sqr(x) - 44.*pow3(x) - 3.*pow4(x) + 36.*sqr(x)*log(x)
-                       + 24.*pow3(x)*log(x)) / (6.*std::pow(-1. + x,6)*sqr(x));
+      - sqr(-x + y) * (-1. + 12.*x + 36.*sqr(x) - 44.*pow3(x) - 3.*pow4(x) + 36.*sqr(x)*std::log(x)
+                       + 24.*pow3(x)*std::log(x)) / (6.*std::pow(-1. + x,6)*sqr(x));
 }
 
 double Fb(double x, double y) {
@@ -236,20 +236,20 @@ double Fa11(double x, double y) {
 
 /// Fa(x,1)
 double Fa1(double x, double y) {
-   return (-11. + 18.*x - 9.*sqr(x) + 2.*pow3(x) - 6.*log(x)) / (6.*pow4(-1. + x))
-      + (-1. + y) * (-25. + 48.*x - 36.*sqr(x) + 16.*pow3(x) - 3.*pow4(x) - 12.*log(x))
+   return (-11. + 18.*x - 9.*sqr(x) + 2.*pow3(x) - 6.*std::log(x)) / (6.*pow4(-1. + x))
+      + (-1. + y) * (-25. + 48.*x - 36.*sqr(x) + 16.*pow3(x) - 3.*pow4(x) - 12.*std::log(x))
       / (12.*std::pow(-1. + x,5))
       + sqr(-1. + y) * (-137. + 300.*x - 300.*sqr(x) + 200.*pow3(x) - 75.*pow4(x)
-                        + 12.*std::pow(x,5) - 60.*log(x)) / (60.*std::pow(-1. + x,6));
+                        + 12.*std::pow(x,5) - 60.*std::log(x)) / (60.*std::pow(-1. + x,6));
 }
 
 /// Fa(x,x)
 double Fax(double x, double y) {
-   return (2. + 3.*x - 6.*sqr(x) + pow3(x) + 6.*x*log(x)) / (2.*pow4(-1. + x)*x)
-      - (-x + y) * (-1. + 8.*x - 8.*pow3(x) + pow4(x) + 12.*sqr(x)*log(x))
+   return (2. + 3.*x - 6.*sqr(x) + pow3(x) + 6.*x*std::log(x)) / (2.*pow4(-1. + x)*x)
+      - (-x + y) * (-1. + 8.*x - 8.*pow3(x) + pow4(x) + 12.*sqr(x)*std::log(x))
       / (2.*std::pow(-1. + x,5)*sqr(x))
       - sqr(-x + y) * (-2. + 15.*x - 60.*sqr(x) + 20.*pow3(x) + 30.*pow4(x) - 3.*std::pow(x,5)
-                       - 60.*pow3(x)*log(x)) / (6.*std::pow(-1. + x,6)*pow3(x));
+                       - 60.*pow3(x)*std::log(x)) / (6.*std::pow(-1. + x,6)*pow3(x));
 }
 
 double Fa(double x, double y) {
@@ -272,11 +272,11 @@ double Fa(double x, double y) {
 }
 
 double G3(double x) {
-   return 1. / (2. * pow3(x - 1.)) * ((x - 1.) * (x - 3.) + 2. * log(x));
+   return 1. / (2. * pow3(x - 1.)) * ((x - 1.) * (x - 3.) + 2. * std::log(x));
 }
 
 double G4(double x) {
-   return 1. / (2. * pow3(x - 1.)) * ((x - 1.) * (x + 1.) - 2. * x * log(x));
+   return 1. / (2. * pow3(x - 1.)) * ((x - 1.) * (x + 1.) - 2. * x * std::log(x));
 }
 
 /// Iabc(a,a,a)
@@ -291,7 +291,7 @@ double Iaac(double a, double b, double c) {
            * (17.*std::pow(a,6) - 16.*std::pow(a,5)*b - 40.*pow3(a)*b*sqr(c)
               + 8.*a*b*pow4(c) - sqr(b)*pow4(c) + pow4(a)*(5.*sqr(b) + 8.*sqr(c))
               + sqr(a)*(20.*sqr(b)*sqr(c) - pow4(c)))
-           - 6.*sqr(a)*sqr(c) * log(sqr(a)/sqr(c))
+           - 6.*sqr(a)*sqr(c) * std::log(sqr(a)/sqr(c))
            * (6.*pow4(a) - 8.*pow3(a)*b + 3.*sqr(a)*(sqr(b) - sqr(c)) + sqr(c)*(sqr(b) + sqr(c))))
       / (6.*sqr(a)*pow4(sqr(a) - sqr(c)));
 }
@@ -303,7 +303,7 @@ double Iaa0(double a, double b) {
 
 /// Iabc(0,b,c)
 double I0bc(double b, double c) {
-   return log(sqr(b/c))/(sqr(b) - sqr(c));
+   return std::log(sqr(b/c))/(sqr(b) - sqr(c));
 }
 
 double Iabc(double a, double b, double c) {
@@ -343,9 +343,9 @@ double Iabc(double a, double b, double c) {
    if (is_zero(c))
       return I0bc(a,b);
 
-   return ( (sqr(a * b) * log(sqr(a / b))
-           + sqr(b * c) * log(sqr(b / c))
-           + sqr(c * a) * log(sqr(c / a)))
+   return ( (sqr(a * b) * std::log(sqr(a / b))
+           + sqr(b * c) * std::log(sqr(b / c))
+           + sqr(c * a) * std::log(sqr(c / a)))
            / ((sqr(a) - sqr(b)) * (sqr(b) - sqr(c)) * (sqr(a) - sqr(c))) );
 }
 
@@ -374,7 +374,7 @@ double f_S(double z) {
    if(z < 0.)
       ERROR("f_S: z must not be negativ!");
 
-   return (2. * z - 1.) * f_PS(z) - 2. * z * (2. + log(z));
+   return (2. * z - 1.) * f_PS(z) - 2. * z * (2. + std::log(z));
 }
 
 /**
@@ -384,7 +384,7 @@ double f_sferm(double z) {
    if(z < 0.)
       ERROR("f_sferm: z must not be negativ!");
 
-   return 0.5 * z * (2. + log(z) - f_PS(z));
+   return 0.5 * z * (2. + std::log(z) - f_PS(z));
 }
 
 } // namespace gm2calc
