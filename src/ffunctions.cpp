@@ -368,15 +368,15 @@ double Iabc(double a, double b, double c) {
  * Calculates \f$f_{PS}(z)\f$, Eq (70) arXiv:hep-ph/0609168
  */
 double f_PS(double z) {
-   double result = 0.;
+   double result = 0.0;
 
    if (z < 0.25) {
       const double y = sqrt(1. - 4. * z);
-      result = 2. * z / y * (dilog(1. - 0.5 * (1. - y) / z) - dilog(1. - 0.5 * (1. + y) / z));
+      result = 2.0*z/y*(dilog(1.0 - 0.5*(1.0 - y)/z) - dilog(1.0 - 0.5*(1.0 + y)/z));
    } else {
-      const std::complex<double> y(sqrt(std::complex<double>(1. - 4. * z, 0.)));
-      const std::complex<double> zc(z, 0.);
-      result = std::real(2. * zc / y * (dilog(1. - 0.5 * (1. - y) / zc) - dilog(1. - 0.5 * (1. + y) / zc)));
+      const std::complex<double> y = std::sqrt(std::complex<double>(1.0 - 4.0*z, 0.0));
+      const std::complex<double> zc(z, 0.0);
+      result = std::real(2.0*zc/y*(dilog(1.0 - 0.5*(1.0 - y)/zc) - dilog(1.0 - 0.5*(1.0 + y)/zc)));
    }
 
    return result;
@@ -386,20 +386,22 @@ double f_PS(double z) {
  * Calculates \f$f_S(z)\f$, Eq (71) arXiv:hep-ph/0609168
  */
 double f_S(double z) {
-   if(z < 0.)
+   if (z < 0.0) {
       ERROR("f_S: z must not be negativ!");
+   }
 
-   return (2. * z - 1.) * f_PS(z) - 2. * z * (2. + std::log(z));
+   return (2.0*z - 1.0)*f_PS(z) - 2.0*z*(2.0 + std::log(z));
 }
 
 /**
  * Calculates \f$f_{\tilde{f}}(z)\f$, Eq (72) arXiv:hep-ph/0609168
  */
 double f_sferm(double z) {
-   if(z < 0.)
+   if (z < 0.0) {
       ERROR("f_sferm: z must not be negativ!");
+   }
 
-   return 0.5 * z * (2. + std::log(z) - f_PS(z));
+   return 0.5*z*(2.0 + std::log(z) - f_PS(z));
 }
 
 } // namespace gm2calc
