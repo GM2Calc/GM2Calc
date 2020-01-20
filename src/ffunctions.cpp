@@ -29,8 +29,6 @@
 namespace gm2calc {
 
 namespace {
-   const double Pi = 3.14159265358979323846;
-
    /// returns number cubed
    template <typename T> T pow3(T x) { return x*x*x; }
 
@@ -53,8 +51,9 @@ double signed_abs_sqrt(double x) {
 }
 
 double F1C(double x) {
-   if (is_zero(x))
-      return 4.;
+   if (is_zero(x)) {
+      return 4.0;
+   }
 
    const double d = x - 1.0;
 
@@ -69,14 +68,15 @@ double F1C(double x) {
 }
 
 double F2C(double x) {
+   if (is_zero(x)) {
+      return 0.0;
+   }
+
    if (is_equal(x, 1., 0.03)) {
       return 1. - 0.75*(-1 + x) + 0.6*sqr(-1 + x) - 0.5*pow3(-1 + x)
          + 3/7.*pow4(-1 + x) - 0.375*std::pow(-1 + x,5)
          + 1/3.*std::pow(-1 + x,6);
    }
-
-   if (is_zero(x))
-      return 0.;
 
    return 3. / (2. * pow3(1. - x)) * (- 3. + 4. * x - sqr(x) - 2. * log(x));
 }
@@ -98,6 +98,10 @@ double F3C(double x) {
 }
 
 double F4C(double x) {
+   if (is_zero(x)) {
+      return 0.0;
+   }
+
    if (is_equal(x, 1., 0.07)) {
       return 1. - 45/122.*(-1 + x)
          + 941/6100.*sqr(-1 + x)
@@ -107,9 +111,6 @@ double F4C(double x) {
          - 47021/1076040.*std::pow(-1 + x,6);
    }
 
-   if (is_zero(x))
-      return 0.;
-
    return ( - 9. / (122. * pow3(1. - x)) * (8. * (sqr(x) - 3. * x + 2.)
              +  (11. * sqr(x) - 40. * x + 5.) * log(x)
              - 2. * (sqr(x) - 2. * x - 2.) * sqr(log(x))
@@ -117,33 +118,39 @@ double F4C(double x) {
 }
 
 double F1N(double x) {
+   if (is_zero(x)) {
+      return 2.0;
+   }
+
    if (is_equal(x, 1., 0.06)) {
       return 1. - 0.4*(-1 + x) + 0.2*sqr(-1 + x) - 4/35.*pow3(-1 + x)
          + 1/14.*pow4(-1 + x) - 1/21.*std::pow(-1 + x,5)
          + 1/30.*std::pow(-1 + x,6);
    }
 
-   if (is_zero(x))
-      return 2.;
-
    return 2. / pow4(1. - x) * (1. - 6. * x + 3. * sqr(x)
                                + 2. * pow3(x) - 6. * sqr(x) * log(x));
 }
 
 double F2N(double x) {
+   if (is_zero(x)) {
+      return 3.0;
+   }
+
    if (is_equal(x, 1., 0.04)) {
       return 1. - 0.5*(-1 + x) + 0.3*sqr(-1 + x) - 0.2*pow3(-1 + x)
          + 1/7.*pow4(-1 + x) - 3/28.*std::pow(-1 + x,5)
          + 1/12.*std::pow(-1 + x,6);
    }
 
-   if (is_zero(x))
-      return 3.;
-
    return 3. / pow3(1. - x) * (1. - sqr(x) + 2. * x * log(x));
 }
 
 double F3N(double x) {
+   if (is_zero(x)) {
+      return 8.0/105.0;
+   }
+
    if (is_equal(x, 1., 0.07)) {
       return 1. + 76/875.*(-1 + x)
          - 431/2625.*sqr(-1 + x)
@@ -153,15 +160,19 @@ double F3N(double x) {
          - 4381/73500.*std::pow(-1 + x,6);
    }
 
-   if (is_zero(x))
-      return 8./105.;
-
    return 4. / (105. * pow4(1. - x)) * ((1. - x) * (- 97. * sqr(x) - 529. * x + 2.)
             + 6. * sqr(x) * (13. * x + 81.) * log(x)
             + 108. * x * (7. * x + 4.) * dilog(1. - x));
 }
 
 double F4N(double x) {
+   const double PI = 3.14159265358979323846;
+   const double PI2 = PI * PI;
+
+   if (is_zero(x)) {
+      return -3.0/4.0*(-9.0 + PI2);
+   }
+
    if (is_equal(x, 1., 0.07)) {
       return 1. - 0.13875*sqr(-1 + x)
          + 0.1475*pow3(-1 + x)
@@ -169,9 +180,6 @@ double F4N(double x) {
          + 177/1568.*std::pow(-1 + x,5)
          - 775/8064.*std::pow(-1 + x,6);
    }
-
-   if (is_zero(x))
-      return -(3./4.)*(-9. + sqr(Pi));
 
    return - 2.25 / pow3(1. - x) * ((x + 3.) * (x * log(x) + x - 1.)
                                    + (6. * x + 2.) * dilog(1. - x));
