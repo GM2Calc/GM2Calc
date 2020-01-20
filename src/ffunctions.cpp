@@ -213,11 +213,16 @@ double Fb11(double x, double y) {
 
 /// Fb(x,1)
 double Fb1(double x, double y) {
-   return (2. + 3.*x - 6.*sqr(x) + pow3(x) + 6.*x*std::log(x)) / (6.*pow4(-1. + x))
-      + (-1. + y) * (3. + 10.*x - 18.*sqr(x) + 6.*pow3(x) - pow4(x) + 12.*x*std::log(x))
-      / (12.*std::pow(-1. + x,5))
-      + sqr(-1. + y) * (12. + 65.*x - 120.*sqr(x) + 60.*pow3(x) - 20.*pow4(x)
-                        + 3.*std::pow(x,5) + 60.*x*std::log(x)) / (60.*std::pow(-1. + x,6));
+   const double x1 = x - 1.0;
+   const double y1 = y - 1.0;
+   const double lx = std::log(x);
+   const double x14 = pow4(x1);
+   const double x15 = x14*x;
+   const double x16 = x15*x;
+
+   return (2.0 + x*(3.0 + 6.0*lx + x*(-6.0 + x)))/(6.0*x14)
+      + y1*(3.0 + x*(10.0 + 12.0*lx + x*(-18.0 + x*(6.0 - x))))/(12.0*x15)
+      + sqr(y1)*(12.0 + x*(65.0 + 60.0*lx + x*(-120.0 + x*(60.0 + x*(-20.0 + 3.0*x)))))/(60.*x16);
 }
 
 /// Fb(x,x)
