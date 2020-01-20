@@ -71,13 +71,14 @@ double F2C(double x) {
       return 0.0;
    }
 
-   if (is_equal(x, 1., 0.03)) {
-      return 1. - 0.75*(-1 + x) + 0.6*sqr(-1 + x) - 0.5*pow3(-1 + x)
-         + 3/7.*pow4(-1 + x) - 0.375*std::pow(-1 + x,5)
-         + 1/3.*std::pow(-1 + x,6);
+   if (is_equal(x, 1.0, 0.03)) {
+      const double d = x - 1.0;
+
+      return 1.0 + d*(-0.75 + d*(0.6 + d*(-0.5 + d*(3.0/7.0
+         + d*(-0.375 + 1.0/3.0*d)))));
    }
 
-   return 3. / (2. * pow3(1. - x)) * (- 3. + 4. * x - sqr(x) - 2. * std::log(x));
+   return 3.0/(2.0*pow3(1.0 - x))*(-3.0 - 2.0*std::log(x) + x*(4.0 - x));
 }
 
 double F3C(double x) {
