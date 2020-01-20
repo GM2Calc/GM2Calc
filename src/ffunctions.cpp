@@ -53,17 +53,19 @@ double signed_abs_sqrt(double x) {
 }
 
 double F1C(double x) {
-   if (is_equal(x, 1., 0.05)) {
-      return 1. - 0.6*(-1 + x) + 0.4*sqr(-1 + x) - 2/7.*pow3(-1 + x)
-         + 3/14.*pow4(-1 + x) - 1/6.*std::pow(-1 + x,5)
-         + 2/15.*std::pow(-1 + x,6);
-   }
-
    if (is_zero(x))
       return 4.;
 
-   return 2. / pow4(1. - x) * (2. + 3. * x - 6. * sqr(x)
-                               + pow3(x) + 6. * x * log(x));
+   const double d = x - 1.0;
+
+   if (is_equal(x, 1.0, 0.05)) {
+      return 1.0 + d*(-0.6 + d*(0.4 + d*(-2.0/7.0
+         + d*(3.0/14.0 + d*(-1.0/6.0
+         + 2.0/15.0*d)))));
+   }
+
+   return 2. / pow4(d) * (2. + 3. * x - 6. * sqr(x)
+                          + pow3(x) + 6. * x * std::log(x));
 }
 
 double F2C(double x) {
