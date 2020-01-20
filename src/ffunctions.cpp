@@ -20,9 +20,9 @@
 #include "dilog.hpp"
 #include "numerics2.hpp"
 
-#include <iostream>
 #include <cmath>
 #include <complex>
+#include <iostream>
 
 #define ERROR(message) std::cerr << "Error: " << message << '\n';
 
@@ -34,7 +34,7 @@ namespace {
 
    /// returns number to the power 4
    template <typename T> T pow4(T x) { return x*x*x*x; }
-}
+} // anonymous namespace
 
 using namespace flexiblesusy;
 
