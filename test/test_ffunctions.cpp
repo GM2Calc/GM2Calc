@@ -141,3 +141,33 @@ TEST_CASE("test_Fab")
    test_2("Fa", [] (double x, double y) { return gm2calc::Fa(x,y); }, 1e-7);
    test_2("Fb", [] (double x, double y) { return gm2calc::Fb(x,y); }, 1e-7);
 }
+
+template <typename T>
+void test_3(const char* func_name, T func, double eps)
+{
+   const std::string filename(std::string(TEST_DATA_DIR) + PATH_SEPARATOR + func_name + ".txt");
+   const auto data = gm2calc::test::read_from_file<double>(filename);
+
+   for (const auto v: data) {
+      if (v.size() < 4) {
+         continue;
+      }
+
+      const auto x          = v.at(0);
+      const auto y          = v.at(1);
+      const auto z          = v.at(2);
+      const auto f_expected = v.at(3);
+      const auto f_gm2calc  = func(x, y, z);
+
+      INFO("x = " << x << ", y = " << y << ", z = " << z << ", " << func_name
+                  << "(expected) = " << f_expected << ", " << func_name
+                  << "(gm2calc) = " << f_gm2calc);
+
+      CHECK_CLOSE(f_expected, f_gm2calc, eps);
+   }
+}
+
+TEST_CASE("test_Iabc")
+{
+   test_3("Iabc", [] (double x, double y, double z) { return gm2calc::Iabc(x,y,z); }, 1e-7);
+}

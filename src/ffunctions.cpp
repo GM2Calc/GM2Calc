@@ -412,26 +412,27 @@ double Iabc(double a, double b, double c) {
    const double a2 = sqr(a);
    const double b2 = sqr(b);
    const double c2 = sqr(c);
+   const double eps_eq = 0.0001;
 
-   if (is_equal(a2, b2, 0.01) && is_equal(a2, c2, 0.01)) {
+   if (is_equal(a2, b2, eps_eq) && is_equal(a2, c2, eps_eq)) {
       return I2aaa(a2, b2, c2);
    }
 
-   if (is_equal(a2, b2, 0.01)) {
+   if (is_equal(a2, b2, eps_eq)) {
       if (is_zero(c, eps)) {
          return I2aa0(a2, b2);
       }
       return I2aac(a2, b2, c2);
    }
 
-   if (is_equal(b2, c2, 0.01)) {
+   if (is_equal(b2, c2, eps_eq)) {
       if (is_zero(a, eps)) {
          return I2aa0(b2, c2);
       }
       return I2aac(b2, c2, a2);
    }
 
-   if (is_equal(a2, c2, 0.01)) {
+   if (is_equal(a2, c2, eps_eq)) {
       if (is_zero(b, eps)) {
          return I2aa0(a2, c2);
       }
