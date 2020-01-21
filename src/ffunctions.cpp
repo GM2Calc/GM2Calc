@@ -18,25 +18,37 @@
 
 #include "ffunctions.hpp"
 #include "dilog.hpp"
-#include "numerics2.hpp"
 
 #include <cmath>
 #include <complex>
 #include <iostream>
+#include <limits>
 
 #define ERROR(message) std::cerr << "Error: " << message << '\n';
 
 namespace gm2calc {
 
 namespace {
+   const double eps = 10.0*std::numeric_limits<double>::epsilon();
+
    /// returns number cubed
    template <typename T> T pow3(T x) { return x*x*x; }
 
    /// returns number to the power 4
    template <typename T> T pow4(T x) { return x*x*x*x; }
-} // anonymous namespace
 
-using namespace flexiblesusy;
+   bool is_zero(double a, double prec)
+   {
+      return std::fabs(a) < prec;
+   }
+
+   bool is_equal(double a, double b, double prec)
+   {
+      const double max = std::max(std::abs(a), std::abs(b));
+      return is_zero(a - b, prec*(1.0 + max));
+   }
+
+} // anonymous namespace
 
 double abs_sqrt(double x) {
    return std::sqrt(std::abs(x));
@@ -51,13 +63,13 @@ double signed_abs_sqrt(double x) {
 }
 
 double F1C(double x) {
-   if (is_zero(x)) {
+   if (is_zero(x, eps)) {
       return 4.0;
    }
 
    const double d = x - 1.0;
 
-   if (is_equal(x, 1.0, 0.05)) {
+   if (is_equal(x, 1.0, 0.03)) {
       return 1.0 + d*(-0.6 + d*(0.4 + d*(-2.0/7.0
          + d*(3.0/14.0 + d*(-1.0/6.0
          + 2.0/15.0*d)))));
@@ -67,7 +79,7 @@ double F1C(double x) {
 }
 
 double F2C(double x) {
-   if (is_zero(x)) {
+   if (is_zero(x, eps)) {
       return 0.0;
    }
 
@@ -84,7 +96,7 @@ double F2C(double x) {
 double F3C(double x) {
    const double d = x - 1.0;
 
-   if (is_equal(x, 1.0, 0.07)) {
+   if (is_equal(x, 1.0, 0.03)) {
       return 1.0
          + d*(1059.0/1175.0
          + d*(-4313.0/3525.0
@@ -105,11 +117,11 @@ double F3C(double x) {
 }
 
 double F4C(double x) {
-   if (is_zero(x)) {
+   if (is_zero(x, eps)) {
       return 0.0;
    }
 
-   if (is_equal(x, 1.0, 0.07)) {
+   if (is_equal(x, 1.0, 0.03)) {
       const double d = x - 1.0;
 
       return 1.0
@@ -131,13 +143,13 @@ double F4C(double x) {
 }
 
 double F1N(double x) {
-   if (is_zero(x)) {
+   if (is_zero(x, eps)) {
       return 2.0;
    }
 
    const double d = x - 1.0;
 
-   if (is_equal(x, 1.0, 0.06)) {
+   if (is_equal(x, 1.0, 0.03)) {
       return 1.0 + d*(-0.4 + d*(0.2 + d*(-4.0/35.0
          + d*(1.0/14.0 + d*(-1.0/21.0 + 1.0/30.0*d)))));
    }
@@ -146,7 +158,7 @@ double F1N(double x) {
 }
 
 double F2N(double x) {
-   if (is_zero(x)) {
+   if (is_zero(x, eps)) {
       return 3.0;
    }
 
@@ -161,13 +173,13 @@ double F2N(double x) {
 }
 
 double F3N(double x) {
-   if (is_zero(x)) {
+   if (is_zero(x, eps)) {
       return 8.0/105.0;
    }
 
    const double d = x - 1.0;
 
-   if (is_equal(x, 1.0, 0.07)) {
+   if (is_equal(x, 1.0, 0.03)) {
       return 1.0 + d*(76/875.0 + d*(-431/2625.0 + d*(5858/42875.0
          + d*(-3561/34300.0 + d*(23/294.0 - 4381/73500.0*d)))));
    }
@@ -183,11 +195,11 @@ double F4N(double x) {
    const double PI = 3.14159265358979323846;
    const double PI2 = PI * PI;
 
-   if (is_zero(x)) {
+   if (is_zero(x, eps)) {
       return -3.0/4.0*(-9.0 + PI2);
    }
 
-   if (is_equal(x, 1.0, 0.07)) {
+   if (is_equal(x, 1.0, 0.03)) {
       const double d = x - 1.0;
 
       return 1.0 + sqr(d)*(-111.0/800.0 + d*(59.0/400.0 + d*(-129.0/980.0
@@ -240,7 +252,8 @@ double Fbx(double x, double y) {
 }
 
 double Fb(double x, double y) {
-   if ((is_zero(x) && is_zero(y)) || is_zero(x) || is_zero(y)) {
+   if ((is_zero(x, eps) && is_zero(y, eps)) || is_zero(x, eps) ||
+       is_zero(y, eps)) {
       return 0.0;
    }
 
@@ -256,7 +269,7 @@ double Fb(double x, double y) {
       return Fb1(x, y);
    }
 
-   if (is_equal_rel(x, y, 0.01)) {
+   if (is_equal(x, y, 0.01)) {
       return Fbx(x, y);
    }
 
@@ -305,7 +318,8 @@ double Fax(double x, double y) {
 }
 
 double Fa(double x, double y) {
-   if ((is_zero(x) && is_zero(y)) || is_zero(x) || is_zero(y)) {
+   if ((is_zero(x, eps) && is_zero(y, eps)) || is_zero(x, eps) ||
+       is_zero(y, eps)) {
       return 0.0;
    }
 
@@ -321,7 +335,7 @@ double Fa(double x, double y) {
       return Fa1(x,y);
    }
 
-   if (is_equal_rel(x, y, 0.01)) {
+   if (is_equal(x, y, 0.01)) {
       return Fax(x,y);
    }
 
@@ -388,10 +402,10 @@ double I20bc(double b, double c) {
 } // anonymous namespace
 
 double Iabc(double a, double b, double c) {
-   if ((is_zero(a) && is_zero(b) && is_zero(c)) ||
-       (is_zero(a) && is_zero(b)) ||
-       (is_zero(a) && is_zero(c)) ||
-       (is_zero(b) && is_zero(c))) {
+   if ((is_zero(a, eps) && is_zero(b, eps) && is_zero(c, eps)) ||
+       (is_zero(a, eps) && is_zero(b, eps)) ||
+       (is_zero(a, eps) && is_zero(c, eps)) ||
+       (is_zero(b, eps) && is_zero(c, eps))) {
       return 0.0;
    }
 
@@ -399,40 +413,40 @@ double Iabc(double a, double b, double c) {
    const double b2 = sqr(b);
    const double c2 = sqr(c);
 
-   if (is_equal_rel(a2, b2, 0.01) && is_equal_rel(a2, c2, 0.01)) {
+   if (is_equal(a2, b2, 0.01) && is_equal(a2, c2, 0.01)) {
       return I2aaa(a2, b2, c2);
    }
 
-   if (is_equal_rel(a2, b2, 0.01)) {
-      if (is_zero(c)) {
+   if (is_equal(a2, b2, 0.01)) {
+      if (is_zero(c, eps)) {
          return I2aa0(a2, b2);
       }
       return I2aac(a2, b2, c2);
    }
 
-   if (is_equal_rel(b2, c2, 0.01)) {
-      if (is_zero(a)) {
+   if (is_equal(b2, c2, 0.01)) {
+      if (is_zero(a, eps)) {
          return I2aa0(b2, c2);
       }
       return I2aac(b2, c2, a2);
    }
 
-   if (is_equal_rel(a2, c2, 0.01)) {
-      if (is_zero(b)) {
+   if (is_equal(a2, c2, 0.01)) {
+      if (is_zero(b, eps)) {
          return I2aa0(a2, c2);
       }
       return I2aac(a2, c2, b2);
    }
 
-   if (is_zero(a)) {
+   if (is_zero(a, eps)) {
       return I20bc(b2, c2);
    }
 
-   if (is_zero(b)) {
+   if (is_zero(b, eps)) {
       return I20bc(c2, a2);
    }
 
-   if (is_zero(c)) {
+   if (is_zero(c, eps)) {
       return I20bc(a2, b2);
    }
 
