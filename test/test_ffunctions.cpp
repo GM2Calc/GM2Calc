@@ -20,7 +20,7 @@ TEST_CASE("limits -> 0")
    CHECK_CLOSE(F1N(0.0), 2.0, eps);
    CHECK_CLOSE(F2N(0.0), 3.0, eps);
    CHECK_CLOSE(F3N(0.0), 8.0/105.0, eps);
-   CHECK_CLOSE(F4N(0.0),  -3.0*(-9.0 + PI*PI)/4.0, eps);
+   CHECK_CLOSE(F4N(0.0), -3.0*(-9.0 + PI*PI)/4.0, eps);
 }
 
 TEST_CASE("limits -> 1")
@@ -30,6 +30,10 @@ TEST_CASE("limits -> 1")
    using namespace gm2calc;
 
    CHECK_CLOSE(F1C(1.0), 1.0, eps);
+   CHECK_CLOSE(F2C(1.0), 1.0, eps);
+   CHECK_CLOSE(F3C(1.0), 1.0, eps);
+   CHECK_CLOSE(F4C(1.0), 1.0, eps);
+
    CHECK_CLOSE(F1N(1.0), 1.0, eps);
    CHECK_CLOSE(F2N(1.0), 1.0, eps);
    CHECK_CLOSE(F3N(1.0), 1.0, eps);
