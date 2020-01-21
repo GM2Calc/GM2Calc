@@ -1,3 +1,14 @@
+GM2Calc-1.5.1 [not released]
+============================
+
+ * Feature: New Mathematica file `math/ffunctions.m` with analytic
+   expressions for the loop functions.
+
+ * Feature: New Mathematica file `math/amu2Lapprox.m` with analytic
+   expressions for the 1- and 2-loop fit formulas.
+
+ * Change: Improved performance of 1-loop functions.
+
 GM2Calc-1.5.0 [May, 11 2019]
 ============================
 
@@ -43,7 +54,7 @@ GM2Calc-1.4.3 [October, 07 2018]
 GM2Calc-1.4.2 [July, 14 2018]
 =============================
 
- * Bugfix (commit e784837c): Fix cmake error from FindDoxygen.cmake
+ * Bugfix (commit e784837c): Fix cmake error from `FindDoxygen.cmake`
    when building with cmake < 3.3, by enabling policy CMP0057.
    Thanks to Sho Iwamoto.
 
