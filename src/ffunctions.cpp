@@ -312,11 +312,11 @@ double Fa(double x, double y) {
 }
 
 double G3(double x) {
-   return 1. / (2. * pow3(x - 1.)) * ((x - 1.) * (x - 3.) + 2. * std::log(x));
+   return 1.0/(2.0*pow3(x - 1.0))*((x - 1.0)*(x - 3.0) + 2.0*std::log(x));
 }
 
 double G4(double x) {
-   return 1. / (2. * pow3(x - 1.)) * ((x - 1.) * (x + 1.) - 2. * x * std::log(x));
+   return 1.0/(2.0*pow3(x - 1.0))*((x - 1.0)*(x + 1.0) - 2.0*x*std::log(x));
 }
 
 /// Iabc(a,a,a)
