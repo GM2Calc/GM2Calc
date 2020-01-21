@@ -323,19 +323,19 @@ double Fa(double x, double y) {
       return 0.0;
    }
 
-   if (is_equal(x, 1.0, 0.01) && is_equal(y, 1.0, 0.01)) {
+   if (is_equal(x, 1.0, 0.001) && is_equal(y, 1.0, 0.001)) {
       return Fa11(x,y);
    }
 
-   if (is_equal(x, 1.0, 0.01)) {
+   if (is_equal(x, 1.0, 0.001)) {
       return Fa1(y,x);
    }
 
-   if (is_equal(y, 1.0, 0.01)) {
+   if (is_equal(y, 1.0, 0.001)) {
       return Fa1(x,y);
    }
 
-   if (is_equal(x, y, 0.01)) {
+   if (is_equal(x, y, 0.001)) {
       return Fax(x,y);
    }
 

@@ -1,44 +1,47 @@
-(* calculate func[arg] with precision prec *)
-GeneratePoint[func_, prec_, arg_] :=
-    N[#, prec]& @ { arg, func[arg] }
+(* calculate func[args] with precision prec *)
+GeneratePoint[func_, prec_, args__] :=
+    N[#, prec]& @ { args, func[args] }
 
 (* calculate func[arg] with precision prec on a grid *)
-GenerateGridData[func_, prec_, {min_, max_, step_}] :=
-    Table[
-        GeneratePoint[func, prec, arg],
-        {arg, min, max, step}
+GenerateGridData[func_, narg_, prec_, {min_, max_, step_}] :=
+    Module[{vals = Table[x, {x, min, max, step}]},
+           GeneratePoint[func, prec, Sequence @@ #]& /@ Tuples[vals, narg]
     ]
 
 (* calculate func with precision prec on a grid close to unity *)
-GenerateUnitData[func_, prec_, n_, frac_, dir_] :=
-    Table[
-        GeneratePoint[func, prec, 1 + dir frac^k],
-        {k, 1, n, 1}
+GenerateUnitData[func_, narg_, prec_, n_, frac_, dir_] :=
+    Module[{vals = Table[1 + dir frac^k, {k, 1, n, 1}]},
+           GeneratePoint[func, prec, Sequence @@ #]& /@ Tuples[vals, narg]
     ]
 
-ExportData[func_, prec_] :=
-    Module[{data, filename = ToString[func] <> ".txt"},
+ExportData[func_, narg_, prec_, zero_] :=
+    Module[{data, filename = ToString[func] <> ".txt", step = 1/20},
            Print["Generating data for " <> ToString[func]];
            data = Join[
-               GenerateGridData[func, prec, {0, 5, 1/20}],
-               GenerateUnitData[func, prec, prec, 1/10, -1],
-               GenerateUnitData[func, prec, prec, 1/10, +1]
+               GenerateGridData[func, narg, prec, {zero, 5, step}],
+               GenerateUnitData[func, narg, prec, prec, 1/10, -1],
+               GenerateUnitData[func, narg, prec, prec, 1/10, +1]
            ];
            Print["Writing data to ", filename];
            Export[filename, data, "Table"];
     ]
 
-precision = 15
+$MaxExtraPrecision = 10000;
+precision = 15;
+zero = 0;
 
-ExportData[F1C, precision];
-ExportData[F2C, precision];
-ExportData[F3C, precision];
-ExportData[F4C, precision];
+ExportData[F1C, 1, precision, 0];
+ExportData[F2C, 1, precision, 0];
+ExportData[F3C, 1, precision, 0];
+ExportData[F4C, 1, precision, 0];
 
-ExportData[F1N, precision];
-ExportData[F2N, precision];
-ExportData[F3N, precision];
-ExportData[F4N, precision];
+ExportData[F1N, 1, precision, 0];
+ExportData[F2N, 1, precision, 0];
+ExportData[F3N, 1, precision, 0];
+ExportData[F4N, 1, precision, 0];
 
-ExportData[G3, precision];
-ExportData[G4, precision];
+ExportData[G3, 1, precision, 0];
+ExportData[G4, 1, precision, 0];
+
+ExportData[Fa, 2, precision, 1/20];
+ExportData[Fb, 2, precision, 1/20];
