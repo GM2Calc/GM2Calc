@@ -88,3 +88,18 @@ G3[x_] := 1/(2 (x - 1)^3) ((x - 1)(x - 3) + 2 Log[x])
 G4[1] := 1/6
 
 G4[x_] := 1/(2 (x - 1)^3) ((x - 1)(x + 1) - 2 x Log[x])
+
+(* I[a,b,c] with squared arguments *)
+I2abc[a_, a_, a_] := 1/(2 a)
+
+I2abc[a_, a_, c_] := (a - c - c*Log[a/c])/(a - c)^2
+
+I2abc[a_, c_, a_] := I2abc[a, a, c]
+
+I2abc[c_, a_, a_] := I2abc[a, a, c]
+
+I2abc[a_, b_, c_] :=
+    (a b Log[a/b] + b c Log[b/c] + c a Log[c/a])/((a - b) (b - c) (a - c))
+
+(* I[a,b,c] with non-squared arguments *)
+Iabc[a_, b_, c_] := I2abc[a^2, b^2, c^2]

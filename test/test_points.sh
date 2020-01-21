@@ -13,7 +13,7 @@ frac_diff=0.000000001
 # 4: expected amu (minimal output)
 points="\
 ${BASEDIR}/test_points/problems_funcs_Fa_Fb.in,gm2calc,0,-7.26010840E-09
-${BASEDIR}/test_points/problems_funcs_I_FC_FN.in,gm2calc,0,-7.38800971E-09
+${BASEDIR}/test_points/problems_funcs_I_FC_FN.in,gm2calc,0,-7.38803211E-09
 ${BASEDIR}/test_points/problems_funcs_Mu_zero_1L.in,gm2calc,0,5.78789509e-04
 ${BASEDIR}/test_points/problems_funcs_Mu_zero_2L.in,gm2calc,1,
 ${BASEDIR}/test_points/problems_funcs_M1_zero.in,gm2calc,0,2.57054680e-10
@@ -23,16 +23,16 @@ ${BASEDIR}/test_points/problems_throw_me2_convergence.in,slha,0,2.30017838e-10
 ${BASEDIR}/test_points/problems_negative_soft_mass.in,slha,1,
 ${BASEDIR}/test_points/P1a_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.80707344E-09
 ${BASEDIR}/test_points/P1a_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.16049629E-09
-${BASEDIR}/test_points/P1b_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.22472103E-09
+${BASEDIR}/test_points/P1b_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.22472086E-09
 ${BASEDIR}/test_points/P1b_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.11758474E-09
-${BASEDIR}/test_points/P1c_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.00765381E-09
-${BASEDIR}/test_points/P1c_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.86038732E-09
+${BASEDIR}/test_points/P1c_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.00766077E-09
+${BASEDIR}/test_points/P1c_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.86039393E-09
 ${BASEDIR}/test_points/P2_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,0,3.12724771E-09
 ${BASEDIR}/test_points/P2_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,0,3.19581635E-09
 ${BASEDIR}/test_points/P3_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.78175707E-09
 ${BASEDIR}/test_points/P3_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.09394325E-09
-${BASEDIR}/test_points/BM1-1504.05500_1L_resummed.in,gm2calc,1,2.81168065E-09
-${BASEDIR}/test_points/BM1-1504.05500_2L_resummed.in,gm2calc,1,2.67369843E-09
+${BASEDIR}/test_points/BM1-1504.05500_1L_resummed.in,gm2calc,1,2.81169499E-09
+${BASEDIR}/test_points/BM1-1504.05500_2L_resummed.in,gm2calc,1,2.67371205E-09
 ${BASEDIR}/test_points/BM2-1504.05500_1L_resummed.in,gm2calc,1,3.03392926E-09
 ${BASEDIR}/test_points/BM2-1504.05500_2L_resummed.in,gm2calc,1,2.88017459E-09
 ${BASEDIR}/test_points/BM3-1504.05500_1L_resummed.in,gm2calc,0,2.61994967E-09

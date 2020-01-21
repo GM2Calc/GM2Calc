@@ -44,6 +44,8 @@ TEST_CASE("limits -> 1")
 
    CHECK_CLOSE(G3(1.0), 1.0/3.0, eps);
    CHECK_CLOSE(G4(1.0), 1.0/6.0, eps);
+
+   CHECK_CLOSE(Iabc(1.0, 1.0, 1.0), 0.5, eps);
 }
 
 TEST_CASE("symmetries")
@@ -56,4 +58,14 @@ TEST_CASE("symmetries")
    CHECK_CLOSE(Fa(2.0, 3.0), Fa(3.0, 2.0), eps);
    CHECK_CLOSE(Fb(2.0, 1.0), Fb(1.0, 2.0), eps);
    CHECK_CLOSE(Fb(2.0, 3.0), Fb(3.0, 2.0), eps);
+
+   CHECK_CLOSE(Iabc(1.0, 1.0, 2.0), Iabc(1.0, 2.0, 1.0), eps);
+   CHECK_CLOSE(Iabc(1.0, 1.0, 2.0), Iabc(2.0, 1.0, 1.0), eps);
+   CHECK_CLOSE(Iabc(1.0, 2.0, 2.0), Iabc(2.0, 2.0, 1.0), eps);
+   CHECK_CLOSE(Iabc(1.0, 2.0, 2.0), Iabc(2.0, 1.0, 2.0), eps);
+   CHECK_CLOSE(Iabc(1.0, 2.0, 3.0), Iabc(2.0, 3.0, 1.0), eps);
+   CHECK_CLOSE(Iabc(1.0, 2.0, 3.0), Iabc(3.0, 2.0, 1.0), eps);
+   CHECK_CLOSE(Iabc(1.0, 2.0, 3.0), Iabc(2.0, 1.0, 3.0), eps);
+   CHECK_CLOSE(Iabc(1.0, 2.0, 3.0), Iabc(1.0, 3.0, 2.0), eps);
+   CHECK_CLOSE(Iabc(1.0, 2.0, 3.0), Iabc(3.0, 2.0, 1.0), eps);
 }
