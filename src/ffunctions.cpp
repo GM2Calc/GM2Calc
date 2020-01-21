@@ -376,12 +376,18 @@ double I2aaa(double a, double b, double c) {
 double I2aac(double a, double b, double c) {
    const double ba = b - a;
    const double ac = a - c;
+   const double a2 = sqr(a);
+   const double a3 = a2*a;
+   const double c2 = sqr(c);
+   const double c3 = c2*c;
    const double ac2 = sqr(ac);
    const double ac3 = ac2*ac;
+   const double ac4 = ac2*ac2;
    const double lac = std::log(a/c);
 
    return (ac - c*lac)/ac2
-      + ba*(-sqr(a) + sqr(c) + 2*a*c*lac)/(2.0*a*ac3);
+      + ba*(-a2 + c2 + 2*a*c*lac)/(2.0*a*ac3)
+      + sqr(ba)*((2*a3 + 3*a2*c - 6*a*c2 + c3 - 6*a2*c*lac)/(6.*a2*ac4));
 }
 
 /// I2abc(a,a,0), squared arguments, a != 0
@@ -412,7 +418,7 @@ double Iabc(double a, double b, double c) {
    const double a2 = sqr(a);
    const double b2 = sqr(b);
    const double c2 = sqr(c);
-   const double eps_eq = 0.0001;
+   const double eps_eq = 0.001;
 
    if (is_equal(a2, b2, eps_eq) && is_equal(a2, c2, eps_eq)) {
       return I2aaa(a2, b2, c2);
