@@ -265,8 +265,13 @@ double Fb(double x, double y) {
 
 /// Fa(1,1)
 double Fa11(double x, double y) {
-   return (1311. - 1158.*y + 365.*sqr(y) + 5.*sqr(x)*(73. - 66.*y + 21.*sqr(y))
-           - 2.*x*(579. - 520.*y + 165.*sqr(y))) / 840.;
+   const double x1 = x - 1.0;
+   const double y1 = y - 1.0;
+
+   return
+      0.25 + (-0.2 + y1/6.)*y1
+      + x1*(-0.2 + (1.0/6.0 - y1/7.0)*y1)
+      + sqr(x1)*(1.0/6.0 + (-1.0/7.0 + y1/8.0)*y1);
 }
 
 /// Fa(x,1)
