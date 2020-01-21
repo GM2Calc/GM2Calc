@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(GM2Calc VERSION 1.5.0)
+project(GM2Calc VERSION 1.5.1)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)

@@ -1,5 +1,5 @@
-GM2Calc-1.5.1 [not released]
-============================
+GM2Calc-1.5.1 [January, 21 2020]
+================================
 
  * Feature: New Mathematica file `math/ffunctions.m` with analytic
    expressions for the loop functions.
