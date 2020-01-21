@@ -211,7 +211,7 @@ double Fb11(double x, double y) {
       + x1*(1.0/30.0 + (-1.0/42.0 + y1/56.0)*y1));
 }
 
-/// Fb(x,1)
+/// Fb(x,1), x != 1, x != 0
 double Fb1(double x, double y) {
    const double x1 = x - 1.0;
    const double y1 = y - 1.0;
@@ -225,13 +225,18 @@ double Fb1(double x, double y) {
       + sqr(y1)*(12.0 + x*(65.0 + 60.0*lx + x*(-120.0 + x*(60.0 + x*(-20.0 + 3.0*x)))))/(60.*x16);
 }
 
-/// Fb(x,x)
+/// Fb(x,x), x != 1, x != 0
 double Fbx(double x, double y) {
-   return (-5. + 4.*x + sqr(x) - 2.*std::log(x) - 4.*x*std::log(x)) / (2.*pow4(-1. + x))
-      - (-x + y) * (-1. - 9.*x + 9.*sqr(x) + pow3(x) - 6.*x*std::log(x) - 6.*sqr(x)*std::log(x))
-      / (2.*std::pow(-1. + x,5)*x)
-      - sqr(-x + y) * (-1. + 12.*x + 36.*sqr(x) - 44.*pow3(x) - 3.*pow4(x) + 36.*sqr(x)*std::log(x)
-                       + 24.*pow3(x)*std::log(x)) / (6.*std::pow(-1. + x,6)*sqr(x));
+   const double x1 = x - 1.0;
+   const double d = y - x;
+   const double lx = std::log(x);
+   const double x14 = pow4(x1);
+   const double x15 = x14*x;
+   const double x16 = x15*x;
+
+   return (-5.0 - 2.0*lx + x*(4.0 - 4.0*lx + x))/(2.0*x14)
+      - d*(-1.0 + x*(-9.0 - 6.0*lx + x*(9.0 - 6.0*lx + x)))/(2.0*x15*x)
+      - sqr(d)*(-1.0 + x*(12.0 + x*(36.0 + 36.0*lx + x*(-44.0 + 24.0*lx - 3.0*x))))/(6.*x16*sqr(x));
 }
 
 double Fb(double x, double y) {
