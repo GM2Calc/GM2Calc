@@ -274,7 +274,7 @@ double Fa11(double x, double y) {
       + sqr(x1)*(1.0/6.0 + (-1.0/7.0 + y1/8.0)*y1);
 }
 
-/// Fa(x,1)
+/// Fa(x,1), x != 1, x != 0
 double Fa1(double x, double y) {
    const double x1 = x - 1.0;
    const double y1 = y - 1.0;
@@ -288,13 +288,20 @@ double Fa1(double x, double y) {
       + sqr(y1)*(-137.0 - 60.0*lx + x*(300.0 + x*(-300.0 + x*(200.0 + x*(-75.0 + 12.0*x)))))/(60.0*x16);
 }
 
-/// Fa(x,x)
+/// Fa(x,x), x != 1, x != 0
 double Fax(double x, double y) {
-   return (2. + 3.*x - 6.*sqr(x) + pow3(x) + 6.*x*std::log(x)) / (2.*pow4(-1. + x)*x)
-      - (-x + y) * (-1. + 8.*x - 8.*pow3(x) + pow4(x) + 12.*sqr(x)*std::log(x))
-      / (2.*std::pow(-1. + x,5)*sqr(x))
-      - sqr(-x + y) * (-2. + 15.*x - 60.*sqr(x) + 20.*pow3(x) + 30.*pow4(x) - 3.*std::pow(x,5)
-                       - 60.*pow3(x)*std::log(x)) / (6.*std::pow(-1. + x,6)*pow3(x));
+   const double x1 = x - 1.0;
+   const double d = y - x;
+   const double lx = std::log(x);
+   const double x14 = pow4(x1);
+   const double x15 = x14*x1;
+   const double x16 = x15*x1;
+   const double x2 = sqr(x);
+   const double x3 = x2*x;
+
+   return (2.0 + x*(3.0 + 6.0*lx + x*(-6.0 + x)))/(2.0*x14*x)
+      - d*(-1.0 + x*(8.0 + x*(12.0*lx + x*(-8.0 + x))))/(2.0*x15*x2)
+      - sqr(d)*(-2.0 + x*(15.0 + x*(-60.0 + x*(20.0 - 60.0*lx + x*(30.0 - 3.0*x)))))/(6.0*x16*x3);
 }
 
 double Fa(double x, double y) {
