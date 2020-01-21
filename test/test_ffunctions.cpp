@@ -38,3 +38,15 @@ TEST_CASE("limits -> 1")
    CHECK_CLOSE(Fa(1.0, 1.0), 0.25, eps);
    CHECK_CLOSE(Fb(1.0, 1.0), 1.0/12.0, eps);
 }
+
+TEST_CASE("symmetries")
+{
+   const double eps = std::numeric_limits<double>::epsilon();
+
+   using namespace gm2calc;
+
+   CHECK_CLOSE(Fa(2.0, 1.0), Fa(1.0, 2.0), eps);
+   CHECK_CLOSE(Fa(2.0, 3.0), Fa(3.0, 2.0), eps);
+   CHECK_CLOSE(Fb(2.0, 1.0), Fb(1.0, 2.0), eps);
+   CHECK_CLOSE(Fb(2.0, 3.0), Fb(3.0, 2.0), eps);
+}
