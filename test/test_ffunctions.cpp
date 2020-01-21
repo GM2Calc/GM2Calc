@@ -41,6 +41,9 @@ TEST_CASE("limits -> 1")
 
    CHECK_CLOSE(Fa(1.0, 1.0), 0.25, eps);
    CHECK_CLOSE(Fb(1.0, 1.0), 1.0/12.0, eps);
+
+   CHECK_CLOSE(G3(1.0), 1.0/3.0, eps);
+   CHECK_CLOSE(G4(1.0), 1.0/6.0, eps);
 }
 
 TEST_CASE("symmetries")

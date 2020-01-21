@@ -329,10 +329,20 @@ double Fa(double x, double y) {
 }
 
 double G3(double x) {
+   if (is_equal(x, 1.0, 0.01)) {
+      const double d = x - 1.0;
+      return 1.0/3.0 + d*(-0.25 + d*(0.2 + (-1.0/6.0 + d/7.0)*d));
+   }
+
    return 1.0/(2.0*pow3(x - 1.0))*((x - 1.0)*(x - 3.0) + 2.0*std::log(x));
 }
 
 double G4(double x) {
+   if (is_equal(x, 1.0, 0.01)) {
+      const double d = x - 1.0;
+      return 1.0/6.0 + d*(-1.0/12.0 + d*(0.05 + (-1.0/30.0 + d/42.0)*d));
+   }
+
    return 1.0/(2.0*pow3(x - 1.0))*((x - 1.0)*(x + 1.0) - 2.0*x*std::log(x));
 }
 
