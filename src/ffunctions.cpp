@@ -478,7 +478,7 @@ double f_PS(double z) {
    double result = 0.0;
 
    if (z < 0.25) {
-      const double y = sqrt(1. - 4. * z);
+      const double y = std::sqrt(1. - 4. * z);
       result = 2.0*z/y*(dilog(1.0 - 0.5*(1.0 - y)/z) - dilog(1.0 - 0.5*(1.0 + y)/z));
    } else {
       const std::complex<double> y = std::sqrt(std::complex<double>(1.0 - 4.0*z, 0.0));
