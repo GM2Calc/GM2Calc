@@ -212,6 +212,8 @@ double F4N(double x) {
       );
 }
 
+namespace {
+
 /// Fb(1,1)
 double Fb11(double x, double y) {
    const double x1 = x - 1.0;
@@ -251,6 +253,8 @@ double Fbx(double x, double y) {
       - sqr(d)*(-1.0 + x*(12.0 + x*(36.0 + 36.0*lx + x*(-44.0 + 24.0*lx - 3.0*x))))/(6.*x16*sqr(x));
 }
 
+} // anonymous namespace
+
 double Fb(double x, double y) {
    if ((is_zero(x, eps) && is_zero(y, eps)) || is_zero(x, eps) ||
        is_zero(y, eps)) {
@@ -275,6 +279,8 @@ double Fb(double x, double y) {
 
    return - (G4(x) - G4(y)) / (x - y);
 }
+
+namespace {
 
 /// Fa(1,1)
 double Fa11(double x, double y) {
@@ -316,6 +322,8 @@ double Fax(double x, double y) {
       - d*(-1.0 + x*(8.0 + x*(12.0*lx + x*(-8.0 + x))))/(2.0*x15*x2)
       - sqr(d)*(-2.0 + x*(15.0 + x*(-60.0 + x*(20.0 - 60.0*lx + x*(30.0 - 3.0*x)))))/(6.0*x16*x3);
 }
+
+} // anonymous namespace
 
 double Fa(double x, double y) {
    if ((is_zero(x, eps) && is_zero(y, eps)) || is_zero(x, eps) ||
