@@ -45,8 +45,6 @@ double Fb(double, double);
 double G3(double);
 /// \f$G_4(x)\f$, Eq (6.4b) arXiv:1311.1775
 double G4(double);
-/// \f$H_2(x,y)\f$, Eq (34) of arxiv:0901.2065
-double H2(double, double);
 /// \f$I_{abc}(a,b,c)\f$ (arguments are interpreted as unsquared)
 double Iabc(double, double, double);
 /// \f$f_{PS}(z)\f$, Eq (70) arXiv:hep-ph/0609168
