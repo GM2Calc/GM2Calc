@@ -1,3 +1,5 @@
+add_definitions(-DTEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/data")
+
 # test C/C++ executables
 function(add_gm2calc_test name ext)
   add_executable(${name}.x ${name}.${ext})
