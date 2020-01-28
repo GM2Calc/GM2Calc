@@ -1,10 +1,21 @@
 language: cpp
+os:
+  - linux
+  - osx
 compiler:
   - clang
   - gcc
-before_install:
-  - sudo apt-get install libeigen3-dev libboost-dev
+addons:
+  apt:
+    packages:
+      - libboost-dev
+      - libeigen3-dev
+  homebrew:
+    packages:
+      - boost
+      - eigen
+    update: true
 script:
   - cmake .
-  - make
-  - make test
+  - cmake --build .
+  - ctest --output-on-failure
