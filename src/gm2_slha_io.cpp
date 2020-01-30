@@ -305,10 +305,9 @@ void GM2_slha_io::fill_alpha_s(MSSMNoFV_onshell& model) const
 
 void GM2_slha_io::fill_soft_parameters_from_msoft(MSSMNoFV_onshell& model, double scale) const
 {
-   using namespace std::placeholders;
-
-   GM2_slha_io::Tuple_processor processor
-      = std::bind(process_msoft_tuple, std::ref(model), _1, _2);
+   GM2_slha_io::Tuple_processor processor = [&model] (int key, double value) {
+      return process_msoft_tuple(model, key, value);
+   };
 
    read_block("MSOFT", processor, scale);
 }
@@ -354,20 +353,18 @@ void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
 
 void GM2_slha_io::fill_pole_masses_from_sminputs(MSSMNoFV_onshell_physical& physical) const
 {
-   using namespace std::placeholders;
-
-   GM2_slha_io::Tuple_processor processor
-      = std::bind(process_fermion_sminputs_tuple, std::ref(physical), _1, _2);
+   GM2_slha_io::Tuple_processor processor = [&physical] (int key, double value) {
+      return process_fermion_sminputs_tuple(physical, key, value);
+   };
 
    read_block("SMINPUTS", processor);
 }
 
 void GM2_slha_io::fill_susy_masses_from_mass(MSSMNoFV_onshell_physical& physical) const
 {
-   using namespace std::placeholders;
-
-   GM2_slha_io::Tuple_processor processor
-      = std::bind(process_mass_tuple, std::ref(physical), _1, _2);
+   GM2_slha_io::Tuple_processor processor = [&physical] (int key, double value) {
+      return process_mass_tuple(physical, key, value);
+   };
 
    read_block("MASS", processor);
 }
@@ -412,10 +409,9 @@ void GM2_slha_io::fill_gm2_specific_alphas(MSSMNoFV_onshell& model) const
  */
 void GM2_slha_io::fill_gm2_specific_onshell_parameters(MSSMNoFV_onshell& model) const
 {
-   using namespace std::placeholders;
-
-   GM2_slha_io::Tuple_processor processor
-      = std::bind(process_gm2calcinput_tuple, std::ref(model), _1, _2);
+   GM2_slha_io::Tuple_processor processor = [&model] (int key, double value) {
+      return process_gm2calcinput_tuple(model, key, value);
+   };
 
    read_block("GM2CalcInput", processor);
 }
@@ -454,10 +450,9 @@ void GM2_slha_io::fill_slha(MSSMNoFV_onshell& model) const
  */
 void GM2_slha_io::fill(Config_options& config_options) const
 {
-   using namespace std::placeholders;
-
-   GM2_slha_io::Tuple_processor processor
-      = std::bind(process_gm2calcconfig_tuple, std::ref(config_options), _1, _2);
+   GM2_slha_io::Tuple_processor processor = [&config_options] (int key, double value) {
+      return process_gm2calcconfig_tuple(config_options, key, value);
+   };
 
    read_block("GM2CalcConfig", processor);
 }
