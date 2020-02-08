@@ -1,3 +1,9 @@
+GM2Calc-1.5.2 [Feature, 08 2020]
+================================
+
+ * Change: Updated FindMathematica to version 3.2.6, which can detect
+   the Wolfram Engine.
+
 GM2Calc-1.5.1 [January, 21 2020]
 ================================
 
