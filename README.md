@@ -1,6 +1,7 @@
 GM2Calc
 =======
 
+![](https://img.shields.io/github/v/release/GM2Calc/GM2Calc)
 [![Build Status](https://travis-ci.org/GM2Calc/GM2Calc.svg?branch=master)](https://travis-ci.org/GM2Calc/GM2Calc)
 
 GM2Calc calculates the SUSY contributions to the anomalous magnetic
