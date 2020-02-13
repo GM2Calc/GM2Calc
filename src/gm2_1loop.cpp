@@ -32,6 +32,13 @@
 
 namespace gm2calc {
 
+namespace {
+
+const double Pi = 3.141592653589793;
+const double oneOver16PiSqr = 6.332573977646111e-3; // 1/(4 Pi)^2
+
+} // anonymous namespace
+
 /**
  * \fn calculate_amu_1loop_non_tan_beta_resummed
  *

@@ -24,14 +24,21 @@
 #include <complex>
 #include <cmath>
 
-namespace gm2calc {
-
 /**
  * \file gm2_2loop.cpp
  *
  * Contains functions necessary to calculate the SUSY contributions
  * for g-2 at the 2-loop level.
  */
+
+namespace gm2calc {
+
+namespace {
+
+const double Pi = 3.141592653589793;
+const double oneOver16PiSqr = 6.332573977646111e-3; // 1/(4 Pi)^2
+
+} // anonymous namespace
 
 /**
  * \fn calculate_amu_2loop_non_tan_beta_resummed

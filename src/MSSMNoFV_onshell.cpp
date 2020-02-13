@@ -37,6 +37,7 @@
 namespace gm2calc {
 
 namespace {
+   const double Pi = 3.141592653589793;
    const double ALPHA_EM_THOMPSON = 1./137.035999074;
    const double DELTA_ALPHA_EM_MZ =
       + 0.031498 /*leptonic*/
