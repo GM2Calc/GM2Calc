@@ -143,8 +143,9 @@ Scalar GM2_slha_io::convert_to(const std::string& str)
    Scalar value;
    try {
       value = SLHAea::to<Scalar>(str);
-      if (!std::isfinite(value))
+      if (!std::isfinite(value)) {
          throw boost::bad_lexical_cast();
+      }
    }  catch (const boost::bad_lexical_cast& error) {
       std::cerr << "cannot convert string \"" << str << "\" to "
                 <<  typeid(Scalar).name() << std::endl;
@@ -174,8 +175,9 @@ void GM2_slha_io::read_block(const std::string& block_name,
       if (at_scale(*block, scale)) {
          for (SLHAea::Block::const_iterator line = block->cbegin(),
                  end = block->cend(); line != end; ++line) {
-            if (!line->is_data_line())
+            if (!line->is_data_line()) {
                continue;
+            }
 
             if (cols == 1) {
                // vector

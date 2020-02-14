@@ -52,10 +52,11 @@ namespace {
  */
 void GM2_slha_io::read_from_source(const std::string& source)
 {
-   if (source == "-")
+   if (source == "-") {
       read_from_stream(std::cin);
-   else
+   } else {
       read_from_file(source);
+   }
 }
 
 /**
@@ -122,16 +123,18 @@ double GM2_slha_io::read_entry(const std::string& block_name, int key,
  */
 double GM2_slha_io::read_scale(const std::string& block_name) const
 {
-   if (!block_exists(block_name))
+   if (!block_exists(block_name)) {
       return 0.;
+   }
 
    double scale = 0.;
 
    for (const auto& line : data.at(block_name)) {
       if (!line.is_data_line()) {
          if (line.size() > 3 &&
-             to_lower(line[0]) == "block" && line[2] == "Q=")
+             to_lower(line[0]) == "block" && line[2] == "Q=") {
             scale = convert_to<double>(line[3]);
+         }
          break;
       }
    }
@@ -154,16 +157,18 @@ bool GM2_slha_io::block_exists(const std::string& block_name) const
  */
 bool GM2_slha_io::at_scale(const SLHAea::Block& block, double scale, double eps)
 {
-   if (is_zero(scale))
+   if (is_zero(scale)) {
       return true;
+   }
 
    for (const auto& line : block) {
       // check scale from block definition matches argument
       if (!line.is_data_line() && line.size() > 3 &&
           to_lower(line[0]) == "block" && line[2] == "Q=") {
          const auto block_scale = convert_to<double>(line[3]);
-         if (is_equal(scale, block_scale, eps))
+         if (is_equal(scale, block_scale, eps)) {
             return true;
+         }
       }
    }
 
@@ -194,8 +199,9 @@ void GM2_slha_io::read_block(const std::string& block_name,
    while (block != data.cend()) {
       if (at_scale(*block, scale)) {
          for (const auto& line : *block) {
-            if (!line.is_data_line())
+            if (!line.is_data_line()) {
                continue;
+            }
 
             if (line.size() >= 2) {
                const auto key = convert_to<int>(line[0]);
@@ -215,10 +221,12 @@ void GM2_slha_io::set_block(const std::ostringstream& lines, Position position)
    SLHAea::Block block;
    block.str(lines.str());
    data.erase(block.name());
-   if (position == front)
+
+   if (position == front) {
       data.push_front(block);
-   else
+   } else {
       data.push_back(block);
+   }
 }
 
 void GM2_slha_io::write_to_file(const std::string& file_name)
@@ -229,10 +237,11 @@ void GM2_slha_io::write_to_file(const std::string& file_name)
 
 void GM2_slha_io::write_to_stream(std::ostream& ostr)
 {
-   if (ostr.good())
+   if (ostr.good()) {
       ostr << data;
-   else
+   } else {
       ERROR("cannot write SLHA file");
+   }
 }
 
 /**
@@ -297,8 +306,9 @@ void GM2_slha_io::fill_alpha_s(MSSMNoFV_onshell& model) const
    const double Pi = 3.14159265358979323846;
    const double alpha_S = read_entry("SMINPUTS", 3);
 
-   if (!is_zero(alpha_S))
+   if (!is_zero(alpha_S)) {
       model.set_g3(std::sqrt(4*Pi*alpha_S));
+   }
 }
 
 void GM2_slha_io::fill_soft_parameters_from_msoft(MSSMNoFV_onshell& model, double scale) const
@@ -374,8 +384,10 @@ void GM2_slha_io::fill_physical(MSSMNoFV_onshell_physical& physical) const
 
    // if MW if given in MASS[24], prefer this value
    const double MW = read_entry("MASS", 24);
-   if (!is_zero(MW))
+
+   if (!is_zero(MW)) {
       physical.MVWm = MW;
+   }
 
    fill_susy_masses_from_mass(physical);
 }
@@ -393,11 +405,13 @@ void GM2_slha_io::fill_gm2_specific_alphas(MSSMNoFV_onshell& model) const
    const double alpha_MZ = std::abs(read_entry("GM2CalcInput", 1));
    const double alpha_thompson = std::abs(read_entry("GM2CalcInput", 2));
 
-   if (alpha_MZ > std::numeric_limits<double>::epsilon())
+   if (alpha_MZ > std::numeric_limits<double>::epsilon()) {
       model.set_alpha_MZ(alpha_MZ);
+   }
 
-   if (alpha_thompson > std::numeric_limits<double>::epsilon())
+   if (alpha_thompson > std::numeric_limits<double>::epsilon()) {
       model.set_alpha_thompson(alpha_thompson);
+   }
 }
 
 /**
