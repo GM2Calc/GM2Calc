@@ -18,8 +18,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(EXEC_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+set(GM2CALC_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include/gm2calc")
 set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include")
-set(INCLUDE_INSTALL_SUB_DIR "${INCLUDE_INSTALL_DIR}/gm2calc")
 set(LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib")
 
 # generate gm2calc.pc file for pkg-config
@@ -37,6 +37,8 @@ find_package(Boost 1.37.0 REQUIRED)
 find_package(Eigen3 3.1 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
 find_package(Mathematica COMPONENTS MathLink)
+
+include_directories(${GM2CALC_INCLUDE_DIRS})
 
 add_subdirectory(src)
 add_subdirectory(examples)
@@ -66,6 +68,12 @@ if(Git_FOUND)
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
     COMMENT "Creating ${PROJECT_NAME}-HEAD.tar.gz")
 endif()
+
+# install public headers
+install(
+    DIRECTORY ${GM2CALC_INCLUDE_DIRS}
+    DESTINATION "${INCLUDE_INSTALL_DIR}"
+  )
 
 # install gm2calc.pc file
 install(FILES
