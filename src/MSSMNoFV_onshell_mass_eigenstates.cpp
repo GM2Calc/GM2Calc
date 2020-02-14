@@ -29,8 +29,8 @@
  */
 
 #include "MSSMNoFV_onshell_mass_eigenstates.hpp"
-#include "eigen_utils.hpp"
-#include "linalg2.hpp"
+#include "gm2_eigen_utils.hpp"
+#include "gm2_linalg.hpp"
 
 #include <cmath>
 #include <iostream>
