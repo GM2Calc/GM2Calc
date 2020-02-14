@@ -20,9 +20,9 @@
 #include "gm2_error.hpp"
 #include "gm2_1loop.hpp"
 #include "gm2_1loop_helpers.hpp"
+#include "gm2_ffunctions.hpp"
 #include "gm2_mb.hpp"
 #include "gm2_numerics.hpp"
-#include "ffunctions.hpp"
 
 #include <cmath>
 #include <complex>

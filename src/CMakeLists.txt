@@ -2,11 +2,11 @@ configure_file(config.h.in config.h)
 
 add_library(gm2calc
   dilog.cpp
-  ffunctions.cpp
   gm2_1loop_c.cpp
   gm2_1loop.cpp
   gm2_2loop_c.cpp
   gm2_2loop.cpp
+  gm2_ffunctions.cpp
   gm2_mb.cpp
   gm2_numerics.cpp
   gm2_slha_io.cpp

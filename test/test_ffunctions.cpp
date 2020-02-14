@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN 1
 
 #include "doctest.h"
-#include "ffunctions.hpp"
+#include "gm2_ffunctions.hpp"
 #include "read_data.hpp"
 #include <limits>
 
