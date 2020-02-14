@@ -1,3 +1,12 @@
+GM2Calc-1.6.0 [not released yet]
+================================
+
+ * Change (commit 152e4a0): Separate public from private headers
+   and put public headers to the `include/gm2calc/` directory.
+
+ * Change (commit f276703): Use last scale definition found for a
+   block, in case multiple blocks exist in the SLHA input.
+
 GM2Calc-1.5.2 [Feature, 08 2020]
 ================================
 
