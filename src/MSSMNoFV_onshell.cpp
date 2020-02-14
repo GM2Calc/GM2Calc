@@ -20,6 +20,7 @@
 #include "numerics2.hpp"
 #include "gm2_error.hpp"
 #include "gm2_1loop.hpp"
+#include "gm2_1loop_helpers.hpp"
 #include "gm2_mb.hpp"
 #include "ffunctions.hpp"
 

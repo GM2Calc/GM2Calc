@@ -19,8 +19,6 @@
 #ifndef GM2_1LOOP_H
 #define GM2_1LOOP_H
 
-#include <Eigen/Core>
-
 namespace gm2calc {
 
 class MSSMNoFV_onshell;
@@ -62,24 +60,9 @@ double amuBHmuR(const MSSMNoFV_onshell&);
 /// 1-loop bino, left-handed smuon--right-handed smuon leading log approximation
 double amuBmuLmuR(const MSSMNoFV_onshell&);
 
-// === resummations ===
+// === resummation ===
 
 double tan_beta_cor(const MSSMNoFV_onshell&);
-double delta_mu_correction(const MSSMNoFV_onshell&);
-double delta_tau_correction(const MSSMNoFV_onshell&);
-double delta_bottom_correction(const MSSMNoFV_onshell&);
-
-// === couplings ===
-
-Eigen::Array<double,2,1> AAC(const MSSMNoFV_onshell&);
-Eigen::Matrix<double,4,2> AAN(const MSSMNoFV_onshell&);
-Eigen::Array<double,2,1> BBC(const MSSMNoFV_onshell&);
-Eigen::Matrix<double,4,2> BBN(const MSSMNoFV_onshell&);
-
-/// squared neutralino smuon mass ratio
-Eigen::Matrix<double,4,2> x_im(const MSSMNoFV_onshell&);
-/// squared chargino muon-sneutrino mass ratio
-Eigen::Array<double,2,1> x_k(const MSSMNoFV_onshell&);
 
 } // namespace gm2calc
 
