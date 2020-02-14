@@ -38,6 +38,7 @@ namespace {
 
 const double Pi = 3.141592653589793;
 const double oneOver16PiSqr = 6.332573977646111e-3; // 1/(4 Pi)^2
+const double root2 = 1.414213562373095; // Sqrt[2]
 
 } // anonymous namespace
 
@@ -136,7 +137,7 @@ Eigen::Matrix<std::complex<double>,4,2> n_L(const MSSMNoFV_onshell& model) {
    for(int i=0; i <4; ++i) {
       for(int m=0; m <2; ++m) {
          result(i, m) =
-            1. / sqrt(2.) * (gY * std::conj(ZN(i,0))
+            1. / root2 * (gY * std::conj(ZN(i,0))
                              + g2 * std::conj(ZN(i,1))) * u_smu(m,0)
             - ymu * std::conj(ZN(i,2)) * u_smu(m,1);
       }
@@ -159,7 +160,7 @@ Eigen::Matrix<std::complex<double>,4,2> n_R(const MSSMNoFV_onshell& model) {
 
    for(int i=0; i <4; ++i) {
       for(int m=0; m <2; ++m) {
-         result(i, m) = - ( sqrt(2.) * gY * ZN(i, 0) * u_smu(m, 1)
+         result(i, m) = - ( root2 * gY * ZN(i, 0) * u_smu(m, 1)
                        + ymu * ZN(i, 2) * u_smu(m, 0) );
       }
    }
@@ -341,7 +342,7 @@ double amuWHmuL(const MSSMNoFV_onshell& model) {
    const double tan_beta = model.get_TB();
    const double M2 = model.get_MassWB();
    const double MUE = model.get_Mu();
-   const double MSL_2 = sqrt(model.get_ml2(1, 1));
+   const double MSL_2 = std::sqrt(model.get_ml2(1, 1));
 
    return ( - sqr(model.get_g2()) * oneOver16PiSqr
             * (sqr(model.get_MM()) * M2 * MUE * tan_beta)
@@ -357,7 +358,7 @@ double amuBHmuL(const MSSMNoFV_onshell& model) {
    const double tan_beta = model.get_TB();
    const double M1 = model.get_MassB();
    const double MUE = model.get_Mu();
-   const double MSL_2 = sqrt(model.get_ml2(1, 1));
+   const double MSL_2 = std::sqrt(model.get_ml2(1, 1));
    const double gY = model.get_gY();
 
    return ( sqr(gY) * oneOver16PiSqr
@@ -374,7 +375,7 @@ double amuBHmuR(const MSSMNoFV_onshell& model) {
    const double tan_beta = model.get_TB();
    const double M1 = model.get_MassB();
    const double MUE = model.get_Mu();
-   const double MSE_2 = sqrt(model.get_me2(1, 1));
+   const double MSE_2 = std::sqrt(model.get_me2(1, 1));
    const double gY = model.get_gY();
 
    return ( - sqr(gY) * 2. * oneOver16PiSqr
@@ -391,8 +392,8 @@ double amuBmuLmuR(const MSSMNoFV_onshell& model) {
    const double tan_beta = model.get_TB();
    const double M1 = model.get_MassB();
    const double MUE = model.get_Mu();
-   const double MSL_2 = sqrt(model.get_ml2(1, 1));
-   const double MSE_2 = sqrt(model.get_me2(1, 1));
+   const double MSL_2 = std::sqrt(model.get_ml2(1, 1));
+   const double MSE_2 = std::sqrt(model.get_me2(1, 1));
    const double gY = model.get_gY();
 
    if (is_zero(M1))
@@ -459,7 +460,7 @@ double delta_down_lepton_correction(const MSSMNoFV_onshell& model, int gen) {
    const double M2 = model.get_MassWB();
    const double MW = model.get_MW();
    const double MZ = model.get_MZ();
-   const double SW = sqrt(1. - sqr(MW / MZ));
+   const double SW = std::sqrt(1. - sqr(MW / MZ));
 
    const double m1 =
       abs_sqrt(0.5 * (sqr(M2) + sqr(mu) + 2. * sqr(MW)

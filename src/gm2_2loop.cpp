@@ -40,6 +40,7 @@ namespace {
 
 const double Pi = 3.141592653589793;
 const double oneOver16PiSqr = 6.332573977646111e-3; // 1/(4 Pi)^2
+const double root2 = 1.414213562373095; // Sqrt[2]
 
 } // anonymous namespace
 
@@ -113,21 +114,21 @@ double Delta_g1(const MSSMNoFV_onshell& model) {
    const double LogScale = LogNorm(model);
 
    return ( sqr(gY) * oneOver16PiSqr * 4. / 3.
-            * (4. / 3. * log(sqrt(mu2(0, 0)) / LogScale)
-             + 4. / 3. * log(sqrt(mu2(1, 1)) / LogScale)
-             + 4. / 3. * log(sqrt(mu2(2, 2)) / LogScale)
-             + 1. / 3. * log(sqrt(md2(0, 0)) / LogScale)
-             + 1. / 3. * log(sqrt(md2(1, 1)) / LogScale)
-             + 1. / 3. * log(sqrt(md2(2, 2)) / LogScale)
-             + 1. / 6. * log(sqrt(mq2(0, 0)) / LogScale)
-             + 1. / 6. * log(sqrt(mq2(1, 1)) / LogScale)
-             + 1. / 6. * log(sqrt(mq2(2, 2)) / LogScale)
-             + log(sqrt(me2(0, 0)) / LogScale)
-             + log(sqrt(me2(1, 1)) / LogScale)
-             + log(sqrt(me2(2, 2)) / LogScale)
-             + 0.5 * log(sqrt(ml2(0, 0)) / LogScale)
-             + 0.5 * log(sqrt(ml2(1, 1)) / LogScale)
-             + 0.5 * log(sqrt(ml2(2, 2)) / LogScale)) );
+            * (4. / 3. * std::log(std::sqrt(mu2(0, 0)) / LogScale)
+             + 4. / 3. * std::log(std::sqrt(mu2(1, 1)) / LogScale)
+             + 4. / 3. * std::log(std::sqrt(mu2(2, 2)) / LogScale)
+             + 1. / 3. * std::log(std::sqrt(md2(0, 0)) / LogScale)
+             + 1. / 3. * std::log(std::sqrt(md2(1, 1)) / LogScale)
+             + 1. / 3. * std::log(std::sqrt(md2(2, 2)) / LogScale)
+             + 1. / 6. * std::log(std::sqrt(mq2(0, 0)) / LogScale)
+             + 1. / 6. * std::log(std::sqrt(mq2(1, 1)) / LogScale)
+             + 1. / 6. * std::log(std::sqrt(mq2(2, 2)) / LogScale)
+             + std::log(std::sqrt(me2(0, 0)) / LogScale)
+             + std::log(std::sqrt(me2(1, 1)) / LogScale)
+             + std::log(std::sqrt(me2(2, 2)) / LogScale)
+             + 0.5 * std::log(std::sqrt(ml2(0, 0)) / LogScale)
+             + 0.5 * std::log(std::sqrt(ml2(1, 1)) / LogScale)
+             + 0.5 * std::log(std::sqrt(ml2(2, 2)) / LogScale)) );
 }
 
 /**
@@ -144,12 +145,12 @@ double Delta_YukHiggsino(const MSSMNoFV_onshell& model) {
    const Eigen::Matrix<double,3,3> ml2(model.get_ml2());
    const double LogScale = LogNorm(model);
 
-   return ( oneOver16PiSqr * 0.5
-            * (3. * sqr(ytop) * log(sqrt(mu2(2, 2)) / LogScale)
-             + 3. * sqr(ybot) * log(sqrt(md2(2, 2)) / LogScale)
-             + 3. * (sqr(ytop) + sqr(ybot)) * log(sqrt(mq2(2, 2)) / LogScale)
-             + sqr(ytau) * (log(sqrt(me2(2, 2)) / LogScale)
-                           + log(sqrt(ml2(2, 2)) / LogScale))) );
+   return oneOver16PiSqr * 0.5
+            * (3. * sqr(ytop) * std::log(std::sqrt(mu2(2, 2)) / LogScale)
+             + 3. * sqr(ybot) * std::log(std::sqrt(md2(2, 2)) / LogScale)
+             + 3. * (sqr(ytop) + sqr(ybot)) * std::log(std::sqrt(mq2(2, 2)) / LogScale)
+             + sqr(ytau) * (std::log(std::sqrt(me2(2, 2)) / LogScale)
+                           + std::log(std::sqrt(ml2(2, 2)) / LogScale)));
 }
 
 /**
@@ -162,8 +163,9 @@ double Delta_YukBinoHiggsino(const MSSMNoFV_onshell& model) {
    const Eigen::Matrix<double,3,3> mq2(model.get_mq2());
    const double LogScale = LogNorm(model);
 
-   return ( oneOver16PiSqr * sqr(ytop) * ( - 8. * log(sqrt(mu2(2, 2)) / LogScale)
-                            + 2. * log(sqrt(mq2(2, 2)) / LogScale)) );
+   return oneOver16PiSqr * sqr(ytop) *
+          (-8. * std::log(std::sqrt(mu2(2, 2)) / LogScale) +
+           2. * std::log(std::sqrt(mq2(2, 2)) / LogScale));
 }
 
 /**
@@ -178,13 +180,13 @@ double Delta_g2(const MSSMNoFV_onshell& model) {
    const Eigen::Matrix<double,3,3> ml2(model.get_ml2());
    const double LogScale = LogNorm(model);
 
-   return ( sqr(g2) * oneOver16PiSqr * 4. / 3.
-            * (1.5 * log(sqrt(mq2(0, 0)) / LogScale)
-             + 1.5 * log(sqrt(mq2(1, 1)) / LogScale)
-             + 1.5 * log(sqrt(mq2(2, 2)) / LogScale)
-             + 0.5 * log(sqrt(ml2(0, 0)) / LogScale)
-             + 0.5 * log(sqrt(ml2(1, 1)) / LogScale)
-             + 0.5 * log(sqrt(ml2(2, 2)) / LogScale)) );
+   return sqr(g2) * oneOver16PiSqr * 4. / 3.
+            * (1.5 * std::log(std::sqrt(mq2(0, 0)) / LogScale)
+             + 1.5 * std::log(std::sqrt(mq2(1, 1)) / LogScale)
+             + 1.5 * std::log(std::sqrt(mq2(2, 2)) / LogScale)
+             + 0.5 * std::log(std::sqrt(ml2(0, 0)) / LogScale)
+             + 0.5 * std::log(std::sqrt(ml2(1, 1)) / LogScale)
+             + 0.5 * std::log(std::sqrt(ml2(2, 2)) / LogScale));
 }
 
 /**
@@ -196,7 +198,8 @@ double Delta_YukWinoHiggsino(const MSSMNoFV_onshell& model) {
    const Eigen::Matrix<double,3,3> mq2(model.get_mq2());
    const double LogScale = LogNorm(model);
 
-   return oneOver16PiSqr * (-6.) * sqr(ytop) * log(sqrt(mq2(2, 2)) / LogScale);
+   return oneOver16PiSqr * (-6.) * sqr(ytop) *
+          std::log(std::sqrt(mq2(2, 2)) / LogScale);
 }
 
 /**
@@ -209,8 +212,8 @@ double Delta_TanBeta(const MSSMNoFV_onshell& model) {
    const double LogScale = LogNorm(model);
    const double MUDIM = model.get_MUDIM();
 
-   return ( oneOver16PiSqr * (sqr(ytau) - 3. * sqr(ytop) + 3. * sqr(ybot))
-             * log(MUDIM / LogScale) );
+   return oneOver16PiSqr * (sqr(ytau) - 3. * sqr(ytop) + 3. * sqr(ybot)) *
+          std::log(MUDIM / LogScale);
 }
 
 /**
@@ -219,9 +222,9 @@ double Delta_TanBeta(const MSSMNoFV_onshell& model) {
 double amuWHnu2L(const MSSMNoFV_onshell& model) {
    const double test1 = .75;
 
-   return ( amuWHnu(model)
-            * (.02 * test1 + Delta_g2(model) + Delta_YukHiggsino(model)
-              + Delta_YukWinoHiggsino(model) + Delta_TanBeta(model)) );
+   return amuWHnu(model) *
+          (.02 * test1 + Delta_g2(model) + Delta_YukHiggsino(model) +
+           Delta_YukWinoHiggsino(model) + Delta_TanBeta(model));
 }
 
 /**
@@ -230,9 +233,9 @@ double amuWHnu2L(const MSSMNoFV_onshell& model) {
 double amuWHmuL2L(const MSSMNoFV_onshell& model) {
    const double test2 = .75;
 
-   return ( amuWHmuL(model)
-            * (.02 * test2 + Delta_g2(model) + Delta_YukHiggsino(model)
-             + Delta_YukWinoHiggsino(model) + Delta_TanBeta(model))  );
+   return amuWHmuL(model) *
+          (.02 * test2 + Delta_g2(model) + Delta_YukHiggsino(model) +
+           Delta_YukWinoHiggsino(model) + Delta_TanBeta(model));
 }
 
 /**
@@ -241,9 +244,9 @@ double amuWHmuL2L(const MSSMNoFV_onshell& model) {
 double amuBHmuL2L(const MSSMNoFV_onshell& model) {
    const double test3 = .75;
 
-   return ( amuBHmuL(model)
-            * (.02 * test3 + Delta_g1(model) + Delta_YukHiggsino(model)
-              + Delta_YukBinoHiggsino(model) + Delta_TanBeta(model))  );
+   return amuBHmuL(model) *
+          (.02 * test3 + Delta_g1(model) + Delta_YukHiggsino(model) +
+           Delta_YukBinoHiggsino(model) + Delta_TanBeta(model));
 }
 
 /**
@@ -252,9 +255,9 @@ double amuBHmuL2L(const MSSMNoFV_onshell& model) {
 double amuBHmuR2L(const MSSMNoFV_onshell& model) {
    const double test4 = 2.;
 
-   return ( amuBHmuR(model)
-            * (.02 * test4 + Delta_g1(model) + Delta_YukHiggsino(model)
-              + Delta_YukBinoHiggsino(model) + Delta_TanBeta(model))  );
+   return amuBHmuR(model) *
+          (.02 * test4 + Delta_g1(model) + Delta_YukHiggsino(model) +
+           Delta_YukBinoHiggsino(model) + Delta_TanBeta(model));
 }
 
 /**
@@ -263,8 +266,8 @@ double amuBHmuR2L(const MSSMNoFV_onshell& model) {
 double amuBmuLmuR2L(const MSSMNoFV_onshell& model) {
    const double test5 = 1.5;
 
-   return ( amuBmuLmuR(model)
-            * (.02 * test5 + Delta_g1(model) + Delta_TanBeta(model)) );
+   return amuBmuLmuR(model) *
+          (.02 * test5 + Delta_g1(model) + Delta_TanBeta(model));
 }
 
 /**
@@ -275,8 +278,8 @@ double amuBmuLmuR2L(const MSSMNoFV_onshell& model) {
  */
 double amu2LFSfapprox_non_tan_beta_resummed(const MSSMNoFV_onshell& model) {
 
-   return ( amuWHnu2L(model) + amuWHmuL2L(model) + amuBHmuL2L(model)
-           + amuBHmuR2L(model) + amuBmuLmuR2L(model) );
+   return amuWHnu2L(model) + amuWHmuL2L(model) + amuBHmuL2L(model)
+      + amuBHmuR2L(model) + amuBmuLmuR2L(model);
 }
 
 /**
@@ -309,12 +312,12 @@ double amuChipmPhotonic(const MSSMNoFV_onshell& model) {
    for(int k=0; k<2; k++) {
       result += ( (AAC_(k) * F1C(x__k(k)) / 12.
                    + MCha(k) / 3. * BBC_(k) / model.get_MM() * F2C(x__k(k)))
-                    * 16. * log(MM / MSvmL)
+                    * 16. * std::log(MM / MSvmL)
                   - 47. * AAC_(k) * F3C(x__k(k)) / 72.
                   - 61. * MCha(k) / 9. * BBC_(k) / model.get_MM() * F4C(x__k(k))
                   - (0.5 * AAC_(k) * F1C(x__k(k))
                    + MCha(k) * BBC_(k) / model.get_MM() * F2C(x__k(k)))
-                    * log(sqr(MSvmL / mu_DREG)) );
+                    * std::log(sqr(MSvmL / mu_DREG)) );
    }
 
    return  sqr(model.get_EL0()) * sqr(oneOver16PiSqr) * sqr(MM / MSvmL) * result;
@@ -339,11 +342,11 @@ double amuChi0Photonic(const MSSMNoFV_onshell& model) {
          result +=  1. / sqr(MSmu(m))
                     * ((- 1. / 12. * AAN_(i, m) * F1N(x__im(i, m))
                        - MNeu(i) / 6. * BBN_(i, m) / model.get_MM() * F2N(x__im(i, m)))
-                        * 16. * log(MM / MSmu(m))
+                        * 16. * std::log(MM / MSmu(m))
                       + 35. / 72. * AAN_(i, m) * F3N(x__im(i, m))
                       + 8. * MNeu(i) / 9. * BBN_(i, m) / model.get_MM() * F4N(x__im(i, m))
                       + (0.25 * AAN_(i, m) * F1N(x__im(i, m)))
-                       * log(sqr(MSmu(m) / mu_DREG)) );
+                       * std::log(sqr(MSmu(m) / mu_DREG)) );
       }
    }
 
@@ -369,7 +372,7 @@ double tan_alpha(const MSSMNoFV_onshell& model) {
    const double tan2beta = 2. * TB / (1. - sqr(TB));
    const double tan2alpha = tan2beta * (sqr(MA0) + sqr(MZ)) / (sqr(MA0) - sqr(MZ));
 
-   return - 1. / tan2alpha - sqrt(1. / sqr(tan2alpha) + 1.);
+   return - 1. / tan2alpha - std::sqrt(1. / sqr(tan2alpha) + 1.);
 }
 
 /**
@@ -387,22 +390,22 @@ Eigen::Matrix<std::complex<double>,3,3> lambda_mu_cha(const MSSMNoFV_onshell& mo
    const Eigen::Array<double,2,1> MCha(model.get_MCha());
    const double MW(model.get_MW());
    const double TB(model.get_TB());
-   const double CB = 1. / sqrt(1. + sqr(TB));
-   const double SB = sqrt(1. - sqr(CB));
+   const double CB = 1. / std::sqrt(1. + sqr(TB));
+   const double SB = std::sqrt(1. - sqr(CB));
    const double TA(tan_alpha(model));
-   const double CA = 1. / sqrt(1. + sqr(TA));
-   const double SA = - sqrt(1. - sqr(CA));
+   const double CA = 1. / std::sqrt(1. + sqr(TA));
+   const double SA = - std::sqrt(1. - sqr(CA));
    const Eigen::Matrix<std::complex<double>,2,2> U(model.get_UM());
    const Eigen::Matrix<std::complex<double>,2,2> V(model.get_UP());
-   const double one_over_cb_eff = sqrt(2.) * model.get_Ye(1,1)
+   const double one_over_cb_eff = root2 * model.get_Ye(1,1)
       * model.get_MW() / model.get_MM() / model.get_g2();
 
    for(int k=0; k<2; ++k) {
-      result(k, 0) = ( std::sqrt(2.) * MW / MCha(k)
+      result(k, 0) = ( root2 * MW / MCha(k)
                       * (U(k, 0) * V(k, 1) * CA + U(k, 1) * V(k, 0) * (-SA)) );
-      result(k, 1) = ( std::sqrt(2.) * MW / MCha(k)
+      result(k, 1) = ( root2 * MW / MCha(k)
                       * (U(k, 0) * V(k, 1) * SA + U(k, 1) * V(k, 0) * CA) );
-      result(k, 2) = ( std::sqrt(2.) * MW / MCha(k)
+      result(k, 2) = ( root2 * MW / MCha(k)
                       * (U(k, 0) * V(k, 1) * (-CB) + U(k, 1) * V(k, 0) * (-SB)) );
    }
    result(2, 0) = -SA * one_over_cb_eff;
@@ -419,11 +422,11 @@ Eigen::Matrix<std::complex<double>,3,3> lambda_mu_cha(const MSSMNoFV_onshell& mo
 Eigen::Matrix<std::complex<double>,2,2> lambda_stop(const MSSMNoFV_onshell& model) {
    Eigen::Matrix<std::complex<double>,2,2> result;
    const double TB(model.get_TB());
-   const double CB = 1. / sqrt(1. + sqr(TB));
-   const double SB = sqrt(1. - sqr(CB));
+   const double CB = 1. / std::sqrt(1. + sqr(TB));
+   const double SB = std::sqrt(1. - sqr(CB));
    const double TA(tan_alpha(model));
-   const double CA = 1. / sqrt(1. + sqr(TA));
-   const double SA = - sqrt(1. - sqr(CA));
+   const double CA = 1. / std::sqrt(1. + sqr(TA));
+   const double SA = - std::sqrt(1. - sqr(CA));
    const double MT(model.get_MT());
    const Eigen::Array<double,2,1> MStop(model.get_MSt());
    const Eigen::Matrix<double,2,2> UStop(model.get_USt());
@@ -449,13 +452,13 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_stop(const MSSMNoFV_onshell& mode
 Eigen::Matrix<std::complex<double>,2,2> lambda_sbot(const MSSMNoFV_onshell& model) {
    Eigen::Matrix<std::complex<double>,2,2> result;
    const double TA(tan_alpha(model));
-   const double CA = 1. / sqrt(1. + sqr(TA));
-   const double SA = - sqrt(1. - sqr(CA));
+   const double CA = 1. / std::sqrt(1. + sqr(TA));
+   const double SA = - std::sqrt(1. - sqr(CA));
    const Eigen::Array<double,2,1> MSbot(model.get_MSb());
    const Eigen::Matrix<double,2,2> USbot(model.get_USb());
    const double Ab(model.get_Ad(2, 2));
    const double Mu(model.get_Mu());
-   const double mb_over_cb_eff = sqrt(2.) * model.get_Yd(2,2)
+   const double mb_over_cb_eff = root2 * model.get_Yd(2,2)
       * model.get_MW() / model.get_g2();
 
    for(int i=0; i<2; ++i) {
@@ -477,13 +480,13 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_sbot(const MSSMNoFV_onshell& mode
 Eigen::Matrix<std::complex<double>,2,2> lambda_stau(const MSSMNoFV_onshell& model) {
    Eigen::Matrix<std::complex<double>,2,2> result;
    const double TA(tan_alpha(model));
-   const double CA = 1. / sqrt(1. + sqr(TA));
-   const double SA = - sqrt(1. - sqr(CA));
+   const double CA = 1. / std::sqrt(1. + sqr(TA));
+   const double SA = - std::sqrt(1. - sqr(CA));
    const Eigen::Array<double,2,1> MStau(model.get_MStau());
    const Eigen::Matrix<double,2,2> UStau(model.get_UStau());
    const double Al(model.get_Ae(2, 2));
    const double Mu(model.get_Mu());
-   const double mtau_over_cb_eff = sqrt(2.) * model.get_Ye()(2,2)
+   const double mtau_over_cb_eff = root2 * model.get_Ye()(2,2)
       * model.get_MW() / model.get_g2();
 
    for(int i=0; i<2; ++i) {
@@ -506,7 +509,7 @@ double amu2LaSferm(const MSSMNoFV_onshell& model) {
    double result = 0.;
    const double MM(model.get_MM());
    const double MW(model.get_MW());
-   const double SW = sqrt(1. - sqr(MW / model.get_MZ()));
+   const double SW = std::sqrt(1. - sqr(MW / model.get_MZ()));
    const double EL(model.get_EL());
    const Eigen::Array<double,2,1> m_stop(model.get_MSt());
    const Eigen::Array<double,2,1> m_sbot(model.get_MSb());
@@ -565,7 +568,7 @@ double amu2LaCha(const MSSMNoFV_onshell& model) {
    const double MW(model.get_MW());
    const double MA0(model.get_MA0());
    const Eigen::Array<double,2,1> M_higgs(model.get_Mhh());
-   const double SW = sqrt(1. - sqr(MW / model.get_MZ()));
+   const double SW = std::sqrt(1. - sqr(MW / model.get_MZ()));
    const double EL(model.get_EL());
    const Eigen::Array<double,2,1> m_cha(model.get_MCha());
    const Eigen::Matrix<std::complex<double>,3,3> lambda(lambda_mu_cha(model));

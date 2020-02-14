@@ -54,12 +54,11 @@ namespace {
  * @return \f$\alpha_s(Q)\f$ MS-bar in the SM w/ 5 active flavours
  */
 double calculate_alpha_s_SM5_at(double scale, double lambda_qcd) {
-   using std::log;
-   const double t = log(sqr(scale/lambda_qcd));
+   const double t = std::log(sqr(scale/lambda_qcd));
 
    return 12.*Pi/(23.*t) * (
-      1 - 348./529. * log(t)/t
-      + sqr(348./529.)/sqr(t) * (sqr(log(t) - 0.5) - 78073./242208.)
+      1 - 348./529. * std::log(t)/t
+      + sqr(348./529.)/sqr(t) * (sqr(std::log(t) - 0.5) - 78073./242208.)
       );
 }
 

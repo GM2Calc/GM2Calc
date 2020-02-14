@@ -39,6 +39,7 @@ namespace gm2calc {
 
 namespace {
    const double Pi = 3.141592653589793;
+   const double root2 = 1.414213562373095; // Sqrt[2]
    const double ALPHA_EM_THOMPSON = 1./137.035999074;
    const double DELTA_ALPHA_EM_MZ =
       + 0.031498 /*leptonic*/
@@ -354,8 +355,8 @@ void MSSMNoFV_onshell::convert_gauge_couplings()
    const double MZ = get_MZ(); // pole mass
    const double cW = MW / MZ;  // on-shell weak mixing angle
 
-   set_g1(sqrt(5. / 3.) * EL / cW);
-   set_g2(EL / sqrt(1. - sqr(cW)));
+   set_g1(std::sqrt(5. / 3.) * EL / cW);
+   set_g2(EL / std::sqrt(1. - sqr(cW)));
 }
 
 void MSSMNoFV_onshell::convert_BMu()
@@ -373,7 +374,7 @@ void MSSMNoFV_onshell::convert_vev()
    const double MW = get_MW(); // pole mass
    const double vev = 2. * MW / get_g2();
 
-   set_vu(vev / sqrt(1. + 1. / sqr(TB)));
+   set_vu(vev / std::sqrt(1. + 1. / sqr(TB)));
    set_vd(get_vu() / TB);
 }
 
@@ -397,21 +398,21 @@ double MSSMNoFV_onshell::get_MB() const
 void MSSMNoFV_onshell::convert_yukawa_couplings_treelevel()
 {
    Eigen::Matrix<double,3,3> Ye_neu(Eigen::Matrix<double,3,3>::Zero());
-   Ye_neu(0, 0) = sqrt(2.) * get_ME() / get_vd();
-   Ye_neu(1, 1) = sqrt(2.) * get_MM() / get_vd();
-   Ye_neu(2, 2) = sqrt(2.) * get_ML() / get_vd();
+   Ye_neu(0, 0) = root2 * get_ME() / get_vd();
+   Ye_neu(1, 1) = root2 * get_MM() / get_vd();
+   Ye_neu(2, 2) = root2 * get_ML() / get_vd();
    set_Ye(Ye_neu);
 
    Eigen::Matrix<double,3,3> Yu_neu(Eigen::Matrix<double,3,3>::Zero());
-   Yu_neu(0, 0) = sqrt(2.) * get_MU() / get_vu();
-   Yu_neu(1, 1) = sqrt(2.) * get_MC() / get_vu();
-   Yu_neu(2, 2) = sqrt(2.) * get_MT() / get_vu();
+   Yu_neu(0, 0) = root2 * get_MU() / get_vu();
+   Yu_neu(1, 1) = root2 * get_MC() / get_vu();
+   Yu_neu(2, 2) = root2 * get_MT() / get_vu();
    set_Yu(Yu_neu);
 
    Eigen::Matrix<double,3,3> Yd_neu(Eigen::Matrix<double,3,3>::Zero());
-   Yd_neu(0, 0) = sqrt(2.) * get_MD() / get_vd();
-   Yd_neu(1, 1) = sqrt(2.) * get_MS() / get_vd();
-   Yd_neu(2, 2) = sqrt(2.) * get_MB() / get_vd();
+   Yd_neu(0, 0) = root2 * get_MD() / get_vd();
+   Yd_neu(1, 1) = root2 * get_MS() / get_vd();
+   Yd_neu(2, 2) = root2 * get_MB() / get_vd();
    set_Yd(Yd_neu);
 
    // recalculate trilinear couplings with new Yukawas
@@ -430,21 +431,21 @@ void MSSMNoFV_onshell::convert_yukawa_couplings_treelevel()
 void MSSMNoFV_onshell::convert_yukawa_couplings()
 {
    Eigen::Matrix<double,3,3> Ye_neu(Eigen::Matrix<double,3,3>::Zero());
-   Ye_neu(0, 0) = sqrt(2.) * get_ME() / get_vd();
-   Ye_neu(1, 1) = sqrt(2.) * get_MM() / get_vd() / (1 + delta_mu_correction(*this));
-   Ye_neu(2, 2) = sqrt(2.) * get_ML() / get_vd() / (1 + delta_tau_correction(*this));
+   Ye_neu(0, 0) = root2 * get_ME() / get_vd();
+   Ye_neu(1, 1) = root2 * get_MM() / get_vd() / (1 + delta_mu_correction(*this));
+   Ye_neu(2, 2) = root2 * get_ML() / get_vd() / (1 + delta_tau_correction(*this));
    set_Ye(Ye_neu);
 
    Eigen::Matrix<double,3,3> Yu_neu(Eigen::Matrix<double,3,3>::Zero());
-   Yu_neu(0, 0) = sqrt(2.) * get_MU() / get_vu();
-   Yu_neu(1, 1) = sqrt(2.) * get_MC() / get_vu();
-   Yu_neu(2, 2) = sqrt(2.) * get_MT() / get_vu();
+   Yu_neu(0, 0) = root2 * get_MU() / get_vu();
+   Yu_neu(1, 1) = root2 * get_MC() / get_vu();
+   Yu_neu(2, 2) = root2 * get_MT() / get_vu();
    set_Yu(Yu_neu);
 
    Eigen::Matrix<double,3,3> Yd_neu(Eigen::Matrix<double,3,3>::Zero());
-   Yd_neu(0, 0) = sqrt(2.) * get_MD() / get_vd();
-   Yd_neu(1, 1) = sqrt(2.) * get_MS() / get_vd();
-   Yd_neu(2, 2) = sqrt(2.) * get_MB() / get_vd() / (1 + delta_bottom_correction(*this));
+   Yd_neu(0, 0) = root2 * get_MD() / get_vd();
+   Yd_neu(1, 1) = root2 * get_MS() / get_vd();
+   Yd_neu(2, 2) = root2 * get_MB() / get_vd() / (1 + delta_bottom_correction(*this));
    set_Yd(Yd_neu);
 
    // recalculate trilinear couplings with new Yukawas
@@ -905,12 +906,12 @@ std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)
       "yu          = " << model.get_Yu().diagonal().transpose() << '\n' <<
       "yd resummed = " << model.get_Yd().diagonal().transpose() << '\n' <<
       "ye resummed = " << model.get_Ye().diagonal().transpose() << '\n' <<
-      "yd non res. = " << (sqrt(2.) * model.get_MD() / model.get_vd()) <<
-                   " " << (sqrt(2.) * model.get_MS() / model.get_vd()) <<
-                   " " << (sqrt(2.) * model.get_MB() / model.get_vd()) << '\n' <<
-      "ye non res. = " << (sqrt(2.) * model.get_ME() / model.get_vd()) <<
-                   " " << (sqrt(2.) * model.get_MM() / model.get_vd()) <<
-                   " " << (sqrt(2.) * model.get_ML() / model.get_vd()) << '\n' <<
+      "yd non res. = " << (root2 * model.get_MD() / model.get_vd()) <<
+                   " " << (root2 * model.get_MS() / model.get_vd()) <<
+                   " " << (root2 * model.get_MB() / model.get_vd()) << '\n' <<
+      "ye non res. = " << (root2 * model.get_ME() / model.get_vd()) <<
+                   " " << (root2 * model.get_MM() / model.get_vd()) <<
+                   " " << (root2 * model.get_ML() / model.get_vd()) << '\n' <<
       "Mu          = " << model.get_Mu() << '\n' <<
       "M1          = " << model.get_MassB() << '\n' <<
       "M2          = " << model.get_MassWB() << '\n' <<
