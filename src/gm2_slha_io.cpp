@@ -19,6 +19,7 @@
 #include "gm2_slha_io.hpp"
 #include "ffunctions.hpp"
 #include "MSSMNoFV_onshell.hpp"
+#include "numerics2.hpp"
 
 #include <cmath>
 #include <fstream>

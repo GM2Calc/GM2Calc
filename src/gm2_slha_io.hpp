@@ -19,15 +19,15 @@
 #ifndef GM2_SLHA_IO_H
 #define GM2_SLHA_IO_H
 
+#include "gm2_error.hpp"
+#include "slhaea.h"
+
 #include <cmath>
 #include <string>
 #include <iostream>
-#include <functional>
+
 #include <Eigen/Core>
 #include <boost/format.hpp>
-#include "slhaea.h"
-#include "gm2_error.hpp"
-#include "numerics2.hpp"
 
 namespace gm2calc {
 
