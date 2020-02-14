@@ -19,9 +19,10 @@
 #ifndef GM2_COMPARE_H
 #define GM2_COMPARE_H
 
+#include <cmath>
 #include <Eigen/Core>
 
-namespace flexiblesusy {
+namespace gm2calc {
 
 template<class Real, int N>
 struct Compare {
@@ -42,6 +43,6 @@ struct Is_not_finite {
    bool operator()(T x) { return !std::isfinite(x); }
 };
 
-} // namespace flexiblesusy
+} // namespace gm2calc
 
 #endif

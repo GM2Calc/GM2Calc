@@ -61,8 +61,6 @@ template <typename T> T sqr(T x) { return x*x; }
 
 namespace gm2calc {
 
-using namespace flexiblesusy;
-
 #define CLASSNAME MSSMNoFV_onshell_mass_eigenstates
 #define PHYSICAL(parameter) physical.parameter
 #define MODELPARAMETER(parameter) model->get_##parameter()

@@ -16,17 +16,17 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef EIGEN_UTILS_H
-#define EIGEN_UTILS_H
+#ifndef GM2_EIGEN_UTILS_H
+#define GM2_EIGEN_UTILS_H
 
-#include "compare.hpp"
+#include "gm2_functional.hpp"
 #include <Eigen/Core>
 #include <iomanip>
 #include <sstream>
 #include <string>
 #include <limits>
 
-namespace flexiblesusy {
+namespace gm2calc {
 
 template <typename Derived>
 unsigned closest_index(double mass, const Eigen::ArrayBase<Derived>& v)
@@ -148,6 +148,6 @@ std::string print_scientific(const Eigen::DenseBase<Derived>& v,
    return sstr.str();
 }
 
-} // namespace flexiblesusy
+} // namespace gm2calc
 
 #endif

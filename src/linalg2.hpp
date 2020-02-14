@@ -16,8 +16,10 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef linalg2_hpp
-#define linalg2_hpp
+#ifndef GM2_LINALG_H
+#define GM2_LINALG_H
+
+#include "gm2_functional.hpp"
 
 #include <limits>
 #include <cctype>
@@ -27,9 +29,8 @@
 #include <Eigen/Core>
 #include <Eigen/SVD>
 #include <Eigen/Eigenvalues>
-#include "compare.hpp"
 
-namespace flexiblesusy {
+namespace gm2calc {
 
 #define MAX_(i, j) (((i) > (j)) ? (i) : (j))
 #define MIN_(i, j) (((i) < (j)) ? (i) : (j))
@@ -1463,6 +1464,6 @@ void fs_diagonalize_hermitian
     fs_diagonalize_hermitian_errbd(m, w, 0, &w_errbd);
 }
 
-} // namespace flexiblesusy
+} // namespace gm2calc
 
 #endif // linalg2_hpp
