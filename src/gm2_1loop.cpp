@@ -18,9 +18,9 @@
 
 #include "gm2_1loop.hpp"
 #include "gm2_1loop_helpers.hpp"
+#include "gm2_numerics.hpp"
 #include "MSSMNoFV_onshell.hpp"
 #include "ffunctions.hpp"
-#include "numerics2.hpp"
 
 #include <complex>
 #include <cmath>
@@ -395,7 +395,7 @@ double amuBmuLmuR(const MSSMNoFV_onshell& model) {
    const double MSE_2 = sqrt(model.get_me2(1, 1));
    const double gY = model.get_gY();
 
-   if (flexiblesusy::is_zero(M1))
+   if (is_zero(M1))
       return 0.;
 
    return ( sqr(gY) * 2. * oneOver16PiSqr

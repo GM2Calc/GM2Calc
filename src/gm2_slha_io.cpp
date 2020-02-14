@@ -17,9 +17,9 @@
 // ====================================================================
 
 #include "gm2_slha_io.hpp"
+#include "gm2_numerics.hpp"
 #include "ffunctions.hpp"
 #include "MSSMNoFV_onshell.hpp"
-#include "numerics2.hpp"
 
 #include <cmath>
 #include <fstream>
@@ -29,8 +29,6 @@
 #include <Eigen/Core>
 
 namespace gm2calc {
-
-using namespace flexiblesusy;
 
 #define ERROR(message) std::cerr << "Error: " << message << '\n';
 #define WARNING(message) std::cerr << "Warning: " << message << '\n';
@@ -157,7 +155,7 @@ bool GM2_slha_io::block_exists(const std::string& block_name) const
  */
 bool GM2_slha_io::at_scale(const SLHAea::Block& block, double scale, double eps)
 {
-   if (flexiblesusy::is_zero(scale))
+   if (is_zero(scale))
       return true;
 
    for (const auto& line : block) {
@@ -165,7 +163,7 @@ bool GM2_slha_io::at_scale(const SLHAea::Block& block, double scale, double eps)
       if (!line.is_data_line() && line.size() > 3 &&
           to_lower(line[0]) == "block" && line[2] == "Q=") {
          const auto block_scale = convert_to<double>(line[3]);
-         if (flexiblesusy::is_equal(scale, block_scale, eps))
+         if (is_equal(scale, block_scale, eps))
             return true;
       }
    }
@@ -317,7 +315,7 @@ void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
 {
    const double scale = read_scale("HMIX");
 
-   if (flexiblesusy::is_zero(scale)) {
+   if (is_zero(scale)) {
       throw EInvalidInput("Could not determine renormalization scale"
                           " from HMIX block");
    }

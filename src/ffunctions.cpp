@@ -31,6 +31,9 @@ namespace gm2calc {
 namespace {
    const double eps = 10.0*std::numeric_limits<double>::epsilon();
 
+   /// returns number squared
+   template <typename T> T sqr(T x) { return x*x; }
+
    /// returns number cubed
    template <typename T> T pow3(T x) { return x*x*x; }
 
@@ -49,18 +52,6 @@ namespace {
    }
 
 } // anonymous namespace
-
-double abs_sqrt(double x) {
-   return std::sqrt(std::abs(x));
-}
-
-int sign(double x) { return x < 0 ? -1 : 1; }
-
-double signed_sqr(double x) { return sign(x) * x * x; }
-
-double signed_abs_sqrt(double x) {
-   return sign(x) * std::sqrt(std::abs(x));
-}
 
 double F1C(double x) {
    if (is_zero(x, eps)) {

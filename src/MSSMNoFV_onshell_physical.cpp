@@ -17,13 +17,11 @@
 // ====================================================================
 
 #include "MSSMNoFV_onshell_physical.hpp"
-#include "numerics2.hpp"
+#include "gm2_numerics.hpp"
 
 #include <iostream>
 
 namespace gm2calc {
-
-using namespace flexiblesusy;
 
 MSSMNoFV_onshell_physical::MSSMNoFV_onshell_physical()
    :

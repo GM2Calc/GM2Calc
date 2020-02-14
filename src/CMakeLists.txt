@@ -8,6 +8,7 @@ add_library(gm2calc
   gm2_2loop_c.cpp
   gm2_2loop.cpp
   gm2_mb.cpp
+  gm2_numerics.cpp
   gm2_slha_io.cpp
   gm2_uncertainty_c.cpp
   gm2_uncertainty.cpp

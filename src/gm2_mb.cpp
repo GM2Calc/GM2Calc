@@ -17,6 +17,7 @@
 // ====================================================================
 
 #include "gm2_mb.hpp"
+#include "gm2_numerics.hpp"
 #include "ffunctions.hpp"
 #include <cmath>
 #include <iostream>

@@ -20,6 +20,7 @@
 #include "gm2_2loop_helpers.hpp"
 #include "gm2_1loop.hpp"
 #include "gm2_1loop_helpers.hpp"
+#include "gm2_numerics.hpp"
 #include "MSSMNoFV_onshell.hpp"
 #include "ffunctions.hpp"
 
@@ -93,7 +94,7 @@ double LogNorm(const MSSMNoFV_onshell& model) {
    return fmin(std::abs(model.get_MassB()),
            fmin(std::abs(model.get_MassWB()),
             fmin(std::abs(model.get_Mu()),
-             fmin(sqrt(model.get_me2(1, 1)), sqrt(model.get_ml2(1, 1))))));
+             fmin(std::sqrt(model.get_me2(1, 1)), std::sqrt(model.get_ml2(1, 1))))));
 }
 
 /**
