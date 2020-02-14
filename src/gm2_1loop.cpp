@@ -22,6 +22,7 @@
 #include "numerics2.hpp"
 
 #include <complex>
+#include <cmath>
 
 /**
  * \file gm2_1loop.cpp

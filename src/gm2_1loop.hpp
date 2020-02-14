@@ -19,7 +19,6 @@
 #ifndef GM2_1LOOP_H
 #define GM2_1LOOP_H
 
-#include <cmath>
 #include <Eigen/Core>
 
 namespace gm2calc {
