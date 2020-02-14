@@ -16,10 +16,13 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_CALCULATOR_H
-#define GM2_CALCULATOR_H
+#ifndef GM2_MSSMNoFV_onshell_H
+#define GM2_MSSMNoFV_onshell_H
 
 #include "MSSMNoFV_onshell_mass_eigenstates.hpp"
+
+#include <iosfwd>
+
 #include <Eigen/Core>
 
 namespace gm2calc {

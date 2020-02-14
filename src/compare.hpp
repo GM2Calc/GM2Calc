@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef COMPARE_H
-#define COMPARE_H
+#ifndef GM2_COMPARE_H
+#define GM2_COMPARE_H
 
 #include <Eigen/Core>
 

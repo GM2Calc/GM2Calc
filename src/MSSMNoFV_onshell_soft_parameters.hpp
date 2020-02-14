@@ -16,12 +16,14 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef MSSMNoFV_onshell_soft_parameters_H
-#define MSSMNoFV_onshell_soft_parameters_H
+#ifndef GM2_MSSMNoFV_onshell_soft_parameters_H
+#define GM2_MSSMNoFV_onshell_soft_parameters_H
 
 #include "MSSMNoFV_onshell_susy_parameters.hpp"
 
 #include <iosfwd>
+
+#include <Eigen/Core>
 
 namespace gm2calc {
 

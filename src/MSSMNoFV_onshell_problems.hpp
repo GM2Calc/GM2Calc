@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef MSSMNoFV_onshell_PROBLEMS_H
-#define MSSMNoFV_onshell_PROBLEMS_H
+#ifndef GM2_MSSMNoFV_onshell_PROBLEMS_H
+#define GM2_MSSMNoFV_onshell_PROBLEMS_H
 
 #include <iosfwd>
 #include <string>
