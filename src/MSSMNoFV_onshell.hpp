@@ -20,7 +20,6 @@
 #define GM2_CALCULATOR_H
 
 #include "MSSMNoFV_onshell_mass_eigenstates.hpp"
-#include <limits>
 #include <Eigen/Core>
 
 namespace gm2calc {
