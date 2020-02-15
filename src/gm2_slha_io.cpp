@@ -17,9 +17,9 @@
 // ====================================================================
 
 #include "gm2_slha_io.hpp"
+#include "MSSMNoFV_onshell.hpp"
 #include "gm2_log.hpp"
 #include "gm2_numerics.hpp"
-#include "MSSMNoFV_onshell.hpp"
 
 #include <cmath>
 #include <fstream>
@@ -32,11 +32,11 @@ namespace gm2calc {
 
 namespace {
 
-   void process_gm2calcconfig_tuple(Config_options&, int, double);
-   void process_gm2calcinput_tuple(MSSMNoFV_onshell&, int, double);
-   void process_fermion_sminputs_tuple(MSSMNoFV_onshell_physical&, int, double);
-   void process_mass_tuple(MSSMNoFV_onshell_physical&, int, double);
-   void process_msoft_tuple(MSSMNoFV_onshell&, int, double);
+   void process_gm2calcconfig_tuple(Config_options& /*config_options*/, int /*key*/, double /*value*/);
+   void process_gm2calcinput_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
+   void process_fermion_sminputs_tuple(MSSMNoFV_onshell_physical& /*physical*/, int /*key*/, double /*value*/);
+   void process_mass_tuple(MSSMNoFV_onshell_physical& /*physical*/, int /*key*/, double /*value*/);
+   void process_msoft_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
 
 } // anonymous namespace
 
@@ -93,7 +93,7 @@ double GM2_slha_io::read_entry(const std::string& block_name, int key,
 
    while (block != data.cend()) {
       if (at_scale(*block, scale)) {
-         SLHAea::Block::const_iterator line = block->find(keys);
+         auto line = block->find(keys);
 
          while (line != block->end()) {
             if (line->is_data_line() && line->size() > 1) {
@@ -106,7 +106,7 @@ double GM2_slha_io::read_entry(const std::string& block_name, int key,
       }
 
       ++block;
-      block = data.find(block, data.cend(), block_name);
+      block = SLHAea::Coll::find(block, data.cend(), block_name);
    }
 
    return entry;
@@ -122,7 +122,7 @@ double GM2_slha_io::read_entry(const std::string& block_name, int key,
 double GM2_slha_io::read_scale(const std::string& block_name) const
 {
    double scale = 0.;
-   auto block = data.find(data.cbegin(), data.cend(), block_name);
+   auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
 
    while (block != data.cend()) {
       for (const auto& line: *block) {
@@ -136,7 +136,7 @@ double GM2_slha_io::read_scale(const std::string& block_name) const
       }
 
       ++block;
-      block = data.find(block, data.cend(), block_name);
+      block = SLHAea::Coll::find(block, data.cend(), block_name);
    }
 
    return scale;
@@ -212,7 +212,7 @@ void GM2_slha_io::read_block(const std::string& block_name,
       }
 
       ++block;
-      block = data.find(block, data.cend(), block_name);
+      block = SLHAea::Coll::find(block, data.cend(), block_name);
    }
 }
 
@@ -482,16 +482,16 @@ void process_gm2calcconfig_tuple(Config_options& config_options,
       config_options.loop_order = value;
       break;
    case 2:
-      config_options.tanb_resummation = value;
+      config_options.tanb_resummation = (value != 0.0);
       break;
    case 3:
-      config_options.force_output = value;
+      config_options.force_output = (value != 0.0);
       break;
    case 4:
-      config_options.verbose_output = value;
+      config_options.verbose_output = (value != 0.0);
       break;
    case 5:
-      config_options.calculate_uncertainty = value;
+      config_options.calculate_uncertainty = (value != 0.0);
       break;
    default:
       WARNING("Unrecognized entry in block GM2CalcConfig: " << key);
