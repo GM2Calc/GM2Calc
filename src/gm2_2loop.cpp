@@ -300,7 +300,6 @@ double amu2LFSfapprox(const MSSMNoFV_onshell& model) {
  * diagram, Eq (35) arXiv:1003.5820.
  */
 double amuChipmPhotonic(const MSSMNoFV_onshell& model) {
-   double result = 0.;
    const double MM = model.get_MM();
    const Eigen::Array<double,2,1> AAC_(AAC(model));
    const Eigen::Array<double,2,1> BBC_(BBC(model));
@@ -309,15 +308,17 @@ double amuChipmPhotonic(const MSSMNoFV_onshell& model) {
    const Eigen::Array<double,2,1> x__k(x_k(model));
    const double mu_DREG = model.get_MUDIM();
 
-   for(int k=0; k<2; k++) {
-      result += ( (AAC_(k) * F1C(x__k(k)) / 12.
-                   + MCha(k) / 3. * BBC_(k) / model.get_MM() * F2C(x__k(k)))
+   double result = 0.;
+
+   for (int k = 0; k < 2; k++) {
+      result += (AAC_(k) * F1C(x__k(k)) / 12.
+                 + MCha(k) / 3. * BBC_(k) / model.get_MM() * F2C(x__k(k)))
                     * 16. * std::log(MM / MSvmL)
                   - 47. * AAC_(k) * F3C(x__k(k)) / 72.
                   - 61. * MCha(k) / 9. * BBC_(k) / model.get_MM() * F4C(x__k(k))
                   - (0.5 * AAC_(k) * F1C(x__k(k))
-                   + MCha(k) * BBC_(k) / model.get_MM() * F2C(x__k(k)))
-                    * std::log(sqr(MSvmL / mu_DREG)) );
+                     + MCha(k) * BBC_(k) / model.get_MM() * F2C(x__k(k)))
+                    * std::log(sqr(MSvmL / mu_DREG));
    }
 
    return  sqr(model.get_EL0()) * sqr(oneOver16PiSqr) * sqr(MM / MSvmL) * result;
@@ -328,7 +329,6 @@ double amuChipmPhotonic(const MSSMNoFV_onshell& model) {
  * neutralino diagram, Eq (36) arXiv:1003.5820.
  */
 double amuChi0Photonic(const MSSMNoFV_onshell& model) {
-   double result = 0.;
    const double MM = model.get_MM();
    const Eigen::Matrix<double,4,2> AAN_(AAN(model));
    const Eigen::Matrix<double,4,2> BBN_(BBN(model));
@@ -337,9 +337,11 @@ double amuChi0Photonic(const MSSMNoFV_onshell& model) {
    const Eigen::Matrix<double,4,2> x__im(x_im(model));
    const double mu_DREG = model.get_MUDIM();
 
-   for(int i=0; i<4; ++i) {
-      for(int m=0; m<2; ++m) {
-         result +=  1. / sqr(MSmu(m))
+   double result = 0.;
+
+   for (int i = 0; i < 4; ++i) {
+      for (int m = 0; m < 2; ++m) {
+         result += 1. / sqr(MSmu(m))
                     * ((- 1. / 12. * AAN_(i, m) * F1N(x__im(i, m))
                        - MNeu(i) / 6. * BBN_(i, m) / model.get_MM() * F2N(x__im(i, m)))
                         * 16. * std::log(MM / MSmu(m))
@@ -386,7 +388,6 @@ double tan_alpha(const MSSMNoFV_onshell& model) {
  * includes tan(beta) resummation
  */
 Eigen::Matrix<std::complex<double>,3,3> lambda_mu_cha(const MSSMNoFV_onshell& model) {
-   Eigen::Matrix<std::complex<double>,3,3> result;
    const Eigen::Array<double,2,1> MCha(model.get_MCha());
    const double MW(model.get_MW());
    const double TB(model.get_TB());
@@ -400,13 +401,15 @@ Eigen::Matrix<std::complex<double>,3,3> lambda_mu_cha(const MSSMNoFV_onshell& mo
    const double one_over_cb_eff = root2 * model.get_Ye(1,1)
       * model.get_MW() / model.get_MM() / model.get_g2();
 
-   for(int k=0; k<2; ++k) {
-      result(k, 0) = ( root2 * MW / MCha(k)
-                      * (U(k, 0) * V(k, 1) * CA + U(k, 1) * V(k, 0) * (-SA)) );
-      result(k, 1) = ( root2 * MW / MCha(k)
-                      * (U(k, 0) * V(k, 1) * SA + U(k, 1) * V(k, 0) * CA) );
-      result(k, 2) = ( root2 * MW / MCha(k)
-                      * (U(k, 0) * V(k, 1) * (-CB) + U(k, 1) * V(k, 0) * (-SB)) );
+   Eigen::Matrix<std::complex<double>,3,3> result;
+
+   for (int k = 0; k < 2; ++k) {
+      result(k, 0) = root2 * MW / MCha(k)
+                      * (U(k, 0) * V(k, 1) * CA + U(k, 1) * V(k, 0) * (-SA));
+      result(k, 1) = root2 * MW / MCha(k)
+                      * (U(k, 0) * V(k, 1) * SA + U(k, 1) * V(k, 0) * CA);
+      result(k, 2) = root2 * MW / MCha(k)
+                      * (U(k, 0) * V(k, 1) * (-CB) + U(k, 1) * V(k, 0) * (-SB));
    }
    result(2, 0) = -SA * one_over_cb_eff;
    result(2, 1) = CA * one_over_cb_eff;
@@ -420,7 +423,6 @@ Eigen::Matrix<std::complex<double>,3,3> lambda_mu_cha(const MSSMNoFV_onshell& mo
  * arXiv:hep-ph/0609168
  */
 Eigen::Matrix<std::complex<double>,2,2> lambda_stop(const MSSMNoFV_onshell& model) {
-   Eigen::Matrix<std::complex<double>,2,2> result;
    const double TB(model.get_TB());
    const double CB = 1. / std::sqrt(1. + sqr(TB));
    const double SB = std::sqrt(1. - sqr(CB));
@@ -433,7 +435,9 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_stop(const MSSMNoFV_onshell& mode
    const double At(model.get_Au(2, 2));
    const double Mu(model.get_Mu());
 
-   for(int i=0; i<2; ++i) {
+   Eigen::Matrix<std::complex<double>,2,2> result;
+
+   for (int i = 0; i < 2; ++i) {
       result(i, 0) = 2. * MT / (sqr(MStop(i)) * SB) * (Mu * SA + At * CA)
                       * std::conj(UStop(i, 0)) * UStop(i, 1);
       result(i, 1) = 2. * MT / (sqr(MStop(i)) * SB) * (Mu * (-CA) + At * SA)
@@ -450,7 +454,6 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_stop(const MSSMNoFV_onshell& mode
  * includes tan(beta) resummation
  */
 Eigen::Matrix<std::complex<double>,2,2> lambda_sbot(const MSSMNoFV_onshell& model) {
-   Eigen::Matrix<std::complex<double>,2,2> result;
    const double TA(tan_alpha(model));
    const double CA = 1. / std::sqrt(1. + sqr(TA));
    const double SA = - std::sqrt(1. - sqr(CA));
@@ -461,7 +464,9 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_sbot(const MSSMNoFV_onshell& mode
    const double mb_over_cb_eff = root2 * model.get_Yd(2,2)
       * model.get_MW() / model.get_g2();
 
-   for(int i=0; i<2; ++i) {
+   Eigen::Matrix<std::complex<double>,2,2> result;
+
+   for (int i = 0; i < 2; ++i) {
       result(i, 0) = 2. * mb_over_cb_eff / (sqr(MSbot(i))) * (- Mu * CA + Ab * (-SA))
                       * std::conj(USbot(i, 0)) * USbot(i, 1);
       result(i, 1) = 2. * mb_over_cb_eff / (sqr(MSbot(i))) * (- Mu * SA + Ab * CA)
@@ -478,7 +483,6 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_sbot(const MSSMNoFV_onshell& mode
  * includes tan(beta) resummation
  */
 Eigen::Matrix<std::complex<double>,2,2> lambda_stau(const MSSMNoFV_onshell& model) {
-   Eigen::Matrix<std::complex<double>,2,2> result;
    const double TA(tan_alpha(model));
    const double CA = 1. / std::sqrt(1. + sqr(TA));
    const double SA = - std::sqrt(1. - sqr(CA));
@@ -489,7 +493,9 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_stau(const MSSMNoFV_onshell& mode
    const double mtau_over_cb_eff = root2 * model.get_Ye()(2,2)
       * model.get_MW() / model.get_g2();
 
-   for(int i=0; i<2; ++i) {
+   Eigen::Matrix<std::complex<double>,2,2> result;
+
+   for (int i = 0; i < 2; ++i) {
       result(i, 0) = 2. * mtau_over_cb_eff / (sqr(MStau(i))) * (- Mu * CA + Al * (-SA))
                       * std::conj(UStau(i, 0)) * UStau(i, 1);
       result(i, 1) = 2. * mtau_over_cb_eff / (sqr(MStau(i))) * (- Mu * SA + Al * CA)
@@ -506,7 +512,6 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_stau(const MSSMNoFV_onshell& mode
  * arXiv:hep-ph/0609168.
  */
 double amu2LaSferm(const MSSMNoFV_onshell& model) {
-   double result = 0.;
    const double MM(model.get_MM());
    const double MW(model.get_MW());
    const double SW = std::sqrt(1. - sqr(MW / model.get_MZ()));
@@ -523,33 +528,34 @@ double amu2LaSferm(const MSSMNoFV_onshell& model) {
    const Eigen::Matrix<std::complex<double>,2,2> lambdasbot(lambda_sbot(model));
    const Eigen::Matrix<std::complex<double>,2,2> lambdastau(lambda_stau(model));
 
+   double result = 0.;
    double N_c = 3.;
-   double Q = 2. / 3.;
+   double Q = 2./3.;
 
-   for(int i=0; i<2; ++i) {
-      for(int s=0; s<2; ++s) {
-         result += ( N_c * sqr(Q) * real(lambda_mu(s)
+   for (int i = 0; i < 2; ++i) {
+      for (int s = 0; s < 2; ++s) {
+         result += N_c * sqr(Q) * real(lambda_mu(s)
                    * lambdastop(i, s))
-                   * f_sferm(sqr(m_stop(i) / M_higgs(s))) );\
+                   * f_sferm(sqr(m_stop(i) / M_higgs(s)));
       }
    }
 
-   Q = - 1. / 3.;
-   for(int i=0; i<2; ++i) {
-      for(int s=0; s<2; ++s) {
-         result += ( N_c * sqr(Q) * real(lambda_mu(s)
+   Q = -1./3.;
+   for (int i = 0; i < 2; ++i) {
+      for (int s = 0; s < 2; ++s) {
+         result += N_c * sqr(Q) * real(lambda_mu(s)
                    * lambdasbot(i, s))
-                   * f_sferm(sqr(m_sbot(i) / M_higgs(s))) );
+                   * f_sferm(sqr(m_sbot(i) / M_higgs(s)));
       }
    }
 
    N_c = 1.;
-   Q = - 1.;
-   for(int i=0; i<2; ++i) {
-      for(int s=0; s<2; ++s) {
-         result += ( N_c * sqr(Q) * real(lambda_mu(s)
+   Q = -1.;
+   for (int i = 0; i < 2; ++i) {
+      for (int s = 0; s < 2; ++s) {
+         result += N_c * sqr(Q) * real(lambda_mu(s)
                    * lambdastau(i, s))
-                   * f_sferm(sqr(m_stau(i) / M_higgs(s))) );
+                   * f_sferm(sqr(m_stau(i) / M_higgs(s)));
       }
    }
 
@@ -563,7 +569,6 @@ double amu2LaSferm(const MSSMNoFV_onshell& model) {
  * arXiv:hep-ph/0609168.
  */
 double amu2LaCha(const MSSMNoFV_onshell& model) {
-   double result = 0.;
    const double MM(model.get_MM());
    const double MW(model.get_MW());
    const double MA0(model.get_MA0());
@@ -573,11 +578,13 @@ double amu2LaCha(const MSSMNoFV_onshell& model) {
    const Eigen::Array<double,2,1> m_cha(model.get_MCha());
    const Eigen::Matrix<std::complex<double>,3,3> lambda(lambda_mu_cha(model));
 
-   for(int k=0; k<2; ++k) {
+   double result = 0.;
+
+   for (int k = 0; k < 2; ++k) {
       result += real(lambda(2, 2) * lambda(k, 2)) * f_PS(sqr(m_cha(k) / MA0));
-      for(int s=0; s<2; ++s) {
-         result += ( real(lambda(2, s) * lambda(k, s))
-                   * f_S(sqr(m_cha(k) / M_higgs(s))) );
+      for (int s = 0; s < 2; ++s) {
+         result += real(lambda(2, s) * lambda(k, s))
+                   * f_S(sqr(m_cha(k) / M_higgs(s)));
       }
    }
 
