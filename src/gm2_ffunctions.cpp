@@ -17,14 +17,13 @@
 // ====================================================================
 
 #include "gm2_ffunctions.hpp"
+#include "gm2_log.hpp"
 #include "dilog.hpp"
 
 #include <cmath>
 #include <complex>
 #include <iostream>
 #include <limits>
-
-#define ERROR(message) std::cerr << "Error: " << message << '\n';
 
 namespace gm2calc {
 
@@ -485,7 +484,7 @@ double f_PS(double z) {
  */
 double f_S(double z) {
    if (z < 0.0) {
-      ERROR("f_S: z must not be negativ!");
+      ERROR("f_S: z must not be negative!");
    }
 
    return (2.0*z - 1.0)*f_PS(z) - 2.0*z*(2.0 + std::log(z));
@@ -496,7 +495,7 @@ double f_S(double z) {
  */
 double f_sferm(double z) {
    if (z < 0.0) {
-      ERROR("f_sferm: z must not be negativ!");
+      ERROR("f_sferm: z must not be negative!");
    }
 
    return 0.5*z*(2.0 + std::log(z) - f_PS(z));

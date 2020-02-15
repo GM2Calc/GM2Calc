@@ -17,6 +17,7 @@
 // ====================================================================
 
 #include "gm2_mb.hpp"
+#include "gm2_log.hpp"
 #include "gm2_numerics.hpp"
 
 #include <cmath>
@@ -29,11 +30,6 @@
  * Contains functions necessary to calculate the mb(Q) in the DR-bar
  * scheme.
  */
-
-#define WARNING(message)                                                \
-   do { std::cerr << "Warning: " << message << '\n'; } while (0)
-#define ERROR(message)                                                  \
-   do { std::cerr << "Error: " << message << '\n'; } while (0)
 
 namespace gm2calc {
 

@@ -17,10 +17,11 @@
 // ====================================================================
 
 #include "MSSMNoFV_onshell.hpp"
-#include "gm2_error.hpp"
 #include "gm2_1loop.hpp"
 #include "gm2_1loop_helpers.hpp"
+#include "gm2_error.hpp"
 #include "gm2_ffunctions.hpp"
+#include "gm2_log.hpp"
 #include "gm2_mb.hpp"
 #include "gm2_numerics.hpp"
 
@@ -31,9 +32,6 @@
 #include <limits>
 
 #include <boost/math/tools/roots.hpp>
-
-#define WARNING(message)                                                \
-   do { std::cerr << "Warning: " << message << '\n'; } while (0)
 
 namespace gm2calc {
 

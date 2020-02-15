@@ -17,6 +17,7 @@
 // ====================================================================
 
 #include "MSSMNoFV_onshell_physical.hpp"
+#include "gm2_log.hpp"
 #include "gm2_numerics.hpp"
 
 #include <iostream>

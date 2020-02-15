@@ -17,6 +17,7 @@
 // ====================================================================
 
 #include "gm2_slha_io.hpp"
+#include "gm2_log.hpp"
 #include "gm2_numerics.hpp"
 #include "MSSMNoFV_onshell.hpp"
 
@@ -28,9 +29,6 @@
 #include <Eigen/Core>
 
 namespace gm2calc {
-
-#define ERROR(message) std::cerr << "Error: " << message << '\n';
-#define WARNING(message) std::cerr << "Warning: " << message << '\n';
 
 namespace {
 
