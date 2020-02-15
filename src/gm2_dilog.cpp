@@ -16,7 +16,7 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "dilog.hpp"
+#include "gm2_dilog.hpp"
 #include <cmath>
 #include <limits>
 

@@ -17,8 +17,8 @@
 // ====================================================================
 
 #include "gm2_ffunctions.hpp"
+#include "gm2_dilog.hpp"
 #include "gm2_log.hpp"
-#include "dilog.hpp"
 
 #include <cmath>
 #include <complex>

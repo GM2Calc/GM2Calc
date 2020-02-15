@@ -2,11 +2,11 @@ configure_file(gm2_config.h.in gm2_config.h)
 
 # GM2Calc library
 add_library(gm2calc
-  dilog.cpp
   gm2_1loop_c.cpp
   gm2_1loop.cpp
   gm2_2loop_c.cpp
   gm2_2loop.cpp
+  gm2_dilog.cpp
   gm2_ffunctions.cpp
   gm2_mb.cpp
   gm2_numerics.cpp
