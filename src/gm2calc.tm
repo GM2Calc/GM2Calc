@@ -227,9 +227,9 @@
 
 #include "gm2_1loop.h"
 #include "gm2_2loop.h"
+#include "gm2_config.h"
 #include "gm2_uncertainty.h"
 #include "MSSMNoFV_onshell.h"
-#include "config.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

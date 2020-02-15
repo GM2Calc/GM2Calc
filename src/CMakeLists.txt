@@ -1,4 +1,4 @@
-configure_file(config.h.in config.h)
+configure_file(gm2_config.h.in gm2_config.h)
 
 # GM2Calc library
 add_library(gm2calc
