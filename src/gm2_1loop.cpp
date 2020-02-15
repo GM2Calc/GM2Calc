@@ -106,12 +106,13 @@ double amuChi0(const MSSMNoFV_onshell& model) {
  * arXiv:1311.1775.
  */
 double amuChipm(const MSSMNoFV_onshell& model) {
-   double result = 0.;
    const Eigen::Array<double,2,1> x__k(x_k(model));
    const double MSvm(model.get_MSvmL());
    const Eigen::Array<double,2,1> AAC_(AAC(model));
    const Eigen::Array<double,2,1> BBC_(BBC(model));
    const Eigen::Array<double,2,1> MCha(model.get_MCha());
+
+   double result = 0.;
 
    for (int k = 0; k < 2; ++k) {
       result +=
