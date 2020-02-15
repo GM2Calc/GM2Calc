@@ -32,9 +32,9 @@
 #include "gm2_eigen_utils.hpp"
 #include "gm2_linalg.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <iostream>
-#include <algorithm>
 
 namespace {
 template <typename Derived>
@@ -44,9 +44,11 @@ void Symmetrize(Eigen::MatrixBase<Derived>& m)
                  Eigen::MatrixBase<Derived>::ColsAtCompileTime,
                  "Symmetrize is only defined for squared matrices");
 
-   for (int i = 0; i < Eigen::MatrixBase<Derived>::RowsAtCompileTime; i++)
-      for (int k = 0; k < i; k++)
+   for (int i = 0; i < Eigen::MatrixBase<Derived>::RowsAtCompileTime; i++) {
+      for (int k = 0; k < i; k++) {
          m(i,k) = m(k,i);
+      }
+   }
 }
 
 template <typename Derived>
@@ -678,8 +680,9 @@ void CLASSNAME::calculate_MSvmL()
 {
    const auto mass_matrix_SvmL = get_mass_matrix_SvmL();
 
-   if (mass_matrix_SvmL < 0.)
+   if (mass_matrix_SvmL < 0.) {
       problems.flag_tachyon("SvmL");
+   }
 
    MSvmL = std::sqrt(std::abs(mass_matrix_SvmL));
 }
@@ -792,8 +795,9 @@ void CLASSNAME::calculate_MSm()
    const auto mass_matrix_Sm(get_mass_matrix_Sm());
    fs_diagonalize_hermitian(mass_matrix_Sm, MSm, ZM);
 
-   if (MSm.minCoeff() < 0.)
+   if (MSm.minCoeff() < 0.) {
       problems.flag_tachyon("Sm");
+   }
 
    MSm = sqrt(MSm.cwiseAbs());
 }
@@ -820,8 +824,9 @@ void CLASSNAME::calculate_MStau()
    const auto mass_matrix_Stau(get_mass_matrix_Stau());
    fs_diagonalize_hermitian(mass_matrix_Stau, MStau, ZTau);
 
-   if (MStau.minCoeff() < 0.)
+   if (MStau.minCoeff() < 0.) {
       problems.flag_tachyon("Stau");
+   }
 
    MStau = sqrt(MStau.cwiseAbs());
 }
@@ -896,8 +901,9 @@ void CLASSNAME::calculate_MSb()
    const auto mass_matrix_Sb(get_mass_matrix_Sb());
    fs_diagonalize_hermitian(mass_matrix_Sb, MSb, ZB);
 
-   if (MSb.minCoeff() < 0.)
+   if (MSb.minCoeff() < 0.) {
       problems.flag_tachyon("Sb");
+   }
 
    MSb = sqrt(MSb.cwiseAbs());
 }
@@ -924,8 +930,9 @@ void CLASSNAME::calculate_MSt()
    const auto mass_matrix_St(get_mass_matrix_St());
    fs_diagonalize_hermitian(mass_matrix_St, MSt, ZT);
 
-   if (MSt.minCoeff() < 0.)
+   if (MSt.minCoeff() < 0.) {
       problems.flag_tachyon("St");
+   }
 
    MSt = sqrt(MSt.cwiseAbs());
 }
@@ -951,8 +958,9 @@ void CLASSNAME::calculate_Mhh()
    const auto mass_matrix_hh(get_mass_matrix_hh());
    fs_diagonalize_hermitian(mass_matrix_hh, Mhh, ZH);
 
-   if (Mhh.minCoeff() < 0.)
+   if (Mhh.minCoeff() < 0.) {
       problems.flag_tachyon("hh");
+   }
 
    Mhh = sqrt(Mhh.cwiseAbs());
 }
@@ -983,8 +991,9 @@ void CLASSNAME::calculate_MAh()
    const auto mass_matrix_Ah(get_mass_matrix_Ah());
    fs_diagonalize_hermitian(mass_matrix_Ah, MAh, ZA);
 
-   if (MAh.minCoeff() < 0.)
+   if (MAh.minCoeff() < 0.) {
       problems.flag_tachyon("Ah");
+   }
 
    MAh = sqrt(MAh.cwiseAbs());
 }
@@ -1009,8 +1018,9 @@ void CLASSNAME::calculate_MHpm()
    const auto mass_matrix_Hpm(get_mass_matrix_Hpm());
    fs_diagonalize_hermitian(mass_matrix_Hpm, MHpm, ZP);
 
-   if (MHpm.minCoeff() < 0.)
+   if (MHpm.minCoeff() < 0.) {
       problems.flag_tachyon("Hpm");
+   }
 
    MHpm = sqrt(MHpm.cwiseAbs());
 }
