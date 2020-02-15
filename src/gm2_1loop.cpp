@@ -89,11 +89,11 @@ double amuChi0(const MSSMNoFV_onshell& model) {
    const Eigen::Matrix<double,4,2> x__im(x_im(model));
    const Eigen::Array<double,4,1> MChi(model.get_MChi());
 
-   for(int i=0; i<4; ++i) {
-      for(int m=0; m<2; ++m) {
-         result += ( - AAN_(i, m) * F1N(x__im(i, m)) / (12. * sqr(m_smu(m)))
-                     - MChi(i) * BBN_(i, m) * F2N(x__im(i, m))
-                      / (6. * model.get_MM() * sqr(m_smu(m))) );
+   for (int i = 0; i < 4; ++i) {
+      for (int m = 0; m < 2; ++m) {
+         result += - AAN_(i, m) * F1N(x__im(i, m)) / (12. * sqr(m_smu(m)))
+                   - MChi(i) * BBN_(i, m) * F2N(x__im(i, m))
+                      / (6. * model.get_MM() * sqr(m_smu(m)));
       }
    }
 
@@ -112,10 +112,10 @@ double amuChipm(const MSSMNoFV_onshell& model) {
    const Eigen::Array<double,2,1> BBC_(BBC(model));
    const Eigen::Array<double,2,1> MCha(model.get_MCha());
 
-   for(int k=0; k<2; ++k) {
-      result += ( AAC_(k) * F1C(x__k(k)) / (12. * sqr(MSvm))
-                 + MCha(k) * BBC_(k) * F2C(x__k(k))
-                  / (3. * model.get_MM() * sqr(MSvm)) );
+   for (int k = 0; k < 2; ++k) {
+      result +=
+         AAC_(k) * F1C(x__k(k)) / (12. * sqr(MSvm)) +
+         MCha(k) * BBC_(k) * F2C(x__k(k)) / (3. * model.get_MM() * sqr(MSvm));
    }
 
    return result * sqr(model.get_MM()) * oneOver16PiSqr;
@@ -134,11 +134,11 @@ Eigen::Matrix<std::complex<double>,4,2> n_L(const MSSMNoFV_onshell& model) {
    const Eigen::Array<double,2,1> m_smu(model.get_MSm());
    const Eigen::Matrix<double,2,2> u_smu(model.get_USm());
 
-   for(int i=0; i <4; ++i) {
-      for(int m=0; m <2; ++m) {
+   for (int i = 0; i < 4; ++i) {
+      for (int m = 0; m < 2; ++m) {
          result(i, m) =
             1. / root2 * (gY * std::conj(ZN(i,0))
-                             + g2 * std::conj(ZN(i,1))) * u_smu(m,0)
+                          + g2 * std::conj(ZN(i,1))) * u_smu(m,0)
             - ymu * std::conj(ZN(i,2)) * u_smu(m,1);
       }
    }
@@ -158,10 +158,10 @@ Eigen::Matrix<std::complex<double>,4,2> n_R(const MSSMNoFV_onshell& model) {
    const Eigen::Array<double,2,1> m_smu(model.get_MSm());
    const Eigen::Matrix<double,2,2> u_smu(model.get_USm());
 
-   for(int i=0; i <4; ++i) {
-      for(int m=0; m <2; ++m) {
-         result(i, m) = - ( root2 * gY * ZN(i, 0) * u_smu(m, 1)
-                       + ymu * ZN(i, 2) * u_smu(m, 0) );
+   for (int i = 0; i < 4; ++i) {
+      for (int m = 0; m < 2; ++m) {
+         result(i, m) = -(root2 * gY * ZN(i, 0) * u_smu(m, 1) +
+                          ymu * ZN(i, 2) * u_smu(m, 0));
       }
    }
 
@@ -180,8 +180,8 @@ Eigen::Array<std::complex<double>,2,1> c_L(const MSSMNoFV_onshell& model) {
    const double g2 = model.get_g2();
    const Eigen::Matrix<std::complex<double>,2,2> UP(model.get_UP());
 
-   for(int k=0; k<2; ++k) {
-      result(k) = - g2 * std::conj(UP(k,0));
+   for (int k = 0; k < 2; ++k) {
+      result(k) = -g2 * std::conj(UP(k, 0));
    }
 
    return result;
@@ -198,7 +198,7 @@ Eigen::Array<std::complex<double>,2,1> c_R(const MSSMNoFV_onshell& model) {
    const double ymu = model.get_Ye(1, 1);
    const Eigen::Matrix<std::complex<double>,2,2> UM(model.get_UM());
 
-   for(int k=0; k<2; ++k) {
+   for (int k = 0; k < 2; ++k) {
       result(k) = ymu * UM(k, 1);
    }
 
@@ -218,7 +218,7 @@ Eigen::Array<double,2,1> AAC(const MSSMNoFV_onshell& model) {
    const Eigen::Array<std::complex<double>,2,1> c__L(c_L(model));
    const Eigen::Array<std::complex<double>,2,1> c__R(c_R(model));
 
-   for(int k=0; k<2; ++k) {
+   for (int k = 0; k < 2; ++k) {
       result(k) = norm(c__L(k)) + norm(c__R(k));
    }
 
@@ -238,8 +238,8 @@ Eigen::Matrix<double,4,2> AAN(const MSSMNoFV_onshell& model) {
    const Eigen::Matrix<std::complex<double>,4,2> n__L(n_L(model));
    const Eigen::Matrix<std::complex<double>,4,2> n__R(n_R(model));
 
-   for(int i=0; i<4; ++i) {
-      for(int m=0; m<2; ++m) {
+   for (int i = 0; i < 4; ++i) {
+      for (int m = 0; m < 2; ++m) {
          result(i, m) = norm(n__L(i, m)) + norm(n__R(i, m));
       }
    }
@@ -257,7 +257,7 @@ Eigen::Array<double,2,1> BBC(const MSSMNoFV_onshell& model) {
    const Eigen::Array<std::complex<double>,2,1> c__L(c_L(model));
    const Eigen::Array<std::complex<double>,2,1> c__R(c_R(model));
 
-   for(int k=0; k<2; ++k) {
+   for (int k = 0; k < 2; ++k) {
       result(k) = 2. * std::real(std::conj(c__L(k)) * c__R(k));
    }
 
@@ -274,9 +274,9 @@ Eigen::Matrix<double,4,2> BBN(const MSSMNoFV_onshell& model) {
    const Eigen::Matrix<std::complex<double>,4,2> n__L = n_L(model);
    const Eigen::Matrix<std::complex<double>,4,2> n__R = n_R(model);
 
-   for(int i=0; i<4; ++i) {
-      for(int m=0; m<2; ++m) {
-         result(i, m) = 2. * std::real(std::conj(n__L(i,m)) * n__R(i,m));
+   for (int i = 0; i < 4; ++i) {
+      for (int m = 0; m < 2; ++m) {
+         result(i, m) = 2. * std::real(std::conj(n__L(i, m)) * n__R(i, m));
       }
    }
 
@@ -293,8 +293,8 @@ Eigen::Matrix<double,4,2> x_im(const MSSMNoFV_onshell& model) {
    const Eigen::Matrix<double,2,2> u_smu(model.get_USm());
    const Eigen::Array<double,4,1> MChi(model.get_MChi());
 
-   for(int i=0; i <4; ++i) {
-      for(int m=0; m <2; ++m) {
+   for (int i = 0; i < 4; ++i) {
+      for (int m = 0; m < 2; ++m) {
          result(i, m) = sqr(MChi(i) / m_smu(m));
       }
    }
@@ -309,7 +309,7 @@ Eigen::Matrix<double,4,2> x_im(const MSSMNoFV_onshell& model) {
 Eigen::Array<double,2,1> x_k(const MSSMNoFV_onshell& model) {
    Eigen::Array<double,2,1> result;
 
-   for(int k=0; k<2; ++k) {
+   for (int k = 0; k < 2; ++k) {
       result(k) = sqr(model.get_MCha(k) / model.get_MSvmL());
    }
 
@@ -328,10 +328,9 @@ double amuWHnu(const MSSMNoFV_onshell& model) {
    const double MUE = model.get_Mu();
    const double MSv_2 = model.get_MSvmL();
 
-   return ( sqr(model.get_g2()) * 2. * oneOver16PiSqr
-            * (sqr(model.get_MM()) * M2 * MUE * tan_beta)
-            / sqr(sqr(MSv_2))
-            * Fa(sqr(M2 / MSv_2), sqr(MUE / MSv_2)) );
+   return sqr(model.get_g2()) * 2. * oneOver16PiSqr
+      * (sqr(model.get_MM()) * M2 * MUE * tan_beta) / sqr(sqr(MSv_2))
+      * Fa(sqr(M2 / MSv_2), sqr(MUE / MSv_2));
 }
 
 /**
@@ -344,10 +343,9 @@ double amuWHmuL(const MSSMNoFV_onshell& model) {
    const double MUE = model.get_Mu();
    const double MSL_2 = std::sqrt(model.get_ml2(1, 1));
 
-   return ( - sqr(model.get_g2()) * oneOver16PiSqr
-            * (sqr(model.get_MM()) * M2 * MUE * tan_beta)
-            / sqr(sqr(MSL_2))
-            * Fb(sqr(M2 / MSL_2), sqr(MUE / MSL_2)) );
+   return - sqr(model.get_g2()) * oneOver16PiSqr
+      * (sqr(model.get_MM()) * M2 * MUE * tan_beta) / sqr(sqr(MSL_2))
+      * Fb(sqr(M2 / MSL_2), sqr(MUE / MSL_2));
 }
 
 /**
@@ -361,10 +359,9 @@ double amuBHmuL(const MSSMNoFV_onshell& model) {
    const double MSL_2 = std::sqrt(model.get_ml2(1, 1));
    const double gY = model.get_gY();
 
-   return ( sqr(gY) * oneOver16PiSqr
-            * (sqr(model.get_MM()) * M1 * MUE * tan_beta)
-            / sqr(sqr(MSL_2))
-            * Fb(sqr(M1 / MSL_2), sqr(MUE / MSL_2)) );
+   return sqr(gY) * oneOver16PiSqr
+      * (sqr(model.get_MM()) * M1 * MUE * tan_beta) / sqr(sqr(MSL_2))
+      * Fb(sqr(M1 / MSL_2), sqr(MUE / MSL_2));
 }
 
 /**
