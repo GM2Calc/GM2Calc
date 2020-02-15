@@ -25,10 +25,10 @@
 #include "gm2_mb.hpp"
 #include "gm2_numerics.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <complex>
 #include <iostream>
-#include <algorithm>
 #include <limits>
 
 #include <boost/math/tools/roots.hpp>
@@ -186,8 +186,9 @@ double MSSMNoFV_onshell::get_vev() const
 
 double MSSMNoFV_onshell::get_TB() const
 {
-   if (gm2calc::detail::is_zero(get_vd()))
+   if (gm2calc::detail::is_zero(get_vd())) {
       return 0.;
+   }
    return get_vu() / get_vd();
 }
 
