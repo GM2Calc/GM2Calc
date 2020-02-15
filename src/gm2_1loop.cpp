@@ -82,11 +82,11 @@ double calculate_amu_1loop(const MSSMNoFV_onshell& model)
  * arXiv:1311.1775.
  */
 double amuChi0(const MSSMNoFV_onshell& model) {
-   const Eigen::Array<double,2,1> m_smu(model.get_MSm());
+   const Eigen::Array<double,2,1>& m_smu(model.get_MSm());
    const Eigen::Matrix<double,4,2> AAN_(AAN(model));
    const Eigen::Matrix<double,4,2> BBN_(BBN(model));
    const Eigen::Matrix<double,4,2> x__im(x_im(model));
-   const Eigen::Array<double,4,1> MChi(model.get_MChi());
+   const Eigen::Array<double,4,1>& MChi(model.get_MChi());
 
    double result = 0.;
 
@@ -110,7 +110,7 @@ double amuChipm(const MSSMNoFV_onshell& model) {
    const double MSvm(model.get_MSvmL());
    const Eigen::Array<double,2,1> AAC_(AAC(model));
    const Eigen::Array<double,2,1> BBC_(BBC(model));
-   const Eigen::Array<double,2,1> MCha(model.get_MCha());
+   const Eigen::Array<double,2,1>& MCha(model.get_MCha());
 
    double result = 0.;
 
@@ -131,8 +131,8 @@ Eigen::Matrix<std::complex<double>,4,2> n_L(const MSSMNoFV_onshell& model) {
    const double gY(model.get_gY());
    const double g2(model.get_g2());
    const double ymu(model.get_Ye(1, 1));
-   const Eigen::Matrix<std::complex<double>,4,4> ZN(model.get_ZN());
-   const Eigen::Matrix<double,2,2> u_smu(model.get_USm());
+   const Eigen::Matrix<std::complex<double>,4,4>& ZN(model.get_ZN());
+   const Eigen::Matrix<double,2,2>& u_smu(model.get_USm());
 
    Eigen::Matrix<std::complex<double>,4,2> result;
 
@@ -155,8 +155,8 @@ Eigen::Matrix<std::complex<double>,4,2> n_L(const MSSMNoFV_onshell& model) {
 Eigen::Matrix<std::complex<double>,4,2> n_R(const MSSMNoFV_onshell& model) {
    const double gY(model.get_gY());
    const double ymu(model.get_Ye(1, 1));
-   const Eigen::Matrix<std::complex<double>,4,4> ZN(model.get_ZN());
-   const Eigen::Matrix<double,2,2> u_smu(model.get_USm());
+   const Eigen::Matrix<std::complex<double>,4,4>& ZN(model.get_ZN());
+   const Eigen::Matrix<double,2,2>& u_smu(model.get_USm());
 
    Eigen::Matrix<std::complex<double>,4,2> result;
 
@@ -179,7 +179,7 @@ Eigen::Matrix<std::complex<double>,4,2> n_R(const MSSMNoFV_onshell& model) {
  */
 Eigen::Array<std::complex<double>,2,1> c_L(const MSSMNoFV_onshell& model) {
    const double g2 = model.get_g2();
-   const Eigen::Matrix<std::complex<double>,2,2> UP(model.get_UP());
+   const Eigen::Matrix<std::complex<double>,2,2>& UP(model.get_UP());
 
    Eigen::Array<std::complex<double>,2,1> result;
 
@@ -198,7 +198,7 @@ Eigen::Array<std::complex<double>,2,1> c_L(const MSSMNoFV_onshell& model) {
  */
 Eigen::Array<std::complex<double>,2,1> c_R(const MSSMNoFV_onshell& model) {
    const double ymu = model.get_Ye(1, 1);
-   const Eigen::Matrix<std::complex<double>,2,2> UM(model.get_UM());
+   const Eigen::Matrix<std::complex<double>,2,2>& UM(model.get_UM());
 
    Eigen::Array<std::complex<double>,2,1> result;
 
@@ -296,8 +296,8 @@ Eigen::Matrix<double,4,2> BBN(const MSSMNoFV_onshell& model) {
  * which appears in Eq (46) of arXiv:hep-ph/0609168.
  */
 Eigen::Matrix<double,4,2> x_im(const MSSMNoFV_onshell& model) {
-   const Eigen::Array<double,2,1> m_smu(model.get_MSm());
-   const Eigen::Array<double,4,1> MChi(model.get_MChi());
+   const Eigen::Array<double,2,1>& m_smu(model.get_MSm());
+   const Eigen::Array<double,4,1>& MChi(model.get_MChi());
 
    Eigen::Matrix<double,4,2> result;
 
