@@ -41,11 +41,9 @@ public:
    MSSMNoFV_onshell_soft_parameters();
    MSSMNoFV_onshell_soft_parameters(
       const MSSMNoFV_onshell_susy_parameters&,
-      const Eigen::Matrix<double,3,3>& TYd_, const Eigen::Matrix<double,3,3>&
-      TYe_, const Eigen::Matrix<double,3,3>& TYu_, double BMu_, const
-      Eigen::Matrix<double,3,3>& mq2_, const Eigen::Matrix<double,3,3>& ml2_,
-      double mHd2_, double mHu2_, const Eigen::Matrix<double,3,3>& md2_, const
-      Eigen::Matrix<double,3,3>& mu2_, const Eigen::Matrix<double,3,3>& me2_,
+      Eigen::Matrix<double,3,3>  TYd_, Eigen::Matrix<double,3,3> 
+      TYe_, Eigen::Matrix<double,3,3>  TYu_, double BMu_, Eigen::Matrix<double,3,3>  mq2_, Eigen::Matrix<double,3,3>  ml2_,
+      double mHd2_, double mHu2_, Eigen::Matrix<double,3,3>  md2_, Eigen::Matrix<double,3,3>  mu2_, Eigen::Matrix<double,3,3>  me2_,
       double MassB_, double MassWB_, double MassG_);
    virtual ~MSSMNoFV_onshell_soft_parameters() {}
    virtual void print(std::ostream&) const;

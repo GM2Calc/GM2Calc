@@ -141,13 +141,15 @@ std::string MSSMNoFV_onshell_problems::get_problems() const
 
 void MSSMNoFV_onshell_problems::print_problems(std::ostream& ostr) const
 {
-   if (have_problem())
+   if (have_problem()) {
       ostr << "Problem: ";
+   }
 
    if (have_tachyon()) {
       for (auto it = tachyons.cbegin(), end = tachyons.cend(); it != end; ++it) {
-         if (it != tachyons.begin())
+         if (it != tachyons.begin()) {
             ostr << ", ";
+         }
          ostr << *it << " tachyon";
       }
    }
@@ -155,18 +157,21 @@ void MSSMNoFV_onshell_problems::print_problems(std::ostream& ostr) const
 
 void MSSMNoFV_onshell_problems::print_warnings(std::ostream& ostr) const
 {
-   if (have_warning())
+   if (have_warning()) {
       ostr << "Warning:";
+   }
 
-   if (have_no_convergence_Mu_MassB_MassWB)
+   if (have_no_convergence_Mu_MassB_MassWB) {
       ostr << " DR-bar to on-shell conversion for Mu, M1, M2 failed"
               " (reached absolute accuracy: "
            << convergence_problem_Mu_MassB_MassWB.precision << " GeV),";
+   }
 
-   if (have_no_convergence_me2)
+   if (have_no_convergence_me2) {
       ostr << " DR-bar to on-shell conversion for me2 failed"
               " (reached absolute accuracy: "
            << convergence_problem_me2.precision << " GeV)";
+   }
 }
 
 void MSSMNoFV_onshell_problems::print(std::ostream& ostr) const

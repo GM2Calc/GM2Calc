@@ -224,7 +224,7 @@ void gm2calc_mssmnofv_set_MChi_pole(MSSMNoFV_onshell* model, unsigned i, double 
 
 void gm2calc_mssmnofv_set_verbose_output(MSSMNoFV_onshell* model, int verbose_output)
 {
-   reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_verbose_output(verbose_output);
+   reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->set_verbose_output(verbose_output != 0);
 }
 
 double gm2calc_mssmnofv_get_Ae(const MSSMNoFV_onshell* model, unsigned i, unsigned k)
@@ -412,8 +412,9 @@ double gm2calc_mssmnofv_get_UM(const MSSMNoFV_onshell* model, unsigned i, unsign
    const std::complex<double> U_ij =
       reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_UM(i,j);
 
-   if (u_imag)
+   if (u_imag != nullptr) {
       *u_imag = std::imag(U_ij);
+   }
 
    return std::real(U_ij);
 }
@@ -423,8 +424,9 @@ double gm2calc_mssmnofv_get_UP(const MSSMNoFV_onshell* model, unsigned i, unsign
    const std::complex<double> U_ij =
       reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_UP(i,j);
 
-   if (u_imag)
+   if (u_imag != nullptr) {
       *u_imag = std::imag(U_ij);
+   }
 
    return std::real(U_ij);
 }
@@ -439,8 +441,9 @@ double gm2calc_mssmnofv_get_ZN(const MSSMNoFV_onshell* model, unsigned i, unsign
    const std::complex<double> U_ij =
       reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model)->get_ZN(i,j);
 
-   if (u_imag)
+   if (u_imag != nullptr) {
       *u_imag = std::imag(U_ij);
+   }
 
    return std::real(U_ij);
 }
@@ -653,7 +656,7 @@ gm2calc_error gm2calc_mssmnofv_calculate_masses(MSSMNoFV_onshell* model)
  */
 int gm2calc_mssmnofv_have_problem(MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_problems().have_problem();
+   return static_cast<int>(reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_problems().have_problem());
 }
 
 /**
@@ -665,7 +668,7 @@ int gm2calc_mssmnofv_have_problem(MSSMNoFV_onshell* model)
  */
 int gm2calc_mssmnofv_have_warning(MSSMNoFV_onshell* model)
 {
-   return reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_problems().have_warning();
+   return static_cast<int>(reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_problems().have_warning());
 }
 
 /**
