@@ -375,10 +375,9 @@ double amuBHmuR(const MSSMNoFV_onshell& model) {
    const double MSE_2 = std::sqrt(model.get_me2(1, 1));
    const double gY = model.get_gY();
 
-   return ( - sqr(gY) * 2. * oneOver16PiSqr
-            * (sqr(model.get_MM()) * M1 * MUE * tan_beta)
-            / sqr(sqr(MSE_2))
-            * Fb(sqr(M1 / MSE_2), sqr(MUE / MSE_2)) );
+   return - sqr(gY) * 2. * oneOver16PiSqr
+      * (sqr(model.get_MM()) * M1 * MUE * tan_beta) / sqr(sqr(MSE_2))
+      * Fb(sqr(M1 / MSE_2), sqr(MUE / MSE_2));
 }
 
 /**
@@ -393,13 +392,13 @@ double amuBmuLmuR(const MSSMNoFV_onshell& model) {
    const double MSE_2 = std::sqrt(model.get_me2(1, 1));
    const double gY = model.get_gY();
 
-   if (is_zero(M1))
+   if (is_zero(M1)) {
       return 0.;
+   }
 
-   return ( sqr(gY) * 2. * oneOver16PiSqr
-            * (sqr(model.get_MM()) * MUE * tan_beta)
-            / (M1 * sqr(M1))
-            * Fb(sqr(MSL_2 / M1), sqr(MSE_2 / M1)) );
+   return sqr(gY) * 2. * oneOver16PiSqr
+      * (sqr(model.get_MM()) * MUE * tan_beta) / (M1 * sqr(M1))
+      * Fb(sqr(MSL_2 / M1), sqr(MSE_2 / M1));
 }
 
 /**
@@ -409,8 +408,8 @@ double amuBmuLmuR(const MSSMNoFV_onshell& model) {
  */
 double amu1Lapprox_non_tan_beta_resummed(const MSSMNoFV_onshell& model) {
 
-   return ( amuWHnu(model) + amuWHmuL(model) + amuBHmuL(model)
-            + amuBHmuR(model) + amuBmuLmuR(model) );
+   return amuWHnu(model) + amuWHmuL(model) + amuBHmuL(model)
+      + amuBHmuR(model) + amuBmuLmuR(model);
 }
 
 /**
