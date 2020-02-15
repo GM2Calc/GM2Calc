@@ -92,10 +92,11 @@ double calculate_amu_2loop(const MSSMNoFV_onshell& model)
 double LogNorm(const MSSMNoFV_onshell& model) {
    // function to find minimum special masses to normalize logarithms
 
-   return fmin(std::abs(model.get_MassB()),
-           fmin(std::abs(model.get_MassWB()),
-            fmin(std::abs(model.get_Mu()),
-             fmin(std::sqrt(model.get_me2(1, 1)), std::sqrt(model.get_ml2(1, 1))))));
+   return std::fmin(std::abs(model.get_MassB()),
+           std::fmin(std::abs(model.get_MassWB()),
+            std::fmin(std::abs(model.get_Mu()),
+             std::fmin(std::sqrt(model.get_me2(1, 1)),
+              std::sqrt(model.get_ml2(1, 1))))));
 }
 
 /**
