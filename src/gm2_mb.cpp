@@ -55,10 +55,11 @@ namespace {
  */
 double calculate_alpha_s_SM5_at(double scale, double lambda_qcd) {
    const double t = std::log(sqr(scale/lambda_qcd));
+   const double logt = std::log(t);
 
    return 12.*Pi/(23.*t) * (
-      1 - 348./529. * std::log(t)/t
-      + sqr(348./529.)/sqr(t) * (sqr(std::log(t) - 0.5) - 78073./242208.)
+      1 - 348./529. * logt/t
+      + sqr(348./529.)/sqr(t) * (sqr(logt - 0.5) - 78073./242208.)
       );
 }
 
