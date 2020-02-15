@@ -29,6 +29,7 @@
 #include <limits>
 #include <string>
 #include <tuple>
+#include <utility>
 
 #define ERROR(message) std::cerr << "Error: " << message << '\n';
 #define WARNING(message) std::cerr << "Warning: " << message << '\n';
@@ -195,18 +196,20 @@ double calculate_amu(const gm2calc::MSSMNoFV_onshell& model,
       result = 0.;
       break;
    case 1:
-      if (options.tanb_resummation)
+      if (options.tanb_resummation) {
          result = gm2calc::calculate_amu_1loop(model);
-      else
+      } else {
          result = gm2calc::calculate_amu_1loop_non_tan_beta_resummed(model);
+      }
       break;
    case 2:
-      if (options.tanb_resummation)
+      if (options.tanb_resummation) {
          result = gm2calc::calculate_amu_1loop(model) +
                   gm2calc::calculate_amu_2loop(model);
-      else
+      } else {
          result = gm2calc::calculate_amu_1loop_non_tan_beta_resummed(model) +
                   gm2calc::calculate_amu_2loop_non_tan_beta_resummed(model);
+      }
       break;
    default:
       ERROR("loop orders > 2 not supported!");
@@ -551,24 +554,28 @@ public:
    /// read from SLHA i/o object and initialize model (via reader)
    void read(const gm2calc::GM2_slha_io& slha_io)
    {
-      if (!reader)
+      if (!reader) {
          throw gm2calc::ESetupError("No reader set");
+      }
 
       reader(model, slha_io);
 
-      if (options.verbose_output)
+      if (options.verbose_output) {
          std::cout << model << '\n';
+      }
 
       if (model.get_problems().have_problem() ||
-          model.get_problems().have_warning())
+          model.get_problems().have_warning()) {
          std::cerr << model.get_problems() << '\n';
+      }
    }
 
    /// Output via the writer (potentially to SLHA i/o object)
    void write(gm2calc::GM2_slha_io& slha_io) const
    {
-      if (!writer)
+      if (!writer) {
          throw gm2calc::ESetupError("No writer set");
+      }
 
       writer(model, options, slha_io);
    }
@@ -643,8 +650,9 @@ int main(int argc, const char* argv[])
       setup.read(slha_io);
       setup.write(slha_io);
 
-      if (setup.have_problem())
+      if (setup.have_problem()) {
          exit_code = EXIT_FAILURE;
+      }
    } catch (const gm2calc::Error& error) {
       print_error(error, slha_io, config_options);
       exit_code = EXIT_FAILURE;
