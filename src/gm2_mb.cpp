@@ -37,7 +37,7 @@ namespace mb {
 
 namespace {
    const double Pi = 3.14159265358979323846;
-}
+} // anonymous namespace
 
 /**
  * Calculates the strong coupling constant \f$\alpha_s(Q)\f$ in the
@@ -148,7 +148,7 @@ double conversion_mb_MSbar_to_DRbar(double alpha) {
    return 1. - as/3. - 29./72. * as * as;
 }
 
-} // namespace gm2calc_mb
+} // namespace mb
 
 /**
  * Calculates mb(Q) in the DR-bar scheme in the SM w/ 5 active quark
