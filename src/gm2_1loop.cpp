@@ -82,12 +82,13 @@ double calculate_amu_1loop(const MSSMNoFV_onshell& model)
  * arXiv:1311.1775.
  */
 double amuChi0(const MSSMNoFV_onshell& model) {
-   double result = 0.;
    const Eigen::Array<double,2,1> m_smu(model.get_MSm());
    const Eigen::Matrix<double,4,2> AAN_(AAN(model));
    const Eigen::Matrix<double,4,2> BBN_(BBN(model));
    const Eigen::Matrix<double,4,2> x__im(x_im(model));
    const Eigen::Array<double,4,1> MChi(model.get_MChi());
+
+   double result = 0.;
 
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
@@ -126,12 +127,13 @@ double amuChipm(const MSSMNoFV_onshell& model) {
  * for \f$l=\mu\f$
  */
 Eigen::Matrix<std::complex<double>,4,2> n_L(const MSSMNoFV_onshell& model) {
-   Eigen::Matrix<std::complex<double>,4,2> result;
    const double gY(model.get_gY());
    const double g2(model.get_g2());
    const double ymu(model.get_Ye(1, 1));
    const Eigen::Matrix<std::complex<double>,4,4> ZN(model.get_ZN());
    const Eigen::Matrix<double,2,2> u_smu(model.get_USm());
+
+   Eigen::Matrix<std::complex<double>,4,2> result;
 
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
@@ -150,11 +152,12 @@ Eigen::Matrix<std::complex<double>,4,2> n_L(const MSSMNoFV_onshell& model) {
  * with \f$l=\mu\f$.
  */
 Eigen::Matrix<std::complex<double>,4,2> n_R(const MSSMNoFV_onshell& model) {
-   Eigen::Matrix<std::complex<double>,4,2> result;
    const double gY(model.get_gY());
    const double ymu(model.get_Ye(1, 1));
    const Eigen::Matrix<std::complex<double>,4,4> ZN(model.get_ZN());
    const Eigen::Matrix<double,2,2> u_smu(model.get_USm());
+
+   Eigen::Matrix<std::complex<double>,4,2> result;
 
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
@@ -174,9 +177,10 @@ Eigen::Matrix<std::complex<double>,4,2> n_R(const MSSMNoFV_onshell& model) {
  * arXiv:hep-ph/0609168.
  */
 Eigen::Array<std::complex<double>,2,1> c_L(const MSSMNoFV_onshell& model) {
-   Eigen::Array<std::complex<double>,2,1> result;
    const double g2 = model.get_g2();
    const Eigen::Matrix<std::complex<double>,2,2> UP(model.get_UP());
+
+   Eigen::Array<std::complex<double>,2,1> result;
 
    for (int k = 0; k < 2; ++k) {
       result(k) = -g2 * std::conj(UP(k, 0));
@@ -192,9 +196,10 @@ Eigen::Array<std::complex<double>,2,1> c_L(const MSSMNoFV_onshell& model) {
  * This expression is equal to Eq. (51) of arXiv:hep-ph/0609168.
  */
 Eigen::Array<std::complex<double>,2,1> c_R(const MSSMNoFV_onshell& model) {
-   Eigen::Array<std::complex<double>,2,1> result;
    const double ymu = model.get_Ye(1, 1);
    const Eigen::Matrix<std::complex<double>,2,2> UM(model.get_UM());
+
+   Eigen::Array<std::complex<double>,2,1> result;
 
    for (int k = 0; k < 2; ++k) {
       result(k) = ymu * UM(k, 1);
@@ -212,9 +217,10 @@ Eigen::Array<std::complex<double>,2,1> c_R(const MSSMNoFV_onshell& model) {
  * which appears in Eq. (47) of arXiv:hep-ph/0609168.
  */
 Eigen::Array<double,2,1> AAC(const MSSMNoFV_onshell& model) {
-   Eigen::Array<double,2,1> result;
    const Eigen::Array<std::complex<double>,2,1> c__L(c_L(model));
    const Eigen::Array<std::complex<double>,2,1> c__R(c_R(model));
+
+   Eigen::Array<double,2,1> result;
 
    for (int k = 0; k < 2; ++k) {
       result(k) = norm(c__L(k)) + norm(c__R(k));
@@ -232,9 +238,10 @@ Eigen::Array<double,2,1> AAC(const MSSMNoFV_onshell& model) {
  * which appears in Eq. (46) of arXiv:hep-ph/0609168.
  */
 Eigen::Matrix<double,4,2> AAN(const MSSMNoFV_onshell& model) {
-   Eigen::Matrix<double,4,2> result;
    const Eigen::Matrix<std::complex<double>,4,2> n__L(n_L(model));
    const Eigen::Matrix<std::complex<double>,4,2> n__R(n_R(model));
+
+   Eigen::Matrix<double,4,2> result;
 
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
@@ -251,9 +258,10 @@ Eigen::Matrix<double,4,2> AAN(const MSSMNoFV_onshell& model) {
  * Eqs (2.11b), (2.7b) in arXiv:1311.1775.
  */
 Eigen::Array<double,2,1> BBC(const MSSMNoFV_onshell& model) {
-   Eigen::Array<double,2,1> result;
    const Eigen::Array<std::complex<double>,2,1> c__L(c_L(model));
    const Eigen::Array<std::complex<double>,2,1> c__R(c_R(model));
+
+   Eigen::Array<double,2,1> result;
 
    for (int k = 0; k < 2; ++k) {
       result(k) = 2. * std::real(std::conj(c__L(k)) * c__R(k));
@@ -268,9 +276,10 @@ Eigen::Array<double,2,1> BBC(const MSSMNoFV_onshell& model) {
  * (2.7b) in arXiv:1311.1775.
  */
 Eigen::Matrix<double,4,2> BBN(const MSSMNoFV_onshell& model) {
-   Eigen::Matrix<double,4,2> result;
    const Eigen::Matrix<std::complex<double>,4,2> n__L = n_L(model);
    const Eigen::Matrix<std::complex<double>,4,2> n__R = n_R(model);
+
+   Eigen::Matrix<double,4,2> result;
 
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
@@ -286,9 +295,10 @@ Eigen::Matrix<double,4,2> BBN(const MSSMNoFV_onshell& model) {
  * which appears in Eq (46) of arXiv:hep-ph/0609168.
  */
 Eigen::Matrix<double,4,2> x_im(const MSSMNoFV_onshell& model) {
-   Eigen::Matrix<double,4,2> result;
    const Eigen::Array<double,2,1> m_smu(model.get_MSm());
    const Eigen::Array<double,4,1> MChi(model.get_MChi());
+
+   Eigen::Matrix<double,4,2> result;
 
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
