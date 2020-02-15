@@ -1,4 +1,10 @@
+# GM2Calc config header
 configure_file(gm2_config.h.in gm2_config.h)
+
+install(
+  FILES "${CMAKE_CURRENT_BINARY_DIR}/gm2_config.h"
+  DESTINATION "${INCLUDE_INSTALL_SUB_DIR}"
+  )
 
 # GM2Calc library
 add_library(gm2calc
