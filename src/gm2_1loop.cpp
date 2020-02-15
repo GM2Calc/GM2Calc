@@ -22,8 +22,8 @@
 #include "gm2_numerics.hpp"
 #include "MSSMNoFV_onshell.hpp"
 
-#include <complex>
 #include <cmath>
+#include <complex>
 
 /**
  * \file gm2_1loop.cpp
