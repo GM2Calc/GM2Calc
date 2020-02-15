@@ -114,22 +114,22 @@ double Delta_g1(const MSSMNoFV_onshell& model) {
    const Eigen::Matrix<double,3,3> ml2(model.get_ml2());
    const double LogScale = LogNorm(model);
 
-   return ( sqr(gY) * oneOver16PiSqr * 4. / 3.
-            * (4. / 3. * std::log(std::sqrt(mu2(0, 0)) / LogScale)
-             + 4. / 3. * std::log(std::sqrt(mu2(1, 1)) / LogScale)
-             + 4. / 3. * std::log(std::sqrt(mu2(2, 2)) / LogScale)
-             + 1. / 3. * std::log(std::sqrt(md2(0, 0)) / LogScale)
-             + 1. / 3. * std::log(std::sqrt(md2(1, 1)) / LogScale)
-             + 1. / 3. * std::log(std::sqrt(md2(2, 2)) / LogScale)
-             + 1. / 6. * std::log(std::sqrt(mq2(0, 0)) / LogScale)
-             + 1. / 6. * std::log(std::sqrt(mq2(1, 1)) / LogScale)
-             + 1. / 6. * std::log(std::sqrt(mq2(2, 2)) / LogScale)
-             + std::log(std::sqrt(me2(0, 0)) / LogScale)
-             + std::log(std::sqrt(me2(1, 1)) / LogScale)
-             + std::log(std::sqrt(me2(2, 2)) / LogScale)
-             + 0.5 * std::log(std::sqrt(ml2(0, 0)) / LogScale)
-             + 0.5 * std::log(std::sqrt(ml2(1, 1)) / LogScale)
-             + 0.5 * std::log(std::sqrt(ml2(2, 2)) / LogScale)) );
+   return sqr(gY) * oneOver16PiSqr * 4. / 3. *
+          (4. / 3. * std::log(std::sqrt(mu2(0, 0)) / LogScale) +
+           4. / 3. * std::log(std::sqrt(mu2(1, 1)) / LogScale) +
+           4. / 3. * std::log(std::sqrt(mu2(2, 2)) / LogScale) +
+           1. / 3. * std::log(std::sqrt(md2(0, 0)) / LogScale) +
+           1. / 3. * std::log(std::sqrt(md2(1, 1)) / LogScale) +
+           1. / 3. * std::log(std::sqrt(md2(2, 2)) / LogScale) +
+           1. / 6. * std::log(std::sqrt(mq2(0, 0)) / LogScale) +
+           1. / 6. * std::log(std::sqrt(mq2(1, 1)) / LogScale) +
+           1. / 6. * std::log(std::sqrt(mq2(2, 2)) / LogScale) +
+           std::log(std::sqrt(me2(0, 0)) / LogScale) +
+           std::log(std::sqrt(me2(1, 1)) / LogScale) +
+           std::log(std::sqrt(me2(2, 2)) / LogScale) +
+           0.5 * std::log(std::sqrt(ml2(0, 0)) / LogScale) +
+           0.5 * std::log(std::sqrt(ml2(1, 1)) / LogScale) +
+           0.5 * std::log(std::sqrt(ml2(2, 2)) / LogScale));
 }
 
 /**
@@ -146,12 +146,13 @@ double Delta_YukHiggsino(const MSSMNoFV_onshell& model) {
    const Eigen::Matrix<double,3,3> ml2(model.get_ml2());
    const double LogScale = LogNorm(model);
 
-   return oneOver16PiSqr * 0.5
-            * (3. * sqr(ytop) * std::log(std::sqrt(mu2(2, 2)) / LogScale)
-             + 3. * sqr(ybot) * std::log(std::sqrt(md2(2, 2)) / LogScale)
-             + 3. * (sqr(ytop) + sqr(ybot)) * std::log(std::sqrt(mq2(2, 2)) / LogScale)
-             + sqr(ytau) * (std::log(std::sqrt(me2(2, 2)) / LogScale)
-                           + std::log(std::sqrt(ml2(2, 2)) / LogScale)));
+   return oneOver16PiSqr * 0.5 *
+          (3. * sqr(ytop) * std::log(std::sqrt(mu2(2, 2)) / LogScale) +
+           3. * sqr(ybot) * std::log(std::sqrt(md2(2, 2)) / LogScale) +
+           3. * (sqr(ytop) + sqr(ybot)) *
+              std::log(std::sqrt(mq2(2, 2)) / LogScale) +
+           sqr(ytau) * (std::log(std::sqrt(me2(2, 2)) / LogScale) +
+                        std::log(std::sqrt(ml2(2, 2)) / LogScale)));
 }
 
 /**
@@ -181,13 +182,13 @@ double Delta_g2(const MSSMNoFV_onshell& model) {
    const Eigen::Matrix<double,3,3> ml2(model.get_ml2());
    const double LogScale = LogNorm(model);
 
-   return sqr(g2) * oneOver16PiSqr * 4. / 3.
-            * (1.5 * std::log(std::sqrt(mq2(0, 0)) / LogScale)
-             + 1.5 * std::log(std::sqrt(mq2(1, 1)) / LogScale)
-             + 1.5 * std::log(std::sqrt(mq2(2, 2)) / LogScale)
-             + 0.5 * std::log(std::sqrt(ml2(0, 0)) / LogScale)
-             + 0.5 * std::log(std::sqrt(ml2(1, 1)) / LogScale)
-             + 0.5 * std::log(std::sqrt(ml2(2, 2)) / LogScale));
+   return sqr(g2) * oneOver16PiSqr * 4. / 3. *
+          (1.5 * std::log(std::sqrt(mq2(0, 0)) / LogScale) +
+           1.5 * std::log(std::sqrt(mq2(1, 1)) / LogScale) +
+           1.5 * std::log(std::sqrt(mq2(2, 2)) / LogScale) +
+           0.5 * std::log(std::sqrt(ml2(0, 0)) / LogScale) +
+           0.5 * std::log(std::sqrt(ml2(1, 1)) / LogScale) +
+           0.5 * std::log(std::sqrt(ml2(2, 2)) / LogScale));
 }
 
 /**
@@ -375,7 +376,7 @@ double tan_alpha(const MSSMNoFV_onshell& model) {
    const double tan2beta = 2. * TB / (1. - sqr(TB));
    const double tan2alpha = tan2beta * (sqr(MA0) + sqr(MZ)) / (sqr(MA0) - sqr(MZ));
 
-   return - 1. / tan2alpha - std::sqrt(1. / sqr(tan2alpha) + 1.);
+   return -1. / tan2alpha - std::sqrt(1. / sqr(tan2alpha) + 1.);
 }
 
 /**
