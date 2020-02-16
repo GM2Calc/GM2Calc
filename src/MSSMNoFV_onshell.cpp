@@ -37,6 +37,7 @@ namespace gm2calc {
 
 namespace {
    const double Pi = 3.141592653589793;
+   const double eps = std::numeric_limits<double>::epsilon();
    const double root2 = 1.414213562373095; // Sqrt[2]
    const double ALPHA_EM_THOMPSON = 1./137.035999074;
    const double DELTA_ALPHA_EM_MZ =
@@ -86,13 +87,12 @@ bool is_equal(const Eigen::ArrayBase<Derived>& a,
 }
 
 template <class Derived>
-bool is_zero(const Eigen::ArrayBase<Derived>& a,
-             double eps = std::numeric_limits<double>::epsilon())
+bool is_zero(const Eigen::ArrayBase<Derived>& a, double eps)
 {
    return a.cwiseAbs().maxCoeff() < eps;
 }
 
-bool is_zero(double a, double eps = std::numeric_limits<double>::epsilon())
+bool is_zero(double a, double eps)
 {
    return gm2calc::is_zero(a, eps);
 }
@@ -186,7 +186,7 @@ double MSSMNoFV_onshell::get_vev() const
 
 double MSSMNoFV_onshell::get_TB() const
 {
-   if (gm2calc::detail::is_zero(get_vd())) {
+   if (gm2calc::detail::is_zero(get_vd(), eps)) {
       return 0.;
    }
    return get_vu() / get_vd();
@@ -266,7 +266,7 @@ void MSSMNoFV_onshell::check_input() const
    }
 
 #define WARN_OR_THROW_IF_ZERO(mass,msg)                         \
-   WARN_OR_THROW_IF(gm2calc::detail::is_zero(get_##mass()),msg)
+   WARN_OR_THROW_IF(gm2calc::detail::is_zero(get_##mass(), eps), msg)
 
    const double MW = get_MW();
    const double MZ = get_MZ();
@@ -301,7 +301,7 @@ void MSSMNoFV_onshell::check_problems() const
          throw EInvalidInput("soft mass squared < 0");
       }
    }
-   if (gm2calc::detail::is_zero(get_MCha(0))) {
+   if (gm2calc::detail::is_zero(get_MCha(0), eps)) {
       if (!do_force_output()) {
          throw EInvalidInput("lightest chargino mass = 0");
       }
@@ -314,15 +314,15 @@ void MSSMNoFV_onshell::copy_susy_masses_to_pole()
    // masses
 
 #define COPY_IF_ZERO_0(m)                                               \
-   if (gm2calc::detail::is_zero(get_physical().m))                      \
+   if (gm2calc::detail::is_zero(get_physical().m, eps))                 \
       get_physical().m = get_##m();
 #define COPY_IF_ZERO_1(m,z)                                             \
-   if (gm2calc::detail::is_zero(get_physical().m)) {                    \
+   if (gm2calc::detail::is_zero(get_physical().m, eps)) {               \
       get_physical().m = get_##m();                                     \
       get_physical().z = get_##z();                                     \
    }
 #define COPY_IF_ZERO_2(m,u,v)                                           \
-   if (gm2calc::detail::is_zero(get_physical().m)) {                    \
+   if (gm2calc::detail::is_zero(get_physical().m, eps)) {               \
       get_physical().m = get_##m();                                     \
       get_physical().u = get_##u();                                     \
       get_physical().v = get_##v();                                     \
