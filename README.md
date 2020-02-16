@@ -252,6 +252,26 @@ the `examples/` directory serve as an illustration of the interface
 routines.
 
 
+Mathematica interface
+=====================
+
+After the GM2Calc MathLink executable has been loaded by
+e.g. `Install["bin/gm2calc.mx"]`, the following Functions are
+available:
+
+| Function                | Description                                                |
+| ----------------------- | ---------------------------------------------------------- |
+| GM2CalcSetFlags         | Sets configuration flags for the calculation               |
+| GM2CalcGetFlags         | Returns currently set configuration flags                  |
+| GM2CalcSetSMParameters  | Sets Standard Model parameters                             |
+| GM2CalcGetSMParameters  | Returns currently set Standard Model parameters            |
+| GM2CalcAmuSLHAScheme    | Calculates `a_mu`, given SLHA input parameters             |
+| GM2CalcAmuGM2CalcScheme | Calculates `a_mu`, given GM2Calc-specific input parameters |
+
+See the example Mathematica scripts `example-slha.m` and
+`example-gm2calc.m` in the `examples/` directory.
+
+
 Source code documentation
 =========================
 
