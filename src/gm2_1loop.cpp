@@ -24,6 +24,7 @@
 
 #include <cmath>
 #include <complex>
+#include <limits>
 
 /**
  * \file gm2_1loop.cpp
@@ -39,6 +40,7 @@ namespace {
 const double Pi = 3.141592653589793;
 const double oneOver16PiSqr = 6.332573977646111e-3; // 1/(4 Pi)^2
 const double root2 = 1.414213562373095; // Sqrt[2]
+const double eps = std::numeric_limits<double>::epsilon();
 
 } // anonymous namespace
 
@@ -400,7 +402,7 @@ double amuBmuLmuR(const MSSMNoFV_onshell& model) {
    const double MSE_2 = std::sqrt(model.get_me2(1, 1));
    const double gY = model.get_gY();
 
-   if (is_zero(M1)) {
+   if (is_zero(M1, eps)) {
       return 0.;
    }
 

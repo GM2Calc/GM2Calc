@@ -19,6 +19,7 @@
 #include "MSSMNoFV_onshell_physical.hpp"
 #include "gm2_log.hpp"
 #include "gm2_numerics.hpp"
+#include <limits>
 
 #include <iostream>
 
@@ -122,13 +123,15 @@ template<int N>
 void convert_symmetric_fermion_mixings_to_slha(Eigen::Array<double, N, 1>& m,
                                                Eigen::Matrix<std::complex<double>, N, N>& z)
 {
+   const double eps = std::numeric_limits<double>::epsilon();
+
    for (int i = 0; i < N; i++) {
       // check if i'th row contains non-zero imaginary parts
-      if (!is_zero(z.row(i).imag().cwiseAbs().maxCoeff())) {
+      if (!is_zero(z.row(i).imag().cwiseAbs().maxCoeff(), eps)) {
          z.row(i) *= std::complex<double>(0.0,1.0);
          m(i) *= -1;
 #ifdef ENABLE_DEBUG
-         if (!is_zero(z.row(i).imag().cwiseAbs().maxCoeff())) {
+         if (!is_zero(z.row(i).imag().cwiseAbs().maxCoeff(), eps)) {
             WARNING("Row " << i << " of the following fermion mixing matrix"
                     " contains entries which have non-zero real and imaginary"
                     " parts:\nZ = " << z);

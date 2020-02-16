@@ -41,9 +41,9 @@ double signed_abs_sqrt(double);
 double signed_sqr(double);
 
 template <typename T>
-bool is_zero(T a, T prec = std::numeric_limits<T>::epsilon())
+bool is_zero(T a, T eps)
 {
-   return std::fabs(a) < prec;
+   return std::fabs(a) < eps;
 }
 
 template <typename T>

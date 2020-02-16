@@ -157,7 +157,7 @@ bool GM2_slha_io::block_exists(const std::string& block_name) const
  */
 bool GM2_slha_io::at_scale(const SLHAea::Block& block, double scale, double eps)
 {
-   if (is_zero(scale)) {
+   if (is_zero(scale, std::numeric_limits<double>::epsilon())) {
       return true;
    }
 
@@ -303,10 +303,11 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
 
 void GM2_slha_io::fill_alpha_s(MSSMNoFV_onshell& model) const
 {
+   const double eps = std::numeric_limits<double>::epsilon();
    const double Pi = 3.14159265358979323846;
    const double alpha_S = read_entry("SMINPUTS", 3);
 
-   if (!is_zero(alpha_S)) {
+   if (!is_zero(alpha_S, eps)) {
       model.set_g3(std::sqrt(4*Pi*alpha_S));
    }
 }
@@ -322,9 +323,10 @@ void GM2_slha_io::fill_soft_parameters_from_msoft(MSSMNoFV_onshell& model, doubl
 
 void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
 {
+   const double eps = std::numeric_limits<double>::epsilon();
    const double scale = read_scale("HMIX");
 
-   if (is_zero(scale)) {
+   if (is_zero(scale, eps)) {
       throw EInvalidInput("Could not determine renormalization scale"
                           " from HMIX block");
    }
@@ -383,9 +385,10 @@ void GM2_slha_io::fill_physical(MSSMNoFV_onshell_physical& physical) const
    fill_pole_masses_from_sminputs(physical);
 
    // if MW if given in MASS[24], prefer this value
+   const double eps = std::numeric_limits<double>::epsilon();
    const double MW = read_entry("MASS", 24);
 
-   if (!is_zero(MW)) {
+   if (!is_zero(MW, eps)) {
       physical.MVWm = MW;
    }
 
