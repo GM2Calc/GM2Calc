@@ -47,22 +47,24 @@ bool is_zero(T a, T eps)
 }
 
 template <typename T>
-bool is_equal(T a, T b, T prec = std::numeric_limits<T>::epsilon())
+bool is_equal(T a, T b, T eps = std::numeric_limits<T>::epsilon())
 {
-   return is_zero(a - b, prec);
+   return is_zero(a - b, eps);
 }
 
 template <typename T>
-bool is_equal_rel(T a, T b, T prec = std::numeric_limits<T>::epsilon())
+bool is_equal_rel(T a, T b, T eps = std::numeric_limits<T>::epsilon())
 {
-   if (is_equal(a, b, std::numeric_limits<T>::epsilon()))
+   if (is_equal(a, b, std::numeric_limits<T>::epsilon())) {
       return true;
+   }
 
    if (std::fabs(a) < std::numeric_limits<T>::epsilon() ||
-       std::fabs(b) < std::numeric_limits<T>::epsilon())
+       std::fabs(b) < std::numeric_limits<T>::epsilon()) {
       return false;
+   }
 
-   return std::fabs((a - b)/a) < prec;
+   return std::fabs((a - b)/a) < eps;
 }
 
 } // namespace gm2calc
