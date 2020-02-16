@@ -1,10 +1,51 @@
 :Evaluate: BeginPackage["GM2Calc`"]
 
-:Evaluate: {loopOrder, tanBetaResummation, forceOutput}
+:Evaluate: loopOrder::usage =
+    "Loop order of the calculation. Possible values: 0, 1, 2";
 
-:Evaluate: {alphaMZ, alpha0, alphaS, MW, MZ, MT, mbmb, mbMZ, ML, MM}
+:Evaluate: tanBetaResummation::usage =
+    "Enable/disable tan(beta) resummation. Possible values: True, False";
 
-:Evaluate: {amu, Damu, UM, UP, USb, USm, USt, UStau, ZN,
+:Evaluate: forceOutput::usage =
+    "Enforce output, even in case an error has occurred.";
+
+:Evaluate: alphaMZ::usage =
+    "Electromagnetic coupling in the MS-bar scheme at the scale MZ."
+
+:Evaluate: alpha0::usage =
+    "Electromagnetic coupling in the Thomson limit."
+
+:Evaluate: alphaS::usage =
+    "Strong coupling."
+
+:Evaluate: MW::usage =
+    "W-boson pole mass."
+
+:Evaluate: MZ::usage =
+    "Z-boson pole mass."
+
+:Evaluate: MT::usage =
+    "Top quark pole mass."
+
+:Evaluate: mbmb::usage =
+    "Bottom quark MS-bar mass mb at the scale mb."
+
+:Evaluate: mbMZ::usage =
+    "Bottom quark DR-bar mass at the scale MZ."
+
+:Evaluate: ML::usage =
+    "Tau lepton pole mass."
+
+:Evaluate: MM::usage =
+    "Muon pole mass."
+
+:Evaluate: amu::usage =
+    "Calculated value of the anomalous magnetic moment of the muon, amu = (g-2)/2.";
+
+:Evaluate: Damu::usage =
+    "Uncertainty of the calculated value of the anomalous magnetic moment of the muon.";
+
+:Evaluate: {UM, UP, USb, USm, USt, UStau, ZN,
        MSveL, MSe, MSvmL, MSm, MSvtL, MStau,
        MSu, MSd, MSc, MSs, MSt, MSb, MChi, MCha, MAh, Mhh,
        TB, Mu, MassB, MassWB, MassG, mq2, ml2, mu2, md2, me2,
