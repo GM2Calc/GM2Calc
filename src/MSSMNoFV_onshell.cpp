@@ -482,7 +482,7 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
 
    bool accuracy_goal_reached =
       detail::is_equal(MCha_goal, get_MCha(), precision_goal) &&
-      is_equal(MChi_goal(max_bino), get_MChi(max_bino), precision_goal);
+      gm2calc::is_equal(MChi_goal(max_bino), get_MChi(max_bino), precision_goal);
    unsigned it = 0;
 
    while (!accuracy_goal_reached && it < max_iterations) {
@@ -525,7 +525,7 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
 
       accuracy_goal_reached =
          detail::is_equal(MCha_goal, get_MCha(), precision_goal) &&
-         is_equal(MChi_goal(max_bino), get_MChi(max_bino), precision_goal);
+         gm2calc::is_equal(MChi_goal(max_bino), get_MChi(max_bino), precision_goal);
 
       it++;
    }
@@ -648,7 +648,7 @@ double MSSMNoFV_onshell::convert_me2_root_modify(
 
    // stopping criterion, given two brackets a, b
    auto Stop_crit = [precision_goal](double a, double b) -> bool {
-      return is_equal(a,b,precision_goal);
+      return gm2calc::is_equal(a,b,precision_goal);
    };
 
    if (verbose_output) {
@@ -752,8 +752,8 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
                 << MSm_goal(right_index) << '\n';
    }
 
-   bool accuracy_goal_reached =
-      is_equal(get_MSm(right_index), MSm_goal(right_index), precision_goal);
+   bool accuracy_goal_reached = gm2calc::is_equal(
+      get_MSm(right_index), MSm_goal(right_index), precision_goal);
    unsigned it = 0;
 
    while (!accuracy_goal_reached && it < max_iterations) {
@@ -799,8 +799,8 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
                    << ") = " << get_MSm(right_index) << '\n';
       }
 
-      accuracy_goal_reached =
-         is_equal(get_MSm(right_index), MSm_goal(right_index), precision_goal);
+      accuracy_goal_reached = gm2calc::is_equal(
+         get_MSm(right_index), MSm_goal(right_index), precision_goal);
 
       it++;
    }
