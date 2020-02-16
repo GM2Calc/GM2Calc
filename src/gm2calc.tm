@@ -555,17 +555,19 @@ double calculate_amu(MSSMNoFV_onshell* model)
    double amu = 0.;
 
    if (loopOrder == 1) {
-      if (tanBetaResummation)
+      if (tanBetaResummation) {
          amu = gm2calc_mssmnofv_calculate_amu_1loop(model);
-      else
+      } else {
          amu = gm2calc_mssmnofv_calculate_amu_1loop_non_tan_beta_resummed(model);
+      }
    } else if (loopOrder > 1) {
-      if (tanBetaResummation)
+      if (tanBetaResummation) {
          amu = gm2calc_mssmnofv_calculate_amu_1loop(model)
              + gm2calc_mssmnofv_calculate_amu_2loop(model);
-      else
+      } else {
          amu = gm2calc_mssmnofv_calculate_amu_1loop_non_tan_beta_resummed(model)
              + gm2calc_mssmnofv_calculate_amu_2loop_non_tan_beta_resummed(model);
+      }
    }
 
    return amu;
