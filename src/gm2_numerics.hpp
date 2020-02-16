@@ -47,20 +47,21 @@ bool is_zero(T a, T eps)
 }
 
 template <typename T>
-bool is_equal(T a, T b, T eps = std::numeric_limits<T>::epsilon())
+bool is_equal(T a, T b, T eps)
 {
    return is_zero(a - b, eps);
 }
 
 template <typename T>
-bool is_equal_rel(T a, T b, T eps = std::numeric_limits<T>::epsilon())
+bool is_equal_rel(T a, T b, T eps)
 {
-   if (is_equal(a, b, std::numeric_limits<T>::epsilon())) {
+   const double zero_eps = std::numeric_limits<T>::epsilon();
+
+   if (is_equal(a, b, zero_eps)) {
       return true;
    }
 
-   if (std::fabs(a) < std::numeric_limits<T>::epsilon() ||
-       std::fabs(b) < std::numeric_limits<T>::epsilon()) {
+   if (std::fabs(a) < zero_eps || std::fabs(b) < zero_eps) {
       return false;
    }
 
