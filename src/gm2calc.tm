@@ -242,21 +242,29 @@
 
 #define NELEMS(x) (sizeof(x) / sizeof((x)[0]))
 
-#define MLPutRule(link,s) \
-  MLPutFunction(link, "Rule", 2); \
-  MLPutSymbol(link, s)
+#define MLPutRule(link,s)                       \
+ do {                                           \
+    MLPutFunction(link, "Rule", 2);             \
+    MLPutSymbol(link, s);                       \
+ } while (0)
 
-#define MLPutRuleToReal(link,v,s) \
-  MLPutRule(link, s); \
-  MLPutReal(link, v)
+#define MLPutRuleToReal(link,v,s)               \
+ do {                                           \
+    MLPutRule(link, s);                         \
+    MLPutReal(link, v);                         \
+ } while (0)
 
-#define MLPutRuleToInteger(link,v,s) \
-  MLPutRule(link, s); \
-  MLPutInteger(link, v)
+#define MLPutRuleToInteger(link,v,s)            \
+ do {                                           \
+    MLPutRule(link, s);                         \
+    MLPutInteger(link, v);                      \
+ } while (0)
 
-#define MLPutRuleToString(link,v,s) \
-  MLPutRule(link, s); \
-  MLPutString(link, v)
+#define MLPutRuleToString(link,v,s)             \
+ do {                                           \
+    MLPutRule(link, s);                         \
+    MLPutString(link, v);                       \
+ } while (0)
 
 #define MLPutRealMatrix(link,v,dim1,dim2)                  \
   do {                                                     \
@@ -297,20 +305,26 @@
       }                                                           \
    } while (0)
 
-#define MLPutRuleToRealVectorInterface(link,M,name,dim)  \
-   MLPutFunction(link, "Rule", 2);                       \
-   MLPutSymbol(link, name);                              \
-   MLPutRealVectorInterface(link,M,dim);
+#define MLPutRuleToRealVectorInterface(link,M,name,dim) \
+ do {                                                   \
+    MLPutFunction(link, "Rule", 2);                     \
+    MLPutSymbol(link, name);                            \
+    MLPutRealVectorInterface(link,M,dim);               \
+ } while (0)
 
-#define MLPutRuleToRealMatrixInterface(link,v,name,dim1,dim2)  \
-   MLPutFunction(link, "Rule", 2);                             \
-   MLPutSymbol(link, name);                                    \
-   MLPutRealMatrixInterface(link,v,dim1,dim2);
+#define MLPutRuleToRealMatrixInterface(link,v,name,dim1,dim2)   \
+ do {                                                           \
+    MLPutFunction(link, "Rule", 2);                             \
+    MLPutSymbol(link, name);                                    \
+    MLPutRealMatrixInterface(link,v,dim1,dim2);                 \
+ } while (0)
 
-#define MLPutRuleToComplexMatrixInterface(link,M,name,dim1,dim2)  \
-   MLPutFunction(link, "Rule", 2);                                \
-   MLPutSymbol(link, name);                                       \
-   MLPutComplexMatrixInterface(link,M,dim1,dim2);
+#define MLPutRuleToComplexMatrixInterface(link,M,name,dim1,dim2)        \
+ do {                                                                   \
+    MLPutFunction(link, "Rule", 2);                                     \
+    MLPutSymbol(link, name);                                            \
+    MLPutComplexMatrixInterface(link,M,dim1,dim2);                      \
+ } while (0)
 
 /* global flags */
 int loopOrder = 2;
