@@ -93,7 +93,7 @@ void remove_if_equal(const Eigen::Array<Real,Nsrc,1>& src,
    }
 
    std::remove_copy_if(non_equal.data(), non_equal.data() + Nsrc,
-                       dst.data(), Is_not_finite<Real>());
+                       dst.data(), functional::Is_not_finite<Real>());
 }
 
 /**
@@ -109,7 +109,7 @@ void reorder_vector(
    Eigen::PermutationMatrix<N> p;
    p.setIdentity();
    std::sort(p.indices().data(), p.indices().data() + p.indices().size(),
-             Abs_less<Real, N>(v2));
+             functional::Abs_less<Real, N>(v2));
 
 #if EIGEN_VERSION_AT_LEAST(3,1,4)
    v.matrix().transpose() *= p.inverse();

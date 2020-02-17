@@ -23,13 +23,7 @@
 #include <Eigen/Core>
 
 namespace gm2calc {
-
-template<class Real, int N>
-struct Less {
-    Less(const Eigen::Array<Real, N, 1>& s_) : s(s_) {}
-    bool operator() (int i, int j) { return s[i] < s[j]; }
-    const Eigen::Array<Real, N, 1>& s;
-};
+namespace functional {
 
 template<class Real, int N>
 struct Abs_less {
@@ -38,11 +32,33 @@ struct Abs_less {
     const Eigen::Array<Real, N, 1>& w;
 };
 
+template<class Real>
+struct Flip_sign {
+    std::complex<Real> operator() (const std::complex<Real>& z) const {
+	return z.real() < 0 ? std::complex<Real>(0,1) :
+	    std::complex<Real>(1,0);
+    }
+};
+
 template <class T>
 struct Is_not_finite {
    bool operator()(T x) { return !std::isfinite(x); }
 };
 
+template<class Real, int N>
+struct Less {
+    Less(const Eigen::Array<Real, N, 1>& s_) : s(s_) {}
+    bool operator() (int i, int j) { return s[i] < s[j]; }
+    const Eigen::Array<Real, N, 1>& s;
+};
+
+template<class Real>
+struct Rephase {
+    std::complex<Real> operator() (const std::complex<Real>& z) const
+	{ return std::polar(Real(1), std::arg(z)/2); }
+};
+
+} // namespace functional
 } // namespace gm2calc
 
 #endif

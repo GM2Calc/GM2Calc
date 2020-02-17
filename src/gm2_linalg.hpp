@@ -463,12 +463,6 @@ void diagonalize_hermitian
     diagonalize_hermitian_errbd(m, w, 0, &w_errbd);
 }
 
-template<class Real>
-struct Rephase {
-    std::complex<Real> operator() (const std::complex<Real>& z) const
-	{ return std::polar(Real(1), std::arg(z)/2); }
-};
-
 template<class Real, int N>
 void diagonalize_symmetric_errbd
 (const Eigen::Matrix<std::complex<Real>, N, N>& m,
@@ -482,7 +476,7 @@ void diagonalize_symmetric_errbd
     if (!u) return;
     Eigen::Array<std::complex<Real>, N, 1> diag =
 	(u->adjoint() * m * u->conjugate()).diagonal();
-    *u *= diag.unaryExpr(Rephase<Real>()).matrix().asDiagonal();
+    *u *= diag.unaryExpr(functional::Rephase<Real>()).matrix().asDiagonal();
 }
 
 /**
@@ -587,14 +581,6 @@ void diagonalize_symmetric
     diagonalize_symmetric_errbd(m, s, 0, &s_errbd);
 }
 
-template<class Real>
-struct Flip_sign {
-    std::complex<Real> operator() (const std::complex<Real>& z) const {
-	return z.real() < 0 ? std::complex<Real>(0,1) :
-	    std::complex<Real>(1,0);
-    }
-};
-
 template<class Real, int N>
 void diagonalize_symmetric_errbd
 (const Eigen::Matrix<Real, N, N>& m,
@@ -607,7 +593,7 @@ void diagonalize_symmetric_errbd
     diagonalize_hermitian_errbd(m, s, u ? &z : 0, s_errbd, u_errbd);
     // see http://forum.kde.org/viewtopic.php?f=74&t=62606
     if (u) *u = z * s.template cast<std::complex<Real> >().
-		unaryExpr(Flip_sign<Real>()).matrix().asDiagonal();
+		unaryExpr(functional::Flip_sign<Real>()).matrix().asDiagonal();
     s = s.abs();
 }
 
@@ -885,7 +871,7 @@ void reorder_diagonalize_symmetric_errbd
     Eigen::PermutationMatrix<N> p;
     p.setIdentity();
     std::sort(p.indices().data(), p.indices().data() + p.indices().size(),
-	      Less<Real, N>(s));
+	      functional::Less<Real, N>(s));
 #if EIGEN_VERSION_AT_LEAST(3,1,4)
     s.matrix().transpose() *= p;
     if (u_errbd) u_errbd->matrix().transpose() *= p;
@@ -1347,7 +1333,7 @@ void fs_diagonalize_hermitian_errbd
     Eigen::PermutationMatrix<N> p;
     p.setIdentity();
     std::sort(p.indices().data(), p.indices().data() + p.indices().size(),
-	      Abs_less<Real, N>(w));
+	      functional::Abs_less<Real, N>(w));
 #if EIGEN_VERSION_AT_LEAST(3,1,4)
     w.matrix().transpose() *= p;
     if (z_errbd) z_errbd->matrix().transpose() *= p;
