@@ -45,11 +45,125 @@
 :Evaluate: Damu::usage =
     "Uncertainty of the calculated value of the anomalous magnetic moment of the muon.";
 
-:Evaluate: {UM, UP, USb, USm, USt, UStau, ZN,
-       MSveL, MSe, MSvmL, MSm, MSvtL, MStau,
-       MSu, MSd, MSc, MSs, MSt, MSb, MChi, MCha, MAh, Mhh,
-       TB, Mu, MassB, MassWB, MassG, mq2, ml2, mu2, md2, me2,
-       Au, Ad, Ae, Q, Yu, Yd, Ye }
+:Evaluate: UM::usage =
+    "Mixing matrix of the negatively charged charginos.";
+
+:Evaluate: UP::usage =
+    "Mixing matrix of the positively charged charginos.";
+
+:Evaluate: ZN::usage =
+    "Mixing matrix of the neutralinos.";
+
+:Evaluate: USt::usage =
+    "Mixing matrix of the stops.";
+
+:Evaluate: USb::usage =
+    "Mixing matrix of the sbottoms.";
+
+:Evaluate: UStau::usage =
+    "Mixing matrix of the staus.";
+
+:Evaluate: USm::usage =
+    "Mixing matrix of the smuons.";
+
+:Evaluate: MSveL::usage =
+    "Electron-sneutrino mass.";
+
+:Evaluate: MSvmL::usage =
+    "Muon-sneutrino mass.";
+
+:Evaluate: MSvtL::usage =
+    "Tau-sneutrino mass.";
+
+:Evaluate: MSe::usage =
+    "Selectron masses.";
+
+:Evaluate: MSm::usage =
+    "Smuon masses.";
+
+:Evaluate: MStau::usage =
+    "Stau masses.";
+
+:Evaluate: MSu::usage =
+    "Sup masses.";
+
+:Evaluate: MSd::usage =
+    "Sdown masses.";
+
+:Evaluate: MSc::usage =
+    "Scharm masses.";
+
+:Evaluate: MSs::usage =
+    "Sstrange masses.";
+
+:Evaluate: MSt::usage =
+    "Stop masses.";
+
+:Evaluate: MSb::usage =
+    "Sbottom masses.";
+
+:Evaluate: MChi::usage =
+    "Neutralino masses.";
+
+:Evaluate: MCha::usage =
+    "Chargino masses.";
+
+:Evaluate: MAh::usage =
+    "CP-odd Higgs boson mass.";
+
+:Evaluate: Mhh::usage =
+    "CP-even Higgs bosons masses.";
+
+:Evaluate: TB::usage =
+    "tan(beta) = vu/vd.";
+
+:Evaluate: Mu::usage =
+    "Superpotential mu-parameter.";
+
+:Evaluate: MassB::usage =
+    "Soft-breaking bino mass parameter.";
+
+:Evaluate: MassWB::usage =
+    "Soft-breaking wino mass parameter.";
+
+:Evaluate: MassG::usage =
+    "Soft-breaking gluino mass parameter.";
+
+:Evaluate: mq2::usage =
+    "Soft-breaking squared left-handed squark mass parameters.";
+
+:Evaluate: mu2::usage =
+    "Soft-breaking squared right-handed up-type squark mass parameters.";
+
+:Evaluate: md2::usage =
+    "Soft-breaking squared right-handed down-type squark mass parameters.";
+
+:Evaluate: ml2::usage =
+    "Soft-breaking squared left-handed slepton mass parameters.";
+
+:Evaluate: me2::usage =
+    "Soft-breaking squared right-handed down-type slepton mass parameters.";
+
+:Evaluate: Au::usage =
+    "Soft-breaking trilinear couplings between Higgs bosons and up-type squarks.";
+
+:Evaluate: Ad::usage =
+    "Soft-breaking trilinear couplings between Higgs bosons and down-type squarks.";
+
+:Evaluate: Ae::usage =
+    "Soft-breaking trilinear couplings between Higgs bosons and down-type sleptons.";
+
+:Evaluate: Q::usage =
+    "Renormalization scale.";
+
+:Evaluate: Yu::usage =
+    "Yukawa couplings of up-type quarks.";
+
+:Evaluate: Yd::usage =
+    "Yukawa couplings of down-type quarks.";
+
+:Evaluate: Ye::usage =
+    "Yukawa couplings of down-type leptons.";
 
 :Evaluate: GM2CalcSetFlags::usage =
     "GM2CalcSetFlags sets the configuration flags for GM2Calc.  Available flags are: {loopOrder, tanBetaResummation, forceOutput}.  Unset flags are set to their default values, see Options[GM2CalcSetFlags].  Use GM2CalcGetFlags[] to retrieve the flags currently set."
