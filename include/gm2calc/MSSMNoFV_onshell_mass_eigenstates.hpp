@@ -42,7 +42,7 @@ namespace gm2calc {
 
 /**
  * @class MSSMNoFV_onshell_mass_eigenstates
- * @brief model class with routines for determing masses and mixinga and EWSB
+ * @brief model class with routines determine masses, mixings and EWSB
  */
 class MSSMNoFV_onshell_mass_eigenstates : public MSSMNoFV_onshell_soft_parameters {
 public:
