@@ -108,7 +108,7 @@ public:
    void set_data(const SLHAea::Coll& data_) { data = data_; }
    void set_block(const std::ostringstream&, Position position = back);
    void write_to_file(const std::string&);
-   void write_to_stream(std::ostream& = std::cout);
+   void write_to_stream(std::ostream&);
    void fill_block_entry(const std::string&, unsigned, double, const std::string&);
    void fill_block_entry(const std::string&, unsigned, const std::string&);
 
