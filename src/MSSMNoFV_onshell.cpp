@@ -859,6 +859,8 @@ double MSSMNoFV_onshell::convert_me2_fpi(
 
 std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)
 {
+   auto sas = [] (double x) { return gm2calc::signed_abs_sqrt(x); };
+
    os <<
       "======================================\n"
       " (g-2) parameters \n"
@@ -916,11 +918,11 @@ std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)
       "M1          = " << model.get_MassB() << '\n' <<
       "M2          = " << model.get_MassWB() << '\n' <<
       "M3          = " << model.get_MassG() << '\n' <<
-      "msl         = " << model.get_ml2().diagonal().transpose().unaryExpr(std::ptr_fun(signed_abs_sqrt)) << '\n' <<
-      "mse         = " << model.get_me2().diagonal().transpose().unaryExpr(std::ptr_fun(signed_abs_sqrt)) << '\n' <<
-      "msq         = " << model.get_mq2().diagonal().transpose().unaryExpr(std::ptr_fun(signed_abs_sqrt)) << '\n' <<
-      "msu         = " << model.get_mu2().diagonal().transpose().unaryExpr(std::ptr_fun(signed_abs_sqrt)) << '\n' <<
-      "msd         = " << model.get_md2().diagonal().transpose().unaryExpr(std::ptr_fun(signed_abs_sqrt)) << '\n' <<
+      "msl         = " << model.get_ml2().diagonal().transpose().unaryExpr(sas) << '\n' <<
+      "mse         = " << model.get_me2().diagonal().transpose().unaryExpr(sas) << '\n' <<
+      "msq         = " << model.get_mq2().diagonal().transpose().unaryExpr(sas) << '\n' <<
+      "msu         = " << model.get_mu2().diagonal().transpose().unaryExpr(sas) << '\n' <<
+      "msd         = " << model.get_md2().diagonal().transpose().unaryExpr(sas) << '\n' <<
       "Au          = " << model.get_Au().diagonal().transpose() << '\n' <<
       "Ad          = " << model.get_Ad().diagonal().transpose() << '\n' <<
       "Ae          = " << model.get_Ae().diagonal().transpose() << '\n' <<
