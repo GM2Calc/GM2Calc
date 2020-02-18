@@ -74,7 +74,7 @@ void MSSMNoFV_onshell_susy_parameters::print(std::ostream& ostr) const
 
 std::ostream& operator<<(std::ostream& ostr, const MSSMNoFV_onshell_susy_parameters& susy_pars)
 {
-   susy_pars.print(std::cout);
+   susy_pars.print(ostr);
    return ostr;
 }
 

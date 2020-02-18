@@ -90,7 +90,7 @@ void MSSMNoFV_onshell_soft_parameters::print(std::ostream& ostr) const
 
 std::ostream& operator<<(std::ostream& ostr, const MSSMNoFV_onshell_soft_parameters& soft_pars)
 {
-   soft_pars.print(std::cout);
+   soft_pars.print(ostr);
    return ostr;
 }
 
