@@ -40,6 +40,7 @@ include_directories(${EIGEN3_INCLUDE_DIR})
 find_package(Mathematica COMPONENTS MathLink)
 
 include_directories(${GM2CALC_INCLUDE_DIRS})
+include_directories("${CMAKE_BINARY_DIR}/include")
 
 add_subdirectory(src)
 add_subdirectory(examples)

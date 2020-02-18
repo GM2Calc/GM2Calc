@@ -382,10 +382,9 @@
 
 #include "gm2calc/gm2_1loop.h"
 #include "gm2calc/gm2_2loop.h"
+#include "gm2calc/gm2_config.h"
 #include "gm2calc/gm2_uncertainty.h"
 #include "gm2calc/MSSMNoFV_onshell.h"
-
-#include "gm2_config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
