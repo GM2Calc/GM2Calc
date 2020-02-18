@@ -16,8 +16,8 @@
  * <http://www.gnu.org/licenses/>.
  * ==================================================================== */
 
-#include "gm2_uncertainty.h"
-#include "gm2_uncertainty.hpp"
+#include "gm2calc/gm2_uncertainty.h"
+#include "gm2calc/gm2_uncertainty.hpp"
 
 extern "C" {
 

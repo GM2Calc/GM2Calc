@@ -28,7 +28,8 @@
  * 1.2.1 (git commit: v1.2.1-49-gfc4c300) and SARAH 4.5.8 .
  */
 
-#include "MSSMNoFV_onshell_mass_eigenstates.hpp"
+#include "gm2calc/MSSMNoFV_onshell_mass_eigenstates.hpp"
+
 #include "gm2_eigen_utils.hpp"
 #include "gm2_linalg.hpp"
 

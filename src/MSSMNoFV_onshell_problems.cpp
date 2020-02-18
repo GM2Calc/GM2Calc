@@ -16,7 +16,7 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "MSSMNoFV_onshell_problems.hpp"
+#include "gm2calc/MSSMNoFV_onshell_problems.hpp"
 
 #include <algorithm>
 #include <iostream>

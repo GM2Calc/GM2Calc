@@ -16,11 +16,12 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "gm2_1loop.hpp"
+#include "gm2calc/gm2_1loop.hpp"
+#include "gm2calc/MSSMNoFV_onshell.hpp"
+
 #include "gm2_1loop_helpers.hpp"
 #include "gm2_ffunctions.hpp"
 #include "gm2_numerics.hpp"
-#include "MSSMNoFV_onshell.hpp"
 
 #include <cmath>
 #include <complex>

@@ -17,7 +17,9 @@
 // ====================================================================
 
 #include "gm2_slha_io.hpp"
-#include "MSSMNoFV_onshell.hpp"
+
+#include "gm2calc/MSSMNoFV_onshell.hpp"
+
 #include "gm2_log.hpp"
 #include "gm2_numerics.hpp"
 

@@ -19,7 +19,8 @@
 #ifndef GM2_SLHA_IO_H
 #define GM2_SLHA_IO_H
 
-#include "gm2_error.hpp"
+#include "gm2calc/gm2_error.hpp"
+
 #include "slhaea.h"
 
 #include <cmath>

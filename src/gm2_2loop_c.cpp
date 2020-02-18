@@ -16,8 +16,8 @@
  * <http://www.gnu.org/licenses/>.
  * ==================================================================== */
 
-#include "gm2_2loop.h"
-#include "gm2_2loop.hpp"
+#include "gm2calc/gm2_2loop.h"
+#include "gm2calc/gm2_2loop.hpp"
 
 /**
  * @file gm2_2loop_c.cpp

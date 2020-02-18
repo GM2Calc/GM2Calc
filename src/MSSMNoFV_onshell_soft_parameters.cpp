@@ -16,7 +16,7 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "MSSMNoFV_onshell_soft_parameters.hpp"
+#include "gm2calc/MSSMNoFV_onshell_soft_parameters.hpp"
 
 #include <iostream>
 #include <utility>

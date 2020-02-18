@@ -380,15 +380,18 @@
 :Evaluate: EndPackage[]
 
 
-#include "gm2_1loop.h"
-#include "gm2_2loop.h"
+#include "gm2calc/gm2_1loop.h"
+#include "gm2calc/gm2_2loop.h"
+#include "gm2calc/gm2_uncertainty.h"
+#include "gm2calc/MSSMNoFV_onshell.h"
+
 #include "gm2_config.h"
-#include "gm2_uncertainty.h"
-#include "MSSMNoFV_onshell.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+
 #include "mathlink.h"
 
 #ifndef M_PI

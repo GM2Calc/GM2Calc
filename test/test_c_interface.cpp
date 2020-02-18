@@ -1,14 +1,14 @@
 #include "test.hpp"
 
-#include "gm2_1loop.h"
-#include "gm2_2loop.h"
-#include "gm2_uncertainty.h"
-#include "MSSMNoFV_onshell.h"
+#include "gm2calc/gm2_1loop.h"
+#include "gm2calc/gm2_2loop.h"
+#include "gm2calc/gm2_uncertainty.h"
+#include "gm2calc/MSSMNoFV_onshell.h"
 
-#include "gm2_1loop.hpp"
-#include "gm2_2loop.hpp"
-#include "gm2_uncertainty.hpp"
-#include "MSSMNoFV_onshell.hpp"
+#include "gm2calc/gm2_1loop.hpp"
+#include "gm2calc/gm2_2loop.hpp"
+#include "gm2calc/gm2_uncertainty.hpp"
+#include "gm2calc/MSSMNoFV_onshell.hpp"
 
 using namespace gm2calc_test;
 

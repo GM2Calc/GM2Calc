@@ -16,9 +16,10 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "gm2_uncertainty.hpp"
-#include "gm2_1loop.hpp"
-#include "gm2_2loop.hpp"
+#include "gm2calc/gm2_uncertainty.hpp"
+#include "gm2calc/gm2_1loop.hpp"
+#include "gm2calc/gm2_2loop.hpp"
+
 #include <cmath>
 
 /**

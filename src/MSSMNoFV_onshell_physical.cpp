@@ -16,12 +16,13 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "MSSMNoFV_onshell_physical.hpp"
+#include "gm2calc/MSSMNoFV_onshell_physical.hpp"
+
 #include "gm2_log.hpp"
 #include "gm2_numerics.hpp"
-#include <limits>
 
 #include <iostream>
+#include <limits>
 
 namespace gm2calc {
 
