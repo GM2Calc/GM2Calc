@@ -21,10 +21,13 @@
 
 #include <iostream>
 
-#define WARNING(message)                                                \
-   do { std::cerr << "Warning: " << message << '\n'; } while (0)
-
 #define ERROR(message)                                                  \
-   do { std::cerr << "Error: " << message << '\n'; } while (0)
+   do { std::cerr << "Error: " << message << std::endl; } while (0)
+
+#define VERBOSE(message)                                                \
+   do { std::cerr << message << std::endl; } while (0)
+
+#define WARNING(message)                                                \
+   do { std::cerr << "Warning: " << message << std::endl; } while (0)
 
 #endif

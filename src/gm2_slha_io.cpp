@@ -70,8 +70,7 @@ void GM2_slha_io::read_from_file(const std::string& file_name)
       data.clear();
       data.read(ifs);
    } else {
-      std::cerr << "cannot read input file: \"" << file_name << "\""
-                << std::endl;
+      ERROR("cannot read input file: \"" << file_name << "\"");
       throw EReadError("cannot read input file");
    }
 }
