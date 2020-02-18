@@ -1,6 +1,6 @@
 function(add_gm2calc_example name ext libs)
   add_executable(${name}.x ${name}.${ext})
-  target_link_libraries(${name}.x GM2Calc::gm2calc ${libs})
+  target_link_libraries(${name}.x GM2Calc::GM2Calc ${libs})
 endfunction()
 
 add_gm2calc_example(example-gm2calc   cpp "" )

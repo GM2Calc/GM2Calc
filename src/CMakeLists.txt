@@ -28,7 +28,7 @@ add_library(gm2calc
   MSSMNoFV_onshell_susy_parameters.cpp
   )
 target_include_directories(gm2calc PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-add_library(GM2Calc::gm2calc ALIAS gm2calc)
+add_library(GM2Calc::GM2Calc ALIAS gm2calc)
 
 install(
   TARGETS gm2calc
@@ -38,7 +38,7 @@ install(
 
 # GM2Calc main executable
 add_executable(gm2calc.x gm2calc.cpp)
-target_link_libraries(gm2calc.x GM2Calc::gm2calc)
+target_link_libraries(gm2calc.x GM2Calc::GM2Calc)
 target_include_directories(gm2calc.x PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 install(
@@ -51,7 +51,7 @@ if(Mathematica_FOUND)
   Mathematica_MathLink_ADD_EXECUTABLE(
     gm2calc.mx
     gm2calc.tm)
-  target_link_libraries(gm2calc.mx GM2Calc::gm2calc)
+  target_link_libraries(gm2calc.mx GM2Calc::GM2Calc)
   target_include_directories(gm2calc.mx
     PRIVATE ${Mathematica_MathLink_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
   install(

@@ -3,7 +3,7 @@ add_definitions(-DTEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/data")
 # test C/C++ executables
 function(add_gm2calc_test name ext)
   add_executable(${name}.x ${name}.${ext})
-  target_link_libraries(${name}.x GM2Calc::gm2calc)
+  target_link_libraries(${name}.x GM2Calc::GM2Calc)
   add_test(NAME ${name} COMMAND ${name}.x)
 endfunction()
 
