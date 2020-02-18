@@ -20,6 +20,7 @@
 #include "gm2_2loop.hpp"
 #include "gm2_config.h"
 #include "gm2_error.hpp"
+#include "gm2_log.hpp"
 #include "gm2_uncertainty.hpp"
 
 #include "gm2_slha_io.hpp"
@@ -30,9 +31,6 @@
 #include <string>
 #include <tuple>
 #include <utility>
-
-#define ERROR(message) std::cerr << "Error: " << message << '\n';
-#define WARNING(message) std::cerr << "Warning: " << message << '\n';
 
 namespace {
 
