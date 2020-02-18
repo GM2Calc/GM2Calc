@@ -559,7 +559,7 @@ public:
       reader(model, slha_io);
 
       if (options.verbose_output) {
-         std::cout << model << '\n';
+         std::cerr << model << '\n';
       }
 
       if (model.get_problems().have_problem() ||

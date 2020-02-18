@@ -475,7 +475,7 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
    MChi_goal(max_bino) = get_physical().MChi(max_bino);
 
    if (verbose_output) {
-      std::cout << "Converting Mu, M1, M2 to on-shell scheme ...\n"
+      std::cerr << "Converting Mu, M1, M2 to on-shell scheme ...\n"
                    "   Goal: MCha = " << MCha_goal.transpose()
                 << ", MChi(" << max_bino << ") = " << MChi_goal(max_bino)
                 << '\n';
@@ -516,7 +516,7 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       MChi_goal(max_bino) = get_physical().MChi(max_bino);
 
       if (verbose_output) {
-         std::cout << "   Iteration " << it << ": Mu = " << get_Mu()
+         std::cerr << "   Iteration " << it << ": Mu = " << get_Mu()
                    << ", M1 = " << get_MassB()
                    << ", M2 = " << get_MassWB()
                    << ", MCha = " << get_MCha().transpose()
@@ -545,13 +545,13 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
          std::max((MCha_goal - get_MCha()).cwiseAbs().maxCoeff(),
                   std::abs(MChi_goal(max_bino) - get_MChi(max_bino)));
       if (it == max_iterations) {
-         std::cout <<
+         std::cerr <<
             "   DR-bar to on-shell conversion for Mu, M1 and M2 did"
             " not converge (reached absolute accuracy: " << precision <<
             " GeV, accuracy goal: " << precision_goal <<
             ", max. iterations: " << max_iterations << ")\n";
       }
-      std::cout << "   Achieved absolute accuracy: " << precision << " GeV\n";
+      std::cerr << "   Achieved absolute accuracy: " << precision << " GeV\n";
    }
 }
 
@@ -568,7 +568,7 @@ void MSSMNoFV_onshell::convert_ml2()
    const double g22 = sqr(get_g2());
 
    if (verbose_output) {
-      std::cout << "Converting msl(2,2) to on-shell scheme ...\n"
+      std::cerr << "Converting msl(2,2) to on-shell scheme ...\n"
          "   Using MSvm_pole = " << MSvmL_pole << '\n';
    }
 
@@ -584,7 +584,7 @@ void MSSMNoFV_onshell::convert_ml2()
    }
 
    if (verbose_output) {
-      std::cout << "   New msl(2,2) = " << ml211
+      std::cerr << "   New msl(2,2) = " << ml211
                 << ", new MSvmL = " << get_MSvmL() << '\n';
    }
 }
@@ -653,7 +653,7 @@ double MSSMNoFV_onshell::convert_me2_root_modify(
    };
 
    if (verbose_output) {
-      std::cout << "Converting mse(2,2) to on-shell scheme with "
+      std::cerr << "Converting mse(2,2) to on-shell scheme with "
          "root finder ...\n";
    }
 
@@ -667,7 +667,7 @@ double MSSMNoFV_onshell::convert_me2_root_modify(
       set_me2(1, 1, 0.5*(root.first + root.second));
    } catch (const std::exception& e) {
       if (verbose_output) {
-         std::cout <<
+         std::cerr <<
             "   DR-bar to on-shell conversion for mse failed with"
             " root finder: " << e.what() << '\n';
       }
@@ -679,13 +679,13 @@ double MSSMNoFV_onshell::convert_me2_root_modify(
 
    if (verbose_output) {
       if (it >= max_iterations) {
-         std::cout <<
+         std::cerr <<
             "   DR-bar to on-shell conversion for mse did not converge with"
             " root finder (reached absolute accuracy: " << precision <<
             " GeV, accuracy goal: " << precision_goal <<
             ", max. iterations: " << max_iterations << ")\n";
       }
-      std::cout << "   Achieved absolute accuracy: "
+      std::cerr << "   Achieved absolute accuracy: "
                 << precision << " GeV\n";
    }
 
@@ -748,7 +748,7 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
    int right_index = detail::find_right_like_smuon(get_ZM());
 
    if (verbose_output) {
-      std::cout << "Converting mse(2,2) to on-shell scheme with FPI ...\n"
+      std::cerr << "Converting mse(2,2) to on-shell scheme with FPI ...\n"
                    "   Goal: MSm(" << right_index << ") = "
                 << MSm_goal(right_index) << '\n';
    }
@@ -780,7 +780,7 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
 
       if (!std::isfinite(me211) || !get_MSm().allFinite() || !get_ZM().allFinite()) {
          if (verbose_output) {
-            std::cout << "   NaN appearing in DR-bar to on-shell conversion"
+            std::cerr << "   NaN appearing in DR-bar to on-shell conversion"
                " for mse with FPI:\n"
                "      mse2(2,2) = " << me211 <<
                ", MSm = " << get_MSm().transpose() <<
@@ -795,7 +795,7 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
       MSm_goal(right_index) = MSm_pole_sorted(right_index);
 
       if (verbose_output) {
-         std::cout << "   Iteration " << it << ": mse(2,2) = "
+         std::cerr << "   Iteration " << it << ": mse(2,2) = "
                    << signed_abs_sqrt(me211) << ", MSm(" << right_index
                    << ") = " << get_MSm(right_index) << '\n';
       }
@@ -811,13 +811,13 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
 
    if (verbose_output) {
       if (it == max_iterations) {
-         std::cout <<
+         std::cerr <<
             "   DR-bar to on-shell conversion for mse did not converge with"
             " FPI (reached absolute accuracy: " << precision <<
             " GeV, accuracy goal: " << precision_goal <<
             ", max. iterations: " << max_iterations << ")\n";
       }
-      std::cout << "   Achieved absolute accuracy: "
+      std::cerr << "   Achieved absolute accuracy: "
                 << precision << " GeV\n";
    }
 
