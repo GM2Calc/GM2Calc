@@ -55,10 +55,10 @@ count=0
 for point in ${points}
 do
     error=0
-    input="`echo ${point} | tr ',' ' ' | awk '{ print $1 }'`"
-    format="`echo ${point} | tr ',' ' ' | awk '{ print $2 }'`"
-    expected_exit="`echo ${point} | tr ',' ' ' | awk '{ print $3 }'`"
-    expected_amu="`echo ${point} | tr ',' ' ' | awk '{ print $4 }'`"
+    input="`echo ${point} | awk -F , '{ print $1 }'`"
+    format="`echo ${point} | awk -F , '{ print $2 }'`"
+    expected_exit="`echo ${point} | awk -F , '{ print $3 }'`"
+    expected_amu="`echo ${point} | awk -F , '{ print $4 }'`"
 
     amu=$(
         { cat ${input}
