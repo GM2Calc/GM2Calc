@@ -20,6 +20,8 @@
 #include "gm2calc/MSSMNoFV_onshell.hpp"
 #include "gm2calc/gm2_error.hpp"
 
+#include "gm2_log.hpp"
+
 #include <complex>
 #include <cstring>
 #include <iostream>
@@ -704,7 +706,7 @@ void gm2calc_mssmnofv_get_warnings(MSSMNoFV_onshell* model, char* msg, unsigned 
 
 void print_mssmnofv(const MSSMNoFV_onshell* model)
 {
-   std::cout << *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model);
+   VERBOSE(*reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
 }
 
 } // extern "C"
