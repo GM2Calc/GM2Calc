@@ -31,6 +31,7 @@
 #include <complex>
 #include <iostream>
 #include <limits>
+#include <sstream>
 
 #include <boost/math/tools/roots.hpp>
 
@@ -74,6 +75,42 @@ namespace {
       }
 
       return result;
+   }
+
+   template <class Derived>
+   std::string pretty_print(const Eigen::DenseBase<Derived>& v)
+   {
+      const bool is_matrix = v.rows() > 1;
+
+      std::ostringstream sstr;
+
+      for (auto i = 0; i < v.rows(); i++) {
+         if (is_matrix && i == 0) {
+            sstr << '{';
+         }
+
+         for (auto k = 0; k < v.cols(); k++) {
+            if (k == 0) {
+               sstr << '{';
+            }
+            sstr << v(i,k);
+            if (k + 1 == v.cols()) {
+               sstr << '}';
+            } else {
+               sstr << ", ";
+            }
+         }
+
+         if (is_matrix) {
+            if (i + 1 == v.rows()) {
+               sstr << '}';
+            } else {
+               sstr << ", ";
+            }
+         }
+      }
+
+      return sstr.str();
    }
 } // anonymous namespace
 
@@ -854,72 +891,68 @@ std::ostream& operator<<(std::ostream& os, const MSSMNoFV_onshell& model)
 {
    auto sas = [] (double x) { return gm2calc::signed_abs_sqrt(x); };
 
+   Eigen::Array<double,3,1> yd_non_res;
+   yd_non_res << (root2 * model.get_MD() / model.get_vd()),
+                 (root2 * model.get_MS() / model.get_vd()),
+                 (root2 * model.get_MB() / model.get_vd());
+
+   Eigen::Array<double,3,1> ye_non_res;
+   ye_non_res << (root2 * model.get_ME() / model.get_vd()),
+                 (root2 * model.get_MM() / model.get_vd()),
+                 (root2 * model.get_ML() / model.get_vd());
+
    os <<
-      "======================================\n"
-      " (g-2) parameters \n"
-      "======================================\n"
-      << "1/alpha(MZ) = " << 1./calculate_alpha(model.get_EL()) << '\n'
-      << "1/alpha(0)  = " << 1./calculate_alpha(model.get_EL0()) << '\n'
-      << "alpha_s(MZ) = " <<    calculate_alpha(model.get_g3()) << '\n'
-      <<
-      "--------------------------------------\n"
-      " on-shell masses and parameters \n"
-      "--------------------------------------\n"
-      "MM          = " << model.get_MM() << '\n' <<
-      "MT          = " << model.get_MT() << '\n' <<
-      "mb(mb)      = " << model.get_MBMB() << '\n' <<
-      "mb(MZ)      = " << model.get_MB() << '\n' <<
-      "MTau        = " << model.get_ML() << '\n' <<
-      "MW          = " << model.get_MW() << '\n' <<
-      "MZ          = " << model.get_MZ() << '\n' <<
-      "MSm         = " << model.get_MSm().transpose() << '\n' <<
-      "USm         = " << model.get_USm().row(0) << ' '
-                       << model.get_USm().row(1) << '\n' <<
-      "MSvm        = " << model.get_MSvmL() << '\n' <<
-      "MSb         = " << model.get_MSb().transpose() << '\n' <<
-      "USb         = " << model.get_USb().row(0) << ' '
-                       << model.get_USb().row(1) << '\n' <<
-      "MSt         = " << model.get_MSt().transpose() << '\n' <<
-      "USt         = " << model.get_USt().row(0) << ' '
-                       << model.get_USt().row(1) << '\n' <<
-      "MStau       = " << model.get_MStau().transpose() << '\n' <<
-      "UStau       = " << model.get_UStau().row(0) << ' '
-                       << model.get_UStau().row(1) << '\n' <<
-      "MCha        = " << model.get_MCha().transpose() << '\n' <<
-      "UM          = " << model.get_UM().row(0) << ' '
-                       << model.get_UM().row(1) << '\n' <<
-      "UP          = " << model.get_UP().row(0) << ' '
-                       << model.get_UP().row(1) << '\n' <<
-      "MChi        = " << model.get_MChi().transpose() << '\n' <<
-      "ZN          = " << model.get_ZN().row(0) << '\n' <<
-      "              " << model.get_ZN().row(1) << '\n' <<
-      "              " << model.get_ZN().row(2) << '\n' <<
-      "              " << model.get_ZN().row(3) << '\n' <<
-      "MA0         = " << model.get_MA0() << '\n' <<
-      "MH          = " << model.get_Mhh().transpose() << '\n' <<
-      "tan(beta)   = " << model.get_TB() << '\n' <<
-      "yu          = " << model.get_Yu().diagonal().transpose() << '\n' <<
-      "yd resummed = " << model.get_Yd().diagonal().transpose() << '\n' <<
-      "ye resummed = " << model.get_Ye().diagonal().transpose() << '\n' <<
-      "yd non res. = " << (root2 * model.get_MD() / model.get_vd()) <<
-                   " " << (root2 * model.get_MS() / model.get_vd()) <<
-                   " " << (root2 * model.get_MB() / model.get_vd()) << '\n' <<
-      "ye non res. = " << (root2 * model.get_ME() / model.get_vd()) <<
-                   " " << (root2 * model.get_MM() / model.get_vd()) <<
-                   " " << (root2 * model.get_ML() / model.get_vd()) << '\n' <<
-      "Mu          = " << model.get_Mu() << '\n' <<
-      "M1          = " << model.get_MassB() << '\n' <<
-      "M2          = " << model.get_MassWB() << '\n' <<
-      "M3          = " << model.get_MassG() << '\n' <<
-      "msl         = " << model.get_ml2().diagonal().transpose().unaryExpr(sas) << '\n' <<
-      "mse         = " << model.get_me2().diagonal().transpose().unaryExpr(sas) << '\n' <<
-      "msq         = " << model.get_mq2().diagonal().transpose().unaryExpr(sas) << '\n' <<
-      "msu         = " << model.get_mu2().diagonal().transpose().unaryExpr(sas) << '\n' <<
-      "msd         = " << model.get_md2().diagonal().transpose().unaryExpr(sas) << '\n' <<
-      "Au          = " << model.get_Au().diagonal().transpose() << '\n' <<
-      "Ad          = " << model.get_Ad().diagonal().transpose() << '\n' <<
-      "Ae          = " << model.get_Ae().diagonal().transpose() << '\n' <<
-      "ren. scale  = " << model.get_scale() << '\n'
+      "===============================\n"
+      " GM2Calc masses and parameters \n"
+      "===============================\n"
+      "1/alpha(MZ)      = " << 1./calculate_alpha(model.get_EL()) << '\n' <<
+      "1/alpha(0)       = " << 1./calculate_alpha(model.get_EL0()) << '\n' <<
+      "alpha_s(MZ)      = " <<    calculate_alpha(model.get_g3()) << '\n' <<
+      "MM pole          = " << model.get_MM() << " GeV\n" <<
+      "MT               = " << model.get_MT() << " GeV\n" <<
+      "mb(mb) MS-bar    = " << model.get_MBMB() << " GeV\n" <<
+      "mb(MZ) DR-bar    = " << model.get_MB() << " GeV\n" <<
+      "MTau             = " << model.get_ML() << " GeV\n" <<
+      "MW pole          = " << model.get_MW() << " GeV\n" <<
+      "MZ pole          = " << model.get_MZ() << " GeV\n" <<
+      "MSm pole         = " << pretty_print(model.get_MSm().transpose()) << " GeV\n" <<
+      "USm pole         = " << pretty_print(model.get_USm()) << '\n' <<
+      "MSvm pole        = " << model.get_MSvmL() << " GeV\n" <<
+      "MSb              = " << pretty_print(model.get_MSb().transpose()) << " GeV\n" <<
+      "USb              = " << pretty_print(model.get_USb()) << '\n' <<
+      "MSt              = " << pretty_print(model.get_MSt().transpose()) << " GeV\n" <<
+      "USt              = " << pretty_print(model.get_USt()) << '\n' <<
+      "MStau            = " << pretty_print(model.get_MStau().transpose()) << " GeV\n" <<
+      "UStau            = " << pretty_print(model.get_UStau()) << '\n' <<
+      "MCha pole        = " << pretty_print(model.get_MCha().transpose()) << " GeV\n" <<
+      "UM pole          = " << pretty_print(model.get_UM()) << '\n' <<
+      "UP pole          = " << pretty_print(model.get_UP()) << '\n' <<
+      "MChi pole        = " << pretty_print(model.get_MChi().transpose()) << " GeV\n" <<
+      "ZN pole          = {" << pretty_print(model.get_ZN().row(0)) << ",\n" <<
+      "                    " << pretty_print(model.get_ZN().row(1)) << ",\n" <<
+      "                    " << pretty_print(model.get_ZN().row(2)) << ",\n" <<
+      "                    " << pretty_print(model.get_ZN().row(3)) << "}\n" <<
+      "MA0              = " << model.get_MA0() << " GeV\n" <<
+      "MH               = " << pretty_print(model.get_Mhh().transpose()) << " GeV\n" <<
+      "tan(beta) DR-bar = " << model.get_TB() << '\n' <<
+      "yu               = " << pretty_print(model.get_Yu().diagonal().transpose()) << '\n' <<
+      "yd resummed      = " << pretty_print(model.get_Yd().diagonal().transpose()) << '\n' <<
+      "ye resummed      = " << pretty_print(model.get_Ye().diagonal().transpose()) << '\n' <<
+      "yd non res.      = " << pretty_print(yd_non_res.transpose()) << '\n' <<
+      "ye non res.      = " << pretty_print(ye_non_res.transpose()) << '\n' <<
+      "Mu on-shell      = " << model.get_Mu() << " GeV\n" <<
+      "M1 on-shell      = " << model.get_MassB() << " GeV\n" <<
+      "M2 on-shell      = " << model.get_MassWB() << " GeV\n" <<
+      "M3               = " << model.get_MassG() << " GeV\n" <<
+      "msl on-shell     = " << pretty_print(model.get_ml2().diagonal().transpose().unaryExpr(sas)) << " GeV\n" <<
+      "mse on-shell     = " << pretty_print(model.get_me2().diagonal().transpose().unaryExpr(sas)) << " GeV\n" <<
+      "msq              = " << pretty_print(model.get_mq2().diagonal().transpose().unaryExpr(sas)) << " GeV\n" <<
+      "msu              = " << pretty_print(model.get_mu2().diagonal().transpose().unaryExpr(sas)) << " GeV\n" <<
+      "msd              = " << pretty_print(model.get_md2().diagonal().transpose().unaryExpr(sas)) << " GeV\n" <<
+      "Au               = " << pretty_print(model.get_Au().diagonal().transpose()) << " GeV\n" <<
+      "Ad               = " << pretty_print(model.get_Ad().diagonal().transpose()) << " GeV\n" <<
+      "Ae DR-bar        = " << pretty_print(model.get_Ae().diagonal().transpose()) << " GeV\n" <<
+      "ren. scale       = " << model.get_scale() << " GeV\n"
       ;
 
    return os;
