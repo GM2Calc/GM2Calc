@@ -55,35 +55,48 @@ void gm2calc_mssmnofv_free(MSSMNoFV_onshell*);
 /** set alpha_em(MZ) */
 void gm2calc_mssmnofv_set_alpha_MZ(MSSMNoFV_onshell*, double);
 
-/** set alpha_em(0) */
+/** set alpha_em(0) in the Thomson limit */
 void gm2calc_mssmnofv_set_alpha_thompson(MSSMNoFV_onshell*, double);
 
-/** set trilinear coupling Ae(i,k) */
+/** set soft-breaking trilinear coupling Ae(i,k) */
 void gm2calc_mssmnofv_set_Ae(MSSMNoFV_onshell*, unsigned, unsigned, double);
-/** set trilinear coupling Au(i,k) */
+
+/** set soft-breaking trilinear coupling Au(i,k) */
 void gm2calc_mssmnofv_set_Au(MSSMNoFV_onshell*, unsigned, unsigned, double);
-/** set trilinear coupling Ad(i,k) */
+
+/** set soft-breaking trilinear coupling Ad(i,k) */
 void gm2calc_mssmnofv_set_Ad(MSSMNoFV_onshell*, unsigned, unsigned, double);
+
 /** set gauge coupling g3 */
 void gm2calc_mssmnofv_set_g3(MSSMNoFV_onshell*, double);
+
 /** set bino mass */
 void gm2calc_mssmnofv_set_MassB(MSSMNoFV_onshell*, double);
+
 /** set wino mass */
 void gm2calc_mssmnofv_set_MassWB(MSSMNoFV_onshell*, double);
+
 /** set gluino mass */
 void gm2calc_mssmnofv_set_MassG(MSSMNoFV_onshell*, double);
+
 /** set soft-breaking squared mass parameter mq2(i,k) */
 void gm2calc_mssmnofv_set_mq2(MSSMNoFV_onshell*, unsigned, unsigned, double);
+
 /** set soft-breaking squared mass parameter mu2(i,k) */
 void gm2calc_mssmnofv_set_mu2(MSSMNoFV_onshell*, unsigned, unsigned, double);
+
 /** set soft-breaking squared mass parameter md2(i,k) */
 void gm2calc_mssmnofv_set_md2(MSSMNoFV_onshell*, unsigned, unsigned, double);
+
 /** set soft-breaking squared mass parameter ml2(i,k) */
 void gm2calc_mssmnofv_set_ml2(MSSMNoFV_onshell*, unsigned, unsigned, double);
+
 /** set soft-breaking squared mass parameter me2(i,k) */
 void gm2calc_mssmnofv_set_me2(MSSMNoFV_onshell*, unsigned, unsigned, double);
+
 /** set soft-breaking squared mass parameter Mu parameter */
 void gm2calc_mssmnofv_set_Mu(MSSMNoFV_onshell*, double);
+
 /** set tan(beta) */
 void gm2calc_mssmnofv_set_TB(MSSMNoFV_onshell*, double);
 
@@ -99,13 +112,13 @@ void gm2calc_mssmnofv_set_MZ_pole(MSSMNoFV_onshell*, double);
 /** set W boson pole mass */
 void gm2calc_mssmnofv_set_MW_pole(MSSMNoFV_onshell*, double);
 
-/** set top-Quark pole mass */
+/** set top-quark pole mass */
 void gm2calc_mssmnofv_set_MT_pole(MSSMNoFV_onshell*, double);
 
-/** set running bottom-Quark mass mb(mb) */
+/** set MS-bar bottom-quark mass mb at the scale mb */
 void gm2calc_mssmnofv_set_MB_running(MSSMNoFV_onshell*, double);
 
-/** set tau-Lepton pole mass */
+/** set tau-lepton pole mass */
 void gm2calc_mssmnofv_set_ML_pole(MSSMNoFV_onshell*, double);
 
 /** set muon pole mass */
@@ -114,19 +127,19 @@ void gm2calc_mssmnofv_set_MM_pole(MSSMNoFV_onshell*, double);
 /** set smuon pole masses */
 void gm2calc_mssmnofv_set_MSm_pole(MSSMNoFV_onshell*, unsigned, double);
 
-/** set sneutrino pole mass */
+/** set muon sneutrino pole masses */
 void gm2calc_mssmnofv_set_MSvmL_pole(MSSMNoFV_onshell*, double);
 
-/** set chargino pole mass */
+/** set chargino pole masses */
 void gm2calc_mssmnofv_set_MCha_pole(MSSMNoFV_onshell*, unsigned, double);
 
-/** set neutralino pole mass */
+/** set neutralino pole masses */
 void gm2calc_mssmnofv_set_MChi_pole(MSSMNoFV_onshell*, unsigned, double);
 
-/** set verbose output */
+/** enable/disable verbose output */
 void gm2calc_mssmnofv_set_verbose_output(MSSMNoFV_onshell*, int);
 
-/** get Ae(i,k) */
+/** get Ae(i,k) DR-bar */
 double gm2calc_mssmnofv_get_Ae(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 /** get Ad(i,k) */
@@ -156,16 +169,16 @@ double gm2calc_mssmnofv_get_g3(const MSSMNoFV_onshell*);
 /** get tan(beta) */
 double gm2calc_mssmnofv_get_TB(const MSSMNoFV_onshell*);
 
-/** get bino mass */
+/** get soft-breaking on-shell bino mass parameter */
 double gm2calc_mssmnofv_get_MassB(const MSSMNoFV_onshell*);
 
-/** get wino mass */
+/** get soft-breaking on-shell wino mass parameter */
 double gm2calc_mssmnofv_get_MassWB(const MSSMNoFV_onshell*);
 
-/** get gluino mass */
+/** get soft-breaking gluino mass parameter */
 double gm2calc_mssmnofv_get_MassG(const MSSMNoFV_onshell*);
 
-/** get Mu parameter */
+/** get on-shell superpotential mu parameter */
 double gm2calc_mssmnofv_get_Mu(const MSSMNoFV_onshell*);
 
 /** get left-handed up-Squark soft-breaking squared mass */
@@ -177,10 +190,10 @@ double gm2calc_mssmnofv_get_md2(const MSSMNoFV_onshell*, unsigned, unsigned);
 /** get right-handed up-Squark soft-breaking squared mass */
 double gm2calc_mssmnofv_get_mu2(const MSSMNoFV_onshell*, unsigned, unsigned);
 
-/** get left-handed up-Lepton soft-breaking squared mass */
+/** get left-handed up-lepton soft-breaking on-shell squared mass */
 double gm2calc_mssmnofv_get_ml2(const MSSMNoFV_onshell*, unsigned, unsigned);
 
-/** get right-handed down-Lepton soft-breaking squared mass */
+/** get right-handed down-lepton soft-breaking on-shell squared mass */
 double gm2calc_mssmnofv_get_me2(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 /** get vacuum expectation value */
@@ -189,10 +202,10 @@ double gm2calc_mssmnofv_get_vev(const MSSMNoFV_onshell*);
 /** get renormalization scale */
 double gm2calc_mssmnofv_get_scale(const MSSMNoFV_onshell*);
 
-/** get MW */
+/** get W boson pole mass */
 double gm2calc_mssmnofv_get_MW(const MSSMNoFV_onshell*);
 
-/** get MZ */
+/** get Z boson pole mass */
 double gm2calc_mssmnofv_get_MZ(const MSSMNoFV_onshell*);
 
 /** get electron mass */
@@ -204,46 +217,46 @@ double gm2calc_mssmnofv_get_MM(const MSSMNoFV_onshell*);
 /** get tau mass */
 double gm2calc_mssmnofv_get_ML(const MSSMNoFV_onshell*);
 
-/** get up-Quark mass */
+/** get up-quark mass */
 double gm2calc_mssmnofv_get_MU(const MSSMNoFV_onshell*);
 
-/** get charm-Quark mass */
+/** get charm-quark mass */
 double gm2calc_mssmnofv_get_MC(const MSSMNoFV_onshell*);
 
-/** get top-Quark mass */
+/** get top-quark mass */
 double gm2calc_mssmnofv_get_MT(const MSSMNoFV_onshell*);
 
-/** get down-Quark mass */
+/** get down-quark mass */
 double gm2calc_mssmnofv_get_MD(const MSSMNoFV_onshell*);
 
-/** get strange-Quark mass */
+/** get strange-quark mass */
 double gm2calc_mssmnofv_get_MS(const MSSMNoFV_onshell*);
 
-/** get bottom-Quark DR-bar mass mb(MZ) */
+/** get bottom-quark DR-bar mass mb(MZ) */
 double gm2calc_mssmnofv_get_MB(const MSSMNoFV_onshell*);
 
-/** get bottom-Quark MS-bar mass mb(mb) */
+/** get bottom-quark MS-bar mass mb(mb) */
 double gm2calc_mssmnofv_get_MBMB(const MSSMNoFV_onshell*);
 
-/** get CP-odd Higgs pole mass */
+/** get CP-odd Higgs mass */
 double gm2calc_mssmnofv_get_MAh(const MSSMNoFV_onshell*);
 
-/** get CP-even Higgs pole mass */
+/** get CP-even Higgs masses */
 double gm2calc_mssmnofv_get_Mhh(const MSSMNoFV_onshell*, unsigned);
 
-/** get chargino pole mass */
+/** get chargino pole masses */
 double gm2calc_mssmnofv_get_MCha(const MSSMNoFV_onshell*, unsigned);
 
-/** get chargino pole mixing matrix UM */
+/** get chargino pole mixing matrix */
 double gm2calc_mssmnofv_get_UM(const MSSMNoFV_onshell*, unsigned, unsigned, double*);
 
-/** get chargino pole mixing matrix UP */
+/** get chargino pole mixing matrix */
 double gm2calc_mssmnofv_get_UP(const MSSMNoFV_onshell*, unsigned, unsigned, double*);
 
-/** get neutralino pole mass */
+/** get neutralino pole masses */
 double gm2calc_mssmnofv_get_MChi(const MSSMNoFV_onshell*, unsigned);
 
-/** get neutralino pole mixing matrix ZN */
+/** get neutralino pole mixing matrix */
 double gm2calc_mssmnofv_get_ZN(const MSSMNoFV_onshell*, unsigned, unsigned, double*);
 
 /** get selectron masses */
@@ -255,10 +268,10 @@ double gm2calc_mssmnofv_get_MSveL(const MSSMNoFV_onshell*);
 /** get smuon pole masses */
 double gm2calc_mssmnofv_get_MSm(const MSSMNoFV_onshell*, unsigned);
 
-/** get sneutrino pole mass */
+/** get muon sneutrino pole mass */
 double gm2calc_mssmnofv_get_MSvmL(const MSSMNoFV_onshell*);
 
-/** get stau pole masses */
+/** get stau masses */
 double gm2calc_mssmnofv_get_MStau(const MSSMNoFV_onshell*, unsigned);
 
 /** get tau sneutrino mass */
@@ -282,40 +295,40 @@ double gm2calc_mssmnofv_get_MSt(const MSSMNoFV_onshell*, unsigned);
 /** get sbottom mass */
 double gm2calc_mssmnofv_get_MSb(const MSSMNoFV_onshell*, unsigned);
 
-/** get selectron pole mixing matrix masses */
+/** get selectron mixing matrix */
 double gm2calc_mssmnofv_get_USe(const MSSMNoFV_onshell*, unsigned, unsigned);
 
-/** get smuon pole mixing matrix masses */
+/** get smuon pole mixing matrix */
 double gm2calc_mssmnofv_get_USm(const MSSMNoFV_onshell*, unsigned, unsigned);
 
-/** get stau pole mixing matrix masses */
+/** get stau mixing matrix */
 double gm2calc_mssmnofv_get_UStau(const MSSMNoFV_onshell*, unsigned, unsigned);
 
-/** get sup pole mixing matrix masses */
+/** get sup mixing matrix */
 double gm2calc_mssmnofv_get_USu(const MSSMNoFV_onshell*, unsigned, unsigned);
 
-/** get sdown pole mixing matrix masses */
+/** get sdown mixing matrix */
 double gm2calc_mssmnofv_get_USd(const MSSMNoFV_onshell*, unsigned, unsigned);
 
-/** get scharm pole mixing matrix masses */
+/** get scharm mixing matrix */
 double gm2calc_mssmnofv_get_USc(const MSSMNoFV_onshell*, unsigned, unsigned);
 
-/** get sstrange pole mixing matrix masses */
+/** get sstrange mixing matrix */
 double gm2calc_mssmnofv_get_USs(const MSSMNoFV_onshell*, unsigned, unsigned);
 
-/** get sstop pole mixing matrix masses */
+/** get sstop mixing matrix */
 double gm2calc_mssmnofv_get_USt(const MSSMNoFV_onshell*, unsigned, unsigned);
 
-/** get sbottom pole mixing matrix masses */
+/** get sbottom mixing matrix */
 double gm2calc_mssmnofv_get_USb(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 /** get lepton Yukawa coupling */
 double gm2calc_mssmnofv_get_Ye(const MSSMNoFV_onshell*, unsigned, unsigned);
 
-/** get down-Quark Yukawa coupling */
+/** get down-quark Yukawa coupling */
 double gm2calc_mssmnofv_get_Yd(const MSSMNoFV_onshell*, unsigned, unsigned);
 
-/** get up-Quark Yukawa coupling */
+/** get up-quark Yukawa coupling */
 double gm2calc_mssmnofv_get_Yu(const MSSMNoFV_onshell*, unsigned, unsigned);
 
 

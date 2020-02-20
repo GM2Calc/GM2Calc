@@ -46,19 +46,26 @@ public:
    MSSMNoFV_onshell(const MSSMNoFV_onshell_mass_eigenstates&);
    virtual ~MSSMNoFV_onshell() {}
 
+   /// enable/disable verbose output
    void set_verbose_output(bool flag) { verbose_output = flag; }
+   /// tests for verbose output
    bool do_verbose_output() const { return verbose_output; }
 
    /// set alpha(MZ) w/o hadronic corrections
    void set_alpha_MZ(double);
    /// set alpha in the Thomson limit
    void set_alpha_thompson(double);
-
+   /// soft-breaking trilinear on-shell down-type slepton coupling
    void set_Ae(const Eigen::Matrix<double,3,3>& A) { Ae = A; }
+   /// soft-breaking trilinear up-type squark coupling
    void set_Au(const Eigen::Matrix<double,3,3>& A) { Au = A; }
+   /// soft-breaking trilinear down-type squark coupling
    void set_Ad(const Eigen::Matrix<double,3,3>& A) { Ad = A; }
+   /// soft-breaking trilinear on-shell down-type slepton coupling
    void set_Ae(unsigned i, unsigned k, double a) { Ae(i,k) = a; }
+   /// soft-breaking trilinear up-type squark coupling
    void set_Au(unsigned i, unsigned k, double a) { Au(i,k) = a; }
+   /// soft-breaking trilinear down-type squark coupling
    void set_Ad(unsigned i, unsigned k, double a) { Ad(i,k) = a; }
    /// set CP-odd Higgs pole mass
    void set_MA0(double m) { get_physical().MAh(1) = m; }
@@ -73,41 +80,65 @@ public:
    double get_gY() const { return sqrt(0.6) * get_g1(); }
    /// renormalization scale
    double get_MUDIM() const { return get_scale(); }
-   /// tan(beta)
+   /// tan(beta) DR-bar
    double get_TB() const;
    /// Vacuum expectation value v
    double get_vev() const;
+   /// soft-breaking trilinear on-shell down-type slepton coupling
    const Eigen::Matrix<double,3,3>& get_Ae() const { return Ae; }
+   /// soft-breaking trilinear up-type squark coupling
    const Eigen::Matrix<double,3,3>& get_Au() const { return Au; }
+   /// soft-breaking trilinear down-type squark coupling
    const Eigen::Matrix<double,3,3>& get_Ad() const { return Ad; }
+   /// soft-breaking trilinear on-shell down-type slepton coupling
    double get_Ae(unsigned i, unsigned k) const { return Ae(i,k); }
+   /// soft-breaking trilinear up-type squark coupling
    double get_Au(unsigned i, unsigned k) const { return Au(i,k); }
+   /// soft-breaking trilinear on-shell down-type slepton coupling
    double get_Ad(unsigned i, unsigned k) const { return Ad(i,k); }
-
-   // (g-2) wrappers for pole mass getters
+   /// returns W boson pole mass
    double get_MW() const { return get_physical().MVWm; }
+   /// returns Z boson pole mass
    double get_MZ() const { return get_physical().MVZ; }
+   /// returns electron mass
    double get_ME() const { return get_physical().MFe; }
+   /// returns muon pole mass
    double get_MM() const { return get_physical().MFm; }
+   /// returns tau mass
    double get_ML() const { return get_physical().MFtau; }
+   /// returns up-quark mass
    double get_MU() const { return get_physical().MFu; }
+   /// returns charm-quark mass
    double get_MC() const { return get_physical().MFc; }
+   /// returns top-quark mass
    double get_MT() const { return get_physical().MFt; }
+   /// returns down-quark mass
    double get_MD() const { return get_physical().MFd; }
+   /// returns strange-quark mass
    double get_MS() const { return get_physical().MFs; }
    /// returns mb(mb) MS-bar
    double get_MBMB() const { return get_physical().MFb; }
    /// returns mb(MZ) DR-bar
    double get_MB() const;
+   /// returns CP-odd Higgs mass
    double get_MA0() const { return get_physical().MAh(1); }
+   /// returns selectron mixing matrix
    const Eigen::Matrix<double,2,2>& get_USe() const { return get_ZE(); }
+   /// returns smuon pole mixing matrix
    const Eigen::Matrix<double,2,2>& get_USm() const { return get_ZM(); }
+   /// returns stau mixing matrix
    const Eigen::Matrix<double,2,2>& get_UStau() const { return get_ZTau(); }
+   /// returns sup mixing matrix
    const Eigen::Matrix<double,2,2>& get_USu() const { return get_ZU(); }
+   /// returns sdown mixing matrix
    const Eigen::Matrix<double,2,2>& get_USd() const { return get_ZD(); }
+   /// returns scharm mixing matrix
    const Eigen::Matrix<double,2,2>& get_USc() const { return get_ZC(); }
+   /// returns sstrange mixing matrix
    const Eigen::Matrix<double,2,2>& get_USs() const { return get_ZS(); }
+   /// returns sbottom mixing matrix
    const Eigen::Matrix<double,2,2>& get_USb() const { return get_ZB(); }
+   /// returns stop mixing matrix
    const Eigen::Matrix<double,2,2>& get_USt() const { return get_ZT(); }
 
    void convert_to_onshell(double precision = 1e-8,
@@ -137,6 +168,7 @@ private:
    void copy_susy_masses_to_pole();
 };
 
+/// streaming operator
 std::ostream& operator<<(std::ostream&, const MSSMNoFV_onshell&);
 
 } // namespace gm2calc
