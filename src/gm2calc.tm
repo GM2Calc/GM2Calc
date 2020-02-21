@@ -435,17 +435,20 @@
 #define MLPutRealVectorInterface(link,M,dim)            \
    do {                                                 \
       double M[dim];                                    \
-      for (unsigned i = 0; i < dim; i++)                \
+      for (unsigned i = 0; i < dim; i++) {              \
          M[i] = gm2calc_mssmnofv_get_##M(model, i);     \
+      }                                                 \
       MLPutRealList(link, M, dim);                      \
    } while (0)
 
 #define MLPutRealMatrixInterface(link,M,dim1,dim2)           \
    do {                                                      \
       double M[dim1][dim2];                                  \
-      for (unsigned i = 0; i < dim1; i++)                    \
-         for (unsigned k = 0; k < dim2; k++)                 \
+      for (unsigned i = 0; i < dim1; i++) {                  \
+         for (unsigned k = 0; k < dim2; k++) {               \
             M[i][k] = gm2calc_mssmnofv_get_##M(model, i, k); \
+         }                                                   \
+      }                                                      \
       MLPutRealMatrix(link, (double*)M, dim1, dim2);         \
    } while (0)
 
