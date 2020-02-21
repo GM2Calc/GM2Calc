@@ -27,7 +27,7 @@ add_library(gm2calc
   MSSMNoFV_onshell_soft_parameters.cpp
   MSSMNoFV_onshell_susy_parameters.cpp
   )
-target_include_directories(gm2calc PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(gm2calc PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 add_library(GM2Calc::GM2Calc ALIAS gm2calc)
 
 install(
