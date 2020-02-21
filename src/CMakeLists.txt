@@ -38,7 +38,7 @@ install(
 
 # GM2Calc main executable
 add_executable(gm2calc.x gm2calc.cpp)
-target_link_libraries(gm2calc.x GM2Calc::GM2Calc)
+target_link_libraries(gm2calc.x PRIVATE GM2Calc::GM2Calc)
 target_include_directories(gm2calc.x PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 install(
