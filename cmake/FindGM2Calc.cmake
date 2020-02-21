@@ -97,7 +97,7 @@ find_package_handle_standard_args(GM2Calc
 if(GM2Calc_FOUND AND NOT TARGET GM2Calc::GM2Calc)
   add_library(GM2Calc::GM2Calc UNKNOWN IMPORTED)
   set_target_properties(GM2Calc::GM2Calc PROPERTIES
-    IMPORTED_LOCATION "${GM2Calc_LIBRARY}"
+    IMPORTED_LOCATION "${GM2Calc_LIBRARIES}"
     INTERFACE_INCLUDE_DIRECTORIES "${GM2Calc_INCLUDE_DIRS}"
   )
 endif()
