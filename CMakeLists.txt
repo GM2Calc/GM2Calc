@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.1)
 
 project(GM2Calc VERSION 1.5.2)
 
+include(GNUInstallDirs)
+
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
@@ -17,11 +19,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-set(EXEC_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
-set(GM2CALC_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/include")
-set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include")
-set(INCLUDE_INSTALL_SUB_DIR "${INCLUDE_INSTALL_DIR}/gm2calc")
-set(LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib")
 
 # generate gm2calc.pc file for pkg-config
 configure_file (
@@ -69,11 +66,11 @@ endif()
 
 # install public headers
 install(
-    DIRECTORY "${GM2CALC_INCLUDE_DIRS}/gm2calc"
-    DESTINATION "${INCLUDE_INSTALL_DIR}"
+    DIRECTORY "${CMAKE_SOURCE_DIR}/include/gm2calc"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
   )
 
 # install gm2calc.pc file
 install(FILES
   "${CMAKE_BINARY_DIR}/gm2calc.pc"
-  DESTINATION "${LIB_INSTALL_DIR}/pkgconfig")
+  DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig")

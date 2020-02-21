@@ -3,7 +3,7 @@ configure_file(gm2_config.h.in "${CMAKE_BINARY_DIR}/include/gm2calc/gm2_config.h
 
 install(
   FILES "${CMAKE_BINARY_DIR}/include/gm2calc/gm2_config.h"
-  DESTINATION "${INCLUDE_INSTALL_SUB_DIR}"
+  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/gm2calc"
   )
 
 # GM2Calc library
@@ -38,9 +38,10 @@ add_library(GM2Calc::GM2Calc ALIAS gm2calc)
 
 install(
   TARGETS gm2calc
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  )
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
 
 # GM2Calc main executable
 add_executable(gm2calc.x gm2calc.cpp)
@@ -49,7 +50,7 @@ target_include_directories(gm2calc.x PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 install(
   TARGETS gm2calc.x
-  RUNTIME DESTINATION bin
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   )
 
 # MathML executable
@@ -62,6 +63,6 @@ if(Mathematica_FOUND)
     PRIVATE ${Mathematica_MathLink_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
   install(
     TARGETS gm2calc.mx
-    RUNTIME DESTINATION bin
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     )
 endif()
