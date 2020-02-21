@@ -23,9 +23,9 @@
 #
 # GM2Calc::GM2Calc
 
-# search gm2_config.h first in ${GM2Calc_INCLUDE_DIR}
+# search gm2calc/gm2_config.h first in ${GM2Calc_INCLUDE_DIR}
 find_path(GM2Calc_INCLUDE_DIRS
-  NAMES gm2_config.h
+  NAMES gm2calc/gm2_config.h
   PATHS
     ${GM2Calc_INCLUDE_DIR}
   PATH_SUFFIXES
@@ -39,7 +39,7 @@ find_path(GM2Calc_INCLUDE_DIRS
 )
 
 find_path(GM2Calc_INCLUDE_DIRS
-  NAMES gm2_config.h
+  NAMES gm2calc/gm2_config.h
 )
 
 # search GM2Calc library first in ${GM2Calc_LIBRARY}
@@ -63,7 +63,7 @@ find_library(GM2Calc_LIBRARIES
 
 # find version
 if(GM2Calc_INCLUDE_DIRS)
-  file(READ "${GM2Calc_INCLUDE_DIRS}/gm2_config.h" _gm2calc_version_header)
+  file(READ "${GM2Calc_INCLUDE_DIRS}/gm2calc/gm2_config.h" _gm2calc_version_header)
 
   string(REGEX MATCH "define[ \t]+GM2CALC_VERSION_MAJOR[ \t]+([0-9]+)" _gm2calc_version_major_match "${_gm2calc_version_header}")
   set(GM2Calc_VERSION_MAJOR "${CMAKE_MATCH_1}")
