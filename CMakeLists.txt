@@ -36,10 +36,7 @@ endif()
 
 find_package(Boost 1.37.0 REQUIRED)
 find_package(Eigen3 3.1 REQUIRED)
-include_directories(${EIGEN3_INCLUDE_DIR})
 find_package(Mathematica COMPONENTS MathLink)
-
-include_directories("${CMAKE_BINARY_DIR}/include")
 
 add_subdirectory(src)
 add_subdirectory(examples)
