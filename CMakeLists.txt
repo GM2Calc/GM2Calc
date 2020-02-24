@@ -22,12 +22,6 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-# generate gm2calc.pc file for pkg-config
-configure_file (
-  "${PROJECT_SOURCE_DIR}/cmake/gm2calc.pc.in"
-  "${CMAKE_BINARY_DIR}/gm2calc.pc"
-  @ONLY)
-
 if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
   include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
   conan_basic_setup()
@@ -51,6 +45,12 @@ install(
     DIRECTORY "${CMAKE_SOURCE_DIR}/include/gm2calc"
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
   )
+
+# generate gm2calc.pc file for pkg-config
+configure_file (
+  "${PROJECT_SOURCE_DIR}/cmake/gm2calc.pc.in"
+  "${CMAKE_BINARY_DIR}/gm2calc.pc"
+  @ONLY)
 
 # install gm2calc.pc file
 install(FILES
