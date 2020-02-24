@@ -46,26 +46,6 @@ if(EXISTS "${CMAKE_SOURCE_DIR}/test")
   add_subdirectory(test)
 endif()
 
-# make tag/release-* targets
-find_package(Git)
-
-if(Git_FOUND)
-  add_custom_target(tag
-    ${GIT_EXECUTABLE} tag v${PROJECT_VERSION}
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-    COMMENT "Creating git tag v${PROJECT_VERSION}")
-
-  add_custom_target(release-tag
-    ${GIT_EXECUTABLE} archive --worktree-attributes --output=${PROJECT_NAME}-${PROJECT_VERSION}.tar.gz --prefix=${PROJECT_NAME}-${PROJECT_VERSION}/ v${PROJECT_VERSION}
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-    COMMENT "Creating ${PROJECT_NAME}-${PROJECT_VERSION}.tar.gz")
-
-  add_custom_target(release-head
-    ${GIT_EXECUTABLE} archive --worktree-attributes --output=${PROJECT_NAME}-HEAD.tar.gz --prefix=${PROJECT_NAME}-HEAD/ HEAD
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-    COMMENT "Creating ${PROJECT_NAME}-HEAD.tar.gz")
-endif()
-
 # install public headers
 install(
     DIRECTORY "${CMAKE_SOURCE_DIR}/include/gm2calc"
