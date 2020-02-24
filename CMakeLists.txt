@@ -35,14 +35,14 @@ add_subdirectory(src)
 add_subdirectory(examples)
 add_subdirectory(doc)
 
-if(EXISTS "${CMAKE_SOURCE_DIR}/test")
+if(EXISTS "${PROJECT_SOURCE_DIR}/test")
   enable_testing()
   add_subdirectory(test)
 endif()
 
 # install public headers
 install(
-    DIRECTORY "${CMAKE_SOURCE_DIR}/include/gm2calc"
+    DIRECTORY "${PROJECT_SOURCE_DIR}/include/gm2calc"
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
   )
 
