@@ -9,7 +9,7 @@ function(add_gm2calc_test name ext)
 endfunction()
 
 add_gm2calc_test(test_c_interface cpp)
-add_gm2calc_test(test_config      cpp)
+add_gm2calc_test(test_version     cpp)
 add_gm2calc_test(test_ffunctions  cpp)
 
 # test shell scripts

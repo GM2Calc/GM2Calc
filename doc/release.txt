@@ -11,7 +11,7 @@ When releasing GM2Calc, please follow these steps:
  1. Create a new commit with the updated version number in the
     Makefile and in the ChangeLog
 
-      edit CMakeLists.txt
+      edit include/gm2calc/gm2_version.h
       edit ChangeLog
       git ci -a -m 'version <version>'
 

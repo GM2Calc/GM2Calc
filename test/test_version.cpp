@@ -1,4 +1,4 @@
-#include "gm2calc/gm2_config.h"
+#include "gm2calc/gm2_version.h"
 
 #include <iostream>
 

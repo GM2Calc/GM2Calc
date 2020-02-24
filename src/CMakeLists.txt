@@ -1,11 +1,3 @@
-# GM2Calc config header
-configure_file(gm2_config.h.in "${CMAKE_BINARY_DIR}/include/gm2calc/gm2_config.h")
-
-install(
-  FILES "${CMAKE_BINARY_DIR}/include/gm2calc/gm2_config.h"
-  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/gm2calc"
-  )
-
 # GM2Calc library
 add_library(gm2calc
   gm2_1loop_c.cpp

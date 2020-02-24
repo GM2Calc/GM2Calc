@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(GM2Calc VERSION 1.5.2)
+project(GM2Calc
+  DESCRIPTION "Calculation of the anomalous magnetic moment of the muon in the MSSM"
+  LANGUAGES C CXX)
 
 include(GNUInstallDirs)
 

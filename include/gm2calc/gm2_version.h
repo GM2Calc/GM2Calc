@@ -1,0 +1,5 @@
+/* GM2Calc version */
+#define GM2CALC_VERSION_MAJOR 1
+#define GM2CALC_VERSION_MINOR 5
+#define GM2CALC_VERSION_PATCH 2
+#define GM2CALC_VERSION "1.5.2"

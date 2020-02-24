@@ -18,9 +18,9 @@
 
 #include "gm2calc/gm2_1loop.hpp"
 #include "gm2calc/gm2_2loop.hpp"
-#include "gm2calc/gm2_config.h"
 #include "gm2calc/gm2_error.hpp"
 #include "gm2calc/gm2_uncertainty.hpp"
+#include "gm2calc/gm2_version.h"
 #include "gm2calc/MSSMNoFV_onshell.hpp"
 
 #include "gm2_log.hpp"
