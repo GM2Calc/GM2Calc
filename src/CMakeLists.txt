@@ -22,7 +22,6 @@ add_library(gm2calc
 target_include_directories(gm2calc
   PUBLIC
     "${CMAKE_SOURCE_DIR}/include"
-    "${CMAKE_BINARY_DIR}/include"
     "${EIGEN3_INCLUDE_DIR}"
   PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}"
 )
