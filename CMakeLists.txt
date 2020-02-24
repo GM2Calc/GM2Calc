@@ -18,12 +18,12 @@ set(CMAKE_C_STANDARD_REQUIRED YES)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
   ${PROJECT_SOURCE_DIR}/cmake/Eigen
   ${PROJECT_SOURCE_DIR}/cmake/Mathematica)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 
-if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-  include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+if(EXISTS ${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
+  include(${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
   conan_basic_setup()
 endif()
 
@@ -49,10 +49,10 @@ install(
 # generate gm2calc.pc file for pkg-config
 configure_file (
   "${PROJECT_SOURCE_DIR}/cmake/gm2calc.pc.in"
-  "${CMAKE_BINARY_DIR}/gm2calc.pc"
+  "${PROJECT_BINARY_DIR}/gm2calc.pc"
   @ONLY)
 
 # install gm2calc.pc file
 install(FILES
-  "${CMAKE_BINARY_DIR}/gm2calc.pc"
+  "${PROJECT_BINARY_DIR}/gm2calc.pc"
   DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig")
