@@ -23,7 +23,9 @@ target_include_directories(gm2calc
   PUBLIC
     "${CMAKE_SOURCE_DIR}/include"
     "${EIGEN3_INCLUDE_DIR}"
-  PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}"
+  PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}"
+    "${Boost_INCLUDE_DIRS}"
 )
 add_library(GM2Calc::GM2Calc ALIAS gm2calc)
 
