@@ -354,12 +354,10 @@ void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
 
    const double tanb = read_entry("HMIX", 2, scale);
    const double MA2_drbar = read_entry("HMIX", 4, scale);
-   const double rt = std::sqrt(1 + tanb*tanb);
-   const double sinb = tanb / rt;
-   const double cosb = 1.   / rt;
+   const double scb = tanb / (1 + tanb*tanb); // sin(beta)*cos(beta)
 
    model.set_TB(tanb);
-   model.set_BMu(MA2_drbar * sinb * cosb);
+   model.set_BMu(MA2_drbar * scb);
    model.set_scale(scale);
 }
 
