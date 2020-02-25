@@ -535,6 +535,10 @@ double delta_bottom_correction(const MSSMNoFV_onshell& model)
    const double msbL2 = std::abs(model.get_mq2(2,2));
    const double msbR2 = std::abs(model.get_md2(2,2));
 
+   // Note:
+   // 1/z^2 H_2(x^2/z^2, y^2/z^2) = - Iabc(x,y,z)
+
+   // Eq.(31)
    const double eps_0 =
         2. * alpha_S / (3*Pi) * mu * M3
         * Iabc(abs_sqrt(msbL2), abs_sqrt(msbR2), std::abs(M3))
@@ -550,18 +554,22 @@ double delta_bottom_correction(const MSSMNoFV_onshell& model)
         * Iabc(abs_sqrt(msbL2), std::abs(mu), std::abs(M2))
       ;
 
+   // Eq.(35)
    const double eps_Y_vM =
       - oneOver16PiSqr * At * mu
         * Iabc(abs_sqrt(mstL2), abs_sqrt(mstR2), std::abs(mu))
       // term ~ self-energy neglected
       ;
 
+   // Eq.(32)
    const double eps_Y = oneOver16PiSqr * At * mu
       * Iabc(abs_sqrt(mstL2), abs_sqrt(mstR2), std::abs(mu))
       + eps_Y_vM;
 
+   // Eq.(33)
    const double eps_3_tilde = eps_0 + sqr(yt) * eps_Y;
 
+   // Eq.(103)
    const double delta_b = TB * eps_3_tilde;
 
    return delta_b;
