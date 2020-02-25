@@ -474,8 +474,9 @@ void GM2_slha_io::fill(Config_options& config_options) const
 }
 
 namespace {
-void process_gm2calcconfig_tuple(Config_options& config_options,
-                                 int key, double value)
+
+void process_gm2calcconfig_tuple(
+   Config_options& config_options, int key, double value)
 {
    switch (key) {
    case 0:
@@ -503,8 +504,8 @@ void process_gm2calcconfig_tuple(Config_options& config_options,
    }
 }
 
-void process_gm2calcinput_tuple(MSSMNoFV_onshell& model,
-                                             int key, double value)
+void process_gm2calcinput_tuple(
+   MSSMNoFV_onshell& model, int key, double value)
 {
    switch (key) {
    case  0: model.set_scale(value);          break;
@@ -644,6 +645,7 @@ void process_mass_tuple(
       break;
    }
 }
+
 } // anonymous namespace
 
 } // namespace gm2calc
