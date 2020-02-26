@@ -42,17 +42,16 @@ endif()
 
 # install public headers
 install(
-    DIRECTORY "${PROJECT_SOURCE_DIR}/include/gm2calc"
-    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-  )
+  DIRECTORY "${PROJECT_SOURCE_DIR}/include/gm2calc"
+  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
 # generate gm2calc.pc file for pkg-config
-configure_file (
+configure_file(
   "${PROJECT_SOURCE_DIR}/cmake/gm2calc.pc.in"
   "${PROJECT_BINARY_DIR}/gm2calc.pc"
   @ONLY)
 
 # install gm2calc.pc file
-install(FILES
-  "${PROJECT_BINARY_DIR}/gm2calc.pc"
+install(
+  FILES "${PROJECT_BINARY_DIR}/gm2calc.pc"
   DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig")
