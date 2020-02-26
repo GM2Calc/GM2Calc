@@ -529,8 +529,8 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       const auto U(get_UM()); // neg. chargino mixing matrix
       const auto V(get_UP()); // pos. chargino mixing matrix
       const auto N(get_ZN()); // neutralino mixing matrix
-      const auto X(U.transpose() * MCha_goal.matrix().asDiagonal() * V);
-      const auto Y(N.transpose() * MChi_goal.matrix().asDiagonal() * N);
+      const Eigen::Matrix<double,2,2> X = (U.transpose() * MCha_goal.matrix().asDiagonal() * V).real();
+      const Eigen::Matrix<double,4,4> Y = (N.transpose() * MChi_goal.matrix().asDiagonal() * N).real();
 
       if (!X.allFinite()) {
          WARNING("chargino mixing matrix contains NaNs");
@@ -544,9 +544,9 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
          break;
       }
 
-      set_MassB(std::real(Y(0,0)));
-      set_MassWB(std::real(X(0,0)));
-      set_Mu(std::real(X(1,1)));
+      set_MassB(Y(0,0));
+      set_MassWB(X(0,0));
+      set_Mu(X(1,1));
 
       calculate_MChi();
       calculate_MCha();
