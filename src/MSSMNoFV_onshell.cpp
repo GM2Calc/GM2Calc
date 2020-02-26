@@ -548,7 +548,8 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       set_MassWB(std::real(X(0,0)));
       set_Mu(std::real(X(1,1)));
 
-      calculate_DRbar_masses();
+      calculate_MChi();
+      calculate_MCha();
 
       MChi_goal = get_MChi();
       MChi_goal(max_bino) = get_physical().MChi(max_bino);
@@ -567,6 +568,8 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
 
       it++;
    }
+
+   calculate_DRbar_masses();
 
    if (it == max_iterations) {
       const double precision =
