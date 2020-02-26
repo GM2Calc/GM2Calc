@@ -353,8 +353,9 @@ void MSSMNoFV_onshell::copy_susy_masses_to_pole()
    // masses
 
 #define COPY_IF_ZERO_0(m)                                               \
-   if (gm2calc::detail::is_zero(get_physical().m, eps))                 \
-      get_physical().m = get_##m();
+   if (gm2calc::detail::is_zero(get_physical().m, eps)) {               \
+      get_physical().m = get_##m();                                     \
+   }
 #define COPY_IF_ZERO_1(m,z)                                             \
    if (gm2calc::detail::is_zero(get_physical().m, eps)) {               \
       get_physical().m = get_##m();                                     \
