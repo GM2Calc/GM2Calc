@@ -207,8 +207,9 @@ void MSSMNoFV_onshell::set_alpha_thompson(double alpha)
 void MSSMNoFV_onshell::set_TB(double tanb)
 {
    const double vev = get_vev();
-   const double sinb = tanb / std::sqrt(1 + tanb*tanb);
-   const double cosb = 1.   / std::sqrt(1 + tanb*tanb);
+   const double rt = std::sqrt(1 + tanb*tanb);
+   const double sinb = tanb / rt;
+   const double cosb = 1.   / rt;
    set_vd(vev * cosb);
    set_vu(vev * sinb);
 }
