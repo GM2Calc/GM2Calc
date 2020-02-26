@@ -558,7 +558,7 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
          VERBOSE("   Iteration " << it << ": Mu = " << get_Mu()
                  << ", M1 = " << get_MassB()
                  << ", M2 = " << get_MassWB()
-                 << ", MCha = " << get_MCha().transpose()
+                 << ", MCha = " << pretty_print(get_MCha().transpose())
                  << ", MChi(" << max_bino << ") = " << get_MChi(max_bino));
       }
 
@@ -819,8 +819,8 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
             VERBOSE("   NaN appearing in DR-bar to on-shell conversion"
                     " for mse with FPI:\n"
                     "      mse2(2,2) = " << me211 <<
-                    ", MSm = " << get_MSm().transpose() <<
-                    ", ZM = " << get_ZM().row(0) << ' ' << get_ZM().row(1));
+                    ", MSm = " << pretty_print(get_MSm().transpose()) <<
+                    ", ZM = " << pretty_print(get_ZM()));
          }
          return std::numeric_limits<double>::max();
       }
