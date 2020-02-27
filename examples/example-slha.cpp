@@ -61,12 +61,14 @@ gm2calc::MSSMNoFV_onshell setup() {
    model.convert_to_onshell();
 
    // check for warnings
-   if (model.get_problems().have_warning())
-     std::cout << model.get_problems().get_warnings()  << '\n';
+   if (model.get_problems().have_warning()) {
+      std::cout << model.get_problems().get_warnings()  << '\n';
+   }
 
    // check for problems
-   if (model.get_problems().have_problem())
-     std::cout << model.get_problems().get_problems()  << '\n';
+   if (model.get_problems().have_problem()) {
+      std::cout << model.get_problems().get_problems()  << '\n';
+   }
 
    return model;
 }
