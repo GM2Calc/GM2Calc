@@ -479,12 +479,24 @@ void process_gm2calcconfig_tuple(
    Config_options& config_options, int key, double value)
 {
    switch (key) {
-   case 0:
-      config_options.output_format =
-         static_cast<Config_options::E_output_format>(value);
+   case 0: {
+         const auto fmt = static_cast<int>(value);
+         const auto max = static_cast<int>(Config_options::NUMBER_OF_OUTPUT_FORMATS);
+
+         if (fmt < 0 || fmt >= max) {
+            ERROR("unknown output format: " << fmt);
+         } else {
+            config_options.output_format = static_cast<Config_options::E_output_format>(fmt);
+         }
+      }
       break;
-   case 1:
-      config_options.loop_order = value;
+   case 1: {
+         if (value < 0.0 || value > 2.0) {
+            ERROR("unsupported loop order: " << value);
+         } else {
+            config_options.loop_order = value;
+         }
+      }
       break;
    case 2:
       config_options.tanb_resummation = (value != 0.0);

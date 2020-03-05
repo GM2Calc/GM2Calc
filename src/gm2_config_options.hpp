@@ -27,7 +27,13 @@ namespace gm2calc {
  */
 struct Config_options {
    enum E_output_format : unsigned {
-      Minimal = 0, Detailed = 1, NMSSMTools = 2, SPheno = 3, GM2Calc = 4 };
+      Minimal = 0,
+      Detailed = 1,
+      NMSSMTools = 2,
+      SPheno = 3,
+      GM2Calc = 4,
+      NUMBER_OF_OUTPUT_FORMATS
+   };
 
    Config_options()
      : output_format(Minimal)
