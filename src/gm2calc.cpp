@@ -23,6 +23,7 @@
 #include "gm2calc/gm2_version.h"
 #include "gm2calc/MSSMNoFV_onshell.hpp"
 
+#include "gm2_config_options.hpp"
 #include "gm2_log.hpp"
 #include "gm2_slha_io.hpp"
 

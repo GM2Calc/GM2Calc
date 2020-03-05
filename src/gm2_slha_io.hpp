@@ -33,6 +33,7 @@
 
 namespace gm2calc {
 
+class Config_options;
 class MSSMNoFV_onshell;
 struct MSSMNoFV_onshell_physical;
 
@@ -55,31 +56,6 @@ struct MSSMNoFV_onshell_physical;
    boost::format(number_formatter) % n % str
 #define FORMAT_SPINFO(n,str)                                            \
    boost::format(spinfo_formatter) % n % str
-
-/**
- * @class Config_options
- * @brief configuration for the calculation of \f$a_\mu\f$
- */
-struct Config_options {
-   enum E_output_format : unsigned {
-      Minimal = 0, Detailed = 1, NMSSMTools = 2, SPheno = 3, GM2Calc = 4 };
-
-   Config_options()
-     : output_format(Minimal)
-     , loop_order(2)
-     , tanb_resummation(true)
-     , force_output(false)
-     , verbose_output(false)
-     , calculate_uncertainty(false)
-  {}
-
-   E_output_format output_format; ///< output format
-   unsigned loop_order;      ///< loop order
-   bool tanb_resummation;    ///< tan(beta) resummation
-   bool force_output;        ///< print output even if error occured
-   bool verbose_output;      ///< print additional information
-   bool calculate_uncertainty;    ///< calculate uncertainty
-};
 
 /**
  * @class GM2_slha_io
