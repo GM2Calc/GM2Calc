@@ -475,40 +475,57 @@ void GM2_slha_io::fill(Config_options& config_options) const
 
 namespace {
 
+bool is_integer(double value)
+{
+   double intpart;
+   return std::modf(value, &intpart) == 0.0;
+}
+
+void read_bool(double value, bool& result, const char* error_msg)
+{
+   if (value == 0.0 || value == 1.0) {
+      result = (value != 0.0);
+   } else {
+      ERROR(error_msg << ": " << value << " (allowed values: 0 or 1)");
+   }
+}
+
+template <typename T>
+void read_integer(double value, T& result, T min, T max, const char* error_msg)
+{
+   if (is_integer(value) && value >= min && value <= max) {
+      result = static_cast<T>(value);
+   } else {
+      ERROR(error_msg << ": " << value << " (allowed integer values: " << min << ",...," << max << ")");
+   }
+}
+
 void process_gm2calcconfig_tuple(
    Config_options& config_options, int key, double value)
 {
    switch (key) {
-   case 0: {
-         const auto fmt = static_cast<int>(value);
-         const auto max = static_cast<int>(Config_options::NUMBER_OF_OUTPUT_FORMATS);
-
-         if (fmt < 0 || fmt >= max) {
-            ERROR("unknown output format: " << fmt);
-         } else {
-            config_options.output_format = static_cast<Config_options::E_output_format>(fmt);
-         }
-      }
+   case 0:
+      read_integer(value,
+                   config_options.output_format,
+                   static_cast<Config_options::E_output_format>(0),
+                   static_cast<Config_options::E_output_format>(
+                      Config_options::NUMBER_OF_OUTPUT_FORMATS - 1),
+                   "unsupported output format");
       break;
-   case 1: {
-         if (value < 0.0 || value > 2.0) {
-            ERROR("unsupported loop order: " << value);
-         } else {
-            config_options.loop_order = value;
-         }
-      }
+   case 1:
+      read_integer(value, config_options.loop_order, 0u, 2u, "unsupported loop order");
       break;
    case 2:
-      config_options.tanb_resummation = (value != 0.0);
+      read_bool(value, config_options.tanb_resummation, "unsupported tan(beta) resummation flag value");
       break;
    case 3:
-      config_options.force_output = (value != 0.0);
+      read_bool(value, config_options.force_output, "unsupported force output flag value");
       break;
    case 4:
-      config_options.verbose_output = (value != 0.0);
+      read_bool(value, config_options.verbose_output, "unsupported verbose output flag value");
       break;
    case 5:
-      config_options.calculate_uncertainty = (value != 0.0);
+      read_bool(value, config_options.calculate_uncertainty, "unsupported uncertainty flag value");
       break;
    default:
       WARNING("Unrecognized entry in block GM2CalcConfig: " << key);
