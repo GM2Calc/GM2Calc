@@ -347,6 +347,7 @@ Block AE Q= 1.00000000e+03
    // Block HMIX
    CHECK_CLOSE(model.get_Mu()   , 4.89499929e+02, eps);
    CHECK_CLOSE(model.get_TB()   , 3.93371545e+01, eps);
+   CHECK_CLOSE(model.get_BMu()  , 0             , eps); // requires HMIX[4]
    CHECK_CLOSE(model.get_scale(), 1.00000000e+03, eps);
 
    CHECK_CLOSE(model.get_MUDIM(), model.get_scale(), eps);
