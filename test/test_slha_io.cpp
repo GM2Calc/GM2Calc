@@ -254,6 +254,7 @@ Block MASS                      # Mass spectrum
 Block HMIX Q= 1.00000000e+03
      1     4.89499929e+02      # mu(Q) MSSM DRbar   [initial guess]
      2     3.93371545e+01      # tan(beta)(Q) MSSM DRbar Feynman gauge [1L]
+     4     2.5e+05             # mA^2(Q) MSSM DRbar [irrelevant]
 Block MSOFT Q= 1.00000000e+03  # MSSM DRbar SUSY breaking parameters
      1     2.00000000e+02      # M_1(Q)             [initial guess]
      2     4.00000000e+02      # M_2(Q)             [initial guess]
@@ -345,9 +346,12 @@ Block AE Q= 1.00000000e+03
    CHECK_CLOSE(model.get_MA0(), model.get_physical().MAh(1), eps);
 
    // Block HMIX
+   const double tanb = model.get_TB();
+   const double scb = tanb / (1 + tanb*tanb); // sin(beta)*cos(beta)
+
    CHECK_CLOSE(model.get_Mu()   , 4.89499929e+02, eps);
    CHECK_CLOSE(model.get_TB()   , 3.93371545e+01, eps);
-   CHECK_CLOSE(model.get_BMu()  , 0             , eps); // requires HMIX[4]
+   CHECK_CLOSE(model.get_BMu()  , 2.5e+05*scb   , eps);
    CHECK_CLOSE(model.get_scale(), 1.00000000e+03, eps);
 
    CHECK_CLOSE(model.get_MUDIM(), model.get_scale(), eps);
