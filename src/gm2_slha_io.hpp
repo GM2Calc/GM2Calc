@@ -104,14 +104,14 @@ private:
    static std::string to_lower(const std::string&); ///< string to lower case
    static bool at_scale(const SLHAea::Block&, double, double eps = 0.01); ///< check block scale
 
-   void fill_from_A(MSSMNoFV_onshell&) const;
-   void fill_from_hmix(MSSMNoFV_onshell&) const;
-   void fill_from_msoft(MSSMNoFV_onshell&) const;
    void fill_scale(MSSMNoFV_onshell&) const;
-   void fill_from_sminputs(MSSMNoFV_onshell&) const;
-   void fill_from_mass(MSSMNoFV_onshell_physical&) const;
    void fill_alpha_from_gm2calcinput(MSSMNoFV_onshell&) const;
+   void fill_from_A(MSSMNoFV_onshell&) const;
    void fill_from_gm2calcinput(MSSMNoFV_onshell&) const;
+   void fill_from_hmix(MSSMNoFV_onshell&) const;
+   void fill_from_mass(MSSMNoFV_onshell_physical&) const;
+   void fill_from_msoft(MSSMNoFV_onshell&) const;
+   void fill_from_sminputs(MSSMNoFV_onshell&) const;
 };
 
 template <class Scalar>
