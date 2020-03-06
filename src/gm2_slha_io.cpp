@@ -303,17 +303,6 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
    }
 }
 
-void GM2_slha_io::fill_alpha_s(MSSMNoFV_onshell& model) const
-{
-   const double eps = std::numeric_limits<double>::epsilon();
-   const double Pi = 3.14159265358979323846;
-   const double alpha_S = read_entry("SMINPUTS", 3);
-
-   if (!is_zero(alpha_S, eps)) {
-      model.set_g3(std::sqrt(4*Pi*alpha_S));
-   }
-}
-
 void GM2_slha_io::fill_soft_parameters_from_msoft(MSSMNoFV_onshell& model, double scale) const
 {
    GM2_slha_io::Tuple_processor processor = [&model] (int key, double value) {
@@ -419,7 +408,6 @@ void GM2_slha_io::fill_gm2_specific_onshell_parameters(MSSMNoFV_onshell& model) 
 void GM2_slha_io::fill_gm2calc(MSSMNoFV_onshell& model) const
 {
    fill_from_sminputs(model);
-   fill_alpha_s(model);
    fill_gm2_specific_onshell_parameters(model);
 }
 
@@ -434,7 +422,6 @@ void GM2_slha_io::fill_slha(MSSMNoFV_onshell& model) const
    // read all pole masses (including MW) from SMINPUTS
    fill_from_sminputs(model);
    fill_from_mass(model.get_physical());
-   fill_alpha_s(model);
    fill_drbar_parameters(model);
    fill_gm2_specific_alphas(model);
 }
@@ -568,12 +555,13 @@ void process_gm2calcinput_tuple(
 void process_sminputs_tuple(
    MSSMNoFV_onshell& model, int key, double value)
 {
+   const double Pi = 3.14159265358979323846;
    MSSMNoFV_onshell_physical& physical = model.get_physical();
 
    switch (key) {
    case  1: /* alpha_em(MZ) */      break;
    case  2: /* G_F */               break;
-   case  3: /* alpha_s(MZ) */       break;
+   case  3: model.set_g3(std::sqrt(4*Pi*value)); break;
    case  4: physical.MVZ = value;   break;
    case  5: physical.MFb = value;   break;
    case  6: physical.MFt = value;   break;
