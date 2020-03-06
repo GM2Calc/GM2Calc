@@ -382,9 +382,6 @@ void GM2_slha_io::fill_from_mass(MSSMNoFV_onshell_physical& physical) const
 
 void GM2_slha_io::fill_from_sminputs_and_mass(MSSMNoFV_onshell& model) const
 {
-   // read all pole masses (including MW) from SMINPUTS
-   fill_from_sminputs(model);
-
    // read all pole masses (including MW) from MASS
    // => if MW if given in MASS[24], prefer this value
    MSSMNoFV_onshell_physical physical(model.get_physical());
@@ -442,6 +439,8 @@ void GM2_slha_io::fill_gm2calc(MSSMNoFV_onshell& model) const
  */
 void GM2_slha_io::fill_slha(MSSMNoFV_onshell& model) const
 {
+   // read all pole masses (including MW) from SMINPUTS
+   fill_from_sminputs(model);
    fill_from_sminputs_and_mass(model);
    fill_alpha_s(model);
    fill_drbar_parameters(model);
