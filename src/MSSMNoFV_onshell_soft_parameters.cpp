@@ -24,27 +24,55 @@
 namespace gm2calc {
 
 MSSMNoFV_onshell_soft_parameters::MSSMNoFV_onshell_soft_parameters()
-   : TYd(Eigen::Matrix<double,3,3>::Zero()), TYe(Eigen::Matrix<double,3,3>
-   ::Zero()), TYu(Eigen::Matrix<double,3,3>::Zero()), BMu(0), mq2(Eigen::Matrix
-   <double,3,3>::Zero()), ml2(Eigen::Matrix<double,3,3>::Zero()), mHd2(0), mHu2
-   (0), md2(Eigen::Matrix<double,3,3>::Zero()), mu2(Eigen::Matrix<double,3,3>
-   ::Zero()), me2(Eigen::Matrix<double,3,3>::Zero()), MassB(0), MassWB(0),
-   MassG(0)
+   : TYd(Eigen::Matrix<double,3,3>::Zero())
+   , TYe(Eigen::Matrix<double,3,3>::Zero())
+   , TYu(Eigen::Matrix<double,3,3>::Zero())
+   , BMu(0)
+   , mq2(Eigen::Matrix<double,3,3>::Zero())
+   , ml2(Eigen::Matrix<double,3,3>::Zero())
+   , mHd2(0)
+   , mHu2(0)
+   , md2(Eigen::Matrix<double,3,3>::Zero())
+   , mu2(Eigen::Matrix<double,3,3>::Zero())
+   , me2(Eigen::Matrix<double,3,3>::Zero())
+   , MassB(0)
+   , MassWB(0)
+   , MassG(0)
 {
 }
 
 MSSMNoFV_onshell_soft_parameters::MSSMNoFV_onshell_soft_parameters(
-   const MSSMNoFV_onshell_susy_parameters& susy_model
-   , Eigen::Matrix<double,3,3>  TYd_, Eigen::Matrix<double,3,3> 
-   TYe_, Eigen::Matrix<double,3,3>  TYu_, double BMu_, Eigen::Matrix<double,3,3>  mq2_, Eigen::Matrix<double,3,3>  ml2_,
-   double mHd2_, double mHu2_, Eigen::Matrix<double,3,3>  md2_, Eigen::Matrix<double,3,3>  mu2_, Eigen::Matrix<double,3,3>  me2_,
-   double MassB_, double MassWB_, double MassG_
-
+   const MSSMNoFV_onshell_susy_parameters& susy_model,
+   Eigen::Matrix<double,3,3> TYd_,
+   Eigen::Matrix<double,3,3> TYe_,
+   Eigen::Matrix<double,3,3> TYu_,
+   double BMu_,
+   Eigen::Matrix<double,3,3> mq2_,
+   Eigen::Matrix<double,3,3> ml2_,
+   double mHd2_,
+   double mHu2_,
+   Eigen::Matrix<double,3,3> md2_,
+   Eigen::Matrix<double,3,3> mu2_,
+   Eigen::Matrix<double,3,3> me2_,
+   double MassB_,
+   double MassWB_,
+   double MassG_
 )
    : MSSMNoFV_onshell_susy_parameters(susy_model)
-   , TYd(std::move(TYd_)), TYe(std::move(TYe_)), TYu(std::move(TYu_)), BMu(BMu_), mq2(std::move(mq2_)), ml2(std::move(ml2_)), mHd2(
-   mHd2_), mHu2(mHu2_), md2(std::move(md2_)), mu2(std::move(mu2_)), me2(std::move(me2_)), MassB(MassB_), MassWB(
-   MassWB_), MassG(MassG_)
+   , TYd(std::move(TYd_))
+   , TYe(std::move(TYe_))
+   , TYu(std::move(TYu_))
+   , BMu(BMu_)
+   , mq2(std::move(mq2_))
+   , ml2(std::move(ml2_))
+   , mHd2(mHd2_)
+   , mHu2(mHu2_)
+   , md2(std::move(md2_))
+   , mu2(std::move(mu2_))
+   , me2(std::move(me2_))
+   , MassB(MassB_)
+   , MassWB(MassWB_)
+   , MassG(MassG_)
 {
 }
 

@@ -25,22 +25,40 @@ namespace gm2calc {
 
 MSSMNoFV_onshell_susy_parameters::MSSMNoFV_onshell_susy_parameters()
    : scale(0)
-   , Yd(Eigen::Matrix<double,3,3>::Zero()), Ye(Eigen::Matrix<double,3,3>::Zero(
-   )), Yu(Eigen::Matrix<double,3,3>::Zero()), Mu(0), g1(0), g2(0), g3(0), vd(0)
+   , Yd(Eigen::Matrix<double,3,3>::Zero())
+   , Ye(Eigen::Matrix<double,3,3>::Zero())
+   , Yu(Eigen::Matrix<double,3,3>::Zero())
+   , Mu(0)
+   , g1(0)
+   , g2(0)
+   , g3(0)
+   , vd(0)
    , vu(0)
 {
 }
 
 MSSMNoFV_onshell_susy_parameters::MSSMNoFV_onshell_susy_parameters(
    double scale_
-   , Eigen::Matrix<double,3,3>  Yd_, Eigen::Matrix<double,3,3>  Ye_
-   , Eigen::Matrix<double,3,3>  Yu_, double Mu_, double g1_, double g2_,
-   double g3_, double vd_, double vu_
-
+   , Eigen::Matrix<double,3,3> Yd_
+   , Eigen::Matrix<double,3,3> Ye_
+   , Eigen::Matrix<double,3,3> Yu_
+   , double Mu_
+   , double g1_
+   , double g2_
+   , double g3_
+   , double vd_
+   , double vu_
 )
    : scale(scale_)
-   , Yd(std::move(Yd_)), Ye(std::move(Ye_)), Yu(std::move(Yu_)), Mu(Mu_), g1(g1_), g2(g2_), g3(g3_), vd(vd_), vu
-   (vu_)
+   , Yd(std::move(Yd_))
+   , Ye(std::move(Ye_))
+   , Yu(std::move(Yu_))
+   , Mu(Mu_)
+   , g1(g1_)
+   , g2(g2_)
+   , g3(g3_)
+   , vd(vd_)
+   , vu(vu_)
 {
 }
 
