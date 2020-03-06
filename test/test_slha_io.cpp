@@ -403,3 +403,79 @@ Block AE Q= 1.00000000e+03
       }
    }
 }
+
+
+// tests that EL and EL0 have non-zero default values
+TEST_CASE("fill_slha_defaults")
+{
+   char const * const slha_input = "Block HMIX Q= 1.00000000e+03";
+
+   std::istringstream stream(slha_input);
+   gm2calc::GM2_slha_io slha;
+   slha.read_from_stream(stream);
+
+   gm2calc::MSSMNoFV_onshell model;
+   slha.fill_slha(model);
+
+   // Block GM2CalcInput
+   CHECK(model.get_EL() > 0.0);
+   CHECK(model.get_EL0() > 0.0);
+}
+
+
+// Tests SLHA input with mutliple blocks at different scales.
+// The last blocks should be preferred.
+TEST_CASE("fill_slha_multiple_blocks")
+{
+   gm2calc::MSSMNoFV_onshell model;
+
+   char const * const slha_input = R"(
+# should be ignored:
+Block HMIX Q= 500
+     1     1                   # mu
+Block MSOFT Q= 500
+     1     4                   # M_1
+Block AU Q= 500
+  3  3     5                   # At
+Block AD Q= 500
+  3  3     6                   # Ab
+Block AE Q= 500
+  3  3     7                   # Atau
+
+# should be used:
+Block HMIX Q= 1000
+     1     10                  # mu
+Block MSOFT Q= 1000
+     1     40                  # M_1
+Block AU Q= 1000
+  3  3     50                  # At
+Block AD Q= 1000
+  3  3     60                  # Ab
+Block AE Q= 1000
+  3  3     70                  # Atau
+
+# should be ignored:
+Block MSOFT Q= 2000
+     1     400                 # M_1
+Block AU Q= 2000
+  3  3     500                 # At
+Block AD Q= 2000
+  3  3     600                 # Ab
+Block AE Q= 2000
+  3  3     700                 # Atau
+)";
+
+   std::istringstream stream(slha_input);
+   gm2calc::GM2_slha_io slha;
+   slha.read_from_stream(stream);
+   slha.fill_slha(model);
+
+   const double eps = std::numeric_limits<double>::epsilon();
+
+   CHECK_CLOSE(model.get_scale(), 1000, eps);
+   CHECK_CLOSE(model.get_Mu()   , 10  , eps);
+   CHECK_CLOSE(model.get_MassB(), 40  , eps);
+   CHECK_CLOSE(model.get_Au(2,2), 50  , eps);
+   CHECK_CLOSE(model.get_Ad(2,2), 60  , eps);
+   CHECK_CLOSE(model.get_Ae(2,2), 70  , eps);
+}
