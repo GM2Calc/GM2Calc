@@ -117,7 +117,7 @@ Block GM2CalcInput
     31     0                # Au(2,2)               [irrelevant]
     32     -8.70714986E+02  # Au(3,3)               [2L]
 Block SMINPUTS
-     3     0.1184           # alpha_s(MZ) SM MS-bar [2L]
+     3     0.1185           # alpha_s(MZ) SM MS-bar [2L]
      4     91.1876          # M_Z(pole)             [1L]
      5     4.18             # m_b(m_b) SM MS-bar    [2L]
      6     173.34           # M_top(pole)           [2L]
@@ -179,7 +179,7 @@ Block SMINPUTS
    CHECK_CLOSE(model.get_Au(2,2), -8.70714986E+02, eps);
 
    // Block SMINPUTS
-   CHECK_CLOSE(model.get_g3(), std::sqrt(4*Pi*0.1184), eps);
+   CHECK_CLOSE(model.get_g3(), std::sqrt(4*Pi*0.1185), eps);
    CHECK_CLOSE(model.get_MZ(), 91.1876, eps);
    CHECK_CLOSE(model.get_MBMB(), 4.18, eps);
    CHECK_CLOSE(model.get_MT(), 173.34, eps);
@@ -202,7 +202,7 @@ Block GM2CalcInput
      1     0.00775531       # alpha(MZ)             [1L]
      2     0.00729735       # alpha(0)              [2L]
 Block SMINPUTS
-     3     0.1184           # alpha_s(MZ) SM MSbar  [2L]
+     3     0.1185           # alpha_s(MZ) SM MSbar  [2L]
      4     9.11876000E+01   # MZ(pole)              [1L]
      5     4.18000000E+00   # mb(mb) SM MSbar       [2L]
      6     1.73340000E+02   # mtop(pole)            [2L]
@@ -296,7 +296,7 @@ Block AE Q= 1.00000000e+03
    CHECK_CLOSE(model.get_EL0(), std::sqrt(4*Pi*0.00729735), eps);
 
    // Block SMINPUTS
-   CHECK_CLOSE(model.get_g3(), std::sqrt(4*Pi*0.1184), eps);
+   CHECK_CLOSE(model.get_g3(), std::sqrt(4*Pi*0.1185), eps);
    CHECK_CLOSE(model.get_MZ(), 91.1876, eps);
    CHECK_CLOSE(model.get_MBMB(), 4.18, eps);
    CHECK_CLOSE(model.get_MT(), 173.34, eps);
