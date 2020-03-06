@@ -35,9 +35,18 @@ namespace gm2calc {
 
 namespace {
 
+   struct HMIX_data {
+      double scale{0.0};
+      double mu{0.0};
+      double tanb{0.0};
+      double v{0.0};
+      double mA2{0.0};
+   };
+
    void process_gm2calcconfig_tuple(Config_options& /*config_options*/, int /*key*/, double /*value*/);
    void process_gm2calcinput_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
    void process_sminputs_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
+   void process_hmix_tuple(HMIX_data& /*data*/, int /*key*/, double /*value*/);
    void process_mass_tuple(MSSMNoFV_onshell_physical& /*physical*/, int /*key*/, double /*value*/);
    void process_msoft_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
 
@@ -331,6 +340,25 @@ void GM2_slha_io::fill_from_A(MSSMNoFV_onshell& model, double scale) const
    }
 }
 
+void GM2_slha_io::fill_from_hmix(MSSMNoFV_onshell& model, double scale) const
+{
+   HMIX_data hmix;
+
+   GM2_slha_io::Tuple_processor processor = [&hmix] (int key, double value) {
+      return process_hmix_tuple(hmix, key, value);
+   };
+
+   read_block("HMIX", processor, scale);
+
+   const double tanb = hmix.tanb;
+   const double scb = tanb / (1 + tanb*tanb); // sin(beta)*cos(beta)
+
+   model.set_Mu(hmix.mu);
+   model.set_TB(hmix.tanb);
+   model.set_BMu(hmix.mA2 * scb);
+   model.set_scale(scale);
+}
+
 void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
 {
    const double eps = std::numeric_limits<double>::epsilon();
@@ -341,16 +369,7 @@ void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
                           " from HMIX block");
    }
 
-   model.set_Mu(read_entry("HMIX", 1, scale));
-
-   const double tanb = read_entry("HMIX", 2, scale);
-   const double MA2_drbar = read_entry("HMIX", 4, scale);
-   const double scb = tanb / (1 + tanb*tanb); // sin(beta)*cos(beta)
-
-   model.set_TB(tanb);
-   model.set_BMu(MA2_drbar * scb);
-   model.set_scale(scale);
-
+   fill_from_hmix(model, scale);
    fill_from_A(model, scale);
    fill_from_msoft(model, scale);
 }
@@ -582,6 +601,20 @@ void process_sminputs_tuple(
    case 24: physical.MFc = value;   break;
    default:
       WARNING("Unrecognized entry in block SMINPUTS: " << key);
+      break;
+   }
+}
+
+void process_hmix_tuple(
+   HMIX_data& data, int key, double value)
+{
+   switch (key) {
+   case 1: data.mu = value  ; break;
+   case 2: data.tanb = value; break;
+   case 3: data.v = value   ; break;
+   case 4: data.mA2 = value ; break;
+   default:
+      WARNING("Unrecognized entry in block HMIX: " << key);
       break;
    }
 }
