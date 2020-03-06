@@ -153,6 +153,21 @@ then the input parameters are read from the following blocks:
 
 See `input/example.slha` for an example SLHA input file.
 
+---
+**Important note:**
+
+We strongly *encourage* passing SLHA input in
+[SLHA-1](https://arxiv.org/abs/hep-ph/0311123) convention to GM2Calc.
+We strongly *discourage* passing
+[SLHA-2](https://arxiv.org/abs/0801.0045) input to GM2Calc. The reason
+is, that GM2Calc interprets the PDG numbers 1000013, 2000013 and
+1000014 in the `MASS` block as the two smuon and the muon sneutrino
+pole masses, respectively. In an SLHA-2-compliant input, however, it
+is not ensured, that these PDG numbers correspond to the two smuon and
+the muon sneutrino pole masses, because of possibly allowed slepton
+flavour violation.
+
+---
 
 GM2Calc input parameters
 ------------------------
