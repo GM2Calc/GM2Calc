@@ -384,15 +384,7 @@ void GM2_slha_io::fill_physical(MSSMNoFV_onshell_physical& physical) const
 {
    // read all pole masses (includin MW) from SMINPUTS
    fill_pole_masses_from_sminputs(physical);
-
    // if MW if given in MASS[24], prefer this value
-   const double eps = std::numeric_limits<double>::epsilon();
-   const double MW = read_entry("MASS", 24);
-
-   if (!is_zero(MW, eps)) {
-      physical.MVWm = MW;
-   }
-
    fill_susy_masses_from_mass(physical);
 }
 
@@ -497,6 +489,15 @@ void read_integer(double value, T& result, T min, T max, const char* error_msg)
       result = static_cast<T>(value);
    } else {
       ERROR(error_msg << ": " << value << " (allowed integer values: " << min << ",...," << max << ")");
+   }
+}
+
+void read_non_zero(double value, double& result)
+{
+   const double eps = std::numeric_limits<double>::epsilon();
+
+   if (!is_zero(value, eps)) {
+      result = value;
    }
 }
 
@@ -658,7 +659,7 @@ void process_mass_tuple(
    case 2000005: physical.MSb(1) = value;   break;
    case 1000006: physical.MSt(0) = value;   break;
    case 2000006: physical.MSt(1) = value;   break;
-   case 24     : /* MW */                   break;
+   case 24     : read_non_zero(value, physical.MVWm); break;
    case 25     : physical.Mhh(0) = value;   break;
    case 35     : physical.Mhh(1) = value;   break;
    case 36     : physical.MAh(1) = value;   break;
