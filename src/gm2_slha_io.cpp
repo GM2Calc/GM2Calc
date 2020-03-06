@@ -303,7 +303,7 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
    }
 }
 
-void GM2_slha_io::fill_soft_parameters_from_msoft(MSSMNoFV_onshell& model, double scale) const
+void GM2_slha_io::fill_from_msoft(MSSMNoFV_onshell& model, double scale) const
 {
    GM2_slha_io::Tuple_processor processor = [&model] (int key, double value) {
       return process_msoft_tuple(model, key, value);
@@ -338,7 +338,7 @@ void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
       model.set_Ad(Ad);
    }
 
-   fill_soft_parameters_from_msoft(model, scale);
+   fill_from_msoft(model, scale);
 
    model.set_Mu(read_entry("HMIX", 1, scale));
 
