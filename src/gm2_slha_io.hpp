@@ -104,10 +104,10 @@ private:
    static std::string to_lower(const std::string&); ///< string to lower case
    static bool at_scale(const SLHAea::Block&, double, double eps = 0.01); ///< check block scale
 
-   void fill_from_A(MSSMNoFV_onshell&, double) const;
-   void fill_from_hmix(MSSMNoFV_onshell&, double) const;
-   void fill_from_msoft(MSSMNoFV_onshell&, double) const;
-   void fill_drbar_parameters(MSSMNoFV_onshell&) const;
+   void fill_from_A(MSSMNoFV_onshell&) const;
+   void fill_from_hmix(MSSMNoFV_onshell&) const;
+   void fill_from_msoft(MSSMNoFV_onshell&) const;
+   void fill_scale(MSSMNoFV_onshell&) const;
    void fill_from_sminputs(MSSMNoFV_onshell&) const;
    void fill_from_mass(MSSMNoFV_onshell_physical&) const;
    void fill_gm2_specific_alphas(MSSMNoFV_onshell&) const;

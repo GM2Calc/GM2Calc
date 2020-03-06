@@ -311,17 +311,19 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
    }
 }
 
-void GM2_slha_io::fill_from_msoft(MSSMNoFV_onshell& model, double scale) const
+void GM2_slha_io::fill_from_msoft(MSSMNoFV_onshell& model) const
 {
    GM2_slha_io::Tuple_processor processor = [&model] (int key, double value) {
       return process_msoft_tuple(model, key, value);
    };
 
-   read_block("MSOFT", processor, scale);
+   read_block("MSOFT", processor, model.get_scale());
 }
 
-void GM2_slha_io::fill_from_A(MSSMNoFV_onshell& model, double scale) const
+void GM2_slha_io::fill_from_A(MSSMNoFV_onshell& model) const
 {
+   const double scale = model.get_scale();
+
    {
       Eigen::Matrix<double,3,3> Ae(Eigen::Matrix<double,3,3>::Zero());
       read_block("AE", Ae, scale);
@@ -339,7 +341,7 @@ void GM2_slha_io::fill_from_A(MSSMNoFV_onshell& model, double scale) const
    }
 }
 
-void GM2_slha_io::fill_from_hmix(MSSMNoFV_onshell& model, double scale) const
+void GM2_slha_io::fill_from_hmix(MSSMNoFV_onshell& model) const
 {
    HMIX_data hmix;
 
@@ -347,7 +349,7 @@ void GM2_slha_io::fill_from_hmix(MSSMNoFV_onshell& model, double scale) const
       return process_hmix_tuple(hmix, key, value);
    };
 
-   read_block("HMIX", processor, scale);
+   read_block("HMIX", processor, model.get_scale());
 
    const double tanb = hmix.tanb;
    const double scb = tanb / (1 + tanb*tanb); // sin(beta)*cos(beta)
@@ -357,7 +359,7 @@ void GM2_slha_io::fill_from_hmix(MSSMNoFV_onshell& model, double scale) const
    model.set_BMu(hmix.mA2 * scb);
 }
 
-void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
+void GM2_slha_io::fill_scale(MSSMNoFV_onshell& model) const
 {
    const double eps = std::numeric_limits<double>::epsilon();
    const double scale = read_scale("HMIX");
@@ -368,10 +370,6 @@ void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
    }
 
    model.set_scale(scale);
-
-   fill_from_hmix(model, scale);
-   fill_from_A(model, scale);
-   fill_from_msoft(model, scale);
 }
 
 void GM2_slha_io::fill_from_sminputs(MSSMNoFV_onshell& model) const
@@ -445,7 +443,10 @@ void GM2_slha_io::fill_slha(MSSMNoFV_onshell& model) const
    // read all pole masses (including MW) from SMINPUTS
    fill_from_sminputs(model);
    fill_from_mass(model.get_physical());
-   fill_drbar_parameters(model);
+   fill_scale(model);
+   fill_from_hmix(model);
+   fill_from_A(model);
+   fill_from_msoft(model);
    fill_gm2_specific_alphas(model);
 }
 
