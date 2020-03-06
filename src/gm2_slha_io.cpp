@@ -36,7 +36,6 @@ namespace gm2calc {
 namespace {
 
    struct HMIX_data {
-      double scale{0.0};
       double mu{0.0};
       double tanb{0.0};
       double v{0.0};
@@ -356,7 +355,6 @@ void GM2_slha_io::fill_from_hmix(MSSMNoFV_onshell& model, double scale) const
    model.set_Mu(hmix.mu);
    model.set_TB(hmix.tanb);
    model.set_BMu(hmix.mA2 * scb);
-   model.set_scale(scale);
 }
 
 void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
@@ -368,6 +366,8 @@ void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
       throw EInvalidInput("Could not determine renormalization scale"
                           " from HMIX block");
    }
+
+   model.set_scale(scale);
 
    fill_from_hmix(model, scale);
    fill_from_A(model, scale);
