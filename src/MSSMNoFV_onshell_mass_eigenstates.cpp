@@ -38,6 +38,32 @@
 #include <iostream>
 
 namespace {
+
+/**
+ * @class RAII_save
+ * @brief Saves value of variable and restores it at destruction
+ */
+template <typename T>
+class RAII_save {
+public:
+   RAII_save(T& var_) noexcept : var(var_), value(var_) {}
+   RAII_save(const RAII_save&) = delete;
+   RAII_save(RAII_save&&) noexcept = default;
+   ~RAII_save() { var = value; }
+   RAII_save& operator=(const RAII_save&) = delete;
+   RAII_save& operator=(RAII_save&& other) noexcept = default;
+
+private:
+   T& var;
+   T value{};
+};
+
+template <typename T>
+constexpr RAII_save<T> make_raii_save(T& var)
+{
+   return RAII_save<T>(var);
+}
+
 template <typename Derived>
 void Symmetrize(Eigen::MatrixBase<Derived>& m)
 {
@@ -140,22 +166,21 @@ int CLASSNAME::solve_ewsb_tree_level_via_soft_higgs_masses()
 {
    int error = 0;
 
-   const double new_mHd2 = (0.025*(-40*vd*sqr(Mu) + 20*vu*BMu + 20*vu*
+   const double old_mHd2 = mHd2;
+   const double old_mHu2 = mHu2;
+
+   mHd2 = (0.025*(-40*vd*sqr(Mu) + 20*vu*BMu + 20*vu*
       BMu - 3*std::pow(vd,3)*sqr(g1) - 5*std::pow(vd,3)*sqr(g2) + 3*vd*sqr(g1)*sqr
       (vu) + 5*vd*sqr(g2)*sqr(vu)))/vd;
-   const double new_mHu2 = (0.025*(-40*vu*sqr(Mu) + 20*vd*BMu + 20*vd*
+   mHu2 = (0.025*(-40*vu*sqr(Mu) + 20*vd*BMu + 20*vd*
       BMu - 3*std::pow(vu,3)*sqr(g1) - 5*std::pow(vu,3)*sqr(g2) + 3*vu*sqr(g1)*sqr
       (vd) + 5*vu*sqr(g2)*sqr(vd)))/vu;
 
-   if (std::isfinite(new_mHd2)) {
-      mHd2 = new_mHd2;
-   } else {
-      error = 1;
-   }
+   const bool is_finite = std::isfinite(mHd2) && std::isfinite(mHu2);
 
-   if (std::isfinite(new_mHu2)) {
-      mHu2 = new_mHu2;
-   } else {
+   if (!is_finite) {
+      mHd2 = old_mHd2;
+      mHu2 = old_mHu2;
       error = 1;
    }
 
@@ -239,8 +264,8 @@ void CLASSNAME::print(std::ostream& ostr) const
  */
 void CLASSNAME::calculate_DRbar_masses()
 {
-   const auto old_mHd2 = mHd2;
-   const auto old_mHu2 = mHu2;
+   const auto save_mHd2_raii = make_raii_save(mHd2);
+   const auto save_mHu2_raii = make_raii_save(mHu2);
 
    solve_ewsb_tree_level_via_soft_higgs_masses();
 
@@ -278,10 +303,6 @@ void CLASSNAME::calculate_DRbar_masses()
    calculate_MHpm();
    calculate_MChi();
    calculate_MCha();
-
-   mHd2 = old_mHd2;
-   mHu2 = old_mHu2;
-
 }
 
 void CLASSNAME::copy_DRbar_masses_to_pole_masses()
