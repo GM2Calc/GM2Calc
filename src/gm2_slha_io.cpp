@@ -566,12 +566,12 @@ void process_sminputs_tuple(
    case  5: physical.MFb = value;   break;
    case  6: physical.MFt = value;   break;
    case  7: physical.MFtau = value; break;
-   case  8: /* nu_3 */              break;
+   case  8: physical.MFvt = value;  break;
    case  9: physical.MVWm = value;  break;
    case 11: physical.MFe = value;   break;
-   case 12: /* nu_1 */              break;
+   case 12: physical.MFve = value;  break;
    case 13: physical.MFm = value;   break;
-   case 14: /* nu_2 */              break;
+   case 14: physical.MFvm = value;  break;
    case 21: physical.MFd = value;   break;
    case 23: physical.MFs = value;   break;
    case 22: physical.MFu = value;   break;
