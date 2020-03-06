@@ -107,9 +107,9 @@ private:
    void fill_alpha_s(MSSMNoFV_onshell&) const;
    void fill_soft_parameters_from_msoft(MSSMNoFV_onshell&, double scale) const;
    void fill_drbar_parameters(MSSMNoFV_onshell&) const;
-   void fill_pole_masses_from_sminputs(MSSMNoFV_onshell_physical&) const;
+   void fill_from_sminputs(MSSMNoFV_onshell_physical&) const;
    void fill_from_mass(MSSMNoFV_onshell_physical&) const;
-   void fill_pole_masses_from_sminputs_and_mass(MSSMNoFV_onshell_physical&) const;
+   void fill_from_sminputs_and_mass(MSSMNoFV_onshell_physical&) const;
    void fill_gm2_specific_alphas(MSSMNoFV_onshell&) const;
    void fill_gm2_specific_onshell_parameters(MSSMNoFV_onshell&) const;
 };
