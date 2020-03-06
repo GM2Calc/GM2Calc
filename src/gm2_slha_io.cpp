@@ -42,7 +42,13 @@ namespace {
       double mA2{0.0};
    };
 
+   struct GM2CalcInput_data {
+      double alpha_MZ{0.0};
+      double alpha_thompson{0.0};
+   };
+
    void process_gm2calcconfig_tuple(Config_options& /*config_options*/, int /*key*/, double /*value*/);
+   void process_gm2calcinput_tuple(GM2CalcInput_data& /*data*/, int /*key*/, double /*value*/);
    void process_gm2calcinput_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
    void process_sminputs_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
    void process_hmix_tuple(HMIX_data& /*data*/, int /*key*/, double /*value*/);
@@ -394,15 +400,20 @@ void GM2_slha_io::fill_from_mass(MSSMNoFV_onshell_physical& physical) const
 
 void GM2_slha_io::fill_alpha_from_gm2calcinput(MSSMNoFV_onshell& model) const
 {
-   const double alpha_MZ = std::abs(read_entry("GM2CalcInput", 1));
-   const double alpha_thompson = std::abs(read_entry("GM2CalcInput", 2));
+   GM2CalcInput_data data;
 
-   if (alpha_MZ > std::numeric_limits<double>::epsilon()) {
-      model.set_alpha_MZ(alpha_MZ);
+   GM2_slha_io::Tuple_processor processor = [&data] (int key, double value) {
+      return process_gm2calcinput_tuple(data, key, value);
+   };
+
+   read_block("GM2CalcInput", processor);
+
+   if (data.alpha_MZ > std::numeric_limits<double>::epsilon()) {
+      model.set_alpha_MZ(data.alpha_MZ);
    }
 
-   if (alpha_thompson > std::numeric_limits<double>::epsilon()) {
-      model.set_alpha_thompson(alpha_thompson);
+   if (data.alpha_thompson > std::numeric_limits<double>::epsilon()) {
+      model.set_alpha_thompson(data.alpha_thompson);
    }
 }
 
@@ -572,6 +583,18 @@ void process_gm2calcinput_tuple(
    case 32: model.set_Au( 2, 2, value); break;
    default:
       WARNING("Unrecognized entry in block GM2CalcInput: " << key);
+      break;
+   }
+}
+
+void process_gm2calcinput_tuple(
+   GM2CalcInput_data& data, int key, double value)
+{
+   switch (key) {
+   case  0: /* scale */                  break;
+   case  1: data.alpha_MZ = value;       break;
+   case  2: data.alpha_thompson = value; break;
+   default:
       break;
    }
 }
