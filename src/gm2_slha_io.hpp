@@ -70,7 +70,6 @@ public:
 
    // reading functions
    const SLHAea::Coll& get_data() const { return data; }
-   bool block_exists(const std::string&) const;
    void read_from_file(const std::string&);
    void read_from_source(const std::string&);
    void read_from_stream(std::istream&);

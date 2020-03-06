@@ -129,11 +129,6 @@ double GM2_slha_io::read_scale(const std::string& block_name) const
    return scale;
 }
 
-bool GM2_slha_io::block_exists(const std::string& block_name) const
-{
-   return data.find(block_name) != data.cend();
-}
-
 /**
  * Returns true if the block scale after Q= matches \a scale, false
  * otherwise.  If scale == 0, the functions returns true.
