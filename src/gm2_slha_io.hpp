@@ -77,7 +77,6 @@ public:
    void read_block(const std::string&, const Tuple_processor&, double scale = 0) const;
    template <class Derived>
    void read_block(const std::string&, Eigen::MatrixBase<Derived>&, double scale = 0) const;
-   double read_entry(const std::string&, int, double scale = 0) const;
    double read_scale(const std::string&) const;
 
    // writing functions

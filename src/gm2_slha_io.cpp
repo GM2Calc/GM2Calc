@@ -99,35 +99,6 @@ void GM2_slha_io::read_from_stream(std::istream& istr)
    data.read(istr);
 }
 
-double GM2_slha_io::read_entry(const std::string& block_name, int key,
-                               double scale) const
-{
-   auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
-
-   double entry = 0.;
-   const SLHAea::Block::key_type keys(1, std::to_string(key));
-
-   while (block != data.cend()) {
-      if (at_scale(*block, scale)) {
-         auto line = block->find(keys);
-
-         while (line != block->end()) {
-            if (line->is_data_line() && line->size() > 1) {
-               entry = convert_to<double>(line->at(1));
-            }
-
-            ++line;
-            line = block->find(line, block->end(), keys);
-         }
-      }
-
-      ++block;
-      block = SLHAea::Coll::find(block, data.cend(), block_name);
-   }
-
-   return entry;
-}
-
 /**
  * Reads scale definition from SLHA block.
  *
