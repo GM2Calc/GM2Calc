@@ -380,18 +380,13 @@ void GM2_slha_io::fill_susy_masses_from_mass(MSSMNoFV_onshell_physical& physical
    read_block("MASS", processor);
 }
 
-void GM2_slha_io::fill_physical(MSSMNoFV_onshell_physical& physical) const
-{
-   // read all pole masses (includin MW) from SMINPUTS
-   fill_pole_masses_from_sminputs(physical);
-   // if MW if given in MASS[24], prefer this value
-   fill_susy_masses_from_mass(physical);
-}
-
 void GM2_slha_io::fill_pole_masses_from_sminputs_and_mass(MSSMNoFV_onshell_physical& physical) const
 {
    MSSMNoFV_onshell_physical physical_hk(physical);
-   fill_physical(physical_hk);
+   // read all pole masses (includin MW) from SMINPUTS
+   fill_pole_masses_from_sminputs(physical_hk);
+   // if MW if given in MASS[24], prefer this value
+   fill_susy_masses_from_mass(physical_hk);
    physical_hk.convert_to_hk();
    physical = physical_hk;
 }
