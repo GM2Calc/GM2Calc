@@ -312,16 +312,8 @@ void GM2_slha_io::fill_from_msoft(MSSMNoFV_onshell& model, double scale) const
    read_block("MSOFT", processor, scale);
 }
 
-void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
+void GM2_slha_io::fill_from_A(MSSMNoFV_onshell& model, double scale) const
 {
-   const double eps = std::numeric_limits<double>::epsilon();
-   const double scale = read_scale("HMIX");
-
-   if (is_zero(scale, eps)) {
-      throw EInvalidInput("Could not determine renormalization scale"
-                          " from HMIX block");
-   }
-
    {
       Eigen::Matrix<double,3,3> Ae(Eigen::Matrix<double,3,3>::Zero());
       read_block("AE", Ae, scale);
@@ -337,7 +329,19 @@ void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
       read_block("AD", Ad, scale);
       model.set_Ad(Ad);
    }
+}
 
+void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
+{
+   const double eps = std::numeric_limits<double>::epsilon();
+   const double scale = read_scale("HMIX");
+
+   if (is_zero(scale, eps)) {
+      throw EInvalidInput("Could not determine renormalization scale"
+                          " from HMIX block");
+   }
+
+   fill_from_A(model, scale);
    fill_from_msoft(model, scale);
 
    model.set_Mu(read_entry("HMIX", 1, scale));
