@@ -392,7 +392,7 @@ void GM2_slha_io::fill_from_mass(MSSMNoFV_onshell_physical& physical) const
    physical.convert_to_hk();
 }
 
-void GM2_slha_io::fill_gm2_specific_alphas(MSSMNoFV_onshell& model) const
+void GM2_slha_io::fill_alpha_from_gm2calcinput(MSSMNoFV_onshell& model) const
 {
    const double alpha_MZ = std::abs(read_entry("GM2CalcInput", 1));
    const double alpha_thompson = std::abs(read_entry("GM2CalcInput", 2));
@@ -411,7 +411,7 @@ void GM2_slha_io::fill_gm2_specific_alphas(MSSMNoFV_onshell& model) const
  *
  * This function assumes that MW(pole) and MZ(pole) are non-zero.
  */
-void GM2_slha_io::fill_gm2_specific_onshell_parameters(MSSMNoFV_onshell& model) const
+void GM2_slha_io::fill_from_gm2calcinput(MSSMNoFV_onshell& model) const
 {
    GM2_slha_io::Tuple_processor processor = [&model] (int key, double value) {
       return process_gm2calcinput_tuple(model, key, value);
@@ -429,7 +429,7 @@ void GM2_slha_io::fill_gm2_specific_onshell_parameters(MSSMNoFV_onshell& model) 
 void GM2_slha_io::fill_gm2calc(MSSMNoFV_onshell& model) const
 {
    fill_from_sminputs(model);
-   fill_gm2_specific_onshell_parameters(model);
+   fill_from_gm2calcinput(model);
 }
 
 /**
@@ -447,7 +447,7 @@ void GM2_slha_io::fill_slha(MSSMNoFV_onshell& model) const
    fill_from_hmix(model);
    fill_from_A(model);
    fill_from_msoft(model);
-   fill_gm2_specific_alphas(model);
+   fill_alpha_from_gm2calcinput(model);
 }
 
 /**

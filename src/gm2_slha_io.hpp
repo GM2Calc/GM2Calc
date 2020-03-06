@@ -110,8 +110,8 @@ private:
    void fill_scale(MSSMNoFV_onshell&) const;
    void fill_from_sminputs(MSSMNoFV_onshell&) const;
    void fill_from_mass(MSSMNoFV_onshell_physical&) const;
-   void fill_gm2_specific_alphas(MSSMNoFV_onshell&) const;
-   void fill_gm2_specific_onshell_parameters(MSSMNoFV_onshell&) const;
+   void fill_alpha_from_gm2calcinput(MSSMNoFV_onshell&) const;
+   void fill_from_gm2calcinput(MSSMNoFV_onshell&) const;
 };
 
 template <class Scalar>
