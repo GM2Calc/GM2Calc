@@ -341,9 +341,6 @@ void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
                           " from HMIX block");
    }
 
-   fill_from_A(model, scale);
-   fill_from_msoft(model, scale);
-
    model.set_Mu(read_entry("HMIX", 1, scale));
 
    const double tanb = read_entry("HMIX", 2, scale);
@@ -353,6 +350,9 @@ void GM2_slha_io::fill_drbar_parameters(MSSMNoFV_onshell& model) const
    model.set_TB(tanb);
    model.set_BMu(MA2_drbar * scb);
    model.set_scale(scale);
+
+   fill_from_A(model, scale);
+   fill_from_msoft(model, scale);
 }
 
 void GM2_slha_io::fill_from_sminputs(MSSMNoFV_onshell& model) const
