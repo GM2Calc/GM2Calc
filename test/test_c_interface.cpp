@@ -1,4 +1,6 @@
-#include "test.hpp"
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN 1
+
+#include "doctest.h"
 
 #include "gm2calc/gm2_1loop.h"
 #include "gm2calc/gm2_2loop.h"
@@ -10,7 +12,15 @@
 #include "gm2calc/gm2_uncertainty.hpp"
 #include "gm2calc/MSSMNoFV_onshell.hpp"
 
-using namespace gm2calc_test;
+#define CHECK_CLOSE(a,b,eps)                            \
+   do {                                                 \
+      CHECK((a) == doctest::Approx(b).epsilon(eps));    \
+   } while (0)
+
+
+#define CHECK_EQUAL(a,b)                                \
+   CHECK_CLOSE(a,b,std::numeric_limits<double>::epsilon())
+
 
 void setup(MSSMNoFV_onshell* model)
 {
@@ -135,16 +145,42 @@ void test_parameters(const MSSMNoFV_onshell* model, const gm2calc::MSSMNoFV_onsh
 #undef COMPARE_2
 }
 
-void test_parameters(const MSSMNoFV_onshell* model)
+
+TEST_CASE("parameter_setters")
 {
+   MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
+   gm2calc::MSSMNoFV_onshell model2;
+
+   setup(model);
+   setup(model2);
+
+   test_parameters(model, model2);
+
+   gm2calc_mssmnofv_free(model);
+}
+
+
+TEST_CASE("parameter_getters")
+{
+   MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
+
+   setup(model);
+
    const gm2calc::MSSMNoFV_onshell mcpp(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
 
    test_parameters(model, mcpp);
+
+   gm2calc_mssmnofv_free(model);
 }
 
-void test_1_loop(const MSSMNoFV_onshell* model)
+
+TEST_CASE("1_loop")
 {
+   MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
+
+   setup(model);
+
    const gm2calc::MSSMNoFV_onshell mcpp(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
 
@@ -154,10 +190,17 @@ void test_1_loop(const MSSMNoFV_onshell* model)
    CHECK_EQUAL(gm2calc_mssmnofv_calculate_amu_1loop(model), gm2calc::calculate_amu_1loop(mcpp));
    CHECK_EQUAL(gm2calc_mssmnofv_calculate_amu_1loop_non_tan_beta_resummed(model),
                gm2calc::calculate_amu_1loop_non_tan_beta_resummed(mcpp));
+
+   gm2calc_mssmnofv_free(model);
 }
 
-void test_2_loop(const MSSMNoFV_onshell* model)
+
+TEST_CASE("2_loop")
 {
+   MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
+
+   setup(model);
+
    const gm2calc::MSSMNoFV_onshell mcpp(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
 
@@ -177,71 +220,22 @@ void test_2_loop(const MSSMNoFV_onshell* model)
    CHECK_EQUAL(gm2calc_mssmnofv_calculate_amu_2loop(model), gm2calc::calculate_amu_2loop(mcpp));
    CHECK_EQUAL(gm2calc_mssmnofv_calculate_amu_2loop_non_tan_beta_resummed(model),
                gm2calc::calculate_amu_2loop_non_tan_beta_resummed(mcpp));
+
+   gm2calc_mssmnofv_free(model);
 }
 
-void test_uncertainty(const MSSMNoFV_onshell* model)
+
+TEST_CASE("uncertainty")
 {
+   MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
+
+   setup(model);
+
    const gm2calc::MSSMNoFV_onshell mcpp(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
 
    CHECK_EQUAL(gm2calc_mssmnofv_calculate_uncertainty_amu_2loop(model),
                gm2calc::calculate_uncertainty_amu_2loop(mcpp));
-}
-
-int main()
-{
-   g_verbose = false; // verbose test output
-
-   MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
-   gm2calc::MSSMNoFV_onshell model2;
-
-   setup(model);
-   setup(model2);
-
-   print_mssmnofv(model);
-
-   printf("\n");
-   printf("===============================\n");
-   printf("testing parameter setters\n");
-   printf("===============================\n");
-
-   test_parameters(model, model2);
-
-   printf("\n");
-   printf("===============================\n");
-   printf("testing parameter getters\n");
-   printf("===============================\n");
-
-   test_parameters(model);
-
-   printf("\n");
-   printf("===============================\n");
-   printf("testing amu 1-loop calculation\n");
-   printf("===============================\n");
-
-   test_1_loop(model);
-
-   printf("\n");
-   printf("===============================\n");
-   printf("testing amu 2-loop calculation\n");
-   printf("===============================\n");
-
-   test_2_loop(model);
-
-   printf("\n");
-   printf("===============================\n");
-   printf("testing uncertainty calculation\n");
-   printf("===============================\n");
-
-   test_uncertainty(model);
-
-   printf("\n");
-   printf("===============================\n");
-   printf("Test results: %s [%li/%lu]\n",
-          (g_failed ? "FAIL" : "OK"), (g_tested - g_failed), g_tested);
-   printf("===============================\n");
 
    gm2calc_mssmnofv_free(model);
-
-   return g_failed;
 }
