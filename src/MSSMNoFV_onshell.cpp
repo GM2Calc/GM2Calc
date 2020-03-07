@@ -41,26 +41,38 @@ namespace {
    const double Pi = 3.141592653589793;
    const double eps = std::numeric_limits<double>::epsilon();
    const double root2 = 1.414213562373095; // Sqrt[2]
-   const double ALPHA_EM_THOMPSON = 1./137.035999074;
+
+   /// fine-structure constant in the Thompson limit (Q = 0) from PDG (2019)
+   const double ALPHA_EM_THOMPSON = 1./137.035999084;
+
+   /// quark and lepton contributions to the on-shell renormalized
+   /// photon vacuum polarization
    const double DELTA_ALPHA_EM_MZ =
-      + 0.031498 /*leptonic*/
-      - 0.0000728 /*top*/
-      + 0.027626 /*hadronic, arXiv:1105.3149v2 */;
+      + 0.0314979 /*leptonic*/
+      - 0.00007180 /*top*/
+      + 0.027611 /*hadronic, arXiv:1802.02995 */;
+
+   /// fine-structure constant at Q = MZ
    const double ALPHA_EM_MZ =
       ALPHA_EM_THOMPSON / (1. - DELTA_ALPHA_EM_MZ);
 
+   /// calculates gauge coupling from alpha
    double calculate_e(double alpha) {
       return std::sqrt(4. * Pi * alpha);
    }
+
+   /// calculates alpha from gauge coupling
    double calculate_alpha(double e) {
       return e * e / (4. * Pi);
    }
+
    /// returns a/b if result is finite, otherwise 0.
    double divide_finite(double a, double b) noexcept {
       const double result = a / b;
       return std::isfinite(result) ? result : 0.;
    }
-   /// element-wise division
+
+   /// element-wise division a/b of two matrices a and b
    template <int Rows, int Cols>
    Eigen::Matrix<double,Rows,Cols> cwise_div(
          const Eigen::Matrix<double,Rows,Cols>& a,
@@ -77,6 +89,7 @@ namespace {
       return result;
    }
 
+   /// prints Eigen Matrix/Array in pretty format
    template <class Derived>
    std::string pretty_print(const Eigen::DenseBase<Derived>& v)
    {
@@ -112,6 +125,7 @@ namespace {
 
       return sstr.str();
    }
+
 } // anonymous namespace
 
 namespace detail {
