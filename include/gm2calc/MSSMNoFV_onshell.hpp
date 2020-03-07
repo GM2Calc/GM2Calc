@@ -119,7 +119,7 @@ public:
    /// returns mb(mb) MS-bar
    double get_MBMB() const { return get_physical().MFb; }
    /// returns mb(MZ) DR-bar
-   double get_MB() const;
+   double get_MB() const { return mb_DRbar_MZ; }
    /// returns CP-odd Higgs mass
    double get_MA0() const { return get_physical().MAh(1); }
    /// returns selectron mixing matrix
@@ -151,9 +151,11 @@ private:
    bool verbose_output; ///< verbose output
    double EL;  ///< electromagnetic gauge coupling at MZ w/o hadronic corrections
    double EL0; ///< electromagnetic gauge coupling in the Thomson limit
+   double mb_DRbar_MZ;  ///< mb(MZ) DR-bar
    Eigen::Matrix<double,3,3> Ae, Au, Ad; ///< trilinear couplings
 
    void check_input() const;
+   void calculate_mb_DRbar_MZ();
    void convert_gauge_couplings();
    void convert_BMu();
    void convert_ml2();

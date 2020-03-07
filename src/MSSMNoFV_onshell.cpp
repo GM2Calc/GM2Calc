@@ -182,6 +182,7 @@ MSSMNoFV_onshell::MSSMNoFV_onshell()
    : verbose_output(false)
    , EL(calculate_e(ALPHA_EM_MZ))
    , EL0(calculate_e(ALPHA_EM_THOMPSON))
+   , mb_DRbar_MZ(2.8)
    , Ae(Eigen::Matrix<double,3,3>::Zero())
    , Au(Eigen::Matrix<double,3,3>::Zero())
    , Ad(Eigen::Matrix<double,3,3>::Zero())
@@ -202,6 +203,7 @@ MSSMNoFV_onshell::MSSMNoFV_onshell(const MSSMNoFV_onshell_mass_eigenstates& mode
    , verbose_output(false)
    , EL(calculate_e(ALPHA_EM_MZ))
    , EL0(calculate_e(ALPHA_EM_THOMPSON))
+   , mb_DRbar_MZ(2.8)
    , Ae(cwise_div(model_.get_TYe(), model_.get_Ye()))
    , Au(cwise_div(model_.get_TYu(), model_.get_Yu()))
    , Ad(cwise_div(model_.get_TYd(), model_.get_Yd()))
@@ -264,6 +266,7 @@ void MSSMNoFV_onshell::convert_to_onshell(
    calculate_DRbar_masses();
    copy_susy_masses_to_pole();
 
+   calculate_mb_DRbar_MZ();
    convert_gauge_couplings();
    convert_BMu();
    convert_vev();
@@ -291,6 +294,7 @@ void MSSMNoFV_onshell::convert_to_onshell(
  */
 void MSSMNoFV_onshell::calculate_masses() {
    check_input();
+   calculate_mb_DRbar_MZ();
    convert_gauge_couplings();
    convert_BMu();
    convert_vev();
@@ -435,20 +439,17 @@ void MSSMNoFV_onshell::convert_vev()
 }
 
 /**
- * Returns mb(MZ) in DR-bar scheme.
+ * Calculates mb(MZ) in DR-bar scheme.
  *
  * mb(MZ) DR-bar is calculated from mb(mb) MS-bar using the function
  * \a calculate_mb_SM5_DRbar .
- *
- * @return mb(MZ) DR-bar
  */
-double MSSMNoFV_onshell::get_MB() const
+void MSSMNoFV_onshell::calculate_mb_DRbar_MZ()
 {
    const double mb_mb = get_MBMB();
    const double alpha_s = calculate_alpha(get_g3());
-   const double mb_DRbar = calculate_mb_SM5_DRbar(mb_mb, alpha_s, get_MZ());
 
-   return mb_DRbar;
+   mb_DRbar_MZ = calculate_mb_SM5_DRbar(mb_mb, alpha_s, get_MZ());
 }
 
 void MSSMNoFV_onshell::convert_yukawa_couplings_treelevel()
