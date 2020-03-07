@@ -1,11 +1,62 @@
 GM2Calc-1.6.0 [not released yet]
 ================================
 
- * Change (commit 152e4a0): Separate public from private headers
-   and put public headers to the `include/gm2calc/` directory.
+ * Feature: New `cmake/FindGM2Calc.cmake` file.
 
- * Change (commit f276703): Use last scale definition found for a
-   block, in case multiple blocks exist in the SLHA input.
+ * Change: Separate public from private headers.  The public headers
+   are located in `include/gm2calc/`, while the private headers are
+   located nearby the respective source files.  The public headers
+   must be included as
+
+       #include "gm2calc/gm2_version.h"
+
+ * Change: Private header and source files renamed:
+
+    - Model-specific source files are named as
+      `MSSMNoFV_onshell*.{h,hpp,cpp}`.
+
+    - Files specific to the calculation of (g-2) are named as
+      `gm2_*.{h,hpp,cpp}`.
+
+ * Change (commit f276703): In case the SLHA input contains multiple
+   HMIX blocks, use the *last* one to define the renormalization
+   scale.  Input parameters are then searched for in blocks with that
+   renormalization scale.
+
+ * Change (commit aad392c): Update
+   [FindMathematica](https://github.com/sakra/FindMathematica) to
+   version 3.2.7
+
+ * Change (commit 059744f): Performance improvement by avoiding
+   frequent re-calculation of mb(MZ,DR-bar).
+
+ * Change (commit b38eab7): Update of default fine-structure constant
+   from PDG (2019) and
+   [[arXiv:1802.02995](https://arxiv.org/abs/1802.02995)].
+
+ * Change (commit 67b39a5): New error message when tan(beta) is too
+   large, resulting in floating point overflows.
+
+ * Change (commit 9fdc594, e73c63a): Performance improvement of
+   reading SLHA input.
+
+ * Change (commits 4ad9d95, 445ea1c, c7a5e9d): More stingent test of
+   GM2Calc configuration options.  Bail out if invalid options are
+   given.
+
+ * Change (commits ea03df9, 32df289, 6325c07, 438b421): Performance
+   improvement of conversion of SLHA input to GM2Calc-specific
+   on-shell scheme.
+
+ * Change (commits d54714f, cf8e702, ec60044, da8d948): Make GM2Calc
+   compatible to be used as CMake sub-project.
+
+ * Change (commit 77615d7): Verbose, error and warning messages are
+   now written to `cerr`.  This allows to separate the physics output
+   from the informational messages.
+
+ * Change: Many stylistic internal improvements; fixes of clang-tidy
+   warnings.
 
 GM2Calc-1.5.2 [Feature, 08 2020]
 ================================
