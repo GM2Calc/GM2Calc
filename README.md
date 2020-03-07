@@ -295,8 +295,8 @@ available:
 | GM2CalcAmuSLHAScheme    | Calculates `a_mu`, given SLHA input parameters             |
 | GM2CalcAmuGM2CalcScheme | Calculates `a_mu`, given GM2Calc-specific input parameters |
 
-See the example Mathematica scripts `example-slha.m` and
-`example-gm2calc.m` in the `examples/` directory.
+See the example Mathematica scripts `examples/example-slha.m` and
+`examples/example-gm2calc.m`.
 
 
 Source code documentation
