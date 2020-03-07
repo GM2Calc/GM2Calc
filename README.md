@@ -260,18 +260,18 @@ GM2Calc provides a C and a C++ interface.  To use the routines of
 GM2Calc in a C++ program, the following C++ header files have to be
 included:
 
-    src/gm2_1loop.hpp
-    src/gm2_2loop.hpp
-    src/gm2_uncertainty.hpp
-    src/MSSMNoFV_onshell.hpp
+    include/gm2calc/gm2_1loop.hpp
+    include/gm2calc/gm2_2loop.hpp
+    include/gm2calc/gm2_uncertainty.hpp
+    include/gm2calc/MSSMNoFV_onshell.hpp
 
 To use the routines of GM2Calc in a C program, the following C header
 files have to be included:
 
-    src/gm2_1loop.h
-    src/gm2_2loop.h
-    src/gm2_uncertainty.h
-    src/MSSMNoFV_onshell.h
+    include/gm2calc/gm2_1loop.h
+    include/gm2calc/gm2_2loop.h
+    include/gm2calc/gm2_uncertainty.h
+    include/gm2calc/MSSMNoFV_onshell.h
 
 Please refer to the content of these header files for a precise
 definition of all interface functions.  The C/C++ example programs in
