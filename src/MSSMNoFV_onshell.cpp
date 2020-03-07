@@ -226,7 +226,8 @@ double MSSMNoFV_onshell::get_vev() const
 double MSSMNoFV_onshell::get_TB() const
 {
    if (gm2calc::detail::is_zero(get_vd(), eps)) {
-      return 0.;
+      ERROR("vd = 0");
+      return std::numeric_limits<double>::infinity();
    }
    return get_vu() / get_vd();
 }
@@ -309,6 +310,7 @@ void MSSMNoFV_onshell::check_input() const
 
    const double MW = get_MW();
    const double MZ = get_MZ();
+   const double TB = get_TB();
 
    WARN_OR_THROW_IF(MW >= MZ   , "MW >= MZ cannot be treated with GM2Calc");
    WARN_OR_THROW_IF_ZERO(MW    , "W mass is zero");
@@ -318,6 +320,7 @@ void MSSMNoFV_onshell::check_input() const
    WARN_OR_THROW_IF_ZERO(MassB , "Bino mass M1 is zero");
    WARN_OR_THROW_IF_ZERO(MassWB, "Wino mass M2 is zero");
    WARN_OR_THROW_IF_ZERO(TB    , "tan(beta) is zero");
+   WARN_OR_THROW_IF(!std::isfinite(TB), "tan(beta) is infinite");
 
 #undef WARN_OR_THROW_IF
 #undef WARN_OR_THROW_IF_ZERO

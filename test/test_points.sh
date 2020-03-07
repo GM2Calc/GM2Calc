@@ -21,6 +21,8 @@ ${BASEDIR}/test_points/problems_funcs_xim_zero.in,gm2calc,0,-2.26641081e-10
 ${BASEDIR}/test_points/problems_hmix_scale.in,slha,0,3.89209714e-10
 ${BASEDIR}/test_points/problems_throw_me2_convergence.in,slha,0,2.30017838e-10
 ${BASEDIR}/test_points/problems_negative_soft_mass.in,slha,1,
+${BASEDIR}/test_points/problems_infinite_TB.in,slha,1,
+${BASEDIR}/test_points/problems_zero_TB.in,slha,1,
 ${BASEDIR}/test_points/P1a_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.80707344E-09
 ${BASEDIR}/test_points/P1a_2L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.16049629E-09
 ${BASEDIR}/test_points/P1b_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,3.22472103E-09
