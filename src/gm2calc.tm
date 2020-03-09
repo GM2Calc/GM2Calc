@@ -492,15 +492,27 @@ int tanBetaResummation = 1;
 int forceOutput = 0;
 
 /* Standard Model parameters */
-double alphaMZ = 0.00775531;
-double alpha0 = 0.00729735;
-double alphaS = 0.1184;
-double MW = 80.385;
-double MZ = 91.1876;
-double MT = 173.34;
-double mbmb = 4.18;
-double ML = 1.777;
-double MM = 0.1056583715;
+struct SM_parameters {
+   double alphaMZ;
+   double alpha0;
+   double alphaS;
+   double MW;
+   double MZ;
+   double MT;
+   double mbmb;
+   double ML;
+   double MM;
+} sm_parameters = {
+   .alphaMZ = 0.00775531,
+   .alpha0 = 0.00729735,
+   .alphaS = 0.1184,
+   .MW = 80.385,
+   .MZ = 91.1876,
+   .MT = 173.34,
+   .mbmb = 4.18,
+   .ML = 1.777,
+   .MM = 0.1056583715
+};
 
 /* SUSY parameters for SLHA interface */
 struct SLHA_parameters {
@@ -627,15 +639,15 @@ gm2calc_error setup_model_slha_scheme(MSSMNoFV_onshell* model,
                                       const struct SLHA_parameters* pars)
 {
    /* fill SM parameters */
-   gm2calc_mssmnofv_set_alpha_MZ(model, alphaMZ);
-   gm2calc_mssmnofv_set_alpha_thompson(model, alpha0);
-   gm2calc_mssmnofv_set_g3(model, sqrt(4 * M_PI * alphaS));
-   gm2calc_mssmnofv_set_MT_pole(model, MT);
-   gm2calc_mssmnofv_set_MB_running(model, mbmb);
-   gm2calc_mssmnofv_set_MM_pole(model, MM);
-   gm2calc_mssmnofv_set_ML_pole(model, ML);
-   gm2calc_mssmnofv_set_MW_pole(model, MW);
-   gm2calc_mssmnofv_set_MZ_pole(model, MZ);
+   gm2calc_mssmnofv_set_alpha_MZ(model, sm_parameters.alphaMZ);
+   gm2calc_mssmnofv_set_alpha_thompson(model, sm_parameters.alpha0);
+   gm2calc_mssmnofv_set_g3(model, sqrt(4 * M_PI * sm_parameters.alphaS));
+   gm2calc_mssmnofv_set_MT_pole(model, sm_parameters.MT);
+   gm2calc_mssmnofv_set_MB_running(model, sm_parameters.mbmb);
+   gm2calc_mssmnofv_set_MM_pole(model, sm_parameters.MM);
+   gm2calc_mssmnofv_set_ML_pole(model, sm_parameters.ML);
+   gm2calc_mssmnofv_set_MW_pole(model, sm_parameters.MW);
+   gm2calc_mssmnofv_set_MZ_pole(model, sm_parameters.MZ);
 
    /* fill pole masses */
    gm2calc_mssmnofv_set_MSvmL_pole(model, pars->MSvmL);
@@ -681,15 +693,15 @@ gm2calc_error setup_model_gm2calc_scheme(MSSMNoFV_onshell* model,
                                          const struct GM2Calc_parameters* pars)
 {
    /* fill SM parameters */
-   gm2calc_mssmnofv_set_alpha_MZ(model, alphaMZ);
-   gm2calc_mssmnofv_set_alpha_thompson(model, alpha0);
-   gm2calc_mssmnofv_set_g3(model, sqrt(4 * M_PI * alphaS));
-   gm2calc_mssmnofv_set_MT_pole(model, MT);
-   gm2calc_mssmnofv_set_MB_running(model, mbmb);
-   gm2calc_mssmnofv_set_MM_pole(model, MM);
-   gm2calc_mssmnofv_set_ML_pole(model, ML);
-   gm2calc_mssmnofv_set_MW_pole(model, MW);
-   gm2calc_mssmnofv_set_MZ_pole(model, MZ);
+   gm2calc_mssmnofv_set_alpha_MZ(model, sm_parameters.alphaMZ);
+   gm2calc_mssmnofv_set_alpha_thompson(model, sm_parameters.alpha0);
+   gm2calc_mssmnofv_set_g3(model, sqrt(4 * M_PI * sm_parameters.alphaS));
+   gm2calc_mssmnofv_set_MT_pole(model, sm_parameters.MT);
+   gm2calc_mssmnofv_set_MB_running(model, sm_parameters.mbmb);
+   gm2calc_mssmnofv_set_MM_pole(model, sm_parameters.MM);
+   gm2calc_mssmnofv_set_ML_pole(model, sm_parameters.ML);
+   gm2calc_mssmnofv_set_MW_pole(model, sm_parameters.MW);
+   gm2calc_mssmnofv_set_MZ_pole(model, sm_parameters.MZ);
 
    /* fill DR-bar parameters */
    gm2calc_mssmnofv_set_TB(model, pars->TB);
@@ -827,15 +839,15 @@ int GM2CalcSetSMParameters(
    double ML_,
    double MM_)
 {
-   alphaMZ = alphaMZ_;
-   alpha0 = alpha0_;
-   alphaS = alphaS_;
-   MW = MW_;
-   MZ = MZ_;
-   MT = MT_;
-   mbmb = mbmb_;
-   ML = ML_;
-   MM = MM_;
+   sm_parameters.alphaMZ = alphaMZ_;
+   sm_parameters.alpha0 = alpha0_;
+   sm_parameters.alphaS = alphaS_;
+   sm_parameters.MW = MW_;
+   sm_parameters.MZ = MZ_;
+   sm_parameters.MT = MT_;
+   sm_parameters.mbmb = mbmb_;
+   sm_parameters.ML = ML_;
+   sm_parameters.MM = MM_;
 
    return 0;
 }
@@ -845,15 +857,15 @@ int GM2CalcSetSMParameters(
 void GM2CalcGetSMParameters(void)
 {
    MLPutFunction(stdlink, "List", 9);
-   MLPutRuleToReal(stdlink, alphaMZ, "alphaMZ");
-   MLPutRuleToReal(stdlink, alpha0, "alpha0");
-   MLPutRuleToReal(stdlink, alphaS, "alphaS");
-   MLPutRuleToReal(stdlink, MW, "MW");
-   MLPutRuleToReal(stdlink, MZ, "MZ");
-   MLPutRuleToReal(stdlink, MT, "MT");
-   MLPutRuleToReal(stdlink, mbmb, "mbmb");
-   MLPutRuleToReal(stdlink, ML, "ML");
-   MLPutRuleToReal(stdlink, MM, "MM");
+   MLPutRuleToReal(stdlink, sm_parameters.alphaMZ, "alphaMZ");
+   MLPutRuleToReal(stdlink, sm_parameters.alpha0, "alpha0");
+   MLPutRuleToReal(stdlink, sm_parameters.alphaS, "alphaS");
+   MLPutRuleToReal(stdlink, sm_parameters.MW, "MW");
+   MLPutRuleToReal(stdlink, sm_parameters.MZ, "MZ");
+   MLPutRuleToReal(stdlink, sm_parameters.MT, "MT");
+   MLPutRuleToReal(stdlink, sm_parameters.mbmb, "mbmb");
+   MLPutRuleToReal(stdlink, sm_parameters.ML, "ML");
+   MLPutRuleToReal(stdlink, sm_parameters.MM, "MM");
    MLEndPacket(stdlink);
 }
 
