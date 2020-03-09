@@ -509,8 +509,8 @@ struct SM_parameters {
    double ML;
    double MM;
 } sm_parameters = {
-   .alphaMZ = 0.00775531,
-   .alpha0 = 0.00729735,
+   .alphaMZ = 1./137.035999084 / (1.0 - (0.0314979 - 0.00007180 + 0.027611)),
+   .alpha0 = 1./137.035999084,
    .alphaS = 0.1184,
    .MW = 80.385,
    .MZ = 91.1876,
