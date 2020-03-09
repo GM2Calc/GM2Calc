@@ -486,10 +486,16 @@
     MLPutComplexMatrixInterface(link,M,dim1,dim2);                      \
  } while (0)
 
-/* global flags */
-int loopOrder = 2;
-int tanBetaResummation = 1;
-int forceOutput = 0;
+/* global configuration flags */
+struct Config_flags {
+   int loopOrder;
+   int tanBetaResummation;
+   int forceOutput;
+} config_flags = {
+   .loopOrder = 2,
+   .tanBetaResummation = 1,
+   .forceOutput = 0
+};
 
 /* Standard Model parameters */
 struct SM_parameters {
@@ -740,14 +746,14 @@ double calculate_amu(MSSMNoFV_onshell* model)
 {
    double amu = 0.;
 
-   if (loopOrder == 1) {
-      if (tanBetaResummation) {
+   if (config_flags.loopOrder == 1) {
+      if (config_flags.tanBetaResummation) {
          amu = gm2calc_mssmnofv_calculate_amu_1loop(model);
       } else {
          amu = gm2calc_mssmnofv_calculate_amu_1loop_non_tan_beta_resummed(model);
       }
-   } else if (loopOrder > 1) {
-      if (tanBetaResummation) {
+   } else if (config_flags.loopOrder > 1) {
+      if (config_flags.tanBetaResummation) {
          amu = gm2calc_mssmnofv_calculate_amu_1loop(model)
              + gm2calc_mssmnofv_calculate_amu_2loop(model);
       } else {
@@ -765,11 +771,11 @@ double calculate_uncertainty(MSSMNoFV_onshell* model)
 {
    double delta_amu = 0.;
 
-   if (loopOrder == 0) {
+   if (config_flags.loopOrder == 0) {
       delta_amu = gm2calc_mssmnofv_calculate_uncertainty_amu_0loop(model);
-   } else if (loopOrder == 1) {
+   } else if (config_flags.loopOrder == 1) {
       delta_amu = gm2calc_mssmnofv_calculate_uncertainty_amu_1loop(model);
-   } else if (loopOrder > 1) {
+   } else if (config_flags.loopOrder > 1) {
       delta_amu = gm2calc_mssmnofv_calculate_uncertainty_amu_2loop(model);
    }
 
@@ -808,9 +814,9 @@ int GM2CalcSetFlags(int loopOrder_, int tanBetaResummation_, int forceOutput_)
       put_error_message("GM2CalcSetFlags", "wronglooporder", loop_order_str);
    }
 
-   loopOrder = loopOrder_;
-   tanBetaResummation = tanBetaResummation_;
-   forceOutput = forceOutput_;
+   config_flags.loopOrder = loopOrder_;
+   config_flags.tanBetaResummation = tanBetaResummation_;
+   config_flags.forceOutput = forceOutput_;
 
    return 0;
 }
@@ -820,9 +826,9 @@ int GM2CalcSetFlags(int loopOrder_, int tanBetaResummation_, int forceOutput_)
 void GM2CalcGetFlags(void)
 {
    MLPutFunction(stdlink, "List", 3);
-   MLPutRuleToInteger(stdlink, loopOrder, "loopOrder");
-   MLPutRuleToString(stdlink, tanBetaResummation ? "True" : "False", "tanBetaResummation");
-   MLPutRuleToString(stdlink, forceOutput ? "True" : "False", "forceOutput");
+   MLPutRuleToInteger(stdlink, config_flags.loopOrder, "loopOrder");
+   MLPutRuleToString(stdlink, config_flags.tanBetaResummation ? "True" : "False", "tanBetaResummation");
+   MLPutRuleToString(stdlink, config_flags.forceOutput ? "True" : "False", "forceOutput");
    MLEndPacket(stdlink);
 }
 
@@ -1035,7 +1041,7 @@ void GM2CalcAmuSLHAScheme(
       put_error_message("GM2CalcAmuSLHAScheme", "error", msg);
    }
 
-   if (error == gm2calc_NoError || forceOutput) {
+   if (error == gm2calc_NoError || config_flags.forceOutput) {
       create_result_list(model);
    } else {
       create_error_output();
@@ -1124,7 +1130,7 @@ void GM2CalcAmuGM2CalcScheme(
       put_error_message("GM2CalcAmuGM2CalcScheme", "error", msg);
    }
 
-   if (error == gm2calc_NoError || forceOutput) {
+   if (error == gm2calc_NoError || config_flags.forceOutput) {
       create_result_list(model);
    } else {
       create_error_output();
