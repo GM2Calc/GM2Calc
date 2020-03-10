@@ -1,3 +1,5 @@
+# This test point is sensitive to the algorithm which selects the
+# right-like smuon mass, which is needed to determine me2(1,1).
 Block GM2CalcConfig
      0     0     # output format (0 = minimal, 1 = detailed,
                  #  2 = NMSSMTools, 3 = SPheno, 4 = GM2Calc)
@@ -45,8 +47,8 @@ Block MASS                      # Mass spectrum
    1000006     7.16237728e+03   # ~t_1              [irrelevant]
    1000011     5.25167746e+02   # ~e_L              [irrelevant]
    1000012     5.18841083e+02   # ~nu_e_L           [irrelevant]
-   1000013     800             # ~mu_L             [1L]
-   1000014     800             # ~nu_mu_L          [1L]
+   1000013     800              # ~mu_L             [1L]
+   1000014     800              # ~nu_mu_L          [1L]
    1000015     3.00151415e+03   # ~tau_1            [irrelevant]
    1000016     3.00880751e+03   # ~nu_tau_L         [irrelevant]
    2000001     7.04938393e+03   # ~d_R              [irrelevant]
@@ -56,7 +58,7 @@ Block MASS                      # Mass spectrum
    2000005     7.16151312e+03   # ~b_2              [irrelevant]
    2000006     7.19205727e+03   # ~t_2              [irrelevant]
    2000011     5.05054724e+02   # ~e_R              [irrelevant]
-   2000013     5000              # ~mu_R             [1L]
+   2000013     5000             # ~mu_R             [1L]
    2000015     3.01426808e+03   # ~tau_2            [irrelevant]
 Block HMIX Q= 1.00000000e+03
      1     4.89499929e+02      # mu(Q) MSSM DRbar   [initial guess]
@@ -85,5 +87,5 @@ Block AU Q= 1.00000000e+03
 Block AD Q= 1.00000000e+03
   3  3     8.99561673e-06      # Ab(Q)              [2L]
 Block AE Q= 1.00000000e+03
-  2  2     50000                # Amu(Q) MSSM DR-bar [1L]
+  2  2     50000               # Amu(Q) MSSM DR-bar [1L]
   3  3     3.02719242e-06      # Atau(Q)            [2L]
