@@ -1,7 +1,22 @@
 GM2Calc-1.6.0 [not released yet]
 ================================
 
+New features
+------------
+
  * Feature: New `cmake/FindGM2Calc.cmake` file.
+
+Fixed bugs
+----------
+
+ * Bugfix (commit c06f713): The function `find_right_like_smuon()` has
+   been corrected, which finds the most right-like smuon.  This bugfix
+   affects only the SLHA input (the GM2Calc-specific input is not
+   affected).  On tested parameter points that are affected, the value
+   of amu changes by around 0.01%.
+
+Changes
+-------
 
  * Change: Separate public from private headers.  The public headers
    are located in `include/gm2calc/`, while the private headers are
