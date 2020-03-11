@@ -21,6 +21,7 @@
 #include "gm2calc/gm2_error.hpp"
 
 #include "gm2_1loop_helpers.hpp"
+#include "gm2_constants.h"
 #include "gm2_ffunctions.hpp"
 #include "gm2_log.hpp"
 #include "gm2_mb.hpp"
@@ -43,18 +44,14 @@ namespace {
    const double root2 = 1.414213562373095; // Sqrt[2]
 
    /// fine-structure constant in the Thompson limit (Q = 0) from PDG (2019)
-   const double ALPHA_EM_THOMPSON = 1./137.035999084;
+   const double ALPHA_EM_THOMPSON = GM2CALC_ALPHA_EM_THOMPSON;
 
    /// quark and lepton contributions to the on-shell renormalized
    /// photon vacuum polarization
-   const double DELTA_ALPHA_EM_MZ =
-      + 0.0314979 /*leptonic*/
-      - 0.00007180 /*top*/
-      + 0.027611 /*hadronic, arXiv:1802.02995 */;
+   const double DELTA_ALPHA_EM_MZ = GM2CALC_DELTA_ALPHA_EM_MZ;
 
    /// fine-structure constant at Q = MZ
-   const double ALPHA_EM_MZ =
-      ALPHA_EM_THOMPSON / (1. - DELTA_ALPHA_EM_MZ);
+   const double ALPHA_EM_MZ = GM2CALC_ALPHA_EM_MZ;
 
    /// calculates gauge coupling from alpha
    double calculate_e(double alpha) {
@@ -187,14 +184,14 @@ MSSMNoFV_onshell::MSSMNoFV_onshell()
    , Au(Eigen::Matrix<double,3,3>::Zero())
    , Ad(Eigen::Matrix<double,3,3>::Zero())
 {
-   set_g3(calculate_e(0.1184));
-   get_physical().MFt = 173.34;
-   get_physical().MFb = 4.18;
-   get_physical().MFe = 0.000510998928;
-   get_physical().MFm  = 0.1056583715;
-   get_physical().MFtau = 1.777;
-   get_physical().MVWm = 80.385;
-   get_physical().MVZ  = 91.1876;
+   set_g3(calculate_e(GM2CALC_ALPHA_S_MZ));
+   get_physical().MFt = GM2CALC_MT;
+   get_physical().MFb = GM2CALC_MBMB;
+   get_physical().MFe = GM2CALC_ME;
+   get_physical().MFm  = GM2CALC_MM;
+   get_physical().MFtau = GM2CALC_ML;
+   get_physical().MVWm = GM2CALC_MW;
+   get_physical().MVZ  = GM2CALC_MZ;
    set_scale(get_physical().MVZ);
 }
 

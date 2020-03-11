@@ -235,7 +235,7 @@
 :End:
 
 :Evaluate: Options[GM2CalcSetSMParameters] = {
-    alphaMZ -> 0.00775531,
+    alphaMZ -> 0.0077552,
     alpha0 -> 0.00729735,
     alphaS -> 0.1184,
     MW -> 80.385,
@@ -386,6 +386,8 @@
 #include "gm2calc/gm2_version.h"
 #include "gm2calc/MSSMNoFV_onshell.h"
 
+#include "gm2_constants.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -509,15 +511,15 @@ struct SM_parameters {
    double ML;
    double MM;
 } sm_parameters = {
-   .alphaMZ = 1./137.035999084 / (1.0 - (0.0314979 - 0.00007180 + 0.027611)),
-   .alpha0 = 1./137.035999084,
-   .alphaS = 0.1184,
-   .MW = 80.385,
-   .MZ = 91.1876,
-   .MT = 173.34,
-   .mbmb = 4.18,
-   .ML = 1.777,
-   .MM = 0.1056583715
+   .alphaMZ = GM2CALC_ALPHA_EM_MZ,
+   .alpha0 = GM2CALC_ALPHA_EM_THOMPSON,
+   .alphaS = GM2CALC_ALPHA_S_MZ,
+   .MW = GM2CALC_MW,
+   .MZ = GM2CALC_MZ,
+   .MT = GM2CALC_MT,
+   .mbmb = GM2CALC_MBMB,
+   .ML = GM2CALC_ML,
+   .MM = GM2CALC_MM
 };
 
 /* SUSY parameters for SLHA interface */
