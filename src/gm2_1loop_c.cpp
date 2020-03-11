@@ -19,6 +19,8 @@
 #include "gm2calc/gm2_1loop.h"
 #include "gm2calc/gm2_1loop.hpp"
 
+#include <limits>
+
 /**
  * @file gm2_1loop_c.cpp
  * @brief contains definitions of C interface functions for 1-loop calculation
@@ -32,7 +34,7 @@ extern "C" {
 /** calculates full 1-loop SUSY contributions to (g-2) in the MSSM (w/ tan(beta) resummation) */
 double gm2calc_mssmnofv_calculate_amu_1loop(const MSSMNoFV_onshell* model)
 {
-   double amu = 0.;
+   double amu = std::numeric_limits<double>::quiet_NaN();
 
    try {
       amu = gm2calc::calculate_amu_1loop(
@@ -45,7 +47,7 @@ double gm2calc_mssmnofv_calculate_amu_1loop(const MSSMNoFV_onshell* model)
 /** calculates full 1-loop SUSY contributions to (g-2) in the MSSM (no tan(beta) resummation) */
 double gm2calc_mssmnofv_calculate_amu_1loop_non_tan_beta_resummed(const MSSMNoFV_onshell* model)
 {
-   double amu = 0.;
+   double amu = std::numeric_limits<double>::quiet_NaN();
 
    try {
       amu = gm2calc::calculate_amu_1loop_non_tan_beta_resummed(
