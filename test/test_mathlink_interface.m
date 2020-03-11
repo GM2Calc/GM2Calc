@@ -20,6 +20,14 @@ TestClose[val1_, val2_, eps_:10^-10] := (
     errors++
     );
 
+TestEqual[expr1_, expr2_] :=
+    If[expr1 === expr2,
+       passed++,
+       Print["Error: expressions are not equal: ",
+             InputForm[expr1], " =!= ", InputForm[expr2]];
+       errors++
+    ]
+
 GM2CalcSetSMParameters[
     alphaMZ -> 0.00775531,
     alpha0 -> 0.00729735,
@@ -78,6 +86,34 @@ point = { MAh -> 1500,
 
 TestClose[myAmu , 7.964321357104185*^-10];
 TestClose[myDamu, 2.309099582759784*^-10];
+
+(* invalid point w/o tan(beta) resummation (GM2Calc interface) *)
+GM2CalcSetFlags[
+    loopOrder -> 2,
+    tanBetaResummation -> False,
+    forceOutput -> False];
+
+point = {
+    MAh    -> 1500,
+    TB     -> 1000,
+    Mu     -> 30000,
+    MassB  -> 1000,
+    MassWB -> -30000,
+    MassG  -> 2000,
+    mq2    -> 3000^2 IdentityMatrix[3],
+    ml2    -> {{1000^2,0,0}, {0,1000^2,0}, {0,0,3000^2}},
+    mu2    -> 3000^2 IdentityMatrix[3],
+    md2    -> 3000^2 IdentityMatrix[3],
+    me2    -> {{1000^2,0,0}, {0,1000^2,0}, {0,0,3000^2}},
+    Au     -> 0 IdentityMatrix[3],
+    Ad     -> 0 IdentityMatrix[3],
+    Ae     -> 0 IdentityMatrix[3],
+    Q      -> 866.360379
+};
+
+{myAmu, myDamu} = {amu, Damu} /. GM2CalcAmuGM2CalcScheme[point];
+
+TestEqual[myAmu, Indeterminate];
 
 Print[];
 Print["Passed tests: [", passed, "/", passed + errors,"]"];
