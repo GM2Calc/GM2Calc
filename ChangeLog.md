@@ -38,6 +38,10 @@ Changes
    scale.  Input parameters are then searched for in blocks with that
    renormalization scale.
 
+ * Change (commit 9907e86): The Mathematica interface now returns
+   `Indeterminate` for amu in case there is a problem with the
+   calculation.
+
  * Change (commit aad392c): Update
    [FindMathematica](https://github.com/sakra/FindMathematica) to
    version 3.2.7
