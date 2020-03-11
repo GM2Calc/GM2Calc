@@ -87,6 +87,27 @@ point = { MAh -> 1500,
 TestClose[myAmu , 7.964321357104185*^-10];
 TestClose[myDamu, 2.309099582759784*^-10];
 
+(* invalid point (GM2Calc interface) *)
+point = {
+    MAh    -> 1500,
+    TB     -> 1000,
+    Mu     -> 30000,
+    MassB  -> 1000,
+    MassWB -> -30000,
+    MassG  -> 2000,
+    mq2    -> 3000^2 IdentityMatrix[3],
+    ml2    ->    5^2 IdentityMatrix[3],
+    mu2    -> 3000^2 IdentityMatrix[3],
+    md2    -> 3000^2 IdentityMatrix[3],
+    me2    -> {{1000^2,0,0}, {0,1000^2,0}, {0,0,3000^2}},
+    Au     -> 0 IdentityMatrix[3],
+    Ad     -> 0 IdentityMatrix[3],
+    Ae     -> 0 IdentityMatrix[3],
+    Q      -> 866.360379
+};
+
+TestEqual[GM2CalcAmuGM2CalcScheme[point], {}];
+
 (* invalid point w/o tan(beta) resummation (GM2Calc interface) *)
 GM2CalcSetFlags[
     loopOrder -> 2,
