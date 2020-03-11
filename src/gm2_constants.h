@@ -22,7 +22,6 @@
 /* fine-structure constant in the Thompson limit (Q = 0) from PDG (2019) */
 #define GM2CALC_ALPHA_EM_THOMPSON (1.0/137.035999084)
 
-
 /* quark and lepton contributions to the on-shell renormalized photon
    vacuum polarization */
 #define GM2CALC_DELTA_ALPHA_EM_MZ (                       \
