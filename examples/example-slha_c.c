@@ -13,7 +13,7 @@
 
 void setup(MSSMNoFV_onshell* model) {
    /* fill SM parameters */
-   gm2calc_mssmnofv_set_alpha_MZ(model,0.00775531);           /* 1L */
+   gm2calc_mssmnofv_set_alpha_MZ(model,0.0077552);            /* 1L */
    gm2calc_mssmnofv_set_alpha_thompson(model,0.00729735);     /* 2L */
    gm2calc_mssmnofv_set_g3(model,sqrt(4 * M_PI * 0.1184));    /* 2L */
    gm2calc_mssmnofv_set_MT_pole(model,173.34);                /* 2L */

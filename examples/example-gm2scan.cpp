@@ -35,7 +35,7 @@ gm2calc::MSSMNoFV_onshell setup()
       = Eigen::Matrix<double,3,3>::Identity();
 
    // fill SM parameters
-   model.set_alpha_MZ(0.00775531);              // 1L
+   model.set_alpha_MZ(0.0077552);               // 1L
    model.set_alpha_thompson(0.00729735);        // 2L
    model.set_g3(std::sqrt(4 * Pi * 0.1184));    // 2L
    model.get_physical().MFt   = 173.34;         // 2L

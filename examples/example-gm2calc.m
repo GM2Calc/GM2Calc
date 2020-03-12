@@ -6,7 +6,7 @@ GM2CalcSetFlags[
     forceOutput -> False];
 
 GM2CalcSetSMParameters[
-    alphaMZ -> 0.00775531,  (* 1L *)
+    alphaMZ -> 0.0077552,   (* 1L *)
     alpha0 -> 0.00729735,   (* 2L *)
     alphaS -> 0.1184,       (* 2L *)
     MW -> 80.385,           (* 1L *)
