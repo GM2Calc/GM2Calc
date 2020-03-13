@@ -23,7 +23,7 @@ unsigned find_right_like_smuon(const Eigen::MatrixBase<Derived>& ZM)
    return (std::abs(ZM(0,0)) > std::abs(ZM(0,1))) ? 1 : 0;
 }
 
-gm2calc::MSSMNoFV_onshell setup(double eps)
+gm2calc::MSSMNoFV_onshell setup_slha(double eps)
 {
    gm2calc::MSSMNoFV_onshell model;
    model.set_verbose_output(true);
@@ -123,7 +123,7 @@ TEST_CASE("conversion_to_onshell")
 {
    const double eps = 1e-8;
 
-   gm2calc::MSSMNoFV_onshell model(setup(eps));
+   gm2calc::MSSMNoFV_onshell model(setup_slha(eps));
    model.calculate_DRbar_masses();
 
    // @todo increase test precision
