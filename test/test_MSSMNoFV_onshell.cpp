@@ -172,7 +172,25 @@ TEST_CASE("conversion_to_onshell")
    gm2calc::MSSMNoFV_onshell model(setup_slha(eps));
    model.calculate_DRbar_masses();
 
-   // @todo increase test precision
+   // Note: The parameters me2(1,1), ml2(1,1), Mu, MassB, MassWB are fixed by
+   //
+   // ml2(1,1) <-> MSvmL
+   // me2(1,1) <-> MSm(0) (right-like smuon for this parameter point)
+   // MassB    <-> MChi(0) (bino-like neutralino for this parameter point)
+   // MassWB   <-> MCha(0) (wino-like chargino)
+   // Mu       <-> MCha(1) (higgsino-like chargino)
+   //
+   // As a result, these masses will agree with the input pole masses
+   // to the given precision.
+   //
+   // The other masses, MChi(1,2,3) and MSm(1), however, will not
+   // necessarily agree to that precision, because they are
+   // automatically fixed by all other parameters, in particular the
+   // on-shell gauge couplings, the resummed Yukawa couplings.  In
+   // other words, the other masses are no longer free parameters.
+   // They can differ from the given input values because they are
+   // calculated with other values for the gauge and Yukawa couplings.
+
    CHECK_CLOSE(model.get_MSvmL(), model.get_physical().MSvmL  , eps);
    CHECK_CLOSE(model.get_MSm(0) , model.get_physical().MSm(0) , eps);
    CHECK_CLOSE(model.get_MSm(1) , model.get_physical().MSm(1) , 1e-3);
