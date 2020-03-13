@@ -184,15 +184,19 @@ TEST_CASE("conversion_to_onshell")
    CHECK_CLOSE(model.get_MCha(1), model.get_physical().MCha(1), eps);
    CHECK_CLOSE(model.get_MA0()  , model.get_physical().MAh(1) , eps);
 
-   CHECK_CLOSE(model.get_MU()   , model.get_physical().MFu    , eps);
-   CHECK_CLOSE(model.get_MD()   , model.get_physical().MFd    , eps);
-   CHECK_CLOSE(model.get_MC()   , model.get_physical().MFc    , eps);
-   CHECK_CLOSE(model.get_MS()   , model.get_physical().MFs    , eps);
-   CHECK_CLOSE(model.get_MBMB() , model.get_physical().MFb    , eps);
-   CHECK_CLOSE(model.get_MT()   , model.get_physical().MFt    , eps);
-   CHECK_CLOSE(model.get_ME()   , model.get_physical().MFe    , eps);
-   CHECK_CLOSE(model.get_MM()   , model.get_physical().MFm    , eps);
-   CHECK_CLOSE(model.get_ML()   , model.get_physical().MFtau  , eps);
+   CHECK_CLOSE(model.get_MFu()  , model.get_physical().MFu    , eps);
+   CHECK_CLOSE(model.get_MFd()  , model.get_physical().MFd    , eps);
+   CHECK_CLOSE(model.get_MFc()  , model.get_physical().MFc    , eps);
+   CHECK_CLOSE(model.get_MFs()  , model.get_physical().MFs    , eps);
+   // model.get_MFb() <-> mb(DR,Q), including higher-order corrections from the  tan(beta) resummation
+   // physical.MFb    <-> mb(mb)
+   // CHECK_CLOSE(model.get_MFb()  , model.get_physical().MFb    , eps);
+   CHECK_CLOSE(model.get_MFt()  , model.get_physical().MFt    , eps);
+   CHECK_CLOSE(model.get_MFe()  , model.get_physical().MFe    , eps);
+   // model.get_MFm() includes higher-order corrections from the tan(beta) resummation
+   CHECK_CLOSE(model.get_MFm()  , model.get_physical().MFm    , 0.01);
+   // model.get_MFtau() includes higher-order corrections from the tan(beta) resummation
+   CHECK_CLOSE(model.get_MFtau(), model.get_physical().MFtau  , 0.1);
 }
 
 
@@ -224,7 +228,7 @@ TEST_CASE("calculate_masses")
    CHECK_CLOSE(model.get_MFt()  , model.get_physical().MFt    , eps);
    CHECK_CLOSE(model.get_MFe()  , model.get_physical().MFe    , eps);
    // model.get_MFm() includes higher-order corrections from the tan(beta) resummation
-   // CHECK_CLOSE(model.get_MFm()  , model.get_physical().MFm    , eps);
+   CHECK_CLOSE(model.get_MFm()  , model.get_physical().MFm    , 0.01);
    // model.get_MFtau() includes higher-order corrections from the tan(beta) resummation
-   // CHECK_CLOSE(model.get_MFtau(), model.get_physical().MFtau  , eps);
+   CHECK_CLOSE(model.get_MFtau(), model.get_physical().MFtau  , 0.1);
 }
