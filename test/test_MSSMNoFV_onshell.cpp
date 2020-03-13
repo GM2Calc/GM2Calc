@@ -92,6 +92,52 @@ gm2calc::MSSMNoFV_onshell setup_slha(double eps)
    return model;
 }
 
+gm2calc::MSSMNoFV_onshell setup_gm2calc()
+{
+   gm2calc::MSSMNoFV_onshell model;
+   model.set_verbose_output(true);
+
+   const double Pi = 3.141592653589793;
+   const Eigen::Matrix<double,3,3> UnitMatrix
+      = Eigen::Matrix<double,3,3>::Identity();
+
+   // fill SM parameters
+   model.set_alpha_MZ(0.0077552);               // 1L
+   model.set_alpha_thompson(0.00729735);        // 2L
+   model.set_g3(std::sqrt(4 * Pi * 0.1184));    // 2L
+   model.get_physical().MFt   = 173.34;         // 2L
+   model.get_physical().MFb   = 4.18;           // 2L, mb(mb) MS-bar
+   model.get_physical().MFm   = 0.1056583715;   // 1L
+   model.get_physical().MFtau = 1.777;          // 2L
+   model.get_physical().MVWm  = 80.385;         // 1L
+   model.get_physical().MVZ   = 91.1876;        // 1L
+
+   // fill DR-bar parameters
+   model.set_TB(10);                      // 1L
+   model.set_Ae(1,1,0);                   // 1L
+
+   // fill on-shell parameters
+   model.set_Mu(350);                     // 1L
+   model.set_MassB(150);                  // 1L
+   model.set_MassWB(300);                 // 1L
+   model.set_MassG(1000);                 // 2L
+   model.set_mq2(500 * 500 * UnitMatrix); // 2L
+   model.set_ml2(500 * 500 * UnitMatrix); // 1L(smuon)/2L
+   model.set_md2(500 * 500 * UnitMatrix); // 2L
+   model.set_mu2(500 * 500 * UnitMatrix); // 2L
+   model.set_me2(500 * 500 * UnitMatrix); // 1L(smuon)/2L
+   model.set_Au(2,2,0);                   // 2L
+   model.set_Ad(2,2,0);                   // 2L
+   model.set_Ae(2,2,0);                   // 2L
+   model.set_MA0(1500);                   // 2L
+   model.set_scale(454.7);                // 2L
+
+   // calculate mass spectrum
+   model.calculate_masses();
+
+   return model;
+}
+
 } // anonymous namespace
 
 
@@ -144,4 +190,33 @@ TEST_CASE("conversion_to_onshell")
    CHECK_CLOSE(model.get_MS()   , model.get_physical().MFs    , eps);
    CHECK_CLOSE(model.get_MBMB() , model.get_physical().MFb    , eps);
    CHECK_CLOSE(model.get_MT()   , model.get_physical().MFt    , eps);
+}
+
+
+TEST_CASE("calculate_masses")
+{
+   const double eps = 1e-15;
+
+   gm2calc::MSSMNoFV_onshell model(setup_gm2calc());
+
+   CHECK_CLOSE(model.get_MSvmL(), model.get_physical().MSvmL  , eps);
+   CHECK_CLOSE(model.get_MSm(0) , model.get_physical().MSm(0) , eps);
+   CHECK_CLOSE(model.get_MSm(1) , model.get_physical().MSm(1) , eps);
+   CHECK_CLOSE(model.get_MChi(0), model.get_physical().MChi(0), eps);
+   CHECK_CLOSE(model.get_MChi(1), model.get_physical().MChi(1), eps);
+   CHECK_CLOSE(model.get_MChi(2), model.get_physical().MChi(2), eps);
+   CHECK_CLOSE(model.get_MChi(3), model.get_physical().MChi(3), eps);
+   CHECK_CLOSE(model.get_MCha(0), model.get_physical().MCha(0), eps);
+   CHECK_CLOSE(model.get_MCha(1), model.get_physical().MCha(1), eps);
+   CHECK_CLOSE(model.get_MA0()  , model.get_physical().MAh(1) , eps);
+
+   CHECK_CLOSE(model.get_MU()   , model.get_physical().MFu    , eps);
+   CHECK_CLOSE(model.get_MD()   , model.get_physical().MFd    , eps);
+   CHECK_CLOSE(model.get_MC()   , model.get_physical().MFc    , eps);
+   CHECK_CLOSE(model.get_MS()   , model.get_physical().MFs    , eps);
+   CHECK_CLOSE(model.get_MBMB() , model.get_physical().MFb    , eps);
+   CHECK_CLOSE(model.get_MT()   , model.get_physical().MFt    , eps);
+   CHECK_CLOSE(model.get_ME()   , model.get_physical().MFe    , eps);
+   CHECK_CLOSE(model.get_MM()   , model.get_physical().MFm    , eps);
+   CHECK_CLOSE(model.get_ML()   , model.get_physical().MFtau  , eps);
 }
