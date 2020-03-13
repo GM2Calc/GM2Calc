@@ -201,6 +201,7 @@ TEST_CASE("calculate_masses")
    const double eps = 1e-15;
 
    gm2calc::MSSMNoFV_onshell model(setup_gm2calc());
+   model.calculate_DRbar_masses();
 
    CHECK_CLOSE(model.get_MSvmL(), model.get_physical().MSvmL  , eps);
    CHECK_CLOSE(model.get_MSm(0) , model.get_physical().MSm(0) , eps);
