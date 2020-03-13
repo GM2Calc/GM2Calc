@@ -190,6 +190,9 @@ TEST_CASE("conversion_to_onshell")
    CHECK_CLOSE(model.get_MS()   , model.get_physical().MFs    , eps);
    CHECK_CLOSE(model.get_MBMB() , model.get_physical().MFb    , eps);
    CHECK_CLOSE(model.get_MT()   , model.get_physical().MFt    , eps);
+   CHECK_CLOSE(model.get_ME()   , model.get_physical().MFe    , eps);
+   CHECK_CLOSE(model.get_MM()   , model.get_physical().MFm    , eps);
+   CHECK_CLOSE(model.get_ML()   , model.get_physical().MFtau  , eps);
 }
 
 
