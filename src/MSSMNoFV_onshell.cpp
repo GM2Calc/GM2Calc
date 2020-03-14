@@ -531,15 +531,19 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
    if (verbose_output) {
       VERBOSE("Converting Mu, M1, M2 to on-shell scheme ...\n"
               "   Goal: MCha = " << MCha_goal.transpose()
-              << ", MChi(" << max_bino << ") = " << MChi_goal(max_bino));
+              << ", MChi(" << max_bino << ") = " << MChi_goal(max_bino)
+              << ", accuracy goal = " << precision_goal);
    }
 
-   bool accuracy_goal_reached =
-      detail::is_equal(MCha_goal, get_MCha(), precision_goal) &&
-      gm2calc::is_equal(MChi_goal(max_bino), get_MChi(max_bino), precision_goal);
+   auto calc_precision = [&]() {
+      return std::max((MCha_goal - get_MCha()).cwiseAbs().maxCoeff(),
+                      std::abs(MChi_goal(max_bino) - get_MChi(max_bino)));
+   };
+
+   double precision = calc_precision();
    unsigned it = 0;
 
-   while (!accuracy_goal_reached && it < max_iterations) {
+   while (precision > precision_goal && it < max_iterations) {
 
       const auto U(get_UM()); // neg. chargino mixing matrix
       const auto V(get_UP()); // pos. chargino mixing matrix
@@ -569,37 +573,30 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       MChi_goal = get_MChi();
       MChi_goal(max_bino) = get_physical().MChi(max_bino);
 
+      precision = calc_precision();
+
       if (verbose_output) {
          VERBOSE("   Iteration " << it << ": Mu = " << get_Mu()
                  << ", M1 = " << get_MassB()
                  << ", M2 = " << get_MassWB()
                  << ", MCha = " << pretty_print(get_MCha().transpose())
-                 << ", MChi(" << max_bino << ") = " << get_MChi(max_bino));
+                 << ", MChi(" << max_bino << ") = " << get_MChi(max_bino)
+                 << ", accuracy = " << precision);
       }
-
-      accuracy_goal_reached =
-         detail::is_equal(MCha_goal, get_MCha(), precision_goal) &&
-         gm2calc::is_equal(MChi_goal(max_bino), get_MChi(max_bino), precision_goal);
 
       it++;
    }
 
    calculate_DRbar_masses();
 
-   if (it == max_iterations) {
-      const double precision =
-         std::max((MCha_goal - get_MCha()).cwiseAbs().maxCoeff(),
-                  std::abs(MChi_goal(max_bino) - get_MChi(max_bino)));
+   if (precision > precision_goal) {
       get_problems().flag_no_convergence_Mu_MassB_MassWB(precision, it);
    } else {
       get_problems().unflag_no_convergence_Mu_MassB_MassWB();
    }
 
    if (verbose_output) {
-      const double precision =
-         std::max((MCha_goal - get_MCha()).cwiseAbs().maxCoeff(),
-                  std::abs(MChi_goal(max_bino) - get_MChi(max_bino)));
-      if (it == max_iterations) {
+      if (precision > precision_goal) {
          VERBOSE(
             "   DR-bar to on-shell conversion for Mu, M1 and M2 did"
             " not converge (reached absolute accuracy: " << precision <<
