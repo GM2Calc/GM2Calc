@@ -512,9 +512,17 @@ void MSSMNoFV_onshell::convert_yukawa_couplings()
  * Finds index of neutralino, which is most bino like.
  * @return index in neutralino mass multiplet
  */
-unsigned MSSMNoFV_onshell::find_bino_like_neutralino() const
+unsigned MSSMNoFV_onshell::find_bino_like_neutralino()
 {
-   return detail::find_bino_like_neutralino(get_physical().ZN);
+   // try using pole mass mixing matrix ZN
+   if (get_physical().ZN.cwiseAbs().maxCoeff() > 0.0) {
+      return detail::find_bino_like_neutralino(get_physical().ZN);
+   }
+
+   // try using DR mixing matrix ZN
+   calculate_MChi();
+
+   return detail::find_bino_like_neutralino(get_ZN());
 }
 
 /**
