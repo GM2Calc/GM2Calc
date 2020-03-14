@@ -801,11 +801,14 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
               << MSm_goal(right_index));
    }
 
-   bool accuracy_goal_reached = gm2calc::is_equal(
-      get_MSm(right_index), MSm_goal(right_index), precision_goal);
+   auto calc_precision = [&]() {
+      return std::abs(get_MSm(right_index) - MSm_goal(right_index));
+   };
+
+   double precision = calc_precision();
    unsigned it = 0;
 
-   while (!accuracy_goal_reached && it < max_iterations) {
+   while (precision > precision_goal && it < max_iterations) {
       const Eigen::Matrix<double,2,2> ZM(get_ZM()); // smuon mixing matrix
       const Eigen::Matrix<double,2,2> M(
          ZM.adjoint() * MSm_goal.square().matrix().asDiagonal() * ZM);
@@ -842,23 +845,20 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
       MSm_goal = get_MSm();
       MSm_goal(right_index) = MSm_pole_sorted(right_index);
 
+      precision = calc_precision();
+
       if (verbose_output) {
          VERBOSE("   Iteration " << it << ": mse(2,2) = "
                  << signed_abs_sqrt(me211) << ", MSm(" << right_index
-                 << ") = " << get_MSm(right_index));
+                 << ") = " << get_MSm(right_index)
+                 << ", accuracy = " << precision);
       }
-
-      accuracy_goal_reached = gm2calc::is_equal(
-         get_MSm(right_index), MSm_goal(right_index), precision_goal);
 
       it++;
    }
 
-   const double precision =
-      std::abs(get_MSm(right_index) - MSm_goal(right_index));
-
    if (verbose_output) {
-      if (it == max_iterations) {
+      if (precision > precision_goal) {
          VERBOSE(
             "   DR-bar to on-shell conversion for mse did not converge with"
             " FPI (reached absolute accuracy: " << precision <<
