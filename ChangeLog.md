@@ -15,6 +15,11 @@ Fixed bugs
    affected).  On tested parameter points that are affected, the value
    of amu changes by around 0.01%.
 
+ * Bugfix (commit 5e020ee): In case of SLHA input, the neutralino
+   mixing matrix is now read from the NMIX block and used to determine
+   the bino-like neutralino.  This change fixes convergence problems
+   when converting the DR-bar input parameters to the on-shell scheme.
+
 Changes
 -------
 
