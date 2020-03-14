@@ -509,6 +509,15 @@ void MSSMNoFV_onshell::convert_yukawa_couplings()
 }
 
 /**
+ * Finds index of neutralino, which is most bino like.
+ * @return index in neutralino mass multiplet
+ */
+unsigned MSSMNoFV_onshell::find_bino_like_neutralino() const
+{
+   return detail::find_bino_like_neutralino(get_physical().ZN);
+}
+
+/**
  * Determines the Mu parameter and the soft-breaking Bino and Wino
  * mass parameters from the two chargino pole masses and the most
  * bino-like neutralino pole mass.  The function uses a fixed-point
@@ -521,9 +530,7 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
    double precision_goal,
    unsigned max_iterations)
 {
-   // find neutralino, which is most bino like
-   const unsigned max_bino = detail::find_bino_like_neutralino(get_physical().ZN);
-
+   const unsigned max_bino = find_bino_like_neutralino();
    const auto MCha_goal(get_physical().MCha);
    auto MChi_goal(get_MChi());
    MChi_goal(max_bino) = get_physical().MChi(max_bino);

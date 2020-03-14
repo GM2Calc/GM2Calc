@@ -168,6 +168,7 @@ private:
    void convert_vev();
    void convert_yukawa_couplings();
    void copy_susy_masses_to_pole();
+   unsigned find_bino_like_neutralino() const;
 };
 
 /// streaming operator
