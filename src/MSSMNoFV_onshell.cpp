@@ -570,13 +570,11 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
 
       if (!X.allFinite()) {
          WARNING("chargino mixing matrix contains NaNs");
-         it = max_iterations;
          break;
       }
 
       if (!Y.allFinite()) {
          WARNING("neutralino mixing matrix contains NaNs");
-         it = max_iterations;
          break;
       }
 
@@ -607,7 +605,7 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
    calculate_DRbar_masses();
 
    if (precision > precision_goal) {
-      get_problems().flag_no_convergence_Mu_MassB_MassWB(precision, it);
+      get_problems().flag_no_convergence_Mu_MassB_MassWB(precision, max_iterations);
    } else {
       get_problems().unflag_no_convergence_Mu_MassB_MassWB();
    }
