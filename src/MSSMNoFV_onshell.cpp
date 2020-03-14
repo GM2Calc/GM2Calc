@@ -515,12 +515,14 @@ void MSSMNoFV_onshell::convert_yukawa_couplings()
 unsigned MSSMNoFV_onshell::find_bino_like_neutralino()
 {
    // try using pole mass mixing matrix ZN
-   if (get_physical().ZN.cwiseAbs().maxCoeff() > 0.0) {
+   if (!gm2calc::is_zero(get_physical().ZN.cwiseAbs().maxCoeff(), eps)) {
       return detail::find_bino_like_neutralino(get_physical().ZN);
    }
 
    // try using DR mixing matrix ZN
-   calculate_MChi();
+   if (!gm2calc::is_zero(get_ZN().cwiseAbs().maxCoeff(), eps)) {
+      calculate_MChi();
+   }
 
    return detail::find_bino_like_neutralino(get_ZN());
 }
