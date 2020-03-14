@@ -360,6 +360,7 @@ void GM2_slha_io::fill_from_mass(MSSMNoFV_onshell_physical& physical) const
    };
 
    read_block("MASS", processor);
+   read_block("NMIX", physical.ZN);
 
    physical.convert_to_hk();
 }

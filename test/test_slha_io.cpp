@@ -251,6 +251,23 @@ Block MASS                      # Mass spectrum
    2000011     5.05054724e+02   # ~e_R              [irrelevant]
    2000013     5.05095249e+02   # ~mu_R             [1L]
    2000015     3.01426808e+03   # ~tau_2            [irrelevant]
+BLOCK NMIX
+    1   1   9.999854734645232e-01   # neutralino mixing matrix (1,1)
+    1   2  -6.016557041166651e-05   # neutralino mixing matrix (1,2)
+    1   3   5.116898001169601e-03   # neutralino mixing matrix (1,3)
+    1   4  -1.693102147969638e-03   # neutralino mixing matrix (1,4)
+    2   1   1.298196396152619e-04   # neutralino mixing matrix (2,1)
+    2   2   9.999130251329618e-01   # neutralino mixing matrix (2,2)
+    2   3  -1.144509441463206e-02   # neutralino mixing matrix (2,3)
+    2   4   6.552490377711157e-03   # neutralino mixing matrix (2,4)
+    3   1   2.420724208822000e-03   # neutralino mixing matrix (3,1)
+    3   2  -3.459991614555609e-03   # neutralino mixing matrix (3,2)
+    3   3  -7.070901296490089e-01   # neutralino mixing matrix (3,3)
+    3   4  -7.071108237789040e-01   # neutralino mixing matrix (3,4)
+    4   1   4.814156322730807e-03   # neutralino mixing matrix (4,1)
+    4   2  -1.272662593070186e-02   # neutralino mixing matrix (4,2)
+    4   3  -7.070122882394858e-01   # neutralino mixing matrix (4,3)
+    4   4   7.070703509338281e-01   # neutralino mixing matrix (4,4)
 Block HMIX Q= 1.00000000e+03
      1     4.89499929e+02      # mu(Q) MSSM DRbar   [initial guess]
      2     3.93371545e+01      # tan(beta)(Q) MSSM DRbar Feynman gauge [1L]
@@ -319,7 +336,7 @@ Block AE Q= 1.00000000e+03
    CHECK_CLOSE(model.get_physical().MChi(1)  , 4.10040273e+02, eps);
    CHECK_CLOSE(model.get_physical().MCha(0)  , 4.09989890e+02, eps);
    CHECK_CLOSE(model.get_physical().MChi(2)  , 5.16529941e+02, eps);
-   CHECK_CLOSE(model.get_physical().MChi(3)  , 5.45628749e+02, eps);
+   CHECK_CLOSE(model.get_physical().MChi(3)  , 5.45628749e+02, eps); // positive
    CHECK_CLOSE(model.get_physical().MCha(1)  , 5.46057190e+02, eps);
    CHECK_CLOSE(model.get_physical().MSd(0)   , 7.06303219e+03, eps);
    CHECK_CLOSE(model.get_physical().MSu(0)   , 7.06271372e+03, eps);
@@ -344,6 +361,11 @@ Block AE Q= 1.00000000e+03
    CHECK_CLOSE(model.get_physical().MStau(1) , 3.01426808e+03, eps);
 
    CHECK_CLOSE(model.get_MA0(), model.get_physical().MAh(1), eps);
+
+   // Block NMIX (scale is optional)
+   for (int i = 0; i < 4; i++) {
+      CHECK(model.get_physical().ZN.row(i).cwiseAbs().maxCoeff() > 0.0);
+   }
 
    // Block HMIX
    const double tanb = model.get_TB();
