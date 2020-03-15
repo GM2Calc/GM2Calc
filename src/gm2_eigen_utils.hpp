@@ -21,6 +21,8 @@
 
 #include "gm2_functional.hpp"
 #include <Eigen/Core>
+#include <algorithm>
+#include <cmath>
 #include <limits>
 
 namespace gm2calc {
