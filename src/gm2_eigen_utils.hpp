@@ -131,23 +131,6 @@ void reorder_vector(
    reorder_vector(v, matrix.diagonal().array().eval());
 }
 
-template<class Derived>
-std::string print_scientific(const Eigen::DenseBase<Derived>& v,
-                             unsigned number_of_digits = std::numeric_limits<typename Derived::Scalar>::digits10 + 1)
-{
-   std::ostringstream sstr;
-
-   for (std::size_t i = 0; i < v.rows(); i++) {
-      for (std::size_t k = 0; k < v.cols(); k++) {
-         sstr << std::setprecision(number_of_digits)
-              << std::scientific << v(i,k) << ' ';
-      }
-      sstr << '\n';
-   }
-
-   return sstr.str();
-}
-
 } // namespace gm2calc
 
 #endif
