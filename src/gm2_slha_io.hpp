@@ -33,7 +33,7 @@
 
 namespace gm2calc {
 
-class Config_options;
+struct Config_options;
 class MSSMNoFV_onshell;
 struct MSSMNoFV_onshell_physical;
 
