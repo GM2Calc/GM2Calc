@@ -21,9 +21,6 @@
 
 #include "gm2_functional.hpp"
 #include <Eigen/Core>
-#include <iomanip>
-#include <sstream>
-#include <string>
 #include <limits>
 
 namespace gm2calc {
