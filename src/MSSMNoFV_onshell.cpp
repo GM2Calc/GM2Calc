@@ -536,21 +536,21 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
    double precision_goal,
    unsigned max_iterations)
 {
-   const unsigned max_bino = find_bino_like_neutralino();
+   const unsigned bino_idx_pole = find_bino_like_neutralino();
    const auto MCha_goal(get_physical().MCha);
    auto MChi_goal(get_MChi());
-   MChi_goal(max_bino) = get_physical().MChi(max_bino);
+   MChi_goal(bino_idx_pole) = get_physical().MChi(bino_idx_pole);
 
    if (verbose_output) {
       VERBOSE("Converting Mu, M1, M2 to on-shell scheme ...\n"
-              "   Goal: MCha = " << MCha_goal.transpose()
-              << ", MChi(" << max_bino << ") = " << MChi_goal(max_bino)
+              "   Goal: MCha = " << pretty_print(MCha_goal.transpose())
+              << ", MChi(" << bino_idx_pole << ") = " << MChi_goal(bino_idx_pole)
               << ", accuracy goal = " << precision_goal);
    }
 
    auto calc_precision = [&]() {
       return std::max((MCha_goal - get_MCha()).cwiseAbs().maxCoeff(),
-                      std::abs(MChi_goal(max_bino) - get_MChi(max_bino)));
+                      std::abs(MChi_goal(bino_idx_pole) - get_MChi(bino_idx_pole)));
    };
 
    double precision = calc_precision();
@@ -582,7 +582,7 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       calculate_MCha();
 
       MChi_goal = get_MChi();
-      MChi_goal(max_bino) = get_physical().MChi(max_bino);
+      MChi_goal(bino_idx_pole) = get_physical().MChi(bino_idx_pole);
 
       precision = calc_precision();
 
@@ -591,8 +591,8 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
                  << ", M1 = " << get_MassB()
                  << ", M2 = " << get_MassWB()
                  << ", MCha = " << pretty_print(get_MCha().transpose())
-                 << ", MChi(" << max_bino << ") = " << get_MChi(max_bino)
-                 << ", accuracy = " << precision);
+                 << ", MChi(" << bino_idx_pole << ") = " << get_MChi(bino_idx_pole)
+                 << ", accuracy = " << precision << " GeV");
       }
 
       it++;
