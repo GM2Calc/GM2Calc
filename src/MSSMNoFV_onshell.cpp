@@ -549,12 +549,12 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
               << ", accuracy goal = " << precision_goal);
    }
 
-   auto calc_precision = [&]() {
+   auto calc_precision = [&MCha_goal, &MChi_goal, this] (unsigned idx) {
       return std::max((MCha_goal - get_MCha()).cwiseAbs().maxCoeff(),
-                      std::abs(MChi_goal(bino_idx_DR) - get_MChi(bino_idx_DR)));
+                      std::abs(MChi_goal(idx) - get_MChi(idx)));
    };
 
-   double precision = calc_precision();
+   double precision = calc_precision(bino_idx_DR);
    unsigned it = 0;
 
    while (precision > precision_goal && it < max_iterations) {
@@ -588,7 +588,7 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       MChi_goal(bino_idx_DR) = get_physical().MChi(bino_idx_pole);
 
       const double old_precision = precision;
-      precision = calc_precision();
+      precision = calc_precision(bino_idx_DR);
 
       if (gm2calc::is_equal(precision, old_precision, eps)) {
          if (verbose_output) {
@@ -823,11 +823,11 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
               << MSm_goal(right_index));
    }
 
-   auto calc_precision = [&]() {
-      return std::abs(get_MSm(right_index) - MSm_goal(right_index));
+   auto calc_precision = [&MSm_goal, this] (unsigned idx) {
+      return std::abs(get_MSm(idx) - MSm_goal(idx));
    };
 
-   double precision = calc_precision();
+   double precision = calc_precision(right_index);
    unsigned it = 0;
 
    while (precision > precision_goal && it < max_iterations) {
@@ -868,7 +868,7 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
       MSm_goal(right_index) = MSm_pole_sorted(right_index);
 
       const double old_precision = precision;
-      precision = calc_precision();
+      precision = calc_precision(right_index);
 
       if (gm2calc::is_equal(precision, old_precision, eps)) {
          if (verbose_output) {
