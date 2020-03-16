@@ -160,7 +160,7 @@ void GM2_slha_io::read_block(const std::string& block_name,
                   const int i = convert_to<int>((*line)[0]) - 1;
                   if (0 <= i && i < rows) {
                      const double value = convert_to<double>((*line)[1]);
-                     matrix(i,0) = value;
+                     matrix(i) = value;
                   }
                }
             } else {
