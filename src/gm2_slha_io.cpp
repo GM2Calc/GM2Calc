@@ -225,9 +225,6 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
                                    unsigned entry, double value,
                                    const std::string& description)
 {
-   std::ostringstream sstr;
-   sstr << FORMAT_ELEMENT(entry, value, description);
-
    auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
 
    if (block == data.cend()) {
@@ -236,7 +233,7 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
       data.push_back(block);
    }
 
-   data[block_name][entry] = sstr.str();
+   data[block_name][entry] = (FORMAT_ELEMENT(entry, value, description)).str();
 }
 
 /**
@@ -251,9 +248,6 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
                                    unsigned entry,
                                    const std::string& description)
 {
-   std::ostringstream sstr;
-   sstr << FORMAT_SPINFO(entry, description);
-
    auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
 
    if (block == data.cend()) {
@@ -262,7 +256,7 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
       data.push_back(block);
    }
 
-   data[block_name][entry] = sstr.str();
+   data[block_name][entry] = (FORMAT_SPINFO(entry, description)).str();
 }
 
 void GM2_slha_io::fill_from_msoft(MSSMNoFV_onshell& model) const
