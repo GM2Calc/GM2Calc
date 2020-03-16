@@ -557,3 +557,19 @@ BLOCK VEC Q= 100
    CHECK_CLOSE(v(1), 2.0, eps);
    CHECK_CLOSE(v(2), 3.0, eps);
 }
+
+
+TEST_CASE("fill_block_entry")
+{
+   gm2calc::GM2_slha_io slha;
+
+   slha.fill_block_entry("MAT", 1, 2.0, "description");
+   slha.fill_block_entry("INFO", 1, "description");
+
+   slha.write_to_stream(std::cout);
+
+   slha.fill_block_entry("MAT", 2, 3.0, "description");
+   slha.fill_block_entry("INFO", 2, "description");
+
+   slha.write_to_stream(std::cout);
+}

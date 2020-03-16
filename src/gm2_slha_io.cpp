@@ -197,19 +197,6 @@ void GM2_slha_io::read_block(const std::string& block_name,
    }
 }
 
-void GM2_slha_io::set_block(const std::ostringstream& lines, Position position)
-{
-   SLHAea::Block block;
-   block.str(lines.str());
-   data.erase(block.name());
-
-   if (position == front) {
-      data.push_front(block);
-   } else {
-      data.push_back(block);
-   }
-}
-
 void GM2_slha_io::write_to_file(const std::string& file_name)
 {
    std::ofstream ofs(file_name);
@@ -244,14 +231,12 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
    auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
 
    if (block == data.cend()) {
-      // create new block
-      std::ostringstream block;
-      block << "Block " << block_name << '\n'
-            << sstr.str();
-      set_block(block, GM2_slha_io::back);
-   } else {
-      data[block_name][entry] = sstr.str();
+      SLHAea::Block block;
+      block.str("Block " + block_name);
+      data.push_back(block);
    }
+
+   data[block_name][entry] = sstr.str();
 }
 
 /**
@@ -272,14 +257,12 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
    auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
 
    if (block == data.cend()) {
-      // create new block
-      std::ostringstream block;
-      block << "Block " << block_name << '\n'
-            << sstr.str();
-      set_block(block, GM2_slha_io::back);
-   } else {
-      data[block_name][entry] = sstr.str();
+      SLHAea::Block block;
+      block.str("Block " + block_name);
+      data.push_back(block);
    }
+
+   data[block_name][entry] = sstr.str();
 }
 
 void GM2_slha_io::fill_from_msoft(MSSMNoFV_onshell& model) const

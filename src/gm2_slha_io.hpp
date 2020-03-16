@@ -63,7 +63,6 @@ struct MSSMNoFV_onshell_physical;
 class GM2_slha_io {
 public:
    typedef std::function<void(int, double)> Tuple_processor;
-   enum Position { front, back };
 
    void clear();
 
@@ -79,7 +78,6 @@ public:
 
    // writing functions
    void set_data(const SLHAea::Coll& data_) { data = data_; }
-   void set_block(const std::ostringstream&, Position position = back);
    void write_to_file(const std::string&);
    void write_to_stream(std::ostream&);
    void fill_block_entry(const std::string&, unsigned, double, const std::string&);
