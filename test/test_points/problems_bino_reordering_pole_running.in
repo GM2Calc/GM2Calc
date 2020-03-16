@@ -1,0 +1,394 @@
+# This test point is characterized by the fact that in the neutralino
+# pole mass multiplet the bino-like neutralino is MChi[3], while in
+# the DR-bar neutralino mass multiplet it is MChi[4].
+#
+# For this point the DR-bar to on-shell conversion for Mu and MassWB
+# does not converge, because the other MSSM parameters enforce a
+# splitting of the chargino masses of a particular minimum size.  This
+# splitting cannot be made smaller by chosing Mu and MassWB, thus the
+# conversion does not converge.
+Block SPINFO
+     1   FlexibleSUSY
+     2   2.4.1
+     5   MSSMNoFVSLHA2
+     9   4.14.3
+Block GM2CalcConfig
+     0     0     # output format (0 = minimal, 1 = detailed,
+                 #  2 = NMSSMTools, 3 = SPheno, 4 = GM2Calc)
+     1     2     # loop order (0, 1 or 2)
+     2     1     # disable/enable tan(beta) resummation (0 or 1)
+     3     0     # force output (0 or 1)
+     4     1     # verbose output (0 or 1)
+     5     0     # calculate uncertainty
+Block MODSEL                 # Select model
+#   12    1000                # DRbar parameter output scale (GeV)
+Block FlexibleSUSY
+    0   1.000000000e-04      # precision goal
+    1   0                    # max. iterations (0 = automatic)
+    2   0                    # algorithm (0 = all, 1 = two_scale, 2 = semi_analytic)
+    3   0                    # calculate SM pole masses
+    4   1                    # pole mass loop order
+    5   1                    # EWSB loop order
+    6   3                    # beta-functions loop order
+    7   2                    # threshold corrections loop order
+    8   1                    # Higgs 2-loop corrections O(alpha_t alpha_s)
+    9   1                    # Higgs 2-loop corrections O(alpha_b alpha_s)
+   10   1                    # Higgs 2-loop corrections O((alpha_t + alpha_b)^2)
+   11   1                    # Higgs 2-loop corrections O(alpha_tau^2)
+   12   0                    # force output
+   13   1                    # Top pole mass QCD corrections (0 = 1L, 1 = 2L, 2 = 3L)
+   14   1.000000000e-11      # beta-function zero threshold
+   15   0                    # calculate observables (a_muon, ...)
+   16   0                    # force positive majorana masses
+   17   0                    # pole mass renormalization scale (0 = SUSY scale)
+   18   0                    # pole mass renormalization scale in the EFT (0 = min(SUSY scale, Mt))
+   19   0                    # EFT matching scale (0 = SUSY scale)
+   20   2                    # EFT loop order for upwards matching
+   21   1                    # EFT loop order for downwards matching
+   22   0                    # EFT index of SM-like Higgs in the BSM model
+   23   1                    # calculate BSM pole masses
+   24   123111321            # individual threshold correction loop orders
+   25   0                    # ren. scheme for Higgs 3L corrections (0 = DR, 1 = MDR)
+   26   1                    # Higgs 3-loop corrections O(alpha_t alpha_s^2)
+   27   1                    # Higgs 3-loop corrections O(alpha_b alpha_s^2)
+   28   1                    # Higgs 3-loop corrections O(alpha_t^2 alpha_s)
+   29   1                    # Higgs 3-loop corrections O(alpha_t^3)
+   30   1                    # Higgs 4-loop corrections O(alpha_t alpha_s^3)
+Block SMINPUTS               # Standard Model inputs
+    1   1.279340000e+02      # alpha^(-1) SM MSbar(MZ)
+    2   1.166378700e-05      # G_Fermi
+    3   1.176000000e-01      # alpha_s(MZ) SM MSbar
+    4   9.118760000e+01      # MZ(pole)
+    5   4.200000000e+00      # mb(mb) SM MSbar
+    6   1.733000000e+02      # mtop(pole)
+    7   1.777000000e+00      # mtau(pole)
+    8   0.000000000e+00      # mnu3(pole)
+    9   80.404               # MW pole
+   11   5.109989020e-04      # melectron(pole)
+   12   0.000000000e+00      # mnu1(pole)
+   13   1.056583570e-01      # mmuon(pole)
+   14   0.000000000e+00      # mnu2(pole)
+   21   4.750000000e-03      # md(2 GeV) MS-bar
+   22   2.400000000e-03      # mu(2 GeV) MS-bar
+   23   1.040000000e-01      # ms(2 GeV) MS-bar
+   24   1.270000000e+00      # mc(mc) MS-bar
+Block MINPAR
+     3     1.00000000E+01   # TanBeta
+     4                  1   # SignMu
+Block EXTPAR
+     0     1.00000000E+03   # Qin
+     1     1.07000000E+03   # M1
+     2     1.00000000E+03   # M2
+     3     1.00000000E+03   # M3
+    11     0.00000000E+00   # AtIN
+    12     0.00000000E+00   # AbIN
+    13     0.00000000E+00   # AtauIN
+    14     0.00000000E+00   # AcIN
+    15     0.00000000E+00   # AsIN
+    16     0.00000000E+00   # AmuonIN
+    17     0.00000000E+00   # AuIN
+    18     0.00000000E+00   # AdIN
+    19     0.00000000E+00   # AeIN
+    21     1.00000000E+06   # mHd2IN
+    22    -1.00000000E+06   # mHu2IN
+    31     1.00000000E+03   # ml11IN
+    32     1.00000000E+03   # ml22IN
+    33     1.00000000E+03   # ml33IN
+    34     1.00000000E+03   # me11IN
+    35     1.00000000E+03   # me22IN
+    36     1.00000000E+03   # me33IN
+    41     1.00000000E+03   # mq11IN
+    42     1.00000000E+03   # mq22IN
+    43     1.00000000E+03   # mq33IN
+    44     1.00000000E+03   # mu11IN
+    45     1.00000000E+03   # mu22IN
+    46     1.00000000E+03   # mu33IN
+    47     1.00000000E+03   # md11IN
+    48     1.00000000E+03   # md22IN
+    49     1.00000000E+03   # md33IN
+Block gauge Q= 1.00936519E+03
+     1     3.62169623E-01   # g1 * 0.7745966692414834
+     2     6.39618291E-01   # g2
+     3     1.04775616E+00   # g3
+Block Yu Q= 1.00936519E+03
+  1  1     7.27461713E-06   # Yu(1,1)
+  1  2     0.00000000E+00   # Yu(1,2)
+  1  3     0.00000000E+00   # Yu(1,3)
+  2  1     0.00000000E+00   # Yu(2,1)
+  2  2     3.32661672E-03   # Yu(2,2)
+  2  3     0.00000000E+00   # Yu(2,3)
+  3  1     0.00000000E+00   # Yu(3,1)
+  3  2     0.00000000E+00   # Yu(3,2)
+  3  3     8.51322432E-01   # Yu(3,3)
+Block Yd Q= 1.00936519E+03
+  1  1     1.39929331E-04   # Yd(1,1)
+  1  2     0.00000000E+00   # Yd(1,2)
+  1  3     0.00000000E+00   # Yd(1,3)
+  2  1     0.00000000E+00   # Yd(2,1)
+  2  2     3.06371788E-03   # Yd(2,2)
+  2  3     0.00000000E+00   # Yd(2,3)
+  3  1     0.00000000E+00   # Yd(3,1)
+  3  2     0.00000000E+00   # Yd(3,2)
+  3  3     1.26009958E-01   # Yd(3,3)
+Block Ye Q= 1.00936519E+03
+  1  1     2.88983928E-05   # Ye(1,1)
+  1  2     0.00000000E+00   # Ye(1,2)
+  1  3     0.00000000E+00   # Ye(1,3)
+  2  1     0.00000000E+00   # Ye(2,1)
+  2  2     5.97526952E-03   # Ye(2,2)
+  2  3     0.00000000E+00   # Ye(2,3)
+  3  1     0.00000000E+00   # Ye(3,1)
+  3  2     0.00000000E+00   # Ye(3,2)
+  3  3     1.00489500E-01   # Ye(3,3)
+Block Te Q= 1.00936519E+03
+  1  1     5.40236519E-06   # TYe(1,1)
+  1  2     0.00000000E+00   # TYe(1,2)
+  1  3     0.00000000E+00   # TYe(1,3)
+  2  1     0.00000000E+00   # TYe(2,1)
+  2  2     1.11703700E-03   # TYe(2,2)
+  2  3     0.00000000E+00   # TYe(2,3)
+  3  1     0.00000000E+00   # TYe(3,1)
+  3  2     0.00000000E+00   # TYe(3,2)
+  3  3     1.87836357E-02   # TYe(3,3)
+Block Td Q= 1.00936519E+03
+  1  1     1.12545967E-04   # TYd(1,1)
+  1  2     0.00000000E+00   # TYd(1,2)
+  1  3     0.00000000E+00   # TYd(1,3)
+  2  1     0.00000000E+00   # TYd(2,1)
+  2  2     2.46416608E-03   # TYd(2,2)
+  2  3     0.00000000E+00   # TYd(2,3)
+  3  1     0.00000000E+00   # TYd(3,1)
+  3  2     0.00000000E+00   # TYd(3,2)
+  3  3     1.01452513E-01   # TYd(3,3)
+Block Tu Q= 1.00936519E+03
+  1  1     5.87153038E-06   # TYu(1,1)
+  1  2     0.00000000E+00   # TYu(1,2)
+  1  3     0.00000000E+00   # TYu(1,3)
+  2  1     0.00000000E+00   # TYu(2,1)
+  2  2     2.68499795E-03   # TYu(2,2)
+  2  3     0.00000000E+00   # TYu(2,3)
+  3  1     0.00000000E+00   # TYu(3,1)
+  3  2     0.00000000E+00   # TYu(3,2)
+  3  3     6.91819454E-01   # TYu(3,3)
+Block MSQ2 Q= 1.00936519E+03
+  1  1     9.99221846E+05   # mq2(1,1)
+  1  2     0.00000000E+00   # mq2(1,2)
+  1  3     0.00000000E+00   # mq2(1,3)
+  2  1     0.00000000E+00   # mq2(2,1)
+  2  2     9.99221850E+05   # mq2(2,2)
+  2  3     0.00000000E+00   # mq2(2,3)
+  3  1     0.00000000E+00   # mq2(3,1)
+  3  2     0.00000000E+00   # mq2(3,2)
+  3  3     9.99302369E+05   # mq2(3,3)
+Block MSE2 Q= 1.00936519E+03
+  1  1     9.99901418E+05   # me2(1,1)
+  1  2     0.00000000E+00   # me2(1,2)
+  1  3     0.00000000E+00   # me2(1,3)
+  2  1     0.00000000E+00   # me2(2,1)
+  2  2     9.99901442E+05   # me2(2,2)
+  2  3     0.00000000E+00   # me2(2,3)
+  3  1     0.00000000E+00   # me2(3,1)
+  3  2     0.00000000E+00   # me2(3,2)
+  3  3     9.99908300E+05   # me2(3,3)
+Block MSL2 Q= 1.00936519E+03
+  1  1     9.99858328E+05   # ml2(1,1)
+  1  2     0.00000000E+00   # ml2(1,2)
+  1  3     0.00000000E+00   # ml2(1,3)
+  2  1     0.00000000E+00   # ml2(2,1)
+  2  2     9.99858340E+05   # ml2(2,2)
+  2  3     0.00000000E+00   # ml2(2,3)
+  3  1     0.00000000E+00   # ml2(3,1)
+  3  2     0.00000000E+00   # ml2(3,2)
+  3  3     9.99861739E+05   # ml2(3,3)
+Block MSU2 Q= 1.00936519E+03
+  1  1     9.99347465E+05   # mu2(1,1)
+  1  2     0.00000000E+00   # mu2(1,2)
+  1  3     0.00000000E+00   # mu2(1,3)
+  2  1     0.00000000E+00   # mu2(2,1)
+  2  2     9.99347468E+05   # mu2(2,2)
+  2  3     0.00000000E+00   # mu2(2,3)
+  3  1     0.00000000E+00   # mu2(3,1)
+  3  2     0.00000000E+00   # mu2(3,2)
+  3  3     9.99502365E+05   # mu2(3,3)
+Block MSD2 Q= 1.00936519E+03
+  1  1     9.99337645E+05   # md2(1,1)
+  1  2     0.00000000E+00   # md2(1,2)
+  1  3     0.00000000E+00   # md2(1,3)
+  2  1     0.00000000E+00   # md2(2,1)
+  2  2     9.99337651E+05   # md2(2,2)
+  2  3     0.00000000E+00   # md2(2,3)
+  3  1     0.00000000E+00   # md2(3,1)
+  3  2     0.00000000E+00   # md2(3,2)
+  3  3     9.99348140E+05   # md2(3,3)
+Block Phases Q= 1.00936519E+03
+     1     1.00000000E+00   # Re(PhaseGlu)
+Block IMPhases Q= 1.00936519E+03
+     1     0.00000000E+00   # Im(PhaseGlu)
+Block MASS
+   1000021     1.06336945E+03   # Glu
+        24     8.03599102E+01   # VWm
+   1000012     1.00528077E+03   # SveL
+   1000014     1.00528052E+03   # SvmL
+   1000016     1.00521030E+03   # SvtL
+   1000024     9.51830253E+02   # Cha(1)
+   1000037     1.07129987E+03   # Cha(2)
+        25     1.05824125E+02   # hh(1)
+        35     1.43847375E+03   # hh(2)
+        37     1.44087742E+03   # Hpm(2)
+        36     1.43830950E+03   # Ah(2)
+   1000001     1.03716398E+03   # Sd(1)
+   2000001     1.04463395E+03   # Sd(2)
+   1000003     1.03714661E+03   # Ss(1)
+   2000003     1.04465158E+03   # Ss(2)
+   1000005     1.02961055E+03   # Sb(1)
+   2000005     1.05277306E+03   # Sb(2)
+   1000011     1.00454947E+03   # Se(1)
+   2000011     1.00872550E+03   # Se(2)
+   1000013     1.00447717E+03   # Sm(1)
+   2000013     1.00880070E+03   # Sm(2)
+   1000015     9.97390460E+02   # Stau(1)
+   2000015     1.01561451E+03   # Stau(2)
+   1000002     1.03693205E+03   # Su(1)
+   2000002     1.04199556E+03   # Su(2)
+   1000004     1.03693166E+03   # Sc(1)
+   2000004     1.04199633E+03   # Sc(2)
+   1000006     1.03983795E+03   # St(1)
+   2000006     1.06426180E+03   # St(2)
+   1000022     9.46301400E+02   # Chi(1)
+   1000023    -1.01839264E+03   # Chi(2)
+   1000025     1.04149194E+03   # Chi(3)
+   1000035     1.09297318E+03   # Chi(4)
+Block UMIX
+  1  1     7.26321199E-01   # Re(UM(1,1))
+  1  2    -6.87355451E-01   # Re(UM(1,2))
+  2  1     6.87355451E-01   # Re(UM(2,1))
+  2  2     7.26321199E-01   # Re(UM(2,2))
+Block VMIX
+  1  1     7.59427109E-01   # Re(UP(1,1))
+  1  2    -6.50592396E-01   # Re(UP(1,2))
+  2  1     6.50592396E-01   # Re(UP(2,1))
+  2  2     7.59427109E-01   # Re(UP(2,2))
+Block PSEUDOSCALARMIX
+  1  1    -9.95500016E-02   # ZA(1,1)
+  1  2     9.95032561E-01   # ZA(1,2)
+  2  1     9.95032561E-01   # ZA(2,1)
+  2  2     9.95500016E-02   # ZA(2,2)
+Block sbotmix
+  1  1     5.43738511E-01   # ZB(1,1)
+  1  2     8.39254688E-01   # ZB(1,2)
+  2  1     8.39254688E-01   # ZB(2,1)
+  2  2    -5.43738511E-01   # ZB(2,2)
+Block scharmmix
+  1  1     9.20910192E-03   # ZC(1,1)
+  1  2     9.99957595E-01   # ZC(1,2)
+  2  1     9.99957595E-01   # ZC(2,1)
+  2  2    -9.20910192E-03   # ZC(2,2)
+Block sdownmix
+  1  1     1.29645216E-03   # ZD(1,1)
+  1  2     9.99999160E-01   # ZD(1,2)
+  2  1     9.99999160E-01   # ZD(2,1)
+  2  2    -1.29645216E-03   # ZD(2,2)
+Block selemix
+  1  1     5.92089886E-04   # ZE(1,1)
+  1  2     9.99999825E-01   # ZE(1,2)
+  2  1     9.99999825E-01   # ZE(2,1)
+  2  2    -5.92089886E-04   # ZE(2,2)
+Block SCALARMIX
+  1  1     1.03948468E-01   # ZH(1,1)
+  1  2     9.94582684E-01   # ZH(1,2)
+  2  1     9.94582684E-01   # ZH(2,1)
+  2  2    -1.03948468E-01   # ZH(2,2)
+Block smumix
+  1  1     1.20829455E-01   # ZM(1,1)
+  1  2     9.92673281E-01   # ZM(1,2)
+  2  1     9.92673281E-01   # ZM(2,1)
+  2  2    -1.20829455E-01   # ZM(2,2)
+Block NMIX
+  1  1     2.04595689E-01   # Re(ZN(1,1))
+  1  2    -6.94249443E-01   # Re(ZN(1,2))
+  1  3     5.02298679E-01   # Re(ZN(1,3))
+  1  4    -4.73132489E-01   # Re(ZN(1,4))
+  2  1    -1.35594144E-02   # Re(ZN(2,1))
+  2  2     2.47460952E-02   # Re(ZN(2,2))
+  2  3     7.06147008E-01   # Re(ZN(2,3))
+  2  4     7.07502775E-01   # Re(ZN(2,4))
+  3  1     7.20639555E-01   # Re(ZN(3,1))
+  3  2     5.83784708E-01   # Re(ZN(3,2))
+  3  3     2.61385072E-01   # Re(ZN(3,3))
+  3  4    -2.67491853E-01   # Re(ZN(3,4))
+  4  1     6.62295537E-01   # Re(ZN(4,1))
+  4  2    -4.20238928E-01   # Re(ZN(4,2))
+  4  3    -4.25123846E-01   # Re(ZN(4,3))
+  4  4     4.51700765E-01   # Re(ZN(4,4))
+Block CHARGEMIX
+  1  1    -9.96071624E-02   # ZP(1,1)
+  1  2     9.95026840E-01   # ZP(1,2)
+  2  1     9.95026840E-01   # ZP(2,1)
+  2  2     9.96071624E-02   # ZP(2,2)
+Block sstrmix
+  1  1     2.84452476E-02   # ZS(1,1)
+  1  2     9.99595352E-01   # ZS(1,2)
+  2  1     9.99595352E-01   # ZS(2,1)
+  2  2    -2.84452476E-02   # ZS(2,2)
+Block stopmix
+  1  1     6.37985871E-01   # ZT(1,1)
+  1  2     7.70048069E-01   # ZT(1,2)
+  2  1     7.70048069E-01   # ZT(2,1)
+  2  2    -6.37985871E-01   # ZT(2,2)
+Block staumix
+  1  1     6.19270012E-01   # ZTau(1,1)
+  1  2     7.85178102E-01   # ZTau(1,2)
+  2  1     7.85178102E-01   # ZTau(2,1)
+  2  2    -6.19270012E-01   # ZTau(2,2)
+Block supmix
+  1  1     2.01411517E-05   # ZU(1,1)
+  1  2     1.00000000E+00   # ZU(1,2)
+  2  1     1.00000000E+00   # ZU(2,1)
+  2  2    -2.01411517E-05   # ZU(2,2)
+Block FlexibleSUSYOutput Q= 1.00936519E+03
+     0     1.00000000E+03   # HighScale
+     1     1.00936519E+03   # SUSYScale
+     2     9.11876000E+01   # LowScale
+Block ALPHA Q= 1.00936519E+03
+          -1.04136583E-01   # ArcSin(Pole(ZH(2,2)))
+Block HMIX Q= 1.00936519E+03
+     1     1.01709183E+03   # Mu
+     2     9.65978439E+00   # vu/vd
+     3     2.44899604E+02   # Sqrt(Sqr(vd) + Sqr(vu))
+     4     2.05622063E+06   # Sqr(MAh(2))
+   101     2.10606997E+05   # BMu
+   102     2.52177252E+01   # vd
+   103     2.43597788E+02   # vu
+Block Au Q= 1.00936519E+03
+  1  1     8.07125691E-01   # TYu(1,1)/Yu(1,1)
+  2  2     8.07125732E-01   # TYu(2,2)/Yu(2,2)
+  3  3     8.12640930E-01   # TYu(3,3)/Yu(3,3)
+Block Ad Q= 1.00936519E+03
+  1  1     8.04305765E-01   # TYd(1,1)/Yd(1,1)
+  2  2     8.04305805E-01   # TYd(2,2)/Yd(2,2)
+  3  3     8.05115046E-01   # TYd(3,3)/Yd(3,3)
+Block Ae Q= 1.00936519E+03
+  1  1     1.86943448E-01   # TYe(1,1)/Ye(1,1)
+  2  2     1.86943367E-01   # TYe(2,2)/Ye(2,2)
+  3  3     1.86921376E-01   # TYe(3,3)/Ye(3,3)
+Block MSOFT Q= 1.00936519E+03
+     1     1.07018947E+03   # MassB
+     2     1.00007000E+03   # MassWB
+     3     9.99643065E+02   # MassG
+    21     9.99878418E+05   # mHd2
+    22    -9.99911732E+05   # mHu2
+    31     9.99929162E+02   # SignedAbsSqrt(ml2(1,1))
+    32     9.99929168E+02   # SignedAbsSqrt(ml2(2,2))
+    33     9.99930867E+02   # SignedAbsSqrt(ml2(3,3))
+    34     9.99950708E+02   # SignedAbsSqrt(me2(1,1))
+    35     9.99950720E+02   # SignedAbsSqrt(me2(2,2))
+    36     9.99954149E+02   # SignedAbsSqrt(me2(3,3))
+    41     9.99610847E+02   # SignedAbsSqrt(mq2(1,1))
+    42     9.99610849E+02   # SignedAbsSqrt(mq2(2,2))
+    43     9.99651124E+02   # SignedAbsSqrt(mq2(3,3))
+    44     9.99673679E+02   # SignedAbsSqrt(mu2(1,1))
+    45     9.99673681E+02   # SignedAbsSqrt(mu2(2,2))
+    46     9.99751152E+02   # SignedAbsSqrt(mu2(3,3))
+    47     9.99668768E+02   # SignedAbsSqrt(md2(1,1))
+    48     9.99668771E+02   # SignedAbsSqrt(md2(2,2))
+    49     9.99674017E+02   # SignedAbsSqrt(md2(3,3))
