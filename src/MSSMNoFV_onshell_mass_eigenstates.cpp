@@ -46,7 +46,7 @@ namespace {
 template <typename T>
 class RAII_save {
 public:
-   RAII_save(T& var_) noexcept : var(var_), value(var_) {}
+   explicit RAII_save(T& var_) noexcept : var(var_), value(var_) {}
    RAII_save(const RAII_save&) = delete;
    RAII_save(RAII_save&&) noexcept = default;
    ~RAII_save() { var = value; }
