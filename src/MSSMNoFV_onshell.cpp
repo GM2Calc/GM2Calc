@@ -867,7 +867,15 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
       MSm_goal = get_MSm();
       MSm_goal(right_index) = MSm_pole_sorted(right_index);
 
+      const double old_precision = precision;
       precision = calc_precision();
+
+      if (gm2calc::is_equal(precision, old_precision, eps)) {
+         if (verbose_output) {
+            VERBOSE("   No improvement in last iteration step, stopping iteration ...");
+         }
+         break;
+      }
 
       if (verbose_output) {
          VERBOSE("   Iteration " << it << ": mse(2,2) = "
