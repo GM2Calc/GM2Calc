@@ -39,7 +39,6 @@ namespace gm2calc {
 
 namespace {
 
-const double Pi = 3.141592653589793;
 const double oneOver16PiSqr = 6.332573977646111e-3; // 1/(4 Pi)^2
 const double root2 = 1.414213562373095; // Sqrt[2]
 

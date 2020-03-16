@@ -46,10 +46,6 @@ namespace {
    /// fine-structure constant in the Thompson limit (Q = 0) from PDG (2019)
    const double ALPHA_EM_THOMPSON = GM2CALC_ALPHA_EM_THOMPSON;
 
-   /// quark and lepton contributions to the on-shell renormalized
-   /// photon vacuum polarization
-   const double DELTA_ALPHA_EM_MZ = GM2CALC_DELTA_ALPHA_EM_MZ;
-
    /// fine-structure constant at Q = MZ
    const double ALPHA_EM_MZ = GM2CALC_ALPHA_EM_MZ;
 
