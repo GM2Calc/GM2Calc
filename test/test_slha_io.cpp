@@ -501,3 +501,59 @@ Block AE Q= 2000
    CHECK_CLOSE(model.get_Ad(2,2), 60  , eps);
    CHECK_CLOSE(model.get_Ae(2,2), 70  , eps);
 }
+
+
+TEST_CASE("read_matrix_dense")
+{
+   const double eps = std::numeric_limits<double>::epsilon();
+
+   char const * const slha_input = R"(
+BLOCK MAT Q= 100
+    1   1  1
+    1   2  2
+    2   1  3
+    2   2  4
+    3   1  5
+    3   2  6
+)";
+
+   Eigen::Matrix<double,3,2> m;
+   m.setZero();
+
+   std::istringstream stream(slha_input);
+   gm2calc::GM2_slha_io slha;
+   slha.read_from_stream(stream);
+   slha.read_block("MAT", m);
+
+   CHECK_CLOSE(m(0,0), 1.0, eps);
+   CHECK_CLOSE(m(0,1), 2.0, eps);
+   CHECK_CLOSE(m(1,0), 3.0, eps);
+   CHECK_CLOSE(m(1,1), 4.0, eps);
+   CHECK_CLOSE(m(2,0), 5.0, eps);
+   CHECK_CLOSE(m(2,1), 6.0, eps);
+}
+
+
+TEST_CASE("read_vector_dense")
+{
+   const double eps = std::numeric_limits<double>::epsilon();
+
+   char const * const slha_input = R"(
+BLOCK VEC Q= 100
+    1   1
+    2   2
+    3   3
+)";
+
+   Eigen::Matrix<double,3,1> v;
+   v.setZero();
+
+   std::istringstream stream(slha_input);
+   gm2calc::GM2_slha_io slha;
+   slha.read_from_stream(stream);
+   slha.read_block("VEC", v);
+
+   CHECK_CLOSE(v(0), 1.0, eps);
+   CHECK_CLOSE(v(1), 2.0, eps);
+   CHECK_CLOSE(v(2), 3.0, eps);
+}
