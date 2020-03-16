@@ -20,12 +20,14 @@
 #define GM2_ERROR_H
 
 #include <stdexcept>
+#include <string>
 
 namespace gm2calc {
 
 class Error : public std::runtime_error {
 public:
    Error(const char* msg) : std::runtime_error(msg) {}
+   Error(const std::string& msg) : std::runtime_error(msg) {}
 };
 
 /**
@@ -45,6 +47,7 @@ public:
 class EPhysicalProblem : public Error {
 public:
    EPhysicalProblem(const char* msg) : Error(msg) {}
+   EPhysicalProblem(const std::string& msg) : Error(msg) {}
 };
 
 class EReadError : public Error {

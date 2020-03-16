@@ -235,8 +235,7 @@ double MSSMNoFV_onshell::get_vev() const
 double MSSMNoFV_onshell::get_TB() const
 {
    if (gm2calc::detail::is_zero(get_vd(), eps)) {
-      ERROR("vd = 0");
-      return std::numeric_limits<double>::infinity();
+      throw EInvalidInput("down-type VEV vd = 0");
    }
    return get_vu() / get_vd();
 }
@@ -341,8 +340,7 @@ void MSSMNoFV_onshell::check_problems() const
 {
    if (get_problems().have_problem()) {
       if (!do_force_output()) {
-         ERROR(get_problems().get_problems());
-         throw EPhysicalProblem("physical problem detected");
+         throw EPhysicalProblem(get_problems().get_problems());
       }
    }
    if (get_mu2().diagonal().minCoeff() < 0. ||
