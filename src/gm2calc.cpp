@@ -159,8 +159,6 @@ void print_error(const gm2calc::Error& error,
                  gm2calc::GM2_slha_io& slha_io,
                  const gm2calc::Config_options& config_options)
 {
-   ERROR(error.what());
-
    switch (config_options.output_format) {
    case gm2calc::Config_options::NMSSMTools:
    case gm2calc::Config_options::SPheno:
@@ -172,6 +170,7 @@ void print_error(const gm2calc::Error& error,
       slha_io.write_to_stream(std::cout);
       break;
    default:
+      ERROR(error.what());
       break;
    }
 }
