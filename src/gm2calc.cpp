@@ -210,7 +210,7 @@ double calculate_amu(const gm2calc::MSSMNoFV_onshell& model,
       }
       break;
    default:
-      ERROR("loop orders > 2 not supported!");
+      ERROR("loop order > 2 not supported!");
       break;
    }
 
@@ -242,7 +242,7 @@ double calculate_uncertainty(const gm2calc::MSSMNoFV_onshell& model,
       result = gm2calc::calculate_uncertainty_amu_2loop(model);
       break;
    default:
-      ERROR("loop orders > 2 not supported!");
+      ERROR("loop order > 2 not supported!");
       break;
    }
 

@@ -37,11 +37,13 @@ public:
 class ESetupError : public Error {
 public:
    ESetupError(const char* msg) : Error(msg) {}
+   ESetupError(const std::string& msg) : Error(msg) {}
 };
 
 class EInvalidInput : public Error {
 public:
    EInvalidInput(const char* msg) : Error(msg) {}
+   EInvalidInput(const std::string& msg) : Error(msg) {}
 };
 
 class EPhysicalProblem : public Error {
@@ -53,6 +55,7 @@ public:
 class EReadError : public Error {
 public:
    EReadError(const char* msg) : Error(msg) {}
+   EReadError(const std::string& msg) : Error(msg) {}
 };
 
 } // namespace gm2calc

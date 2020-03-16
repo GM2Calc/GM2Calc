@@ -20,7 +20,6 @@
 #define GM2_SLHA_IO_H
 
 #include "gm2calc/gm2_error.hpp"
-#include "gm2_log.hpp"
 
 #include "slhaea.h"
 
@@ -122,8 +121,6 @@ Scalar GM2_slha_io::convert_to(const std::string& str)
          throw boost::bad_lexical_cast();
       }
    }  catch (const boost::bad_lexical_cast& error) {
-      ERROR("cannot convert string \"" << str << "\" to "
-            <<  typeid(Scalar).name());
       throw EReadError("non-numeric input");
    }
    return value;

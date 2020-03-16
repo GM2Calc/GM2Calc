@@ -105,8 +105,8 @@ double calculate_lambda_qcd(double alpha, double scale,
 
       lambda_qcd = 0.5 * (root.first + root.second);
    } catch (const std::exception& e) {
-      ERROR("Could not determine lambda_QCD: " << e.what()
-            << ".  Using lambda_QCD = " << lambda_qcd);
+      WARNING("Could not determine lambda_QCD: " << e.what()
+              << ".  Using lambda_QCD = " << lambda_qcd);
    }
 
    if (it >= max_iterations) {
