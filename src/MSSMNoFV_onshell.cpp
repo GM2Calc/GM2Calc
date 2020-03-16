@@ -587,7 +587,15 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       MChi_goal = get_MChi();
       MChi_goal(bino_idx_DR) = get_physical().MChi(bino_idx_pole);
 
+      const double old_precision = precision;
       precision = calc_precision();
+
+      if (gm2calc::is_equal(precision, old_precision, eps)) {
+         if (verbose_output) {
+            VERBOSE("   No improvement in last iteration step, stopping iteration ...");
+         }
+         break;
+      }
 
       if (verbose_output) {
          VERBOSE("   Iteration " << it << ": Mu = " << get_Mu()
