@@ -79,6 +79,11 @@ Changes
    now written to `cerr`.  This allows to separate the physics output
    from the informational messages.
 
+ * Change (commits ee1eab3, 0635231, 576afcb): Avoid redundant error
+   messages to stdout/stderr.  This significantly improves the
+   performance of parameter scans using the Mathematica interface,
+   where frequent flushing of the stdout/stderr buffers is expensive.
+
  * Change: Many stylistic internal improvements; fixes of clang-tidy
    warnings.
 
