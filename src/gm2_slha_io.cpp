@@ -250,7 +250,7 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
             << sstr.str();
       set_block(block, GM2_slha_io::back);
    } else {
-      data[block_name][SLHAea::to<double>(entry)] = sstr.str();
+      data[block_name][entry] = sstr.str();
    }
 }
 
@@ -278,7 +278,7 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
             << sstr.str();
       set_block(block, GM2_slha_io::back);
    } else {
-      data[block_name][SLHAea::to<double>(entry)] = sstr.str();
+      data[block_name][entry] = sstr.str();
    }
 }
 
