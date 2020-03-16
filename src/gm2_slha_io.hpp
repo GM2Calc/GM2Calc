@@ -96,7 +96,6 @@ private:
    SLHAea::Coll data;          ///< SHLA data
    template <class Scalar>
    static Scalar convert_to(const std::string&); ///< convert string
-   static std::string to_lower(const std::string&); ///< string to lower case
    static bool at_scale(const SLHAea::Block&, double, double eps = 0.01); ///< check block scale
 
    void fill_scale(MSSMNoFV_onshell&) const;

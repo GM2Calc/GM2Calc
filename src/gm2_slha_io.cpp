@@ -112,12 +112,11 @@ double GM2_slha_io::read_scale(const std::string& block_name) const
 
    while (block != data.cend()) {
       for (const auto& line: *block) {
-         if (!line.is_data_line()) {
-            // read scale from block definition
-            if (line.size() > 3 &&
-                to_lower(line[0]) == "block" && line[2] == "Q=") {
-               scale = convert_to<double>(line[3]);
-            }
+         // read scale from block definition
+         if (line.is_block_def() &&
+             line.size() > 3 &&
+             line[2] == "Q=") {
+            scale = convert_to<double>(line[3]);
          }
       }
 
@@ -144,8 +143,9 @@ bool GM2_slha_io::at_scale(const SLHAea::Block& block, double scale, double eps)
 
    for (const auto& line : block) {
       // check scale from block definition matches argument
-      if (!line.is_data_line() && line.size() > 3 &&
-          to_lower(line[0]) == "block" && line[2] == "Q=") {
+      if (line.is_block_def() &&
+          line.size() > 3 &&
+          line[2] == "Q=") {
          const auto block_scale = convert_to<double>(line[3]);
          if (is_equal(scale, block_scale, eps)) {
             return true;
@@ -154,13 +154,6 @@ bool GM2_slha_io::at_scale(const SLHAea::Block& block, double scale, double eps)
    }
 
    return false;
-}
-
-std::string GM2_slha_io::to_lower(const std::string& str)
-{
-   std::string lower(str.size(), ' ');
-   std::transform(str.begin(), str.end(), lower.begin(), ::tolower);
-   return lower;
 }
 
 /**
