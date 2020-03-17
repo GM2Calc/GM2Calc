@@ -34,6 +34,7 @@ Block GM2CalcConfig
 
    gm2calc::GM2_slha_io slha;
    slha.read_from_stream(stream);
+
    slha.fill(config);
 
    CHECK(config.output_format == 1);
@@ -66,7 +67,8 @@ Block GM2CalcConfig
 
    gm2calc::GM2_slha_io slha;
    slha.read_from_stream(stream);
-   slha.fill(config);
+
+   CHECK_THROWS(slha.fill(config));
 
    CHECK(config.output_format         == default_config.output_format);
    CHECK(config.loop_order            == default_config.loop_order);

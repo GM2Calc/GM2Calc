@@ -28,7 +28,9 @@
 #include <fstream>
 #include <iostream>
 #include <limits>
+#include <string>
 
+#include <boost/lexical_cast.hpp>
 #include <Eigen/Core>
 
 namespace gm2calc {
@@ -431,12 +433,20 @@ bool is_integer(double value)
    return std::modf(value, &intpart) == 0.0;
 }
 
+template <class Source>
+std::string to_string(Source arg)
+{
+   return boost::lexical_cast<std::string>(arg);
+}
+
 void read_bool(double value, bool& result, const char* error_msg)
 {
    if (value == 0.0 || value == 1.0) {
       result = (value != 0.0);
    } else {
-      ERROR(error_msg << ": " << value << " (allowed values: 0 or 1)");
+      throw EInvalidInput(std::string(error_msg) + ": " +
+                          gm2calc::to_string(value) +
+                          " (allowed values: 0 or 1)");
    }
 }
 
@@ -446,7 +456,10 @@ void read_integer(double value, T& result, T min, T max, const char* error_msg)
    if (is_integer(value) && value >= min && value <= max) {
       result = static_cast<T>(value);
    } else {
-      ERROR(error_msg << ": " << value << " (allowed integer values: " << min << ",...," << max << ")");
+      throw EInvalidInput(
+         std::string(error_msg) + ": " + gm2calc::to_string(value) +
+         " (allowed integer values: " + gm2calc::to_string(min) + ",...," +
+         gm2calc::to_string(max) + ")");
    }
 }
 
@@ -469,22 +482,27 @@ void process_gm2calcconfig_tuple(
                    static_cast<Config_options::E_output_format>(0),
                    static_cast<Config_options::E_output_format>(
                       Config_options::NUMBER_OF_OUTPUT_FORMATS - 1),
-                   "unsupported output format");
+                   "unsupported output format in GM2CalcConfig[0]");
       break;
    case 1:
-      read_integer(value, config_options.loop_order, 0u, 2u, "unsupported loop order");
+      read_integer(value, config_options.loop_order, 0u, 2u,
+                   "unsupported loop order in GM2CalcConfig[1]");
       break;
    case 2:
-      read_bool(value, config_options.tanb_resummation, "unsupported tan(beta) resummation flag value");
+      read_bool(value, config_options.tanb_resummation,
+                "unsupported tan(beta) resummation flag value in GM2CalcConfig[2]");
       break;
    case 3:
-      read_bool(value, config_options.force_output, "unsupported force output flag value");
+      read_bool(value, config_options.force_output,
+                "unsupported force output flag value in GM2CalcConfig[3]");
       break;
    case 4:
-      read_bool(value, config_options.verbose_output, "unsupported verbose output flag value");
+      read_bool(value, config_options.verbose_output,
+                "unsupported verbose output flag value in GM2CalcConfig[4]");
       break;
    case 5:
-      read_bool(value, config_options.calculate_uncertainty, "unsupported uncertainty flag value");
+      read_bool(value, config_options.calculate_uncertainty,
+                "unsupported uncertainty flag value in GM2CalcConfig[5]");
       break;
    default:
       WARNING("Unrecognized entry in block GM2CalcConfig: " << key);
