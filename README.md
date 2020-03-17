@@ -14,6 +14,42 @@ leading 2-loop level.
    [[arxiv:1510.08071](https://arxiv.org/abs/1510.08071)]
 
 
+Quick start
+===========
+
+Build GM2Calc as follows:
+
+    mkdir -p build
+    cd build
+    cmake ..
+    make
+
+Run GM2Calc with input files at the command line:
+
+    bin/gm2calc.x --gm2calc-input-file=../input/example.gm2
+    bin/gm2calc.x --slha-input-file=../input/example.slha
+
+
+Contents
+========
+
+- [Requirements](#requirements)
+- [Building GM2Calc](#building-gm2calc)
+  * [Installation of dependencies](#installation-of-dependencies)
+  * [Compilation of GM2Calc](#compilation-of-gm2calc)
+- [Running GM2Calc](#running-gm2calc)
+  * [From the command line](#from-the-command-line)
+  * [From within Mathematica](#from-within-mathematica)
+- [Input parameters](#input-parameters)
+  * [SLHA input parameters](#slha-input-parameters)
+  * [GM2Calc input parameters](#gm2calc-input-parameters)
+  * [Block `GM2CalcConfig`](#block-gm2calcconfig)
+- [C/C++ interface](#cc-interface)
+- [Mathematica interface](#mathematica-interface)
+- [Source code documentation](#source-code-documentation)
+- [References](#references)
+
+
 Requirements
 ============
 
