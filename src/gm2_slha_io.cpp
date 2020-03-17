@@ -148,7 +148,7 @@ double GM2_slha_io::read_scale(const std::string& block_name) const
  * @param scale scale
  * @param eps absolute tolerance to treat two scales being the same
  */
-bool GM2_slha_io::at_scale(const SLHAea::Block& block, double scale, double eps)
+bool GM2_slha_io::is_at_scale(const SLHAea::Block& block, double scale, double eps)
 {
    if (is_zero(scale, std::numeric_limits<double>::epsilon())) {
       return true;
@@ -192,7 +192,7 @@ void GM2_slha_io::read_block(const std::string& block_name,
    auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
 
    while (block != data.cend()) {
-      if (at_scale(*block, scale)) {
+      if (is_at_scale(*block, scale)) {
          GM2_slha_io::read_block(*block, processor);
       }
 

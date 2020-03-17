@@ -96,7 +96,7 @@ private:
    SLHAea::Coll data;          ///< SHLA data
    template <class Scalar>
    static Scalar convert_to(const std::string&); ///< convert string
-   static bool at_scale(const SLHAea::Block&, double, double eps = 0.01); ///< check block scale
+   static bool is_at_scale(const SLHAea::Block&, double, double eps = 0.01); ///< check block scale
    static double read_scale(const SLHAea::Block&);
    static void read_block(const SLHAea::Block&, const Tuple_processor&);
 
@@ -143,7 +143,7 @@ void GM2_slha_io::read_block(const std::string& block_name,
    const int cols = matrix.cols(), rows = matrix.rows();
 
    while (block != data.cend()) {
-      if (at_scale(*block, scale)) {
+      if (is_at_scale(*block, scale)) {
          for (const auto& line: *block) {
             if (!line.is_data_line()) {
                continue;
