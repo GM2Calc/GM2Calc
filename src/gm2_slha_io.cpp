@@ -163,6 +163,24 @@ bool GM2_slha_io::at_scale(const SLHAea::Block& block, double scale, double eps)
  * Applies processor to each (key, value) pair of a SLHA block.
  * Non-data lines are ignored.
  *
+ * @param block the block
+ * @param processor tuple processor to be applied
+ */
+void GM2_slha_io::read_block(const SLHAea::Block& block, const Tuple_processor& processor)
+{
+   for (const auto& line : block) {
+      if (line.is_data_line() && line.size() >= 2) {
+         const auto key = convert_to<int>(line[0]);
+         const auto value = convert_to<double>(line[1]);
+         processor(key, value);
+      }
+   }
+}
+
+/**
+ * Applies processor to each (key, value) pair of a SLHA block.
+ * Non-data lines are ignored.
+ *
  * @param block_name block name
  * @param processor tuple processor to be applied
  * @param scale (or 0 if scale should be ignored)
@@ -175,13 +193,7 @@ void GM2_slha_io::read_block(const std::string& block_name,
 
    while (block != data.cend()) {
       if (at_scale(*block, scale)) {
-         for (const auto& line : *block) {
-            if (line.is_data_line() && line.size() >= 2) {
-               const auto key = convert_to<int>(line[0]);
-               const auto value = convert_to<double>(line[1]);
-               processor(key, value);
-            }
-         }
+         GM2_slha_io::read_block(*block, processor);
       }
 
       ++block;

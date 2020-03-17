@@ -98,6 +98,7 @@ private:
    static Scalar convert_to(const std::string&); ///< convert string
    static bool at_scale(const SLHAea::Block&, double, double eps = 0.01); ///< check block scale
    static double read_scale(const SLHAea::Block&);
+   static void read_block(const SLHAea::Block&, const Tuple_processor&);
 
    void fill_scale(MSSMNoFV_onshell&) const;
    void fill_alpha_from_gm2calcinput(MSSMNoFV_onshell&) const;
