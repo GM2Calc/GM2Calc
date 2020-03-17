@@ -67,7 +67,6 @@ public:
    void clear();
 
    // reading functions
-   const SLHAea::Coll& get_data() const { return data; }
    void read_from_file(const std::string&);
    void read_from_source(const std::string&);
    void read_from_stream(std::istream&);
@@ -77,7 +76,6 @@ public:
    double read_scale(const std::string&) const;
 
    // writing functions
-   void set_data(const SLHAea::Coll& data_) { data = data_; }
    void write_to_file(const std::string&);
    void write_to_stream(std::ostream&);
    void fill_block_entry(const std::string&, unsigned, double, const std::string&);
