@@ -138,23 +138,23 @@ void GM2_slha_io::read_block(const SLHAea::Block& block, Eigen::MatrixBase<Deriv
 {
    const int cols = matrix.cols(), rows = matrix.rows();
 
-   for (const auto& line: block) {
-      if (!line.is_data_line()) {
-         continue;
-      }
-
-      if (cols == 1) {
-         // vector
-         if (line.size() >= 2) {
+   // vector
+   if (cols == 1) {
+      for (const auto& line : block) {
+         if (line.is_data_line() && line.size() >= 2) {
             const int i = convert_to<int>(line[0]) - 1;
             if (0 <= i && i < rows) {
                const double value = convert_to<double>(line[1]);
                matrix(i) = value;
             }
          }
-      } else {
-         // martix
-         if (line.size() >= 3) {
+      }
+   }
+
+   // matrix
+   if (cols > 1) {
+      for (const auto& line: block) {
+         if (line.is_data_line() && line.size() >= 3) {
             const int i = convert_to<int>(line[0]) - 1;
             const int k = convert_to<int>(line[1]) - 1;
             if (0 <= i && i < rows && 0 <= k && k < cols) {
