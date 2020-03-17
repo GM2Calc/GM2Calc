@@ -99,6 +99,27 @@ void GM2_slha_io::read_from_stream(std::istream& istr)
 }
 
 /**
+ * Reads scale definition from an SLHA block.
+ *
+ * @param block block
+ *
+ * @return scale (or 0 if no scale is defined)
+ */
+double GM2_slha_io::read_scale(const SLHAea::Block& block)
+{
+   double scale = 0.0;
+
+   for (const auto& line : block) {
+      // read scale from block definition
+      if (line.is_block_def() && line.size() > 3 && line[2] == "Q=") {
+         scale = convert_to<double>(line[3]);
+      }
+   }
+
+   return scale;
+}
+
+/**
  * Reads scale definition from SLHA block.
  *
  * @param block_name block name
@@ -111,15 +132,7 @@ double GM2_slha_io::read_scale(const std::string& block_name) const
    auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
 
    while (block != data.cend()) {
-      for (const auto& line: *block) {
-         // read scale from block definition
-         if (line.is_block_def() &&
-             line.size() > 3 &&
-             line[2] == "Q=") {
-            scale = convert_to<double>(line[3]);
-         }
-      }
-
+      scale = GM2_slha_io::read_scale(*block);
       ++block;
       block = SLHAea::Coll::find(block, data.cend(), block_name);
    }
@@ -141,19 +154,9 @@ bool GM2_slha_io::at_scale(const SLHAea::Block& block, double scale, double eps)
       return true;
    }
 
-   for (const auto& line : block) {
-      // check scale from block definition matches argument
-      if (line.is_block_def() &&
-          line.size() > 3 &&
-          line[2] == "Q=") {
-         const auto block_scale = convert_to<double>(line[3]);
-         if (is_equal(scale, block_scale, eps)) {
-            return true;
-         }
-      }
-   }
+   const auto block_scale = GM2_slha_io::read_scale(block);
 
-   return false;
+   return is_equal(scale, block_scale, eps);
 }
 
 /**

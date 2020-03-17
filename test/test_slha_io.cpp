@@ -573,3 +573,45 @@ TEST_CASE("fill_block_entry")
 
    slha.write_to_stream(std::cout);
 }
+
+
+TEST_CASE("read_scale")
+{
+   const double eps = std::numeric_limits<double>::epsilon();
+
+   char const * const slha_input = R"(
+BLOCK VEC Q= 50
+    1   1
+    2   2
+    3   3
+BLOCK VEC Q= 100
+    1   1
+    2   2
+    3   3
+)";
+
+   std::istringstream stream(slha_input);
+   gm2calc::GM2_slha_io slha;
+   slha.read_from_stream(stream);
+   const double scale = slha.read_scale("VEC");
+   CHECK_CLOSE(scale, 100.0, eps);
+}
+
+
+TEST_CASE("read_scale_no_scale")
+{
+   const double eps = std::numeric_limits<double>::epsilon();
+
+   char const * const slha_input = R"(
+BLOCK VEC
+    1   1
+    2   2
+    3   3
+)";
+
+   std::istringstream stream(slha_input);
+   gm2calc::GM2_slha_io slha;
+   slha.read_from_stream(stream);
+   const double scale = slha.read_scale("VEC");
+   CHECK_CLOSE(scale, 0.0, eps);
+}
