@@ -94,13 +94,25 @@ public:
 
 private:
    SLHAea::Coll data;          ///< SHLA data
+
+   /// convert string to number
    template <class Scalar>
-   static Scalar convert_to(const std::string&); ///< convert string
-   static bool is_at_scale(const SLHAea::Block&, double, double eps = 0.01); ///< check block scale
-   static double read_scale(const SLHAea::Block&); ///< read scale from block
-   static void read_block(const SLHAea::Block&, const Tuple_processor&); ///< read block
+   static Scalar convert_to(const std::string&);
+   /// compare block scale
+   static bool is_at_scale(const SLHAea::Block&, double, double eps = 0.01);
+   /// read scale from block
+   static double read_scale(const SLHAea::Block&);
+   /// read block with tuple processor
+   static void read_block(const SLHAea::Block&, const Tuple_processor&);
+   /// read block into Eigen::MatrixBase
    template <class Derived>
    static void read_block(const SLHAea::Block&, Eigen::MatrixBase<Derived>&);
+   /// read block into matrix
+   template <class Derived>
+   static void read_matrix(const SLHAea::Block&, Eigen::MatrixBase<Derived>&);
+   /// read block into vector
+   template <class Derived>
+   static void read_vector(const SLHAea::Block&, Eigen::MatrixBase<Derived>&);
 
    void fill_scale(MSSMNoFV_onshell&) const;
    void fill_alpha_from_gm2calcinput(MSSMNoFV_onshell&) const;
@@ -134,35 +146,55 @@ Scalar GM2_slha_io::convert_to(const std::string& str)
  * @param matrix matrix to be filled
  */
 template <class Derived>
-void GM2_slha_io::read_block(const SLHAea::Block& block, Eigen::MatrixBase<Derived>& matrix)
+void GM2_slha_io::read_matrix(const SLHAea::Block& block, Eigen::MatrixBase<Derived>& matrix)
 {
    const int cols = matrix.cols(), rows = matrix.rows();
 
-   // vector
-   if (cols == 1) {
-      for (const auto& line : block) {
-         if (line.is_data_line() && line.size() >= 2) {
-            const int i = convert_to<int>(line[0]) - 1;
-            if (0 <= i && i < rows) {
-               const double value = convert_to<double>(line[1]);
-               matrix(i) = value;
-            }
+   for (const auto& line : block) {
+      if (line.is_data_line() && line.size() >= 3) {
+         const int i = convert_to<int>(line[0]) - 1;
+         const int k = convert_to<int>(line[1]) - 1;
+         if (0 <= i && i < rows && 0 <= k && k < cols) {
+            matrix(i, k) = convert_to<double>(line[2]);
          }
       }
    }
+}
 
-   // matrix
-   if (cols > 1) {
-      for (const auto& line: block) {
-         if (line.is_data_line() && line.size() >= 3) {
-            const int i = convert_to<int>(line[0]) - 1;
-            const int k = convert_to<int>(line[1]) - 1;
-            if (0 <= i && i < rows && 0 <= k && k < cols) {
-               const double value = convert_to<double>(line[2]);
-               matrix(i,k) = value;
-            }
+/**
+ * Fills a vector from an SLHA block
+ *
+ * @param block the block
+ * @param vector vector to be filled
+ */
+template <class Derived>
+void GM2_slha_io::read_vector(const SLHAea::Block& block, Eigen::MatrixBase<Derived>& vector)
+{
+   const int rows = vector.rows();
+
+   for (const auto& line : block) {
+      if (line.is_data_line() && line.size() >= 2) {
+         const int i = convert_to<int>(line[0]) - 1;
+         if (0 <= i && i < rows) {
+            vector(i) = convert_to<double>(line[1]);
          }
       }
+   }
+}
+
+/**
+ * Fills a matrix from an SLHA block
+ *
+ * @param block the block
+ * @param matrix matrix to be filled
+ */
+template <class Derived>
+void GM2_slha_io::read_block(const SLHAea::Block& block, Eigen::MatrixBase<Derived>& matrix)
+{
+   if (matrix.cols() == 1) {
+      GM2_slha_io::read_vector(block, matrix);
+   } else {
+      GM2_slha_io::read_matrix(block, matrix);
    }
 }
 
