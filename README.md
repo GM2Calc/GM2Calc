@@ -72,7 +72,8 @@ From the command line
 
 GM2Calc can be run from the command line using an SLHA input file or a
 custom GM2Calc input file (similar to SLHA, but different definition
-of input parameters).  See `bin/gm2calc.x --help` for all options.
+of input parameters in a mixed DR-bar/on-shell scheme).  See
+`bin/gm2calc.x --help` for all options.
 
 **Example:** Running GM2Calc with an SLHA input file:
 
@@ -82,7 +83,8 @@ or
 
     cat ../input/example.slha | bin/gm2calc.x --slha-input-file=-
 
-**Example:** Running GM2Calc with a custom GM2Calc input file:
+**Example:** Running GM2Calc with a custom GM2Calc input file (mixed
+DR-bar/on-shell scheme):
 
     bin/gm2calc.x --gm2calc-input-file=../input/example.gm2
 
@@ -128,28 +130,101 @@ Input parameters
 SLHA input parameters
 ---------------------
 
-When GM2Calc is called with an SLHA input file, for example as
+When GM2Calc is called with an
+[SLHA-1](https://arxiv.org/abs/hep-ph/0311123) input file, for example
+as
 
     bin/gm2calc.x --slha-input-file=../input/example.slha
 
 then the input parameters are read from the following blocks:
 
- * `SMINPUTS`: Standard Model fermion masses, W and Z pole masses,
-   alpha_s(MZ)
+ * `SMINPUTS`: α_s(MZ), Standard Model fermion masses, W and Z pole masses.
+
+   *Example:*
+
+       Block SMINPUTS
+            3     0.1184           # alpha_s(MZ) SM MS-bar [2L]
+            4     9.11876000E+01   # MZ(pole)              [1L]
+            5     4.18000000E+00   # mb(mb) SM MS-bar      [2L]
+            6     1.73340000E+02   # mtop(pole)            [2L]
+            7     1.77700000E+00   # mtau(pole)            [2L]
+            9     8.03850000E+01   # MW(pole)              [1L]
+           13     0.1056583715     # mmuon(pole)           [1L]
 
  * `MASS`: pole masses of SUSY particles, W pole mass.  If the W pole
    mass is given in `MASS[24]`, then this value will be used instead
    of the W pole mass given in `SMINPUTS[9]`.
 
- * `HMIX`: tan(beta), mu parameter, renormalization scale
+   *Example:*
 
- * `AU`, `AD`, `AE`: soft-breaking trilinear couplings,
-   renormalization scale
+       Block MASS                      # pole mass spectrum
+               24     8.03773317e+01   # W                 [1L]
+               36     1.50000000e+03   # A0                [2L]
+          1000022     2.01611468e+02   # neutralino(1)     [1L]
+          1000023     4.10040273e+02   # neutralino(2)     [1L]
+          1000024     4.09989890e+02   # chargino(1)       [1L]
+          1000025    -5.16529941e+02   # neutralino(3)     [1L]
+          1000035     5.45628749e+02   # neutralino(4)     [1L]
+          1000037     5.46057190e+02   # chargino(2)       [1L]
+          1000013     5.25187016e+02   # smuon(1)          [1L]
+          1000014     5.18860573e+02   # muon sneutrino    [1L]
+          2000013     5.05095249e+02   # smuon(2)          [1L]
+
+
+ * `HMIX`: μ parameter (initial guess), tan(β), renormalization scale Q
+
+   *Example:*
+
+       Block HMIX Q= 1.00000000e+03   # renormalization scale
+            1     4.89499929e+02      # mu(Q) MSSM DR-bar   [initial guess]
+            2     3.93371545e+01      # tan(beta)(Q) MSSM DR-bar Feynman gauge [1L]
+
+ * `AU`, `AD`, `AE`: soft-breaking trilinear couplings at the
+   renormalization scale Q, which has been read from the `HMIX` block
+
+   *Example:*
+
+       Block AU Q= 1.00000000e+03
+         3  3     1.57871614e-05      # At(Q)              [2L]
+       Block AD Q= 1.00000000e+03
+         3  3     8.99561673e-06      # Ab(Q)              [2L]
+       Block AE Q= 1.00000000e+03
+         2  2     2.84230475e-06      # Amu(Q) MSSM DR-bar [1L]
+         3  3     3.02719242e-06      # Atau(Q)            [2L]
 
  * `MSOFT`: soft-breaking gaugino masses, soft-breaking sfermion
-   masses, renormalization scale
+   masses at the renormalization scale Q, which has been read from the
+   `HMIX` block
 
- * `GM2CalcInput`: alpha_em(MZ), alpha_em in the Thomson limit
+   *Example:*
+
+       Block MSOFT Q= 1.00000000e+03
+            1     2.00000000e+02      # M_1(Q)             [initial guess]
+            2     4.00000000e+02      # M_2(Q)             [initial guess]
+            3     2.00000000e+03      # M_3(Q)             [2L]
+           31     5.00000000e+02      # meL(Q)             [2L]
+           32     5.00000000e+02      # mmuL(Q)            [irrelevant]
+           33     3.00000000e+03      # mtauL(Q)           [2L]
+           34     4.99999999e+02      # meR(Q)             [2L]
+           35     4.99999999e+02      # mmuR(Q)            [initial guess]
+           36     3.00000000e+03      # mtauR(Q)           [2L]
+           41     7.00000000e+03      # mqL1(Q)            [2L]
+           42     7.00000000e+03      # mqL2(Q)            [2L]
+           43     6.99999999e+03      # mqL3(Q)            [2L]
+           44     7.00000000e+03      # muR(Q)             [2L]
+           45     7.00000000e+03      # mcR(Q)             [2L]
+           46     6.99999999e+03      # mtR(Q)             [2L]
+           47     7.00000000e+03      # mdR(Q)             [2L]
+           48     7.00000000e+03      # msR(Q)             [2L]
+           49     7.00000000e+03      # mbR(Q)             [2L]
+
+ * `GM2CalcInput`: α_em(MZ), α_em(0) in the Thomson limit
+
+   *Example:*
+
+       Block GM2CalcInput
+            1     0.00775520       # alpha(MZ)             [1L]
+            2     0.00729735       # alpha(0)              [2L]
 
 See `input/example.slha` for an example SLHA input file.
 
@@ -173,19 +248,68 @@ GM2Calc input parameters
 ------------------------
 
 When GM2Calc is called with an input file in the custom GM2Calc
-format, for example as
+format (in a mixed DR-bar/on-shell scheme), for example as
 
     bin/gm2calc.x --gm2calc-input-file=../input/example.gm2
 
 then the input parameters are read from the following blocks:
 
- * `SMINPUTS`: Standard Model fermion masses, W and Z pole masses,
-   alpha_s(MZ)
+ * `SMINPUTS`: α_s(MZ), Standard Model fermion masses, W and Z pole masses.
 
- * `GM2CalcInput`: renormalization scale, alpha_em(MZ), alpha_em in
-   the Thomson limit, tan(beta), mu parameter, soft-breaking gaugino
-   masses, soft-breaking Bmu parameter, soft-breaking sfermion masses,
-   soft-breaking trilinear couplings
+   *Example:*
+
+       Block SMINPUTS
+            3     0.1184           # alpha_s(MZ) SM MS-bar [2L]
+            4     9.11876000E+01   # MZ(pole)              [1L]
+            5     4.18000000E+00   # mb(mb) SM MS-bar      [2L]
+            6     1.73340000E+02   # mtop(pole)            [2L]
+            7     1.77700000E+00   # mtau(pole)            [2L]
+            9     8.03850000E+01   # MW(pole)              [1L]
+           13     0.1056583715     # mmuon(pole)           [1L]
+
+ * `GM2CalcInput`: renormalization scale Q, α_em(MZ), α_em(0) in the
+   Thomson limit, tan(β) (DR-bar scheme), μ parameter (on-shell),
+   soft-breaking gaugino masses (M1 and M2 in on-shell scheme), CP-odd
+   Higgs pole mass MA, soft-breaking sfermion masses (msl(2,2) and
+   mse(2,2) in on-shell scheme), soft-breaking trilinear couplings
+   (Ae(2,2) in DR-bar scheme)
+
+   *Example:*
+
+       Block GM2CalcInput
+            0     8.66360379E+02   # ren. scale Q          [2L]
+            1     0.00775531       # alpha(MZ)             [1L]
+            2     0.00729735       # alpha(0)              [2L]
+            3     10               # tan(beta) DR-bar at Q [1L]
+            4     619.858          # mu parameter on-shell [1L]
+            5     211.722          # M1 on-shell           [1L]
+            6     401.057          # M2 on-shell           [1L]
+            7     1.10300877E+03   # M3                    [2L]
+            8     707.025          # MA(pole)              [2L]
+            9     3.51653258E+02   # msl(1,1)              [2L]
+           10     356.09           # msl(2,2) on-shell     [1L]
+           11     3.50674223E+02   # msl(3,3)              [2L]
+           12     2.21215037E+02   # mse(1,1)              [2L]
+           13     225.076          # mse(2,2) on-shell     [1L]
+           14     2.18022142E+02   # mse(3,3)              [2L]
+           15     1.00711403E+03   # msq(1,1)              [2L]
+           16     1.00711149E+03   # msq(2,2)              [2L]
+           17     9.29083096E+02   # msq(3,3)              [2L]
+           18     9.69369660E+02   # msu(1,1)              [2L]
+           19     9.69366965E+02   # msu(2,2)              [2L]
+           20     7.99712943E+02   # msu(3,3)              [2L]
+           21     9.64756473E+02   # msd(1,1)              [2L]
+           22     9.64753818E+02   # msd(2,2)              [2L]
+           23     9.60016201E+02   # msd(3,3)              [2L]
+           24     0                # Ae(1,1)               [irrelevant]
+           25    -2.93720212E+02   # Ae(2,2) DR-bar        [1L]
+           26    -2.92154796E+02   # Ae(3,3)               [2L]
+           27     0                # Ad(1,1)               [irrelevant]
+           28     0                # Ad(2,2)               [irrelevant]
+           29    -1.28330100E+03   # Ad(3,3)               [2L]
+           30     0                # Au(1,1)               [irrelevant]
+           31     0                # Au(2,2)               [irrelevant]
+           32    -8.70714986E+02   # Au(3,3)               [2L]
 
 See `input/example.gm2` for an example input file with custom GM2Calc
 input parameters.
