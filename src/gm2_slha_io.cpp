@@ -246,7 +246,7 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
    if (block == data.cend()) {
       SLHAea::Block block;
       block.str("Block " + block_name);
-      data.push_back(block);
+      data.push_front(block);
    }
 
    data[block_name][entry] = (FORMAT_SPINFO(entry, description)).str();
