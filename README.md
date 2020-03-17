@@ -440,7 +440,7 @@ can be openend with your favourite web browser, e.g.
 References
 ==========
 
-GM2Calc has been published in
+GM2Calc has been published in [`Athron:2015rva`]
 
 - Peter Athron, Markus Bach, Helvecio G. Fargnoli, Christoph
   Gnendiger, Robert Greifenhagen, Jae-hyeon Park, Sebastian Paßehr,
