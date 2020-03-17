@@ -450,7 +450,7 @@ void read_integer(double value, T& result, T min, T max, const char* error_msg)
    }
 }
 
-void read_non_zero(double value, double& result)
+void read_double_non_zero(double value, double& result)
 {
    const double eps = std::numeric_limits<double>::epsilon();
 
@@ -646,7 +646,7 @@ void process_mass_tuple(
    case 2000005: physical.MSb(1) = value;   break;
    case 1000006: physical.MSt(0) = value;   break;
    case 2000006: physical.MSt(1) = value;   break;
-   case 24     : read_non_zero(value, physical.MVWm); break;
+   case 24     : read_double_non_zero(value, physical.MVWm); break;
    case 25     : physical.Mhh(0) = value;   break;
    case 35     : physical.Mhh(1) = value;   break;
    case 36     : physical.MAh(1) = value;   break;
