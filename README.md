@@ -407,7 +407,7 @@ Mathematica interface
 =====================
 
 After the GM2Calc MathLink executable has been loaded by
-e.g. `Install["bin/gm2calc.mx"]`, the following Functions are
+e.g. `Install["bin/gm2calc.mx"]`, the following functions are
 available:
 
 | Function                | Description                                                |
