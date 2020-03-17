@@ -97,8 +97,8 @@ private:
    template <class Scalar>
    static Scalar convert_to(const std::string&); ///< convert string
    static bool is_at_scale(const SLHAea::Block&, double, double eps = 0.01); ///< check block scale
-   static double read_scale(const SLHAea::Block&);
-   static void read_block(const SLHAea::Block&, const Tuple_processor&);
+   static double read_scale(const SLHAea::Block&); ///< read scale from block
+   static void read_block(const SLHAea::Block&, const Tuple_processor&); ///< read block
 
    void fill_scale(MSSMNoFV_onshell&) const;
    void fill_alpha_from_gm2calcinput(MSSMNoFV_onshell&) const;
