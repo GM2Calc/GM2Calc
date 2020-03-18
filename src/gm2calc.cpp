@@ -488,8 +488,7 @@ struct SLHA_writer {
       if (model.get_problems().have_warning()) {
          slha_io.fill_block_entry("SPINFO", 1, "GM2Calc");
          slha_io.fill_block_entry("SPINFO", 2, GM2CALC_VERSION);
-         slha_io.fill_block_entry("SPINFO", 3,
-                                  model.get_problems().get_warnings());
+         slha_io.fill_block_entry("SPINFO", 3, model.get_problems().get_warnings());
       }
 
       slha_io.write_to_stream(std::cout);
