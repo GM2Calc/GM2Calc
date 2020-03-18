@@ -35,9 +35,6 @@
 
 namespace {
 
-/// SLHA entry (block name, key, value, comment)
-using SLHA_entry = std::tuple<std::string, int, double, std::string>;
-
 /// reader function
 using Reader = std::function<void(gm2calc::MSSMNoFV_onshell&,
                                   const gm2calc::GM2_slha_io& slha_io)>;
@@ -479,6 +476,9 @@ struct Detailed_writer {
  * @param slha_io SLHA i/o object where results are stored
  */
 struct SLHA_writer {
+   /// SLHA entry (block name, key, value, comment)
+   using SLHA_entry = std::tuple<std::string, int, double, std::string>;
+
    void operator()(const gm2calc::MSSMNoFV_onshell& model,
                    const gm2calc::Config_options& options,
                    gm2calc::GM2_slha_io& slha_io)
