@@ -33,10 +33,13 @@ double calculate_amu_2loop_non_tan_beta_resummed(const MSSMNoFV_onshell&);
 
 // main routines
 
+/// 2-loop fermion/sfermion contribution (approximation)
 double amu2LFSfapprox(const MSSMNoFV_onshell&);
+
+/// 2-loop fermion/sfermion contribution (approximation) w/o tan(beta) resummation
 double amu2LFSfapprox_non_tan_beta_resummed(const MSSMNoFV_onshell&);
 
-// routines for individual contributions
+// routines for individual fermion/sfermion contributions
 
 double amuWHnu2L(const MSSMNoFV_onshell&);
 double amuWHmuL2L(const MSSMNoFV_onshell&);
@@ -46,12 +49,18 @@ double amuBmuLmuR2L(const MSSMNoFV_onshell&);
 
 // === photonic 2-loop corrections ===
 
+/// 2-loop photonic chargino contribution
 double amuChipmPhotonic(const MSSMNoFV_onshell&);
+
+/// 2-loop photonic neutralino contribution
 double amuChi0Photonic(const MSSMNoFV_onshell&);
 
 // === SUSY 2L(a) diagrams ===
 
+/// 2-loop 2L(a) sfermion contribution
 double amu2LaSferm(const MSSMNoFV_onshell&);
+
+/// 2-loop 2L(a) chargino/neutralino contribution
 double amu2LaCha(const MSSMNoFV_onshell&);
 
 } // namespace gm2calc
