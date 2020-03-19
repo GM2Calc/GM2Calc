@@ -29,7 +29,7 @@ double calculate_amu_2loop(const MSSMNoFV_onshell&);
 /// calculates best 2-loop SUSY contributions to a_mu in the MSSM (no tan(beta) resummation)
 double calculate_amu_2loop_non_tan_beta_resummed(const MSSMNoFV_onshell&);
 
-// === 2-loop fermion/sfermion approximations ===
+// === routines for individual 2-loop contributions ===
 
 /// 2-loop fermion/sfermion contribution (approximation)
 double amu2LFSfapprox(const MSSMNoFV_onshell&);
@@ -37,15 +37,11 @@ double amu2LFSfapprox(const MSSMNoFV_onshell&);
 /// 2-loop fermion/sfermion contribution (approximation) w/o tan(beta) resummation
 double amu2LFSfapprox_non_tan_beta_resummed(const MSSMNoFV_onshell&);
 
-// === photonic 2-loop corrections ===
-
 /// 2-loop photonic chargino contribution
 double amu2LChipmPhotonic(const MSSMNoFV_onshell&);
 
 /// 2-loop photonic neutralino contribution
 double amu2LChi0Photonic(const MSSMNoFV_onshell&);
-
-// === SUSY 2L(a) diagrams ===
 
 /// 2-loop 2L(a) sfermion contribution
 double amu2LaSferm(const MSSMNoFV_onshell&);
