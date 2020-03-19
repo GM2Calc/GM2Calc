@@ -31,21 +31,11 @@ double calculate_amu_2loop_non_tan_beta_resummed(const MSSMNoFV_onshell&);
 
 // === 2-loop fermion/sfermion approximations ===
 
-// main routines
-
 /// 2-loop fermion/sfermion contribution (approximation)
 double amu2LFSfapprox(const MSSMNoFV_onshell&);
 
 /// 2-loop fermion/sfermion contribution (approximation) w/o tan(beta) resummation
 double amu2LFSfapprox_non_tan_beta_resummed(const MSSMNoFV_onshell&);
-
-// routines for individual fermion/sfermion contributions
-
-double amu2LWHnu(const MSSMNoFV_onshell&);
-double amu2LWHmuL(const MSSMNoFV_onshell&);
-double amu2LBHmuL(const MSSMNoFV_onshell&);
-double amu2LBHmuR(const MSSMNoFV_onshell&);
-double amu2LBmuLmuR(const MSSMNoFV_onshell&);
 
 // === photonic 2-loop corrections ===
 

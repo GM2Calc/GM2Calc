@@ -25,11 +25,36 @@ namespace gm2calc {
 
 class MSSMNoFV_onshell;
 
+// === 1-loop approximations ===
+
+// main routines
+
+/// 1-loop leading log approximation
+double amu1Lapprox(const MSSMNoFV_onshell&);
+
+/// 1-loop leading log approximation w/o explicit tan(beta) resummation
+double amu1Lapprox_non_tan_beta_resummed(const MSSMNoFV_onshell&);
+
+// routines for individual 1-loop contributions for approximations
+
+/// 1-loop wino--Higgsino, muon-sneutrino leading log approximation
+double amu1LWHnu(const MSSMNoFV_onshell&);
+/// 1-loop wino--Higgsino, left-handed smuon leading log approximation
+double amu1LWHmuL(const MSSMNoFV_onshell&);
+/// 1-loop bino--Higgsino, left-handed smuon leading log approximation
+double amu1LBHmuL(const MSSMNoFV_onshell&);
+/// 1-loop bino--Higgsino, right-handed smuon leading log approximation
+double amu1LBHmuR(const MSSMNoFV_onshell&);
+/// 1-loop bino, left-handed smuon--right-handed smuon leading log approximation
+double amu1LBmuLmuR(const MSSMNoFV_onshell&);
+
 // === resummations ===
 
 double delta_mu_correction(const MSSMNoFV_onshell&);
 double delta_tau_correction(const MSSMNoFV_onshell&);
 double delta_bottom_correction(const MSSMNoFV_onshell&);
+
+double tan_beta_cor(const MSSMNoFV_onshell&);
 
 // === couplings ===
 

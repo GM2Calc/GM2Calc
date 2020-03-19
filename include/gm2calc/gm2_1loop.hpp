@@ -37,33 +37,6 @@ double amu1LChi0(const MSSMNoFV_onshell&);
 /// 1-loop chargino contribution
 double amu1LChipm(const MSSMNoFV_onshell&);
 
-// === approximations ===
-
-// main routines
-
-/// 1-loop leading log approximation
-double amu1Lapprox(const MSSMNoFV_onshell&);
-
-/// 1-loop leading log approximation w/o explicit tan(beta) resummation
-double amu1Lapprox_non_tan_beta_resummed(const MSSMNoFV_onshell&);
-
-// routines for individual contributions
-
-/// 1-loop wino--Higgsino, muon-sneutrino leading log approximation
-double amu1LWHnu(const MSSMNoFV_onshell&);
-/// 1-loop wino--Higgsino, left-handed smuon leading log approximation
-double amu1LWHmuL(const MSSMNoFV_onshell&);
-/// 1-loop bino--Higgsino, left-handed smuon leading log approximation
-double amu1LBHmuL(const MSSMNoFV_onshell&);
-/// 1-loop bino--Higgsino, right-handed smuon leading log approximation
-double amu1LBHmuR(const MSSMNoFV_onshell&);
-/// 1-loop bino, left-handed smuon--right-handed smuon leading log approximation
-double amu1LBmuLmuR(const MSSMNoFV_onshell&);
-
-// === resummation ===
-
-double tan_beta_cor(const MSSMNoFV_onshell&);
-
 } // namespace gm2calc
 
 #endif

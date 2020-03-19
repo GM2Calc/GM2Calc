@@ -26,6 +26,16 @@ namespace gm2calc {
 class MSSMNoFV_onshell;
 
 // === 2-loop fermion/sfermion approximations ===
+
+// routines for individual fermion/sfermion 2-loop contributions for
+// approximations
+
+double amu2LWHnu(const MSSMNoFV_onshell&);
+double amu2LWHmuL(const MSSMNoFV_onshell&);
+double amu2LBHmuL(const MSSMNoFV_onshell&);
+double amu2LBHmuR(const MSSMNoFV_onshell&);
+double amu2LBmuLmuR(const MSSMNoFV_onshell&);
+
 // routines for sub-expressions
 
 double LogNorm(const MSSMNoFV_onshell&);
@@ -38,6 +48,7 @@ double Delta_YukWinoHiggsino(const MSSMNoFV_onshell&);
 double Delta_TanBeta(const MSSMNoFV_onshell&);
 
 // === SUSY 2L(a) diagrams ===
+
 // routines for sub-expressions (with tan(beta) resummation)
 
 double tan_alpha(const MSSMNoFV_onshell&);
