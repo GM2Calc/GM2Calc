@@ -90,7 +90,7 @@ double calculate_amu_2loop(const MSSMNoFV_onshell& model)
  * Calculates \f$m_{SUSY}\f$, p.37 arxiv:1311.1775.
  * Finds minimum of special masses to normalize logarithms.
  */
-double log_norm(const MSSMNoFV_onshell& model)
+double log_scale(const MSSMNoFV_onshell& model)
 {
    return std::fmin(std::abs(model.get_MassB()),
            std::fmin(std::abs(model.get_MassWB()),
@@ -113,7 +113,7 @@ double delta_g1(const MSSMNoFV_onshell& model)
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
    const Eigen::Matrix<double,3,3>& me2(model.get_me2());
    const Eigen::Matrix<double,3,3>& ml2(model.get_ml2());
-   const double LogScale = log_norm(model);
+   const double LogScale = log_scale(model);
 
    return sqr(gY) * oneOver16PiSqr * 4. / 3. *
           (4. / 3. * std::log(std::sqrt(mu2(0, 0)) / LogScale) +
@@ -146,7 +146,7 @@ double delta_YukHiggsino(const MSSMNoFV_onshell& model)
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
    const Eigen::Matrix<double,3,3>& me2(model.get_me2());
    const Eigen::Matrix<double,3,3>& ml2(model.get_ml2());
-   const double LogScale = log_norm(model);
+   const double LogScale = log_scale(model);
 
    return oneOver16PiSqr * 0.5 *
           (3. * sqr(ytop) * std::log(std::sqrt(mu2(2, 2)) / LogScale) +
@@ -166,7 +166,7 @@ double delta_YukBinoHiggsino(const MSSMNoFV_onshell& model)
    const double ytop = model.get_Yu(2, 2);
    const Eigen::Matrix<double,3,3>& mu2(model.get_mu2());
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
-   const double LogScale = log_norm(model);
+   const double LogScale = log_scale(model);
 
    return oneOver16PiSqr * sqr(ytop) *
           (-8. * std::log(std::sqrt(mu2(2, 2)) / LogScale) +
@@ -184,7 +184,7 @@ double delta_g2(const MSSMNoFV_onshell& model)
    const double g2 = model.get_g2();
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
    const Eigen::Matrix<double,3,3>& ml2(model.get_ml2());
-   const double LogScale = log_norm(model);
+   const double LogScale = log_scale(model);
 
    return sqr(g2) * oneOver16PiSqr * 4. / 3. *
           (1.5 * std::log(std::sqrt(mq2(0, 0)) / LogScale) +
@@ -203,7 +203,7 @@ double delta_YukWinoHiggsino(const MSSMNoFV_onshell& model)
 {
    const double ytop = model.get_Yu(2, 2);
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
-   const double LogScale = log_norm(model);
+   const double LogScale = log_scale(model);
 
    return oneOver16PiSqr * (-6.) * sqr(ytop) *
           std::log(std::sqrt(mq2(2, 2)) / LogScale);
@@ -217,7 +217,7 @@ double delta_TanBeta(const MSSMNoFV_onshell& model)
    const double ytau = model.get_Ye(2, 2);
    const double ytop = model.get_Yu(2, 2);
    const double ybot = model.get_Yd(2, 2);
-   const double LogScale = log_norm(model);
+   const double LogScale = log_scale(model);
    const double MUDIM = model.get_MUDIM();
 
    return oneOver16PiSqr * (sqr(ytau) - 3. * sqr(ytop) + 3. * sqr(ybot)) *

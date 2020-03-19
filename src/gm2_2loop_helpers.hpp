@@ -38,7 +38,7 @@ double amu2LBmuLmuR(const MSSMNoFV_onshell&);
 
 // routines for sub-expressions
 
-double log_norm(const MSSMNoFV_onshell&);
+double log_scale(const MSSMNoFV_onshell&);
 
 double delta_g1(const MSSMNoFV_onshell&);
 double delta_g2(const MSSMNoFV_onshell&);
