@@ -62,7 +62,7 @@ struct MSSMNoFV_onshell_physical;
  */
 class GM2_slha_io {
 public:
-   typedef std::function<void(int, double)> Tuple_processor;
+   using Tuple_processor = std::function<void(int, double)>;
 
    void clear();
 
