@@ -90,7 +90,7 @@ double calculate_amu_2loop(const MSSMNoFV_onshell& model)
  * Calculates \f$m_{SUSY}\f$, p.37 arxiv:1311.1775.
  * Finds minimum of special masses to normalize logarithms.
  */
-double LogNorm(const MSSMNoFV_onshell& model)
+double log_norm(const MSSMNoFV_onshell& model)
 {
    return std::fmin(std::abs(model.get_MassB()),
            std::fmin(std::abs(model.get_MassWB()),
@@ -105,7 +105,7 @@ double LogNorm(const MSSMNoFV_onshell& model)
  * Contributions from 1st and 2nd generation sleptons have been
  * included in addition.
  */
-double Delta_g1(const MSSMNoFV_onshell& model)
+double delta_g1(const MSSMNoFV_onshell& model)
 {
    const double gY = model.get_gY();
    const Eigen::Matrix<double,3,3>& mu2(model.get_mu2());
@@ -113,7 +113,7 @@ double Delta_g1(const MSSMNoFV_onshell& model)
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
    const Eigen::Matrix<double,3,3>& me2(model.get_me2());
    const Eigen::Matrix<double,3,3>& ml2(model.get_ml2());
-   const double LogScale = LogNorm(model);
+   const double LogScale = log_norm(model);
 
    return sqr(gY) * oneOver16PiSqr * 4. / 3. *
           (4. / 3. * std::log(std::sqrt(mu2(0, 0)) / LogScale) +
@@ -136,7 +136,7 @@ double Delta_g1(const MSSMNoFV_onshell& model)
 /**
  * Calculates \f$\Delta_{\tilde{H}}\f$, Eq (6.6c) arxiv:1311.1775.
  */
-double Delta_YukHiggsino(const MSSMNoFV_onshell& model)
+double delta_YukHiggsino(const MSSMNoFV_onshell& model)
 {
    const double ytau = model.get_Ye(2, 2);
    const double ytop = model.get_Yu(2, 2);
@@ -146,7 +146,7 @@ double Delta_YukHiggsino(const MSSMNoFV_onshell& model)
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
    const Eigen::Matrix<double,3,3>& me2(model.get_me2());
    const Eigen::Matrix<double,3,3>& ml2(model.get_ml2());
-   const double LogScale = LogNorm(model);
+   const double LogScale = log_norm(model);
 
    return oneOver16PiSqr * 0.5 *
           (3. * sqr(ytop) * std::log(std::sqrt(mu2(2, 2)) / LogScale) +
@@ -161,12 +161,12 @@ double Delta_YukHiggsino(const MSSMNoFV_onshell& model)
  * Calculates \f$\Delta_{\tilde{B}\tilde{H}}\f$, Eq (6.6d)
  * arxiv:1311.1775.
  */
-double Delta_YukBinoHiggsino(const MSSMNoFV_onshell& model)
+double delta_YukBinoHiggsino(const MSSMNoFV_onshell& model)
 {
    const double ytop = model.get_Yu(2, 2);
    const Eigen::Matrix<double,3,3>& mu2(model.get_mu2());
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
-   const double LogScale = LogNorm(model);
+   const double LogScale = log_norm(model);
 
    return oneOver16PiSqr * sqr(ytop) *
           (-8. * std::log(std::sqrt(mu2(2, 2)) / LogScale) +
@@ -179,12 +179,12 @@ double Delta_YukBinoHiggsino(const MSSMNoFV_onshell& model)
  * Contributions from 1st and 2nd generation sleptons have been
  * included in addition.
  */
-double Delta_g2(const MSSMNoFV_onshell& model)
+double delta_g2(const MSSMNoFV_onshell& model)
 {
    const double g2 = model.get_g2();
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
    const Eigen::Matrix<double,3,3>& ml2(model.get_ml2());
-   const double LogScale = LogNorm(model);
+   const double LogScale = log_norm(model);
 
    return sqr(g2) * oneOver16PiSqr * 4. / 3. *
           (1.5 * std::log(std::sqrt(mq2(0, 0)) / LogScale) +
@@ -199,11 +199,11 @@ double Delta_g2(const MSSMNoFV_onshell& model)
  * Calculates \f$\Delta_{\tilde{W}\tilde{H}}\f$, Eq (6.6e)
  * arxiv:1311.1775.
  */
-double Delta_YukWinoHiggsino(const MSSMNoFV_onshell& model)
+double delta_YukWinoHiggsino(const MSSMNoFV_onshell& model)
 {
    const double ytop = model.get_Yu(2, 2);
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
-   const double LogScale = LogNorm(model);
+   const double LogScale = log_norm(model);
 
    return oneOver16PiSqr * (-6.) * sqr(ytop) *
           std::log(std::sqrt(mq2(2, 2)) / LogScale);
@@ -212,12 +212,12 @@ double Delta_YukWinoHiggsino(const MSSMNoFV_onshell& model)
 /**
  * Calculates \f$\Delta_{t_\beta}\f$, Eq (6.6f) arxiv:1311.1775.
  */
-double Delta_TanBeta(const MSSMNoFV_onshell& model)
+double delta_TanBeta(const MSSMNoFV_onshell& model)
 {
    const double ytau = model.get_Ye(2, 2);
    const double ytop = model.get_Yu(2, 2);
    const double ybot = model.get_Yd(2, 2);
-   const double LogScale = LogNorm(model);
+   const double LogScale = log_norm(model);
    const double MUDIM = model.get_MUDIM();
 
    return oneOver16PiSqr * (sqr(ytau) - 3. * sqr(ytop) + 3. * sqr(ybot)) *
@@ -230,8 +230,8 @@ double Delta_TanBeta(const MSSMNoFV_onshell& model)
 double amu2LWHnu(const MSSMNoFV_onshell& model)
 {
    return amu1LWHnu(model) *
-          (0.015 + Delta_g2(model) + Delta_YukHiggsino(model) +
-           Delta_YukWinoHiggsino(model) + Delta_TanBeta(model));
+          (0.015 + delta_g2(model) + delta_YukHiggsino(model) +
+           delta_YukWinoHiggsino(model) + delta_TanBeta(model));
 }
 
 /**
@@ -240,8 +240,8 @@ double amu2LWHnu(const MSSMNoFV_onshell& model)
 double amu2LWHmuL(const MSSMNoFV_onshell& model)
 {
    return amu1LWHmuL(model) *
-          (0.015 + Delta_g2(model) + Delta_YukHiggsino(model) +
-           Delta_YukWinoHiggsino(model) + Delta_TanBeta(model));
+          (0.015 + delta_g2(model) + delta_YukHiggsino(model) +
+           delta_YukWinoHiggsino(model) + delta_TanBeta(model));
 }
 
 /**
@@ -250,8 +250,8 @@ double amu2LWHmuL(const MSSMNoFV_onshell& model)
 double amu2LBHmuL(const MSSMNoFV_onshell& model)
 {
    return amu1LBHmuL(model) *
-          (0.015 + Delta_g1(model) + Delta_YukHiggsino(model) +
-           Delta_YukBinoHiggsino(model) + Delta_TanBeta(model));
+          (0.015 + delta_g1(model) + delta_YukHiggsino(model) +
+           delta_YukBinoHiggsino(model) + delta_TanBeta(model));
 }
 
 /**
@@ -260,8 +260,8 @@ double amu2LBHmuL(const MSSMNoFV_onshell& model)
 double amu2LBHmuR(const MSSMNoFV_onshell& model)
 {
    return amu1LBHmuR(model) *
-          (0.04 + Delta_g1(model) + Delta_YukHiggsino(model) +
-           Delta_YukBinoHiggsino(model) + Delta_TanBeta(model));
+          (0.04 + delta_g1(model) + delta_YukHiggsino(model) +
+           delta_YukBinoHiggsino(model) + delta_TanBeta(model));
 }
 
 /**
@@ -270,7 +270,7 @@ double amu2LBHmuR(const MSSMNoFV_onshell& model)
 double amu2LBmuLmuR(const MSSMNoFV_onshell& model)
 {
    return amu1LBmuLmuR(model) *
-          (0.03 + Delta_g1(model) + Delta_TanBeta(model));
+          (0.03 + delta_g1(model) + delta_TanBeta(model));
 }
 
 /**
@@ -364,7 +364,7 @@ double amu2LChi0Photonic(const MSSMNoFV_onshell& model)
 // ==== amu2Loop_a corrections ====
 
 /**
- * The following functions include resummation of 1/(1+Delta_mu) within
+ * The following functions include resummation of 1/(1 + Delta_mu) within
  * the muon, tau and bottom Yukawa couplings.
  */
 

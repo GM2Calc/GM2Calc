@@ -38,14 +38,14 @@ double amu2LBmuLmuR(const MSSMNoFV_onshell&);
 
 // routines for sub-expressions
 
-double LogNorm(const MSSMNoFV_onshell&);
+double log_norm(const MSSMNoFV_onshell&);
 
-double Delta_g1(const MSSMNoFV_onshell&);
-double Delta_g2(const MSSMNoFV_onshell&);
-double Delta_YukHiggsino(const MSSMNoFV_onshell&);
-double Delta_YukBinoHiggsino(const MSSMNoFV_onshell&);
-double Delta_YukWinoHiggsino(const MSSMNoFV_onshell&);
-double Delta_TanBeta(const MSSMNoFV_onshell&);
+double delta_g1(const MSSMNoFV_onshell&);
+double delta_g2(const MSSMNoFV_onshell&);
+double delta_YukHiggsino(const MSSMNoFV_onshell&);
+double delta_YukBinoHiggsino(const MSSMNoFV_onshell&);
+double delta_YukWinoHiggsino(const MSSMNoFV_onshell&);
+double delta_TanBeta(const MSSMNoFV_onshell&);
 
 // === SUSY 2L(a) diagrams ===
 
