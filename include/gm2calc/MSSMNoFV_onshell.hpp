@@ -78,8 +78,6 @@ public:
    double get_EL0() const { return EL0; }
    /// Hypercharge gauge coupling
    double get_gY() const { return sqrt(0.6) * get_g1(); }
-   /// renormalization scale
-   double get_MUDIM() const { return get_scale(); }
    /// tan(beta) DR-bar
    double get_TB() const;
    /// Vacuum expectation value v

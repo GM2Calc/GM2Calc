@@ -378,8 +378,6 @@ Block AE Q= 1.00000000e+03
    CHECK_CLOSE(model.get_BMu()  , 2.5e+05*scb   , eps);
    CHECK_CLOSE(model.get_scale(), 1.00000000e+03, eps);
 
-   CHECK_CLOSE(model.get_MUDIM(), model.get_scale(), eps);
-
    // Block MSOFT
    CHECK_CLOSE(model.get_MassB() , 2.00000000e+02, eps);
    CHECK_CLOSE(model.get_MassWB(), 4.00000000e+02, eps);
