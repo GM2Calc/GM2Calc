@@ -16,8 +16,8 @@
  * <http://www.gnu.org/licenses/>.
  * ==================================================================== */
 
-#ifndef GM2_MSSMNoFV_onshell_C_H
-#define GM2_MSSMNoFV_onshell_C_H
+#ifndef GM2_MSSMNoFV_ONSHELL_H
+#define GM2_MSSMNoFV_ONSHELL_H
 
 /**
  * @file MSSMNoFV_onshell.h

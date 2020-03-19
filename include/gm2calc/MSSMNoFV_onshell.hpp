@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_MSSMNoFV_onshell_H
-#define GM2_MSSMNoFV_onshell_H
+#ifndef GM2_MSSMNoFV_ONSHELL_HPP
+#define GM2_MSSMNoFV_ONSHELL_HPP
 
 #include "MSSMNoFV_onshell_mass_eigenstates.hpp"
 

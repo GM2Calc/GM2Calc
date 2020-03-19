@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_LINALG_H
-#define GM2_LINALG_H
+#ifndef GM2_LINALG_HPP
+#define GM2_LINALG_HPP
 
 #include "gm2_functional.hpp"
 

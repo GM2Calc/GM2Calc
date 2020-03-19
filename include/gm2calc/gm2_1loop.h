@@ -16,8 +16,8 @@
  * <http://www.gnu.org/licenses/>.
  * ==================================================================== */
 
-#ifndef GM2_1LOOP_C_H
-#define GM2_1LOOP_C_H
+#ifndef GM2_1LOOP_H
+#define GM2_1LOOP_H
 
 #include "MSSMNoFV_onshell.h"
 

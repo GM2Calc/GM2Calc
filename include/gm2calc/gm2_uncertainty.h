@@ -16,8 +16,8 @@
  * <http://www.gnu.org/licenses/>.
  * ==================================================================== */
 
-#ifndef GM2_UNCERTAINTY_C_H
-#define GM2_UNCERTAINTY_C_H
+#ifndef GM2_UNCERTAINTY_H
+#define GM2_UNCERTAINTY_H
 
 #include "MSSMNoFV_onshell.h"
 

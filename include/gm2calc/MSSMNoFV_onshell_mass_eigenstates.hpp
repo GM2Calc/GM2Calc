@@ -26,8 +26,8 @@
  * 1.2.1 (git commit: v1.2.1-49-gfc4c300) and SARAH 4.5.8 .
  */
 
-#ifndef GM2_MSSMNoFV_onshell_MASS_EIGENSTATES_H
-#define GM2_MSSMNoFV_onshell_MASS_EIGENSTATES_H
+#ifndef GM2_MSSMNoFV_ONSHELL_MASS_EIGENSTATES_HPP
+#define GM2_MSSMNoFV_ONSHELL_MASS_EIGENSTATES_HPP
 
 #include "MSSMNoFV_onshell_soft_parameters.hpp"
 #include "MSSMNoFV_onshell_physical.hpp"

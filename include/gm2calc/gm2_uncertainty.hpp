@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_UNCERTAINTY_H
-#define GM2_UNCERTAINTY_H
+#ifndef GM2_UNCERTAINTY_HPP
+#define GM2_UNCERTAINTY_HPP
 
 namespace gm2calc {
 

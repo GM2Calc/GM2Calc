@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef DILOG_H
-#define DILOG_H
+#ifndef GM2_DILOG_HPP
+#define GM2_DILOG_HPP
 
 #include <complex>
 

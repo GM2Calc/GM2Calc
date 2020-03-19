@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_COMPARE_H
-#define GM2_COMPARE_H
+#ifndef GM2_FUNCTIONAL_HPP
+#define GM2_FUNCTIONAL_HPP
 
 #include <cmath>
 #include <Eigen/Core>

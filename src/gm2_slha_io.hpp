@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_SLHA_IO_H
-#define GM2_SLHA_IO_H
+#ifndef GM2_SLHA_IO_HPP
+#define GM2_SLHA_IO_HPP
 
 #include "gm2calc/gm2_error.hpp"
 

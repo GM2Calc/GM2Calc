@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_ERROR_H
-#define GM2_ERROR_H
+#ifndef GM2_ERROR_HPP
+#define GM2_ERROR_HPP
 
 #include <stdexcept>
 #include <string>

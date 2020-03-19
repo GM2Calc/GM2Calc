@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_EIGEN_UTILS_H
-#define GM2_EIGEN_UTILS_H
+#ifndef GM2_EIGEN_UTILS_HPP
+#define GM2_EIGEN_UTILS_HPP
 
 #include "gm2_functional.hpp"
 #include <Eigen/Core>

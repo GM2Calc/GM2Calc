@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_CONFIG_OPTIONS_H
-#define GM2_CONFIG_OPTIONS_H
+#ifndef GM2_CONFIG_OPTIONS_HPP
+#define GM2_CONFIG_OPTIONS_HPP
 
 namespace gm2calc {
 
