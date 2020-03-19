@@ -113,24 +113,24 @@ double delta_g1(const MSSMNoFV_onshell& model)
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
    const Eigen::Matrix<double,3,3>& me2(model.get_me2());
    const Eigen::Matrix<double,3,3>& ml2(model.get_ml2());
-   const double LogScale = log_scale(model);
+   const double logscale = log_scale(model);
 
    return sqr(gY) * oneOver16PiSqr * 4. / 3. *
-          (4. / 3. * std::log(std::sqrt(mu2(0, 0)) / LogScale) +
-           4. / 3. * std::log(std::sqrt(mu2(1, 1)) / LogScale) +
-           4. / 3. * std::log(std::sqrt(mu2(2, 2)) / LogScale) +
-           1. / 3. * std::log(std::sqrt(md2(0, 0)) / LogScale) +
-           1. / 3. * std::log(std::sqrt(md2(1, 1)) / LogScale) +
-           1. / 3. * std::log(std::sqrt(md2(2, 2)) / LogScale) +
-           1. / 6. * std::log(std::sqrt(mq2(0, 0)) / LogScale) +
-           1. / 6. * std::log(std::sqrt(mq2(1, 1)) / LogScale) +
-           1. / 6. * std::log(std::sqrt(mq2(2, 2)) / LogScale) +
-           std::log(std::sqrt(me2(0, 0)) / LogScale) +
-           std::log(std::sqrt(me2(1, 1)) / LogScale) +
-           std::log(std::sqrt(me2(2, 2)) / LogScale) +
-           0.5 * std::log(std::sqrt(ml2(0, 0)) / LogScale) +
-           0.5 * std::log(std::sqrt(ml2(1, 1)) / LogScale) +
-           0.5 * std::log(std::sqrt(ml2(2, 2)) / LogScale));
+          (4. / 3. * std::log(std::sqrt(mu2(0, 0)) / logscale) +
+           4. / 3. * std::log(std::sqrt(mu2(1, 1)) / logscale) +
+           4. / 3. * std::log(std::sqrt(mu2(2, 2)) / logscale) +
+           1. / 3. * std::log(std::sqrt(md2(0, 0)) / logscale) +
+           1. / 3. * std::log(std::sqrt(md2(1, 1)) / logscale) +
+           1. / 3. * std::log(std::sqrt(md2(2, 2)) / logscale) +
+           1. / 6. * std::log(std::sqrt(mq2(0, 0)) / logscale) +
+           1. / 6. * std::log(std::sqrt(mq2(1, 1)) / logscale) +
+           1. / 6. * std::log(std::sqrt(mq2(2, 2)) / logscale) +
+           std::log(std::sqrt(me2(0, 0)) / logscale) +
+           std::log(std::sqrt(me2(1, 1)) / logscale) +
+           std::log(std::sqrt(me2(2, 2)) / logscale) +
+           0.5 * std::log(std::sqrt(ml2(0, 0)) / logscale) +
+           0.5 * std::log(std::sqrt(ml2(1, 1)) / logscale) +
+           0.5 * std::log(std::sqrt(ml2(2, 2)) / logscale));
 }
 
 /**
@@ -146,15 +146,15 @@ double delta_yuk_higgsino(const MSSMNoFV_onshell& model)
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
    const Eigen::Matrix<double,3,3>& me2(model.get_me2());
    const Eigen::Matrix<double,3,3>& ml2(model.get_ml2());
-   const double LogScale = log_scale(model);
+   const double logscale = log_scale(model);
 
    return oneOver16PiSqr * 0.5 *
-          (3. * sqr(ytop) * std::log(std::sqrt(mu2(2, 2)) / LogScale) +
-           3. * sqr(ybot) * std::log(std::sqrt(md2(2, 2)) / LogScale) +
+          (3. * sqr(ytop) * std::log(std::sqrt(mu2(2, 2)) / logscale) +
+           3. * sqr(ybot) * std::log(std::sqrt(md2(2, 2)) / logscale) +
            3. * (sqr(ytop) + sqr(ybot)) *
-              std::log(std::sqrt(mq2(2, 2)) / LogScale) +
-           sqr(ytau) * (std::log(std::sqrt(me2(2, 2)) / LogScale) +
-                        std::log(std::sqrt(ml2(2, 2)) / LogScale)));
+              std::log(std::sqrt(mq2(2, 2)) / logscale) +
+           sqr(ytau) * (std::log(std::sqrt(me2(2, 2)) / logscale) +
+                        std::log(std::sqrt(ml2(2, 2)) / logscale)));
 }
 
 /**
@@ -166,11 +166,11 @@ double delta_yuk_bino_higgsino(const MSSMNoFV_onshell& model)
    const double ytop = model.get_Yu(2, 2);
    const Eigen::Matrix<double,3,3>& mu2(model.get_mu2());
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
-   const double LogScale = log_scale(model);
+   const double logscale = log_scale(model);
 
    return oneOver16PiSqr * sqr(ytop) *
-          (-8. * std::log(std::sqrt(mu2(2, 2)) / LogScale) +
-           2. * std::log(std::sqrt(mq2(2, 2)) / LogScale));
+          (-8. * std::log(std::sqrt(mu2(2, 2)) / logscale) +
+           2. * std::log(std::sqrt(mq2(2, 2)) / logscale));
 }
 
 /**
@@ -184,15 +184,15 @@ double delta_g2(const MSSMNoFV_onshell& model)
    const double g2 = model.get_g2();
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
    const Eigen::Matrix<double,3,3>& ml2(model.get_ml2());
-   const double LogScale = log_scale(model);
+   const double logscale = log_scale(model);
 
    return sqr(g2) * oneOver16PiSqr * 4. / 3. *
-          (1.5 * std::log(std::sqrt(mq2(0, 0)) / LogScale) +
-           1.5 * std::log(std::sqrt(mq2(1, 1)) / LogScale) +
-           1.5 * std::log(std::sqrt(mq2(2, 2)) / LogScale) +
-           0.5 * std::log(std::sqrt(ml2(0, 0)) / LogScale) +
-           0.5 * std::log(std::sqrt(ml2(1, 1)) / LogScale) +
-           0.5 * std::log(std::sqrt(ml2(2, 2)) / LogScale));
+          (1.5 * std::log(std::sqrt(mq2(0, 0)) / logscale) +
+           1.5 * std::log(std::sqrt(mq2(1, 1)) / logscale) +
+           1.5 * std::log(std::sqrt(mq2(2, 2)) / logscale) +
+           0.5 * std::log(std::sqrt(ml2(0, 0)) / logscale) +
+           0.5 * std::log(std::sqrt(ml2(1, 1)) / logscale) +
+           0.5 * std::log(std::sqrt(ml2(2, 2)) / logscale));
 }
 
 /**
@@ -203,10 +203,10 @@ double delta_yuk_wino_higgsino(const MSSMNoFV_onshell& model)
 {
    const double ytop = model.get_Yu(2, 2);
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
-   const double LogScale = log_scale(model);
+   const double logscale = log_scale(model);
 
    return oneOver16PiSqr * (-6.) * sqr(ytop) *
-          std::log(std::sqrt(mq2(2, 2)) / LogScale);
+          std::log(std::sqrt(mq2(2, 2)) / logscale);
 }
 
 /**
@@ -217,11 +217,11 @@ double delta_tan_beta(const MSSMNoFV_onshell& model)
    const double ytau = model.get_Ye(2, 2);
    const double ytop = model.get_Yu(2, 2);
    const double ybot = model.get_Yd(2, 2);
-   const double LogScale = log_scale(model);
-   const double MUDIM = model.get_MUDIM();
+   const double logscale = log_scale(model);
+   const double Q = model.get_scale();
 
    return oneOver16PiSqr * (sqr(ytau) - 3. * sqr(ytop) + 3. * sqr(ybot)) *
-          std::log(MUDIM / LogScale);
+          std::log(Q / logscale);
 }
 
 /**
@@ -311,7 +311,7 @@ double amu2LChipmPhotonic(const MSSMNoFV_onshell& model)
    const Eigen::Array<double,2,1>& MCha(model.get_MCha());
    const double MSvmL = model.get_MSvmL();
    const Eigen::Array<double,2,1> x__k(x_k(model));
-   const double mu_DREG = model.get_MUDIM();
+   const double Q = model.get_scale();
 
    double result = 0.;
 
@@ -323,7 +323,7 @@ double amu2LChipmPhotonic(const MSSMNoFV_onshell& model)
                   - 61. * MCha(k) / 9. * BBC_(k) / model.get_MM() * F4C(x__k(k))
                   - (0.5 * AAC_(k) * F1C(x__k(k))
                      + MCha(k) * BBC_(k) / model.get_MM() * F2C(x__k(k)))
-                    * std::log(sqr(MSvmL / mu_DREG));
+                    * std::log(sqr(MSvmL / Q));
    }
 
    return  sqr(model.get_EL0()) * sqr(oneOver16PiSqr) * sqr(MM / MSvmL) * result;
@@ -341,7 +341,7 @@ double amu2LChi0Photonic(const MSSMNoFV_onshell& model)
    const Eigen::Array<double,4,1>& MNeu(model.get_MChi());
    const Eigen::Array<double,2,1>& MSmu(model.get_MSm());
    const Eigen::Matrix<double,4,2> x__im(x_im(model));
-   const double mu_DREG = model.get_MUDIM();
+   const double Q = model.get_scale();
 
    double result = 0.;
 
@@ -354,7 +354,7 @@ double amu2LChi0Photonic(const MSSMNoFV_onshell& model)
                       + 35. / 72. * AAN_(i, m) * F3N(x__im(i, m))
                       + 8. * MNeu(i) / 9. * BBN_(i, m) / model.get_MM() * F4N(x__im(i, m))
                       + (0.25 * AAN_(i, m) * F1N(x__im(i, m)))
-                       * std::log(sqr(MSmu(m) / mu_DREG)) );
+                       * std::log(sqr(MSmu(m) / Q)) );
       }
    }
 
