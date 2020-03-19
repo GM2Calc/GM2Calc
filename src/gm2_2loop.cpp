@@ -136,7 +136,7 @@ double delta_g1(const MSSMNoFV_onshell& model)
 /**
  * Calculates \f$\Delta_{\tilde{H}}\f$, Eq (6.6c) arxiv:1311.1775.
  */
-double delta_YukHiggsino(const MSSMNoFV_onshell& model)
+double delta_yuk_higgsino(const MSSMNoFV_onshell& model)
 {
    const double ytau = model.get_Ye(2, 2);
    const double ytop = model.get_Yu(2, 2);
@@ -161,7 +161,7 @@ double delta_YukHiggsino(const MSSMNoFV_onshell& model)
  * Calculates \f$\Delta_{\tilde{B}\tilde{H}}\f$, Eq (6.6d)
  * arxiv:1311.1775.
  */
-double delta_YukBinoHiggsino(const MSSMNoFV_onshell& model)
+double delta_yuk_bino_higgsino(const MSSMNoFV_onshell& model)
 {
    const double ytop = model.get_Yu(2, 2);
    const Eigen::Matrix<double,3,3>& mu2(model.get_mu2());
@@ -199,7 +199,7 @@ double delta_g2(const MSSMNoFV_onshell& model)
  * Calculates \f$\Delta_{\tilde{W}\tilde{H}}\f$, Eq (6.6e)
  * arxiv:1311.1775.
  */
-double delta_YukWinoHiggsino(const MSSMNoFV_onshell& model)
+double delta_yuk_wino_higgsino(const MSSMNoFV_onshell& model)
 {
    const double ytop = model.get_Yu(2, 2);
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
@@ -212,7 +212,7 @@ double delta_YukWinoHiggsino(const MSSMNoFV_onshell& model)
 /**
  * Calculates \f$\Delta_{t_\beta}\f$, Eq (6.6f) arxiv:1311.1775.
  */
-double delta_TanBeta(const MSSMNoFV_onshell& model)
+double delta_tan_beta(const MSSMNoFV_onshell& model)
 {
    const double ytau = model.get_Ye(2, 2);
    const double ytop = model.get_Yu(2, 2);
@@ -230,8 +230,8 @@ double delta_TanBeta(const MSSMNoFV_onshell& model)
 double amu2LWHnu(const MSSMNoFV_onshell& model)
 {
    return amu1LWHnu(model) *
-          (0.015 + delta_g2(model) + delta_YukHiggsino(model) +
-           delta_YukWinoHiggsino(model) + delta_TanBeta(model));
+          (0.015 + delta_g2(model) + delta_yuk_higgsino(model) +
+           delta_yuk_wino_higgsino(model) + delta_tan_beta(model));
 }
 
 /**
@@ -240,8 +240,8 @@ double amu2LWHnu(const MSSMNoFV_onshell& model)
 double amu2LWHmuL(const MSSMNoFV_onshell& model)
 {
    return amu1LWHmuL(model) *
-          (0.015 + delta_g2(model) + delta_YukHiggsino(model) +
-           delta_YukWinoHiggsino(model) + delta_TanBeta(model));
+          (0.015 + delta_g2(model) + delta_yuk_higgsino(model) +
+           delta_yuk_wino_higgsino(model) + delta_tan_beta(model));
 }
 
 /**
@@ -250,8 +250,8 @@ double amu2LWHmuL(const MSSMNoFV_onshell& model)
 double amu2LBHmuL(const MSSMNoFV_onshell& model)
 {
    return amu1LBHmuL(model) *
-          (0.015 + delta_g1(model) + delta_YukHiggsino(model) +
-           delta_YukBinoHiggsino(model) + delta_TanBeta(model));
+          (0.015 + delta_g1(model) + delta_yuk_higgsino(model) +
+           delta_yuk_bino_higgsino(model) + delta_tan_beta(model));
 }
 
 /**
@@ -260,8 +260,8 @@ double amu2LBHmuL(const MSSMNoFV_onshell& model)
 double amu2LBHmuR(const MSSMNoFV_onshell& model)
 {
    return amu1LBHmuR(model) *
-          (0.04 + delta_g1(model) + delta_YukHiggsino(model) +
-           delta_YukBinoHiggsino(model) + delta_TanBeta(model));
+          (0.04 + delta_g1(model) + delta_yuk_higgsino(model) +
+           delta_yuk_bino_higgsino(model) + delta_tan_beta(model));
 }
 
 /**
@@ -270,7 +270,7 @@ double amu2LBHmuR(const MSSMNoFV_onshell& model)
 double amu2LBmuLmuR(const MSSMNoFV_onshell& model)
 {
    return amu1LBmuLmuR(model) *
-          (0.03 + delta_g1(model) + delta_TanBeta(model));
+          (0.03 + delta_g1(model) + delta_tan_beta(model));
 }
 
 /**

@@ -42,10 +42,10 @@ double log_scale(const MSSMNoFV_onshell&);
 
 double delta_g1(const MSSMNoFV_onshell&);
 double delta_g2(const MSSMNoFV_onshell&);
-double delta_YukHiggsino(const MSSMNoFV_onshell&);
-double delta_YukBinoHiggsino(const MSSMNoFV_onshell&);
-double delta_YukWinoHiggsino(const MSSMNoFV_onshell&);
-double delta_TanBeta(const MSSMNoFV_onshell&);
+double delta_yuk_higgsino(const MSSMNoFV_onshell&);
+double delta_yuk_bino_higgsino(const MSSMNoFV_onshell&);
+double delta_yuk_wino_higgsino(const MSSMNoFV_onshell&);
+double delta_tan_beta(const MSSMNoFV_onshell&);
 
 // === SUSY 2L(a) diagrams ===
 
