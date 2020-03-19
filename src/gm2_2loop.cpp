@@ -229,10 +229,8 @@ double Delta_TanBeta(const MSSMNoFV_onshell& model)
  */
 double amu2LWHnu(const MSSMNoFV_onshell& model)
 {
-   const double test1 = 0.75;
-
    return amu1LWHnu(model) *
-          (.02 * test1 + Delta_g2(model) + Delta_YukHiggsino(model) +
+          (0.015 + Delta_g2(model) + Delta_YukHiggsino(model) +
            Delta_YukWinoHiggsino(model) + Delta_TanBeta(model));
 }
 
@@ -241,10 +239,8 @@ double amu2LWHnu(const MSSMNoFV_onshell& model)
  */
 double amu2LWHmuL(const MSSMNoFV_onshell& model)
 {
-   const double test2 = 0.75;
-
    return amu1LWHmuL(model) *
-          (.02 * test2 + Delta_g2(model) + Delta_YukHiggsino(model) +
+          (0.015 + Delta_g2(model) + Delta_YukHiggsino(model) +
            Delta_YukWinoHiggsino(model) + Delta_TanBeta(model));
 }
 
@@ -253,10 +249,8 @@ double amu2LWHmuL(const MSSMNoFV_onshell& model)
  */
 double amu2LBHmuL(const MSSMNoFV_onshell& model)
 {
-   const double test3 = 0.75;
-
    return amu1LBHmuL(model) *
-          (.02 * test3 + Delta_g1(model) + Delta_YukHiggsino(model) +
+          (0.015 + Delta_g1(model) + Delta_YukHiggsino(model) +
            Delta_YukBinoHiggsino(model) + Delta_TanBeta(model));
 }
 
@@ -265,10 +259,8 @@ double amu2LBHmuL(const MSSMNoFV_onshell& model)
  */
 double amu2LBHmuR(const MSSMNoFV_onshell& model)
 {
-   const double test4 = 2.0;
-
    return amu1LBHmuR(model) *
-          (.02 * test4 + Delta_g1(model) + Delta_YukHiggsino(model) +
+          (0.04 + Delta_g1(model) + Delta_YukHiggsino(model) +
            Delta_YukBinoHiggsino(model) + Delta_TanBeta(model));
 }
 
@@ -277,10 +269,8 @@ double amu2LBHmuR(const MSSMNoFV_onshell& model)
  */
 double amu2LBmuLmuR(const MSSMNoFV_onshell& model)
 {
-   const double test5 = 1.5;
-
    return amu1LBmuLmuR(model) *
-          (.02 * test5 + Delta_g1(model) + Delta_TanBeta(model));
+          (0.03 + Delta_g1(model) + Delta_TanBeta(model));
 }
 
 /**
