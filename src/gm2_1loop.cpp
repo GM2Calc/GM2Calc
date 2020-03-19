@@ -84,7 +84,8 @@ double calculate_amu_1loop(const MSSMNoFV_onshell& model)
  * Calculates 1-loop neutralino contribution to (g-2), Eq (2.11a) of
  * arXiv:1311.1775.
  */
-double amu1LChi0(const MSSMNoFV_onshell& model) {
+double amu1LChi0(const MSSMNoFV_onshell& model)
+{
    const Eigen::Array<double,2,1>& m_smu(model.get_MSm());
    const Eigen::Matrix<double,4,2> AAN_(AAN(model));
    const Eigen::Matrix<double,4,2> BBN_(BBN(model));
@@ -108,7 +109,8 @@ double amu1LChi0(const MSSMNoFV_onshell& model) {
  * Calculates 1-loop chargino contribution to (g-2), Eq (2.11b) of
  * arXiv:1311.1775.
  */
-double amu1LChipm(const MSSMNoFV_onshell& model) {
+double amu1LChipm(const MSSMNoFV_onshell& model)
+{
    const Eigen::Array<double,2,1> x__k(x_k(model));
    const double MSvm(model.get_MSvmL());
    const Eigen::Array<double,2,1> AAC_(AAC(model));
@@ -130,7 +132,8 @@ double amu1LChipm(const MSSMNoFV_onshell& model) {
  * Calculates \f$n^L_{i\tilde{l}_k}\f$, Eq (2.5o) of arXiv:1311.1775,
  * for \f$l=\mu\f$
  */
-Eigen::Matrix<std::complex<double>,4,2> n_L(const MSSMNoFV_onshell& model) {
+Eigen::Matrix<std::complex<double>,4,2> n_L(const MSSMNoFV_onshell& model)
+{
    const double gY(model.get_gY());
    const double g2(model.get_g2());
    const double ymu(model.get_Ye(1, 1));
@@ -155,7 +158,8 @@ Eigen::Matrix<std::complex<double>,4,2> n_L(const MSSMNoFV_onshell& model) {
  * Calculates \f$n^R_{i\tilde{l}_k}\f$, Eq (2.5p) of arXiv:1311.1775,
  * with \f$l=\mu\f$.
  */
-Eigen::Matrix<std::complex<double>,4,2> n_R(const MSSMNoFV_onshell& model) {
+Eigen::Matrix<std::complex<double>,4,2> n_R(const MSSMNoFV_onshell& model)
+{
    const double gY(model.get_gY());
    const double ymu(model.get_Ye(1, 1));
    const Eigen::Matrix<std::complex<double>,4,4>& ZN(model.get_ZN());
@@ -180,7 +184,8 @@ Eigen::Matrix<std::complex<double>,4,2> n_R(const MSSMNoFV_onshell& model) {
  * This expression is the complex conjugate of Eq. (50) of
  * arXiv:hep-ph/0609168.
  */
-Eigen::Array<std::complex<double>,2,1> c_L(const MSSMNoFV_onshell& model) {
+Eigen::Array<std::complex<double>,2,1> c_L(const MSSMNoFV_onshell& model)
+{
    const double g2 = model.get_g2();
    const Eigen::Matrix<std::complex<double>,2,2>& UP(model.get_UP());
 
@@ -199,7 +204,8 @@ Eigen::Array<std::complex<double>,2,1> c_L(const MSSMNoFV_onshell& model) {
  *
  * This expression is equal to Eq. (51) of arXiv:hep-ph/0609168.
  */
-Eigen::Array<std::complex<double>,2,1> c_R(const MSSMNoFV_onshell& model) {
+Eigen::Array<std::complex<double>,2,1> c_R(const MSSMNoFV_onshell& model)
+{
    const double ymu = model.get_Ye(1, 1);
    const Eigen::Matrix<std::complex<double>,2,2>& UM(model.get_UM());
 
@@ -220,7 +226,8 @@ Eigen::Array<std::complex<double>,2,1> c_R(const MSSMNoFV_onshell& model) {
  * This expression is identical to \f$|c^L_{im}|^2 + |c^R_{im}|^2\f$,
  * which appears in Eq. (47) of arXiv:hep-ph/0609168.
  */
-Eigen::Array<double,2,1> AAC(const MSSMNoFV_onshell& model) {
+Eigen::Array<double,2,1> AAC(const MSSMNoFV_onshell& model)
+{
    const Eigen::Array<std::complex<double>,2,1> c__L(c_L(model));
    const Eigen::Array<std::complex<double>,2,1> c__R(c_R(model));
 
@@ -241,7 +248,8 @@ Eigen::Array<double,2,1> AAC(const MSSMNoFV_onshell& model) {
  * This expression is identical to \f$|n^L_{im}|^2 + |n^R_{im}|^2\f$,
  * which appears in Eq. (46) of arXiv:hep-ph/0609168.
  */
-Eigen::Matrix<double,4,2> AAN(const MSSMNoFV_onshell& model) {
+Eigen::Matrix<double,4,2> AAN(const MSSMNoFV_onshell& model)
+{
    const Eigen::Matrix<std::complex<double>,4,2> n__L(n_L(model));
    const Eigen::Matrix<std::complex<double>,4,2> n__R(n_R(model));
 
@@ -261,7 +269,8 @@ Eigen::Matrix<double,4,2> AAN(const MSSMNoFV_onshell& model) {
  * [(c^L_{i\tilde{\nu}_\mu})^* c^R_{i\tilde{\nu}_\mu}]\f$,
  * Eqs (2.11b), (2.7b) in arXiv:1311.1775.
  */
-Eigen::Array<double,2,1> BBC(const MSSMNoFV_onshell& model) {
+Eigen::Array<double,2,1> BBC(const MSSMNoFV_onshell& model)
+{
    const Eigen::Array<std::complex<double>,2,1> c__L(c_L(model));
    const Eigen::Array<std::complex<double>,2,1> c__R(c_R(model));
 
@@ -279,7 +288,8 @@ Eigen::Array<double,2,1> BBC(const MSSMNoFV_onshell& model) {
  * [(n^L_{i\tilde{\mu}_m})^* n^R_{i\tilde{\mu}_m}]\f$, Eqs (2.11a),
  * (2.7b) in arXiv:1311.1775.
  */
-Eigen::Matrix<double,4,2> BBN(const MSSMNoFV_onshell& model) {
+Eigen::Matrix<double,4,2> BBN(const MSSMNoFV_onshell& model)
+{
    const Eigen::Matrix<std::complex<double>,4,2> n__L = n_L(model);
    const Eigen::Matrix<std::complex<double>,4,2> n__R = n_R(model);
 
@@ -298,7 +308,8 @@ Eigen::Matrix<double,4,2> BBN(const MSSMNoFV_onshell& model) {
  * Calculates \f$x_{im} = m^2_{\chi_i^0} / m^2_{\tilde{\mu}_m}\f$,
  * which appears in Eq (46) of arXiv:hep-ph/0609168.
  */
-Eigen::Matrix<double,4,2> x_im(const MSSMNoFV_onshell& model) {
+Eigen::Matrix<double,4,2> x_im(const MSSMNoFV_onshell& model)
+{
    const Eigen::Array<double,2,1>& m_smu(model.get_MSm());
    const Eigen::Array<double,4,1>& MChi(model.get_MChi());
 
@@ -333,7 +344,8 @@ Eigen::Array<double,2,1> x_k(const MSSMNoFV_onshell& model) {
  * Calculates the 1-loop leading log approximation: Wino--Higgsino,
  * muon-sneutrino, Eq (6.2a) arXiv:1311.1775
  */
-double amu1LWHnu(const MSSMNoFV_onshell& model) {
+double amu1LWHnu(const MSSMNoFV_onshell& model)
+{
    const double tan_beta = model.get_TB();
    const double M2 = model.get_MassWB();
    const double MUE = model.get_Mu();
@@ -348,7 +360,8 @@ double amu1LWHnu(const MSSMNoFV_onshell& model) {
  * Calculates the 1-loop leading log approximation: Wino--Higgsino,
  * left-handed smuon, Eq (6.2b) arXiv:1311.1775
  */
-double amu1LWHmuL(const MSSMNoFV_onshell& model) {
+double amu1LWHmuL(const MSSMNoFV_onshell& model)
+{
    const double tan_beta = model.get_TB();
    const double M2 = model.get_MassWB();
    const double MUE = model.get_Mu();
@@ -363,7 +376,8 @@ double amu1LWHmuL(const MSSMNoFV_onshell& model) {
  * Calculates the 1-loop leading log approximation: Bino--Higgsino,
  * left-handed smuon, Eq (6.2c) arXiv:1311.1775
  */
-double amu1LBHmuL(const MSSMNoFV_onshell& model) {
+double amu1LBHmuL(const MSSMNoFV_onshell& model)
+{
    const double tan_beta = model.get_TB();
    const double M1 = model.get_MassB();
    const double MUE = model.get_Mu();
@@ -379,7 +393,8 @@ double amu1LBHmuL(const MSSMNoFV_onshell& model) {
  * Calculates the 1-loop leading log approximation: Bino--Higgsino,
  * right-handed smuon, Eq (6.2d) arXiv:1311.1775
  */
-double amu1LBHmuR(const MSSMNoFV_onshell& model) {
+double amu1LBHmuR(const MSSMNoFV_onshell& model)
+{
    const double tan_beta = model.get_TB();
    const double M1 = model.get_MassB();
    const double MUE = model.get_Mu();
@@ -395,7 +410,8 @@ double amu1LBHmuR(const MSSMNoFV_onshell& model) {
  * Calculates the 1-loop leading log approximation: Bino, left-handed
  * smuon, right-handed smuon, Eq (6.2e) arXiv:1311.1775
  */
-double amu1LBmuLmuR(const MSSMNoFV_onshell& model) {
+double amu1LBmuLmuR(const MSSMNoFV_onshell& model)
+{
    const double tan_beta = model.get_TB();
    const double M1 = model.get_MassB();
    const double MUE = model.get_Mu();
@@ -458,7 +474,8 @@ double tan_beta_cor(const MSSMNoFV_onshell& model)
  *
  * @return \f$\Delta_{\ell}\f$
  */
-double delta_down_lepton_correction(const MSSMNoFV_onshell& model, int gen) {
+double delta_down_lepton_correction(const MSSMNoFV_onshell& model, int gen)
+{
    const double mu = model.get_Mu();
    const double TB = model.get_TB();
    const double g2 = model.get_g2();

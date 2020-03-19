@@ -88,10 +88,10 @@ double calculate_amu_2loop(const MSSMNoFV_onshell& model)
 
 /**
  * Calculates \f$m_{SUSY}\f$, p.37 arxiv:1311.1775.
+ * Finds minimum of special masses to normalize logarithms.
  */
-double LogNorm(const MSSMNoFV_onshell& model) {
-   // function to find minimum special masses to normalize logarithms
-
+double LogNorm(const MSSMNoFV_onshell& model)
+{
    return std::fmin(std::abs(model.get_MassB()),
            std::fmin(std::abs(model.get_MassWB()),
             std::fmin(std::abs(model.get_Mu()),
@@ -105,7 +105,8 @@ double LogNorm(const MSSMNoFV_onshell& model) {
  * Contributions from 1st and 2nd generation sleptons have been
  * included in addition.
  */
-double Delta_g1(const MSSMNoFV_onshell& model) {
+double Delta_g1(const MSSMNoFV_onshell& model)
+{
    const double gY = model.get_gY();
    const Eigen::Matrix<double,3,3>& mu2(model.get_mu2());
    const Eigen::Matrix<double,3,3>& md2(model.get_md2());
@@ -135,7 +136,8 @@ double Delta_g1(const MSSMNoFV_onshell& model) {
 /**
  * Calculates \f$\Delta_{\tilde{H}}\f$, Eq (6.6c) arxiv:1311.1775.
  */
-double Delta_YukHiggsino(const MSSMNoFV_onshell& model) {
+double Delta_YukHiggsino(const MSSMNoFV_onshell& model)
+{
    const double ytau = model.get_Ye(2, 2);
    const double ytop = model.get_Yu(2, 2);
    const double ybot = model.get_Yd(2, 2);
@@ -159,7 +161,8 @@ double Delta_YukHiggsino(const MSSMNoFV_onshell& model) {
  * Calculates \f$\Delta_{\tilde{B}\tilde{H}}\f$, Eq (6.6d)
  * arxiv:1311.1775.
  */
-double Delta_YukBinoHiggsino(const MSSMNoFV_onshell& model) {
+double Delta_YukBinoHiggsino(const MSSMNoFV_onshell& model)
+{
    const double ytop = model.get_Yu(2, 2);
    const Eigen::Matrix<double,3,3>& mu2(model.get_mu2());
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
@@ -176,7 +179,8 @@ double Delta_YukBinoHiggsino(const MSSMNoFV_onshell& model) {
  * Contributions from 1st and 2nd generation sleptons have been
  * included in addition.
  */
-double Delta_g2(const MSSMNoFV_onshell& model) {
+double Delta_g2(const MSSMNoFV_onshell& model)
+{
    const double g2 = model.get_g2();
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
    const Eigen::Matrix<double,3,3>& ml2(model.get_ml2());
@@ -195,7 +199,8 @@ double Delta_g2(const MSSMNoFV_onshell& model) {
  * Calculates \f$\Delta_{\tilde{W}\tilde{H}}\f$, Eq (6.6e)
  * arxiv:1311.1775.
  */
-double Delta_YukWinoHiggsino(const MSSMNoFV_onshell& model) {
+double Delta_YukWinoHiggsino(const MSSMNoFV_onshell& model)
+{
    const double ytop = model.get_Yu(2, 2);
    const Eigen::Matrix<double,3,3>& mq2(model.get_mq2());
    const double LogScale = LogNorm(model);
@@ -207,7 +212,8 @@ double Delta_YukWinoHiggsino(const MSSMNoFV_onshell& model) {
 /**
  * Calculates \f$\Delta_{t_\beta}\f$, Eq (6.6f) arxiv:1311.1775.
  */
-double Delta_TanBeta(const MSSMNoFV_onshell& model) {
+double Delta_TanBeta(const MSSMNoFV_onshell& model)
+{
    const double ytau = model.get_Ye(2, 2);
    const double ytop = model.get_Yu(2, 2);
    const double ybot = model.get_Yd(2, 2);
@@ -295,7 +301,8 @@ double amu2LFSfapprox_non_tan_beta_resummed(const MSSMNoFV_onshell& model)
  *
  * Includes tan(beta) resummation
  */
-double amu2LFSfapprox(const MSSMNoFV_onshell& model) {
+double amu2LFSfapprox(const MSSMNoFV_onshell& model)
+{
 
    return amu2LFSfapprox_non_tan_beta_resummed(model) * tan_beta_cor(model);
 }
@@ -306,7 +313,8 @@ double amu2LFSfapprox(const MSSMNoFV_onshell& model) {
  * Calculates the photonic 2-loop contribution to the 1-loop chargino
  * diagram, Eq (35) arXiv:1003.5820.
  */
-double amu2LChipmPhotonic(const MSSMNoFV_onshell& model) {
+double amu2LChipmPhotonic(const MSSMNoFV_onshell& model)
+{
    const double MM = model.get_MM();
    const Eigen::Array<double,2,1> AAC_(AAC(model));
    const Eigen::Array<double,2,1> BBC_(BBC(model));
@@ -335,7 +343,8 @@ double amu2LChipmPhotonic(const MSSMNoFV_onshell& model) {
  * Calculates the photonic 2-loop contribution to the 1-loop
  * neutralino diagram, Eq (36) arXiv:1003.5820.
  */
-double amu2LChi0Photonic(const MSSMNoFV_onshell& model) {
+double amu2LChi0Photonic(const MSSMNoFV_onshell& model)
+{
    const double MM = model.get_MM();
    const Eigen::Matrix<double,4,2> AAN_(AAN(model));
    const Eigen::Matrix<double,4,2> BBN_(BBN(model));
@@ -374,14 +383,15 @@ double amu2LChi0Photonic(const MSSMNoFV_onshell& model) {
  *
  * @note the result is < 0
  */
-double tan_alpha(const MSSMNoFV_onshell& model) {
+double tan_alpha(const MSSMNoFV_onshell& model)
+{
    const double TB = model.get_TB();
    const double MZ = model.get_MZ();
    const double MA0 = model.get_MA0();
    const double tan2beta = 2. * TB / (1. - sqr(TB));
    const double tan2alpha = tan2beta * (sqr(MA0) + sqr(MZ)) / (sqr(MA0) - sqr(MZ));
 
-   return -1. / tan2alpha - std::sqrt(1. / sqr(tan2alpha) + 1.);
+   return -1.0 / tan2alpha - std::sqrt(1.0 / sqr(tan2alpha) + 1.0);
 }
 
 /**
@@ -394,7 +404,8 @@ double tan_alpha(const MSSMNoFV_onshell& model) {
  *
  * includes tan(beta) resummation
  */
-Eigen::Matrix<std::complex<double>,3,3> lambda_mu_cha(const MSSMNoFV_onshell& model) {
+Eigen::Matrix<std::complex<double>,3,3> lambda_mu_cha(const MSSMNoFV_onshell& model)
+{
    const Eigen::Array<double,2,1>& MCha(model.get_MCha());
    const double MW(model.get_MW());
    const double TB(model.get_TB());
@@ -460,7 +471,8 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_stop(const MSSMNoFV_onshell& mode
  *
  * includes tan(beta) resummation
  */
-Eigen::Matrix<std::complex<double>,2,2> lambda_sbot(const MSSMNoFV_onshell& model) {
+Eigen::Matrix<std::complex<double>,2,2> lambda_sbot(const MSSMNoFV_onshell& model)
+{
    const double TA(tan_alpha(model));
    const double CA = 1. / std::sqrt(1. + sqr(TA));
    const double SA = - std::sqrt(1. - sqr(CA));
@@ -489,7 +501,8 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_sbot(const MSSMNoFV_onshell& mode
  *
  * includes tan(beta) resummation
  */
-Eigen::Matrix<std::complex<double>,2,2> lambda_stau(const MSSMNoFV_onshell& model) {
+Eigen::Matrix<std::complex<double>,2,2> lambda_stau(const MSSMNoFV_onshell& model)
+{
    const double TA(tan_alpha(model));
    const double CA = 1. / std::sqrt(1. + sqr(TA));
    const double SA = - std::sqrt(1. - sqr(CA));
@@ -518,7 +531,8 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_stau(const MSSMNoFV_onshell& mode
  * Barr-Zee diagram \f$(\tilde{f}\gamma H)\f$), Eq (64)
  * arXiv:hep-ph/0609168.
  */
-double amu2LaSferm(const MSSMNoFV_onshell& model) {
+double amu2LaSferm(const MSSMNoFV_onshell& model)
+{
    const double MM(model.get_MM());
    const double MW(model.get_MW());
    const double SW = std::sqrt(1. - sqr(MW / model.get_MZ()));
@@ -575,7 +589,8 @@ double amu2LaSferm(const MSSMNoFV_onshell& model) {
  * Barr-Zee diagram \f$(\chi\gamma H)\f$), Eq (63)
  * arXiv:hep-ph/0609168.
  */
-double amu2LaCha(const MSSMNoFV_onshell& model) {
+double amu2LaCha(const MSSMNoFV_onshell& model)
+{
    const double MM(model.get_MM());
    const double MW(model.get_MW());
    const double MA0(model.get_MA0());
