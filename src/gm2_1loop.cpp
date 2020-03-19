@@ -64,7 +64,7 @@ double calculate_amu_1loop_non_tan_beta_resummed(const MSSMNoFV_onshell& model)
    model_ytree.calculate_DRbar_masses();
    model_ytree.check_problems();
 
-   return amuChi0(model_ytree) + amuChipm(model_ytree);
+   return amu1LChi0(model_ytree) + amu1LChipm(model_ytree);
 }
 
 /**
@@ -77,14 +77,14 @@ double calculate_amu_1loop_non_tan_beta_resummed(const MSSMNoFV_onshell& model)
  */
 double calculate_amu_1loop(const MSSMNoFV_onshell& model)
 {
-   return amuChi0(model) + amuChipm(model);
+   return amu1LChi0(model) + amu1LChipm(model);
 }
 
 /**
  * Calculates 1-loop neutralino contribution to (g-2), Eq (2.11a) of
  * arXiv:1311.1775.
  */
-double amuChi0(const MSSMNoFV_onshell& model) {
+double amu1LChi0(const MSSMNoFV_onshell& model) {
    const Eigen::Array<double,2,1>& m_smu(model.get_MSm());
    const Eigen::Matrix<double,4,2> AAN_(AAN(model));
    const Eigen::Matrix<double,4,2> BBN_(BBN(model));
@@ -108,7 +108,7 @@ double amuChi0(const MSSMNoFV_onshell& model) {
  * Calculates 1-loop chargino contribution to (g-2), Eq (2.11b) of
  * arXiv:1311.1775.
  */
-double amuChipm(const MSSMNoFV_onshell& model) {
+double amu1LChipm(const MSSMNoFV_onshell& model) {
    const Eigen::Array<double,2,1> x__k(x_k(model));
    const double MSvm(model.get_MSvmL());
    const Eigen::Array<double,2,1> AAC_(AAC(model));
@@ -333,7 +333,7 @@ Eigen::Array<double,2,1> x_k(const MSSMNoFV_onshell& model) {
  * Calculates the 1-loop leading log approximation: Wino--Higgsino,
  * muon-sneutrino, Eq (6.2a) arXiv:1311.1775
  */
-double amuWHnu(const MSSMNoFV_onshell& model) {
+double amu1LWHnu(const MSSMNoFV_onshell& model) {
    const double tan_beta = model.get_TB();
    const double M2 = model.get_MassWB();
    const double MUE = model.get_Mu();
@@ -348,7 +348,7 @@ double amuWHnu(const MSSMNoFV_onshell& model) {
  * Calculates the 1-loop leading log approximation: Wino--Higgsino,
  * left-handed smuon, Eq (6.2b) arXiv:1311.1775
  */
-double amuWHmuL(const MSSMNoFV_onshell& model) {
+double amu1LWHmuL(const MSSMNoFV_onshell& model) {
    const double tan_beta = model.get_TB();
    const double M2 = model.get_MassWB();
    const double MUE = model.get_Mu();
@@ -363,7 +363,7 @@ double amuWHmuL(const MSSMNoFV_onshell& model) {
  * Calculates the 1-loop leading log approximation: Bino--Higgsino,
  * left-handed smuon, Eq (6.2c) arXiv:1311.1775
  */
-double amuBHmuL(const MSSMNoFV_onshell& model) {
+double amu1LBHmuL(const MSSMNoFV_onshell& model) {
    const double tan_beta = model.get_TB();
    const double M1 = model.get_MassB();
    const double MUE = model.get_Mu();
@@ -379,7 +379,7 @@ double amuBHmuL(const MSSMNoFV_onshell& model) {
  * Calculates the 1-loop leading log approximation: Bino--Higgsino,
  * right-handed smuon, Eq (6.2d) arXiv:1311.1775
  */
-double amuBHmuR(const MSSMNoFV_onshell& model) {
+double amu1LBHmuR(const MSSMNoFV_onshell& model) {
    const double tan_beta = model.get_TB();
    const double M1 = model.get_MassB();
    const double MUE = model.get_Mu();
@@ -395,7 +395,7 @@ double amuBHmuR(const MSSMNoFV_onshell& model) {
  * Calculates the 1-loop leading log approximation: Bino, left-handed
  * smuon, right-handed smuon, Eq (6.2e) arXiv:1311.1775
  */
-double amuBmuLmuR(const MSSMNoFV_onshell& model) {
+double amu1LBmuLmuR(const MSSMNoFV_onshell& model) {
    const double tan_beta = model.get_TB();
    const double M1 = model.get_MassB();
    const double MUE = model.get_Mu();
@@ -417,10 +417,10 @@ double amuBmuLmuR(const MSSMNoFV_onshell& model) {
  * arXiv:1311.1775
  * as it stands, without tan(beta) resummation
  */
-double amu1Lapprox_non_tan_beta_resummed(const MSSMNoFV_onshell& model) {
-
-   return amuWHnu(model) + amuWHmuL(model) + amuBHmuL(model)
-      + amuBHmuR(model) + amuBmuLmuR(model);
+double amu1Lapprox_non_tan_beta_resummed(const MSSMNoFV_onshell& model)
+{
+   return amu1LWHnu(model) + amu1LWHmuL(model) + amu1LBHmuL(model) +
+          amu1LBHmuR(model) + amu1LBmuLmuR(model);
 }
 
 /**
@@ -428,8 +428,8 @@ double amu1Lapprox_non_tan_beta_resummed(const MSSMNoFV_onshell& model) {
  * arXiv:1311.1775
  * but include tan(beta) resummation
  */
-double amu1Lapprox(const MSSMNoFV_onshell& model) {
-
+double amu1Lapprox(const MSSMNoFV_onshell& model)
+{
    return amu1Lapprox_non_tan_beta_resummed(model) * tan_beta_cor(model);
 }
 
@@ -446,7 +446,7 @@ double tan_beta_cor(const MSSMNoFV_onshell& model)
 {
    const double delta_mu = delta_mu_correction(model);
 
-   return 1. / (1. + delta_mu);
+   return 1.0 / (1.0 + delta_mu);
 }
 
 /**

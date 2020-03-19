@@ -184,8 +184,8 @@ TEST_CASE("1_loop")
    const gm2calc::MSSMNoFV_onshell mcpp(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
 
-   CHECK_EQUAL(gm2calc_mssmnofv_amuChi0(model), gm2calc::amuChi0(mcpp));
-   CHECK_EQUAL(gm2calc_mssmnofv_amuChipm(model), gm2calc::amuChipm(mcpp));
+   CHECK_EQUAL(gm2calc_mssmnofv_amu1LChi0(model), gm2calc::amu1LChi0(mcpp));
+   CHECK_EQUAL(gm2calc_mssmnofv_amu1LChipm(model), gm2calc::amu1LChipm(mcpp));
 
    CHECK_EQUAL(gm2calc_mssmnofv_calculate_amu_1loop(model), gm2calc::calculate_amu_1loop(mcpp));
    CHECK_EQUAL(gm2calc_mssmnofv_calculate_amu_1loop_non_tan_beta_resummed(model),
@@ -210,8 +210,8 @@ TEST_CASE("2_loop")
                gm2calc::amu2LFSfapprox_non_tan_beta_resummed(mcpp));
 
    // photonic 2L corrections
-   CHECK_EQUAL(gm2calc_mssmnofv_amuChi0Photonic(model), gm2calc::amuChi0Photonic(mcpp));
-   CHECK_EQUAL(gm2calc_mssmnofv_amuChipmPhotonic(model), gm2calc::amuChipmPhotonic(mcpp));
+   CHECK_EQUAL(gm2calc_mssmnofv_amu2LChi0Photonic(model), gm2calc::amu2LChi0Photonic(mcpp));
+   CHECK_EQUAL(gm2calc_mssmnofv_amu2LChipmPhotonic(model), gm2calc::amu2LChipmPhotonic(mcpp));
 
    // 2L(a) diagrams
    CHECK_EQUAL(gm2calc_mssmnofv_amu2LaSferm(model), gm2calc::amu2LaSferm(mcpp));

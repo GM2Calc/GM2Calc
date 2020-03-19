@@ -41,19 +41,19 @@ double amu2LFSfapprox_non_tan_beta_resummed(const MSSMNoFV_onshell&);
 
 // routines for individual fermion/sfermion contributions
 
-double amuWHnu2L(const MSSMNoFV_onshell&);
-double amuWHmuL2L(const MSSMNoFV_onshell&);
-double amuBHmuL2L(const MSSMNoFV_onshell&);
-double amuBHmuR2L(const MSSMNoFV_onshell&);
-double amuBmuLmuR2L(const MSSMNoFV_onshell&);
+double amu2LWHnu(const MSSMNoFV_onshell&);
+double amu2LWHmuL(const MSSMNoFV_onshell&);
+double amu2LBHmuL(const MSSMNoFV_onshell&);
+double amu2LBHmuR(const MSSMNoFV_onshell&);
+double amu2LBmuLmuR(const MSSMNoFV_onshell&);
 
 // === photonic 2-loop corrections ===
 
 /// 2-loop photonic chargino contribution
-double amuChipmPhotonic(const MSSMNoFV_onshell&);
+double amu2LChipmPhotonic(const MSSMNoFV_onshell&);
 
 /// 2-loop photonic neutralino contribution
-double amuChi0Photonic(const MSSMNoFV_onshell&);
+double amu2LChi0Photonic(const MSSMNoFV_onshell&);
 
 // === SUSY 2L(a) diagrams ===
 

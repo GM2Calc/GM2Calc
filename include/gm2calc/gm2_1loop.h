@@ -42,10 +42,10 @@ double gm2calc_mssmnofv_calculate_amu_1loop_non_tan_beta_resummed(const MSSMNoFV
 /* === routines for individual 1-loop contributions === */
 
 /** 1-loop neutralino contribution */
-double gm2calc_mssmnofv_amuChi0(const MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_amu1LChi0(const MSSMNoFV_onshell*);
 
 /** 1-loop chargino contribution */
-double gm2calc_mssmnofv_amuChipm(const MSSMNoFV_onshell*);
+double gm2calc_mssmnofv_amu1LChipm(const MSSMNoFV_onshell*);
 
 #ifdef __cplusplus
 } /* extern "C" */

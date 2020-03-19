@@ -321,8 +321,8 @@ struct Detailed_writer {
                                        : "";
 
       const double amu_1l = gm2calc::calculate_amu_1loop(model);
-      const double amu_2l_photonic_chipm = gm2calc::amuChipmPhotonic(model);
-      const double amu_2l_photonic_chi0 = gm2calc::amuChi0Photonic(model);
+      const double amu_2l_photonic_chipm = gm2calc::amu2LChipmPhotonic(model);
+      const double amu_2l_photonic_chi0 = gm2calc::amu2LChi0Photonic(model);
       const double amu_2l_a_sfermion = gm2calc::amu2LaSferm(model);
       const double amu_2l_a_cha = gm2calc::amu2LaCha(model);
       const double amu_2l_ferm_sferm_approx = gm2calc::amu2LFSfapprox(model);
@@ -374,8 +374,8 @@ struct Detailed_writer {
             "==============================\n"
             "\n"
             "full 1L with tan(beta) resummation:\n"
-            "   chi^0     " << FORMAT_AMU(gm2calc::amuChi0(model)) << '\n'
-         << "   chi^+-    " << FORMAT_AMU(gm2calc::amuChipm(model)) << '\n'
+            "   chi^0     " << FORMAT_AMU(gm2calc::amu1LChi0(model)) << '\n'
+         << "   chi^+-    " << FORMAT_AMU(gm2calc::amu1LChipm(model)) << '\n'
          << "   -------------------------------\n"
             "   sum       " << FORMAT_AMU(amu_1l)
                             << " (" << FORMAT_PCT(100. * amu_1l / amu_best)
@@ -386,11 +386,11 @@ struct Detailed_writer {
          << error_str_non_tan_beta_resummation << '\n'
          << "\n"
             "1L approximation with tan(beta) resummation:\n"
-            "   W-H-nu    " << FORMAT_AMU(gm2calc::amuWHnu(model) * tan_beta_cor) << '\n'
-         << "   W-H-muL   " << FORMAT_AMU(gm2calc::amuWHmuL(model) * tan_beta_cor) << '\n'
-         << "   B-H-muL   " << FORMAT_AMU(gm2calc::amuBHmuL(model) * tan_beta_cor) << '\n'
-         << "   B-H-muR   " << FORMAT_AMU(gm2calc::amuBHmuR(model) * tan_beta_cor) << '\n'
-         << "   B-muL-muR " << FORMAT_AMU(gm2calc::amuBmuLmuR(model) * tan_beta_cor) << '\n'
+            "   W-H-nu    " << FORMAT_AMU(gm2calc::amu1LWHnu(model) * tan_beta_cor) << '\n'
+         << "   W-H-muL   " << FORMAT_AMU(gm2calc::amu1LWHmuL(model) * tan_beta_cor) << '\n'
+         << "   B-H-muL   " << FORMAT_AMU(gm2calc::amu1LBHmuL(model) * tan_beta_cor) << '\n'
+         << "   B-H-muR   " << FORMAT_AMU(gm2calc::amu1LBHmuR(model) * tan_beta_cor) << '\n'
+         << "   B-muL-muR " << FORMAT_AMU(gm2calc::amu1LBmuLmuR(model) * tan_beta_cor) << '\n'
          << "   -------------------------------\n"
             "   sum       " << FORMAT_AMU(gm2calc::amu1Lapprox(model)) << '\n'
          << "\n"
@@ -415,11 +415,11 @@ struct Detailed_writer {
                             << "% of full 1L + 2L result)\n"
             "\n"
             "fermion/sfermion approximation with tan(beta) resummation:\n"
-            "   W-H-nu    " << FORMAT_AMU(gm2calc::amuWHnu2L(model) * tan_beta_cor) << '\n'
-         << "   W-H-muL   " << FORMAT_AMU(gm2calc::amuWHmuL2L(model) * tan_beta_cor) << '\n'
-         << "   B-H-muL   " << FORMAT_AMU(gm2calc::amuBHmuL2L(model) * tan_beta_cor) << '\n'
-         << "   B-H-muR   " << FORMAT_AMU(gm2calc::amuBHmuR2L(model) * tan_beta_cor) << '\n'
-         << "   B-muL-muR " << FORMAT_AMU(gm2calc::amuBmuLmuR2L(model) * tan_beta_cor) << '\n'
+            "   W-H-nu    " << FORMAT_AMU(gm2calc::amu2LWHnu(model) * tan_beta_cor) << '\n'
+         << "   W-H-muL   " << FORMAT_AMU(gm2calc::amu2LWHmuL(model) * tan_beta_cor) << '\n'
+         << "   B-H-muL   " << FORMAT_AMU(gm2calc::amu2LBHmuL(model) * tan_beta_cor) << '\n'
+         << "   B-H-muR   " << FORMAT_AMU(gm2calc::amu2LBHmuR(model) * tan_beta_cor) << '\n'
+         << "   B-muL-muR " << FORMAT_AMU(gm2calc::amu2LBmuLmuR(model) * tan_beta_cor) << '\n'
          << "   -------------------------------\n"
             "   sum       " << FORMAT_AMU(amu_2l_ferm_sferm_approx)
                             << " (" << FORMAT_PCT(100. * amu_2l_ferm_sferm_approx / amu_best)

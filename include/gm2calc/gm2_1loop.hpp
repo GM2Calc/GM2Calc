@@ -32,10 +32,10 @@ double calculate_amu_1loop_non_tan_beta_resummed(const MSSMNoFV_onshell&);
 // === routines for individual 1-loop contributions ===
 
 /// 1-loop neutralino contribution
-double amuChi0(const MSSMNoFV_onshell&);
+double amu1LChi0(const MSSMNoFV_onshell&);
 
 /// 1-loop chargino contribution
-double amuChipm(const MSSMNoFV_onshell&);
+double amu1LChipm(const MSSMNoFV_onshell&);
 
 // === approximations ===
 
@@ -50,15 +50,15 @@ double amu1Lapprox_non_tan_beta_resummed(const MSSMNoFV_onshell&);
 // routines for individual contributions
 
 /// 1-loop wino--Higgsino, muon-sneutrino leading log approximation
-double amuWHnu(const MSSMNoFV_onshell&);
+double amu1LWHnu(const MSSMNoFV_onshell&);
 /// 1-loop wino--Higgsino, left-handed smuon leading log approximation
-double amuWHmuL(const MSSMNoFV_onshell&);
+double amu1LWHmuL(const MSSMNoFV_onshell&);
 /// 1-loop bino--Higgsino, left-handed smuon leading log approximation
-double amuBHmuL(const MSSMNoFV_onshell&);
+double amu1LBHmuL(const MSSMNoFV_onshell&);
 /// 1-loop bino--Higgsino, right-handed smuon leading log approximation
-double amuBHmuR(const MSSMNoFV_onshell&);
+double amu1LBHmuR(const MSSMNoFV_onshell&);
 /// 1-loop bino, left-handed smuon--right-handed smuon leading log approximation
-double amuBmuLmuR(const MSSMNoFV_onshell&);
+double amu1LBmuLmuR(const MSSMNoFV_onshell&);
 
 // === resummation ===
 

@@ -63,8 +63,8 @@ double calculate_amu_2loop_non_tan_beta_resummed(const MSSMNoFV_onshell& model)
    model_ytree.check_problems();
 
    return amu2LFSfapprox_non_tan_beta_resummed(model_ytree)
-      + amuChipmPhotonic(model_ytree)
-      + amuChi0Photonic(model_ytree)
+      + amu2LChipmPhotonic(model_ytree)
+      + amu2LChi0Photonic(model_ytree)
       + amu2LaSferm(model_ytree)
       + amu2LaCha(model_ytree);
 }
@@ -78,8 +78,8 @@ double calculate_amu_2loop_non_tan_beta_resummed(const MSSMNoFV_onshell& model)
 double calculate_amu_2loop(const MSSMNoFV_onshell& model)
 {
    return amu2LFSfapprox(model)
-      + amuChipmPhotonic(model)
-      + amuChi0Photonic(model)
+      + amu2LChipmPhotonic(model)
+      + amu2LChi0Photonic(model)
       + amu2LaSferm(model)
       + amu2LaCha(model);
 }
@@ -221,10 +221,11 @@ double Delta_TanBeta(const MSSMNoFV_onshell& model) {
 /**
  * Calculates 1st line of Eq (6.5) arxiv:1311.1775.
  */
-double amuWHnu2L(const MSSMNoFV_onshell& model) {
-   const double test1 = .75;
+double amu2LWHnu(const MSSMNoFV_onshell& model)
+{
+   const double test1 = 0.75;
 
-   return amuWHnu(model) *
+   return amu1LWHnu(model) *
           (.02 * test1 + Delta_g2(model) + Delta_YukHiggsino(model) +
            Delta_YukWinoHiggsino(model) + Delta_TanBeta(model));
 }
@@ -232,10 +233,11 @@ double amuWHnu2L(const MSSMNoFV_onshell& model) {
 /**
  * Calculates 2nd line of Eq (6.5) arxiv:1311.1775.
  */
-double amuWHmuL2L(const MSSMNoFV_onshell& model) {
-   const double test2 = .75;
+double amu2LWHmuL(const MSSMNoFV_onshell& model)
+{
+   const double test2 = 0.75;
 
-   return amuWHmuL(model) *
+   return amu1LWHmuL(model) *
           (.02 * test2 + Delta_g2(model) + Delta_YukHiggsino(model) +
            Delta_YukWinoHiggsino(model) + Delta_TanBeta(model));
 }
@@ -243,10 +245,11 @@ double amuWHmuL2L(const MSSMNoFV_onshell& model) {
 /**
  * Calculates 3rd line of Eq (6.5) arxiv:1311.1775.
  */
-double amuBHmuL2L(const MSSMNoFV_onshell& model) {
-   const double test3 = .75;
+double amu2LBHmuL(const MSSMNoFV_onshell& model)
+{
+   const double test3 = 0.75;
 
-   return amuBHmuL(model) *
+   return amu1LBHmuL(model) *
           (.02 * test3 + Delta_g1(model) + Delta_YukHiggsino(model) +
            Delta_YukBinoHiggsino(model) + Delta_TanBeta(model));
 }
@@ -254,10 +257,11 @@ double amuBHmuL2L(const MSSMNoFV_onshell& model) {
 /**
  * Calculates 4th line of Eq (6.5) arxiv:1311.1775.
  */
-double amuBHmuR2L(const MSSMNoFV_onshell& model) {
-   const double test4 = 2.;
+double amu2LBHmuR(const MSSMNoFV_onshell& model)
+{
+   const double test4 = 2.0;
 
-   return amuBHmuR(model) *
+   return amu1LBHmuR(model) *
           (.02 * test4 + Delta_g1(model) + Delta_YukHiggsino(model) +
            Delta_YukBinoHiggsino(model) + Delta_TanBeta(model));
 }
@@ -265,10 +269,11 @@ double amuBHmuR2L(const MSSMNoFV_onshell& model) {
 /**
  * Calculates 5th line of Eq (6.5) arxiv:1311.1775.
  */
-double amuBmuLmuR2L(const MSSMNoFV_onshell& model) {
+double amu2LBmuLmuR(const MSSMNoFV_onshell& model)
+{
    const double test5 = 1.5;
 
-   return amuBmuLmuR(model) *
+   return amu1LBmuLmuR(model) *
           (.02 * test5 + Delta_g1(model) + Delta_TanBeta(model));
 }
 
@@ -278,10 +283,10 @@ double amuBmuLmuR2L(const MSSMNoFV_onshell& model) {
  *
  * No tan(beta) resummation
  */
-double amu2LFSfapprox_non_tan_beta_resummed(const MSSMNoFV_onshell& model) {
-
-   return amuWHnu2L(model) + amuWHmuL2L(model) + amuBHmuL2L(model)
-      + amuBHmuR2L(model) + amuBmuLmuR2L(model);
+double amu2LFSfapprox_non_tan_beta_resummed(const MSSMNoFV_onshell& model)
+{
+   return amu2LWHnu(model) + amu2LWHmuL(model) + amu2LBHmuL(model) +
+          amu2LBHmuR(model) + amu2LBmuLmuR(model);
 }
 
 /**
@@ -301,7 +306,7 @@ double amu2LFSfapprox(const MSSMNoFV_onshell& model) {
  * Calculates the photonic 2-loop contribution to the 1-loop chargino
  * diagram, Eq (35) arXiv:1003.5820.
  */
-double amuChipmPhotonic(const MSSMNoFV_onshell& model) {
+double amu2LChipmPhotonic(const MSSMNoFV_onshell& model) {
    const double MM = model.get_MM();
    const Eigen::Array<double,2,1> AAC_(AAC(model));
    const Eigen::Array<double,2,1> BBC_(BBC(model));
@@ -330,7 +335,7 @@ double amuChipmPhotonic(const MSSMNoFV_onshell& model) {
  * Calculates the photonic 2-loop contribution to the 1-loop
  * neutralino diagram, Eq (36) arXiv:1003.5820.
  */
-double amuChi0Photonic(const MSSMNoFV_onshell& model) {
+double amu2LChi0Photonic(const MSSMNoFV_onshell& model) {
    const double MM = model.get_MM();
    const Eigen::Matrix<double,4,2> AAN_(AAN(model));
    const Eigen::Matrix<double,4,2> BBN_(BBN(model));

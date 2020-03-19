@@ -73,15 +73,15 @@ double gm2calc_mssmnofv_amu2LFSfapprox_non_tan_beta_resummed(const MSSMNoFV_onsh
 
 /* === photonic 2-loop corrections === */
 
-double gm2calc_mssmnofv_amuChipmPhotonic(const MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_amu2LChipmPhotonic(const MSSMNoFV_onshell* model)
 {
-   return gm2calc::amuChipmPhotonic(
+   return gm2calc::amu2LChipmPhotonic(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
 }
 
-double gm2calc_mssmnofv_amuChi0Photonic(const MSSMNoFV_onshell* model)
+double gm2calc_mssmnofv_amu2LChi0Photonic(const MSSMNoFV_onshell* model)
 {
-   return gm2calc::amuChi0Photonic(
+   return gm2calc::amu2LChi0Photonic(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
 }
 
