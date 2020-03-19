@@ -57,7 +57,7 @@ struct Gm2_cmd_line_options {
    E_input_type input_type{SLHA}; ///< input format (SLHA or GM2Calc)
 
    static bool starts_with(const std::string& str, const std::string& prefix) {
-      return !str.compare(0, prefix.size(), prefix);
+      return str.compare(0, prefix.size(), prefix) == 0;
    }
 };
 
