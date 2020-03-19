@@ -45,16 +45,16 @@ struct MSSMNoFV_onshell_physical;
       const boost::format single_element_formatter(" %5d   %16.8E   # %s\n");
       /// SLHA line formatter for the SPINFO block entries
       const boost::format spinfo_formatter(" %5d   %s\n");
-   }
+   } // anonymous namespace
 
 #define FORMAT_ELEMENT(pdg,value,name)                                  \
-   boost::format(single_element_formatter) % pdg % value % name
+   boost::format(single_element_formatter) % (pdg) % (value) % (name)
 #define FORMAT_SCALE(n)                                                 \
-   boost::format(scale_formatter) % n
+   boost::format(scale_formatter) % (n)
 #define FORMAT_NUMBER(n,str)                                            \
-   boost::format(number_formatter) % n % str
+   boost::format(number_formatter) % (n) % (str)
 #define FORMAT_SPINFO(n,str)                                            \
-   boost::format(spinfo_formatter) % n % str
+   boost::format(spinfo_formatter) % (n) % (str)
 
 /**
  * @class GM2_slha_io

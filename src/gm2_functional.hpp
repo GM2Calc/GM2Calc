@@ -27,7 +27,7 @@ namespace functional {
 
 template<class Real, int N>
 struct Abs_less {
-    Abs_less(const Eigen::Array<Real, N, 1>& w_) : w(w_) {}
+    explicit Abs_less(const Eigen::Array<Real, N, 1>& w_) : w(w_) {}
     bool operator() (int i, int j) { return std::abs(w[i]) < std::abs(w[j]); }
     const Eigen::Array<Real, N, 1>& w;
 };
@@ -47,7 +47,7 @@ struct Is_not_finite {
 
 template<class Real, int N>
 struct Less {
-    Less(const Eigen::Array<Real, N, 1>& s_) : s(s_) {}
+    explicit Less(const Eigen::Array<Real, N, 1>& s_) : s(s_) {}
     bool operator() (int i, int j) { return s[i] < s[j]; }
     const Eigen::Array<Real, N, 1>& s;
 };
