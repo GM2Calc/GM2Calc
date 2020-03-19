@@ -186,31 +186,23 @@ void print_error(const gm2calc::Error& error,
 double calculate_amu(const gm2calc::MSSMNoFV_onshell& model,
                      const gm2calc::Config_options& options)
 {
-   double result = std::numeric_limits<double>::signaling_NaN();
+   double result = 0.0;
 
-   switch (options.loop_order) {
-   case 0:
-      result = 0.;
-      break;
-   case 1:
-      if (options.tanb_resummation) {
-         result = gm2calc::calculate_amu_1loop(model);
-      } else {
-         result = gm2calc::calculate_amu_1loop_non_tan_beta_resummed(model);
+   if (options.tanb_resummation) {
+      if (options.loop_order > 0) {
+         result += gm2calc::calculate_amu_1loop(model);
       }
-      break;
-   case 2:
-      if (options.tanb_resummation) {
-         result = gm2calc::calculate_amu_1loop(model) +
-                  gm2calc::calculate_amu_2loop(model);
-      } else {
-         result = gm2calc::calculate_amu_1loop_non_tan_beta_resummed(model) +
-                  gm2calc::calculate_amu_2loop_non_tan_beta_resummed(model);
+      if (options.loop_order > 1) {
+         result += gm2calc::calculate_amu_2loop(model);
       }
-      break;
-   default:
-      ERROR("loop order > 2 not supported!");
-      break;
+   } else {
+      // no tan(beta) resummation
+      if (options.loop_order > 0) {
+         result += gm2calc::calculate_amu_1loop_non_tan_beta_resummed(model);
+      }
+      if (options.loop_order > 1) {
+         result += gm2calc::calculate_amu_2loop_non_tan_beta_resummed(model);
+      }
    }
 
    return result;
