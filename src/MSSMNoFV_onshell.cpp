@@ -58,23 +58,6 @@ namespace {
       return e * e / (4. * Pi);
    }
 
-   /// element-wise division a/b of two matrices a and b
-   template <int Rows, int Cols>
-   Eigen::Matrix<double,Rows,Cols> cwise_div(
-         const Eigen::Matrix<double,Rows,Cols>& a,
-         const Eigen::Matrix<double,Rows,Cols>& b) noexcept
-   {
-      Eigen::Matrix<double,Rows,Cols> result(Eigen::Matrix<double,Rows,Cols>::Zero());
-
-      for (int i = 0; i < Rows; i++) {
-         for (int k = 0; k < Cols; k++) {
-            result(i,k) = divide_finite(a(i,k), b(i,k));
-         }
-      }
-
-      return result;
-   }
-
    /// prints Eigen Matrix/Array in pretty format
    template <class Derived>
    std::string pretty_print(const Eigen::DenseBase<Derived>& v)
