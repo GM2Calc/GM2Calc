@@ -24,12 +24,6 @@
 
 namespace gm2calc {
 
-MSSMNoFV_onshell_problems::MSSMNoFV_onshell_problems()
-   : have_no_convergence_Mu_MassB_MassWB(false)
-   , have_no_convergence_me2(false)
-{
-}
-
 void MSSMNoFV_onshell_problems::clear_problems()
 {
    tachyons.clear();

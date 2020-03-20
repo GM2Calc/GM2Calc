@@ -37,16 +37,14 @@ namespace gm2calc {
 class MSSMNoFV_onshell_problems {
 public:
    struct Convergence_problem {
-      Convergence_problem() : precision(0.), iterations(0) {}
       void clear() {
-         precision = 0.;
+         precision = 0.0;
          iterations = 0;
       }
-      double precision;    ///< achieved accuracy (in GeV)
-      unsigned iterations; ///< used number of iterations
+      double precision{0.0};  ///< achieved accuracy (in GeV)
+      unsigned iterations{0}; ///< used number of iterations
    };
 
-   MSSMNoFV_onshell_problems();
    void clear();              ///< delete all problems and warnings
    void clear_problems();     ///< delete all problems
    void clear_warnings();     ///< delete all warnings
@@ -69,8 +67,8 @@ public:
    void print_warnings(std::ostream&) const; ///< print warnings to stream
 
 private:
-   bool have_no_convergence_Mu_MassB_MassWB;
-   bool have_no_convergence_me2;
+   bool have_no_convergence_Mu_MassB_MassWB{false};
+   bool have_no_convergence_me2{false};
    std::vector<std::string> tachyons;
    Convergence_problem convergence_problem_Mu_MassB_MassWB;
    Convergence_problem convergence_problem_me2;
