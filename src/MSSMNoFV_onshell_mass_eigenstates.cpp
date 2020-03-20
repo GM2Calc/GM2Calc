@@ -355,69 +355,6 @@ void CLASSNAME::reorder_pole_masses()
    move_goldstone_to(0, MVWm, PHYSICAL(MHpm), PHYSICAL(ZP));
 }
 
-void CLASSNAME::clear_DRbar_parameters()
-{
-   MVG = 0.;
-   MGlu = 0.;
-   MVP = 0.;
-   MVZ = 0.;
-   MVWm = 0.;
-   MFd = 0.;
-   MFs = 0.;
-   MFb = 0.;
-   MFu = 0.;
-   MFc = 0.;
-   MFt = 0.;
-   MFve = 0.;
-   MFvm = 0.;
-   MFvt = 0.;
-   MFe = 0.;
-   MFm = 0.;
-   MFtau = 0.;
-   MSveL = 0.;
-   MSvmL = 0.;
-   MSvtL = 0.;
-   MSd = Eigen::Matrix<double,2,1>::Zero();
-   ZD = Eigen::Matrix<double,2,2>::Zero();
-   MSu = Eigen::Matrix<double,2,1>::Zero();
-   ZU = Eigen::Matrix<double,2,2>::Zero();
-   MSe = Eigen::Matrix<double,2,1>::Zero();
-   ZE = Eigen::Matrix<double,2,2>::Zero();
-   MSm = Eigen::Matrix<double,2,1>::Zero();
-   ZM = Eigen::Matrix<double,2,2>::Zero();
-   MStau = Eigen::Matrix<double,2,1>::Zero();
-   ZTau = Eigen::Matrix<double,2,2>::Zero();
-   MSs = Eigen::Matrix<double,2,1>::Zero();
-   ZS = Eigen::Matrix<double,2,2>::Zero();
-   MSc = Eigen::Matrix<double,2,1>::Zero();
-   ZC = Eigen::Matrix<double,2,2>::Zero();
-   MSb = Eigen::Matrix<double,2,1>::Zero();
-   ZB = Eigen::Matrix<double,2,2>::Zero();
-   MSt = Eigen::Matrix<double,2,1>::Zero();
-   ZT = Eigen::Matrix<double,2,2>::Zero();
-   Mhh = Eigen::Matrix<double,2,1>::Zero();
-   ZH = Eigen::Matrix<double,2,2>::Zero();
-   MAh = Eigen::Matrix<double,2,1>::Zero();
-   ZA = Eigen::Matrix<double,2,2>::Zero();
-   MHpm = Eigen::Matrix<double,2,1>::Zero();
-   ZP = Eigen::Matrix<double,2,2>::Zero();
-   MChi = Eigen::Matrix<double,4,1>::Zero();
-   ZN = Eigen::Matrix<std::complex<double>,4,4>::Zero();
-   MCha = Eigen::Matrix<double,2,1>::Zero();
-   UM = Eigen::Matrix<std::complex<double>,2,2>::Zero();
-   UP = Eigen::Matrix<std::complex<double>,2,2>::Zero();
-
-   PhaseGlu = std::complex<double>(1.,0.);
-}
-
-void CLASSNAME::clear()
-{
-   MSSMNoFV_onshell_soft_parameters::clear();
-   clear_DRbar_parameters();
-   physical.clear();
-   problems.clear();
-}
-
 std::string CLASSNAME::name() const
 {
    return "MSSMNoFV_onshell";

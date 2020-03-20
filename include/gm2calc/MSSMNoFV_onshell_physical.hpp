@@ -30,7 +30,6 @@ namespace gm2calc {
  * @brief MSSMNoFV pole masses and corresponding mixings
  */
 struct MSSMNoFV_onshell_physical {
-   void clear();
    void convert_to_hk();   ///< converts pole masses to HK convention
    void convert_to_slha(); ///< converts pole masses to SLHA convention
    void print(std::ostream&) const;

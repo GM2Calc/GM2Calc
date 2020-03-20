@@ -23,20 +23,6 @@
 
 namespace gm2calc {
 
-void MSSMNoFV_onshell_susy_parameters::clear()
-{
-   scale = 0.;
-   Yd = Eigen::Matrix<double,3,3>::Zero();
-   Ye = Eigen::Matrix<double,3,3>::Zero();
-   Yu = Eigen::Matrix<double,3,3>::Zero();
-   Mu = 0.;
-   g1 = 0.;
-   g2 = 0.;
-   g3 = 0.;
-   vd = 0.;
-   vu = 0.;
-}
-
 void MSSMNoFV_onshell_susy_parameters::print(std::ostream& ostr) const
 {
    ostr << "susy parameters:\n";

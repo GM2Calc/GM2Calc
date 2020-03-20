@@ -48,11 +48,9 @@ class MSSMNoFV_onshell_mass_eigenstates : public MSSMNoFV_onshell_soft_parameter
 public:
    virtual ~MSSMNoFV_onshell_mass_eigenstates() {}
 
-   void clear() override;
    void print(std::ostream&) const override;
 
    void calculate_DRbar_masses();
-   void clear_DRbar_parameters();
    void copy_DRbar_masses_to_pole_masses();
    void do_force_output(bool);
    bool do_force_output() const;

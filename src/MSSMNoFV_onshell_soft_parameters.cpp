@@ -23,26 +23,6 @@
 
 namespace gm2calc {
 
-void MSSMNoFV_onshell_soft_parameters::clear()
-{
-   MSSMNoFV_onshell_susy_parameters::clear();
-
-   TYd = Eigen::Matrix<double,3,3>::Zero();
-   TYe = Eigen::Matrix<double,3,3>::Zero();
-   TYu = Eigen::Matrix<double,3,3>::Zero();
-   BMu = 0.;
-   mq2 = Eigen::Matrix<double,3,3>::Zero();
-   ml2 = Eigen::Matrix<double,3,3>::Zero();
-   mHd2 = 0.;
-   mHu2 = 0.;
-   md2 = Eigen::Matrix<double,3,3>::Zero();
-   mu2 = Eigen::Matrix<double,3,3>::Zero();
-   me2 = Eigen::Matrix<double,3,3>::Zero();
-   MassB = 0.;
-   MassWB = 0.;
-   MassG = 0.;
-}
-
 void MSSMNoFV_onshell_soft_parameters::print(std::ostream& ostr) const
 {
    MSSMNoFV_onshell_susy_parameters::print(ostr);

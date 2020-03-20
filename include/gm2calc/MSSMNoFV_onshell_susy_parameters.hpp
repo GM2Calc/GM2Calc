@@ -38,7 +38,6 @@ public:
    virtual ~MSSMNoFV_onshell_susy_parameters() {}
 
    virtual void print(std::ostream&) const;
-   virtual void clear();
 
    void set_scale(double s) { scale = s; }
    double get_scale() const { return scale; }

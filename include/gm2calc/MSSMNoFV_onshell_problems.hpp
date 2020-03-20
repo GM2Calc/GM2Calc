@@ -37,10 +37,7 @@ namespace gm2calc {
 class MSSMNoFV_onshell_problems {
 public:
    struct Convergence_problem {
-      void clear() {
-         precision = 0.0;
-         iterations = 0;
-      }
+      void clear() { *this = Convergence_problem(); }
       double precision{0.0};  ///< achieved accuracy (in GeV)
       unsigned iterations{0}; ///< used number of iterations
    };

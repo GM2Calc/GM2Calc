@@ -41,7 +41,6 @@ public:
    virtual ~MSSMNoFV_onshell_soft_parameters() {}
 
    void print(std::ostream&) const override;
-   void clear() override;
 
    void set_TYd(const Eigen::Matrix<double,3,3>& TYd_) { TYd = TYd_; }
    void set_TYd(int i, int k, double value) { TYd(i,k) = value; }
