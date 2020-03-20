@@ -45,12 +45,6 @@ struct Is_not_finite {
    bool operator()(T x) { return !std::isfinite(x); }
 };
 
-template<class Real>
-struct Rephase {
-    std::complex<Real> operator() (const std::complex<Real>& z) const
-	{ return std::polar(Real(1), std::arg(z)/2); }
-};
-
 } // namespace functional
 } // namespace gm2calc
 
