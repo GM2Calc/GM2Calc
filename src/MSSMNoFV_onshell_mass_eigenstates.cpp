@@ -361,6 +361,7 @@ void CLASSNAME::clear_DRbar_parameters()
    MGlu = 0.;
    MVP = 0.;
    MVZ = 0.;
+   MVWm = 0.;
    MFd = 0.;
    MFs = 0.;
    MFb = 0.;
@@ -405,10 +406,8 @@ void CLASSNAME::clear_DRbar_parameters()
    MCha = Eigen::Matrix<double,2,1>::Zero();
    UM = Eigen::Matrix<std::complex<double>,2,2>::Zero();
    UP = Eigen::Matrix<std::complex<double>,2,2>::Zero();
-   MVWm = 0.;
 
    PhaseGlu = std::complex<double>(1.,0.);
-
 }
 
 void CLASSNAME::clear()
