@@ -741,12 +741,17 @@ void reorder_svd_errbd
 {
     svd_errbd(m, s, u, vh, s_errbd, u_errbd, v_errbd);
     s.reverseInPlace();
-    if (u || vh) {
-	Eigen::PermutationMatrix<MIN_(M, N)> p;
+    if (u) {
+	Eigen::PermutationMatrix<M> p;
 	p.setIdentity();
-	p.indices().reverseInPlace();
-	if (u)  { *u              *= p; }
-	if (vh) { vh->transpose() *= p; }
+	p.indices().template segment<MIN_(M, N)>(0).reverseInPlace();
+	*u *= p;
+    }
+    if (vh) {
+	Eigen::PermutationMatrix<N> p;
+	p.setIdentity();
+	p.indices().template segment<MIN_(M, N)>(0).reverseInPlace();
+	vh->transpose() *= p;
     }
     if (u_errbd) { u_errbd->reverseInPlace(); }
     if (v_errbd) { v_errbd->reverseInPlace(); }
