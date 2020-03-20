@@ -45,13 +45,6 @@ struct Is_not_finite {
    bool operator()(T x) { return !std::isfinite(x); }
 };
 
-template<class Real, int N>
-struct Less {
-    explicit Less(const Eigen::Array<Real, N, 1>& s_) : s(s_) {}
-    bool operator() (int i, int j) { return s[i] < s[j]; }
-    const Eigen::Array<Real, N, 1>& s;
-};
-
 template<class Real>
 struct Rephase {
     std::complex<Real> operator() (const std::complex<Real>& z) const

@@ -53,8 +53,9 @@ void move_goldstone_to(int idx, double mass, Eigen::ArrayBase<DerivedArray>& v,
                        Eigen::MatrixBase<DerivedMatrix>& z)
 {
    int pos = closest_index(mass, v);
-   if (pos == idx)
+   if (pos == idx) {
       return;
+   }
 
    const int sign = (idx - pos) < 0 ? -1 : 1;
    int steps = std::abs(idx - pos);

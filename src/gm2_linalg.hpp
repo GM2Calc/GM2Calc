@@ -45,8 +45,8 @@ void svd_eigen
     Eigen::JacobiSVD<Eigen::Matrix<Scalar, M, N> >
 	svd(m, (u ? Eigen::ComputeFullU : 0) | (vh ? Eigen::ComputeFullV : 0));
     s = svd.singularValues();
-    if (u)  *u  = svd.matrixU();
-    if (vh) *vh = svd.matrixV().adjoint();
+    if (u)  { *u  = svd.matrixU(); }
+    if (vh) { *vh = svd.matrixV().adjoint(); }
 }
 
 template<class Real, class Scalar, int N>
@@ -58,7 +58,7 @@ void hermitian_eigen
     Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Scalar,N,N> >
 	es(m, z ? Eigen::ComputeEigenvectors : Eigen::EigenvaluesOnly);
     w = es.eigenvalues();
-    if (z) *z = es.eigenvectors();
+    if (z) { *z = es.eigenvectors(); }
 }
 
 /**
@@ -89,33 +89,39 @@ void disna(const char& JOB, const Eigen::Array<Real, MIN_(M, N), 1>& D,
       LEFT  = std::toupper(JOB) == 'L';
       RIGHT = std::toupper(JOB) == 'R';
       SINGUL = LEFT || RIGHT;
-      if (EIGEN)
+      if (EIGEN) {
 	 K = M;
-      else if (SINGUL)
+      } else if (SINGUL) {
          K = MIN_(M, N);
-      if (!EIGEN && !SINGUL)
+      }
+      if (!EIGEN && !SINGUL) {
          INFO = -1;
-      else if (M < 0)
+      } else if (M < 0) {
          INFO = -2;
-      else if (K < 0)
+      } else if (K < 0) {
          INFO = -3;
-      else {
+      } else {
          INCR = true;
          DECR = true;
          for (I = 0; I < K - 1; I++) {
-            if (INCR)
+            if (INCR) {
                INCR = INCR && D(I) <= D(I+1);
-            if (DECR)
+            }
+            if (DECR) {
 	       DECR = DECR && D(I) >= D(I+1);
+            }
 	 }
          if (SINGUL && K > 0) {
-            if (INCR)
+            if (INCR) {
                INCR = INCR && ZERO <= D(0);
-            if (DECR)
+            }
+            if (DECR) {
                DECR = DECR && D(K-1) >= ZERO;
+            }
          }
-         if (!(INCR || DECR))
+         if (!(INCR || DECR)) {
             INFO = -4;
+         }
       }
       if (INFO != 0) {
          // CALL XERBLA( 'DDISNA', -INFO )
@@ -124,14 +130,15 @@ void disna(const char& JOB, const Eigen::Array<Real, MIN_(M, N), 1>& D,
 //
 //     Quick return if possible
 //
-      if (K == 0)
+      if (K == 0) {
          return;
+      }
 //
 //     Compute reciprocal condition numbers
 //
-      if (K == 1)
+      if (K == 1) {
          SEP(0) = std::numeric_limits<Real>::max();
-      else {
+      } else {
          OLDGAP = std::fabs(D(1) - D(0));
          SEP(0) = OLDGAP;
          for (I = 1; I < K - 1; I++) {
@@ -141,13 +148,16 @@ void disna(const char& JOB, const Eigen::Array<Real, MIN_(M, N), 1>& D,
 	 }
          SEP(K-1) = OLDGAP;
       }
-      if (SINGUL)
+      if (SINGUL) {
          if ((LEFT && M > N) || (RIGHT && M < N)) {
-            if (INCR)
+            if (INCR) {
                SEP( 0 ) = std::min(SEP( 0 ), D( 0 ));
-            if (DECR)
+            }
+            if (DECR) {
                SEP(K-1) = std::min(SEP(K-1), D(K-1));
+            }
          }
+      }
 //
 //     Ensure that reciprocal condition numbers are not less than
 //     threshold, in order to limit the size of the error bound
@@ -158,12 +168,14 @@ void disna(const char& JOB, const Eigen::Array<Real, MIN_(M, N), 1>& D,
       EPS = std::numeric_limits<Real>::epsilon();
       SAFMIN = std::numeric_limits<Real>::min();
       ANORM = std::max(std::fabs(D(0)), std::fabs(D(K-1)));
-      if (ANORM == ZERO)
+      if (ANORM == ZERO) {
          THRESH = EPS;
-      else
+      } else {
          THRESH = std::max(EPS*ANORM, SAFMIN);
-      for (I = 0; I < K; I++)
+      }
+      for (I = 0; I < K; I++) {
 	 SEP(I) = std::max(SEP(I), THRESH);
+      }
 }
 
 
@@ -190,7 +202,7 @@ void svd_errbd
     svd_internal(m, s, u, vh);
 
     // see http://www.netlib.org/lapack/lug/node96.html
-    if (!s_errbd) return;
+    if (!s_errbd) { return; }
     const Real EPSMCH = std::numeric_limits<Real>::epsilon();
     *s_errbd = EPSMCH * s[0];
 
@@ -346,12 +358,12 @@ void diagonalize_hermitian_errbd
     diagonalize_hermitian_internal(m, w, z);
 
     // see http://www.netlib.org/lapack/lug/node89.html
-    if (!w_errbd) return;
+    if (!w_errbd) { return; }
     const Real EPSMCH = std::numeric_limits<Real>::epsilon();
     Real mnorm = std::max(std::abs(w[0]), std::abs(w[N-1]));
     *w_errbd = EPSMCH * mnorm;
 
-    if (!z_errbd) return;
+    if (!z_errbd) { return; }
     Eigen::Array<Real, N, 1> RCONDZ;
     int INFO;
     disna<N, N>('E', w, RCONDZ, INFO);
@@ -473,7 +485,7 @@ void diagonalize_symmetric_errbd
 {
     svd_errbd(m, s, u, (Eigen::Matrix<std::complex<Real>, N, N> *)0,
 	      s_errbd, u_errbd);
-    if (!u) return;
+    if (!u) { return; }
     Eigen::Array<std::complex<Real>, N, 1> diag =
 	(u->adjoint() * m * u->conjugate()).diagonal();
     *u *= diag.unaryExpr(functional::Rephase<Real>()).matrix().asDiagonal();
@@ -592,8 +604,12 @@ void diagonalize_symmetric_errbd
     Eigen::Matrix<Real, N, N> z;
     diagonalize_hermitian_errbd(m, s, u ? &z : 0, s_errbd, u_errbd);
     // see http://forum.kde.org/viewtopic.php?f=74&t=62606
-    if (u) *u = z * s.template cast<std::complex<Real> >().
-		unaryExpr(functional::Flip_sign<Real>()).matrix().asDiagonal();
+    if (u) {
+        *u = z * s.template cast<std::complex<Real>>()
+                    .unaryExpr(functional::Flip_sign<Real>())
+                    .matrix()
+                    .asDiagonal();
+    }
     s = s.abs();
 }
 
@@ -720,11 +736,11 @@ void reorder_svd_errbd
 	Eigen::PermutationMatrix<MIN_(M, N)> p;
 	p.setIdentity();
 	p.indices().reverseInPlace();
-	if (u)  *u              *= p;
-	if (vh) vh->transpose() *= p;
+	if (u)  { *u              *= p; }
+	if (vh) { vh->transpose() *= p; }
     }
-    if (u_errbd) u_errbd->reverseInPlace();
-    if (v_errbd) v_errbd->reverseInPlace();
+    if (u_errbd) { u_errbd->reverseInPlace(); }
+    if (v_errbd) { v_errbd->reverseInPlace(); }
 }
 
 /**
@@ -855,8 +871,8 @@ void reorder_diagonalize_symmetric_errbd
 {
     diagonalize_symmetric_errbd(m, s, u, s_errbd, u_errbd);
     s.reverseInPlace();
-    if (u) *u = u->rowwise().reverse().eval();
-    if (u_errbd) u_errbd->reverseInPlace();
+    if (u) { *u = u->rowwise().reverse().eval(); }
+    if (u_errbd) { u_errbd->reverseInPlace(); }
 }
 
 template<class Real, int N>
@@ -871,17 +887,17 @@ void reorder_diagonalize_symmetric_errbd
     Eigen::PermutationMatrix<N> p;
     p.setIdentity();
     std::sort(p.indices().data(), p.indices().data() + p.indices().size(),
-	      functional::Less<Real, N>(s));
+              [&s] (int i, int j) { return s[i] < s[j]; });
 #if EIGEN_VERSION_AT_LEAST(3,1,4)
     s.matrix().transpose() *= p;
-    if (u_errbd) u_errbd->matrix().transpose() *= p;
+    if (u_errbd) { u_errbd->matrix().transpose() *= p; }
 #else
     Eigen::Map<Eigen::Matrix<Real, N, 1> >(s.data()).transpose() *= p;
-    if (u_errbd)
-	Eigen::Map<Eigen::Matrix<Real, N, 1> >(u_errbd->data()).transpose()
-	    *= p;
+    if (u_errbd) {
+        Eigen::Map<Eigen::Matrix<Real, N, 1>>(u_errbd->data()).transpose() *= p;
+    }
 #endif
-    if (u) *u *= p;
+    if (u) { *u *= p; }
 }
 
 /**
@@ -999,7 +1015,7 @@ void fs_svd_errbd
  Eigen::Array<Real, MIN_(M, N), 1> *v_errbd = 0)
 {
     reorder_svd_errbd(m, s, u, v, s_errbd, u_errbd, v_errbd);
-    if (u) u->transposeInPlace();
+    if (u) { u->transposeInPlace(); }
 }
 
 /**
@@ -1213,7 +1229,7 @@ void fs_diagonalize_symmetric_errbd
  Eigen::Array<Real, N, 1> *u_errbd = 0)
 {
     reorder_diagonalize_symmetric_errbd(m, s, u, s_errbd, u_errbd);
-    if (u) u->transposeInPlace();
+    if (u) { u->transposeInPlace(); }
 }
 
 /**
@@ -1333,17 +1349,17 @@ void fs_diagonalize_hermitian_errbd
     Eigen::PermutationMatrix<N> p;
     p.setIdentity();
     std::sort(p.indices().data(), p.indices().data() + p.indices().size(),
-	      functional::Abs_less<Real, N>(w));
+              [&w] (int i, int j) { return std::abs(w[i]) < std::abs(w[j]); });
 #if EIGEN_VERSION_AT_LEAST(3,1,4)
     w.matrix().transpose() *= p;
-    if (z_errbd) z_errbd->matrix().transpose() *= p;
+    if (z_errbd) { z_errbd->matrix().transpose() *= p; }
 #else
     Eigen::Map<Eigen::Matrix<Real, N, 1> >(w.data()).transpose() *= p;
-    if (z_errbd)
-	Eigen::Map<Eigen::Matrix<Real, N, 1> >(z_errbd->data()).transpose()
-	    *= p;
+    if (z_errbd) {
+        Eigen::Map<Eigen::Matrix<Real, N, 1>>(z_errbd->data()).transpose() *= p;
+    }
 #endif
-    if (z) *z = (*z * p).adjoint().eval();
+    if (z) { *z = (*z * p).adjoint().eval(); }
 }
 
 /**
