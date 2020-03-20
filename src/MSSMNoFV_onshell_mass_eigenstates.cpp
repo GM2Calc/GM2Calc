@@ -355,11 +355,6 @@ void CLASSNAME::reorder_pole_masses()
    move_goldstone_to(0, MVWm, PHYSICAL(MHpm), PHYSICAL(ZP));
 }
 
-std::string CLASSNAME::name() const
-{
-   return "MSSMNoFV_onshell";
-}
-
 Eigen::Array<double,1,1> CLASSNAME::get_MChargedHiggs() const
 {
    Eigen::Array<double,1,1> MHpm_ChargedHiggs;

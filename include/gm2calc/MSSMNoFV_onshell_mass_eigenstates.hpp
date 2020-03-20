@@ -64,8 +64,6 @@ public:
    int solve_ewsb_tree_level();
    int solve_ewsb();
 
-   std::string name() const;
-
    double get_MVG() const { return MVG; }
    double get_MGlu() const { return MGlu; }
    double get_MVP() const { return MVP; }
