@@ -38,23 +38,6 @@ namespace gm2calc {
  */
 class MSSMNoFV_onshell_soft_parameters : public MSSMNoFV_onshell_susy_parameters {
 public:
-   MSSMNoFV_onshell_soft_parameters();
-   MSSMNoFV_onshell_soft_parameters(
-      const MSSMNoFV_onshell_susy_parameters&,
-      Eigen::Matrix<double,3,3> TYd_,
-      Eigen::Matrix<double,3,3> TYe_,
-      Eigen::Matrix<double,3,3> TYu_,
-      double BMu_,
-      Eigen::Matrix<double,3,3> mq2_,
-      Eigen::Matrix<double,3,3> ml2_,
-      double mHd2_,
-      double mHu2_,
-      Eigen::Matrix<double,3,3> md2_,
-      Eigen::Matrix<double,3,3> mu2_,
-      Eigen::Matrix<double,3,3> me2_,
-      double MassB_,
-      double MassWB_,
-      double MassG_);
    virtual ~MSSMNoFV_onshell_soft_parameters() {}
    virtual void print(std::ostream&) const;
    virtual void clear();
@@ -107,20 +90,20 @@ public:
 
 
 protected:
-   Eigen::Matrix<double,3,3> TYd;
-   Eigen::Matrix<double,3,3> TYe;
-   Eigen::Matrix<double,3,3> TYu;
-   double BMu;
-   Eigen::Matrix<double,3,3> mq2;
-   Eigen::Matrix<double,3,3> ml2;
-   double mHd2;
-   double mHu2;
-   Eigen::Matrix<double,3,3> md2;
-   Eigen::Matrix<double,3,3> mu2;
-   Eigen::Matrix<double,3,3> me2;
-   double MassB;
-   double MassWB;
-   double MassG;
+   Eigen::Matrix<double,3,3> TYd{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> TYe{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> TYu{Eigen::Matrix<double,3,3>::Zero()};
+   double BMu{0.0};
+   Eigen::Matrix<double,3,3> mq2{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> ml2{Eigen::Matrix<double,3,3>::Zero()};
+   double mHd2{0.0};
+   double mHu2{0.0};
+   Eigen::Matrix<double,3,3> md2{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> mu2{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> me2{Eigen::Matrix<double,3,3>::Zero()};
+   double MassB{0.0};
+   double MassWB{0.0};
+   double MassG{0.0};
 };
 
 std::ostream& operator<<(std::ostream&, const MSSMNoFV_onshell_soft_parameters&);

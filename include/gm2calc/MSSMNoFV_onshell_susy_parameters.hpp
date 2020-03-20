@@ -35,18 +35,6 @@ namespace gm2calc {
  */
 class MSSMNoFV_onshell_susy_parameters {
 public:
-   MSSMNoFV_onshell_susy_parameters();
-   MSSMNoFV_onshell_susy_parameters(
-      double scale_,
-      Eigen::Matrix<double,3,3> Yd_,
-      Eigen::Matrix<double,3,3> Ye_,
-      Eigen::Matrix<double,3,3> Yu_,
-      double Mu_,
-      double g1_,
-      double g2_,
-      double g3_,
-      double vd_,
-      double vu_);
    virtual ~MSSMNoFV_onshell_susy_parameters() {}
    virtual void print(std::ostream&) const;
    virtual void clear();
@@ -81,16 +69,16 @@ public:
    double get_vu() const { return vu; }
 
 protected:
-   double scale;
-   Eigen::Matrix<double,3,3> Yd;
-   Eigen::Matrix<double,3,3> Ye;
-   Eigen::Matrix<double,3,3> Yu;
-   double Mu;
-   double g1;
-   double g2;
-   double g3;
-   double vd;
-   double vu;
+   double scale{0.0};
+   Eigen::Matrix<double,3,3> Yd{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Ye{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Yu{Eigen::Matrix<double,3,3>::Zero()};
+   double Mu{0.0};
+   double g1{0.0};
+   double g2{0.0};
+   double g3{0.0};
+   double vd{0.0};
+   double vu{0.0};
 };
 
 std::ostream& operator<<(std::ostream&, const MSSMNoFV_onshell_susy_parameters&);
