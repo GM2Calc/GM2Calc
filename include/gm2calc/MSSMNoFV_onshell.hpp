@@ -43,7 +43,6 @@ namespace gm2calc {
 class MSSMNoFV_onshell : public MSSMNoFV_onshell_mass_eigenstates {
 public:
    MSSMNoFV_onshell();
-   MSSMNoFV_onshell(const MSSMNoFV_onshell_mass_eigenstates&);
    virtual ~MSSMNoFV_onshell() {}
 
    /// enable/disable verbose output

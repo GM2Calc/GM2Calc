@@ -59,12 +59,6 @@ namespace {
       return e * e / (4. * Pi);
    }
 
-   /// returns a/b if result is finite, otherwise 0.
-   double divide_finite(double a, double b) noexcept {
-      const double result = a / b;
-      return std::isfinite(result) ? result : 0.;
-   }
-
    /// element-wise division a/b of two matrices a and b
    template <int Rows, int Cols>
    Eigen::Matrix<double,Rows,Cols> cwise_div(
@@ -189,18 +183,6 @@ MSSMNoFV_onshell::MSSMNoFV_onshell()
    get_physical().MVWm = GM2CALC_MW;
    get_physical().MVZ  = GM2CALC_MZ;
    set_scale(get_physical().MVZ);
-}
-
-MSSMNoFV_onshell::MSSMNoFV_onshell(const MSSMNoFV_onshell_mass_eigenstates& model_)
-   : MSSMNoFV_onshell_mass_eigenstates(model_)
-   , verbose_output(false)
-   , EL(calculate_e(ALPHA_EM_MZ))
-   , EL0(calculate_e(ALPHA_EM_THOMPSON))
-   , mb_DRbar_MZ(2.8)
-   , Ae(cwise_div(model_.get_TYe(), model_.get_Ye()))
-   , Au(cwise_div(model_.get_TYu(), model_.get_Yu()))
-   , Ad(cwise_div(model_.get_TYd(), model_.get_Yd()))
-{
 }
 
 void MSSMNoFV_onshell::set_alpha_MZ(double alpha)
