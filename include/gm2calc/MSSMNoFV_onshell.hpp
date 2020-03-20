@@ -140,9 +140,8 @@ public:
 
    void convert_to_onshell(double precision = 1e-8,
                            unsigned max_iterations = 1000);
+   void convert_to_non_tan_beta_resummed();
    void calculate_masses();
-   void check_problems() const;
-   void convert_yukawa_couplings_treelevel();
 
 private:
    bool verbose_output{false}; ///< verbose output
@@ -154,8 +153,10 @@ private:
    Eigen::Matrix<double,3,3> Ae{Eigen::Matrix<double,3,3>::Zero()}; ///< trilinear couplings
 
    void check_input() const;
+   void check_problems() const;
    void calculate_mb_DRbar_MZ();
    void convert_gauge_couplings();
+   void convert_yukawa_couplings_treelevel();
    void convert_BMu();
    void convert_ml2();
    void convert_me2(double, unsigned);

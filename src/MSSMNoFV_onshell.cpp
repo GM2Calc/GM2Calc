@@ -263,6 +263,17 @@ void MSSMNoFV_onshell::calculate_masses() {
    get_physical().Mhh = get_Mhh();
 }
 
+/**
+ * Converts parameters and masses to the case of no tan(beta)
+ * resummation.
+ */
+void MSSMNoFV_onshell::convert_to_non_tan_beta_resummed()
+{
+   convert_yukawa_couplings_treelevel();
+   calculate_DRbar_masses();
+   check_problems();
+}
+
 void MSSMNoFV_onshell::check_input() const
 {
 #define WARN_OR_THROW_IF(cond,msg)                      \
