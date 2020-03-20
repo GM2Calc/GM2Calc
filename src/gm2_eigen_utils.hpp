@@ -19,13 +19,29 @@
 #ifndef GM2_EIGEN_UTILS_HPP
 #define GM2_EIGEN_UTILS_HPP
 
-#include "gm2_functional.hpp"
-#include <Eigen/Core>
 #include <algorithm>
 #include <cmath>
 #include <limits>
 
+#include <Eigen/Core>
+
 namespace gm2calc {
+
+namespace functional {
+
+template<class Real, int N>
+struct Abs_less {
+    explicit Abs_less(const Eigen::Array<Real, N, 1>& w_) : w(w_) {}
+    bool operator() (int i, int j) { return std::abs(w[i]) < std::abs(w[j]); }
+    const Eigen::Array<Real, N, 1>& w;
+};
+
+template <class T>
+struct Is_not_finite {
+   bool operator()(T x) { return !std::isfinite(x); }
+};
+
+} // namespace functional
 
 template <typename Derived>
 unsigned closest_index(double mass, const Eigen::ArrayBase<Derived>& v)
