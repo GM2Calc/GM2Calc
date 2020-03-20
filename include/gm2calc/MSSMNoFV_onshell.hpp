@@ -145,11 +145,13 @@ public:
    void convert_yukawa_couplings_treelevel();
 
 private:
-   bool verbose_output; ///< verbose output
-   double EL;  ///< electromagnetic gauge coupling at MZ w/o hadronic corrections
-   double EL0; ///< electromagnetic gauge coupling in the Thomson limit
-   double mb_DRbar_MZ;  ///< mb(MZ) DR-bar
-   Eigen::Matrix<double,3,3> Ae, Au, Ad; ///< trilinear couplings
+   bool verbose_output{false}; ///< verbose output
+   double EL{0.0};             ///< electromagnetic gauge coupling at MZ w/o hadronic corrections
+   double EL0{0.0};            ///< electromagnetic gauge coupling in the Thomson limit
+   double mb_DRbar_MZ{2.8};    ///< mb(MZ) DR-bar
+   Eigen::Matrix<double,3,3> Au{Eigen::Matrix<double,3,3>::Zero()}; ///< trilinear couplings
+   Eigen::Matrix<double,3,3> Ad{Eigen::Matrix<double,3,3>::Zero()}; ///< trilinear couplings
+   Eigen::Matrix<double,3,3> Ae{Eigen::Matrix<double,3,3>::Zero()}; ///< trilinear couplings
 
    void check_input() const;
    void calculate_mb_DRbar_MZ();

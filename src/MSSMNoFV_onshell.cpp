@@ -166,13 +166,8 @@ unsigned find_right_like_smuon(const Eigen::MatrixBase<Derived>& ZM)
 } // namespace detail
 
 MSSMNoFV_onshell::MSSMNoFV_onshell()
-   : verbose_output(false)
-   , EL(calculate_e(ALPHA_EM_MZ))
+   : EL(calculate_e(ALPHA_EM_MZ))
    , EL0(calculate_e(ALPHA_EM_THOMPSON))
-   , mb_DRbar_MZ(2.8)
-   , Ae(Eigen::Matrix<double,3,3>::Zero())
-   , Au(Eigen::Matrix<double,3,3>::Zero())
-   , Ad(Eigen::Matrix<double,3,3>::Zero())
 {
    set_g3(calculate_e(GM2CALC_ALPHA_S_MZ));
    get_physical().MFt = GM2CALC_MT;
