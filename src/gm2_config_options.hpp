@@ -35,21 +35,12 @@ struct Config_options {
       NUMBER_OF_OUTPUT_FORMATS
    };
 
-   Config_options()
-     : output_format(Minimal)
-     , loop_order(2)
-     , tanb_resummation(true)
-     , force_output(false)
-     , verbose_output(false)
-     , calculate_uncertainty(false)
-   {}
-
-   E_output_format output_format; ///< output format
-   unsigned loop_order;           ///< loop order
-   bool tanb_resummation;         ///< tan(beta) resummation
-   bool force_output;             ///< print output even if error occured
-   bool verbose_output;           ///< print additional information
-   bool calculate_uncertainty;    ///< calculate uncertainty
+   E_output_format output_format{Minimal}; ///< output format
+   unsigned loop_order{2};                 ///< loop order
+   bool tanb_resummation{true};            ///< tan(beta) resummation
+   bool force_output{false};               ///< print output even if error occured
+   bool verbose_output{false};             ///< print additional information
+   bool calculate_uncertainty{false};      ///< calculate uncertainty
 };
 
 } // namespace gm2calc
