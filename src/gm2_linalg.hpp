@@ -19,8 +19,6 @@
 #ifndef GM2_LINALG_HPP
 #define GM2_LINALG_HPP
 
-#include "gm2_functional.hpp"
-
 #include <limits>
 #include <cctype>
 #include <cmath>
@@ -596,6 +594,14 @@ void diagonalize_symmetric
     diagonalize_symmetric_errbd(m, s, 0, &s_errbd);
 }
 
+template<class Real>
+struct Flip_sign {
+    std::complex<Real> operator() (const std::complex<Real>& z) const {
+	return z.real() < 0 ? std::complex<Real>(0,1) :
+	    std::complex<Real>(1,0);
+    }
+};
+
 template<class Real, int N>
 void diagonalize_symmetric_errbd
 (const Eigen::Matrix<Real, N, N>& m,
@@ -609,7 +615,7 @@ void diagonalize_symmetric_errbd
     // see http://forum.kde.org/viewtopic.php?f=74&t=62606
     if (u) {
         *u = z * s.template cast<std::complex<Real>>()
-                    .unaryExpr(functional::Flip_sign<Real>())
+                    .unaryExpr(Flip_sign<Real>())
                     .matrix()
                     .asDiagonal();
     }
