@@ -34,7 +34,6 @@
 #include "MSSMNoFV_onshell_problems.hpp"
 
 #include <iosfwd>
-#include <string>
 
 #include <Eigen/Core>
 
