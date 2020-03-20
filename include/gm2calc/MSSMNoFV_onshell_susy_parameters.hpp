@@ -36,6 +36,7 @@ namespace gm2calc {
 class MSSMNoFV_onshell_susy_parameters {
 public:
    virtual ~MSSMNoFV_onshell_susy_parameters() {}
+
    virtual void print(std::ostream&) const;
    virtual void clear();
 

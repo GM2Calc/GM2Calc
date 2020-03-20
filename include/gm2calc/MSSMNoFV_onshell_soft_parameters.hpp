@@ -39,8 +39,9 @@ namespace gm2calc {
 class MSSMNoFV_onshell_soft_parameters : public MSSMNoFV_onshell_susy_parameters {
 public:
    virtual ~MSSMNoFV_onshell_soft_parameters() {}
-   virtual void print(std::ostream&) const;
-   virtual void clear();
+
+   void print(std::ostream&) const override;
+   void clear() override;
 
    void set_TYd(const Eigen::Matrix<double,3,3>& TYd_) { TYd = TYd_; }
    void set_TYd(int i, int k, double value) { TYd(i,k) = value; }
