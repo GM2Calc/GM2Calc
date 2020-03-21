@@ -252,7 +252,8 @@ void MSSMNoFV_onshell::convert_to_onshell(
  * This function is inteded to be used with the input parameters given
  * in the GM2Calc-specific on-shell/DR-bar scheme.
  */
-void MSSMNoFV_onshell::calculate_masses() {
+void MSSMNoFV_onshell::calculate_masses()
+{
    check_input();
    calculate_mb_DRbar_MZ();
    convert_gauge_couplings();
