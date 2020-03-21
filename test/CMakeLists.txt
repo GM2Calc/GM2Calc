@@ -8,6 +8,7 @@ function(add_gm2calc_test name ext)
   add_test(NAME ${name} COMMAND ${name}.x)
 endfunction()
 
+add_gm2calc_test(test_benchmark   cpp)
 add_gm2calc_test(test_c_interface cpp)
 add_gm2calc_test(test_MSSMNoFV_onshell cpp)
 add_gm2calc_test(test_slha_io     cpp)
