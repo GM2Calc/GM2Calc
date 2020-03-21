@@ -138,15 +138,15 @@ public:
    /// returns stop mixing matrix
    const Eigen::Matrix<double,2,2>& get_USt() const { return get_ZT(); }
 
+   /// calculate SUSY masses in mixed on-shell/DR-bar scheme from given on-shell/DR-bar parameters
+   void calculate_masses();
+
    /// convert given (DR-bar) parameters to mixed on-shell/DR-bar scheme
    void convert_to_onshell(double precision = 1e-8,
                            unsigned max_iterations = 1000);
 
-   /// convert parameters to non-tan(beta) resummed case
+   /// convert mixed on-shell/DR-bar parameters to non-tan(beta) resummed case
    void convert_to_non_tan_beta_resummed();
-
-   /// calculate SUSY masses in mixed on-shell/DR-bar scheme from given on-shell/DR-bar parameters
-   void calculate_masses();
 
 private:
    bool verbose_output{false}; ///< verbose output
