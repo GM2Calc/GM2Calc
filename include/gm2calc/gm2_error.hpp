@@ -26,8 +26,8 @@ namespace gm2calc {
 
 class Error : public std::runtime_error {
 public:
-   Error(const char* msg) : std::runtime_error(msg) {}
-   Error(const std::string& msg) : std::runtime_error(msg) {}
+   explicit Error(const char* msg) : std::runtime_error(msg) {}
+   explicit Error(const std::string& msg) : std::runtime_error(msg) {}
 };
 
 /**
@@ -36,26 +36,26 @@ public:
  */
 class ESetupError : public Error {
 public:
-   ESetupError(const char* msg) : Error(msg) {}
-   ESetupError(const std::string& msg) : Error(msg) {}
+   explicit ESetupError(const char* msg) : Error(msg) {}
+   explicit ESetupError(const std::string& msg) : Error(msg) {}
 };
 
 class EInvalidInput : public Error {
 public:
-   EInvalidInput(const char* msg) : Error(msg) {}
-   EInvalidInput(const std::string& msg) : Error(msg) {}
+   explicit EInvalidInput(const char* msg) : Error(msg) {}
+   explicit EInvalidInput(const std::string& msg) : Error(msg) {}
 };
 
 class EPhysicalProblem : public Error {
 public:
-   EPhysicalProblem(const char* msg) : Error(msg) {}
-   EPhysicalProblem(const std::string& msg) : Error(msg) {}
+   explicit EPhysicalProblem(const char* msg) : Error(msg) {}
+   explicit EPhysicalProblem(const std::string& msg) : Error(msg) {}
 };
 
 class EReadError : public Error {
 public:
-   EReadError(const char* msg) : Error(msg) {}
-   EReadError(const std::string& msg) : Error(msg) {}
+   explicit EReadError(const char* msg) : Error(msg) {}
+   explicit EReadError(const std::string& msg) : Error(msg) {}
 };
 
 } // namespace gm2calc
