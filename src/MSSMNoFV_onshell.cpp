@@ -200,12 +200,16 @@ double MSSMNoFV_onshell::get_TB() const
 }
 
 /**
- * Converts the model parameters from the DR-bar scheme to the
- * on-shell scheme.
+ * Converts the model parameters from the DR-bar scheme to the mixed
+ * on-shell/DR-bar scheme.
  *
- * The function assumes that the physical struct is filled with pole
- * masses and corresponding mixing matrices.  From these quantities,
- * the on-shell model parameters are calculated.
+ * The function assumes that the physical struct is filled with SM and
+ * SUSY pole masses and corresponding mixing matrices.  From these
+ * quantities, the model parameters are calculated in the mixed
+ * on-shell/DR-bar scheme, used to calculate amu.
+ *
+ * This function is intended to be used with input parameters in the
+ * (SLHA-compatible) DR-bar scheme.
  *
  * @param precision accuracy goal for the conversion
  * @param max_iterations maximum number of iterations
@@ -237,11 +241,16 @@ void MSSMNoFV_onshell::convert_to_onshell(
 }
 
 /**
- * Calculates the masses.
+ * Calculates the SUSY mass spectrum in the mixed on-shell/DR-bar scheme.
  *
- * The function assumes that the physical struct is filled with pole
- * masses and corresponding mixing matrices.  From these quantities,
- * the on-shell model parameters are calculated.
+ * The function assumes that the physical struct is filled with SM
+ * pole masses and the SUSY parameters are given in GM2Calc-specific
+ * mixed on-shell/DR-bar scheme.  From these input quantities, the
+ * corresponding (mixed on-shell/DR-bar) SUSY mass spectrum is
+ * calculated.
+ *
+ * This function is inteded to be used with the input parameters given
+ * in the GM2Calc-specific on-shell/DR-bar scheme.
  */
 void MSSMNoFV_onshell::calculate_masses() {
    check_input();
