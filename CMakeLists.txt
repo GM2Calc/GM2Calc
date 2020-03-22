@@ -27,6 +27,12 @@ if(EXISTS ${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
   conan_basic_setup()
 endif()
 
+# determine GM2Calc version
+file(
+  STRINGS "${PROJECT_SOURCE_DIR}/include/gm2calc/gm2_version.h" _gm2calc_version_line
+  REGEX "^#define[ \t]+GM2CALC_VERSION[ \t]+\"([0-9.]+)\"$")
+string(REGEX REPLACE "^#define[ \t]+GM2CALC_VERSION[ \t]+\"([0-9.]+)\"$" "\\1" GM2Calc_VERSION "${_gm2calc_version_line}")
+
 find_package(Boost 1.37.0 REQUIRED)
 find_package(Eigen3 3.1 REQUIRED)
 find_package(Mathematica COMPONENTS MathLink)
