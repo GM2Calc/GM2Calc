@@ -163,7 +163,7 @@ double time_in_milliseconds(unsigned N, F&& f)
    auto loop = [N, f]() {
       for (unsigned i = 0; i < N; i++) {
          try {
-            volatile auto _ = f();
+            (void) f();
          } catch (...) {
          }
       }
