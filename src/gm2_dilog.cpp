@@ -24,7 +24,17 @@ namespace gm2calc {
 
 namespace {
    template <typename T>
-   T sqr(T x) { return x*x; }
+   T sqr(T x) noexcept { return x*x; }
+
+   template <typename T>
+   std::complex<T> clog(const std::complex<T>& z) noexcept
+   {
+      const T rz = std::real(z);
+      const T iz = std::imag(z);
+      const T nz = sqr(rz) + sqr(iz);
+
+      return std::complex<T>(0.5*std::log(nz), std::atan2(iz, rz));
+   }
 
    template <typename T>
    std::complex<T> cadd(T a, const std::complex<T>& b) noexcept
@@ -52,13 +62,18 @@ namespace {
          std::real(a) * std::real(b) - std::imag(a) * std::imag(b),
          std::real(a) * std::imag(b) + std::imag(a) * std::real(b));
    }
+
 } // anonymous namespace
 
 /**
- * @brief Real dilogarithm \f$\mathrm{Li}_2(z)\f$
+ * @brief Real dilogarithm \f$\mathrm{Li}_2(x)\f$
  * @param x real argument
  * @note Implementation translated by R.Brun from CERNLIB DILOG function C332
- * @return \f$\mathrm{Li}_2(z)\f$
+ * @return \f$\mathrm{Li}_2(x)\f$
+ *
+ * Implemented as a truncated series expansion in terms of Chebyshev
+ * polynomials, see [Yudell L. Luke: Mathematical functions and their
+ * approximations, Academic Press Inc., New York 1975, p.67].
  */
 double dilog(double x) {
    const double PI  = 3.141592653589793;
@@ -67,7 +82,7 @@ double dilog(double x) {
    const double PI3 = PI2/3;
    const double PI6 = PI2/6;
    const double PI12 = PI2/12;
-   const double C[20] = {  0.42996693560813697, 0.40975987533077105,
+   const double C[20] = {  0.42996693560813697, 0.40975987533077106,
      -0.01858843665014592, 0.00145751084062268,-0.00014304184442340,
       0.00001588415541880,-0.00000190784959387, 0.00000024195180854,
      -0.00000003193341274, 0.00000000434545063,-0.00000000060578480,
@@ -75,7 +90,7 @@ double dilog(double x) {
      -0.00000000000027007, 0.00000000000004042,-0.00000000000000610,
       0.00000000000000093,-0.00000000000000014, 0.00000000000000002};
 
-   double T,H,Y,S,A,ALFA,B1,B2,B0;
+   double T{}, H{}, Y{}, S{}, A{}, ALFA{}, B1{}, B2{}, B0{};
 
    if (x == 1) {
        H = PI6;
@@ -134,7 +149,8 @@ double dilog(double x) {
  * @note Implementation translated from SPheno to C++
  * @return \f$\mathrm{Li}_2(z)\f$
  */
-std::complex<double> dilog(const std::complex<double>& z) {
+std::complex<double> dilog(const std::complex<double>& z)
+{
    const double PI = 3.141592653589793;
 
    // bf[1..N-1] are the even Bernoulli numbers / (2 n + 1)!
@@ -169,30 +185,30 @@ std::complex<double> dilog(const std::complex<double>& z) {
    }
 
    std::complex<double> cy(0.0, 0.0), cz(0.0, 0.0);
-   int jsgn, ipi12;
+   int jsgn = 0, ipi12 = 0;
 
    // transformation to |z|<1, Re(z)<=0.5
    if (rz <= 0.5) {
       if (nz > 1.0) {
-         cy = -0.5 * sqr(std::log(-z));
-         cz = -std::log(1.0 - 1.0 / z);
+         cy = -0.5 * sqr(clog(-z));
+         cz = -clog(1.0 - 1.0 / z);
          jsgn = -1;
          ipi12 = -2;
       } else { // nz <= 1
          cy = 0;
-         cz = -std::log(1.0 - z);
+         cz = -clog(1.0 - z);
          jsgn = 1;
          ipi12 = 0;
       }
    } else { // rz > 0.5
       if (nz <= 2*rz) {
-         cz = -std::log(z);
-         cy = cz * std::log(1.0 - z);
+         cz = -clog(z);
+         cy = cz * clog(1.0 - z);
          jsgn = -1;
          ipi12 = 2;
       } else { // nz > 2*rz
-         cy = -0.5 * sqr(std::log(-z));
-         cz = -std::log(1.0 - 1.0 / z);
+         cy = -0.5 * sqr(clog(-z));
+         cz = -clog(1.0 - 1.0 / z);
          jsgn = -1;
          ipi12 = -2;
       }
