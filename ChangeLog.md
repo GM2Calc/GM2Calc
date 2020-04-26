@@ -1,3 +1,15 @@
+GM2Calc-1.7.0 [not released yet]
+================================
+
+Changes
+-------
+
+ * Change [commit 62bf8d6]: Update dilogarithm to more performant
+   version from the
+   [polylogarithm](https://github.com/Expander/polylogarithm) package
+   version 3.4.0.  Results in a performance improvement of GM2Calc of
+   up to 15%.
+
 GM2Calc-1.6.0 [March, 23 2020]
 ==============================
 
