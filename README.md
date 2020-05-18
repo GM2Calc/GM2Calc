@@ -57,6 +57,10 @@ Requirements
  * Boost (version 1.37.0 or higher) [http://www.boost.org]
  * Eigen 3 (version 3.1 or higher) [http://eigen.tuxfamily.org]
 
+Optional:
+
+ * Mathematica (version 9.0 or higher) [https://www.wolfram.com/mathematica/]
+
 
 Building GM2Calc
 ================
@@ -68,7 +72,7 @@ The dependencies listed above can be installed using the package
 manager of your Linux distribution.  On Debian/Ubuntu, for example,
 one may run:
 
-    sudo apt-get install libeigen3-dev libboost-all-dev
+    sudo apt-get install libeigen3-dev libboost-all-dev uuid-dev
 
 Alternatively, the [Conan](https://conan.io/) package manager can be
 used to install the dependencies:
