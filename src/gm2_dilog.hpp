@@ -24,10 +24,10 @@
 namespace gm2calc {
 
 /// real dilogarithm
-double dilog(double);
+double dilog(double) noexcept;
 
 /// complex dilogarithm
-std::complex<double> dilog(const std::complex<double>&);
+std::complex<double> dilog(const std::complex<double>&) noexcept;
 
 } // namespace gm2calc
 
