@@ -128,7 +128,7 @@ template <class Derived>
 unsigned find_bino_like_neutralino(const Eigen::MatrixBase<Derived>& ZN)
 {
    unsigned max_bino;
-   ZN.col(0).cwiseAbs().maxCoeff(&max_bino);
+   ZN.col(0).cwiseAbs2().maxCoeff(&max_bino);
 
    return max_bino;
 }
@@ -142,7 +142,7 @@ unsigned find_bino_like_neutralino(const Eigen::MatrixBase<Derived>& ZN)
 template <class Derived>
 unsigned find_right_like_smuon(const Eigen::MatrixBase<Derived>& ZM)
 {
-   return (std::abs(ZM(0,0)) > std::abs(ZM(0,1))) ? 1 : 0;
+   return (std::norm(ZM(0,0)) > std::norm(ZM(0,1))) ? 1 : 0;
 }
 
 } // namespace detail
