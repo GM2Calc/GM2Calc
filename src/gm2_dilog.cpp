@@ -25,6 +25,15 @@ namespace gm2calc {
 
 namespace {
 
+   template <typename T>
+   T horner(T x, const T* c, int len) noexcept
+   {
+      T p = 0;
+      while (len--)
+         p = p*x + c[len];
+      return p;
+   }
+
    template <int Nstart, int Nend, typename T, int N>
    Complex<T> horner(const Complex<T>& z, const T (&coeffs)[N]) noexcept
    {
@@ -49,80 +58,80 @@ namespace {
  * @brief Real dilogarithm \f$\mathrm{Li}_2(x)\f$
  * @param x real argument
  * @return \f$\mathrm{Li}_2(x)\f$
- * @note Implementation translated by R.Brun from CERNLIB DILOG function C332
- * @author K.S. Kölbig
+ * @author Alexander Voigt
  *
- * Implemented as a truncated series expansion in terms of Chebyshev
- * polynomials, see [Yudell L. Luke: Mathematical functions and their
- * approximations, Academic Press Inc., New York 1975, p.67].
+ * Implemented as an economized Pade approximation with a
+ * maximum error of 4.16e-18.
  */
 double dilog(double x) noexcept
 {
-   const double PI  = 3.141592653589793;
-   const double HF  = 0.5;
-   const double PI2 = PI*PI;
-   const double PI3 = PI2/3;
-   const double PI6 = PI2/6;
-   const double PI12 = PI2/12;
-   const double C[20] = {  0.42996693560813697, 0.40975987533077106,
-     -0.01858843665014592, 0.00145751084062268,-0.00014304184442340,
-      0.00001588415541880,-0.00000190784959387, 0.00000024195180854,
-     -0.00000003193341274, 0.00000000434545063,-0.00000000060578480,
-      0.00000000008612098,-0.00000000001244332, 0.00000000000182256,
-     -0.00000000000027007, 0.00000000000004042,-0.00000000000000610,
-      0.00000000000000093,-0.00000000000000014, 0.00000000000000002};
+   const double PI = 3.141592653589793;
+   const double P[] = {
+      1.0706105563309304277e+0,
+     -4.5353562730201404017e+0,
+      7.4819657596286408905e+0,
+     -6.0516124315132409155e+0,
+      2.4733515209909815443e+0,
+     -4.6937565143754629578e-1,
+      3.1608910440687221695e-2,
+     -2.4630612614645039828e-4
+   };
+   const double Q[] = {
+      1.0000000000000000000e+0,
+     -4.5355682121856044935e+0,
+      8.1790029773247428573e+0,
+     -7.4634190853767468810e+0,
+      3.6245392503925290187e+0,
+     -8.9936784740041174897e-1,
+      9.8554565816757007266e-2,
+     -3.2116618742475189569e-3
+   };
 
-   double T = 0, H = 0, Y = 0, S = 0, A = 0, ALFA = 0, B1 = 0, B2 = 0, B0 = 0;
+   double y = 0, r = 0, s = 1;
 
-   if (x == 1) {
-       H = PI6;
+   // transform to [0, 1/2)
+   if (x < -1) {
+      const double l = std::log(1 - x);
+      y = 1/(1 - x);
+      r = -PI*PI/6 + l*(0.5*l - std::log(-x));
+      s = 1;
    } else if (x == -1) {
-       H = -PI12;
+      return -PI*PI/12;
+   } else if (x < 0) {
+      const double l = std::log1p(-x);
+      y = x/(x - 1);
+      r = -0.5*l*l;
+      s = -1;
+   } else if (x == 0) {
+      return 0;
+   } else if (x < 0.5) {
+      y = x;
+      r = 0;
+      s = 1;
+   } else if (x < 1) {
+      y = 1 - x;
+      r = PI*PI/6 - std::log(x)*std::log(1 - x);
+      s = -1;
+   } else if (x == 1) {
+      return PI*PI/6;
+   } else if (x < 2) {
+      const double l = std::log(x);
+      y = 1 - 1/x;
+      r = PI*PI/6 - l*(std::log(1 - 1/x) + 0.5*l);
+      s = 1;
    } else {
-       T = -x;
-       if (T <= -2) {
-           Y = -1/(1+T);
-           S = 1;
-           B1= std::log(-T);
-           B2= std::log(1+1/T);
-           A = -PI3+HF*(B1*B1-B2*B2);
-       } else if (T < -1) {
-           Y = -1-T;
-           S = -1;
-           A = std::log(-T);
-           A = -PI6+A*(A+std::log(1+1/T));
-       } else if (T <= -0.5) {
-           Y = -(1+T)/T;
-           S = 1;
-           A = std::log(-T);
-           A = -PI6+A*(-HF*A+std::log(1+T));
-       } else if (T < 0) {
-           Y = -T/(1+T);
-           S = -1;
-           B1= std::log(1+T);
-           A = HF*B1*B1;
-       } else if (T <= 1) {
-           Y = T;
-           S = 1;
-           A = 0;
-       } else {
-           Y = 1/T;
-           S = -1;
-           B1= std::log(T);
-           A = PI6+HF*B1*B1;
-       }
-       H    = Y+Y-1;
-       ALFA = H+H;
-       B1   = 0;
-       B2   = 0;
-       for (int i = 19; i >= 0; i--) {
-          B0 = C[i] + ALFA*B1-B2;
-          B2 = B1;
-          B1 = B0;
-       }
-       H = -(S*(B0-H*B2)+A);
-    }
-    return H;
+      const double l = std::log(x);
+      y = 1/x;
+      r = PI*PI/3 - 0.5*l*l;
+      s = -1;
+   }
+
+   const double z = y - 0.25;
+
+   const double p = horner(z, P, sizeof(P)/sizeof(P[0]));
+   const double q = horner(z, Q, sizeof(Q)/sizeof(Q[0]));
+
+   return r + s*y*p/q;
 }
 
 /**
