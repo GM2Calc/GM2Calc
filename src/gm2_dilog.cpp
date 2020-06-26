@@ -65,7 +65,7 @@ namespace {
  */
 double dilog(double x) noexcept
 {
-   const double PI = 3.141592653589793;
+   const double PI = 3.1415926535897932;
    const double P[] = {
       1.0706105563309304277e+0,
      -4.5353562730201404017e+0,
@@ -144,7 +144,7 @@ double dilog(double x) noexcept
  */
 std::complex<double> dilog(const std::complex<double>& z_) noexcept
 {
-   const double PI = 3.141592653589793;
+   const double PI = 3.1415926535897932;
    const Complex<double> z = { std::real(z_), std::imag(z_) };
 
    // bf[1..N-1] are the even Bernoulli numbers / (2 n + 1)!
@@ -156,10 +156,10 @@ std::complex<double> dilog(const std::complex<double>& z_) noexcept
       + 1.0/211680.0,
       - 1.0/10886400.0,
       + 1.0/526901760.0,
-      - 4.064761645144226e-11,
-      + 8.921691020456453e-13,
-      - 1.993929586072108e-14,
-      + 4.518980029619918e-16
+      - 4.0647616451442255e-11,
+      + 8.9216910204564526e-13,
+      - 1.9939295860721076e-14,
+      + 4.5189800296199182e-16
    };
 
    const double nz = norm_sqr(z);
@@ -182,7 +182,7 @@ std::complex<double> dilog(const std::complex<double>& z_) noexcept
    if (z.re <= 0.5) {
       if (nz > 1) {
          const Complex<double> lz = log(-z);
-         cy = -0.5 * lz*lz - PI * PI / 6.0;
+         cy = -0.5*lz*lz - PI*PI/6;
          cz = -log(1.0 - 1.0 / z);
          sgn = -1;
       } else { // nz <= 1
@@ -193,11 +193,11 @@ std::complex<double> dilog(const std::complex<double>& z_) noexcept
    } else { // z.re > 0.5
       if (nz <= 2*z.re) {
          cz = -log(z);
-         cy = cz * log(1.0 - z) + PI * PI / 6.0;
+         cy = cz*log(1.0 - z) + PI*PI/6;
          sgn = -1;
       } else { // nz > 2*z.re
          const Complex<double> lz = log(-z);
-         cy = -0.5 * lz*lz - PI * PI / 6.0;
+         cy = -0.5*lz*lz - PI*PI/6;
          cz = -log(1.0 - 1.0 / z);
          sgn = -1;
       }
