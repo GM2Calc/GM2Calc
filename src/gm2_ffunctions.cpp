@@ -31,13 +31,13 @@ namespace {
    const double eps = 10.0*std::numeric_limits<double>::epsilon();
 
    /// returns number squared
-   template <typename T> T sqr(T x) { return x*x; }
+   template <typename T> T sqr(T x) noexcept { return x*x; }
 
    /// returns number cubed
-   template <typename T> T pow3(T x) { return x*x*x; }
+   template <typename T> T pow3(T x) noexcept { return x*x*x; }
 
    /// returns number to the power 4
-   template <typename T> T pow4(T x) { return x*x*x*x; }
+   template <typename T> T pow4(T x) noexcept { return sqr(sqr(x)); }
 
    bool is_zero(double a, double prec)
    {
