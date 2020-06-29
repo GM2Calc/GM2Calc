@@ -52,7 +52,7 @@ namespace {
 
 } // anonymous namespace
 
-double F1C(double x) {
+double F1C(double x) noexcept {
    if (is_zero(x, eps)) {
       return 4.0;
    }
@@ -68,7 +68,7 @@ double F1C(double x) {
    return 2.0/pow4(d)*(2.0 + x*(3.0 + 6.0*std::log(x) + x*(-6.0 + x)));
 }
 
-double F2C(double x) {
+double F2C(double x) noexcept {
    if (is_zero(x, eps)) {
       return 0.0;
    }
@@ -83,7 +83,7 @@ double F2C(double x) {
    return 3.0/(2.0*pow3(1.0 - x))*(-3.0 - 2.0*std::log(x) + x*(4.0 - x));
 }
 
-double F3C(double x) {
+double F3C(double x) noexcept {
    const double d = x - 1.0;
 
    if (is_equal(x, 1.0, 0.03)) {
@@ -107,7 +107,7 @@ double F3C(double x) {
       );
 }
 
-double F4C(double x) {
+double F4C(double x) noexcept {
    if (is_zero(x, eps)) {
       return 0.0;
    }
@@ -134,7 +134,7 @@ double F4C(double x) {
       );
 }
 
-double F1N(double x) {
+double F1N(double x) noexcept {
    if (is_zero(x, eps)) {
       return 2.0;
    }
@@ -149,7 +149,7 @@ double F1N(double x) {
    return 2.0/pow4(d)*(1.0 + x*(-6.0 + x*(+3.0 - 6.0 * std::log(x) + 2.0 * x)));
 }
 
-double F2N(double x) {
+double F2N(double x) noexcept {
    if (is_zero(x, eps)) {
       return 3.0;
    }
@@ -164,7 +164,7 @@ double F2N(double x) {
    return 3.0/pow3(1.0 - x) * (1.0 + x*(2.0 * std::log(x) - x));
 }
 
-double F3N(double x) {
+double F3N(double x) noexcept {
    if (is_zero(x, eps)) {
       return 8.0/105.0;
    }
@@ -185,7 +185,7 @@ double F3N(double x) {
       );
 }
 
-double F4N(double x) {
+double F4N(double x) noexcept {
    const double PI = 3.14159265358979323846;
    const double PI2 = PI * PI;
 
@@ -209,7 +209,7 @@ double F4N(double x) {
 namespace {
 
 /// Fb(1,1)
-double Fb11(double x, double y) {
+double Fb11(double x, double y) noexcept {
    const double x1 = x - 1.0;
    const double y1 = y - 1.0;
 
@@ -220,7 +220,7 @@ double Fb11(double x, double y) {
 }
 
 /// Fb(x,1), x != 1, x != 0
-double Fb1(double x, double y) {
+double Fb1(double x, double y) noexcept {
    const double x1 = x - 1.0;
    const double y1 = y - 1.0;
    const double lx = std::log(x);
@@ -234,7 +234,7 @@ double Fb1(double x, double y) {
 }
 
 /// Fb(x,x), x != 1, x != 0
-double Fbx(double x, double y) {
+double Fbx(double x, double y) noexcept {
    const double x1 = x - 1.0;
    const double d = y - x;
    const double lx = std::log(x);
@@ -249,7 +249,7 @@ double Fbx(double x, double y) {
 
 } // anonymous namespace
 
-double Fb(double x, double y) {
+double Fb(double x, double y) noexcept {
    if ((is_zero(x, eps) && is_zero(y, eps)) || is_zero(x, eps) ||
        is_zero(y, eps)) {
       return 0.0;
@@ -277,7 +277,7 @@ double Fb(double x, double y) {
 namespace {
 
 /// Fa(1,1)
-double Fa11(double x, double y) {
+double Fa11(double x, double y) noexcept {
    const double x1 = x - 1.0;
    const double y1 = y - 1.0;
 
@@ -288,7 +288,7 @@ double Fa11(double x, double y) {
 }
 
 /// Fa(x,1), x != 1, x != 0
-double Fa1(double x, double y) {
+double Fa1(double x, double y) noexcept {
    const double x1 = x - 1.0;
    const double y1 = y - 1.0;
    const double lx = std::log(x);
@@ -302,7 +302,7 @@ double Fa1(double x, double y) {
 }
 
 /// Fa(x,x), x != 1, x != 0
-double Fax(double x, double y) {
+double Fax(double x, double y) noexcept {
    const double x1 = x - 1.0;
    const double d = y - x;
    const double lx = std::log(x);
@@ -319,7 +319,7 @@ double Fax(double x, double y) {
 
 } // anonymous namespace
 
-double Fa(double x, double y) {
+double Fa(double x, double y) noexcept {
    if ((is_zero(x, eps) && is_zero(y, eps)) || is_zero(x, eps) ||
        is_zero(y, eps)) {
       return 0.0;
@@ -344,7 +344,7 @@ double Fa(double x, double y) {
    return - (G3(x) - G3(y)) / (x - y);
 }
 
-double G3(double x) {
+double G3(double x) noexcept {
    if (is_equal(x, 1.0, 0.01)) {
       const double d = x - 1.0;
       return 1.0/3.0 + d*(-0.25 + d*(0.2 + (-1.0/6.0 + d/7.0)*d));
@@ -353,7 +353,7 @@ double G3(double x) {
    return 1.0/(2.0*pow3(x - 1.0))*((x - 1.0)*(x - 3.0) + 2.0*std::log(x));
 }
 
-double G4(double x) {
+double G4(double x) noexcept {
    if (is_equal(x, 1.0, 0.01)) {
       const double d = x - 1.0;
       return 1.0/6.0 + d*(-1.0/12.0 + d*(0.05 + (-1.0/30.0 + d/42.0)*d));
@@ -365,7 +365,7 @@ double G4(double x) {
 namespace {
 
 /// I2abc(a,a,a), squared arguments, a != 0
-double I2aaa(double a, double b, double c) {
+double I2aaa(double a, double b, double c) noexcept {
    const double ba = b - a;
    const double ca = c - a;
    const double a2 = sqr(a);
@@ -375,7 +375,7 @@ double I2aaa(double a, double b, double c) {
 }
 
 /// I2abc(a,a,c), squared arguments, a != c
-double I2aac(double a, double b, double c) {
+double I2aac(double a, double b, double c) noexcept {
    const double ba = b - a;
    const double ac = a - c;
    const double a2 = sqr(a);
@@ -393,7 +393,7 @@ double I2aac(double a, double b, double c) {
 }
 
 /// I2abc(a,a,0), squared arguments, a != 0
-double I2aa0(double a, double b) {
+double I2aa0(double a, double b) noexcept {
    const double a2 = sqr(a);
    const double a3 = a2*a;
    const double ba = b - a;
@@ -403,13 +403,13 @@ double I2aa0(double a, double b) {
 }
 
 /// I2abc(0,b,c), squared arguments, b != c
-double I20bc(double b, double c) {
+double I20bc(double b, double c) noexcept {
    return std::log(b/c)/(b - c);
 }
 
 } // anonymous namespace
 
-double Iabc(double a, double b, double c) {
+double Iabc(double a, double b, double c) noexcept {
    if ((is_zero(a, eps) && is_zero(b, eps) && is_zero(c, eps)) ||
        (is_zero(a, eps) && is_zero(b, eps)) ||
        (is_zero(a, eps) && is_zero(c, eps)) ||
@@ -468,7 +468,7 @@ double Iabc(double a, double b, double c) {
 /**
  * Calculates \f$f_{PS}(z)\f$, Eq (70) arXiv:hep-ph/0609168
  */
-double f_PS(double z) {
+double f_PS(double z) noexcept {
    double result = 0.0;
 
    if (z < 0.25) {
@@ -486,7 +486,7 @@ double f_PS(double z) {
 /**
  * Calculates \f$f_S(z)\f$, Eq (71) arXiv:hep-ph/0609168
  */
-double f_S(double z) {
+double f_S(double z) noexcept {
    if (z < 0.0) {
       ERROR("f_S: z must not be negative!");
    }
@@ -497,7 +497,7 @@ double f_S(double z) {
 /**
  * Calculates \f$f_{\tilde{f}}(z)\f$, Eq (72) arXiv:hep-ph/0609168
  */
-double f_sferm(double z) {
+double f_sferm(double z) noexcept {
    if (z < 0.0) {
       ERROR("f_sferm: z must not be negative!");
    }

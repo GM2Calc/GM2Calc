@@ -22,37 +22,37 @@
 namespace gm2calc {
 
 /// \f$F_1^C(x)\f$, Eq (54) arXiv:hep-ph/0609168
-double F1C(double);
+double F1C(double) noexcept;
 /// \f$F_2^C(x)\f$, Eq (55) arXiv:hep-ph/0609168
-double F2C(double);
+double F2C(double) noexcept;
 /// \f$F_3^C(x)\f$, Eq (37) arXiv:1003.5820
-double F3C(double);
+double F3C(double) noexcept;
 /// \f$F_4^C(x)\f$, Eq (38) arXiv:1003.5820
-double F4C(double);
+double F4C(double) noexcept;
 /// \f$F_1^N(x)\f$, Eq (52) arXiv:hep-ph/0609168
-double F1N(double);
+double F1N(double) noexcept;
 /// \f$F_2^N(x)\f$, Eq (53) arXiv:hep-ph/0609168
-double F2N(double);
+double F2N(double) noexcept;
 /// \f$F_3^N(x)\f$, Eq (39) arXiv:1003.5820
-double F3N(double);
+double F3N(double) noexcept;
 /// \f$F_4^N(x)\f$, Eq (40) arXiv:1003.5820
-double F4N(double);
+double F4N(double) noexcept;
 /// \f$F_a(x)\f$, Eq (6.3a) arXiv:1311.1775
-double Fa(double, double);
+double Fa(double, double) noexcept;
 /// \f$F_b(x)\f$, Eq (6.3b) arXiv:1311.1775
-double Fb(double, double);
+double Fb(double, double) noexcept;
 /// \f$G_3(x)\f$, Eq (6.4a) arXiv:1311.1775
-double G3(double);
+double G3(double) noexcept;
 /// \f$G_4(x)\f$, Eq (6.4b) arXiv:1311.1775
-double G4(double);
+double G4(double) noexcept;
 /// \f$I_{abc}(a,b,c)\f$ (arguments are interpreted as unsquared)
-double Iabc(double, double, double);
+double Iabc(double, double, double) noexcept;
 /// \f$f_{PS}(z)\f$, Eq (70) arXiv:hep-ph/0609168
-double f_PS(double);
+double f_PS(double) noexcept;
 /// \f$f_S(z)\f$, Eq (71) arXiv:hep-ph/0609168
-double f_S(double);
+double f_S(double) noexcept;
 /// \f$f_{\tilde{f}}(z)\f$, Eq (72) arXiv:hep-ph/0609168
-double f_sferm(double);
+double f_sferm(double) noexcept;
 
 } // namespace gm2calc
 
