@@ -4,10 +4,14 @@ GM2Calc-1.7.1 [not released yet]
 Changes
 -------
 
- * Change [commit 04cfaeb]: Update dilogarithm to cleaner and more
+ * Change (commit 04cfaeb): Update dilogarithm to cleaner and more
    performant version from the
    [polylogarithm](https://github.com/Expander/polylogarithm) package
-   version 4.0.0.
+   version 5.0.0.
+
+ * Change (commit 4e65a64): Update
+   [FindMathematica](https://github.com/sakra/FindMathematica) to
+   version 3.3.0
 
 GM2Calc-1.7.0 [April, 26 2020]
 ==============================
