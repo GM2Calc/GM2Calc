@@ -1,4 +1,4 @@
-GM2Calc-1.7.1 [not released yet]
+GM2Calc-1.7.1 [October, 02 2020]
 ================================
 
 Changes
