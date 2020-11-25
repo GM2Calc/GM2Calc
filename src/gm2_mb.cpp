@@ -54,7 +54,7 @@ double calculate_alpha_s_SM5_at(double scale, double lambda_qcd) {
    const double logt = std::log(t);
 
    return 12.*Pi/(23.*t) * (
-      1 - 348./529. * logt/t
+      1. - 348./529. * logt/t
       + sqr(348./529.)/sqr(t) * (sqr(logt - 0.5) - 78073./242208.)
       );
 }
@@ -131,7 +131,7 @@ double Fb(double alpha) {
    const double as = alpha / Pi;
 
    return std::pow(23.*as/6., 12./23.) * (
-      1 + 3731./3174. * as + 1.500706 * as * as
+      1. + as*(3731./3174. + 1.500706*as)
       );
 }
 
@@ -145,7 +145,7 @@ double Fb(double alpha) {
 double conversion_mb_MSbar_to_DRbar(double alpha) {
    const double as = alpha / Pi;
 
-   return 1. - as/3. - 29./72. * as * as;
+   return 1. + as*(-1./3. - 29./72.*as);
 }
 
 } // namespace mb
