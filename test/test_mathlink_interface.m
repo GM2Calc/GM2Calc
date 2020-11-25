@@ -7,12 +7,10 @@ passed = 0;
 
 TestClose[val1_?NumericQ, val2_?NumericQ, eps_:10^-10] :=
     If[val1 - val2 > eps,
-       errors++;
        Print["Error: expressions are not equal: ",
              InputForm[val1], " =!= ", InputForm[val2]];
-       Return[False];,
-       passed++;
-       Return[True];
+       errors++,
+       passed++
       ];
 
 TestClose[val1_, val2_, eps_:10^-10] := (
