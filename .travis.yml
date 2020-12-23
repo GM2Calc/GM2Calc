@@ -14,7 +14,6 @@ addons:
     packages:
       - boost
       - eigen
-    update: true
 script:
   - mkdir build
   - cd build
