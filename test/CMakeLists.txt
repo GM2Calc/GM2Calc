@@ -28,7 +28,7 @@ if(BASH_PROGRAM)
 endif (BASH_PROGRAM)
 
 # test Mathematica scripts
-if(Mathematica_FOUND)
+if(Mathematica_MathLink_FOUND)
   Mathematica_MathLink_ADD_TEST(
     NAME test_mathlink_interface
     TARGET gm2calc.mx

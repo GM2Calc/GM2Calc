@@ -47,7 +47,7 @@ install(
   )
 
 # MathML executable
-if(Mathematica_FOUND)
+if(Mathematica_MathLink_FOUND)
   Mathematica_MathLink_ADD_EXECUTABLE(
     gm2calc.mx
     gm2calc.tm)
