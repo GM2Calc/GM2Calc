@@ -21,6 +21,7 @@
 
 #include "MSSMNoFV_onshell_mass_eigenstates.hpp"
 
+#include <cmath>
 #include <iosfwd>
 
 #include <Eigen/Core>
@@ -76,7 +77,7 @@ public:
    /// electromagnetic gauge coupling in Thomson limit
    double get_EL0() const { return EL0; }
    /// Hypercharge gauge coupling
-   double get_gY() const { return sqrt(0.6) * get_g1(); }
+   double get_gY() const { return std::sqrt(0.6) * get_g1(); }
    /// tan(beta) DR-bar
    double get_TB() const;
    /// Vacuum expectation value v
