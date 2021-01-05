@@ -17,7 +17,6 @@
 // ====================================================================
 
 #include "gm2calc/gm2_2loop.hpp"
-#include "gm2calc/gm2_1loop.hpp"
 #include "gm2calc/MSSMNoFV_onshell.hpp"
 
 #include "gm2_2loop_helpers.hpp"

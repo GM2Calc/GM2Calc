@@ -20,7 +20,6 @@
 #define GM2_NUMERICS_HPP
 
 #include <cmath>
-#include <cstddef>
 #include <limits>
 
 namespace gm2calc {

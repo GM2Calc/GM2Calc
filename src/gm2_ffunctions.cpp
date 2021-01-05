@@ -22,7 +22,6 @@
 
 #include <cmath>
 #include <complex>
-#include <iostream>
 #include <limits>
 
 namespace gm2calc {

@@ -19,7 +19,6 @@
 #include "gm2calc/MSSMNoFV_onshell_soft_parameters.hpp"
 
 #include <iostream>
-#include <utility>
 
 namespace gm2calc {
 
