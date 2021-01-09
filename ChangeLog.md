@@ -1,3 +1,13 @@
+GM2Calc-1.7.2 [January, 10 2021]
+================================
+
+Fixed bugs
+----------
+
+ * Bugfix (commit 65b196b): Fix compilation on 32-bit ARM,
+   i.e. Raspberry Pi.
+
+
 GM2Calc-1.7.1 [October, 02 2020]
 ================================
 
