@@ -4,8 +4,7 @@ boost/[>=1.37.0]@conan/stable
 libuuid/[>=1.0.0]
 
 [options]
-boost:bzip2=False
-boost:zlib=False
+boost:header_only=True
 
 [generators]
 cmake
