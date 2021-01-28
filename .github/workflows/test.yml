@@ -20,7 +20,7 @@ jobs:
     - name: install conan
       run: pip install conan
     - name: install dependencies
-      run: conan install .
+      run: conan install . --build=missing
     - name: cmake
       run: cmake . -DCONAN_DISABLE_CHECK_COMPILER=ON
       env:
