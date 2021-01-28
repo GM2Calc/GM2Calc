@@ -26,6 +26,7 @@ jobs:
       env:
         CXX: g++-10
         FC: gfortran-10
+        CONAN_DISABLE_CHECK_COMPILER: 1
     - name: cmake build
       run: cmake --build .
     - name: ctest
