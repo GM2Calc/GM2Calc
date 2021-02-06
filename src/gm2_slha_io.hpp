@@ -120,7 +120,7 @@ Scalar GM2_slha_io::convert_to(const std::string& str)
       if (!std::isfinite(value)) {
          throw boost::bad_lexical_cast();
       }
-   }  catch (const boost::bad_lexical_cast& error) {
+   }  catch (const boost::bad_lexical_cast&) {
       throw EReadError("non-numeric input");
    }
    return value;
