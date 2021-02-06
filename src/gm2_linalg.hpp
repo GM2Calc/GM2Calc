@@ -934,7 +934,7 @@ void reorder_diagonalize_symmetric
  Eigen::Array<Real, N, 1>& s,
  Eigen::Matrix<std::complex<Real>, N, N>& u)
 {
-    reorder_diagonalize_symmetric_errbd(m, s, &u);
+    reorder_diagonalize_symmetric_errbd<Real,N>(m, s, &u);
 }
 
 /**
@@ -955,7 +955,7 @@ void reorder_diagonalize_symmetric
  Eigen::Matrix<std::complex<Real>, N, N>& u,
  Real& s_errbd)
 {
-    reorder_diagonalize_symmetric_errbd(m, s, &u, &s_errbd);
+    reorder_diagonalize_symmetric_errbd<Real,N>(m, s, &u, &s_errbd);
 }
 
 /**
@@ -977,7 +977,7 @@ void reorder_diagonalize_symmetric
  Real& s_errbd,
  Eigen::Array<Real, N, 1>& u_errbd)
 {
-    reorder_diagonalize_symmetric_errbd(m, s, &u, &s_errbd, &u_errbd);
+    reorder_diagonalize_symmetric_errbd<Real,N>(m, s, &u, &s_errbd, &u_errbd);
 }
 
 /**
@@ -995,7 +995,7 @@ void reorder_diagonalize_symmetric
 (const Eigen::Matrix<Scalar, N, N>& m,
  Eigen::Array<Real, N, 1>& s)
 {
-    reorder_diagonalize_symmetric_errbd(m, s);
+    reorder_diagonalize_symmetric_errbd<Real,N>(m, s);
 }
 
 /**
@@ -1015,7 +1015,7 @@ void reorder_diagonalize_symmetric
  Eigen::Array<Real, N, 1>& s,
  Real& s_errbd)
 {
-    reorder_diagonalize_symmetric_errbd(m, s, 0, &s_errbd);
+    reorder_diagonalize_symmetric_errbd<Real,N>(m, s, 0, &s_errbd);
 }
 
 template<class Real, class Scalar, int M, int N>
@@ -1243,7 +1243,7 @@ void fs_diagonalize_symmetric_errbd
  Real *s_errbd = 0,
  Eigen::Array<Real, N, 1> *u_errbd = 0)
 {
-    reorder_diagonalize_symmetric_errbd(m, s, u, s_errbd, u_errbd);
+    reorder_diagonalize_symmetric_errbd<Real,N>(m, s, u, s_errbd, u_errbd);
     if (u) { u->transposeInPlace(); }
 }
 
