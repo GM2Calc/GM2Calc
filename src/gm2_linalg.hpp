@@ -1062,7 +1062,7 @@ void fs_svd
  Eigen::Matrix<Scalar, M, M>& u,
  Eigen::Matrix<Scalar, N, N>& v)
 {
-    fs_svd_errbd(m, s, &u, &v);
+    fs_svd_errbd<Real,Scalar,M,N>(m, s, &u, &v);
 }
 
 /**
@@ -1084,7 +1084,7 @@ void fs_svd
  Eigen::Matrix<Scalar, N, N>& v,
  Real& s_errbd)
 {
-    fs_svd_errbd(m, s, &u, &v, &s_errbd);
+    fs_svd_errbd<Real,Scalar,M,N>(m, s, &u, &v, &s_errbd);
 }
 
 /**
@@ -1109,7 +1109,7 @@ void fs_svd
  Eigen::Array<Real, MIN_(M, N), 1>& u_errbd,
  Eigen::Array<Real, MIN_(M, N), 1>& v_errbd)
 {
-    fs_svd_errbd(m, s, &u, &v, &s_errbd, &u_errbd, &v_errbd);
+    fs_svd_errbd<Real,Scalar,M,N>(m, s, &u, &v, &s_errbd, &u_errbd, &v_errbd);
 }
 
 /**
@@ -1128,7 +1128,7 @@ void fs_svd
 (const Eigen::Matrix<Scalar, M, N>& m,
  Eigen::Array<Real, MIN_(M, N), 1>& s)
 {
-    fs_svd_errbd(m, s);
+    fs_svd_errbd<Real,Scalar,M,N>(m, s);
 }
 
 /**
@@ -1147,7 +1147,7 @@ void fs_svd
  Eigen::Array<Real, MIN_(M, N), 1>& s,
  Real& s_errbd)
 {
-    fs_svd_errbd(m, s, 0, 0, &s_errbd);
+    fs_svd_errbd<Real,Scalar,M,N>(m, s, 0, 0, &s_errbd);
 }
 
 /**
@@ -1183,7 +1183,7 @@ void fs_svd
  Eigen::Matrix<std::complex<Real>, M, M>& u,
  Eigen::Matrix<std::complex<Real>, N, N>& v)
 {
-    fs_svd(m.template cast<std::complex<Real> >().eval(), s, u, v);
+    fs_svd<Real,std::complex<Real>,M,N>(m.template cast<std::complex<Real> >().eval(), s, u, v);
 }
 
 /**
@@ -1205,7 +1205,7 @@ void fs_svd
  Eigen::Matrix<std::complex<Real>, N, N>& v,
  Real& s_errbd)
 {
-    fs_svd(m.template cast<std::complex<Real> >().eval(), s, u, v, s_errbd);
+    fs_svd<Real,std::complex<Real>,M,N>(m.template cast<std::complex<Real> >().eval(), s, u, v, s_errbd);
 }
 
 /**
@@ -1230,8 +1230,9 @@ void fs_svd
  Eigen::Array<Real, MIN_(M, N), 1>& u_errbd,
  Eigen::Array<Real, MIN_(M, N), 1>& v_errbd)
 {
-    fs_svd(m.template cast<std::complex<Real> >().eval(), s, u, v,
-	   s_errbd, u_errbd, v_errbd);
+   fs_svd<Real, std::complex<Real>, M, N>(
+      m.template cast<std::complex<Real>>().eval(), s, u, v, s_errbd, u_errbd,
+      v_errbd);
 }
 
 template<class Real, class Scalar, int N>
