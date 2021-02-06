@@ -248,7 +248,7 @@ void svd
  Eigen::Matrix<Scalar, M, M>& u,
  Eigen::Matrix<Scalar, N, N>& vh)
 {
-    svd_errbd(m, s, &u, &vh);
+    svd_errbd<Real,Scalar,M,N>(m, s, &u, &vh);
 }
 
 /**
@@ -269,7 +269,7 @@ void svd
  Eigen::Matrix<Scalar, N, N>& vh,
  Real& s_errbd)
 {
-    svd_errbd(m, s, &u, &vh, &s_errbd);
+    svd_errbd<Real,Scalar,M,N>(m, s, &u, &vh, &s_errbd);
 }
 
 /**
@@ -294,7 +294,7 @@ void svd
  Eigen::Array<Real, MIN_(M, N), 1>& u_errbd,
  Eigen::Array<Real, MIN_(M, N), 1>& v_errbd)
 {
-    svd_errbd(m, s, &u, &vh, &s_errbd, &u_errbd, &v_errbd);
+    svd_errbd<Real,Scalar,M,N>(m, s, &u, &vh, &s_errbd, &u_errbd, &v_errbd);
 }
 
 /**
@@ -313,7 +313,7 @@ void svd
 (const Eigen::Matrix<Scalar, M, N>& m,
  Eigen::Array<Real, MIN_(M, N), 1>& s)
 {
-    svd_errbd(m, s);
+    svd_errbd<Real,Scalar,M,N>(m, s);
 }
 
 /**
@@ -332,7 +332,7 @@ void svd
  Eigen::Array<Real, MIN_(M, N), 1>& s,
  Real& s_errbd)
 {
-    svd_errbd(m, s, 0, 0, &s_errbd);
+    svd_errbd<Real,Scalar,M,N>(m, s, 0, 0, &s_errbd);
 }
 
 // Eigen::SelfAdjointEigenSolver seems to be faster than ZHEEV of ATLAS
@@ -483,11 +483,11 @@ void diagonalize_symmetric_errbd
  Eigen::Array<Real, N, 1> *u_errbd = 0)
 {
     if (!u) {
-       svd_errbd(m, s, u, u, s_errbd, u_errbd);
+       svd_errbd<Real,std::complex<Real>,N,N>(m, s, u, u, s_errbd, u_errbd);
        return;
     }
     Eigen::Matrix<std::complex<Real>, N, N> vh;
-    svd_errbd(m, s, u, &vh, s_errbd, u_errbd);
+    svd_errbd<Real,std::complex<Real>,N,N>(m, s, u, &vh, s_errbd, u_errbd);
     // see Eq. (5) of https://doi.org/10.1016/j.amc.2014.01.170
     *u *= (u->adjoint() * vh.transpose()).sqrt().eval();
 }
@@ -739,7 +739,7 @@ void reorder_svd_errbd
  Eigen::Array<Real, MIN_(M, N), 1> *u_errbd = 0,
  Eigen::Array<Real, MIN_(M, N), 1> *v_errbd = 0)
 {
-    svd_errbd(m, s, u, vh, s_errbd, u_errbd, v_errbd);
+    svd_errbd<Real,Scalar,M,N>(m, s, u, vh, s_errbd, u_errbd, v_errbd);
     s.reverseInPlace();
     if (u) {
 	Eigen::PermutationMatrix<M> p;
