@@ -478,7 +478,7 @@ Eigen::Array<double,1,1> CLASSNAME::get_MChargedHiggs() const
 
    MHpm_goldstone(0) = MVWm;
 
-   remove_if_equal<double>(MHpm, MHpm_goldstone, MHpm_ChargedHiggs);
+   remove_if_equal<double,2,1,1>(MHpm, MHpm_goldstone, MHpm_ChargedHiggs);
 
    return MHpm_ChargedHiggs;
 }
@@ -490,7 +490,7 @@ Eigen::Array<double,1,1> CLASSNAME::get_MPseudoscalarHiggs() const
 
    MAh_goldstone(0) = MVZ;
 
-   remove_if_equal<double>(MAh, MAh_goldstone, MAh_PseudoscalarHiggs);
+   remove_if_equal<double,2,1,1>(MAh, MAh_goldstone, MAh_PseudoscalarHiggs);
 
    return MAh_PseudoscalarHiggs;
 }
