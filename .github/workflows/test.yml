@@ -26,6 +26,6 @@ jobs:
     - name: cmake build
       run: cmake --build .
     - name: ctest
-      run: ctest
+      run: ctest -C Release
       env:
         CTEST_OUTPUT_ON_FAILURE: 1
