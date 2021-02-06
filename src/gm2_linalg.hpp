@@ -354,7 +354,7 @@ void diagonalize_hermitian_errbd
  Real *w_errbd = 0,
  Eigen::Array<Real, N, 1> *z_errbd = 0)
 {
-    diagonalize_hermitian_internal(m, w, z);
+    diagonalize_hermitian_internal<Real,Scalar,N>(m, w, z);
 
     // see http://www.netlib.org/lapack/lug/node89.html
     if (!w_errbd) { return; }
