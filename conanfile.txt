@@ -1,9 +1,8 @@
 [requires]
-eigen/[>=3.1]@conan/stable
+eigen/[>=3.1]
 
 [build_requires]
-boost/[>=1.37.0]@conan/stable
-libuuid/[>=1.0.0]
+boost/1.75.0
 
 [options]
 boost:header_only=True
