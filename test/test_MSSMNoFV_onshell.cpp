@@ -152,7 +152,7 @@ TEST_CASE("right_like_smuon")
    M(1,0) = M(0,1);
    M(1,1) = 2.0;
 
-   gm2calc::fs_diagonalize_hermitian(M, m, Z);
+   gm2calc::fs_diagonalize_hermitian<double,double,2>(M, m, Z);
 
    const auto idx = find_right_like_smuon(Z);
    const auto mR = m(idx); // right-like smuoon
