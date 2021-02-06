@@ -185,7 +185,7 @@ void svd_internal
  Eigen::Matrix<Scalar, M, M> *u,
  Eigen::Matrix<Scalar, N, N> *vh)
 {
-    svd_eigen(m, s, u, vh);
+    svd_eigen<Real,Scalar,M,N>(m, s, u, vh);
 }
 
 template<class Real, class Scalar, int M, int N>
@@ -198,7 +198,7 @@ void svd_errbd
  Eigen::Array<Real, MIN_(M, N), 1> *u_errbd = 0,
  Eigen::Array<Real, MIN_(M, N), 1> *v_errbd = 0)
 {
-    svd_internal(m, s, u, vh);
+    svd_internal<Real,Scalar,M,N>(m, s, u, vh);
 
     // see http://www.netlib.org/lapack/lug/node96.html
     if (!s_errbd) { return; }
@@ -343,7 +343,7 @@ void diagonalize_hermitian_internal
  Eigen::Array<Real, N, 1>& w,
  Eigen::Matrix<Scalar, N, N> *z)
 {
-    hermitian_eigen(m, w, z);
+    hermitian_eigen<Real,Scalar,N>(m, w, z);
 }
 
 template<class Real, class Scalar, int N>
@@ -511,7 +511,7 @@ void diagonalize_symmetric
  Eigen::Array<Real, N, 1>& s,
  Eigen::Matrix<std::complex<Real>, N, N>& u)
 {
-    diagonalize_symmetric_errbd(m, s, &u);
+    diagonalize_symmetric_errbd<Real,N>(m, s, &u);
 }
 
 /**
@@ -532,7 +532,7 @@ void diagonalize_symmetric
  Eigen::Matrix<std::complex<Real>, N, N>& u,
  Real& s_errbd)
 {
-    diagonalize_symmetric_errbd(m, s, &u, &s_errbd);
+    diagonalize_symmetric_errbd<Real,N>(m, s, &u, &s_errbd);
 }
 
 /**
@@ -554,7 +554,7 @@ void diagonalize_symmetric
  Real& s_errbd,
  Eigen::Array<Real, N, 1>& u_errbd)
 {
-    diagonalize_symmetric_errbd(m, s, &u, &s_errbd, &u_errbd);
+    diagonalize_symmetric_errbd<Real,N>(m, s, &u, &s_errbd, &u_errbd);
 }
 
 /**
@@ -571,7 +571,7 @@ void diagonalize_symmetric
 (const Eigen::Matrix<std::complex<Real>, N, N>& m,
  Eigen::Array<Real, N, 1>& s)
 {
-    diagonalize_symmetric_errbd(m, s);
+    diagonalize_symmetric_errbd<Real,N>(m, s);
 }
 
 /**
@@ -591,7 +591,7 @@ void diagonalize_symmetric
  Eigen::Array<Real, N, 1>& s,
  Real& s_errbd)
 {
-    diagonalize_symmetric_errbd(m, s, 0, &s_errbd);
+    diagonalize_symmetric_errbd<Real,N>(m, s, 0, &s_errbd);
 }
 
 template<class Real>
@@ -643,7 +643,7 @@ void diagonalize_symmetric
  Eigen::Array<Real, N, 1>& s,
  Eigen::Matrix<std::complex<Real>, N, N>& u)
 {
-    diagonalize_symmetric_errbd(m, s, &u);
+    diagonalize_symmetric_errbd<Real,N>(m, s, &u);
 }
 
 /**
@@ -664,7 +664,7 @@ void diagonalize_symmetric
  Eigen::Matrix<std::complex<Real>, N, N>& u,
  Real& s_errbd)
 {
-    diagonalize_symmetric_errbd(m, s, &u, &s_errbd);
+    diagonalize_symmetric_errbd<Real,N>(m, s, &u, &s_errbd);
 }
 
 /**
@@ -686,7 +686,7 @@ void diagonalize_symmetric
  Real& s_errbd,
  Eigen::Array<Real, N, 1>& u_errbd)
 {
-    diagonalize_symmetric_errbd(m, s, &u, &s_errbd, &u_errbd);
+    diagonalize_symmetric_errbd<Real,N>(m, s, &u, &s_errbd, &u_errbd);
 }
 
 /**
@@ -706,7 +706,7 @@ void diagonalize_symmetric
 (const Eigen::Matrix<Real, N, N>& m,
  Eigen::Array<Real, N, 1>& s)
 {
-    diagonalize_symmetric_errbd(m, s);
+    diagonalize_symmetric_errbd<Real,N>(m, s);
 }
 
 /**
@@ -726,7 +726,7 @@ void diagonalize_symmetric
  Eigen::Array<Real, N, 1>& s,
  Real& s_errbd)
 {
-    diagonalize_symmetric_errbd(m, s, 0, &s_errbd);
+    diagonalize_symmetric_errbd<Real,N>(m, s, 0, &s_errbd);
 }
 
 template<class Real, class Scalar, int M, int N>
@@ -786,7 +786,7 @@ void reorder_svd
  Eigen::Matrix<Scalar, M, M>& u,
  Eigen::Matrix<Scalar, N, N>& vh)
 {
-    reorder_svd_errbd(m, s, &u, &vh);
+    reorder_svd_errbd<Real,Scalar,M,N>(m, s, &u, &vh);
 }
 
 /**
@@ -808,7 +808,7 @@ void reorder_svd
  Eigen::Matrix<Scalar, N, N>& vh,
  Real& s_errbd)
 {
-    reorder_svd_errbd(m, s, &u, &vh, &s_errbd);
+    reorder_svd_errbd<Real,Scalar,M,N>(m, s, &u, &vh, &s_errbd);
 }
 
 /**
@@ -833,7 +833,7 @@ void reorder_svd
  Eigen::Array<Real, MIN_(M, N), 1>& u_errbd,
  Eigen::Array<Real, MIN_(M, N), 1>& v_errbd)
 {
-    reorder_svd_errbd(m, s, &u, &vh, &s_errbd, &u_errbd, &v_errbd);
+    reorder_svd_errbd<Real,Scalar,M,N>(m, s, &u, &vh, &s_errbd, &u_errbd, &v_errbd);
 }
 
 /**
@@ -852,7 +852,7 @@ void reorder_svd
 (const Eigen::Matrix<Scalar, M, N>& m,
  Eigen::Array<Real, MIN_(M, N), 1>& s)
 {
-    reorder_svd_errbd(m, s);
+    reorder_svd_errbd<Real,Scalar,M,N>(m, s);
 }
 
 /**
@@ -872,7 +872,7 @@ void reorder_svd
  Eigen::Array<Real, MIN_(M, N), 1>& s,
  Real& s_errbd)
 {
-    reorder_svd_errbd(m, s, 0, 0, &s_errbd);
+    reorder_svd_errbd<Real,Scalar,M,N>(m, s, 0, 0, &s_errbd);
 }
 
 template<class Real, int N>
@@ -883,7 +883,7 @@ void reorder_diagonalize_symmetric_errbd
  Real *s_errbd = 0,
  Eigen::Array<Real, N, 1> *u_errbd = 0)
 {
-    diagonalize_symmetric_errbd(m, s, u, s_errbd, u_errbd);
+    diagonalize_symmetric_errbd<Real,N>(m, s, u, s_errbd, u_errbd);
     s.reverseInPlace();
     if (u) { *u = u->rowwise().reverse().eval(); }
     if (u_errbd) { u_errbd->reverseInPlace(); }
@@ -897,7 +897,7 @@ void reorder_diagonalize_symmetric_errbd
  Real *s_errbd = 0,
  Eigen::Array<Real, N, 1> *u_errbd = 0)
 {
-    diagonalize_symmetric_errbd(m, s, u, s_errbd, u_errbd);
+    diagonalize_symmetric_errbd<Real,N>(m, s, u, s_errbd, u_errbd);
     Eigen::PermutationMatrix<N> p;
     p.setIdentity();
     std::sort(p.indices().data(), p.indices().data() + p.indices().size(),
@@ -1028,7 +1028,7 @@ void fs_svd_errbd
  Eigen::Array<Real, MIN_(M, N), 1> *u_errbd = 0,
  Eigen::Array<Real, MIN_(M, N), 1> *v_errbd = 0)
 {
-    reorder_svd_errbd(m, s, u, v, s_errbd, u_errbd, v_errbd);
+    reorder_svd_errbd<Real,Scalar,M,N>(m, s, u, v, s_errbd, u_errbd, v_errbd);
     if (u) { u->transposeInPlace(); }
 }
 
