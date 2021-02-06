@@ -1,3 +1,12 @@
+GM2Calc-1.7.3 [not released yet]
+================================
+
+Fixed bugs
+----------
+
+ * Bugfix: Fix compilation on Windows with MSVC 16 (2019).
+
+
 GM2Calc-1.7.2 [January, 10 2021]
 ================================
 
