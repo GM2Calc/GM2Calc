@@ -1267,7 +1267,7 @@ void fs_diagonalize_symmetric
  Eigen::Array<Real, N, 1>& s,
  Eigen::Matrix<std::complex<Real>, N, N>& u)
 {
-    fs_diagonalize_symmetric_errbd(m, s, &u);
+    fs_diagonalize_symmetric_errbd<Real,Scalar,N>(m, s, &u);
 }
 
 /**
@@ -1288,7 +1288,7 @@ void fs_diagonalize_symmetric
  Eigen::Matrix<std::complex<Real>, N, N>& u,
  Real& s_errbd)
 {
-    fs_diagonalize_symmetric_errbd(m, s, &u, &s_errbd);
+    fs_diagonalize_symmetric_errbd<Real,Scalar,N>(m, s, &u, &s_errbd);
 }
 
 /**
@@ -1310,7 +1310,7 @@ void fs_diagonalize_symmetric
  Real& s_errbd,
  Eigen::Array<Real, N, 1>& u_errbd)
 {
-    fs_diagonalize_symmetric_errbd(m, s, &u, &s_errbd, &u_errbd);
+    fs_diagonalize_symmetric_errbd<Real,Scalar,N>(m, s, &u, &s_errbd, &u_errbd);
 }
 
 /**
@@ -1328,7 +1328,7 @@ void fs_diagonalize_symmetric
 (const Eigen::Matrix<Scalar, N, N>& m,
  Eigen::Array<Real, N, 1>& s)
 {
-    fs_diagonalize_symmetric_errbd(m, s);
+    fs_diagonalize_symmetric_errbd<Real,Scalar,N>(m, s);
 }
 
 /**
@@ -1348,7 +1348,7 @@ void fs_diagonalize_symmetric
  Eigen::Array<Real, N, 1>& s,
  Real& s_errbd)
 {
-    fs_diagonalize_symmetric_errbd(m, s, 0, &s_errbd);
+    fs_diagonalize_symmetric_errbd<Real,Scalar,N>(m, s, 0, &s_errbd);
 }
 
 template<class Real, class Scalar, int N>
@@ -1396,7 +1396,7 @@ void fs_diagonalize_hermitian
  Eigen::Array<Real, N, 1>& w,
  Eigen::Matrix<Scalar, N, N>& z)
 {
-    fs_diagonalize_hermitian_errbd(m, w, &z);
+    fs_diagonalize_hermitian_errbd<Real,Scalar,N>(m, w, &z);
 }
 
 /**
@@ -1417,7 +1417,7 @@ void fs_diagonalize_hermitian
  Eigen::Matrix<Scalar, N, N>& z,
  Real& w_errbd)
 {
-    fs_diagonalize_hermitian_errbd(m, w, &z, &w_errbd);
+    fs_diagonalize_hermitian_errbd<Real,Scalar,N>(m, w, &z, &w_errbd);
 }
 
 /**
@@ -1439,7 +1439,7 @@ void fs_diagonalize_hermitian
  Real& w_errbd,
  Eigen::Array<Real, N, 1>& z_errbd)
 {
-    fs_diagonalize_hermitian_errbd(m, w, &z, &w_errbd, &z_errbd);
+    fs_diagonalize_hermitian_errbd<Real,Scalar,N>(m, w, &z, &w_errbd, &z_errbd);
 }
 
 /**
@@ -1457,7 +1457,7 @@ void fs_diagonalize_hermitian
 (const Eigen::Matrix<Scalar, N, N>& m,
  Eigen::Array<Real, N, 1>& w)
 {
-    fs_diagonalize_hermitian_errbd(m, w);
+    fs_diagonalize_hermitian_errbd<Real,Scalar,N>(m, w);
 }
 
 /**
@@ -1477,7 +1477,7 @@ void fs_diagonalize_hermitian
  Eigen::Array<Real, N, 1>& w,
  Real& w_errbd)
 {
-    fs_diagonalize_hermitian_errbd(m, w, 0, &w_errbd);
+    fs_diagonalize_hermitian_errbd<Real,Scalar,N>(m, w, 0, &w_errbd);
 }
 
 } // namespace gm2calc
