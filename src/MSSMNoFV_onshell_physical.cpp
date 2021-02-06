@@ -71,7 +71,7 @@ void convert_symmetric_fermion_mixings_to_slha(Eigen::Array<double, N, 1>& m,
  */
 void MSSMNoFV_onshell_physical::convert_to_hk()
 {
-   convert_symmetric_fermion_mixings_to_hk(MChi, ZN);
+   convert_symmetric_fermion_mixings_to_hk<4>(MChi, ZN);
 }
 
 /**
@@ -81,7 +81,7 @@ void MSSMNoFV_onshell_physical::convert_to_hk()
  */
 void MSSMNoFV_onshell_physical::convert_to_slha()
 {
-   convert_symmetric_fermion_mixings_to_slha(MChi, ZN);
+   convert_symmetric_fermion_mixings_to_slha<4>(MChi, ZN);
 }
 
 void MSSMNoFV_onshell_physical::print(std::ostream& ostr) const
