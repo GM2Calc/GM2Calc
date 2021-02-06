@@ -390,7 +390,7 @@ void diagonalize_hermitian
  Eigen::Array<Real, N, 1>& w,
  Eigen::Matrix<Scalar, N, N>& z)
 {
-    diagonalize_hermitian_errbd(m, w, &z);
+    diagonalize_hermitian_errbd<Real,Scalar,N>(m, w, &z);
 }
 
 /**
@@ -411,7 +411,7 @@ void diagonalize_hermitian
  Eigen::Matrix<Scalar, N, N>& z,
  Real& w_errbd)
 {
-    diagonalize_hermitian_errbd(m, w, &z, &w_errbd);
+    diagonalize_hermitian_errbd<Real,Scalar,N>(m, w, &z, &w_errbd);
 }
 
 /**
@@ -433,7 +433,7 @@ void diagonalize_hermitian
  Real& w_errbd,
  Eigen::Array<Real, N, 1>& z_errbd)
 {
-    diagonalize_hermitian_errbd(m, w, &z, &w_errbd, &z_errbd);
+    diagonalize_hermitian_errbd<Real,Scalar,N>(m, w, &z, &w_errbd, &z_errbd);
 }
 
 /**
@@ -451,7 +451,7 @@ void diagonalize_hermitian
 (const Eigen::Matrix<Scalar, N, N>& m,
  Eigen::Array<Real, N, 1>& w)
 {
-    diagonalize_hermitian_errbd(m, w);
+    diagonalize_hermitian_errbd<Real,Scalar,N>(m, w);
 }
 
 /**
@@ -471,7 +471,7 @@ void diagonalize_hermitian
  Eigen::Array<Real, N, 1>& w,
  Real& w_errbd)
 {
-    diagonalize_hermitian_errbd(m, w, 0, &w_errbd);
+    diagonalize_hermitian_errbd<Real,Scalar,N>(m, w, 0, &w_errbd);
 }
 
 template<class Real, int N>
@@ -611,7 +611,7 @@ void diagonalize_symmetric_errbd
  Eigen::Array<Real, N, 1> *u_errbd = 0)
 {
     Eigen::Matrix<Real, N, N> z;
-    diagonalize_hermitian_errbd(m, s, u ? &z : 0, s_errbd, u_errbd);
+    diagonalize_hermitian_errbd<Real,Real,N>(m, s, u ? &z : 0, s_errbd, u_errbd);
     // see http://forum.kde.org/viewtopic.php?f=74&t=62606
     if (u) {
         *u = z * s.template cast<std::complex<Real>>()
@@ -1360,7 +1360,7 @@ void fs_diagonalize_hermitian_errbd
  Real *w_errbd = 0,
  Eigen::Array<Real, N, 1> *z_errbd = 0)
 {
-    diagonalize_hermitian_errbd(m, w, z, w_errbd, z_errbd);
+    diagonalize_hermitian_errbd<Real,Scalar,N>(m, w, z, w_errbd, z_errbd);
     Eigen::PermutationMatrix<N> p;
     p.setIdentity();
     std::sort(p.indices().data(), p.indices().data() + p.indices().size(),
