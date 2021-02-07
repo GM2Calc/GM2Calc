@@ -4,7 +4,7 @@ function(add_gm2calc_example name ext libs)
 endfunction()
 
 if(NOT WIN32)
-  set(lib m)
+  set(libm m)
 endif()
 
 add_gm2calc_example(example-gm2calc   cpp "")
