@@ -77,7 +77,7 @@ void test_1(const char* func_name, T func, double eps)
    const std::string filename(std::string(TEST_DATA_DIR) + PATH_SEPARATOR + func_name + ".txt");
    const auto data = gm2calc::test::read_from_file<double>(filename);
 
-   for (const auto v: data) {
+   for (const auto& v: data) {
       if (v.size() < 2) {
          continue;
       }
@@ -118,7 +118,7 @@ void test_2(const char* func_name, T func, double eps)
    const std::string filename(std::string(TEST_DATA_DIR) + PATH_SEPARATOR + func_name + ".txt");
    const auto data = gm2calc::test::read_from_file<double>(filename);
 
-   for (const auto v: data) {
+   for (const auto& v: data) {
       if (v.size() < 3) {
          continue;
       }
@@ -148,7 +148,7 @@ void test_3(const char* func_name, T func, double eps)
    const std::string filename(std::string(TEST_DATA_DIR) + PATH_SEPARATOR + func_name + ".txt");
    const auto data = gm2calc::test::read_from_file<double>(filename);
 
-   for (const auto v: data) {
+   for (const auto& v: data) {
       if (v.size() < 4) {
          continue;
       }
