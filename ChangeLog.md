@@ -1,3 +1,12 @@
+GM2Calc-1.7.4 [February, 07 2021]
+=================================
+
+Fixed bugs
+----------
+
+ * Bugfix: Fix linking for debug build on Linux with Clang.
+
+
 GM2Calc-1.7.3 [February, 07 2021]
 =================================
 
