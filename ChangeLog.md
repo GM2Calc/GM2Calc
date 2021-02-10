@@ -1,3 +1,12 @@
+GM2Calc-1.7.5 [February, 10 2021]
+=================================
+
+Fixed bugs
+----------
+
+ * Bugfix (commits 6f83231, 3fcc914): Fix compilation on Visual Studio 15.
+
+
 GM2Calc-1.7.4 [February, 07 2021]
 =================================
 
