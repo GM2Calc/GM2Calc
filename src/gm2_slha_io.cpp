@@ -454,7 +454,7 @@ template <typename T>
 void read_integer(double value, T& result, T min, T max, const char* error_msg)
 {
    if (is_integer(value) && value >= min && value <= max) {
-      result = static_cast<T>(value);
+      result = static_cast<T>(static_cast<int>(value));
    } else {
       throw EInvalidInput(
          std::string(error_msg) + ": " + gm2calc::to_string(value) +
