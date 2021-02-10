@@ -20,6 +20,7 @@
 #include "gm2_dilog.hpp"
 #include "gm2_log.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <complex>
 #include <limits>
