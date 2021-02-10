@@ -185,7 +185,7 @@ TEST_CASE("benchmark GM2Calc")
 
 TEST_CASE("benchmark SLHA")
 {
-   const unsigned N = 1000;
+   const unsigned N = 10000;
    const auto time_in_ms = time_in_milliseconds(
       N, [] { return calculate_amu(random_point_slha()); });
 
