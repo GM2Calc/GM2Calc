@@ -1,6 +1,5 @@
 add_definitions(-DTEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/data")
 
-# test C/C++ executables
 function(add_gm2calc_test name ext)
   add_executable(${name}.x ${name}.${ext})
   target_link_libraries(${name}.x PRIVATE GM2Calc::GM2Calc)
@@ -8,12 +7,18 @@ function(add_gm2calc_test name ext)
   add_test(NAME ${name} COMMAND ${name}.x)
 endfunction()
 
-add_gm2calc_test(test_benchmark   cpp)
-add_gm2calc_test(test_c_interface cpp)
+function(add_gm2calc_bench name ext)
+  add_executable(${name}.x ${name}.${ext})
+  target_link_libraries(${name}.x PRIVATE GM2Calc::GM2Calc)
+  target_include_directories(${name}.x PRIVATE $<TARGET_PROPERTY:GM2Calc::GM2Calc,INCLUDE_DIRECTORIES>)
+endfunction()
+
+add_gm2calc_bench(test_benchmark       cpp)
+add_gm2calc_test(test_c_interface      cpp)
 add_gm2calc_test(test_MSSMNoFV_onshell cpp)
-add_gm2calc_test(test_slha_io     cpp)
-add_gm2calc_test(test_version     cpp)
-add_gm2calc_test(test_ffunctions  cpp)
+add_gm2calc_test(test_slha_io          cpp)
+add_gm2calc_test(test_version          cpp)
+add_gm2calc_test(test_ffunctions       cpp)
 
 # test shell scripts
 find_program(BASH_PROGRAM sh)
