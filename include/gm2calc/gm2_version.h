@@ -22,7 +22,7 @@
 /* GM2Calc version */
 #define GM2CALC_VERSION_MAJOR 1
 #define GM2CALC_VERSION_MINOR 7
-#define GM2CALC_VERSION_PATCH 4
-#define GM2CALC_VERSION "1.7.4"
+#define GM2CALC_VERSION_PATCH 5
+#define GM2CALC_VERSION "1.7.5"
 
 #endif
