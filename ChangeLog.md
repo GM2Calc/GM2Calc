@@ -1,4 +1,4 @@
-GM2Calc-1.7.5 [February, 10 2021]
+GM2Calc-1.7.5 [February, 11 2021]
 =================================
 
 Fixed bugs
