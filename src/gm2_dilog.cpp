@@ -169,7 +169,7 @@ std::complex<double> dilog(const std::complex<double>& z_) noexcept
    const double nz = norm_sqr(z);
 
    if (nz < std::numeric_limits<double>::epsilon()) {
-      return z_;
+      return z*(1.0 + 0.25*z);
    }
 
    Complex<double> u(0.0, 0.0), rest(0.0, 0.0);
