@@ -127,7 +127,7 @@ bool is_zero(double a, double eps)
 template <class Derived>
 unsigned find_bino_like_neutralino(const Eigen::MatrixBase<Derived>& ZN)
 {
-   unsigned max_bino;
+   unsigned max_bino = 0;
    ZN.col(0).cwiseAbs2().maxCoeff(&max_bino);
 
    return max_bino;

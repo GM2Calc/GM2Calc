@@ -283,7 +283,7 @@ struct GM2Calc_reader {
 struct Minimal_writer {
    void operator()(const gm2calc::MSSMNoFV_onshell& model,
                    const gm2calc::Config_options& options,
-                   gm2calc::GM2_slha_io&)
+                   gm2calc::GM2_slha_io& /* unused */)
    {
       const auto value = options.calculate_uncertainty
                             ? calculate_uncertainty(model, options)
@@ -303,7 +303,8 @@ struct Minimal_writer {
  */
 struct Detailed_writer {
    void operator()(const gm2calc::MSSMNoFV_onshell& model,
-                   const gm2calc::Config_options&, gm2calc::GM2_slha_io&)
+                   const gm2calc::Config_options& /* unused */,
+                   gm2calc::GM2_slha_io& /* unused */)
    {
 #define FORMAT_AMU(amu) boost::format("% 14.8e") % (amu)
 #define FORMAT_DEL(amu) boost::format("%14.8e") % (amu)

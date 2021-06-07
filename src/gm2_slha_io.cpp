@@ -429,7 +429,7 @@ namespace {
 
 bool is_integer(double value)
 {
-   double intpart;
+   double intpart{0.0};
    return std::modf(value, &intpart) == 0.0;
 }
 

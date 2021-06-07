@@ -101,7 +101,7 @@ struct Is_not_finite {
 template <typename Derived>
 unsigned closest_index(double mass, const Eigen::ArrayBase<Derived>& v)
 {
-   unsigned pos;
+   unsigned pos = 0;
    typename Derived::PlainObject tmp;
    tmp.setConstant(mass);
 

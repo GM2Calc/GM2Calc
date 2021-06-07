@@ -78,7 +78,7 @@ int main()
           "tan(beta)", "amu", "uncertainty", "error");
 
    for (unsigned n = 0; n < nsteps; n++) {
-      double amu, delta_amu;
+      double amu{0.0}, delta_amu{0.0};
       const double tanb = tanb_start + (tanb_stop - tanb_start) * n / nsteps;
       std::string error;
 
