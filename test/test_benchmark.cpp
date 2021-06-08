@@ -26,11 +26,7 @@ double random(double start, double stop)
 }
 
 /// random value for SUSY scale MS
-auto rMS = [] {
-   const double MS_min = 400;
-   const double MS_max = 4000;
-   return random(MS_min, MS_max);
-};
+auto rMS = [] { return random(400, 4000); };
 
 /// random value for tan(beta)
 auto rTB = [] { return random(2, 1000); };
