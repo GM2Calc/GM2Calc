@@ -684,6 +684,10 @@ int gm2calc_mssmnofv_have_warning(MSSMNoFV_onshell* model)
  */
 void gm2calc_mssmnofv_get_problems(MSSMNoFV_onshell* model, char* msg, unsigned len)
 {
+   if (msg == nullptr) {
+      return;
+   }
+
    const std::string str(reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_problems().get_problems());
    msg[str.copy(msg, len - 1)] = '\0';
 }
@@ -698,6 +702,10 @@ void gm2calc_mssmnofv_get_problems(MSSMNoFV_onshell* model, char* msg, unsigned 
  */
 void gm2calc_mssmnofv_get_warnings(MSSMNoFV_onshell* model, char* msg, unsigned len)
 {
+   if (msg == nullptr) {
+      return;
+   }
+
    const std::string str(reinterpret_cast<gm2calc::MSSMNoFV_onshell*>(model)->get_problems().get_warnings());
    msg[str.copy(msg, len - 1)] = '\0';
 }
