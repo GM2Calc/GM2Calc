@@ -87,9 +87,11 @@ void hermitianize(Eigen::MatrixBase<Derived>& m)
 template <typename T> T sqr(T x) { return x*x; }
 
 template<class Real, int N>
-struct Abs_less {
+class Abs_less {
+public:
     explicit Abs_less(const Eigen::Array<Real, N, 1>& w_) : w(w_) {}
     bool operator() (int i, int j) { return std::abs(w[i]) < std::abs(w[j]); }
+private:
     const Eigen::Array<Real, N, 1>& w;
 };
 
