@@ -485,7 +485,7 @@ void process_gm2calcconfig_tuple(
                    "unsupported output format in GM2CalcConfig[0]");
       break;
    case 1:
-      read_integer(value, config_options.loop_order, 0u, 2u,
+      read_integer(value, config_options.loop_order, 0U, 2U,
                    "unsupported loop order in GM2CalcConfig[1]");
       break;
    case 2:
