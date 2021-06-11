@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_2LOOP_HELPERS_HPP
-#define GM2_2LOOP_HELPERS_HPP
+#ifndef GM2_MSSMNOFV_2LOOP_HELPERS_HPP
+#define GM2_MSSMNOFV_2LOOP_HELPERS_HPP
 
 #include <Eigen/Core>
 
