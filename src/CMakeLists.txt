@@ -1,23 +1,23 @@
 # GM2Calc library
 add_library(gm2calc
-  gm2_1loop_c.cpp
-  gm2_1loop.cpp
-  gm2_2loop_c.cpp
-  gm2_2loop.cpp
   gm2_dilog.cpp
   gm2_ffunctions.cpp
   gm2_mb.cpp
   gm2_numerics.cpp
   gm2_slha_io.cpp
-  gm2_uncertainty_c.cpp
-  gm2_uncertainty.cpp
-  MSSMNoFV_onshell_c.cpp
-  MSSMNoFV_onshell.cpp
-  MSSMNoFV_onshell_mass_eigenstates.cpp
-  MSSMNoFV_onshell_physical.cpp
-  MSSMNoFV_onshell_problems.cpp
-  MSSMNoFV_onshell_soft_parameters.cpp
-  MSSMNoFV_onshell_susy_parameters.cpp
+  MSSMNoFV/gm2_1loop_c.cpp
+  MSSMNoFV/gm2_1loop.cpp
+  MSSMNoFV/gm2_2loop_c.cpp
+  MSSMNoFV/gm2_2loop.cpp
+  MSSMNoFV/gm2_uncertainty_c.cpp
+  MSSMNoFV/gm2_uncertainty.cpp
+  MSSMNoFV/MSSMNoFV_onshell_c.cpp
+  MSSMNoFV/MSSMNoFV_onshell.cpp
+  MSSMNoFV/MSSMNoFV_onshell_mass_eigenstates.cpp
+  MSSMNoFV/MSSMNoFV_onshell_physical.cpp
+  MSSMNoFV/MSSMNoFV_onshell_problems.cpp
+  MSSMNoFV/MSSMNoFV_onshell_soft_parameters.cpp
+  MSSMNoFV/MSSMNoFV_onshell_susy_parameters.cpp
   )
 target_include_directories(gm2calc
   PUBLIC
