@@ -19,11 +19,11 @@
 #ifndef GM2_UNCERTAINTY_H
 #define GM2_UNCERTAINTY_H
 
-typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
 
 /** calculates uncertainty for amu(0-loop) in the MSSMNoFV w/ tan(beta) resummation */
 double gm2calc_mssmnofv_calculate_uncertainty_amu_0loop(const MSSMNoFV_onshell*);

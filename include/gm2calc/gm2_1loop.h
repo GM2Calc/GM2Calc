@@ -19,8 +19,6 @@
 #ifndef GM2_1LOOP_H
 #define GM2_1LOOP_H
 
-typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
-
 /**
  * @file gm2_1loop.h
  * @brief contains declarations of C interface functions for 1-loop calculation
@@ -32,6 +30,8 @@ typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
 
 /** calculates full 1-loop SUSY contributions to (g-2) in the MSSMNoFV (w/ tan(beta) resummation) */
 double gm2calc_mssmnofv_calculate_amu_1loop(const MSSMNoFV_onshell*);
