@@ -19,7 +19,7 @@
 #ifndef GM2_UNCERTAINTY_H
 #define GM2_UNCERTAINTY_H
 
-#include "MSSMNoFV_onshell.h"
+typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
 
 #ifdef __cplusplus
 extern "C" {

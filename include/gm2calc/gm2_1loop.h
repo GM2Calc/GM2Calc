@@ -19,7 +19,7 @@
 #ifndef GM2_1LOOP_H
 #define GM2_1LOOP_H
 
-#include "MSSMNoFV_onshell.h"
+typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
 
 /**
  * @file gm2_1loop.h
