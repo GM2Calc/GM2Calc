@@ -47,3 +47,8 @@ ExportData[Fa, 2, precision, 1/20];
 ExportData[Fb, 2, precision, 1/20];
 
 ExportData[Iabc, 3, precision, 1/20];
+
+ExportData[F1, 1, precision, 0];
+ExportData[F1t, 1, precision, 0];
+ExportData[F2, 1, precision, 0];
+ExportData[F3, 1, precision, 0];

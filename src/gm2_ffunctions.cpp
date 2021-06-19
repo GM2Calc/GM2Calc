@@ -505,4 +505,20 @@ double f_sferm(double z) noexcept {
    return 0.5*z*(2.0 + std::log(z) - f_PS(z));
 }
 
+double F1(double) noexcept {
+   return 0.0;
+}
+
+double F1t(double) noexcept {
+   return 0.0;
+}
+
+double F2(double) noexcept {
+   return 0.0;
+}
+
+double F3(double) noexcept {
+   return 0.0;
+}
+
 } // namespace gm2calc

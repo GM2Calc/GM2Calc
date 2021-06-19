@@ -100,6 +100,12 @@ TEST_CASE("test_F")
    test_1("F2N", [] (double x) { return gm2calc::F2N(x); }, 1e-9);
    test_1("F3N", [] (double x) { return gm2calc::F3N(x); }, 1e-9);
    test_1("F4N", [] (double x) { return gm2calc::F4N(x); }, 1e-9);
+
+   // @todo(alex): implement functions and enable test
+   // test_1("F1" , [] (double x) { return gm2calc::F1(x);  }, 1e-9);
+   // test_1("F1t", [] (double x) { return gm2calc::F1t(x); }, 1e-9);
+   // test_1("F2" , [] (double x) { return gm2calc::F2(x);  }, 1e-9);
+   // test_1("F3" , [] (double x) { return gm2calc::F3(x);  }, 1e-9);
 }
 
 TEST_CASE("test_G")

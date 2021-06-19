@@ -1,4 +1,4 @@
-(* Loop functions for (g-2)_mu from arxiv:1003.5820 *)
+(* Loop functions for (g-2)_mu *)
 
 Li2[x_] := PolyLog[2, x]
 
@@ -107,3 +107,19 @@ I2abc[a_, b_, c_] :=
 
 (* I[a,b,c] with non-squared arguments *)
 Iabc[a_, b_, c_] := I2abc[a^2, b^2, c^2]
+
+(* arxiv:1502.04199, Eq.(25) *)
+F1[0] := 0
+
+F1[w_] := Module[{x}, w/2 NIntegrate[(2x(1-x)-1)/(w-x(1-x)) Log[w/(x(1-x))], {x,0,1}]]
+
+(* arxiv:1502.04199, Eq.(26) *)
+F1t[0] := 0
+
+F1t[w_] := Module[{x}, w/2 NIntegrate[1/(w-x(1-x)) Log[w/(x(1-x))], {x,0,1}]]
+
+(* arxiv:1502.04199, Eq.(27) *)
+F2[w_] := Module[{x}, 1/2 NIntegrate[x(x-1)/(w-x(1-x)) Log[w/(x(1-x))], {x,0,1}]]
+
+(* arxiv:1502.04199, Eq.(28) *)
+F3[w_] := Module[{x}, 1/2 NIntegrate[(x w(3x(4x-1)+10)-x(1-x))/(w-x(1-x)) Log[w/(x(1-x))], {x,0,1}]]
