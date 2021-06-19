@@ -521,7 +521,7 @@ double F1(double w) noexcept {
       };
 
    state_type x0 = { 0 };
-   const double res = integrate(integrand, x0, 0.0 + eps, 1.0 - eps, eps);
+   integrate(integrand, x0, 0.0 + eps, 1.0 - eps, eps);
 
    return x0[0];
 }
