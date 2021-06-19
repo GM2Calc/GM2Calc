@@ -108,6 +108,15 @@ I2abc[a_, b_, c_] :=
 (* I[a,b,c] with non-squared arguments *)
 Iabc[a_, b_, c_] := I2abc[a^2, b^2, c^2]
 
+(* arxiv:hep-ph/0609168, Eq.(70) *)
+fPS[z_] := Module[{y = Sqrt[1 - 4z]}, 2z/y (PolyLog[2, 1 - (1-y)/(2z)] - PolyLog[2, 1 - (1+y)/(2z)])]
+
+(* arxiv:hep-ph/0609168, Eq.(71) *)
+fS[z_] := (2z - 1) fPS[z] - 2z(2 + Log[z])
+
+(* arxiv:hep-ph/0609168, Eq.(72) *)
+fsf[z_] := z/2 (2 + Log[z] - fPS[z])
+
 (* arxiv:1502.04199, Eq.(25) *)
 F1[0] := 0
 
