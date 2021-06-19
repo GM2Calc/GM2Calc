@@ -549,8 +549,12 @@ double F1t(double w) noexcept {
    return integrate(integrand, 0.0 + eps, 1.0 - eps, eps);
 }
 
-double F2(double) noexcept {
-   return 0.0;
+double F2(double w) noexcept {
+   const auto integrand = [w](double x) {
+      return 0.5 * x*(x-1)/(w-x*(1-x)) * std::log(w/(x*(1-x)));
+   };
+
+   return integrate(integrand, 0.0 + eps, 1.0 - eps, eps);
 }
 
 double F3(double) noexcept {
