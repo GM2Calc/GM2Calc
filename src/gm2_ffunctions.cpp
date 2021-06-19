@@ -529,13 +529,25 @@ double integrate(T fun, double start, double stop, double dt) {
 double F1(double w) noexcept {
    if (w == 0.0) {
       return 0.0;
+   } else if (w == 0.25) {
+      return -0.5;
    }
 
-   const auto fun = [w](double x) {
-      return w/2 * (2*x*(1-x)-1)/(w-x*(1-x)) * std::log(w/(x*(1-x)));
-   };
+   const auto y = std::sqrt(std::complex<double>(1 - 4*w));
+   const auto lm1my = std::log(-1.0 - y);
+   const auto l1my = std::log(1.0 - y);
+   const auto lw = std::log(w);
+   const auto l16 = 2.7725887222397812; // 4 Log[2]
 
-   return integrate(fun, 0.0 + eps, 1.0 - eps, eps);
+   const auto res =
+      - 2.0*y - y*lw + w*l16*l1my + 2.0*w*lw*l1my
+      - 2.0*w*l1my*(l1my + std::log(1.0 + y))
+      + ((-1.0 + 2.0*w)*lm1my + l1my)*std::log((1.0 - y)*(1.0 + y)/(4.0*w))
+      + (-1.0 + 2.0*w)*dilog((-1.0 + y)/(1.0 + y))
+      + (1.0 - 2.0*w)*dilog((1.0 + y)/(-1.0 + y))
+      ;
+
+   return std::real(w/y*res);
 }
 
 double F1t(double w) noexcept {
