@@ -25,6 +25,8 @@
 #include <complex>
 #include <limits>
 
+#include <boost/numeric/odeint.hpp>
+
 namespace gm2calc {
 
 namespace {
@@ -505,8 +507,23 @@ double f_sferm(double z) noexcept {
    return 0.5*z*(2.0 + std::log(z) - f_PS(z));
 }
 
-double F1(double) noexcept {
-   return 0.0;
+double F1(double w) noexcept {
+   using boost::numeric::odeint::integrate;
+   using state_type = std::array<double, 1>;
+
+   if (w == 0.0) {
+      return 0.0;
+   }
+
+   const auto integrand =
+      [w](const state_type& /* unused */, state_type& dxdt, double x) {
+         dxdt[0] = w/2 * (2*x*(1-x)-1)/(w-x*(1-x)) * std::log(w/(x*(1-x)));
+      };
+
+   state_type x0 = { 0 };
+   const double res = integrate(integrand, x0, 0.0 + eps, 1.0 - eps, eps);
+
+   return x0[0];
 }
 
 double F1t(double) noexcept {
