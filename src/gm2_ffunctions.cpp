@@ -542,9 +542,8 @@ double F1(double w) noexcept {
    const auto res =
       - 2.0*y - y*lw + w*l16*l1my + 2.0*w*lw*l1my
       - 2.0*w*l1my*(l1my + std::log(1.0 + y))
-      + ((-1.0 + 2.0*w)*lm1my + l1my)*std::log((1.0 - y)*(1.0 + y)/(4.0*w))
-      + (-1.0 + 2.0*w)*dilog((-1.0 + y)/(1.0 + y))
-      + (1.0 - 2.0*w)*dilog((1.0 + y)/(-1.0 + y))
+      + (l1my - (1.0 - 2.0*w)*lm1my)*std::log((1.0 - y)*(1.0 + y)/(4.0*w))
+      + (1.0 - 2.0*w)*(dilog((1.0 + y)/(-1.0 + y)) - dilog((-1.0 + y)/(1.0 + y)))
       ;
 
    return std::real(w/y*res);
