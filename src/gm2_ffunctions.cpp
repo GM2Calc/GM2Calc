@@ -531,11 +531,11 @@ double F1(double w) noexcept {
       return 0.0;
    }
 
-   const auto integrand = [w](double x) {
+   const auto fun = [w](double x) {
       return w/2 * (2*x*(1-x)-1)/(w-x*(1-x)) * std::log(w/(x*(1-x)));
    };
 
-   return integrate(integrand, 0.0 + eps, 1.0 - eps, eps);
+   return integrate(fun, 0.0 + eps, 1.0 - eps, eps);
 }
 
 double F1t(double w) noexcept {
@@ -543,27 +543,27 @@ double F1t(double w) noexcept {
       return 0.0;
    }
 
-   const auto integrand = [w](double x) {
+   const auto fun = [w](double x) {
       return w/2 * 1/(w-x*(1-x)) * std::log(w/(x*(1-x)));
    };
 
-   return integrate(integrand, 0.0 + eps, 1.0 - eps, eps);
+   return integrate(fun, 0.0 + eps, 1.0 - eps, eps);
 }
 
 double F2(double w) noexcept {
-   const auto integrand = [w](double x) {
+   const auto fun = [w](double x) {
       return 0.5 * x*(x-1)/(w-x*(1-x)) * std::log(w/(x*(1-x)));
    };
 
-   return integrate(integrand, 0.0 + eps, 1.0 - eps, eps);
+   return integrate(fun, 0.0 + eps, 1.0 - eps, eps);
 }
 
 double F3(double w) noexcept {
-   const auto integrand = [w](double x) {
+   const auto fun = [w](double x) {
       return 0.5 * (x*w*(3*x*(4*x-1)+10) - x*(1-x))/(w-x*(1-x)) * std::log(w/(x*(1-x)));
    };
 
-   return integrate(integrand, 0.0 + eps, 1.0 - eps, eps);
+   return integrate(fun, 0.0 + eps, 1.0 - eps, eps);
 }
 
 } // namespace gm2calc
