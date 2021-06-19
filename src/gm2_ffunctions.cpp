@@ -566,4 +566,8 @@ double F3(double w) noexcept {
    return integrate(fun, 0.0 + eps, 1.0 - eps, eps);
 }
 
+double G(double wa, double wb, double x) noexcept {
+   return std::log((wa*x+wb*(1-x))/(x*(1-x)))/(x*(1-x)-wa*x-wb*(1-x));
+}
+
 } // namespace gm2calc

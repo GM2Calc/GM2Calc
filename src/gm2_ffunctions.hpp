@@ -61,6 +61,8 @@ double F1t(double) noexcept;
 double F2(double) noexcept;
 /// \f$\mathcal{F}_3(\omega)\f$, Eq (28) arxiv:1502.04199
 double F3(double) noexcept;
+/// \f$\mathcal{G}(\omega^a, \omega^b, x)\f$, Eq (29) arxiv:1502.04199
+double G(double, double, double) noexcept;
 
 } // namespace gm2calc
 
