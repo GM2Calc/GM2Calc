@@ -63,6 +63,8 @@ double F2(double) noexcept;
 double F3(double) noexcept;
 /// \f$\mathcal{G}(\omega^a, \omega^b, x)\f$, Eq (29) arxiv:1502.04199
 double G(double, double, double) noexcept;
+/// \f$\int_0^1 x^n \mathcal{G}(\omega^a, \omega^b, x) dx\f$
+double Gn(double, double, int) noexcept;
 
 } // namespace gm2calc
 

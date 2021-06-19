@@ -52,3 +52,13 @@ ExportData[F1, 1, precision, 0];
 ExportData[F1t, 1, precision, 0];
 ExportData[F2, 1, precision, 0];
 ExportData[F3, 1, precision, 0];
+
+Gn0[wa_, wb_] := Gn[wa, wb, 0];
+Gn1[wa_, wb_] := Gn[wa, wb, 1];
+Gn2[wa_, wb_] := Gn[wa, wb, 2];
+Gn3[wa_, wb_] := Gn[wa, wb, 3];
+
+ExportData[Gn0, 2, precision, 1/20];
+ExportData[Gn1, 2, precision, 1/20];
+ExportData[Gn2, 2, precision, 1/20];
+ExportData[Gn3, 2, precision, 1/20];

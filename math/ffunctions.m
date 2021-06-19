@@ -126,3 +126,6 @@ F3[w_] := Module[{x}, 1/2 NIntegrate[(x w(3x(4x-1)+10)-x(1-x))/(w-x(1-x)) Log[w/
 
 (* arxiv:1502.04199, Eq.(29) *)
 G[wa_, wb_, x_] := Log[(wa*x+wb*(1-x))/(x(1-x))]/(x(1-x)-wa*x-wb*(1-x))
+
+(* Integral of x^n G[wa,wb,x] over {x,0,1} *)
+Gn[wa_, wb_, n_] := NIntegrate[x^n G[wa, wb, x], {x,0,1}]

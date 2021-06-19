@@ -570,4 +570,12 @@ double G(double wa, double wb, double x) noexcept {
    return std::log((wa*x+wb*(1-x))/(x*(1-x)))/(x*(1-x)-wa*x-wb*(1-x));
 }
 
+double Gn(double wa, double wb, int n) noexcept {
+   const auto fun = [wa, wb, n](double x) {
+      return std::pow(x,n)*G(wa, wb, x);
+   };
+
+   return integrate(fun, 0.0 + eps, 1.0 - eps, eps);
+}
+
 } // namespace gm2calc
