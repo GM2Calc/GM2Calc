@@ -507,23 +507,34 @@ double f_sferm(double z) noexcept {
    return 0.5*z*(2.0 + std::log(z) - f_PS(z));
 }
 
-double F1(double w) noexcept {
+namespace {
+
+template <typename T>
+double integrate(T fun, double start, double stop, double dt) {
    using boost::numeric::odeint::integrate;
    using state_type = std::array<double, 1>;
 
+   const auto f = [fun](const state_type& /* unused */, state_type& dxdt,
+                        double x) { dxdt[0] = fun(x); };
+
+   state_type x0 = {start};
+   integrate(f, x0, start, stop, dt);
+
+   return x0[0];
+}
+
+} // anonymous namespace
+
+double F1(double w) noexcept {
    if (w == 0.0) {
       return 0.0;
    }
 
-   const auto integrand =
-      [w](const state_type& /* unused */, state_type& dxdt, double x) {
-         dxdt[0] = w/2 * (2*x*(1-x)-1)/(w-x*(1-x)) * std::log(w/(x*(1-x)));
-      };
+   const auto integrand = [w](double x) {
+      return w/2 * (2*x*(1-x)-1)/(w-x*(1-x)) * std::log(w/(x*(1-x)));
+   };
 
-   state_type x0 = { 0 };
-   integrate(integrand, x0, 0.0 + eps, 1.0 - eps, eps);
-
-   return x0[0];
+   return integrate(integrand, 0.0 + eps, 1.0 - eps, eps);
 }
 
 double F1t(double) noexcept {
