@@ -579,17 +579,12 @@ double F2(double w) noexcept {
    const auto l1my = std::log(1.0 - y);
    const auto lw = std::log(w);
    const auto l2 = 0.69314718055994531; // Log[2]
-   const auto l8 = 3*l2; // Log[8]
+   const auto l3 = 1.0397207708399180; // 3/2 Log[2]
 
    auto res =
-      l1my*l1my
-      - l1my*lm1my
-      + (1.0 + 0.5*lw)*y/w
-      + lm1my*l2
-      - 0.5*l1my*l8
-      + (lm1my - l1my)*lw
+      + l1my*(l1my - lm1my - l3 - lw + 0.5*std::log(1.0 + y))
+      + lm1my*(l2 + lw) + (1.0 + 0.5*lw)*y/w
       - (0.5*l1my - lm1my)*std::log(2.0/(1.0 + y))
-      + 0.5*l1my*std::log(1.0 + y)
       + dilog((1.0 + y)/(-1.0 + y)) - dilog((-1.0 + y)/(1.0 + y))
       ;
 
