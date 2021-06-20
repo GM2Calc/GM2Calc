@@ -65,6 +65,8 @@ double F3(double) noexcept;
 double G(double, double, double) noexcept;
 /// \f$\int_0^1 x^n \mathcal{G}(\omega^a, \omega^b, x) dx\f$
 double Gn(double, double, int) noexcept;
+/// \f$\Phi(x,y,z)\f$ with squared masses, Davydychev and Tausk, Nucl. Phys. B397 (1993) 23
+double Phi(double x, double y, double z) noexcept;
 
 } // namespace gm2calc
 

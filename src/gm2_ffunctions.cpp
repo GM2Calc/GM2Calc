@@ -67,6 +67,104 @@ namespace {
       return x0[0];
    }
 
+   /// lambda^2(u,v)
+   double lambda_2(double u, double v) noexcept
+   {
+      return sqr(1 - u - v) - 4*u*v;
+   }
+
+   /// u < 1 && v < 1, lambda^2(u,v) > 0; note: phi_pos(u,v) = phi_pos(v,u)
+   double phi_pos(double u, double v) noexcept
+   {
+      const double eps = 1.0e-7;
+
+      if (is_equal(u, 1.0, eps) && is_equal(v, 1.0, eps)) {
+         return 2.343907238689459;
+      }
+
+      const double Pi = 3.141592653589793;
+      const auto lambda = std::sqrt(lambda_2(u,v));
+
+      if (is_equal(u, v, eps)) {
+         return (-(sqr(std::log(u)))
+                 + 2*sqr(std::log((1 - lambda)/2.))
+                 - 4*dilog((1 - lambda)/2.)
+                 + sqr(Pi)/3.)/lambda;
+      }
+
+      return (-(std::log(u)*std::log(v))
+              + 2*std::log((1 - lambda + u - v)/2.)*std::log((1 - lambda - u + v)/2.)
+              - 2*dilog((1 - lambda + u - v)/2.)
+              - 2*dilog((1 - lambda - u + v)/2.)
+              + sqr(Pi)/3.)/lambda;
+   }
+
+   /// lambda^2(u,v) < 0, u = 1
+   double phi_neg_1v(double v, double lambda) noexcept
+   {
+      return 2*(+ clausen_2(2*std::acos((2 - v)/2))
+                + 2*clausen_2(2*std::acos(0.5*std::sqrt(v))))/lambda;
+   }
+
+   /// lambda^2(u,v) < 0; note: phi_neg(u,v) = phi_neg(v,u)
+   double phi_neg(double u, double v) noexcept
+   {
+      const double eps = 1.0e-7;
+
+      if (is_equal(u, 1.0, eps) && is_equal(v, 1.0, eps)) {
+         return 2.343907238689459;
+      }
+
+      const auto lambda = std::sqrt(-lambda_2(u,v));
+
+      if (is_equal(u, 1.0, eps)) {
+         return phi_neg_1v(v, lambda);
+      }
+
+      if (is_equal(v, 1.0, eps)) {
+         return phi_neg_1v(u, lambda);
+      }
+
+      if (is_equal(u, v, eps)) {
+         return 2*(2*clausen_2(2*std::acos(1/(2.*std::sqrt(u))))
+                   + clausen_2(2*std::acos((-1 + 2*u)/(2.*std::abs(u)))))/lambda;
+      }
+
+      return 2*(+ clausen_2(2*std::acos((1 + u - v)/(2.*std::sqrt(u))))
+                + clausen_2(2*std::acos((1 - u + v)/(2.*std::sqrt(v))))
+                + clausen_2(2*std::acos((-1 + u + v)/(2.*std::sqrt(u*v)))))/lambda;
+   }
+
+   /**
+    * Phi(u,v) with u = x/z, v = y/z.
+    *
+    * The following identities hold:
+    * Phi(u,v) = Phi(v,u) = Phi(1/u,v/u)/u = Phi(1/v,u/v)/v
+    */
+   double phi_uv(double u, double v) noexcept
+   {
+      const auto lambda = lambda_2(u,v);
+
+      if (is_zero(lambda, std::numeric_limits<double>::epsilon())) {
+         // phi_uv is always multiplied by lambda.  So, in order to
+         // avoid nans if lambda == 0, we simply return 0
+         return 0.0;
+      }
+
+      if (lambda > 0.) {
+         if (u <= 1 && v <= 1) {
+            return phi_pos(u,v);
+         }
+         if (u >= 1 && v/u <= 1) {
+            return phi_pos(1./u,v/u)/u;
+         }
+         // v >= 1 && u/v <= 1
+         return phi_pos(1./v,u/v)/v;
+      }
+
+      return phi_neg(u,v);
+   }
+
 } // anonymous namespace
 
 double F1C(double x) noexcept {
@@ -642,6 +740,24 @@ double Gn(double wa, double wb, int n) noexcept {
    };
 
    return integrate(fun, 0.0 + eps, 1.0 - eps, eps);
+}
+
+/**
+ * \f$\Phi(x,y,z)\f$ function.  The arguments x, y and z are
+ * interpreted as squared masses.
+ *
+ * Davydychev and Tausk, Nucl. Phys. B397 (1993) 23
+ *
+ * @param x squared mass
+ * @param y squared mass
+ * @param z squared mass
+ *
+ * @return \f$\Phi(x,y,z)\f$
+ */
+double Phi(double x, double y, double z) noexcept
+{
+   const auto u = x/z, v = y/z;
+   return phi_uv(u,v);
 }
 
 } // namespace gm2calc
