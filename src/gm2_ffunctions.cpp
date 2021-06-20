@@ -592,11 +592,40 @@ double F2(double w) noexcept {
 }
 
 double F3(double w) noexcept {
-   const auto fun = [w](double x) {
-      return 0.5 * (x*w*(3*x*(4*x-1)+10) - x*(1-x))/(w-x*(1-x)) * std::log(w/(x*(1-x)));
-   };
+   if (w < 0.0) {
+      ERROR("F2: w must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   } else if (w == 0.25) {
+      return 19.0/4.0;
+   }
 
-   return integrate(fun, 0.0 + eps, 1.0 - eps, eps);
+   const auto y = std::sqrt(std::complex<double>(1 - 4*w));
+   const auto lm1my = std::log(-1.0 - y);
+   const auto l1my = std::log(1.0 - y);
+   const auto l1py = std::log(1.0 + y);
+   const auto lm1py = std::log(-1.0 + y);
+   const auto l2o1py = std::log(2.0/(1.0 + y));
+   const auto lw = std::log(w);
+   const auto l2 = 0.69314718055994531; // Log[2]
+   const auto l8 = 3*l2; // 3 Log[2]
+   const auto l12 = 12*l2; // 12 Log[2]
+
+   const auto res =
+      l1my*l1my*(-45.0 - 57.0*y + 36.0*w*(4.0 + y))
+      + lw*(6.0*(15.0 + 1.0/w)*y + 3.0*(-19.0 + 12.0*w)*(-1.0 + y)*lm1py)
+      + 6.0*(30.0*y + (2.0*y)/w + (17.0 - 30.0*w)*dilog((-1.0 + y)/(1.0 + y)) + (-17.0 + 30.0*w)*dilog((1.0 + y)/(-1.0 + y)) +
+       19.0*l2*lm1py - 12.0*w*l2*lm1py - 19.0*y*l2*lm1py +
+       12.0*w*y*l2*lm1py)
+      + lm1my*(-45.0*l2 + (-19.0 + 12.0*w)*y*l8 + 12.0*w*l12 +
+       (-45.0 - 57.0*y + 36.0*w*(4.0 + y))*lw + 3.0*(-15.0 - 19.0*y + 12.0*w*(4.0 + y))*l2o1py)
+      + l1my*(lm1my*(45.0 + 57.0*y - 36.0*w*(4.0 + y)) + l1py*(63.0 - 57.0*y + 18.0*w*(1.0 + 2.0*y)) + 39.0*l2 -
+       198.0*w*l2 + 19.0*y*l8 - 12.0*w*y*l8 + (45.0 + 57.0*y - 36.0*w*(4.0 + y))*lw -
+       3.0*(-19.0 + 12.0*w)*(-1.0 + y)*lm1py + (51.0 + 57.0*y - 18.0*w*(5.0 + 2.0*y))*l2o1py)
+      + l1py*(-3.0*(-19.0 + 12.0*w)*(-1.0 + y)*lw
+              - (-19.0 + 12.0*w)*(-1.0 + y)*(l8 + 3.0*lm1py + 3.0*l2o1py))
+      ;
+
+   return std::real(w/(12.0*y)*res);
 }
 
 double G(double wa, double wb, double x) noexcept {
