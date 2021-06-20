@@ -474,9 +474,13 @@ double Iabc(double a, double b, double c) noexcept {
 double f_PS(double z) noexcept {
    double result = 0.0;
 
-   if (z < 0.25) {
+   if (z == 0.0) {
+      return 0.0;
+   } else if (z < 0.25) {
       const double y = std::sqrt(1. - 4. * z);
       result = 2.0*z/y*(dilog(1.0 - 0.5*(1.0 - y)/z) - dilog(1.0 - 0.5*(1.0 + y)/z));
+   } else if (z == 0.25) {
+      return 1.3862943611198906; // Log[4]
    } else {
       const std::complex<double> y = std::sqrt(std::complex<double>(1.0 - 4.0*z, 0.0));
       const std::complex<double> zc(z, 0.0);
