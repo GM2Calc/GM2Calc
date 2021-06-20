@@ -29,6 +29,9 @@ double dilog(double) noexcept;
 /// complex dilogarithm
 std::complex<double> dilog(const std::complex<double>&) noexcept;
 
+/// Clausen function Cl_2(x)
+double clausen_2(double x) noexcept;
+
 } // namespace gm2calc
 
 #endif
