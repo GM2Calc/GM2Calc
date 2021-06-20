@@ -498,6 +498,10 @@ double f_S(double z) noexcept {
       ERROR("f_S: z must not be negative!");
    }
 
+   if (z == 0.0) {
+      return 0.0;
+   }
+
    return (2.0*z - 1.0)*f_PS(z) - 2.0*z*(2.0 + std::log(z));
 }
 
