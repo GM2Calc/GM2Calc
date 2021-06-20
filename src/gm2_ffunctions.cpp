@@ -567,11 +567,33 @@ double F1t(double w) noexcept {
 }
 
 double F2(double w) noexcept {
-   const auto fun = [w](double x) {
-      return 0.5 * x*(x-1)/(w-x*(1-x)) * std::log(w/(x*(1-x)));
-   };
+   if (w < 0.0) {
+      ERROR("F2: w must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   } else if (w == 0.25) {
+      return -0.38629436111989062; // 1 - Log[4]
+   }
 
-   return integrate(fun, 0.0 + eps, 1.0 - eps, eps);
+   const auto y = std::sqrt(std::complex<double>(1 - 4*w));
+   const auto lm1my = std::log(-1.0 - y);
+   const auto l1my = std::log(1.0 - y);
+   const auto lw = std::log(w);
+   const auto l2 = 0.69314718055994531; // Log[2]
+   const auto l8 = 3*l2; // Log[8]
+
+   auto res =
+      2.0*l1my*l1my*w
+      - 2.0*l1my*lm1my*w
+      + 2.0*y
+      + 2.0*lm1my*w*l2
+      - l1my*w*l8
+      + (-2.0*l1my*w + 2.0*lm1my*w + y)*lw
+      - (l1my - 2.0*lm1my)*w*std::log(2.0/(1.0 + y))
+      + l1my*w*std::log(1.0 + y)
+      + 2.0*w*(dilog((1.0 + y)/(-1.0 + y)) - dilog((-1.0 + y)/(1.0 + y)))
+      ;
+
+   return std::real(res/(2.0*y));
 }
 
 double F3(double w) noexcept {
