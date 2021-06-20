@@ -146,3 +146,23 @@ G[wa_, wb_, x_] := Log[(wa*x+wb*(1-x))/(x(1-x))]/(x(1-x)-wa*x-wb*(1-x))
 
 (* Integral of x^n G[wa,wb,x] over {x,0,1} *)
 Gn[wa_, wb_, n_] := NIntegrate[x^n G[wa, wb, x], {x,0,1}]
+
+(* Phi(x,y,z) from Davydychev and Tausk, Nucl. Phys. B397 (1993) 23 *)
+(* Note: The parameters x,y,z are interpreted as squared masses *)
+(* Formulation as in arxiv:1607.06292, Eq.(68) *)
+Phi[x_, y_, z_] := LambdaK[x,y,z]/2 (
+    + 2 Log[alphaPlus[x,y,z]] Log[alphaMinus[x,y,z]]
+    - Log[x/z] Log[y/z]
+    - 2 PolyLog[2, alphaPlus[x,y,z]]
+    - 2 PolyLog[2, alphaMinus[x,y,z]]
+    + Pi^2/3
+)
+
+(* arxiv:1607.06292, Eq.(69) *)
+LambdaK[x_, y_, z_] := Sqrt[x^2 + y^2 + z^2 - 2 x y - 2 y z - 2 z x]
+
+(* arxiv:1607.06292, Eq.(70) *)
+alphaPlus[x_, y_, z_] := (z + x - y - LambdaK[x,y,z]) / (2 z)
+
+(* arxiv:1607.06292, Eq.(70) *)
+alphaMinus[x_, y_, z_] := (z - x + y - LambdaK[x,y,z]) / (2 z)
