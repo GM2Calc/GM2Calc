@@ -116,6 +116,8 @@ fPS[1/4] := 2 Log[2]
 fPS[z_] := Re[Module[{y = Sqrt[1 - 4z]}, 2z/y (PolyLog[2, 1 - (1-y)/(2z)] - PolyLog[2, 1 - (1+y)/(2z)])]]
 
 (* arxiv:hep-ph/0609168, Eq.(71) *)
+fS[0] := 0
+
 fS[z_] := (2z - 1) fPS[z] - 2z(2 + Log[z])
 
 (* arxiv:hep-ph/0609168, Eq.(72) *)
