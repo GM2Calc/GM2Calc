@@ -121,7 +121,9 @@ fS[0] := 0
 fS[z_] := (2z - 1) fPS[z] - 2z(2 + Log[z])
 
 (* arxiv:hep-ph/0609168, Eq.(72) *)
-fsf[z_] := z/2 (2 + Log[z] - fPS[z])
+fsferm[0] := 0
+
+fsferm[z_] := z/2 (2 + Log[z] - fPS[z])
 
 (* arxiv:1502.04199, Eq.(25) *)
 F1[0] := 0
