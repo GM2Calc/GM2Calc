@@ -513,6 +513,10 @@ double f_sferm(double z) noexcept {
       ERROR("f_sferm: z must not be negative!");
    }
 
+   if (z == 0.0) {
+      return 0.0;
+   }
+
    return 0.5*z*(2.0 + std::log(z) - f_PS(z));
 }
 
