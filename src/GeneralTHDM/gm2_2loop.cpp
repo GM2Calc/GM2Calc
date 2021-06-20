@@ -39,13 +39,29 @@ double amu2L_B_EWadd(double eta, double zetal)
    return 2.3e-11 * eta * zetal;
 }
 
+/**
+ * \fn amu2L_B_nonYuk
+ *
+ * Calculates 2-loop bosonic non-Yukawa contributions.
+ *
+ * Eq (71), arxiv:1607:06292
+ */
 double amu2L_B_nonYuk()
 {
+   // @todo(alex) implementation missing
    return 0.0;
 }
 
+/**
+ * \fn amu2L_B_Yuk
+ *
+ * Calculates 2-loop bosonic Yukawa contributions.
+ *
+ * Eq (52), arxiv:1607:06292
+ */
 double amu2L_B_Yuk()
 {
+   // @todo(alex) implementation missing
    return 0.0;
 }
 
