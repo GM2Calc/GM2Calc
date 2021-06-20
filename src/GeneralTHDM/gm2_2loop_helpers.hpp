@@ -30,6 +30,7 @@ namespace gm2calc {
 double amu2L_B_EWadd(double eta, double zetal);
 double amu2L_B_nonYuk();
 double amu2L_B_Yuk();
+double amu2L_F();
 
 } // namespace gm2calc
 

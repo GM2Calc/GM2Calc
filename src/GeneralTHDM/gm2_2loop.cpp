@@ -65,4 +65,17 @@ double amu2L_B_Yuk()
    return 0.0;
 }
 
+/**
+ * \fn amu2L_F
+ *
+ * Calculates 2-loop fermionic contributions.
+ *
+ * Eq (63), arxiv:1607:06292
+ */
+double amu2L_F()
+{
+   // @todo(alex) implementation missing
+   return 0.0;
+}
+
 } // namespace gm2calc
