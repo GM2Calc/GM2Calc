@@ -472,22 +472,22 @@ double Iabc(double a, double b, double c) noexcept {
  * Calculates \f$f_{PS}(z)\f$, Eq (70) arXiv:hep-ph/0609168
  */
 double f_PS(double z) noexcept {
-   double result = 0.0;
-
-   if (z == 0.0) {
+   if (z < 0.0) {
+      ERROR("f_PS: z must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   } else  if (z == 0.0) {
       return 0.0;
    } else if (z < 0.25) {
       const double y = std::sqrt(1. - 4. * z);
-      result = 2.0*z/y*(dilog(1.0 - 0.5*(1.0 - y)/z) - dilog(1.0 - 0.5*(1.0 + y)/z));
+      return 2.0*z/y*(dilog(1.0 - 0.5*(1.0 - y)/z) - dilog(1.0 - 0.5*(1.0 + y)/z));
    } else if (z == 0.25) {
       return 1.3862943611198906; // Log[4]
-   } else {
-      const std::complex<double> y = std::sqrt(std::complex<double>(1.0 - 4.0*z, 0.0));
-      const std::complex<double> zc(z, 0.0);
-      result = std::real(2.0*zc/y*(dilog(1.0 - 0.5*(1.0 - y)/zc) - dilog(1.0 - 0.5*(1.0 + y)/zc)));
    }
 
-   return result;
+   // z > 0.25
+   const std::complex<double> y = std::sqrt(std::complex<double>(1.0 - 4.0*z, 0.0));
+   const std::complex<double> zc(z, 0.0);
+   return std::real(2.0*zc/y*(dilog(1.0 - 0.5*(1.0 - y)/zc) - dilog(1.0 - 0.5*(1.0 + y)/zc)));
 }
 
 /**
@@ -496,9 +496,8 @@ double f_PS(double z) noexcept {
 double f_S(double z) noexcept {
    if (z < 0.0) {
       ERROR("f_S: z must not be negative!");
-   }
-
-   if (z == 0.0) {
+      return std::numeric_limits<double>::quiet_NaN();
+   } else if (z == 0.0) {
       return 0.0;
    }
 
@@ -511,9 +510,8 @@ double f_S(double z) noexcept {
 double f_sferm(double z) noexcept {
    if (z < 0.0) {
       ERROR("f_sferm: z must not be negative!");
-   }
-
-   if (z == 0.0) {
+      return std::numeric_limits<double>::quiet_NaN();
+   } else if (z == 0.0) {
       return 0.0;
    }
 
@@ -539,7 +537,10 @@ double integrate(T fun, double start, double stop, double dt) {
 } // anonymous namespace
 
 double F1(double w) noexcept {
-   if (w == 0.0) {
+   if (w < 0.0) {
+      ERROR("F1: w must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   } else if (w == 0.0) {
       return 0.0;
    } else if (w == 0.25) {
       return -0.5;
@@ -562,12 +563,6 @@ double F1(double w) noexcept {
 }
 
 double F1t(double w) noexcept {
-   if (w == 0.0) {
-      return 0.0;
-   } else if (w == 0.25) {
-      return std::log(2.0);
-   }
-
    return 0.5*f_PS(w);
 }
 
