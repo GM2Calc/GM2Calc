@@ -757,8 +757,7 @@ double Gn(double wa, double wb, int n) noexcept {
 double Phi(double x, double y, double z) noexcept
 {
    const auto u = x/z, v = y/z;
-   const auto lambda2 = lambda_2(u, v)*z;
-   return phi_uv(u,v)*lambda2/2;
+   return phi_uv(u,v)*z*lambda_2(u, v)/2;
 }
 
 } // namespace gm2calc
