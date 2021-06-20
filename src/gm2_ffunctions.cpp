@@ -582,18 +582,18 @@ double F2(double w) noexcept {
    const auto l8 = 3*l2; // Log[8]
 
    auto res =
-      2.0*l1my*l1my
-      - 2.0*l1my*lm1my
-      + (2.0 + lw)*y/w
-      + 2.0*lm1my*l2
-      - l1my*l8
-      + (-2.0*l1my + 2.0*lm1my)*lw
-      - (l1my - 2.0*lm1my)*std::log(2.0/(1.0 + y))
-      + l1my*std::log(1.0 + y)
-      + 2.0*(dilog((1.0 + y)/(-1.0 + y)) - dilog((-1.0 + y)/(1.0 + y)))
+      l1my*l1my
+      - l1my*lm1my
+      + (1.0 + 0.5*lw)*y/w
+      + lm1my*l2
+      - 0.5*l1my*l8
+      + (lm1my - l1my)*lw
+      - (0.5*l1my - lm1my)*std::log(2.0/(1.0 + y))
+      + 0.5*l1my*std::log(1.0 + y)
+      + dilog((1.0 + y)/(-1.0 + y)) - dilog((-1.0 + y)/(1.0 + y))
       ;
 
-   return std::real(w*res/(2.0*y));
+   return std::real(w/y*res);
 }
 
 double F3(double w) noexcept {
