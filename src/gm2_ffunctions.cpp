@@ -552,13 +552,11 @@ double F1(double w) noexcept {
 double F1t(double w) noexcept {
    if (w == 0.0) {
       return 0.0;
+   } else if (w == 0.25) {
+      return std::log(2.0);
    }
 
-   const auto fun = [w](double x) {
-      return w/2 * 1/(w-x*(1-x)) * std::log(w/(x*(1-x)));
-   };
-
-   return integrate(fun, 0.0 + eps, 1.0 - eps, eps);
+   return 0.5*f_PS(w);
 }
 
 double F2(double w) noexcept {
