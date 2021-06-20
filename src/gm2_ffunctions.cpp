@@ -584,10 +584,10 @@ double F2(double w) noexcept {
    auto res =
       2.0*l1my*l1my
       - 2.0*l1my*lm1my
-      + 2.0*y/w
+      + (2.0 + lw)*y/w
       + 2.0*lm1my*l2
       - l1my*l8
-      + (-2.0*l1my + 2.0*lm1my + y/w)*lw
+      + (-2.0*l1my + 2.0*lm1my)*lw
       - (l1my - 2.0*lm1my)*std::log(2.0/(1.0 + y))
       + l1my*std::log(1.0 + y)
       + 2.0*(dilog((1.0 + y)/(-1.0 + y)) - dilog((-1.0 + y)/(1.0 + y)))
