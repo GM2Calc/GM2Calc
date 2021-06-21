@@ -31,7 +31,7 @@ namespace gm2calc {
 
 namespace {
 
-struct THDM_parameters {
+struct F_sm_pars {
    double alpha{}; ///< alpha_em
    double mm{};    ///< muon mass
    double mw{};    ///< W boson mass
@@ -81,12 +81,12 @@ double FA(double ms2, double mf2)
 
 /// Eq (54), arxiv:1607.06292, S = h or H
 template <typename F>
-double fSgamma(double ms2, const F_neut_pars& pars, const THDM_parameters& thdm, F fS) noexcept
+double fSgamma(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F fS) noexcept
 {
-   const double al2 = sqr(thdm.alpha);
-   const double mm2 = sqr(thdm.mm);
-   const double mw2 = sqr(thdm.mw);
-   const double mz2 = sqr(thdm.mz);
+   const double al2 = sqr(sm.alpha);
+   const double mm2 = sqr(sm.mm);
+   const double mw2 = sqr(sm.mw);
+   const double mz2 = sqr(sm.mz);
    const double sw2 = 1.0 - mw2/mz2;
    const double mf2 = pars.mf2;
    const double qf2 = sqr(pars.qf);
@@ -97,12 +97,12 @@ double fSgamma(double ms2, const F_neut_pars& pars, const THDM_parameters& thdm,
 
 /// Eq (55), arxiv:1607.06292, S = h or H
 template <typename F>
-double fSZ(double ms2, const F_neut_pars& pars, const THDM_parameters& thdm, F fS) noexcept
+double fSZ(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F fS) noexcept
 {
-   const double al2 = sqr(thdm.alpha);
-   const double mm2 = sqr(thdm.mm);
-   const double mw2 = sqr(thdm.mw);
-   const double mz2 = sqr(thdm.mz);
+   const double al2 = sqr(sm.alpha);
+   const double mm2 = sqr(sm.mm);
+   const double mw2 = sqr(sm.mw);
+   const double mz2 = sqr(sm.mz);
    const double cw2 = mw2/mz2;
    const double sw2 = 1.0 - cw2;
    const double mf2 = pars.mf2;
@@ -118,9 +118,9 @@ double fSZ(double ms2, const F_neut_pars& pars, const THDM_parameters& thdm, F f
 
 /// Eq (53), arxiv:1607.06292, S = h or H
 template <typename F>
-double ffS(double ms2, const F_neut_pars& pars, const THDM_parameters& thdm, F fS) noexcept
+double ffS(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F fS) noexcept
 {
-   return fSgamma(ms2, pars, thdm, fS) + fSZ(ms2, pars, thdm, fS);
+   return fSgamma(ms2, pars, sm, fS) + fSZ(ms2, pars, sm, fS);
 }
 
 /// Eq (60), arxiv:1607.06292
@@ -164,12 +164,12 @@ double FuHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
 }
 
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = l
-double flHp(double ms2, const F_char_pars& pars, const THDM_parameters& thdm) noexcept
+double flHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm) noexcept
 {
-   const double al2 = sqr(thdm.alpha);
-   const double mm2 = sqr(thdm.mm);
-   const double mw2 = sqr(thdm.mw);
-   const double mz2 = sqr(thdm.mz);
+   const double al2 = sqr(sm.alpha);
+   const double mm2 = sqr(sm.mm);
+   const double mw2 = sqr(sm.mw);
+   const double mz2 = sqr(sm.mz);
    const double cw2 = mw2/mz2;
    const double sw2 = 1.0 - cw2;
    const double sw4 = sqr(sw2);
@@ -181,12 +181,12 @@ double flHp(double ms2, const F_char_pars& pars, const THDM_parameters& thdm) no
 }
 
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = u
-double fuHp(double ms2, const F_char_pars& pars, const THDM_parameters& thdm) noexcept
+double fuHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm) noexcept
 {
-   const double al2 = sqr(thdm.alpha);
-   const double mm2 = sqr(thdm.mm);
-   const double mw2 = sqr(thdm.mw);
-   const double mz2 = sqr(thdm.mz);
+   const double al2 = sqr(sm.alpha);
+   const double mm2 = sqr(sm.mm);
+   const double mw2 = sqr(sm.mw);
+   const double mz2 = sqr(sm.mz);
    const double cw2 = mw2/mz2;
    const double sw2 = 1.0 - cw2;
    const double sw4 = sqr(sw2);
@@ -201,12 +201,12 @@ double fuHp(double ms2, const F_char_pars& pars, const THDM_parameters& thdm) no
 }
 
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = d
-double fdHp(double ms2, const F_char_pars& pars, const THDM_parameters& thdm) noexcept
+double fdHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm) noexcept
 {
-   const double al2 = sqr(thdm.alpha);
-   const double mm2 = sqr(thdm.mm);
-   const double mw2 = sqr(thdm.mw);
-   const double mz2 = sqr(thdm.mz);
+   const double al2 = sqr(sm.alpha);
+   const double mm2 = sqr(sm.mm);
+   const double mw2 = sqr(sm.mw);
+   const double mz2 = sqr(sm.mz);
    const double cw2 = mw2/mz2;
    const double sw2 = 1.0 - cw2;
    const double sw4 = sqr(sw2);
@@ -231,7 +231,7 @@ double fdHp(double ms2, const F_char_pars& pars, const THDM_parameters& thdm) no
  */
 double amu2L_F()
 {
-   THDM_parameters thdm;
+   F_sm_pars sm;
    double mu2{}, md2{}, ml2{};
    double mh2{}, mH2{}, mA2{}, mHp2{}, mhSM2{};
    double yuh{}, ydh{}, ylh{};
@@ -250,29 +250,29 @@ double amu2L_F()
    double res = 0.0;
 
    // h
-   res += ffS(mh2, pars_u, thdm, lFS)*yuh*ylh;
-   res += ffS(mh2, pars_d, thdm, lFS)*ydh*ylh;
-   res += ffS(mh2, pars_l, thdm, lFS)*ylh*ylh;
+   res += ffS(mh2, pars_u, sm, lFS)*yuh*ylh;
+   res += ffS(mh2, pars_d, sm, lFS)*ydh*ylh;
+   res += ffS(mh2, pars_l, sm, lFS)*ylh*ylh;
 
    // H
-   res += ffS(mH2, pars_u, thdm, lFS)*yuH*ylH;
-   res += ffS(mH2, pars_d, thdm, lFS)*ydH*ylH;
-   res += ffS(mH2, pars_l, thdm, lFS)*ylH*ylH;
+   res += ffS(mH2, pars_u, sm, lFS)*yuH*ylH;
+   res += ffS(mH2, pars_d, sm, lFS)*ydH*ylH;
+   res += ffS(mH2, pars_l, sm, lFS)*ylH*ylH;
 
    // A
-   res += ffS(mA2, pars_u, thdm, lFA)*yuA*ylA;
-   res += ffS(mA2, pars_d, thdm, lFA)*ydA*ylA;
-   res += ffS(mA2, pars_l, thdm, lFA)*ylA*ylA;
+   res += ffS(mA2, pars_u, sm, lFA)*yuA*ylA;
+   res += ffS(mA2, pars_d, sm, lFA)*ydA*ylA;
+   res += ffS(mA2, pars_l, sm, lFA)*ylA*ylA;
 
    // H^\pm
-   res += fuHp(mHp2, pars_cq, thdm)*yuA*ylA;
-   res += fdHp(mHp2, pars_cq, thdm)*ydA*ylA;
-   res += flHp(mHp2, pars_cl, thdm)*ylA*ylA;
+   res += fuHp(mHp2, pars_cq, sm)*yuA*ylA;
+   res += fdHp(mHp2, pars_cq, sm)*ydA*ylA;
+   res += flHp(mHp2, pars_cl, sm)*ylA*ylA;
 
    // subtract hSM
-   res -= ffS(mhSM2, pars_u, thdm, lFS);
-   res -= ffS(mhSM2, pars_d, thdm, lFS);
-   res -= ffS(mhSM2, pars_l, thdm, lFS);
+   res -= ffS(mhSM2, pars_u, sm, lFS);
+   res -= ffS(mhSM2, pars_d, sm, lFS);
+   res -= ffS(mhSM2, pars_l, sm, lFS);
 
    return res;
 }
