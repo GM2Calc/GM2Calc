@@ -61,7 +61,8 @@ double FA(double ms2, double mf2)
 }
 
 /// Eq (54), arxiv:1607.06292, S = h or H
-double fSgamma(double ms2, double mf2, const F_parameters& pars) noexcept
+template <typename F>
+double fSgamma(double ms2, double mf2, const F_parameters& pars, F fS) noexcept
 {
    const double al2 = sqr(pars.alpha);
    const double mm2 = sqr(pars.mm);
@@ -71,11 +72,12 @@ double fSgamma(double ms2, double mf2, const F_parameters& pars) noexcept
    const double qf2 = sqr(pars.qf);
    const double nc = pars.nc;
 
-   return al2*mm2/(4*sqr(pi)*mw2*sw2) * qf2*nc * mf2/ms2 * FS(ms2, mf2);
+   return al2*mm2/(4*sqr(pi)*mw2*sw2) * qf2*nc * mf2/ms2 * fS(ms2, mf2);
 }
 
 /// Eq (55), arxiv:1607.06292, S = h or H
-double fSZ(double ms2, double mf2, const F_parameters& pars) noexcept
+template <typename F>
+double fSZ(double ms2, double mf2, const F_parameters& pars, F fS) noexcept
 {
    const double al2 = sqr(pars.alpha);
    const double mm2 = sqr(pars.mm);
@@ -90,13 +92,14 @@ double fSZ(double ms2, double mf2, const F_parameters& pars) noexcept
    const double gvl = 0.5*pars.t3l - ql*sw2;
 
    return al2*mm2/(4*sqr(pi)*mw2*sw2) * (-nc*qf*gvl*gvf)/(sw2*cw2)
-      * mf2/(ms2 - mz2) * (FS(ms2, mf2) - FS(mz2, mf2));
+      * mf2/(ms2 - mz2) * (fS(ms2, mf2) - fS(mz2, mf2));
 }
 
 /// Eq (53), arxiv:1607.06292, S = h or H
-double ffS(double x, double y, const F_parameters& pars) noexcept
+template <typename F>
+double ffS(double x, double y, const F_parameters& pars, F fS) noexcept
 {
-   return fSgamma(x, y, pars) + fSZ(x, y, pars);
+   return fSgamma(x, y, pars, fS) + fSZ(x, y, pars, fS);
 }
 
 /// Eq (60), arxiv:1607.06292
@@ -155,6 +158,38 @@ double flHp(double ms2, double mf2, const F_parameters& pars) noexcept
       * (FlHp(ms2, mf2) - FlHp(mw2, mf2));
 }
 
+/// Eq (59), arxiv:1607.06292, S = H^\pm, f = u
+double fuHp(double ms2, double md2, double mu2, double qd, double qu, const F_parameters& pars) noexcept
+{
+   const double al2 = sqr(pars.alpha);
+   const double mm2 = sqr(pars.mm);
+   const double mw2 = sqr(pars.mw);
+   const double mz2 = sqr(pars.mz);
+   const double cw2 = mw2/mz2;
+   const double sw2 = 1.0 - cw2;
+   const double sw4 = sqr(sw2);
+   const double nc = pars.nc;
+
+   return al2*mm2/(32*sqr(pi)*mw2*sw4) * nc*mu2/(ms2 - mw2)
+      * (FuHp(ms2, md2, mu2, qd, qu) - FuHp(mw2, md2, mu2, qd, qu));
+}
+
+/// Eq (59), arxiv:1607.06292, S = H^\pm, f = d
+double fdHp(double ms2, double md2, double mu2, double qd, double qu, const F_parameters& pars) noexcept
+{
+   const double al2 = sqr(pars.alpha);
+   const double mm2 = sqr(pars.mm);
+   const double mw2 = sqr(pars.mw);
+   const double mz2 = sqr(pars.mz);
+   const double cw2 = mw2/mz2;
+   const double sw2 = 1.0 - cw2;
+   const double sw4 = sqr(sw2);
+   const double nc = pars.nc;
+
+   return al2*mm2/(32*sqr(pi)*mw2*sw4) * nc*md2/(ms2 - mw2)
+      * (FdHp(ms2, md2, mu2, qd, qu) - FdHp(mw2, md2, mu2, qd, qu));
+}
+
 } // anonymous namespace
 
 /**
@@ -166,8 +201,44 @@ double flHp(double ms2, double mf2, const F_parameters& pars) noexcept
  */
 double amu2L_F()
 {
-   // @todo(alex) implementation missing
-   const double res = 0.0;
+   double res = 0.0;
+
+   F_parameters pars;
+   const double qu{2.0/3.0}, qd{-1.0/3.0};
+   double mu2{}, md2{}, ml2{};
+   double mh2{}, mH2{}, mA2{}, mHp2{}, mhSM2{};
+   double yuh{}, ydh{}, ylh{};
+   double yuH{}, ydH{}, ylH{};
+   double yuA{}, ydA{}, ylA{};
+
+   const auto lFS = [] (double ms2, double mf2) { return FS(ms2, mf2); };
+   const auto lFA = [] (double ms2, double mf2) { return FA(ms2, mf2); };
+
+   // h
+   res += ffS(mh2, mu2, pars, lFS)*yuh*ylh;
+   res += ffS(mh2, md2, pars, lFS)*ydh*ylh;
+   res += ffS(mh2, ml2, pars, lFS)*ylh*ylh;
+
+   // H
+   res += ffS(mH2, mu2, pars, lFS)*yuH*ylH;
+   res += ffS(mH2, md2, pars, lFS)*ydH*ylH;
+   res += ffS(mH2, ml2, pars, lFS)*ylH*ylH;
+
+   // A
+   res += ffS(mA2, mu2, pars, lFA)*yuA*ylA;
+   res += ffS(mA2, md2, pars, lFA)*ydA*ylA;
+   res += ffS(mA2, ml2, pars, lFA)*ylA*ylA;
+
+   // H^\pm
+   res += fuHp(mHp2, md2, mu2, qd, qu, pars)*yuA*ylA;
+   res += fdHp(mHp2, md2, mu2, qd, qu, pars)*ydA*ylA;
+   res += flHp(mHp2, ml2, pars)*ylA*ylA;
+
+   // subtract hSM
+   res -= ffS(mhSM2, mu2, pars, lFS);
+   res -= ffS(mhSM2, md2, pars, lFS);
+   res -= ffS(mhSM2, ml2, pars, lFS);
+
    return res;
 }
 
