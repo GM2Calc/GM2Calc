@@ -78,80 +78,109 @@ B3ZBoson[MS_,alpha_,mmu_,MW_,MZ_,sw2_,Cs_,YlS_]:=(Cs YlS alpha^2)/(576Pi^2(1-sw2
 
 (*Equations (68-70)*)
 
-
-Phi[mm1_,mm2_,mm3_]:=Module[{lambda,alphap,alpham,m1,m2,m3},
-{m1,m2,m3}=Sort[{mm1,mm2,mm3}];
-lambda=Sqrt[m1^4+m2^4+m3^4-2m1^2m2^2-2m2^2m3^2-2m3^2m1^2];
-alphap=(m3^2+m1^2-m2^2-lambda)/(2m3^2);
-alpham=(m3^2-m1^2+m2^2-lambda)/(2m3^2);
-Return[lambda/2 (2Log[alphap]Log[alpham]-Log[m1^2/m3^2]Log[m2^2/m3^2]-2PolyLog[2,alphap]-2PolyLog[2,alpham]+Pi^2/3)]
+Phi[mm1_,mm2_,mm3_] :=
+    Module[{lambda,alphap,alpham,m1,m2,m3},
+           {m1,m2,m3}=Sort[{mm1,mm2,mm3}];
+           lambda=Sqrt[m1^4+m2^4+m3^4-2m1^2m2^2-2m2^2m3^2-2m3^2m1^2];
+           alphap=(m3^2+m1^2-m2^2-lambda)/(2m3^2);
+           alpham=(m3^2-m1^2+m2^2-lambda)/(2m3^2);
+           Return[lambda/2 (2Log[alphap]Log[alpham]-Log[m1^2/m3^2]Log[m2^2/m3^2]-2PolyLog[2,alphap]-2PolyLog[2,alpham]+Pi^2/3)]
 ]
 
 
 (*Equations (56-57)*)
 
+Fphi[MS_,mf_] := -2+Log[MS^2/mf^2]-((MS^2-2mf^2)/MS^2) Phi[MS,mf,mf]/(MS^2-4mf^2)
 
-Fphi[MS_,mf_]:=-2+Log[MS^2/mf^2]-((MS^2-2mf^2)/MS^2) Phi[MS,mf,mf]/(MS^2-4mf^2)
-FA[MS_,mf_]:=Phi[MS,mf,mf]/(MS^2-4mf^2)
+FA[MS_,mf_] := Phi[MS,mf,mf]/(MS^2-4mf^2)
 
 
 (*Equations (54-55)*)
 
+fgammaphi[MS_,mf_,alpha_,mmu_,MW_,sw2_,Qf_,Nc_] :=
+    (alpha^2mmu^2)/(4Pi^2MW^2sw2) (Qf^2Nc)(mf^2/MS^2) Fphi[MS,mf]
 
-fgammaphi[MS_,mf_,alpha_,mmu_,MW_,sw2_,Qf_,Nc_]:=(alpha^2mmu^2)/(4Pi^2MW^2sw2) (Qf^2Nc)(mf^2/MS^2)Fphi[MS,mf]
-fZphi[MS_,mf_,alpha_,mmu_,MW_,MZ_,sw2_,Qf_,Nc_,glv_,gfv_]:=(alpha^2mmu^2)/(4Pi^2MW^2sw2) (- ((Qf Nc glv gfv)/(sw2(1-sw2))))(mf^2/(MS^2-MZ^2))(Fphi[MS,mf]-Fphi[MZ,mf])
-fgammaA[MA_,mf_,alpha_,mmu_,MW_,sw2_,Qf_,Nc_]:=(alpha^2mmu^2)/(4Pi^2MW^2sw2) (Qf^2Nc)(mf^2/MA^2)FA[MA,mf]
-fZA[MA_,mf_,alpha_,mmu_,MW_,MZ_,sw2_,Qf_,Nc_,glv_,gfv_]:=(alpha^2mmu^2)/(4Pi^2MW^2sw2) (- ((Qf Nc glv gfv)/(sw2(1-sw2))))(mf^2/(MA^2-MZ^2))(FA[MA,mf]-FA[MZ,mf])
+fZphi[MS_,mf_,alpha_,mmu_,MW_,MZ_,sw2_,Qf_,Nc_,glv_,gfv_] :=
+    (alpha^2mmu^2)/(4Pi^2MW^2sw2) (- ((Qf Nc glv gfv)/(sw2(1-sw2))))(mf^2/(MS^2-MZ^2)) (Fphi[MS,mf]-Fphi[MZ,mf])
+
+fgammaA[MA_,mf_,alpha_,mmu_,MW_,sw2_,Qf_,Nc_] :=
+    (alpha^2mmu^2)/(4Pi^2MW^2sw2) (Qf^2Nc)(mf^2/MA^2)FA[MA,mf]
+
+fZA[MA_,mf_,alpha_,mmu_,MW_,MZ_,sw2_,Qf_,Nc_,glv_,gfv_] :=
+    (alpha^2mmu^2)/(4Pi^2MW^2sw2) (- ((Qf Nc glv gfv)/(sw2(1-sw2))))(mf^2/(MA^2-MZ^2)) (FA[MA,mf]-FA[MZ,mf])
 
 
 (*Equations (53)*)
 
+FNeutral[Mh_,MH_,MA_,ml_,md_,mu_,alpha_,mmu_,MW_,MZ_,sw2_,Ql_,Qd_,Qu_,Nc_,glv_,gdv_,guv_,Ylh_,Ydh_,Yuh_,YlH_,YdH_,YuH_,YlA_,YdA_,YuA_] := (
+    (fgammaphi[Mh,ml,alpha,mmu,MW,sw2,Ql,1]  + fZphi[Mh,ml,alpha,mmu,MW,MZ,sw2,Ql,1,glv,glv])  Ylh Ylh +
+    (fgammaphi[Mh,md,alpha,mmu,MW,sw2,Qd,Nc] + fZphi[Mh,md,alpha,mmu,MW,MZ,sw2,Qd,Nc,glv,gdv]) Ydh Ylh +
+    (fgammaphi[Mh,mu,alpha,mmu,MW,sw2,Qu,Nc] + fZphi[Mh,mu,alpha,mmu,MW,MZ,sw2,Qu,Nc,glv,guv]) Yuh Ylh +
+    (fgammaphi[MH,ml,alpha,mmu,MW,sw2,Ql,1]  + fZphi[MH,ml,alpha,mmu,MW,MZ,sw2,Ql,1,glv,glv])  YlH YlH +
+    (fgammaphi[MH,md,alpha,mmu,MW,sw2,Qd,Nc] + fZphi[MH,md,alpha,mmu,MW,MZ,sw2,Qd,Nc,glv,gdv]) YdH YlH +
+    (fgammaphi[MH,mu,alpha,mmu,MW,sw2,Qu,Nc] + fZphi[MH,mu,alpha,mmu,MW,MZ,sw2,Qu,Nc,glv,guv]) YuH YlH +
+    (fgammaphi[MA,ml,alpha,mmu,MW,sw2,Ql,1]  + fZphi[MA,ml,alpha,mmu,MW,MZ,sw2,Ql,1,glv,glv])  YlA YlA +
+    (fgammaphi[MA,md,alpha,mmu,MW,sw2,Qd,Nc] + fZphi[MA,md,alpha,mmu,MW,MZ,sw2,Qd,Nc,glv,gdv]) YdA YlA +
+    (fgammaphi[MA,mu,alpha,mmu,MW,sw2,Qu,Nc] + fZphi[MA,mu,alpha,mmu,MW,MZ,sw2,Qu,Nc,glv,guv]) YuA YlA
+)
 
-FNeutral[Mh_,MH_,MA_,ml_,md_,mu_,alpha_,mmu_,MW_,MZ_,sw2_,Ql_,Qd_,Qu_,Nc_,glv_,gdv_,guv_,Ylh_,Ydh_,Yuh_,YlH_,YdH_,YuH_,YlA_,YdA_,YuA_]:=(fgammaphi[Mh,ml,alpha,mmu,MW,sw2,Ql,1]+fZphi[Mh,ml,alpha,mmu,MW,MZ,sw2,Ql,1,glv,glv])Ylh Ylh+(fgammaphi[Mh,md,alpha,mmu,MW,sw2,Qd,Nc]+fZphi[Mh,md,alpha,mmu,MW,MZ,sw2,Qd,Nc,glv,gdv])Ydh Ylh+(fgammaphi[Mh,mu,alpha,mmu,MW,sw2,Qu,Nc]+fZphi[Mh,mu,alpha,mmu,MW,MZ,sw2,Qu,Nc,glv,guv])Yuh Ylh+(fgammaphi[MH,ml,alpha,mmu,MW,sw2,Ql,1]+fZphi[MH,ml,alpha,mmu,MW,MZ,sw2,Ql,1,glv,glv])YlH YlH+(fgammaphi[MH,md,alpha,mmu,MW,sw2,Qd,Nc]+fZphi[MH,md,alpha,mmu,MW,MZ,sw2,Qd,Nc,glv,gdv])YdH YlH+(fgammaphi[MH,mu,alpha,mmu,MW,sw2,Qu,Nc]+fZphi[MH,mu,alpha,mmu,MW,MZ,sw2,Qu,Nc,glv,guv])YuH YlH+(fgammaphi[MA,ml,alpha,mmu,MW,sw2,Ql,1]+fZphi[MA,ml,alpha,mmu,MW,MZ,sw2,Ql,1,glv,glv])YlA YlA+(fgammaphi[MA,md,alpha,mmu,MW,sw2,Qd,Nc]+fZphi[MA,md,alpha,mmu,MW,MZ,sw2,Qd,Nc,glv,gdv])YdA YlA+(fgammaphi[MA,mu,alpha,mmu,MW,sw2,Qu,Nc]+fZphi[MA,mu,alpha,mmu,MW,MZ,sw2,Qu,Nc,glv,guv])YuA YlA
-
-
-FNeutral[Mphi_,mf_,alpha_,mmu_,MW_,MZ_,sw2_,Qf_,gfv_,Yfphi_,Ymuphi_]:=
-Sum[
-(fgammaphi[Mphi[[i]],mf[[j]],alpha,mmu,MW,sw2,Qf[[j]],{1,3,3}[[j]]]+fZphi[Mphi[[i]],mf[[j]],alpha,mmu,MW,MZ,sw2,Qf[[j]],{1,3,3}[[j]],gfv[[1]],gfv[[j]]])Yfphi[[i]][[j]] Ymuphi[[i]],
-{j,1,3},
-{i,1,3}]
+FNeutral[Mphi_,mf_,alpha_,mmu_,MW_,MZ_,sw2_,Qf_,gfv_,Yfphi_,Ymuphi_] :=
+    Sum[
+        (fgammaphi[Mphi[[i]],mf[[j]],alpha,mmu,MW,sw2,Qf[[j]],{1,3,3}[[j]]] +
+         fZphi[Mphi[[i]],mf[[j]],alpha,mmu,MW,MZ,sw2,Qf[[j]],{1,3,3}[[j]],gfv[[1]],gfv[[j]]]) Yfphi[[i]][[j]] Ymuphi[[i]],
+        {j,1,3}, {i,1,3}
+    ]
 
 
 (*Equations (60-62)*)
 
+FCl[xl_] := xl + xl (xl-1) (PolyLog[2,1-1/xl]-Pi^2/6) + (xl-1/2) Log[xl]
 
-FCl[xl_]:=xl+xl(xl-1)(PolyLog[2,1-1/xl]-Pi^2/6)+(xl-1/2)Log[xl]
-FCd[xu_,xd_,Qu_,Qd_]:=Module[{c,cb,y,s},
-c=(xu-xd)^2-Qu xu+Qd xd;
-cb=(xu-Qu)xu-(xd+Qd)xd;
-y=(xu-xd)^2-2(xu+xd)+1;
-s=(Qu+Qd)/4;
-Return[-(xu-xd)+(cb/y-c((xu-xd)/y))Phi[Sqrt[xd],Sqrt[xu],1]+c(PolyLog[2,1-xd/xu]-1/2 Log[xu]Log[xd/xu](*Phi[Sqrt[xd],Sqrt[xu],1]*))+(s+xd)Log[xd]+(s-xu)Log[xu]]
+FCd[xu_,xd_,Qu_,Qd_] :=
+    Module[{c,cb,y,s},
+           c=(xu-xd)^2-Qu xu+Qd xd;
+           cb=(xu-Qu)xu-(xd+Qd)xd;
+           y=(xu-xd)^2-2(xu+xd)+1;
+           s=(Qu+Qd)/4;
+           Return[-(xu-xd)+(cb/y-c((xu-xd)/y))Phi[Sqrt[xd],Sqrt[xu],1]+c(PolyLog[2,1-xd/xu]-1/2 Log[xu]Log[xd/xu](*Phi[Sqrt[xd],Sqrt[xu],1]*))+(s+xd)Log[xd]+(s-xu)Log[xu]]
 ]
-FCu[xu_,xd_,Qu_,Qd_]:=Module[{c,cb,y,s},
-c=(xu-xd)^2-Qu xu+Qd xd;
-cb=(xu-Qu)xu-(xd+Qd)xd;
-y=(xu-xd)^2-2(xu+xd)+1;
-s=(Qu+Qd)/4;
-Return[-(xu-xd)+(cb/y-c((xu-xd)/y))Phi[Sqrt[xd],Sqrt[xu],1]+c(PolyLog[2,1-xd/xu]-1/2 Log[xu]Log[xd/xu](*Phi[Sqrt[xd],Sqrt[xu],1]*))+(s+xd)Log[xd]+(s-xu)Log[xu]-4/3 ((xu-xd-1)/y)Phi[Sqrt[xd],Sqrt[xu],1]-1/3 (Log[xd]^2-Log[xu]^2)]]
+
+FCu[xu_,xd_,Qu_,Qd_] :=
+    Module[{c,cb,y,s},
+           c=(xu-xd)^2-Qu xu+Qd xd;
+           cb=(xu-Qu)xu-(xd+Qd)xd;
+           y=(xu-xd)^2-2(xu+xd)+1;
+           s=(Qu+Qd)/4;
+           Return[-(xu-xd)+(cb/y-c((xu-xd)/y))Phi[Sqrt[xd],Sqrt[xu],1]+c(PolyLog[2,1-xd/xu]-1/2 Log[xu]Log[xd/xu](*Phi[Sqrt[xd],Sqrt[xu],1]*))+(s+xd)Log[xd]+(s-xu)Log[xu]-4/3 ((xu-xd-1)/y)Phi[Sqrt[xd],Sqrt[xu],1]-1/3 (Log[xd]^2-Log[xu]^2)]
+    ]
 
 
 (*Equation (59)*)
 
+fCl[MC_,ml_,alpha_,mmu_,MW_,sw2_] :=
+    (alpha^2mmu^2)/(32Pi^2MW^2sw2^2) ml^2/(MC^2-MW^2) (FCl[ml^2/MC^2]-FCl[ml^2/MW^2])
 
-fCl[MC_,ml_,alpha_,mmu_,MW_,sw2_]:=(alpha^2mmu^2)/(32Pi^2MW^2sw2^2) ml^2/(MC^2-MW^2) (FCl[ml^2/MC^2]-FCl[ml^2/MW^2])
-fCd[MC_,mu_,md_,alpha_,mmu_,MW_,sw2_,Qu_,Qd_,Nc_]:=(alpha^2mmu^2)/(32Pi^2MW^2sw2^2) (Nc md^2)/(MC^2-MW^2) (FCd[mu^2/MC^2,md^2/MC^2,Qu,Qd]-FCd[mu^2/MW^2,md^2/MW^2,Qu,Qd])
-fCu[MC_,mu_,md_,alpha_,mmu_,MW_,sw2_,Qu_,Qd_,Nc_]:=(alpha^2mmu^2)/(32Pi^2MW^2sw2^2) (Nc mu^2)/(MC^2-MW^2) (FCu[mu^2/MC^2,md^2/MC^2,Qu+2,Qd+2]-FCu[mu^2/MW^2,md^2/MW^2,Qu+2,Qd+2])
+fCd[MC_,mu_,md_,alpha_,mmu_,MW_,sw2_,Qu_,Qd_,Nc_] :=
+    (alpha^2mmu^2)/(32Pi^2MW^2sw2^2) (Nc md^2)/(MC^2-MW^2) (FCd[mu^2/MC^2,md^2/MC^2,Qu,Qd]-FCd[mu^2/MW^2,md^2/MW^2,Qu,Qd])
+
+fCu[MC_,mu_,md_,alpha_,mmu_,MW_,sw2_,Qu_,Qd_,Nc_] :=
+    (alpha^2mmu^2)/(32Pi^2MW^2sw2^2) (Nc mu^2)/(MC^2-MW^2) (FCu[mu^2/MC^2,md^2/MC^2,Qu+2,Qd+2]-FCu[mu^2/MW^2,md^2/MW^2,Qu+2,Qd+2])
 
 
 (*Equation (58)*)
 
+FCharged[MC_,mf_,alpha_,mmu_,MW_,sw2_,Qf_,YfA_,YmuA_] := (
+    fCl[MC,mf[[1]],alpha,mmu,MW,sw2] YfA[[1]] YmuA +
+    fCd[MC,mf[[3]],mf[[2]],alpha,mmu,MW,sw2,Qf[[3]],Qf[[2]],3] YfA[[2]] YmuA +
+    fCu[MC,mf[[3]],mf[[2]],alpha,mmu,MW,sw2,Qf[[3]],Qf[[2]],3] YfA[[3]] YmuA
+)
 
-FCharged[MC_,mf_,alpha_,mmu_,MW_,sw2_,Qf_,YfA_,YmuA_]:=fCl[MC,mf[[1]],alpha,mmu,MW,sw2]YfA[[1]] YmuA+fCd[MC,mf[[3]],mf[[2]],alpha,mmu,MW,sw2,Qf[[3]],Qf[[2]],3]YfA[[2]] YmuA+fCu[MC,mf[[3]],mf[[2]],alpha,mmu,MW,sw2,Qf[[3]],Qf[[2]],3]YfA[[3]] YmuA
-
-
-Fermionic2Loop[MPhi_,MhSM_,mf_,alpha_,mmu_,MW_,MZ_,sw2_,Qf_,gfv_,YfS_,YmuS_,YfhSM_]:=FNeutral[MPhi[[1]],MPhi[[2]],MPhi[[3]],mf,alpha,mmu,MW,MZ,sw2,Qf,gfv,YfS,YmuS]+
-FCharged[MPhi[[4]],mf,alpha,mmu,MW,sw2,Qf,I*YfS[[3,;;]],I*YmuS[[3]]]-
-Sum[( 
-fgammaphi[MhSM,mf[[j]],alpha,mmu,MW,sw2,Qf[[j]],{1,3,3}[[j]]]+fZphi[MhSM,mf[[j]],alpha,mmu,MW,MZ,sw2,Qf[[j]],{1,3,3}[[j]],gfv[[1]],gfv[[j]]]
-)(*YfhSM\[LeftDoubleBracket]j\[RightDoubleBracket] YfhSM\[LeftDoubleBracket]1\[RightDoubleBracket]*),{j,1,3}]
+Fermionic2Loop[MPhi_,MhSM_,mf_,alpha_,mmu_,MW_,MZ_,sw2_,Qf_,gfv_,YfS_,YmuS_,YfhSM_] := (
+    FNeutral[MPhi[[1]],MPhi[[2]],MPhi[[3]],mf,alpha,mmu,MW,MZ,sw2,Qf,gfv,YfS,YmuS] +
+    FCharged[MPhi[[4]],mf,alpha,mmu,MW,sw2,Qf,I*YfS[[3,;;]],I*YmuS[[3]]] -
+    Sum[fgammaphi[MhSM,mf[[j]],alpha,mmu,MW,sw2,Qf[[j]],{1,3,3}[[j]]]
+        + fZphi[MhSM,mf[[j]],alpha,mmu,MW,MZ,sw2,Qf[[j]],{1,3,3}[[j]],gfv[[1]],gfv[[j]]]
+        (*YfhSM\[LeftDoubleBracket]j\[RightDoubleBracket] YfhSM\[LeftDoubleBracket]1\[RightDoubleBracket]*),
+        {j,1,3}
+    ]
+)
