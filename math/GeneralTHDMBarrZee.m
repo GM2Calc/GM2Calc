@@ -13,10 +13,10 @@
 (*----Barr-Zee (2 boson) 2-loop Contributions----*)
 
 
-(*(*All functions taken from arXiv:1502.04199v3*)*)
+(*All functions taken from arXiv:1502.04199v3*)
 
 
-(*(*Equations (25-29)*)*)
+(*Equations (25-29)*)
 
 
 F1[w_]:=Module[{x},w/2 NIntegrate[(2x(1-x)-1)/(w-x(1-x)) Log[w/(x(1-x))],{x,0,1}]]
@@ -26,7 +26,7 @@ F3[w_]:=Module[{x},1/2 NIntegrate[(x w(3x(4x-1)+10)-x(1-x))/(w-x(1-x)) Log[w/(x(
 G[wa_,wb_,x_]:=Log[(wa*x+wb*(1-x))/(x(1-x))]/(x(1-x)-wa*x-wb*(1-x))
 
 
-(*(*Equations (19-21)*)*)
+(*Equations (19-21)*)
 
 
 BarrZeephigammaF[MS_,mf_,alpha_,mmu_,v_,Qf_,Nc_,YfS_,YmuS_]:=(alpha mmu^2)/(4Pi^3v^2) Nc (Qf)^2(Re[YfS]Re[YmuS]F1[mf^2/MS^2]+Im[YfS]Im[YmuS]FF1[mf^2/MS^2])
@@ -34,7 +34,7 @@ BarrZeephigammaC[MS_,MC_,alpha_,mmu_,v_,lambdaphiCC_,YlS_]:=(alpha mmu^2)/(8Pi^3
 BarrZeephigammaW[MS_,alpha_,mmu_,MW_,v_,gphiWW_,YlS_]:=(alpha mmu^2)/(8Pi^3v^2) Re[YlS]gphiWW F3[MW^2/MS^2]
 
 
-(*(*Equations (22-24)*)*)
+(*Equations (22-24)*)
 
 
 BarrZeeCWF[MC_,mf_,alpha_,mmu_,MW_,sw2_,v_,Qf_,Nc_,VCKM_,YfA_,YmuA_]:=(alpha mmu^2Nc Abs[VCKM[[3,2]]]^2)/(32Pi^3sw2 v^2(MC^2-MW^2)) NIntegrate[(Qf[[3]] x+Qf[[2]](1-x))*(Re[YfA[[2]] Conjugate[YmuA]]mf[[2]]^2 x(1-x)+Re[YfA[[3]] Conjugate[YmuA]]mf[[3]]^2x(1+x))*(G[mf[[3]]^2/MC^2,mf[[2]]^2/MC^2,x]-G[mf[[3]]^2/MW^2,mf[[2]]^2/MW^2,x]),{x,0,1}]
@@ -42,13 +42,14 @@ BarrZeeCWC[MS_,MC_,alpha_,mmu_,MW_,sw2_,v_,lambdaphiCC_,lambdaphiCW_,YlA_]:=(alp
 BarrZeeCWW[MS_,MC_,alpha_,mmu_,MW_,sw2_,v_,gphiWW_,lambdaphiCW_,YlA_]:=(alpha mmu^2)/(64Pi^3sw2 v^2(MC^2-MW^2)) Re[Conjugate[YlA]gphiWW lambdaphiCW]NIntegrate[x^2*((MC^2+MW^2-MS^2)(1-x)-4MW^2)*(G[MW^2/MC^2,MS^2/MC^2,x]-G[1,MS^2/MW^2,x]),{x,0,1}]
 
 
+(*----------------------------------------------*)
 (*----Bosonic (3 boson) 2-loop Contributions----*)
+(*----------------------------------------------*)
+
+(*All functions taken from arXiv:1607.06292v2 .  Not Implemented in cpp file*)
 
 
-(*(*All functions taken from arXiv:1607.06292v2 .  Not Implemented in cpp file*)*)
-
-
-(*(*Equation (43)*)*)
+(*Equation (43)*)
 
 
 B3WBoson[MS_,alpha_,mmu_,MW_,MZ_,sw2_,\[Epsilon]_,Cs_,YlS_]:=Module[{yS},
@@ -56,14 +57,14 @@ yS=MS^2/MW^2;
 Return[(Cs YlS alpha^2)/(576Pi^2(1-sw2)^2sw2^2) mmu^2/MZ^2 (3/\[Epsilon]-6L[MW^2]-55/2+32/yS-(4Pi^2)/3 (4+3yS)/yS^2-(35+32/yS)Log[yS]+(6+32/yS^2+24/yS-32yS)PolyLog[1-yS,2]+((10+70yS-32yS^2)/((yS-4)yS))Phi[Sqrt[yS],1,1])]]
 
 
-(*(*Equations (45-46)*)*)
+(*Equations (45-46)*)
 
 
 fa[x_]:=(3(4-x))/x-Pi^2/2 (4+3x)/x^2-(3(4+x))/x Log[x]+(12+9x-3x^3)/x^2 PolyLog[1-x,2]+(3(2+x))/x Phi[Sqrt[x],1,1]
 fb[x_]:=(Pi^2(8+6x-12x^4+3x^5))/x^2+(6(-8+2x+3x^2))/x+(12(4+x+3x^2))/x Log[x]+9(-4+x)x^2Log[x]^2+(12(-4-3x+4x^3-12x^4+3x^5))/x^2 PolyLog[1-x,2]+(6(4+2x-6x^2+3x^3))/x Phi[Sqrt[x],1,1]
 
 
-(*(*Equation (44)*)*)
+(*Equation (44)*)
 
 
 B3ZBoson[MS_,alpha_,mmu_,MW_,MZ_,sw2_,Cs_,YlS_]:=(Cs YlS alpha^2)/(576Pi^2(1-sw2)^2sw2^2) mmu^2/MZ^2 (fa[MS^2/MZ^2]+sw2(1-2sw2)fb[MS^2/MZ^2])
