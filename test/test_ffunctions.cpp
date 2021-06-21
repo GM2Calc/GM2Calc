@@ -183,4 +183,5 @@ void test_3(const char* func_name, T func, double eps)
 TEST_CASE("test_Iabc")
 {
    test_3("Iabc", [] (double x, double y, double z) { return gm2calc::Iabc(x,y,z); }, 1e-7);
+   test_3("Phi" , [] (double x, double y, double z) { return gm2calc::Phi(x,y,z);  }, 1e-7);
 }

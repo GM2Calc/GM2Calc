@@ -51,7 +51,9 @@ ExportData[Fa, 2, precision, 1/20];
 ExportData[Fb, 2, precision, 1/20];
 
 ExportData[Iabc, 3, precision, 1/20];
-ExportData[Phi, 3, precision, 1/20];
+
+RePhi[args__] := Re[Phi[args]];
+ExportData[RePhi, 3, precision, 1/20];
 
 ExportData[F1, 1, precision, 0];
 ExportData[F1t, 1, precision, 0];
