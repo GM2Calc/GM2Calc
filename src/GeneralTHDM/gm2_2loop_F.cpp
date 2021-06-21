@@ -47,9 +47,18 @@ struct F_neut_pars {
    double nc;    ///< number of colors of fermion f
 };
 
+struct F_char_pars {
+   double md2;   /// squared mass of up-type fermion
+   double mu2;   /// squared mass of down-type fermion f
+   double qd;    ///< electromagnetic charge of up-type fermion
+   double qu;    ///< electromagnetic charge of down-type fermion
+   double nc;    ///< number of colors
+};
+
 const double pi = 3.1415926535897932;
 const double q_u =  2.0/3.0;  ///< electric charge of up-type quarks
 const double q_d = -1.0/3.0;  ///< electric charge of down-type quarks
+const double q_v =  0.0;      ///< electric charge of up-type leptons
 const double q_l = -1.0;      ///< electric charge of down-type leptons
 const double t3_u = +1.0;     ///< SU(2)_L charge of up-type quark @todo(alex) check convention
 const double t3_d = -1.0;     ///< SU(2)_L charge of down-type quark @todo(alex) check convention
@@ -155,7 +164,7 @@ double FuHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
 }
 
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = l
-double flHp(double ms2, double mf2, const THDM_parameters& thdm) noexcept
+double flHp(double ms2, const F_char_pars& pars, const THDM_parameters& thdm) noexcept
 {
    const double al2 = sqr(thdm.alpha);
    const double mm2 = sqr(thdm.mm);
@@ -164,14 +173,15 @@ double flHp(double ms2, double mf2, const THDM_parameters& thdm) noexcept
    const double cw2 = mw2/mz2;
    const double sw2 = 1.0 - cw2;
    const double sw4 = sqr(sw2);
-   const double nc = 1.0;
+   const double ml2 = pars.md2;
+   const double nc = pars.nc;
 
-   return al2*mm2/(32*sqr(pi)*mw2*sw4) * nc*mf2/(ms2 - mw2)
-      * (FlHp(ms2, mf2) - FlHp(mw2, mf2));
+   return al2*mm2/(32*sqr(pi)*mw2*sw4) * nc*ml2/(ms2 - mw2)
+      * (FlHp(ms2, ml2) - FlHp(mw2, ml2));
 }
 
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = u
-double fuHp(double ms2, double md2, double mu2, double qd, double qu, const THDM_parameters& thdm) noexcept
+double fuHp(double ms2, const F_char_pars& pars, const THDM_parameters& thdm) noexcept
 {
    const double al2 = sqr(thdm.alpha);
    const double mm2 = sqr(thdm.mm);
@@ -180,14 +190,18 @@ double fuHp(double ms2, double md2, double mu2, double qd, double qu, const THDM
    const double cw2 = mw2/mz2;
    const double sw2 = 1.0 - cw2;
    const double sw4 = sqr(sw2);
-   const double nc = 3.0;
+   const double md2 = pars.md2;
+   const double mu2 = pars.mu2;
+   const double qd = pars.qd;
+   const double qu = pars.qu;
+   const double nc = pars.nc;
 
    return al2*mm2/(32*sqr(pi)*mw2*sw4) * nc*mu2/(ms2 - mw2)
       * (FuHp(ms2, md2, mu2, qd, qu) - FuHp(mw2, md2, mu2, qd, qu));
 }
 
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = d
-double fdHp(double ms2, double md2, double mu2, double qd, double qu, const THDM_parameters& thdm) noexcept
+double fdHp(double ms2, const F_char_pars& pars, const THDM_parameters& thdm) noexcept
 {
    const double al2 = sqr(thdm.alpha);
    const double mm2 = sqr(thdm.mm);
@@ -196,7 +210,11 @@ double fdHp(double ms2, double md2, double mu2, double qd, double qu, const THDM
    const double cw2 = mw2/mz2;
    const double sw2 = 1.0 - cw2;
    const double sw4 = sqr(sw2);
-   const double nc = 3.0;
+   const double md2 = pars.md2;
+   const double mu2 = pars.mu2;
+   const double qd = pars.qd;
+   const double qu = pars.qu;
+   const double nc = pars.nc;
 
    return al2*mm2/(32*sqr(pi)*mw2*sw4) * nc*md2/(ms2 - mw2)
       * (FdHp(ms2, md2, mu2, qd, qu) - FdHp(mw2, md2, mu2, qd, qu));
@@ -223,6 +241,8 @@ double amu2L_F()
    const F_neut_pars pars_u{mu2, q_u, q_l, t3_u, t3_l, 3.0};
    const F_neut_pars pars_d{md2, q_d, q_l, t3_d, t3_l, 3.0};
    const F_neut_pars pars_l{ml2, q_l, q_l, t3_l, t3_l, 1.0};
+   const F_char_pars pars_cq{md2, mu2, q_d, q_u, 3.0};
+   const F_char_pars pars_cl{ml2, 0.0, q_l, q_v, 1.0};
 
    const auto lFS = [] (double ms2, double mf2) { return FS(ms2, mf2); };
    const auto lFA = [] (double ms2, double mf2) { return FA(ms2, mf2); };
@@ -245,9 +265,9 @@ double amu2L_F()
    res += ffS(mA2, pars_l, thdm, lFA)*ylA*ylA;
 
    // H^\pm
-   res += fuHp(mHp2, md2, mu2, q_d, q_u, thdm)*yuA*ylA;
-   res += fdHp(mHp2, md2, mu2, q_d, q_u, thdm)*ydA*ylA;
-   res += flHp(mHp2, ml2, thdm)*ylA*ylA;
+   res += fuHp(mHp2, pars_cq, thdm)*yuA*ylA;
+   res += fdHp(mHp2, pars_cq, thdm)*ydA*ylA;
+   res += flHp(mHp2, pars_cl, thdm)*ylA*ylA;
 
    // subtract hSM
    res -= ffS(mhSM2, pars_u, thdm, lFS);
