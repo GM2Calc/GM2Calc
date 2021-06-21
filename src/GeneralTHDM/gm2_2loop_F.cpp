@@ -44,6 +44,8 @@ struct F_parameters {
 };
 
 const double pi = 3.1415926535897932;
+const double q_u =  2.0/3.0; ///< electric charge of up-type quarks
+const double q_d = -1.0/3.0; ///< electric charge of down-type quarks
 
 double sqr(double x) noexcept { return x*x; }
 
@@ -204,7 +206,6 @@ double amu2L_F()
    double res = 0.0;
 
    F_parameters pars;
-   const double qu{2.0/3.0}, qd{-1.0/3.0};
    double mu2{}, md2{}, ml2{};
    double mh2{}, mH2{}, mA2{}, mHp2{}, mhSM2{};
    double yuh{}, ydh{}, ylh{};
@@ -230,8 +231,8 @@ double amu2L_F()
    res += ffS(mA2, ml2, pars, lFA)*ylA*ylA;
 
    // H^\pm
-   res += fuHp(mHp2, md2, mu2, qd, qu, pars)*yuA*ylA;
-   res += fdHp(mHp2, md2, mu2, qd, qu, pars)*ydA*ylA;
+   res += fuHp(mHp2, md2, mu2, q_d, q_u, pars)*yuA*ylA;
+   res += fdHp(mHp2, md2, mu2, q_d, q_u, pars)*ydA*ylA;
    res += flHp(mHp2, ml2, pars)*ylA*ylA;
 
    // subtract hSM
