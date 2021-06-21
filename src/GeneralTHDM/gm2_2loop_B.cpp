@@ -19,7 +19,7 @@
 #include "GeneralTHDM/gm2_2loop_helpers.hpp"
 
 /**
- * \file gm2_2loop.cpp
+ * \file gm2_2loop_B.cpp
  *
  * Contains functions necessary to calculate the bosonic THDM
  * contributions for g-2 at the 2-loop level.
