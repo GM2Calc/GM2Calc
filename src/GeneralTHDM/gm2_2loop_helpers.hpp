@@ -28,22 +28,16 @@ struct THDM_F_parameters {
    double alpha{}; ///< alpha_em
    double mw{};    ///< W boson mass
    double mz{};    ///< Z boson mass
-   Eigen::Matrix<double,2,1> mh{Eigen::Matrix<double,2,1>::Zero()}; ///< CP-even Higgs bosons mass
    double mhSM{};  ///< SM Higgs boson mass
    double mA{};    ///< CP-odd Higgs boson mass
    double mHp{};   ///< charged Higgs boson mass
+   Eigen::Matrix<double,2,1> mh{Eigen::Matrix<double,2,1>::Zero()}; ///< CP-even Higgs bosons mass
    Eigen::Matrix<double,3,1> ml{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type lepton masses
    Eigen::Matrix<double,3,1> mu{Eigen::Matrix<double,3,1>::Zero()}; ///< up-type quark masses
    Eigen::Matrix<double,3,1> md{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type quark masses
-   double yuh{};   ///< Y_f^h coefficients with f=u and S=h
-   double ydh{};   ///< Y_f^h coefficients with f=d and S=h
-   double ylh{};   ///< Y_f^h coefficients with f=l and S=h
-   double yuH{};   ///< Y_f^H coefficients with f=u and S=H
-   double ydH{};   ///< Y_f^H coefficients with f=d and S=H
-   double ylH{};   ///< Y_f^H coefficients with f=l and S=H
-   double yuA{};   ///< Y_f^A coefficients with f=u and S=A
-   double ydA{};   ///< Y_f^A coefficients with f=d and S=A
-   double ylA{};   ///< Y_f^A coefficients with f=l and S=A
+   Eigen::Matrix<double,3,3> yuS{Eigen::Matrix<double,3,3>::Zero()};///< Y_f^S coefficients with f={u,c,t} and S={h,H,A}
+   Eigen::Matrix<double,3,3> ydS{Eigen::Matrix<double,3,3>::Zero()};///< Y_f^S coefficients with f={d,s,b} and S={h,H,A}
+   Eigen::Matrix<double,3,3> ylS{Eigen::Matrix<double,3,3>::Zero()};///< Y_f^S coefficients with f={e,m,τ} and S={h,H,A}
 };
 
 // === 2-loop bosonic contributions ===

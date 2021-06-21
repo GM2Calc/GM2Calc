@@ -252,24 +252,24 @@ double amu2L_F(const THDM_F_parameters& thdm_f)
       const F_char_pars pars_cl{sqr(thdm_f.ml(i)), 0.0, q_l, q_v, 1.0};
 
       // h
-      res += ffS(mh2, pars_u, sm, lFS)*thdm_f.yuh*thdm_f.ylh;
-      res += ffS(mh2, pars_d, sm, lFS)*thdm_f.ydh*thdm_f.ylh;
-      res += ffS(mh2, pars_l, sm, lFS)*thdm_f.ylh*thdm_f.ylh;
+      res += ffS(mh2, pars_u, sm, lFS)*thdm_f.yuS(i,0)*thdm_f.ylS(i,0);
+      res += ffS(mh2, pars_d, sm, lFS)*thdm_f.ydS(i,0)*thdm_f.ylS(i,0);
+      res += ffS(mh2, pars_l, sm, lFS)*thdm_f.ylS(i,0)*thdm_f.ylS(i,0);
 
       // H
-      res += ffS(mH2, pars_u, sm, lFS)*thdm_f.yuH*thdm_f.ylH;
-      res += ffS(mH2, pars_d, sm, lFS)*thdm_f.ydH*thdm_f.ylH;
-      res += ffS(mH2, pars_l, sm, lFS)*thdm_f.ylH*thdm_f.ylH;
+      res += ffS(mH2, pars_u, sm, lFS)*thdm_f.yuS(i,1)*thdm_f.ylS(i,1);
+      res += ffS(mH2, pars_d, sm, lFS)*thdm_f.ydS(i,1)*thdm_f.ylS(i,1);
+      res += ffS(mH2, pars_l, sm, lFS)*thdm_f.ylS(i,1)*thdm_f.ylS(i,1);
 
       // A
-      res += ffS(mA2, pars_u, sm, lFA)*thdm_f.yuA*thdm_f.ylA;
-      res += ffS(mA2, pars_d, sm, lFA)*thdm_f.ydA*thdm_f.ylA;
-      res += ffS(mA2, pars_l, sm, lFA)*thdm_f.ylA*thdm_f.ylA;
+      res += ffS(mA2, pars_u, sm, lFA)*thdm_f.yuS(i,2)*thdm_f.ylS(i,2);
+      res += ffS(mA2, pars_d, sm, lFA)*thdm_f.ydS(i,2)*thdm_f.ylS(i,2);
+      res += ffS(mA2, pars_l, sm, lFA)*thdm_f.ylS(i,2)*thdm_f.ylS(i,2);
 
       // H^\pm
-      res += fuHp(mHp2, pars_cq, sm)*thdm_f.yuA*thdm_f.ylA;
-      res += fdHp(mHp2, pars_cq, sm)*thdm_f.ydA*thdm_f.ylA;
-      res += flHp(mHp2, pars_cl, sm)*thdm_f.ylA*thdm_f.ylA;
+      res += fuHp(mHp2, pars_cq, sm)*thdm_f.yuS(i,2)*thdm_f.ylS(i,2);
+      res += fdHp(mHp2, pars_cq, sm)*thdm_f.ydS(i,2)*thdm_f.ylS(i,2);
+      res += flHp(mHp2, pars_cl, sm)*thdm_f.ylS(i,2)*thdm_f.ylS(i,2);
 
       // subtract hSM
       res -= ffS(mhSM2, pars_u, sm, lFS);
