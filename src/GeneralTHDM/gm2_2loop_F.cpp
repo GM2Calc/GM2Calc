@@ -229,14 +229,14 @@ double fdHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm) noexcept
  *
  * Eq (63), arxiv:1607:06292
  */
-double amu2L_F(const THDM_F_parameters& thdm_f)
+double amu2L_F(const THDM_F_parameters& thdm)
 {
-   const F_sm_pars sm{ sqr(thdm_f.alpha), sqr(thdm_f.ml(1)), sqr(thdm_f.mw), sqr(thdm_f.mz) };
-   const double mh2 = sqr(thdm_f.mh(0));
-   const double mH2 = sqr(thdm_f.mh(1));
-   const double mA2 = sqr(thdm_f.mA);
-   const double mHp2 = sqr(thdm_f.mHp);
-   const double mhSM2 = sqr(thdm_f.mhSM);
+   const F_sm_pars sm{ sqr(thdm.alpha), sqr(thdm.ml(1)), sqr(thdm.mw), sqr(thdm.mz) };
+   const double mh2 = sqr(thdm.mh(0));
+   const double mH2 = sqr(thdm.mh(1));
+   const double mA2 = sqr(thdm.mA);
+   const double mHp2 = sqr(thdm.mHp);
+   const double mhSM2 = sqr(thdm.mhSM);
 
    const auto lFS = [] (double ms2, double mf2) { return FS(ms2, mf2); };
    const auto lFA = [] (double ms2, double mf2) { return FA(ms2, mf2); };
@@ -245,31 +245,31 @@ double amu2L_F(const THDM_F_parameters& thdm_f)
 
    // loop over generations
    for (int i = 0; i < 3; ++i) {
-      const F_neut_pars pars_u{sqr(thdm_f.mu(i)), q_u, q_l, t3_u, t3_l, 3.0};
-      const F_neut_pars pars_d{sqr(thdm_f.md(i)), q_d, q_l, t3_d, t3_l, 3.0};
-      const F_neut_pars pars_l{sqr(thdm_f.ml(i)), q_l, q_l, t3_l, t3_l, 1.0};
-      const F_char_pars pars_cq{sqr(thdm_f.md(i)), sqr(thdm_f.mu(i)), q_d, q_u, 3.0};
-      const F_char_pars pars_cl{sqr(thdm_f.ml(i)), 0.0, q_l, q_v, 1.0};
+      const F_neut_pars pars_u{sqr(thdm.mu(i)), q_u, q_l, t3_u, t3_l, 3.0};
+      const F_neut_pars pars_d{sqr(thdm.md(i)), q_d, q_l, t3_d, t3_l, 3.0};
+      const F_neut_pars pars_l{sqr(thdm.ml(i)), q_l, q_l, t3_l, t3_l, 1.0};
+      const F_char_pars pars_cq{sqr(thdm.md(i)), sqr(thdm.mu(i)), q_d, q_u, 3.0};
+      const F_char_pars pars_cl{sqr(thdm.ml(i)), 0.0, q_l, q_v, 1.0};
 
       // h
-      res += ffS(mh2, pars_u, sm, lFS)*thdm_f.yuS(i,0)*thdm_f.ylS(i,0);
-      res += ffS(mh2, pars_d, sm, lFS)*thdm_f.ydS(i,0)*thdm_f.ylS(i,0);
-      res += ffS(mh2, pars_l, sm, lFS)*thdm_f.ylS(i,0)*thdm_f.ylS(i,0);
+      res += ffS(mh2, pars_u, sm, lFS)*thdm.yuS(i,0)*thdm.ylS(i,0);
+      res += ffS(mh2, pars_d, sm, lFS)*thdm.ydS(i,0)*thdm.ylS(i,0);
+      res += ffS(mh2, pars_l, sm, lFS)*thdm.ylS(i,0)*thdm.ylS(i,0);
 
       // H
-      res += ffS(mH2, pars_u, sm, lFS)*thdm_f.yuS(i,1)*thdm_f.ylS(i,1);
-      res += ffS(mH2, pars_d, sm, lFS)*thdm_f.ydS(i,1)*thdm_f.ylS(i,1);
-      res += ffS(mH2, pars_l, sm, lFS)*thdm_f.ylS(i,1)*thdm_f.ylS(i,1);
+      res += ffS(mH2, pars_u, sm, lFS)*thdm.yuS(i,1)*thdm.ylS(i,1);
+      res += ffS(mH2, pars_d, sm, lFS)*thdm.ydS(i,1)*thdm.ylS(i,1);
+      res += ffS(mH2, pars_l, sm, lFS)*thdm.ylS(i,1)*thdm.ylS(i,1);
 
       // A
-      res += ffS(mA2, pars_u, sm, lFA)*thdm_f.yuS(i,2)*thdm_f.ylS(i,2);
-      res += ffS(mA2, pars_d, sm, lFA)*thdm_f.ydS(i,2)*thdm_f.ylS(i,2);
-      res += ffS(mA2, pars_l, sm, lFA)*thdm_f.ylS(i,2)*thdm_f.ylS(i,2);
+      res += ffS(mA2, pars_u, sm, lFA)*thdm.yuS(i,2)*thdm.ylS(i,2);
+      res += ffS(mA2, pars_d, sm, lFA)*thdm.ydS(i,2)*thdm.ylS(i,2);
+      res += ffS(mA2, pars_l, sm, lFA)*thdm.ylS(i,2)*thdm.ylS(i,2);
 
       // H^\pm
-      res += fuHp(mHp2, pars_cq, sm)*thdm_f.yuS(i,2)*thdm_f.ylS(i,2);
-      res += fdHp(mHp2, pars_cq, sm)*thdm_f.ydS(i,2)*thdm_f.ylS(i,2);
-      res += flHp(mHp2, pars_cl, sm)*thdm_f.ylS(i,2)*thdm_f.ylS(i,2);
+      res += fuHp(mHp2, pars_cq, sm)*thdm.yuS(i,2)*thdm.ylS(i,2);
+      res += fdHp(mHp2, pars_cq, sm)*thdm.ydS(i,2)*thdm.ylS(i,2);
+      res += flHp(mHp2, pars_cl, sm)*thdm.ylS(i,2)*thdm.ylS(i,2);
 
       // subtract hSM
       res -= ffS(mhSM2, pars_u, sm, lFS);
