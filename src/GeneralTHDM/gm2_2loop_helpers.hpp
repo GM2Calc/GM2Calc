@@ -44,9 +44,6 @@ struct THDM_F_parameters {
    double yuA{};   ///< Y_f^A coefficients with f=u and S=A
    double ydA{};   ///< Y_f^A coefficients with f=d and S=A
    double ylA{};   ///< Y_f^A coefficients with f=l and S=A
-   double yuHp{};  ///< Y_f^{H^\pm} coefficients with f=u and S=H^{\pm}
-   double ydHp{};  ///< Y_f^{H^\pm} coefficients with f=d and S=H^{\pm}
-   double ylHp{};  ///< Y_f^{H^\pm} coefficients with f=l and S=H^{\pm}
 };
 
 // === 2-loop bosonic contributions ===
