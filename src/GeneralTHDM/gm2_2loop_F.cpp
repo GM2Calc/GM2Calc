@@ -97,9 +97,9 @@ double fSZ(double ms2, double mf2, const F_parameters& pars, F fS) noexcept
 
 /// Eq (53), arxiv:1607.06292, S = h or H
 template <typename F>
-double ffS(double x, double y, const F_parameters& pars, F fS) noexcept
+double ffS(double ms2, double mf2, const F_parameters& pars, F fS) noexcept
 {
-   return fSgamma(x, y, pars, fS) + fSZ(x, y, pars, fS);
+   return fSgamma(ms2, mf2, pars, fS) + fSZ(ms2, mf2, pars, fS);
 }
 
 /// Eq (60), arxiv:1607.06292
