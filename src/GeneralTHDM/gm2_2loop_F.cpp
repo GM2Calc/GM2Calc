@@ -32,10 +32,10 @@ namespace gm2calc {
 namespace {
 
 struct F_sm_pars {
-   double alpha{}; ///< alpha_em
-   double mm{};    ///< muon mass
-   double mw{};    ///< W boson mass
-   double mz{};    ///< Z boson mass
+   double alpha2{}; ///< squared alpha_em
+   double mm2{};    ///< squared muon mass
+   double mw2{};    ///< squared W boson mass
+   double mz2{};    ///< squared Z boson mass
 };
 
 struct F_neut_pars {
@@ -83,10 +83,10 @@ double FA(double ms2, double mf2)
 template <typename F>
 double fSgamma(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F fS) noexcept
 {
-   const double al2 = sqr(sm.alpha);
-   const double mm2 = sqr(sm.mm);
-   const double mw2 = sqr(sm.mw);
-   const double mz2 = sqr(sm.mz);
+   const double al2 = sm.alpha2;
+   const double mm2 = sm.mm2;
+   const double mw2 = sm.mw2;
+   const double mz2 = sm.mz2;
    const double sw2 = 1.0 - mw2/mz2;
    const double mf2 = pars.mf2;
    const double qf2 = sqr(pars.qf);
@@ -99,10 +99,10 @@ double fSgamma(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F fS) n
 template <typename F>
 double fSZ(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F fS) noexcept
 {
-   const double al2 = sqr(sm.alpha);
-   const double mm2 = sqr(sm.mm);
-   const double mw2 = sqr(sm.mw);
-   const double mz2 = sqr(sm.mz);
+   const double al2 = sm.alpha2;
+   const double mm2 = sm.mm2;
+   const double mw2 = sm.mw2;
+   const double mz2 = sm.mz2;
    const double cw2 = mw2/mz2;
    const double sw2 = 1.0 - cw2;
    const double mf2 = pars.mf2;
@@ -166,10 +166,10 @@ double FuHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = l
 double flHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm) noexcept
 {
-   const double al2 = sqr(sm.alpha);
-   const double mm2 = sqr(sm.mm);
-   const double mw2 = sqr(sm.mw);
-   const double mz2 = sqr(sm.mz);
+   const double al2 = sm.alpha2;
+   const double mm2 = sm.mm2;
+   const double mw2 = sm.mw2;
+   const double mz2 = sm.mz2;
    const double cw2 = mw2/mz2;
    const double sw2 = 1.0 - cw2;
    const double sw4 = sqr(sw2);
@@ -183,10 +183,10 @@ double flHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm) noexcept
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = u
 double fuHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm) noexcept
 {
-   const double al2 = sqr(sm.alpha);
-   const double mm2 = sqr(sm.mm);
-   const double mw2 = sqr(sm.mw);
-   const double mz2 = sqr(sm.mz);
+   const double al2 = sm.alpha2;
+   const double mm2 = sm.mm2;
+   const double mw2 = sm.mw2;
+   const double mz2 = sm.mz2;
    const double cw2 = mw2/mz2;
    const double sw2 = 1.0 - cw2;
    const double sw4 = sqr(sw2);
@@ -203,10 +203,10 @@ double fuHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm) noexcept
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = d
 double fdHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm) noexcept
 {
-   const double al2 = sqr(sm.alpha);
-   const double mm2 = sqr(sm.mm);
-   const double mw2 = sqr(sm.mw);
-   const double mz2 = sqr(sm.mz);
+   const double al2 = sm.alpha2;
+   const double mm2 = sm.mm2;
+   const double mw2 = sm.mw2;
+   const double mz2 = sm.mz2;
    const double cw2 = mw2/mz2;
    const double sw2 = 1.0 - cw2;
    const double sw4 = sqr(sw2);
