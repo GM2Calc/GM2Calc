@@ -18,7 +18,8 @@ add_library(gm2calc
   MSSMNoFV/MSSMNoFV_onshell_problems.cpp
   MSSMNoFV/MSSMNoFV_onshell_soft_parameters.cpp
   MSSMNoFV/MSSMNoFV_onshell_susy_parameters.cpp
-  GeneralTHDM/gm2_2loop.cpp
+  GeneralTHDM/gm2_2loop_B.cpp
+  GeneralTHDM/gm2_2loop_F.cpp
   )
 target_include_directories(gm2calc
   PUBLIC

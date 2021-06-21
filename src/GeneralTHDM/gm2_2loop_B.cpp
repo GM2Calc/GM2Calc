@@ -21,8 +21,8 @@
 /**
  * \file gm2_2loop.cpp
  *
- * Contains functions necessary to calculate the THDM contributions
- * for g-2 at the 2-loop level.
+ * Contains functions necessary to calculate the bosonic THDM
+ * contributions for g-2 at the 2-loop level.
  */
 
 namespace gm2calc {
@@ -60,19 +60,6 @@ double amu2L_B_nonYuk()
  * Eq (52), arxiv:1607:06292
  */
 double amu2L_B_Yuk()
-{
-   // @todo(alex) implementation missing
-   return 0.0;
-}
-
-/**
- * \fn amu2L_F
- *
- * Calculates 2-loop fermionic contributions.
- *
- * Eq (63), arxiv:1607:06292
- */
-double amu2L_F()
 {
    // @todo(alex) implementation missing
    return 0.0;
