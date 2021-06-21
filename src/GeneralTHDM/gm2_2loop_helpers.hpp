@@ -32,15 +32,9 @@ struct THDM_F_parameters {
    double mhSM{};  ///< SM Higgs boson mass
    double mA{};    ///< CP-odd Higgs boson mass
    double mHp{};   ///< charged Higgs boson mass
-   double me{};    ///< electron mass
-   double mm{};    ///< muon mass
-   double ml{};    ///< tau mass
-   double mu{};    ///< up-quark mass
-   double mc{};    ///< charm-quark mass
-   double mt{};    ///< top-quark mass
-   double md{};    ///< down-quark mass
-   double ms{};    ///< strange-quark mass
-   double mb{};    ///< bottom-quark mass
+   Eigen::Matrix<double,3,1> ml{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type lepton masses
+   Eigen::Matrix<double,3,1> mu{Eigen::Matrix<double,3,1>::Zero()}; ///< up-type quark masses
+   Eigen::Matrix<double,3,1> md{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type quark masses
    double yuh{};   ///< Y_f^h coefficients with f=u and S=h
    double ydh{};   ///< Y_f^h coefficients with f=d and S=h
    double ylh{};   ///< Y_f^h coefficients with f=l and S=h
