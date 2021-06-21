@@ -53,6 +53,13 @@ namespace {
       return is_zero(a - b, prec*(1.0 + max));
    }
 
+   void sort(double& x, double& y, double& z) noexcept
+   {
+      if (x > y) { std::swap(x, y); }
+      if (y > z) { std::swap(y, z); }
+      if (x > y) { std::swap(x, y); }
+   }
+
    template <typename T>
    double integrate(T fun, double start, double stop, double dt) {
       using boost::numeric::odeint::integrate;
@@ -756,6 +763,7 @@ double Gn(double wa, double wb, int n) noexcept {
  */
 double Phi(double x, double y, double z) noexcept
 {
+   sort(x, y, z);
    const auto u = x/z, v = y/z;
    return phi_uv(u,v)*z*lambda_2(u, v)/2;
 }
