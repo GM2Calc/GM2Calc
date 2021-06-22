@@ -54,6 +54,40 @@ double YF1(double u, double w, double cw2) noexcept
       ;
 }
 
+/// Eq.(126), arxiv:1607.06292
+double YF3(double u, double w, double al, double cw2, double mm2, double mz2) noexcept
+{
+   const auto al2 = al*al;
+   const auto cw4 = cw2*cw2;
+   const auto sw2 = 1.0 - cw2;
+   const auto sw4 = sw2*sw2;
+   const auto u2 = u*u;
+   const auto w2 = w*w;
+
+   const auto a1 = 0.0; // @todo(alex)
+   const auto a2 = 0.0; // @todo(alex)
+   const auto a3 = 0.0; // @todo(alex)
+   const auto a4 = 0.0; // @todo(alex)
+   const auto a5 = 0.0; // @todo(alex)
+   const auto a6 = 0.0; // @todo(alex)
+   const auto a7 = 0.0; // @todo(alex)
+
+   // @todo(alex) avoid re-calculation of common sub-expressions
+   const double res =
+      + 9*u*(2*cw2 - u + w)/w
+      + (a1*std::log(u/cw2) + 9*cw4*(cw4 - 4*cw2*w + 3*w2)*std::log(cw2))
+        *std::log(w/cw2)/(2*w2*(cw2-w))
+      + a2*std::log(u)/(w*(4*cw2-u))
+      + a3*std::log(w)/(w*(cw2-w))
+      + a4*std::log(cw2)/(w2*(4*cw2-u)*(cw2-w))
+      + a5/(cw2*w2)*dilog(1.0 - u/cw2)
+      + a6/(u*cw2*sqr(4*cw2-u)*(cw2-w))*Phi(u,cw2,cw2)
+      + a7/(w2*(cw2-w)*(cw4-2*cw2*(u+w)+sqr(u-w)))*Phi(u,w,cw2)
+      ;
+
+   return al2/(576*sqr(pi)*cw4*sw4) * mm2/mz2 * res;
+}
+
 /// Eq.(103), arxiv:1607.06292
 double T9(double u, double w, double cw2) noexcept
 {
