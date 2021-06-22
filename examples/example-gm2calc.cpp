@@ -62,9 +62,9 @@ int main() {
       const double delta_amu =
          gm2calc::calculate_uncertainty_amu_2loop(model);
 
-      std::cout << "amu = " << amu << " +- " << delta_amu << std::endl;
+      std::cout << "amu = " << amu << " +- " << delta_amu << '\n';
    } catch (const gm2calc::Error& e) {
-      std::cout << e.what() << std::endl;
+      std::cout << e.what() << '\n';
    }
 
    return 0;
