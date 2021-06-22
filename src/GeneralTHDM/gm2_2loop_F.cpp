@@ -223,7 +223,7 @@ double fqHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm, F FfHp) no
  */
 double amu2L_F_charged(const THDM_F_parameters& thdm)
 {
-   const F_sm_pars sm{ sqr(thdm.alpha), sqr(thdm.ml(1)), sqr(thdm.mw), sqr(thdm.mz) };
+   const F_sm_pars sm{ sqr(thdm.alpha), sqr(thdm.mm), sqr(thdm.mw), sqr(thdm.mz) };
    const double mHp2 = sqr(thdm.mHp);
 
    const auto lFuHp = [] (double ms2, double md2, double mu2, double qd, double qu) {
@@ -258,7 +258,7 @@ double amu2L_F_charged(const THDM_F_parameters& thdm)
  */
 double amu2L_F_neutral(const THDM_F_parameters& thdm)
 {
-   const F_sm_pars sm{ sqr(thdm.alpha), sqr(thdm.ml(1)), sqr(thdm.mw), sqr(thdm.mz) };
+   const F_sm_pars sm{ sqr(thdm.alpha), sqr(thdm.mm), sqr(thdm.mw), sqr(thdm.mz) };
    const double mh2 = sqr(thdm.mh(0));
    const double mH2 = sqr(thdm.mh(1));
    const double mA2 = sqr(thdm.mA);

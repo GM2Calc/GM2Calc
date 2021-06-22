@@ -28,9 +28,9 @@ namespace general_thdm {
 /// parameters to be passed to the bosonic contribution functions
 struct THDM_B_parameters {
    double alpha{};   ///< alpha_em
+   double mm{};      ///< muon mass for prefactor
    double mw{};      ///< W boson mass
    double mz{};      ///< Z boson mass
-   double mm{};      ///< muon mass for prefactor
    double mhSM{};    ///< SM Higgs boson mass
    double mA{};      ///< CP-odd Higgs boson mass
    double mHp{};     ///< charged Higgs boson mass
@@ -44,6 +44,7 @@ struct THDM_B_parameters {
 /// parameters to be passed to the fermionic contribution functions
 struct THDM_F_parameters {
    double alpha{}; ///< alpha_em
+   double mm{};    ///< muon mass for prefactor
    double mw{};    ///< W boson mass
    double mz{};    ///< Z boson mass
    double mhSM{};  ///< SM Higgs boson mass

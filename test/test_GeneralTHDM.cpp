@@ -44,6 +44,7 @@ TEST_CASE("2-loop_fermionic_charged")
 {
    gm2calc::general_thdm::THDM_F_parameters pars;
    pars.alpha = 1./137;
+   pars.mm = 1.0;
    pars.mw = 80.0;
    pars.mz = 90.0;
    pars.mHp = 200.0;
@@ -109,6 +110,7 @@ TEST_CASE("2-loop_fermionic_neutral")
 {
    gm2calc::general_thdm::THDM_F_parameters pars;
    pars.alpha = 1./137;
+   pars.mm = 1.0;
    pars.mw = 80.0;
    pars.mz = 90.0;
    pars.mh << 100.0, 400.0;
