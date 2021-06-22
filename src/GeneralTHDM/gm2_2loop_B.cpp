@@ -59,12 +59,17 @@ double YF3(double u, double w, double al, double cw2, double mm2, double mz2) no
 {
    const auto al2 = al*al;
    const auto cw4 = cw2*cw2;
+   const auto cw6 = cw4*cw2;
+   const auto cw8 = cw4*cw4;
    const auto sw2 = 1.0 - cw2;
    const auto sw4 = sw2*sw2;
    const auto u2 = u*u;
+   const auto u3 = u2*u;
    const auto w2 = w*w;
 
-   const auto a1 = 0.0; // @todo(alex)
+   // Eq.(127)
+   const auto a1 = -9*cw2*u3 + 9*cw2*u2*(3*cw2+w) + 27*cw4*u*(w-cw2)
+      + 9*(cw8 - 4*cw6*w + 3*cw4*w2);
    const auto a2 = 0.0; // @todo(alex)
    const auto a3 = 0.0; // @todo(alex)
    const auto a4 = 0.0; // @todo(alex)
