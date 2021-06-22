@@ -218,23 +218,18 @@ double fqHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm, F FfHp) no
 } // anonymous namespace
 
 /**
- * \fn amu2L_F
+ * \fn amu2L_F_charged
  *
- * Calculates 2-loop fermionic contributions.
+ * Calculates 2-loop fermionic contributions with charged Higgs
+ * bosons.
  *
  * Eq (63), arxiv:1607:06292
  */
-double amu2L_F(const THDM_F_parameters& thdm)
+double amu2L_F_charged(const THDM_F_parameters& thdm)
 {
    const F_sm_pars sm{ sqr(thdm.alpha), sqr(thdm.ml(1)), sqr(thdm.mw), sqr(thdm.mz) };
-   const double mh2 = sqr(thdm.mh(0));
-   const double mH2 = sqr(thdm.mh(1));
-   const double mA2 = sqr(thdm.mA);
    const double mHp2 = sqr(thdm.mHp);
-   const double mhSM2 = sqr(thdm.mhSM);
 
-   const auto lFS = [] (double ms2, double mf2) { return FS(ms2, mf2); };
-   const auto lFA = [] (double ms2, double mf2) { return FA(ms2, mf2); };
    const auto lFuHp = [] (double ms2, double md2, double mu2, double qd, double qu) {
       return FuHp(ms2, md2, mu2, qd, qu);
    };
@@ -246,12 +241,45 @@ double amu2L_F(const THDM_F_parameters& thdm)
 
    // loop over generations
    for (int i = 0; i < 3; ++i) {
+      const F_char_pars pars_u{sqr(thdm.mu(i)), sqr(thdm.md(i)), sqr(thdm.mu(i)), q_d, q_u, 3.0};
+      const F_char_pars pars_d{sqr(thdm.md(i)), sqr(thdm.md(i)), sqr(thdm.mu(i)), q_d, q_u, 3.0};
+      const F_char_pars pars_l{sqr(thdm.ml(i)), sqr(thdm.ml(i)), 0.0, q_l, q_v, 1.0};
+
+      // H^\pm
+      res += fqHp(mHp2, pars_u, sm, lFuHp)*thdm.yuS(i,2)*thdm.ylS(i,2);
+      res += fqHp(mHp2, pars_d, sm, lFdHp)*thdm.ydS(i,2)*thdm.ylS(i,2);
+      res += flHp(mHp2, pars_l, sm)*thdm.ylS(i,2)*thdm.ylS(i,2);
+   }
+
+   return res;
+}
+
+/**
+ * \fn amu2L_F_neutral
+ *
+ * Calculates 2-loop fermionic contributions with neutral Higgs
+ * bosons.
+ *
+ * Eq (63), arxiv:1607:06292
+ */
+double amu2L_F_neutral(const THDM_F_parameters& thdm)
+{
+   const F_sm_pars sm{ sqr(thdm.alpha), sqr(thdm.ml(1)), sqr(thdm.mw), sqr(thdm.mz) };
+   const double mh2 = sqr(thdm.mh(0));
+   const double mH2 = sqr(thdm.mh(1));
+   const double mA2 = sqr(thdm.mA);
+   const double mhSM2 = sqr(thdm.mhSM);
+
+   const auto lFS = [] (double ms2, double mf2) { return FS(ms2, mf2); };
+   const auto lFA = [] (double ms2, double mf2) { return FA(ms2, mf2); };
+
+   double res = 0.0;
+
+   // loop over generations
+   for (int i = 0; i < 3; ++i) {
       const F_neut_pars pars_u{sqr(thdm.mu(i)), q_u, q_l, t3_u, t3_l, 3.0};
       const F_neut_pars pars_d{sqr(thdm.md(i)), q_d, q_l, t3_d, t3_l, 3.0};
       const F_neut_pars pars_l{sqr(thdm.ml(i)), q_l, q_l, t3_l, t3_l, 1.0};
-      const F_char_pars pars_cu{sqr(thdm.mu(i)), sqr(thdm.md(i)), sqr(thdm.mu(i)), q_d, q_u, 3.0};
-      const F_char_pars pars_cd{sqr(thdm.md(i)), sqr(thdm.md(i)), sqr(thdm.mu(i)), q_d, q_u, 3.0};
-      const F_char_pars pars_cl{sqr(thdm.ml(i)), sqr(thdm.ml(i)), 0.0, q_l, q_v, 1.0};
 
       // h
       res += ffS(mh2, pars_u, sm, lFS)*thdm.yuS(i,0)*thdm.ylS(i,0);
@@ -268,11 +296,6 @@ double amu2L_F(const THDM_F_parameters& thdm)
       res += ffS(mA2, pars_d, sm, lFA)*thdm.ydS(i,2)*thdm.ylS(i,2);
       res += ffS(mA2, pars_l, sm, lFA)*thdm.ylS(i,2)*thdm.ylS(i,2);
 
-      // H^\pm
-      res += fqHp(mHp2, pars_cu, sm, lFuHp)*thdm.yuS(i,2)*thdm.ylS(i,2);
-      res += fqHp(mHp2, pars_cd, sm, lFdHp)*thdm.ydS(i,2)*thdm.ylS(i,2);
-      res += flHp(mHp2, pars_cl, sm)*thdm.ylS(i,2)*thdm.ylS(i,2);
-
       // subtract hSM
       res -= ffS(mhSM2, pars_u, sm, lFS);
       res -= ffS(mhSM2, pars_d, sm, lFS);
@@ -280,6 +303,11 @@ double amu2L_F(const THDM_F_parameters& thdm)
    }
 
    return res;
+}
+
+double amu2L_F(const THDM_F_parameters& thdm)
+{
+   return amu2L_F_neutral(thdm) + amu2L_F_charged(thdm);
 }
 
 } // namespace general_thdm
