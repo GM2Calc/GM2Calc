@@ -162,10 +162,14 @@ double amu2L_B_Yuk()
    const auto xHp = mHp2/mz2;
    const auto xH = mH2/mz2;
 
+   // Eq.(91), arxiv:1607.06292
    const auto a000 = fb(xhSM, xHp, al, cw2)*Fm0(xhSM, xHp, al, cw2, mm2, mz2);
+   // Eq.(92), arxiv:1607.06292
    const auto a0z0 = -fb(xH, 0.0, al, cw2)*(
       Fm0(xH, xHp, al, cw2, mm2, mz2) + Fmp(xH, xHp, al, cw2, mm2, mz2));
+   // Eq.(93), arxiv:1607.06292
    const auto a500 = Fm0(xhSM, xHp, al, cw2, mm2, mz2);
+   // Eq.(94), arxiv:1607.06292
    const auto a5z0 = -0.5*(
       Fm0(xH, xHp, al, cw2, mm2, mz2) + Fmp(xH, xHp, al, cw2, mm2, mz2));
    const auto a001 = 0.0; // @todo(alex) implementation missing
