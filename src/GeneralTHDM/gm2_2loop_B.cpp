@@ -54,6 +54,32 @@ double YF1(double u, double w, double cw2) noexcept
       ;
 }
 
+/// Eq.(121), arxiv:1607.06292
+double YFZ(double u, double w, double al, double cw2, double mm2, double mz2) noexcept
+{
+   const auto al2 = al*al;
+   const auto cw4 = cw2*cw2;
+   const auto sw2 = 1.0 - cw2;
+   const auto sw4 = sw2*sw2;
+   const auto u2 = u*u;
+   const auto u4 = u2*u2;
+
+   const auto z1 = 3*(17 - 48*cw2 + 32*cw4); // Eq.(122)
+   const auto z2 = 5 - 12*cw2 + 8*cw4;       // Eq.(123)
+   const auto z3 = 3*(1 - 3*cw2 + 2*cw4);    // Eq.(124)
+
+   // @todo(alex) avoid re-calculation of common sub-expressions
+   const double res =
+      + z1*u*dilog(1.0 - u)
+      + z2/(2*u2)*(6*(-4 + u)*u + sqr(pi)*(4 + 3*u) + 6*u*(4 + u)*std::log(u)
+                   - 6*(4 + 3*u)*dilog(1.0 - u) + 6*u*(2 + u)*Phi(u,1.0,1.0))
+      + z3*u*(6 + sqr(pi)*(-4 + u)*u + 3*std::log(u)*(4 + (-4 + u)*u*std::log(u)))
+      + 12*(-4 + u)*u*dilog(1.0 - u) + 6*(-2 + u)*Phi(u,1.0,1.0)
+      ;
+
+   return al2/(576*sqr(pi)*cw4*sw4) * mm2/mz2 * res;
+}
+
 /// Eq.(126), arxiv:1607.06292
 double YF3(double u, double w, double al, double cw2, double mm2, double mz2) noexcept
 {
