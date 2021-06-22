@@ -61,22 +61,22 @@ struct THDM_F_parameters {
 
 // === 2-loop bosonic contributions ===
 
-double amu2L_B(const THDM_B_parameters&);
+double amu2L_B(const THDM_B_parameters&) noexcept;
 
 // routines for sub-expressions
 
-double amu2L_B_EWadd(const THDM_B_parameters&);
-double amu2L_B_nonYuk(const THDM_B_parameters&);
-double amu2L_B_Yuk(const THDM_B_parameters&);
+double amu2L_B_EWadd(const THDM_B_parameters&) noexcept;
+double amu2L_B_nonYuk(const THDM_B_parameters&) noexcept;
+double amu2L_B_Yuk(const THDM_B_parameters&) noexcept;
 
 // === 2-loop fermionic contributions ===
 
-double amu2L_F(const THDM_F_parameters&);
+double amu2L_F(const THDM_F_parameters&) noexcept;
 
 // routines for sub-expressions
 
-double amu2L_F_charged(const THDM_F_parameters&);
-double amu2L_F_neutral(const THDM_F_parameters&);
+double amu2L_F_charged(const THDM_F_parameters&) noexcept;
+double amu2L_F_neutral(const THDM_F_parameters&) noexcept;
 
 } // namespace general_thdm
 

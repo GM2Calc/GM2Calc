@@ -240,7 +240,7 @@ double Fmp(double u, double w, double al, double cw2) noexcept
  *
  * Eq (49), arxiv:1607:06292
  */
-double amu2L_B_EWadd(const THDM_B_parameters& thdm)
+double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
 {
    return 2.3e-11 * thdm.eta * thdm.zetal;
 }
@@ -250,7 +250,7 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm)
  *
  * Eq (71), arxiv:1607:06292
  */
-double amu2L_B_nonYuk(const THDM_B_parameters&)
+double amu2L_B_nonYuk(const THDM_B_parameters&) noexcept
 {
    // @todo(alex) implementation missing
    return 0.0;
@@ -261,7 +261,7 @@ double amu2L_B_nonYuk(const THDM_B_parameters&)
  *
  * Eq (52), arxiv:1607:06292
  */
-double amu2L_B_Yuk(const THDM_B_parameters& thdm)
+double amu2L_B_Yuk(const THDM_B_parameters& thdm) noexcept
 {
    const auto tb = thdm.tb;
    const auto zetal = thdm.zetal;
@@ -343,7 +343,7 @@ double amu2L_B_Yuk(const THDM_B_parameters& thdm)
  *
  * Eq (48), arxiv:1607:06292
  */
-double amu2L_B(const THDM_B_parameters& thdm)
+double amu2L_B(const THDM_B_parameters& thdm) noexcept
 {
    return amu2L_B_EWadd(thdm) + amu2L_B_nonYuk(thdm) + amu2L_B_Yuk(thdm);
 }

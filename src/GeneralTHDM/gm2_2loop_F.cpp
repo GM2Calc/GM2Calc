@@ -221,7 +221,7 @@ double fqHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm, F FfHp) no
  *
  * Eq (58), arxiv:1607:06292
  */
-double amu2L_F_charged(const THDM_F_parameters& thdm)
+double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
 {
    const F_sm_pars sm{ sqr(thdm.alpha), sqr(thdm.mm), sqr(thdm.mw), sqr(thdm.mz) };
    const double mHp2 = sqr(thdm.mHp);
@@ -256,7 +256,7 @@ double amu2L_F_charged(const THDM_F_parameters& thdm)
  *
  * Eq (53), arxiv:1607:06292
  */
-double amu2L_F_neutral(const THDM_F_parameters& thdm)
+double amu2L_F_neutral(const THDM_F_parameters& thdm) noexcept
 {
    const F_sm_pars sm{ sqr(thdm.alpha), sqr(thdm.mm), sqr(thdm.mw), sqr(thdm.mz) };
    const double mh2 = sqr(thdm.mh(0));
@@ -305,7 +305,7 @@ double amu2L_F_neutral(const THDM_F_parameters& thdm)
  *
  * Eq (63), arxiv:1607:06292
  */
-double amu2L_F(const THDM_F_parameters& thdm)
+double amu2L_F(const THDM_F_parameters& thdm) noexcept
 {
    return amu2L_F_neutral(thdm) + amu2L_F_charged(thdm);
 }
