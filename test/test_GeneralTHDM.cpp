@@ -21,14 +21,22 @@ sw2 = 1 - cw2;
 MC = 200;
 alpha = 1/137;
 mmu = 1;
-mf = {mmu, 2, 3}; (* ml, md, mu *)
-Qf = { -1, -1/3, 2/3 };
+mf1 = {mmu, 2, 3}/10; (* me, md, mu *)
+mf2 = {mmu, 2, 3};    (* mm, ms, mc *)
+mf3 = {mmu, 2, 3}*10; (* mtau, mb, mt *)
+Qf = { -1, -1/3, 2/3 }; (* l, d, u *)
 YmuA = 3;
-YfA = { YmuA, 4, 5 };
+Yf1A = { YmuA, 4, 5 }/10;
+Yf2A = { YmuA, 4, 5 };
+Yf3A = { YmuA, 4, 5 }*10;
 
-amuC = 3 FCharged[MC, mf, alpha, mmu, MW, sw2, Qf, YfA, YmuA]
+amuC = (
+    FCharged[MC, mf1, alpha, mmu, MW, sw2, Qf, Yf1A, YmuA] +
+    FCharged[MC, mf2, alpha, mmu, MW, sw2, Qf, Yf2A, YmuA] +
+    FCharged[MC, mf3, alpha, mmu, MW, sw2, Qf, Yf3A, YmuA]
+)
 
-Print["amuC 10^10 = ", N[amuC 10^10, 17]]
+Print["amuC 10^10 = ", N[10^10 amuC, 17]]
 
 */
 
@@ -53,8 +61,6 @@ TEST_CASE("2-loop_fermionic_charged")
 
 /* Generated with:
 
-<< ../math/GeneralTHDMBarrZee.m;
-
 MW = 80;
 MZ = 90;
 cw = MW/MZ;
@@ -63,23 +69,37 @@ sw2 = 1 - cw2;
 MC = 200;
 alpha = 1/137;
 mmu = 1;
-mf = {mmu, 2, 3}; (* ml, md, mu *)
+mf1 = {mmu, 2, 3}/10; (* me, md, mu *)
+mf2 = {mmu, 2, 3};    (* mm, ms, mc *)
+mf3 = {mmu, 2, 3}*10; (* mtau, mb, mt *)
 Qf = { -1, -1/3, 2/3 }; (* l, d, u *)
 YmuA = 3;
-YfA = { YmuA, 4, 5 };
+Yf1A = { YmuA, 4, 5 }/10;
+Yf2A = { YmuA, 4, 5 };
+Yf3A = { YmuA, 4, 5 }*10;
 MhSM = 125;
 Mphi = { 100, 400, 300 }; (* h, H, A *)
 T3 = { -1, -1, 1 }; (* l, d, u *)
 gfv = T3/2 - Qf sw2;
-Yfphi = { YfA, YfA, YfA };
+Yf1phi = { Yf1A, Yf1A, Yf1A };
+Yf2phi = { Yf2A, Yf2A, Yf2A };
+Yf3phi = { Yf3A, Yf3A, Yf3A };
 Ymuphi = { YmuA, YmuA, YmuA };
 
-amuN = 3 (
-    FNeutral[Mphi,mf,alpha,mmu,MW,MZ,sw2,Qf,gfv,Yfphi,Ymuphi] -
-    Sum[fgammaphi[MhSM,mf[[j]],alpha,mmu,MW,sw2,Qf[[j]],{1,3,3}[[j]]]
-        + fZphi[MhSM,mf[[j]],alpha,mmu,MW,MZ,sw2,Qf[[j]],{1,3,3}[[j]],gfv[[1]],gfv[[j]]],
-        {j,1,3}
-    ])
+amuN = (
+    FNeutral[Mphi,mf1,alpha,mmu,MW,MZ,sw2,Qf,gfv,Yf1phi,Ymuphi] -
+    Sum[fgammaphi[MhSM,mf1[[j]],alpha,mmu,MW,sw2,Qf[[j]],{1,3,3}[[j]]]
+        + fZphi[MhSM,mf1[[j]],alpha,mmu,MW,MZ,sw2,Qf[[j]],{1,3,3}[[j]],gfv[[1]],gfv[[j]]],
+        {j,1,3}] +
+    FNeutral[Mphi,mf2,alpha,mmu,MW,MZ,sw2,Qf,gfv,Yf2phi,Ymuphi] -
+    Sum[fgammaphi[MhSM,mf2[[j]],alpha,mmu,MW,sw2,Qf[[j]],{1,3,3}[[j]]]
+        + fZphi[MhSM,mf2[[j]],alpha,mmu,MW,MZ,sw2,Qf[[j]],{1,3,3}[[j]],gfv[[1]],gfv[[j]]],
+        {j,1,3}] +
+    FNeutral[Mphi,mf3,alpha,mmu,MW,MZ,sw2,Qf,gfv,Yf3phi,Ymuphi] -
+    Sum[fgammaphi[MhSM,mf3[[j]],alpha,mmu,MW,sw2,Qf[[j]],{1,3,3}[[j]]]
+        + fZphi[MhSM,mf3[[j]],alpha,mmu,MW,MZ,sw2,Qf[[j]],{1,3,3}[[j]],gfv[[1]],gfv[[j]]],
+        {j,1,3}]
+)
 
 Print["amuN 10^10 = ", N[10^10 amuN, 17]]
 
