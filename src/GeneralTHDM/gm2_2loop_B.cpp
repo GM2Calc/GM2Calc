@@ -319,7 +319,20 @@ double amu2L_B_Yuk()
       + fb(xH, 0.0, al, cw2)*Fm0(xH, xHp, al, cw2, mm2, mz2)
       - fb(xhSM, 0.0, al, cw2)*Fm0(xhSM, xHp, al, cw2, mm2, mz2);
    // Eq.(96), arxiv:1607.06292
-   const auto a0z1 = 0.0; // @todo(alex) implementation missing
+   const auto a0z1 =
+      - (
+         + fb(xH, xHp, al, cw2)*(
+            + Fm0(xH, xHp, al, cw2, mm2, mz2)
+            + Fmp(xH, xHp, al, cw2, mm2, mz2)
+         )
+         - YF3(xH, xHp, al, cw2, mm2, mz2)
+         - fb(xhSM, xHp, al, cw2)*(
+            + Fm0(xhSM, xHp, al, cw2, mm2, mz2)
+            + Fmp(xhSM, xHp, al, cw2, mm2, mz2)
+         )
+         + YF3(xhSM, xHp, al, cw2, mm2, mz2)
+      )
+      + YF2(xH, al, cw2, mm2, mz2);
    // Eq.(97), arxiv:1607.06292
    const auto a501 =
       + Fm0(xH, xHp, al, cw2, mm2, mz2)/2
