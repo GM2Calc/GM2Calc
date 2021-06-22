@@ -241,9 +241,9 @@ double amu2L_F_charged(const THDM_F_parameters& thdm)
       const F_char_pars pars_l{sqr(thdm.ml(i)), sqr(thdm.ml(i)), 0.0, q_l, q_v, 1.0};
 
       // H^\pm
-      res += fqHp(mHp2, pars_u, sm, lFuHp)*thdm.yuS(i,2)*thdm.ylS(i,2);
-      res += fqHp(mHp2, pars_d, sm, lFdHp)*thdm.ydS(i,2)*thdm.ylS(i,2);
-      res += flHp(mHp2, pars_l, sm)*thdm.ylS(i,2)*thdm.ylS(i,2);
+      res += fqHp(mHp2, pars_u, sm, lFuHp)*thdm.yuS(i,2)*thdm.ylS(1,2);
+      res += fqHp(mHp2, pars_d, sm, lFdHp)*thdm.ydS(i,2)*thdm.ylS(1,2);
+      res += flHp(mHp2, pars_l, sm)*thdm.ylS(i,2)*thdm.ylS(1,2);
    }
 
    return res;

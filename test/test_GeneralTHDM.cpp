@@ -42,13 +42,13 @@ TEST_CASE("2-loop_fermionic_charged")
    pars.mu << 0.3, 3.0, 30.0;
    pars.md << 0.2, 2.0, 20.0;
    pars.ml << 0.1, 1.0, 10.0;
-   pars.yuS << 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0;
-   pars.ydS << 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0;
-   pars.ylS << 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0;
+   pars.yuS << 0.5, 0.5, 0.5, 5.0, 5.0, 5.0, 50.0, 50.0, 50.0;
+   pars.ydS << 0.4, 0.4, 0.4, 4.0, 4.0, 4.0, 40.0, 40.0, 40.0;
+   pars.ylS << 0.3, 0.3, 0.3, 3.0, 3.0, 3.0, 30.0, 30.0, 30.0;
 
    const auto amu = gm2calc::general_thdm::amu2L_F_charged(pars);
 
-   CHECK_CLOSE(1e10*amu, 33.045119891312677, 1e-12);
+   CHECK_CLOSE(1e10*amu, 320.98648556040420, 1e-12);
 }
 
 /* Generated with:
