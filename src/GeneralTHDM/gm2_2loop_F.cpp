@@ -141,7 +141,7 @@ double FlHp(double ms2, double mf2) noexcept
  * @param qd
  * @param qu
  *
- * @note There is a misprint in Eq (61), arxiv:1607.06292v2: The
+ * @note There is a misprint in Eq (61), arxiv:1607.06292v2: There
  * should be no Phi function in the 2nd line of (61).
  *
  * @return
