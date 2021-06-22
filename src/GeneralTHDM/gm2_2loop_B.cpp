@@ -34,6 +34,7 @@ namespace general_thdm {
 namespace {
 
 const double pi = 3.1415926535897932;
+const double pi2 = 9.8696044010893586; // Pi^2
 
 double sqr(double x) noexcept { return x*x; }
 
@@ -45,10 +46,8 @@ double YF1(double u, double w, double cw2) noexcept
    const auto cw4 = cw2*cw2;
    const auto c0 = cw2*(-1 + cw2)*(u + 2*w)/u;
 
-   // @todo(alex) avoid re-calculation of common sub-expressions
    return
-      - 72*c0
-      - 36*c0*std::log(w)
+      - 72*c0 - 36*c0*std::log(w)
       + 9*(-8*cw4 - 3*u + 2*cw2*(4 + u))*(u + 2*w)/(2*(u-1)*u)*std::log(u)
       - 9*(3 - 10*cw2 + 8*cw4)*w*(u + 2*w)/((4*w-1)*(u-1))*Phi(w,w,1)
       + 9*(8*cw4 + 3*u - 2*cw2*(4 + u))*w*(u + 2*w)/((4*w-u)*(u-1)*u*u)*Phi(w,w,w)
@@ -63,21 +62,22 @@ double YFZ(double u, double al, double cw2, double mm2, double mz2) noexcept
    const auto sw2 = 1.0 - cw2;
    const auto sw4 = sw2*sw2;
    const auto u2 = u*u;
+   const auto lu = std::log(u);
+   const auto li = dilog(1.0 - u);
+   const auto phi = Phi(u, 1.0, 1.0);
 
    const auto z1 = 3*(17 - 48*cw2 + 32*cw4); // Eq.(122)
    const auto z2 = 5 - 12*cw2 + 8*cw4;       // Eq.(123)
    const auto z3 = 3*(1 - 3*cw2 + 2*cw4);    // Eq.(124)
 
-   // @todo(alex) avoid re-calculation of common sub-expressions
    const double res =
-      + z1*u*dilog(1.0 - u)
-      + z2/(2*u2)*(6*(-4 + u)*u + sqr(pi)*(4 + 3*u) + 6*u*(4 + u)*std::log(u)
-                   - 6*(4 + 3*u)*dilog(1.0 - u) + 6*u*(2 + u)*Phi(u,1,1))
-      + z3*u*(6 + sqr(pi)*(-4 + u)*u + 3*std::log(u)*(4 + (-4 + u)*u*std::log(u)))
-      + 12*(-4 + u)*u*dilog(1.0 - u) + 6*(-2 + u)*Phi(u,1.0,1.0)
-      ;
+      + z1*u*li
+      + z2/(2*u2)*(6*(-4 + u)*u + pi2*(4 + 3*u) + 6*u*(4 + u)*lu
+                   - 6*(4 + 3*u)*li + 6*u*(2 + u)*phi)
+      + z3*u*(6 + pi2*(-4 + u)*u + 3*lu*(4 + (-4 + u)*u*lu))
+      + 12*(-4 + u)*u*li + 6*(-2 + u)*phi;
 
-   return al2/(576*sqr(pi)*cw4*sw4) * mm2/mz2 * res;
+   return al2/(576*pi2*cw4*sw4) * mm2/mz2 * res;
 }
 
 /// Eq.(125), arxiv:1607.06292
@@ -91,15 +91,13 @@ double YFW(double u, double al, double cw2, double mm2, double mz2) noexcept
    const auto u2 = u*u;
    const auto u3 = u2*u;
 
-   // @todo(alex) avoid re-calculation of common sub-expressions
    const double res =
-      - 57.0/2*cw2 - 4*cw6*sqr(pi)/u2 + 3*cw4*(32 - 3*sqr(pi))/(4*u)
+      - 57.0/2*cw2 - 4*cw6*pi2/u2 + 3*cw4*(32 - 3*pi2)/(4*u)
       + 3*(16*cw6 + 9*cw4*u + 12*cw2*u2 - 19*u3)*dilog(1.0 - u/cw2)/(2*u2)
-      + 3*cw2*(16*cw2 + 19*u)*(std::log(cw2) - std::log(u))/(2*u)
-      + 3*(4*cw4 - 50*cw2*u + 19*u2)*Phi(u,cw2,cw2)/(2*(4*cw2-u)*u)
-      ;
+      + 3*cw2*(16*cw2 + 19*u)*(std::log(cw2/u))/(2*u)
+      + 3*(4*cw4 - 50*cw2*u + 19*u2)*Phi(u,cw2,cw2)/(2*(4*cw2-u)*u);
 
-   return al2/(576*sqr(pi)*cw4*sw4) * mm2/mz2 * res;
+   return al2/(576*pi2*cw4*sw4) * mm2/mz2 * res;
 }
 
 /// Eq.(105), arxiv:1607.06292
@@ -114,7 +112,7 @@ double YF2(double u, double al, double cw2, double mm2, double mz2) noexcept
    const auto u2 = u*u;
    const auto u3 = u2*u;
 
-   const double f0 = 3.0/4*cw4*(-640 + 576*cw2 + 7*sqr(pi)); // Eq.(106)
+   const double f0 = 3.0/4*cw4*(-640 + 576*cw2 + 7*pi2);     // Eq.(106)
    const double f1 = 96*cw6*(11 - 53*cw2 + 36*cw4);          // Eq.(107)
    const double f2 = -3.0/4*cw2*(-66*cw2 - 48*cw4 + 672*cw6);// Eq.(108)
    const double f3 = -3.0/4*cw2*(109 - 430*cw2 + 120*cw4);   // Eq.(109)
@@ -130,9 +128,8 @@ double YF2(double u, double al, double cw2, double mm2, double mz2) noexcept
    const double f13 = 9.0/2*cw2*(57 + 106*cw2);              // Eq.(119)
    const double f14 = -15.0/2*(7 + 45*cw2);                  // Eq.(120)
 
-   // @todo(alex) avoid re-calculation of common sub-expressions
    const double res =
-      + 8*cw6*sqr(pi)/u2 + f0/u + 393.0/8*cw2
+      + 8*cw6*pi2/u2 + f0/u + 393.0/8*cw2
       + (f1/u + f2 + f3*u)*std::log(cw2)/((4*cw2-1)*(4*cw2-u))
       + (f4/u + f5 + f6*u + f7*u2)*std::log(u)/((u-1)*(4*cw2-u))
       - 3.0/2*(32*cw6/u2 + 21*cw4/u + 15*cw2 - 35*u)*dilog(1.0 - u/cw2)
@@ -142,7 +139,7 @@ double YF2(double u, double al, double cw2, double mm2, double mz2) noexcept
       ;
 
    return YFW(u, al, cw2, mm2, mz2) + YFZ(u, al, cw2, mm2, mz2)
-      + al2/(576*sqr(pi)*cw4*sw4) * mm2/mz2 * res;
+      + al2/(576*pi2*cw4*sw4) * mm2/mz2 * res;
 }
 
 /// Eq.(126), arxiv:1607.06292
@@ -181,7 +178,6 @@ double YF3(double u, double w, double al, double cw2, double mm2, double mz2) no
    const auto a7 = -9*cw2*u4 + 18*cw2*u3*(2*cw2 + w) + 36*u*(cw8 - 2*cw6*w)
       - 9*cw2*u2*(6*cw4 - cw2*w + w2) - 9*cw2*(cw2 - 3*w)*(cw6 - 2*cw4*w + cw2*w2);
 
-   // @todo(alex) avoid re-calculation of common sub-expressions
    const double res =
       + 9*u*(2*cw2 - u + w)/w
       + (a1*std::log(u/cw2) + 9*cw4*(cw4 - 4*cw2*w + 3*w2)*std::log(cw2))
@@ -194,7 +190,7 @@ double YF3(double u, double w, double al, double cw2, double mm2, double mz2) no
       + a7/(w2*(cw2-w)*(cw4-2*cw2*(u+w)+sqr(u-w)))*Phi(u,w,cw2)
       ;
 
-   return al2/(576*sqr(pi)*cw4*sw4) * mm2/mz2 * res;
+   return al2/(576*pi2*cw4*sw4) * mm2/mz2 * res;
 }
 
 /// Eq.(103), arxiv:1607.06292
@@ -216,12 +212,13 @@ double T10(double u, double w, double cw2) noexcept
 {
    const auto u2 = u*u;
    const auto w2 = w*w;
+   const auto lwu = std::log(w/u);
+   const auto lwc = std::log(w/cw2);
 
-   // @todo(alex) avoid re-calculation of common sub-expressions
    return
-      (u2 - cw2*w - 2*u*w + w2)/(2*(cw2-w))*std::log(w/u)*std::log(w/cw2)
-      + cw2*(cw2 + 2*u - 2*w)/(2*(cw2-w))*std::log(w/cw2)
-      + cw2*u/w*std::log(w/u)
+      (u2 - cw2*w - 2*u*w + w2)/(2*(cw2-w))*lwu*lwc
+      + cw2*(cw2 + 2*u - 2*w)/(2*(cw2-w))*lwc
+      + cw2*u/w*lwu
       + cw2/w*(w-u);
 }
 
@@ -240,7 +237,7 @@ double Fm0(double u, double w, double al, double cw2, double mm2, double mz2) no
    const auto sw4 = sw2*sw2;
 
    // @todo(alex) cancel out al*pi
-   return al2/(576*sqr(pi)*cw4*sw4) * mm2/mz2
+   return al2/(576*pi2*cw4*sw4) * mm2/mz2
       * 1.0/(al*pi) * YF1(u,w,cw2);
 }
 
@@ -253,7 +250,7 @@ double Fmp(double u, double w, double al, double cw2, double mm2, double mz2) no
    const auto sw4 = sw2*sw2;
 
    // @todo(alex) cancel out al*pi
-   return al2/(576*sqr(pi)*cw4*sw4) * mm2/mz2
+   return al2/(576*pi2*cw4*sw4) * mm2/mz2
       * (-9*(-1 + cw2))/(al*pi) * (T9(u,w,cw2)/2 + T10(u,w,cw2));
 }
 
