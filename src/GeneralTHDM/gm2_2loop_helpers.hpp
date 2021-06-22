@@ -25,6 +25,22 @@ namespace gm2calc {
 
 namespace general_thdm {
 
+/// parameters to be passed to the bosonic contribution functions
+struct THDM_B_parameters {
+   double alpha{};   ///< alpha_em
+   double mw{};      ///< W boson mass
+   double mz{};      ///< Z boson mass
+   double mm{};      ///< muon mass for prefactor
+   double mhSM{};    ///< SM Higgs boson mass
+   double mA{};      ///< CP-odd Higgs boson mass
+   double mHp{};     ///< charged Higgs boson mass
+   Eigen::Matrix<double,2,1> mh{Eigen::Matrix<double,2,1>::Zero()}; ///< CP-even Higgs bosons mass
+   double tb{};      ///< tan(beta)
+   double zetal{};   ///< zeta_l
+   double eta{};     ///< eta
+   double lambda5{}; ///< Lambda_5
+};
+
 /// parameters to be passed to the fermionic contribution functions
 struct THDM_F_parameters {
    double alpha{}; ///< alpha_em
@@ -44,11 +60,13 @@ struct THDM_F_parameters {
 
 // === 2-loop bosonic contributions ===
 
+double amu2L_B(const THDM_B_parameters&);
+
 // routines for sub-expressions
 
-double amu2L_B_EWadd(double eta, double zetal);
-double amu2L_B_nonYuk();
-double amu2L_B_Yuk();
+double amu2L_B_EWadd(const THDM_B_parameters&);
+double amu2L_B_nonYuk(const THDM_B_parameters&);
+double amu2L_B_Yuk(const THDM_B_parameters&);
 
 // === 2-loop fermionic contributions ===
 

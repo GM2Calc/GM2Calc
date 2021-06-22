@@ -261,9 +261,9 @@ double Fmp(double u, double w, double al, double cw2, double mm2, double mz2) no
  *
  * Eq (49), arxiv:1607:06292
  */
-double amu2L_B_EWadd(double eta, double zetal)
+double amu2L_B_EWadd(const THDM_B_parameters& thdm)
 {
-   return 2.3e-11 * eta * zetal;
+   return 2.3e-11 * thdm.eta * thdm.zetal;
 }
 
 /**
@@ -271,7 +271,7 @@ double amu2L_B_EWadd(double eta, double zetal)
  *
  * Eq (71), arxiv:1607:06292
  */
-double amu2L_B_nonYuk()
+double amu2L_B_nonYuk(const THDM_B_parameters&)
 {
    // @todo(alex) implementation missing
    return 0.0;
@@ -282,20 +282,19 @@ double amu2L_B_nonYuk()
  *
  * Eq (52), arxiv:1607:06292
  */
-double amu2L_B_Yuk()
+double amu2L_B_Yuk(const THDM_B_parameters& thdm)
 {
-   // @todo(alex) pass parameters to function
-   const auto tb = 1.0;
-   const auto zetal = 0.0;
-   const auto lambda5 = 0.0;
-   const auto eta = 0.0;
-   const auto al = 1.0/137;
-   const auto mhSM2 = 125.0;
-   const auto mH2 = 0.0;
-   const auto mHp2 = 0.0;
-   const auto mw2 = 82.0;
-   const auto mz2 = 91.0;
-   const auto mm2 = 0.1;
+   const auto tb = thdm.tb;
+   const auto zetal = thdm.zetal;
+   const auto lambda5 = thdm.lambda5;
+   const auto eta = thdm.eta;
+   const auto al = thdm.alpha;
+   const auto mhSM2 = sqr(thdm.mhSM);
+   const auto mH2 = sqr(thdm.mh(1));
+   const auto mHp2 = sqr(thdm.mHp);
+   const auto mw2 = sqr(thdm.mw);
+   const auto mz2 = sqr(thdm.mz);
+   const auto mm2 = sqr(thdm.mm);
 
    const auto cw2 = mw2/mz2;
    const auto xhSM = mhSM2/mz2;
@@ -356,6 +355,16 @@ double amu2L_B_Yuk()
          )*eta;
 
    return res;
+}
+
+/**
+ * Calculates the sum of the 2-loop bosonic contributions.
+ *
+ * Eq (48), arxiv:1607:06292
+ */
+double amu2L_B(const THDM_B_parameters& thdm)
+{
+   return amu2L_B_EWadd(thdm) + amu2L_B_nonYuk(thdm) + amu2L_B_Yuk(thdm);
 }
 
 } // namespace general_thdm
