@@ -326,6 +326,7 @@ double amu2L_B_Yuk()
             + Fmp(xH, xHp, al, cw2, mm2, mz2)
          )
          - YF3(xH, xHp, al, cw2, mm2, mz2)
+         // SM contributions with opposite sign:
          - fb(xhSM, xHp, al, cw2)*(
             + Fm0(xhSM, xHp, al, cw2, mm2, mz2)
             + Fmp(xhSM, xHp, al, cw2, mm2, mz2)
