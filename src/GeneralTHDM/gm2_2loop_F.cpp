@@ -149,14 +149,12 @@ double FdHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
 {
    const double xu = mu2/ms2;
    const double xd = md2/ms2;
-   const double sqrt_xu = std::sqrt(xu);
-   const double sqrt_xd = std::sqrt(xd);
    const double y = sqr(xu - xd) - 2*(xu + xd) + 1.0;
    const double s = 0.25*(qu + qd);
    const double c = sqr(xu - xd) - qu*xu + qd*xd;
    const double cbar = (xu - qu)*xu - (xd + qd)*xd;
 
-   return -(xu - xd) + (cbar/y - c*(xu - xd)/y) * Phi(sqrt_xd, sqrt_xu, 1.0)
+   return -(xu - xd) + (cbar/y - c*(xu - xd)/y) * Phi(xd, xu, 1.0)
       + c*(dilog(1.0 - xd/xu) - 0.5*std::log(xu)*std::log(xd/xu))
       + (s + xd)*std::log(xd) + (s - xu)*std::log(xu);
 }
@@ -166,12 +164,10 @@ double FuHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
 {
    const double xu = mu2/ms2;
    const double xd = md2/ms2;
-   const double sqrt_xu = std::sqrt(xu);
-   const double sqrt_xd = std::sqrt(xd);
    const double y = sqr(xu - xd) - 2*(xu + xd) + 1.0;
 
    return FdHp(ms2, md2, mu2, 2.0 + qd, 2.0 + qu)
-      - 4.0/3.0*(xu - xd - 1.0)/y*Phi(sqrt_xd, sqrt_xu, 1.0)
+      - 4.0/3.0*(xu - xd - 1.0)/y*Phi(xd, xu, 1.0)
       - 1.0/3.0*(sqr(std::log(xd)) - sqr(std::log(xu)));
 }
 
@@ -212,7 +208,8 @@ double fqHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm, F FfHp) no
    const double nc = pars.nc;
 
    return al2*mm2/(32*sqr(pi)*mw2*sw4) * nc*mf2/(ms2 - mw2)
-      * (FfHp(ms2, md2, mu2, qd, qu) - FfHp(mw2, md2, mu2, qd, qu));
+      * (FfHp(ms2, md2, mu2, qd, qu) - FfHp(mw2, md2, mu2, qd, qu))
+      ;
 }
 
 } // anonymous namespace
