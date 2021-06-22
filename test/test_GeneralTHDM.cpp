@@ -28,7 +28,7 @@ YfA = { YmuA, 4, 5 };
 
 amuC = 3 FCharged[MC, mf, alpha, mmu, MW, sw2, Qf, YfA, YmuA]
 
-Print[N[amuC, 17]]
+Print["amuC 10^10 = ", N[amuC 10^10, 17]]
 
 */
 
@@ -51,6 +51,39 @@ TEST_CASE("2-loop_fermionic_charged")
    CHECK_CLOSE(1e10*amu, 3.0942542015032706, 1e-12);
 }
 
+/* Generated with:
+
+<< ../math/GeneralTHDMBarrZee.m;
+
+MW = 80;
+MZ = 90;
+cw = MW/MZ;
+cw2 = cw^2;
+sw2 = 1 - cw2;
+MC = 200;
+alpha = 1/137;
+mmu = 1;
+mf = {mmu, 2, 3}; (* ml, md, mu *)
+Qf = { -1, -1/3, 2/3 }; (* l, d, u *)
+YmuA = 3;
+YfA = { YmuA, 4, 5 };
+MhSM = 125;
+Mphi = { 100, 400, 300 }; (* h, H, A *)
+T3 = { -1, -1, 1 }; (* l, d, u *)
+gfv = T3/2 - Qf sw2;
+Yfphi = { YfA, YfA, YfA };
+Ymuphi = { YmuA, YmuA, YmuA };
+
+amuN = 3 (
+    FNeutral[Mphi,mf,alpha,mmu,MW,MZ,sw2,Qf,gfv,Yfphi,Ymuphi] -
+    Sum[fgammaphi[MhSM,mf[[j]],alpha,mmu,MW,sw2,Qf[[j]],{1,3,3}[[j]]]
+        + fZphi[MhSM,mf[[j]],alpha,mmu,MW,MZ,sw2,Qf[[j]],{1,3,3}[[j]],gfv[[1]],gfv[[j]]],
+        {j,1,3}
+    ])
+
+Print["amuN 10^10 = ", N[10^10 amuN, 17]]
+
+*/
 
 TEST_CASE("2-loop_fermionic_neutral")
 {
