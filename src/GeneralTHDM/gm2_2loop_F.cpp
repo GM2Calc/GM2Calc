@@ -220,7 +220,7 @@ double fqHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm, F FfHp) no
  * Calculates 2-loop fermionic contributions with charged Higgs
  * bosons.
  *
- * Eq (63), arxiv:1607:06292
+ * Eq (58), arxiv:1607:06292
  */
 double amu2L_F_charged(const THDM_F_parameters& thdm)
 {
@@ -257,7 +257,7 @@ double amu2L_F_charged(const THDM_F_parameters& thdm)
  * Calculates 2-loop fermionic contributions with neutral Higgs
  * bosons.
  *
- * Eq (63), arxiv:1607:06292
+ * Eq (53), arxiv:1607:06292
  */
 double amu2L_F_neutral(const THDM_F_parameters& thdm)
 {
@@ -302,6 +302,14 @@ double amu2L_F_neutral(const THDM_F_parameters& thdm)
    return res;
 }
 
+/**
+ * \fn amu2L_F
+ *
+ * Calculates the sum of the 2-loop fermionic contributions with
+ * neutral and charged Higgs bosons.
+ *
+ * Eq (63), arxiv:1607:06292
+ */
 double amu2L_F(const THDM_F_parameters& thdm)
 {
    return amu2L_F_neutral(thdm) + amu2L_F_charged(thdm);
