@@ -101,6 +101,49 @@ double YFW(double u, double al, double cw2, double mm2, double mz2) noexcept
    return al2/(576*sqr(pi)*cw4*sw4) * mm2/mz2 * res;
 }
 
+/// Eq.(105), arxiv:1607.06292
+double YF2(double u, double al, double cw2, double mm2, double mz2) noexcept
+{
+   const auto al2 = al*al;
+   const auto cw4 = cw2*cw2;
+   const auto cw6 = cw4*cw2;
+   const auto cw8 = cw4*cw4;
+   const auto sw2 = 1.0 - cw2;
+   const auto sw4 = sw2*sw2;
+   const auto u2 = u*u;
+   const auto u3 = u2*u;
+
+   const double f0 = 3.0/4*cw4*(-640 + 576*cw2 + 7*sqr(pi)); // Eq.(106)
+   const double f1 = 96*cw6*(11 - 53*cw2 + 36*cw4);          // Eq.(107)
+   const double f2 = -3.0/4*cw2*(-66*cw2 - 48*cw4 + 672*cw6);// Eq.(108)
+   const double f3 = -3.0/4*cw2*(109 - 430*cw2 + 120*cw4);   // Eq.(109)
+   const double f4 = 96*cw6*(-11 + 9*cw2);                   // Eq.(110)
+   const double f5 = 45.0/2*cw4 + 192*cw6;                   // Eq.(111)
+   const double f6 = 3.0/4*cw2*(157 + 90*cw2);               // Eq.(112)
+   const double f7 = -3.0/4*(18 + 61*cw2);                   // Eq.(113)
+   const double f8 = -7 + 61*cw2 - 162*cw4 + 96*cw6;         // Eq.(114)
+   const double f9 = 1 - 5*cw2 + 10*cw4;                     // Eq.(115)
+   const double f10 = -1728*cw8*(-1 + cw2);                  // Eq.(116)
+   const double f11 = 3*cw6*(-899 + 768*cw2);                // Eq.(117)
+   const double f12 = 387*cw4 - 363*cw6;                     // Eq.(118)
+   const double f13 = 9.0/2*cw2*(57 + 106*cw2);              // Eq.(119)
+   const double f14 = -15.0/2*(7 + 45*cw2);                  // Eq.(120)
+
+   // @todo(alex) avoid re-calculation of common sub-expressions
+   const double res =
+      + 8*cw6*sqr(pi)/u2 + f0/u + 393.0/8*cw2
+      + (f1/u + f2 + f3*u)*std::log(cw2)/((4*cw2-1)*(4*cw2-u))
+      + (f4/u + f5 + f6*u + f7*u2)*std::log(u)/((u-1)*(4*cw2-u))
+      - 3.0/2*(32*cw6/u2 + 21*cw4/u + 15*cw2 - 35*u)*dilog(1.0 - u/cw2)
+      + (f8 + f9*u)*9*cw2*(-3 + 4*cw2)/2*Phi(cw2,cw2,1)/(sqr(4*cw2-1)*(u-1))
+      + (f10/u2 + f11/u + f12 + f13*u + f14*u2 + 105.0/2*u3)*Phi(u,cw2,cw2)
+        /(sqr(4*cw2-u)*(u-1))
+      ;
+
+   return YFW(u, al, cw2, mm2, mz2) + YFZ(u, al, cw2, mm2, mz2)
+      + al2/(576*sqr(pi)*cw4*sw4) * mm2/mz2 * res;
+}
+
 /// Eq.(126), arxiv:1607.06292
 double YF3(double u, double w, double al, double cw2, double mm2, double mz2) noexcept
 {
