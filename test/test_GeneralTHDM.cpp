@@ -50,3 +50,26 @@ TEST_CASE("2-loop_fermionic_charged")
 
    CHECK_CLOSE(1e10*amu, 3.0942542015032706, 1e-12);
 }
+
+
+TEST_CASE("2-loop_fermionic_neutral")
+{
+   gm2calc::general_thdm::THDM_F_parameters pars;
+   pars.alpha = 1./137;
+   pars.mw = 80.0;
+   pars.mz = 90.0;
+   pars.mh << 100.0, 400.0;
+   pars.mhSM = 125.0;
+   pars.mA = 300.0;
+   pars.mHp = 200.0;
+   pars.mu << 3.0, 3.0, 3.0;
+   pars.md << 2.0, 2.0, 2.0;
+   pars.ml << 1.0, 1.0, 1.0;
+   pars.yuS << 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0;
+   pars.ydS << 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0;
+   pars.ylS << 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0;
+
+   const auto amu = gm2calc::general_thdm::amu2L_F_neutral(pars);
+
+   CHECK_CLOSE(1e10*amu, -15.066195790519992, 1e-12);
+}

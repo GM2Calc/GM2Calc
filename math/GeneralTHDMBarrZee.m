@@ -120,16 +120,25 @@ FNeutral[Mh_,MH_,MA_,ml_,md_,mu_,alpha_,mmu_,MW_,MZ_,sw2_,Ql_,Qd_,Qu_,Nc_,glv_,g
     (fgammaphi[MH,ml,alpha,mmu,MW,sw2,Ql,1]  + fZphi[MH,ml,alpha,mmu,MW,MZ,sw2,Ql,1,glv,glv])  YlH YlH +
     (fgammaphi[MH,md,alpha,mmu,MW,sw2,Qd,Nc] + fZphi[MH,md,alpha,mmu,MW,MZ,sw2,Qd,Nc,glv,gdv]) YdH YlH +
     (fgammaphi[MH,mu,alpha,mmu,MW,sw2,Qu,Nc] + fZphi[MH,mu,alpha,mmu,MW,MZ,sw2,Qu,Nc,glv,guv]) YuH YlH +
-    (fgammaphi[MA,ml,alpha,mmu,MW,sw2,Ql,1]  + fZphi[MA,ml,alpha,mmu,MW,MZ,sw2,Ql,1,glv,glv])  YlA YlA +
-    (fgammaphi[MA,md,alpha,mmu,MW,sw2,Qd,Nc] + fZphi[MA,md,alpha,mmu,MW,MZ,sw2,Qd,Nc,glv,gdv]) YdA YlA +
-    (fgammaphi[MA,mu,alpha,mmu,MW,sw2,Qu,Nc] + fZphi[MA,mu,alpha,mmu,MW,MZ,sw2,Qu,Nc,glv,guv]) YuA YlA
+    (fgammaA[MA,ml,alpha,mmu,MW,sw2,Ql,1]    + fZA[MA,ml,alpha,mmu,MW,MZ,sw2,Ql,1,glv,glv])    YlA YlA +
+    (fgammaA[MA,md,alpha,mmu,MW,sw2,Qd,Nc]   + fZA[MA,md,alpha,mmu,MW,MZ,sw2,Qd,Nc,glv,gdv])   YdA YlA +
+    (fgammaA[MA,mu,alpha,mmu,MW,sw2,Qu,Nc]   + fZA[MA,mu,alpha,mmu,MW,MZ,sw2,Qu,Nc,glv,guv])   YuA YlA
 )
 
 FNeutral[Mphi_,mf_,alpha_,mmu_,MW_,MZ_,sw2_,Qf_,gfv_,Yfphi_,Ymuphi_] :=
     Sum[
-        (fgammaphi[Mphi[[i]],mf[[j]],alpha,mmu,MW,sw2,Qf[[j]],{1,3,3}[[j]]] +
-         fZphi[Mphi[[i]],mf[[j]],alpha,mmu,MW,MZ,sw2,Qf[[j]],{1,3,3}[[j]],gfv[[1]],gfv[[j]]]) Yfphi[[i]][[j]] Ymuphi[[i]],
-        {j,1,3}, {i,1,3}
+        (
+            fgammaphi[Mphi[[i]],mf[[j]],alpha,mmu,MW,sw2,Qf[[j]],{1,3,3}[[j]]] +
+            fZphi[Mphi[[i]],mf[[j]],alpha,mmu,MW,MZ,sw2,Qf[[j]],{1,3,3}[[j]],gfv[[1]],gfv[[j]]]
+        ) Yfphi[[i]][[j]] Ymuphi[[i]],
+        {j,1,3}, {i,1,2}
+    ] +
+    Sum[
+        (
+            fgammaA[Mphi[[3]],mf[[j]],alpha,mmu,MW,sw2,Qf[[j]],{1,3,3}[[j]]] +
+            fZA[Mphi[[3]],mf[[j]],alpha,mmu,MW,MZ,sw2,Qf[[j]],{1,3,3}[[j]],gfv[[1]],gfv[[j]]]
+        ) Yfphi[[3]][[j]] Ymuphi[[3]],
+        {j,1,3}
     ]
 
 
