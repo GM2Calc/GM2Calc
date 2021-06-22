@@ -65,6 +65,8 @@ double YF3(double u, double w, double al, double cw2, double mm2, double mz2) no
    const auto sw4 = sw2*sw2;
    const auto u2 = u*u;
    const auto u3 = u2*u;
+   const auto u4 = u2*u2;
+   const auto u5 = u4*u;
    const auto w2 = w*w;
 
    // Eq.(127)
@@ -81,8 +83,12 @@ double YF3(double u, double w, double al, double cw2, double mm2, double mz2) no
    // Eq.(131)
    const auto a5 = -9*u3*(cw2 + w) - 9*u*(3*cw6 + 2*cw2*w2)
       + 9*u2*(3*cw4 + 4*cw2*w + w2) + 9.0/2*cw4*(2*cw4 - 6*cw2*w + w2);
-   const auto a6 = 0.0; // @todo(alex)
-   const auto a7 = 0.0; // @todo(alex)
+   // Eq.(132)
+   const auto a6 = -9*u4*(9*cw2 + w) + u*(81*cw6*w - 225*cw8) + 9*cw8*(w - cw2)
+      - 9.0/2*u2*(3*cw6 + 37*cw4*w) + u3*(198*cw4 + 72*cw2*w) + 9*u5;
+   // Eq.(133)
+   const auto a7 = -9*cw2*u4 + 18*cw2*u3*(2*cw2 + w) + 36*u*(cw8 - 2*cw6*w)
+      - 9*cw2*u2*(6*cw4 - cw2*w + w2) - 9*cw2*(cw2 - 3*w)*(cw6 - 2*cw4*w + cw2*w2);
 
    // @todo(alex) avoid re-calculation of common sub-expressions
    const double res =
