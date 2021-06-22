@@ -186,7 +186,7 @@ FCharged[MC_,mf_,alpha_,mmu_,MW_,sw2_,Qf_,YfA_,YmuA_] := (
 )
 
 Fermionic2Loop[MPhi_,MhSM_,mf_,alpha_,mmu_,MW_,MZ_,sw2_,Qf_,gfv_,YfS_,YmuS_,YfhSM_] := (
-    FNeutral[MPhi[[1]],MPhi[[2]],MPhi[[3]],mf,alpha,mmu,MW,MZ,sw2,Qf,gfv,YfS,YmuS] +
+    FNeutral[{MPhi[[1]],MPhi[[2]],MPhi[[3]]},mf,alpha,mmu,MW,MZ,sw2,Qf,gfv,YfS,YmuS] +
     FCharged[MPhi[[4]],mf,alpha,mmu,MW,sw2,Qf,I*YfS[[3,;;]],I*YmuS[[3]]] -
     Sum[fgammaphi[MhSM,mf[[j]],alpha,mmu,MW,sw2,Qf[[j]],{1,3,3}[[j]]]
         + fZphi[MhSM,mf[[j]],alpha,mmu,MW,MZ,sw2,Qf[[j]],{1,3,3}[[j]],gfv[[1]],gfv[[j]]]
