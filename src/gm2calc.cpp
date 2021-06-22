@@ -70,7 +70,7 @@ void print_usage(const char* program_name)
       "  --gm2calc-input-file=<source>   GM2Calc input source (file name or - for stdin)\n"
       "  --help,-h                       print this help message\n"
       "  --version,-v                    print version number"
-             << std::endl;
+      "\n";
 }
 
 /**
