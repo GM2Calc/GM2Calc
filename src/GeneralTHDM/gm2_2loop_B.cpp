@@ -43,11 +43,12 @@ double pow3(double x) noexcept { return sqr(x)*x; }
 double YF1(double u, double w, double cw2) noexcept
 {
    const auto cw4 = cw2*cw2;
+   const auto c0 = cw2*(-1 + cw2)*(u + 2*w)/u;
 
    // @todo(alex) avoid re-calculation of common sub-expressions
    return
-      - 72*cw2*(-1 + cw2)*(u + 2*w)/u
-      - 36*cw2*(-1 + cw2)*(u + 2*w)/u*std::log(w)
+      - 72*c0
+      - 36*c0*std::log(w)
       + 9*(-8*cw4 - 3*u + 2*cw2*(4 + u))*(u + 2*w)/(2*(u-1)*u)*std::log(u)
       - 9*(3 - 10*cw2 + 8*cw4)*w*(u + 2*w)/((4*w-1)*(u-1))*Phi(w,w,1)
       + 9*(8*cw4 + 3*u - 2*cw2*(4 + u))*w*(u + 2*w)/((4*w-u)*(u-1)*u*u)*Phi(w,w,w)
