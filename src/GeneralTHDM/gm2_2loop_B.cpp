@@ -17,6 +17,7 @@
 // ====================================================================
 
 #include "GeneralTHDM/gm2_2loop_helpers.hpp"
+#include "gm2_dilog.hpp"
 #include "gm2_ffunctions.hpp"
 
 /**
@@ -36,6 +37,8 @@ const double pi = 3.1415926535897932;
 
 double sqr(double x) noexcept { return x*x; }
 
+double pow3(double x) noexcept { return sqr(x)*x; }
+
 /// Eq.(102), arxiv:1607.06292
 double YF1(double u, double w, double cw2) noexcept
 {
@@ -49,6 +52,34 @@ double YF1(double u, double w, double cw2) noexcept
       - 9*(3 - 10*cw2 + 8*cw4)*w*(u + 2*w)/((4*w-1)*(u-1))*Phi(w,w,1)
       + 9*(8*cw4 + 3*u - 2*cw2*(4 + u))*w*(u + 2*w)/((4*w-u)*(u-1)*u*u)*Phi(w,w,w)
       ;
+}
+
+/// Eq.(103), arxiv:1607.06292
+double T9(double u, double w, double cw2) noexcept
+{
+   const auto cw4 = cw2*cw2;
+   const auto u2 = u*u;
+   const auto w2 = w*w;
+
+   return
+      - 2*(cw4*w + cw2*(u2 + u*w - 2*w2) - pow3(u-w))*Phi(u,w,cw2)
+        /((cw2 - w)*(cw4 - 2*cw2*(u+w) + sqr(u-w)))
+      + 2*cw4*(u2 - 4*u*w + 2*w2)*Phi(u,w,w)/(w2*(w-cw2)*(u-4*w))
+      - 2*(cw2*u*(u-2*w) + w*sqr(u-w))*dilog(1.0 - u/w)/w2;
+}
+
+/// Eq.(104), arxiv:1607.06292
+double T10(double u, double w, double cw2) noexcept
+{
+   const auto u2 = u*u;
+   const auto w2 = w*w;
+
+   // @todo(alex) avoid re-calculation of common sub-expressions
+   return
+      (u2 - cw2*w - 2*u*w + w2)/(2*(cw2-w))*std::log(w/u)*std::log(w/cw2)
+      + cw2*(cw2 + 2*u - 2*w)/(2*(cw2-w))*std::log(w/cw2)
+      + cw2*u/w*std::log(w/u)
+      + cw2/w*(w-u);
 }
 
 /// Eq.(99), arxiv:1607.06292
@@ -68,6 +99,19 @@ double Fm0(double u, double w, double al, double cw2, double mm2, double mz2) no
    // @todo(alex) cancel out al*pi
    return al2/(576*sqr(pi)*cw4*sw4) * mm2/mz2
       * 1.0/(al*pi) * YF1(u,w,cw2);
+}
+
+/// Eq.(101), arxiv:1607.06292
+double Fmp(double u, double w, double al, double cw2, double mm2, double mz2) noexcept
+{
+   const auto al2 = al*al;
+   const auto cw4 = cw2*cw2;
+   const auto sw2 = 1.0 - cw2;
+   const auto sw4 = sw2*sw2;
+
+   // @todo(alex) cancel out al*pi
+   return al2/(576*sqr(pi)*cw4*sw4) * mm2/mz2
+      * (-9*(-1 + cw2))/(al*pi) * (T9(u,w,cw2)/2 + T10(u,w,cw2));
 }
 
 } // anonymous namespace
@@ -107,6 +151,7 @@ double amu2L_B_Yuk()
    const auto eta = 0.0;
    const auto al = 0.0;
    const auto mhSM2 = 0.0;
+   const auto mH2 = 0.0;
    const auto mHp2 = 0.0;
    const auto mw2 = 0.0;
    const auto mz2 = 0.0;
@@ -115,9 +160,11 @@ double amu2L_B_Yuk()
    const auto cw2 = mw2/mz2;
    const auto xhSM = mhSM2/mz2;
    const auto xHp = mHp2/mz2;
+   const auto xH = mH2/mz2;
 
    const auto a000 = fb(xhSM, xHp, al, cw2)*Fm0(xhSM, xHp, al, cw2, mm2, mz2);
-   const auto a0z0 = 0.0; // @todo(alex) implementation missing
+   const auto a0z0 = -fb(xH, 0.0, al, cw2)*(
+      Fm0(xH, xHp, al, cw2, mm2, mz2) + Fmp(xH, xHp, al, cw2, mm2, mz2));
    const auto a500 = 0.0; // @todo(alex) implementation missing
    const auto a5z0 = 0.0; // @todo(alex) implementation missing
    const auto a001 = 0.0; // @todo(alex) implementation missing
