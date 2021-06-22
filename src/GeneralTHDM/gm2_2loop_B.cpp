@@ -58,7 +58,34 @@ double amu2L_B_nonYuk()
 double amu2L_B_Yuk()
 {
    // @todo(alex) implementation missing
-   return 0.0;
+
+   const auto tb = 1.0;
+   const auto zetal = 0.0;
+   const auto lambda5 = 0.0;
+   const auto eta = 0.0;
+
+   const auto a000 = 0.0;
+   const auto a0z0 = 0.0;
+   const auto a500 = 0.0;
+   const auto a5z0 = 0.0;
+   const auto a001 = 0.0;
+   const auto a0z1 = 0.0;
+   const auto a501 = 0.0;
+   const auto a5z1 = 0.0;
+
+   const double res =
+      + a000
+      + a0z0*(tb - 1.0/tb)*zetal
+      + a500*lambda5
+      + a5z0*(tb - 1.0/tb)*lambda5*zetal
+      + (
+         + a001*(tb - 1.0/tb)
+         + a0z1*zetal
+         + a501*(tb - 1.0/tb)*lambda5
+         + a5z1*lambda5*zetal
+         )*eta;
+
+   return res;
 }
 
 } // namespace general_thdm
