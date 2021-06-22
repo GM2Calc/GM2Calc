@@ -62,7 +62,6 @@ double YFZ(double u, double w, double al, double cw2, double mm2, double mz2) no
    const auto sw2 = 1.0 - cw2;
    const auto sw4 = sw2*sw2;
    const auto u2 = u*u;
-   const auto u4 = u2*u2;
 
    const auto z1 = 3*(17 - 48*cw2 + 32*cw4); // Eq.(122)
    const auto z2 = 5 - 12*cw2 + 8*cw4;       // Eq.(123)
@@ -72,9 +71,31 @@ double YFZ(double u, double w, double al, double cw2, double mm2, double mz2) no
    const double res =
       + z1*u*dilog(1.0 - u)
       + z2/(2*u2)*(6*(-4 + u)*u + sqr(pi)*(4 + 3*u) + 6*u*(4 + u)*std::log(u)
-                   - 6*(4 + 3*u)*dilog(1.0 - u) + 6*u*(2 + u)*Phi(u,1.0,1.0))
+                   - 6*(4 + 3*u)*dilog(1.0 - u) + 6*u*(2 + u)*Phi(u,1,1))
       + z3*u*(6 + sqr(pi)*(-4 + u)*u + 3*std::log(u)*(4 + (-4 + u)*u*std::log(u)))
       + 12*(-4 + u)*u*dilog(1.0 - u) + 6*(-2 + u)*Phi(u,1.0,1.0)
+      ;
+
+   return al2/(576*sqr(pi)*cw4*sw4) * mm2/mz2 * res;
+}
+
+/// Eq.(125), arxiv:1607.06292
+double YFW(double u, double w, double al, double cw2, double mm2, double mz2) noexcept
+{
+   const auto al2 = al*al;
+   const auto cw4 = cw2*cw2;
+   const auto cw6 = cw4*cw2;
+   const auto sw2 = 1.0 - cw2;
+   const auto sw4 = sw2*sw2;
+   const auto u2 = u*u;
+   const auto u3 = u2*u;
+
+   // @todo(alex) avoid re-calculation of common sub-expressions
+   const double res =
+      - 57.0/2*cw2 - 4*cw6*sqr(pi)/u2 + 3*cw4*(32 - 3*sqr(pi))/(4*u)
+      + 3*(16*cw6 + 9*cw4*u + 12*cw2*u2 - 19*u3)*dilog(1.0 - u/cw2)/(2*u2)
+      + 3*cw2*(16*cw2 + 19*u)*(std::log(cw2) - std::log(u))/(2*u)
+      + 3*(4*cw4 - 50*cw2*u + 19*u2)*Phi(u,cw2,cw2)/(2*(4*cw2-u)*u)
       ;
 
    return al2/(576*sqr(pi)*cw4*sw4) * mm2/mz2 * res;
