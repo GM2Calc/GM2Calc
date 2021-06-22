@@ -55,12 +55,9 @@ double YF1(double u, double w, double cw2) noexcept
 }
 
 /// Eq.(121), arxiv:1607.06292
-double YFZ(double u, double al, double cw2, double mm2, double mz2) noexcept
+double YFZ(double u, double cw2) noexcept
 {
-   const auto al2 = al*al;
    const auto cw4 = cw2*cw2;
-   const auto sw2 = 1.0 - cw2;
-   const auto sw4 = sw2*sw2;
    const auto u2 = u*u;
    const auto lu = std::log(u);
    const auto li = dilog(1.0 - u);
@@ -77,17 +74,14 @@ double YFZ(double u, double al, double cw2, double mm2, double mz2) noexcept
       + z3*u*(6 + pi2*(-4 + u)*u + 3*lu*(4 + (-4 + u)*u*lu))
       + 12*(-4 + u)*u*li + 6*(-2 + u)*phi;
 
-   return al2/(576*pi2*cw4*sw4) * mm2/mz2 * res;
+   return res;
 }
 
 /// Eq.(125), arxiv:1607.06292
-double YFW(double u, double al, double cw2, double mm2, double mz2) noexcept
+double YFW(double u, double cw2) noexcept
 {
-   const auto al2 = al*al;
    const auto cw4 = cw2*cw2;
    const auto cw6 = cw4*cw2;
-   const auto sw2 = 1.0 - cw2;
-   const auto sw4 = sw2*sw2;
    const auto u2 = u*u;
    const auto u3 = u2*u;
 
@@ -97,18 +91,15 @@ double YFW(double u, double al, double cw2, double mm2, double mz2) noexcept
       + 3*cw2*(16*cw2 + 19*u)*(std::log(cw2/u))/(2*u)
       + 3*(4*cw4 - 50*cw2*u + 19*u2)*Phi(u,cw2,cw2)/(2*(4*cw2-u)*u);
 
-   return al2/(576*pi2*cw4*sw4) * mm2/mz2 * res;
+   return res;
 }
 
 /// Eq.(105), arxiv:1607.06292
-double YF2(double u, double al, double cw2, double mm2, double mz2) noexcept
+double YF2(double u, double cw2) noexcept
 {
-   const auto al2 = al*al;
    const auto cw4 = cw2*cw2;
    const auto cw6 = cw4*cw2;
    const auto cw8 = cw4*cw4;
-   const auto sw2 = 1.0 - cw2;
-   const auto sw4 = sw2*sw2;
    const auto u2 = u*u;
    const auto u3 = u2*u;
 
@@ -138,19 +129,15 @@ double YF2(double u, double al, double cw2, double mm2, double mz2) noexcept
         /(sqr(4*cw2-u)*(u-1))
       ;
 
-   return YFW(u, al, cw2, mm2, mz2) + YFZ(u, al, cw2, mm2, mz2)
-      + al2/(576*pi2*cw4*sw4) * mm2/mz2 * res;
+   return YFW(u, cw2) + YFZ(u, cw2) + res;
 }
 
 /// Eq.(126), arxiv:1607.06292
-double YF3(double u, double w, double al, double cw2, double mm2, double mz2) noexcept
+double YF3(double u, double w, double cw2) noexcept
 {
-   const auto al2 = al*al;
    const auto cw4 = cw2*cw2;
    const auto cw6 = cw4*cw2;
    const auto cw8 = cw4*cw4;
-   const auto sw2 = 1.0 - cw2;
-   const auto sw4 = sw2*sw2;
    const auto u2 = u*u;
    const auto u3 = u2*u;
    const auto u4 = u2*u2;
@@ -190,7 +177,7 @@ double YF3(double u, double w, double al, double cw2, double mm2, double mz2) no
       + a7/(w2*(cw2-w)*(cw4-2*cw2*(u+w)+sqr(u-w)))*Phi(u,w,cw2)
       ;
 
-   return al2/(576*pi2*cw4*sw4) * mm2/mz2 * res;
+   return res;
 }
 
 /// Eq.(103), arxiv:1607.06292
@@ -229,29 +216,15 @@ double fb(double u, double w, double al, double cw2) noexcept
 }
 
 /// Eq.(100), arxiv:1607.06292
-double Fm0(double u, double w, double al, double cw2, double mm2, double mz2) noexcept
+double Fm0(double u, double w, double al, double cw2) noexcept
 {
-   const auto al2 = al*al;
-   const auto cw4 = cw2*cw2;
-   const auto sw2 = 1.0 - cw2;
-   const auto sw4 = sw2*sw2;
-
-   // @todo(alex) cancel out al*pi
-   return al2/(576*pi2*cw4*sw4) * mm2/mz2
-      * 1.0/(al*pi) * YF1(u,w,cw2);
+   return 1.0/(al*pi) * YF1(u,w,cw2);
 }
 
 /// Eq.(101), arxiv:1607.06292
-double Fmp(double u, double w, double al, double cw2, double mm2, double mz2) noexcept
+double Fmp(double u, double w, double al, double cw2) noexcept
 {
-   const auto al2 = al*al;
-   const auto cw4 = cw2*cw2;
-   const auto sw2 = 1.0 - cw2;
-   const auto sw4 = sw2*sw2;
-
-   // @todo(alex) cancel out al*pi
-   return al2/(576*pi2*cw4*sw4) * mm2/mz2
-      * (-9*(-1 + cw2))/(al*pi) * (T9(u,w,cw2)/2 + T10(u,w,cw2));
+   return (-9*(-1 + cw2))/(al*pi) * (T9(u,w,cw2)/2 + T10(u,w,cw2));
 }
 
 } // anonymous namespace
@@ -302,45 +275,45 @@ double amu2L_B_Yuk(const THDM_B_parameters& thdm)
    const auto xH = mH2/mz2;
 
    // Eq.(91), arxiv:1607.06292
-   const auto a000 = fb(xhSM, xHp, al, cw2)*Fm0(xhSM, xHp, al, cw2, mm2, mz2);
+   const auto a000 = fb(xhSM, xHp, al, cw2)*Fm0(xhSM, xHp, al, cw2);
    // Eq.(92), arxiv:1607.06292
    const auto a0z0 = -fb(xH, 0.0, al, cw2)*(
-      Fm0(xH, xHp, al, cw2, mm2, mz2) + Fmp(xH, xHp, al, cw2, mm2, mz2));
+      Fm0(xH, xHp, al, cw2) + Fmp(xH, xHp, al, cw2));
    // Eq.(93), arxiv:1607.06292
-   const auto a500 = Fm0(xhSM, xHp, al, cw2, mm2, mz2);
+   const auto a500 = Fm0(xhSM, xHp, al, cw2);
    // Eq.(94), arxiv:1607.06292
    const auto a5z0 = -0.5*(
-      Fm0(xH, xHp, al, cw2, mm2, mz2) + Fmp(xH, xHp, al, cw2, mm2, mz2));
+      Fm0(xH, xHp, al, cw2) + Fmp(xH, xHp, al, cw2));
    // Eq.(95), arxiv:1607.06292
    const auto a001 =
-      + fb(xH, 0.0, al, cw2)*Fm0(xH, xHp, al, cw2, mm2, mz2)
-      - fb(xhSM, 0.0, al, cw2)*Fm0(xhSM, xHp, al, cw2, mm2, mz2);
+      + fb(xH, 0.0, al, cw2)*Fm0(xH, xHp, al, cw2)
+      - fb(xhSM, 0.0, al, cw2)*Fm0(xhSM, xHp, al, cw2);
    // Eq.(96), arxiv:1607.06292
    const auto a0z1 =
       - (
          + fb(xH, xHp, al, cw2)*(
-            + Fm0(xH, xHp, al, cw2, mm2, mz2)
-            + Fmp(xH, xHp, al, cw2, mm2, mz2)
+            + Fm0(xH, xHp, al, cw2)
+            + Fmp(xH, xHp, al, cw2)
          )
-         - YF3(xH, xHp, al, cw2, mm2, mz2)
+         - YF3(xH, xHp, cw2)
          // SM contributions with opposite sign:
          - fb(xhSM, xHp, al, cw2)*(
-            + Fm0(xhSM, xHp, al, cw2, mm2, mz2)
-            + Fmp(xhSM, xHp, al, cw2, mm2, mz2)
+            + Fm0(xhSM, xHp, al, cw2)
+            + Fmp(xhSM, xHp, al, cw2)
          )
-         + YF3(xhSM, xHp, al, cw2, mm2, mz2)
+         + YF3(xhSM, xHp, cw2)
       )
-      + YF2(xH, al, cw2, mm2, mz2);
+      + YF2(xH, cw2);
    // Eq.(97), arxiv:1607.06292
    const auto a501 =
-      + Fm0(xH, xHp, al, cw2, mm2, mz2)/2
-      - Fm0(xhSM, xHp, al, cw2, mm2, mz2)/2;
+      + Fm0(xH, xHp, al, cw2)/2
+      - Fm0(xhSM, xHp, al, cw2)/2;
    // Eq.(98), arxiv:1607.06292
    const auto a5z1 =
-      - Fm0(xH, xHp, al, cw2, mm2, mz2)
-      - Fmp(xH, xHp, al, cw2, mm2, mz2)
-      + Fm0(xhSM, xHp, al, cw2, mm2, mz2)
-      + Fmp(xhSM, xHp, al, cw2, mm2, mz2);
+      - Fm0(xH, xHp, al, cw2)
+      - Fmp(xH, xHp, al, cw2)
+      + Fm0(xhSM, xHp, al, cw2)
+      + Fmp(xhSM, xHp, al, cw2);
 
    const double res =
       + a000
@@ -354,7 +327,9 @@ double amu2L_B_Yuk(const THDM_B_parameters& thdm)
          + a5z1*lambda5*zetal
          )*eta;
 
-   return res;
+   const auto pref = al*al/(576*pi2*sqr(cw2)*sqr(1.0 - cw2)) * mm2/mz2;
+
+   return pref*res;
 }
 
 /**
