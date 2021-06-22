@@ -70,7 +70,9 @@ double YF3(double u, double w, double al, double cw2, double mm2, double mz2) no
    // Eq.(127)
    const auto a1 = -9*cw2*u3 + 9*cw2*u2*(3*cw2+w) + 27*cw4*u*(w-cw2)
       + 9*(cw8 - 4*cw6*w + 3*cw4*w2);
-   const auto a2 = 0.0; // @todo(alex)
+   // Eq.(128)
+   const auto a2 = 9*cw4*w/2 - 9*u2*(5*cw2 + w) + u*(36*cw4 + 153*cw2*w/4)
+      + 9*u3;
    const auto a3 = 0.0; // @todo(alex)
    const auto a4 = 0.0; // @todo(alex)
    const auto a5 = 0.0; // @todo(alex)
