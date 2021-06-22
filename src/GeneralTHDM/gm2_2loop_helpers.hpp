@@ -54,6 +54,11 @@ double amu2L_B_Yuk();
 
 double amu2L_F(const THDM_F_parameters&);
 
+// routines for sub-expressions
+
+double amu2L_F_charged(const THDM_F_parameters&);
+double amu2L_F_neutral(const THDM_F_parameters&);
+
 } // namespace general_thdm
 
 } // namespace gm2calc
