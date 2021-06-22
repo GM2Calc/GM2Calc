@@ -149,13 +149,13 @@ double amu2L_B_Yuk()
    const auto zetal = 0.0;
    const auto lambda5 = 0.0;
    const auto eta = 0.0;
-   const auto al = 0.0;
-   const auto mhSM2 = 0.0;
+   const auto al = 1.0/137;
+   const auto mhSM2 = 125.0;
    const auto mH2 = 0.0;
    const auto mHp2 = 0.0;
-   const auto mw2 = 0.0;
-   const auto mz2 = 0.0;
-   const auto mm2 = 0.0;
+   const auto mw2 = 82.0;
+   const auto mz2 = 91.0;
+   const auto mm2 = 0.1;
 
    const auto cw2 = mw2/mz2;
    const auto xhSM = mhSM2/mz2;
