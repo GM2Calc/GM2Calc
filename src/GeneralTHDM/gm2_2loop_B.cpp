@@ -55,7 +55,7 @@ double YF1(double u, double w, double cw2) noexcept
 }
 
 /// Eq.(121), arxiv:1607.06292
-double YFZ(double u, double w, double al, double cw2, double mm2, double mz2) noexcept
+double YFZ(double u, double al, double cw2, double mm2, double mz2) noexcept
 {
    const auto al2 = al*al;
    const auto cw4 = cw2*cw2;
@@ -80,7 +80,7 @@ double YFZ(double u, double w, double al, double cw2, double mm2, double mz2) no
 }
 
 /// Eq.(125), arxiv:1607.06292
-double YFW(double u, double w, double al, double cw2, double mm2, double mz2) noexcept
+double YFW(double u, double al, double cw2, double mm2, double mz2) noexcept
 {
    const auto al2 = al*al;
    const auto cw4 = cw2*cw2;
