@@ -132,7 +132,20 @@ double FlHp(double ms2, double mf2) noexcept
       + (xl - 0.5)*std::log(xl);
 }
 
-/// Eq (61), arxiv:1607.06292
+/**
+ * Eq (61), arxiv:1607.06292
+ *
+ * @param ms2
+ * @param md2
+ * @param mu2
+ * @param qd
+ * @param qu
+ *
+ * @note There is a misprint in Eq (61), arxiv:1607.06292v2: The
+ * should be no Phi function in the 2nd line of (61).
+ *
+ * @return
+ */
 double FdHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
 {
    const double xu = mu2/ms2;
@@ -145,7 +158,7 @@ double FdHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
    const double cbar = (xu - qu)*xu - (xd + qd)*xd;
 
    return -(xu - xd) + (cbar/y - c*(xu - xd)/y) * Phi(sqrt_xd, sqrt_xu, 1.0)
-      + c*(dilog(1.0 - xd/xu) - 0.5*std::log(xu)*std::log(xd/xu)*Phi(sqrt_xd, sqrt_xu, 1.0))
+      + c*(dilog(1.0 - xd/xu) - 0.5*std::log(xu)*std::log(xd/xu))
       + (s + xd)*std::log(xd) + (s - xu)*std::log(xu);
 }
 
