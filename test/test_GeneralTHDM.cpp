@@ -39,16 +39,16 @@ TEST_CASE("2-loop_fermionic_charged")
    pars.mw = 80.0;
    pars.mz = 90.0;
    pars.mHp = 200.0;
-   pars.mu << 3.0, 3.0, 3.0;
-   pars.md << 2.0, 2.0, 2.0;
-   pars.ml << 1.0, 1.0, 1.0;
+   pars.mu << 0.3, 3.0, 30.0;
+   pars.md << 0.2, 2.0, 20.0;
+   pars.ml << 0.1, 1.0, 10.0;
    pars.yuS << 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0;
    pars.ydS << 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0;
    pars.ylS << 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0;
 
    const auto amu = gm2calc::general_thdm::amu2L_F_charged(pars);
 
-   CHECK_CLOSE(1e10*amu, 3.0942542015032706, 1e-12);
+   CHECK_CLOSE(1e10*amu, 33.045119891312677, 1e-12);
 }
 
 /* Generated with:
@@ -95,14 +95,14 @@ TEST_CASE("2-loop_fermionic_neutral")
    pars.mhSM = 125.0;
    pars.mA = 300.0;
    pars.mHp = 200.0;
-   pars.mu << 3.0, 3.0, 3.0;
-   pars.md << 2.0, 2.0, 2.0;
-   pars.ml << 1.0, 1.0, 1.0;
+   pars.mu << 0.3, 3.0, 30.0;
+   pars.md << 0.2, 2.0, 20.0;
+   pars.ml << 0.1, 1.0, 10.0;
    pars.yuS << 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0;
    pars.ydS << 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0;
    pars.ylS << 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0;
 
    const auto amu = gm2calc::general_thdm::amu2L_F_neutral(pars);
 
-   CHECK_CLOSE(1e10*amu, -15.066195790519992, 1e-12);
+   CHECK_CLOSE(1e10*amu, -100.23855413383224, 1e-12);
 }
