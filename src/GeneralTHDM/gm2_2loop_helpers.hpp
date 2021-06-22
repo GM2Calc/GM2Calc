@@ -23,6 +23,8 @@
 
 namespace gm2calc {
 
+namespace general_thdm {
+
 /// parameters to be passed to the fermionic contribution functions
 struct THDM_F_parameters {
    double alpha{}; ///< alpha_em
@@ -51,6 +53,8 @@ double amu2L_B_Yuk();
 // === 2-loop fermionic contributions ===
 
 double amu2L_F(const THDM_F_parameters&);
+
+} // namespace general_thdm
 
 } // namespace gm2calc
 

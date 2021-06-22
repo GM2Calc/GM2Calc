@@ -29,6 +29,8 @@
 
 namespace gm2calc {
 
+namespace general_thdm {
+
 namespace {
 
 struct F_sm_pars {
@@ -277,5 +279,7 @@ double amu2L_F(const THDM_F_parameters& thdm)
 
    return res;
 }
+
+} // namespace general_thdm
 
 } // namespace gm2calc

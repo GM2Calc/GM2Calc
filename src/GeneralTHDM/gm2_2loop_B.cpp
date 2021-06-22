@@ -27,6 +27,8 @@
 
 namespace gm2calc {
 
+namespace general_thdm {
+
 /**
  * \fn amu2L_B_EWadd
  *
@@ -64,5 +66,7 @@ double amu2L_B_Yuk()
    // @todo(alex) implementation missing
    return 0.0;
 }
+
+} // namespace general_thdm
 
 } // namespace gm2calc
