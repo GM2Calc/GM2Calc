@@ -86,7 +86,7 @@ double FA(double ms2, double mf2)
 
 /// Eq (54), arxiv:1607.06292, S = h or H
 template <typename F>
-double fSgamma(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F fS) noexcept
+double fSgamma(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexcept
 {
    const double al2 = sm.alpha2;
    const double mm2 = sm.mm2;
@@ -97,12 +97,12 @@ double fSgamma(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F fS) n
    const double qf2 = sqr(pars.qf);
    const double nc = pars.nc;
 
-   return al2*mm2/(4*sqr(pi)*mw2*sw2) * qf2*nc * mf2/ms2 * fS(ms2, mf2);
+   return al2*mm2/(4*sqr(pi)*mw2*sw2) * qf2*nc * mf2/ms2 * FS(ms2, mf2);
 }
 
 /// Eq (55), arxiv:1607.06292, S = h or H
 template <typename F>
-double fSZ(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F fS) noexcept
+double fSZ(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexcept
 {
    const double al2 = sm.alpha2;
    const double mm2 = sm.mm2;
@@ -118,14 +118,14 @@ double fSZ(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F fS) noexc
    const double gvl = 0.5*pars.t3l - ql*sw2;
 
    return al2*mm2/(4*sqr(pi)*mw2*sw2) * (-nc*qf*gvl*gvf)/(sw2*cw2)
-      * mf2/(ms2 - mz2) * (fS(ms2, mf2) - fS(mz2, mf2));
+      * mf2/(ms2 - mz2) * (FS(ms2, mf2) - FS(mz2, mf2));
 }
 
 /// Eq (53), arxiv:1607.06292, S = h or H
 template <typename F>
-double ffS(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F fS) noexcept
+double ffS(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexcept
 {
-   return fSgamma(ms2, pars, sm, fS) + fSZ(ms2, pars, sm, fS);
+   return fSgamma(ms2, pars, sm, FS) + fSZ(ms2, pars, sm, FS);
 }
 
 /// Eq (60), arxiv:1607.06292
