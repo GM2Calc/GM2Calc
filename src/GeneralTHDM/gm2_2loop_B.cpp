@@ -175,8 +175,11 @@ double amu2L_B_Yuk()
    // Eq.(95), arxiv:1607.06292
    const auto a001 = fb(xH, 0.0, al, cw2)*Fm0(xH, xHp, al, cw2, mm2, mz2)
       - fb(xhSM, 0.0, al, cw2)*Fm0(xhSM, xHp, al, cw2, mm2, mz2);
+   // Eq.(96), arxiv:1607.06292
    const auto a0z1 = 0.0; // @todo(alex) implementation missing
+   // Eq.(97), arxiv:1607.06292
    const auto a501 = 0.0; // @todo(alex) implementation missing
+   // Eq.(98), arxiv:1607.06292
    const auto a5z1 = 0.0; // @todo(alex) implementation missing
 
    const double res =
