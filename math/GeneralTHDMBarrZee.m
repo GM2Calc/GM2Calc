@@ -7,6 +7,23 @@
 *                 implemented into a .cpp file
 *)
 
+
+(*Definition of couplings*)
+
+yffh[f_, fp_, mf_, xif_, vev_, cosab_] := 
+ mf/vev*Sqrt[1 - cosab^2]*KroneckerDelta[f, fp] + 
+  cosab/Sqrt[2] xif[[f, fp]]
+yffH[f_, fp_, mf_, xif_, vev_, cosab_] := 
+ mf/vev*cosab*KroneckerDelta[f, fp] - 
+  Sqrt[1 - cosab^2]/Sqrt[2] xif[[f, fp]]
+yffphi[f_, i_, j_, phi_, mf_, xif_, VCKM_, vev_, cosab_] := 
+ Switch[phi, 1, yffh[i, j, mf, xif, vev, cosab], 2, 
+  yffH[i, j, mf, xif, vev, cosab], 3, 
+  If[f == 3, -I/Sqrt[2] xif[[i, j]], I/Sqrt[2] xif[[i, j]]], 4, 
+  Switch[f, 3, -Sum[VCKM[[i, kk]]*xif[[kk, j]], {kk, 1, 3}], 2, 
+   Sum[VCKM[[i, kk]]*xif[[kk, j]], {kk, 1, 3}], 1, xif[[i, j]]]]
+
+
 (*Muon g-2 2-Loop Contributions in the Feynman Gauge*)
 
 
