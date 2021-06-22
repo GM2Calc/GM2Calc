@@ -46,8 +46,6 @@ const double eps = std::numeric_limits<double>::epsilon();
 } // anonymous namespace
 
 /**
- * \fn calculate_amu_1loop_non_tan_beta_resummed
- *
  * Calculates full 1-loop SUSY contribution to (g-2), Eq (45) of
  * arXiv:hep-ph/0609168.
  *

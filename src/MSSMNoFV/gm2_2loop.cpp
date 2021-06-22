@@ -44,8 +44,6 @@ const double root2 = 1.414213562373095; // Sqrt[2]
 } // anonymous namespace
 
 /**
- * \fn calculate_amu_2loop_non_tan_beta_resummed
- *
  * Calculates best 2-loop SUSY contribution to a_mu without tan(beta)
  * resummation.
  *
@@ -67,8 +65,6 @@ double calculate_amu_2loop_non_tan_beta_resummed(const MSSMNoFV_onshell& model)
 }
 
 /**
- * \fn calculate_amu_2loop
- *
  * Calculates best 2-loop SUSY contribution to a_mu with tan(beta)
  * resummation.
  */

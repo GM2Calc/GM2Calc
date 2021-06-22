@@ -30,8 +30,6 @@ namespace gm2calc {
 namespace general_thdm {
 
 /**
- * \fn amu2L_B_EWadd
- *
  * Calculates 2-loop bosonic pure electroweak contributions.
  *
  * Eq (49), arxiv:1607:06292
@@ -42,8 +40,6 @@ double amu2L_B_EWadd(double eta, double zetal)
 }
 
 /**
- * \fn amu2L_B_nonYuk
- *
  * Calculates 2-loop bosonic non-Yukawa contributions.
  *
  * Eq (71), arxiv:1607:06292
@@ -55,8 +51,6 @@ double amu2L_B_nonYuk()
 }
 
 /**
- * \fn amu2L_B_Yuk
- *
  * Calculates 2-loop bosonic Yukawa contributions.
  *
  * Eq (52), arxiv:1607:06292
