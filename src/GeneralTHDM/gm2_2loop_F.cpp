@@ -136,12 +136,6 @@ double FlHp(double ms2, double mf2) noexcept
 /**
  * Eq (61), arxiv:1607.06292
  *
- * @param ms2
- * @param md2
- * @param mu2
- * @param qd
- * @param qu
- *
  * @note There is a misprint in Eq (61), arxiv:1607.06292v2: There
  * should be no Phi function in the 2nd line of (61).
  *
