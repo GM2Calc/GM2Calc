@@ -166,7 +166,8 @@ double amu2L_B_Yuk()
    const auto a0z0 = -fb(xH, 0.0, al, cw2)*(
       Fm0(xH, xHp, al, cw2, mm2, mz2) + Fmp(xH, xHp, al, cw2, mm2, mz2));
    const auto a500 = Fm0(xhSM, xHp, al, cw2, mm2, mz2);
-   const auto a5z0 = 0.0; // @todo(alex) implementation missing
+   const auto a5z0 = -0.5*(
+      Fm0(xH, xHp, al, cw2, mm2, mz2) + Fmp(xH, xHp, al, cw2, mm2, mz2));
    const auto a001 = 0.0; // @todo(alex) implementation missing
    const auto a0z1 = 0.0; // @todo(alex) implementation missing
    const auto a501 = 0.0; // @todo(alex) implementation missing
