@@ -20,6 +20,8 @@
 #include "gm2_dilog.hpp"
 #include "gm2_ffunctions.hpp"
 
+#include <cmath>
+
 /**
  * \file gm2_2loop_F.cpp
  *
