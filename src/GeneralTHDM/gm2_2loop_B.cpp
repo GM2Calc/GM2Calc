@@ -198,6 +198,14 @@ double T0(double u, double w, double cw2) noexcept
       /(cw4 + sqr(u - w) - 2*cw2*(u + w))*Phi(u,w,cw2);
 }
 
+/// Eq.(73), arxiv:1607.06292
+double T1(double u, double w, double cw2) noexcept
+{
+   const auto cw4 = cw2*cw2;
+
+   return 9/cw4*(u - w)*(cw2*w - sqr(u - w))*dilog(1.0 - u/w);
+}
+
 /// Eq.(103), arxiv:1607.06292
 double T9(double u, double w, double cw2) noexcept
 {
