@@ -36,8 +36,6 @@ namespace general_thdm {
 namespace {
 
 struct F_sm_pars {
-   double alpha2; ///< squared alpha_em
-   double mm2;    ///< squared muon mass
    double mw2;    ///< squared W boson mass
    double mz2;    ///< squared Z boson mass
 };
@@ -202,7 +200,7 @@ double fqHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm, F FfHp) no
  */
 double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
 {
-   const F_sm_pars sm{ sqr(thdm.alpha), sqr(thdm.mm), sqr(thdm.mw), sqr(thdm.mz) };
+   const F_sm_pars sm{ sqr(thdm.mw), sqr(thdm.mz) };
    const double mHp2 = sqr(thdm.mHp);
 
    const auto lFuHp = [] (double ms2, double md2, double mu2, double qd, double qu) {
@@ -226,8 +224,8 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
       res += flHp(mHp2, pars_l, sm)*thdm.ylS(i,2)*thdm.ylS(1,2);
    }
 
-   const double al2 = sm.alpha2;
-   const double mm2 = sm.mm2;
+   const double al2 = sqr(thdm.alpha);
+   const double mm2 = sqr(thdm.mm);
    const double mw2 = sm.mw2;
    const double mz2 = sm.mz2;
    const double cw2 = mw2/mz2;
@@ -246,7 +244,7 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
  */
 double amu2L_F_neutral(const THDM_F_parameters& thdm) noexcept
 {
-   const F_sm_pars sm{ sqr(thdm.alpha), sqr(thdm.mm), sqr(thdm.mw), sqr(thdm.mz) };
+   const F_sm_pars sm{ sqr(thdm.mw), sqr(thdm.mz) };
    const double mh2 = sqr(thdm.mh(0));
    const double mH2 = sqr(thdm.mh(1));
    const double mA2 = sqr(thdm.mA);
@@ -284,8 +282,8 @@ double amu2L_F_neutral(const THDM_F_parameters& thdm) noexcept
       res -= ffS(mhSM2, pars_l, sm, lFS);
    }
 
-   const double al2 = sm.alpha2;
-   const double mm2 = sm.mm2;
+   const double al2 = sqr(thdm.alpha);
+   const double mm2 = sqr(thdm.mm);
    const double mw2 = sm.mw2;
    const double mz2 = sm.mz2;
    const double cw2 = mw2/mz2;
