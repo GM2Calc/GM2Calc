@@ -367,10 +367,52 @@ double amu2L_B_nonYuk(const THDM_B_parameters& thdm) noexcept
    const auto mw2 = sqr(thdm.mw);
    const auto mz2 = sqr(thdm.mz);
    const auto cw2 = mw2/mz2;
+   const auto cw4 = cw2*cw2;
+   const auto cw6 = cw4*cw2;
+   const auto cw8 = cw4*cw4;
    const auto sw2 = 1.0 - cw2;
+   const auto sw4 = sw2*sw2;
+   const auto mA2 = sqr(thdm.mA);
+   const auto mH2 = sqr(thdm.mh(1));
+   const auto mHp2 = sqr(thdm.mHp);
+   const auto xH = mH2/mz2;
+   const auto xA = mA2/mz2;
+   const auto xHp = mHp2/mz2;
 
-   // @todo(alex) implementation missing
-   double res = 0.0;
+   const auto f1 = 7.0/2 - 25.0/(2*cw2) + 4*cw2 - 4*cw4;
+   const auto f2 = 2*(17 - 24*cw2 + 56*cw4 - 128*cw6 + 64*cw8);
+   const auto f3 = (25 - 32*cw2 + 4*cw4)/(cw2*sw2);
+   const auto f4 = 13.0/2 - 15*cw2 + 10*cw4;
+   const auto f5 = cw2*(5 - 16*cw2 + 8*cw4)/sw2;
+
+   const double res =
+      + (xA - xH)/(xA - xHp)*T2p(xA, xH, cw2, xH, xA, xHp)
+      + T2m(xH, xHp, cw2, xH, xA, xHp)
+      + (xA - xH)/(xA - xHp)*T4(xA, xHp, cw2, xH, xA)
+      + T4(xH, xA, cw2, xH, xA)
+      + T5(xHp, xH, cw2)
+      + T5(xHp, xA, cw2)
+      + T2p(xHp, xH, cw2, xH, xA, xHp)
+      + T2p(xHp, xA, cw2, xH, xA, xHp)
+      + T6(xA, xHp, cw2)
+      + T6(xH, xHp, cw2)
+      + T7(xA, xH, cw2)
+      + T7(xHp, xHp, cw2)*sqr(1 - 2*cw2)
+      + T8(xA, xHp, cw2)
+      + T8(xH, xHp, cw2)
+      - 16.0/3*cw2*sw2*(1 + 8*cw2 - 8*cw4)
+      + 8*cw4*sw4/(5*xHp)
+      + f2*xHp
+      - f3*sqr(xHp)
+      + f1*(sqr(xA) + sqr(xH))
+      + f3*xHp*(xA + xH)
+      + f4*(xA + xH)
+      - f5*xA*xH
+      + T1(xA, xHp, cw2)
+      + T1(xH, xHp, cw2)
+      + T0(xA, xHp, cw2)
+      + T0(xH, xHp, cw2)
+      ;
 
    const auto pref = sqr(thdm.alpha/(24*pi*cw2*sw2) * thdm.mm/thdm.mz);
 
