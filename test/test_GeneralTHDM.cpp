@@ -130,23 +130,20 @@ TEST_CASE("2-loop_fermionic_neutral")
 }
 
 
-TEST_CASE("2-loop_bosonic")
+TEST_CASE("2-loop_bosonic_nonYuk")
 {
    gm2calc::general_thdm::THDM_B_parameters pars;
-   pars.alpha = 1./137;
-   pars.mm = 1.0;
-   pars.mw = 80.0;
-   pars.mz = 90.0;
-   pars.mh << 100.0, 400.0;
+   // parameter point from Fig.4a, arxiv:1607.06292
+   pars.alpha = 1./137.036;
+   pars.mm = 0.10565837;
+   pars.mw = 80.379;
+   pars.mz = 91.1876;
+   pars.mh << 125.0, 300.0;
    pars.mhSM = 125.0;
-   pars.mA = 300.0;
-   pars.mHp = 210.0;
-   pars.tb = 30.0;
-   pars.zetal = 2.0;
-   pars.eta = 3.0;
-   pars.lambda5 = 4.0;
+   pars.mA = 10.0;
+   pars.mHp = 500.0;
 
-   const auto amu = gm2calc::general_thdm::amu2L_B(pars);
+   const auto amu = gm2calc::general_thdm::amu2L_B_nonYuk(pars);
 
-   // CHECK_CLOSE(1e10*amu, 0.0, 1e-12);
+   // CHECK_CLOSE(1e10*amu, -1.0, 1e-12);
 }
