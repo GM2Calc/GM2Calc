@@ -278,12 +278,24 @@ double T7(double u, double w, double cw2) noexcept
 {
    const auto cw4 = cw2*cw2;
    const auto sw2 = 1.0 - cw2;
-   const auto u2 = u*u;
    const auto f5 = cw2*(5 - 16*cw2 + 8*cw4)/sw2;
    const auto s1 = u + w - 1 + std::sqrt(1 + sqr(u - w) - 2*(u + w));
 
    return f5*(2*(u + w) - sqr(u - w) - 1)*std::log(s1/(2*std::sqrt(u*w)))
       *(u + w - 1 - 4*u*w/s1);
+}
+
+/// Eq.(79), arxiv:1607.06292
+double T8(double u, double w, double cw2) noexcept
+{
+   const auto cw4 = cw2*cw2;
+   const auto sw2 = 1.0 - cw2;
+   const auto f6 = (7 - 14*cw2 + 4*cw4)/(4*cw2*sw2);
+   const auto s2 = u + w - cw2 + std::sqrt(sqr(u + w - cw2) - 4*u*w);
+
+   return
+      2*f6*(4*u*w - sqr(u + w - cw2))*std::log(s2/(2*std::sqrt(u*w)))
+      *((u + w)/cw2 - 4*u*w/(cw2*s2) - 1);
 }
 
 /// Eq.(103), arxiv:1607.06292
