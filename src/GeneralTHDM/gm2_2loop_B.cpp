@@ -295,11 +295,14 @@ double T8(double u, double w, double cw2) noexcept
    const auto cw4 = cw2*cw2;
    const auto sw2 = 1.0 - cw2;
    const auto f6 = (7 - 14*cw2 + 4*cw4)/(4*cw2*sw2);
-   const auto s2 = u + w - cw2 + std::sqrt(sqr(u + w - cw2) - 4*u*w);
+   const auto ra = std::complex<double>(sqr(u + w - cw2) - 4*u*w, 0.0);
+   const auto s2 = u + w - cw2 + std::sqrt(ra);
 
-   return
-      2*f6*(4*u*w - sqr(u + w - cw2))*std::log(s2/(2*std::sqrt(u*w)))
-      *((u + w)/cw2 - 4*u*w/(cw2*s2) - 1);
+   const auto res =
+      2.0*f6*(4*u*w - sqr(u + w - cw2))*std::log(s2/(2*std::sqrt(u*w)))
+      *((u + w)/cw2 - 4.0*u*w/(cw2*s2) - 1.0);
+
+   return std::real(res);
 }
 
 /// Eq.(103), arxiv:1607.06292
