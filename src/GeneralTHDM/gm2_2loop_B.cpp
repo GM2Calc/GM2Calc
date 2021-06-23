@@ -249,6 +249,19 @@ double T4(double u, double w, double cw2, double xH, double xA) noexcept
    return (u - w)*std::log(u)/4*f5*(xA*(3 + 2*xH) - sqr(xA) + 3*xH - sqr(xH) - 3);
 }
 
+/// Eq.(76), arxiv:1607.06292
+double T5(double u, double w, double cw2, double xH, double xA) noexcept
+{
+   const auto cw4 = cw2*cw2;
+   const auto sw2 = 1.0 - cw2;
+   const auto f6 = (7 - 14*cw2 + 4*cw4)/(4*cw2*sw2);
+   const auto f8 = (13 - 20*cw2 + 4*cw4)/(cw2*sw2);
+
+   return std::log(u)*(
+      3.0/2*u + f6/cw2*(pow3(u - w) + 3*cw2*sqr(u - w) + 3*cw4*(u - w))
+      - 3.0/2*f8*u*(u - w) - cw2/2 - cw4);
+}
+
 /// Eq.(103), arxiv:1607.06292
 double T9(double u, double w, double cw2) noexcept
 {
