@@ -88,24 +88,17 @@ double FA(double ms2, double mf2)
 template <typename F>
 double fSgamma(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexcept
 {
-   const double al2 = sm.alpha2;
-   const double mm2 = sm.mm2;
-   const double mw2 = sm.mw2;
-   const double mz2 = sm.mz2;
-   const double sw2 = 1.0 - mw2/mz2;
    const double mf2 = pars.mf2;
    const double qf2 = sqr(pars.qf);
    const double nc = pars.nc;
 
-   return al2*mm2/(4*sqr(pi)*mw2*sw2) * qf2*nc * mf2/ms2 * FS(ms2, mf2);
+   return qf2*nc * mf2/ms2 * FS(ms2, mf2);
 }
 
 /// Eq (55), arxiv:1607.06292, S = h or H
 template <typename F>
 double fSZ(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexcept
 {
-   const double al2 = sm.alpha2;
-   const double mm2 = sm.mm2;
    const double mw2 = sm.mw2;
    const double mz2 = sm.mz2;
    const double cw2 = mw2/mz2;
@@ -117,7 +110,7 @@ double fSZ(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexc
    const double gvf = 0.5*pars.t3f - qf*sw2;
    const double gvl = 0.5*pars.t3l - ql*sw2;
 
-   return al2*mm2/(4*sqr(pi)*mw2*sw2) * (-nc*qf*gvl*gvf)/(sw2*cw2)
+   return (-nc*qf*gvl*gvf)/(sw2*cw2)
       * mf2/(ms2 - mz2) * (FS(ms2, mf2) - FS(mz2, mf2));
 }
 
@@ -175,32 +168,19 @@ double FuHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = l
 double flHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm) noexcept
 {
-   const double al2 = sm.alpha2;
-   const double mm2 = sm.mm2;
    const double mw2 = sm.mw2;
-   const double mz2 = sm.mz2;
-   const double cw2 = mw2/mz2;
-   const double sw2 = 1.0 - cw2;
-   const double sw4 = sqr(sw2);
    const double mf2 = pars.mf2;
    const double ml2 = pars.md2;
    const double nc = pars.nc;
 
-   return al2*mm2/(32*sqr(pi)*mw2*sw4) * nc*mf2/(ms2 - mw2)
-      * (FlHp(ms2, ml2) - FlHp(mw2, ml2));
+   return nc*mf2/(ms2 - mw2) * (FlHp(ms2, ml2) - FlHp(mw2, ml2));
 }
 
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = u or d
 template <typename F>
 double fqHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm, F FfHp) noexcept
 {
-   const double al2 = sm.alpha2;
-   const double mm2 = sm.mm2;
    const double mw2 = sm.mw2;
-   const double mz2 = sm.mz2;
-   const double cw2 = mw2/mz2;
-   const double sw2 = 1.0 - cw2;
-   const double sw4 = sqr(sw2);
    const double mf2 = pars.mf2;
    const double md2 = pars.md2;
    const double mu2 = pars.mu2;
@@ -208,9 +188,8 @@ double fqHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm, F FfHp) no
    const double qu = pars.qu;
    const double nc = pars.nc;
 
-   return al2*mm2/(32*sqr(pi)*mw2*sw4) * nc*mf2/(ms2 - mw2)
-      * (FfHp(ms2, md2, mu2, qd, qu) - FfHp(mw2, md2, mu2, qd, qu))
-      ;
+   return nc*mf2/(ms2 - mw2)
+      * (FfHp(ms2, md2, mu2, qd, qu) - FfHp(mw2, md2, mu2, qd, qu));
 }
 
 } // anonymous namespace
@@ -247,7 +226,16 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
       res += flHp(mHp2, pars_l, sm)*thdm.ylS(i,2)*thdm.ylS(1,2);
    }
 
-   return res;
+   const double al2 = sm.alpha2;
+   const double mm2 = sm.mm2;
+   const double mw2 = sm.mw2;
+   const double mz2 = sm.mz2;
+   const double cw2 = mw2/mz2;
+   const double sw2 = 1.0 - cw2;
+   const double sw4 = sqr(sw2);
+   const double pref = al2*mm2/(32*sqr(pi)*mw2*sw4);
+
+   return pref*res;
 }
 
 /**
@@ -296,7 +284,15 @@ double amu2L_F_neutral(const THDM_F_parameters& thdm) noexcept
       res -= ffS(mhSM2, pars_l, sm, lFS);
    }
 
-   return res;
+   const double al2 = sm.alpha2;
+   const double mm2 = sm.mm2;
+   const double mw2 = sm.mw2;
+   const double mz2 = sm.mz2;
+   const double cw2 = mw2/mz2;
+   const double sw2 = 1.0 - cw2;
+   const auto pref = al2*mm2/(4*sqr(pi)*mw2*sw2);
+
+   return pref*res;
 }
 
 /**
