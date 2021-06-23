@@ -239,6 +239,16 @@ double T2m(double u, double w, double cw2, double xH, double xA, double xHp) noe
    return T2(u, w, cw2, xH, xA, xHp, -1);
 }
 
+/// Eq.(75), arxiv:1607.06292
+double T4(double u, double w, double cw2, double xH, double xA) noexcept
+{
+   const auto cw4 = cw2*cw2;
+   const auto sw2 = 1.0 - cw2;
+   const auto f5 = cw2*(5 - 16*cw2 + 8*cw4)/sw2;
+
+   return (u - w)*std::log(u)/4*f5*(xA*(3 + 2*xH) - sqr(xA) + 3*xH - sqr(xH) - 3);
+}
+
 /// Eq.(103), arxiv:1607.06292
 double T9(double u, double w, double cw2) noexcept
 {
