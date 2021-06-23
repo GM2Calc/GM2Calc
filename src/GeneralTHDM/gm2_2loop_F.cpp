@@ -58,7 +58,7 @@ struct F_char_pars {
    double nc;    ///< number of colors
 };
 
-const double pi = 3.1415926535897932;
+const double pi2 = 9.8696044010893586; // Pi^2
 const double q_u =  2.0/3.0;  ///< electric charge of up-type quarks
 const double q_d = -1.0/3.0;  ///< electric charge of down-type quarks
 const double q_v =  0.0;      ///< electric charge of up-type leptons
@@ -124,7 +124,7 @@ double FlHp(double ms2, double mf2) noexcept
 {
    const double xl = mf2/ms2;
 
-   return xl + xl*(xl - 1.0)*(dilog(1.0 - 1.0/xl) - sqr(pi)/6)
+   return xl + xl*(xl - 1.0)*(dilog(1.0 - 1.0/xl) - pi2/6)
       + (xl - 0.5)*std::log(xl);
 }
 
@@ -231,7 +231,7 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
    const double cw2 = mw2/mz2;
    const double sw2 = 1.0 - cw2;
    const double sw4 = sqr(sw2);
-   const double pref = al2*mm2/(32*sqr(pi)*mw2*sw4);
+   const double pref = al2*mm2/(32*pi2*mw2*sw4);
 
    return pref*res;
 }
@@ -288,7 +288,7 @@ double amu2L_F_neutral(const THDM_F_parameters& thdm) noexcept
    const double mz2 = sm.mz2;
    const double cw2 = mw2/mz2;
    const double sw2 = 1.0 - cw2;
-   const auto pref = al2*mm2/(4*sqr(pi)*mw2*sw2);
+   const auto pref = al2*mm2/(4*pi2*mw2*sw2);
 
    return pref*res;
 }
