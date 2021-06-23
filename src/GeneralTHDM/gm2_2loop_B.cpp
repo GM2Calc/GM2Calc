@@ -149,6 +149,7 @@ double YF3(double u, double w, double cw2) noexcept
    const auto u4 = u2*u2;
    const auto u5 = u4*u;
    const auto w2 = w*w;
+   const auto lc = std::log(cw2);
 
    // Eq.(127)
    const auto a1 = -9*cw2*u3 + 9*cw2*u2*(3*cw2+w) + 27*cw4*u*(w-cw2)
@@ -173,11 +174,11 @@ double YF3(double u, double w, double cw2) noexcept
 
    const double res =
       + 9*u*(2*cw2 - u + w)/w
-      + (a1*std::log(u/cw2) + 9*cw4*(cw4 - 4*cw2*w + 3*w2)*std::log(cw2))
+      + (a1*std::log(u/cw2) + 9*cw4*(cw4 - 4*cw2*w + 3*w2)*lc)
         *std::log(w/cw2)/(2*w2*(cw2-w))
       + a2*std::log(u)/(w*(4*cw2-u))
       + a3*std::log(w)/(w*(cw2-w))
-      + a4*std::log(cw2)/(w2*(4*cw2-u)*(cw2-w))
+      + a4*lc/(w2*(4*cw2-u)*(cw2-w))
       + a5/(cw2*w2)*dilog(1.0 - u/cw2)
       + a6/(u*cw2*sqr(4*cw2-u)*(cw2-w))*Phi(u,cw2,cw2)
       + a7/(w2*(cw2-w)*(cw4-2*cw2*(u+w)+sqr(u-w)))*Phi(u,w,cw2)
