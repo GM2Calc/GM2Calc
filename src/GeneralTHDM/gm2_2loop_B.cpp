@@ -188,6 +188,16 @@ double YF3(double u, double w, double cw2) noexcept
    return res;
 }
 
+/// Eq.(72), arxiv:1607.06292
+double T0(double u, double w, double cw2) noexcept
+{
+   const auto cw4 = cw2*cw2;
+
+   return
+      9/cw4*(u - w)*(cw2*(u - w)*(u + 2*w) - pow3(u - w) + cw4*w)
+      /(cw4 + sqr(u - w) - 2*cw2*(u + w))*Phi(u,w,cw2);
+}
+
 /// Eq.(103), arxiv:1607.06292
 double T9(double u, double w, double cw2) noexcept
 {
