@@ -233,7 +233,7 @@ double T2p(double u, double w, double cw2, double xH, double xA, double xHp) noe
    return T2(u, w, cw2, xH, xA, xHp, +1);
 }
 
-/// Eq.(74), arxiv:1607.06292 with positive sign
+/// Eq.(74), arxiv:1607.06292 with negative sign
 double T2m(double u, double w, double cw2, double xH, double xA, double xHp) noexcept
 {
    return T2(u, w, cw2, xH, xA, xHp, -1);
