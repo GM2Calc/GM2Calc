@@ -206,6 +206,39 @@ double T1(double u, double w, double cw2) noexcept
    return 9/cw4*(u - w)*(cw2*w - sqr(u - w))*dilog(1.0 - u/w);
 }
 
+/// Eq.(74), arxiv:1607.06292
+double T2(double u, double w, double cw2, double xH, double xA, double xHp, int sgn) noexcept
+{
+   const auto cw4 = cw2*cw2;
+   const auto sw2 = 1.0 - cw2;
+   const auto u2 = u*u;
+
+   const auto f6 = (7 - 14*cw2 + 4*cw4)/(4*cw2*sw2);
+   const auto f7 = 1 - 6*cw2 + 4*cw4;
+   const auto f8 = (13 - 20*cw2 + 4*cw4)/(cw2*sw2);
+   const auto f9 = 7 - 12*cw2 + 8*cw4;
+
+   return std::log(u)*(
+      + (6*u2 + cw2*(u - xHp) + 2*cw4*(u - xHp))/(2*(u - w))
+      + f6*sqr(u - xHp)*(3*cw4 + 3*cw2*(u - xHp) + sqr(u - xHp))/(cw2*(u - w))
+      + sgn*f7*3*u2*(u - xHp)/((xA - xH)*(u - w))
+      - f8*3*u*sqr(u - xHp)/(2*(u - w))
+      - f9*3*u*(u - xHp)/(2*(u - w))
+      );
+}
+
+/// Eq.(74), arxiv:1607.06292 with positive sign
+double T2p(double u, double w, double cw2, double xH, double xA, double xHp) noexcept
+{
+   return T2(u, w, cw2, xH, xA, xHp, +1);
+}
+
+/// Eq.(74), arxiv:1607.06292 with positive sign
+double T2m(double u, double w, double cw2, double xH, double xA, double xHp) noexcept
+{
+   return T2(u, w, cw2, xH, xA, xHp, -1);
+}
+
 /// Eq.(103), arxiv:1607.06292
 double T9(double u, double w, double cw2) noexcept
 {
