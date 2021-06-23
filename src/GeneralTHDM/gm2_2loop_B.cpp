@@ -362,10 +362,19 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
  *
  * Eq (71), arxiv:1607:06292
  */
-double amu2L_B_nonYuk(const THDM_B_parameters&) noexcept
+double amu2L_B_nonYuk(const THDM_B_parameters& thdm) noexcept
 {
+   const auto mw2 = sqr(thdm.mw);
+   const auto mz2 = sqr(thdm.mz);
+   const auto cw2 = mw2/mz2;
+   const auto sw2 = 1.0 - cw2;
+
    // @todo(alex) implementation missing
-   return 0.0;
+   double res = 0.0;
+
+   const auto pref = sqr(thdm.alpha/(24*pi*cw2*sw2) * thdm.mm/thdm.mz);
+
+   return pref*res;
 }
 
 /**
