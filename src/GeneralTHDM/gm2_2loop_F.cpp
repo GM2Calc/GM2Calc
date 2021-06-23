@@ -58,6 +58,7 @@ struct F_char_pars {
    double nc;    ///< number of colors
 };
 
+const double pi = 3.1415926535897932;
 const double pi2 = 9.8696044010893586; // Pi^2
 const double q_u =  2.0/3.0;  ///< electric charge of up-type quarks
 const double q_d = -1.0/3.0;  ///< electric charge of down-type quarks
@@ -225,7 +226,7 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
    }
 
    const double sw2 = 1.0 - sm.mw2/sm.mz2;
-   const double pref = sqr(thdm.alpha*thdm.mm)/(32*pi2*sm.mw2*sqr(sw2));
+   const double pref = sqr(thdm.alpha*thdm.mm/(4*pi*thdm.mw*sw2))/2;
 
    return pref*res;
 }
@@ -277,7 +278,7 @@ double amu2L_F_neutral(const THDM_F_parameters& thdm) noexcept
    }
 
    const double sw2 = 1.0 - sm.mw2/sm.mz2;
-   const auto pref = sqr(thdm.alpha*thdm.mm)/(4*pi2*sm.mw2*sw2);
+   const auto pref = sqr(thdm.alpha*thdm.mm/(2*pi*thdm.mw))/sw2;
 
    return pref*res;
 }
