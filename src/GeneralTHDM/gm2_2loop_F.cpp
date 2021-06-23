@@ -146,10 +146,11 @@ double FdHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
    const double c = sqr(xu - xd) - qu*xu + qd*xd;
    const double cbar = (xu - qu)*xu - (xd + qd)*xd;
    const double lxu = std::log(xu);
+   const double lxd = std::log(xd);
 
    return -(xu - xd) + (cbar/y - c*(xu - xd)/y) * Phi(xd, xu, 1.0)
-      + c*(dilog(1.0 - xd/xu) - 0.5*lxu*std::log(xd/xu))
-      + (s + xd)*std::log(xd) + (s - xu)*lxu;
+      + c*(dilog(1.0 - xd/xu) - 0.5*lxu*(lxd - lxu))
+      + (s + xd)*lxd + (s - xu)*lxu;
 }
 
 /// Eq (62), arxiv:1607.06292
