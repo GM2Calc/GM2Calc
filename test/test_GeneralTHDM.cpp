@@ -138,7 +138,7 @@ TEST_CASE("2-loop_bosonic_nonYuk")
    pars.mm = 0.10565837;
    pars.mw = 80.379;
    pars.mz = 91.1876;
-   pars.mh << 125.0, 300.0;
+   pars.mh << 0.0, 300.0;
    pars.mhSM = 125.0;
    pars.mA = 10.0;
    pars.mHp = 500.0;
