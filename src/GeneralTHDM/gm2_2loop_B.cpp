@@ -275,7 +275,6 @@ double amu2L_B_Yuk(const THDM_B_parameters& thdm) noexcept
    const auto mHp2 = sqr(thdm.mHp);
    const auto mw2 = sqr(thdm.mw);
    const auto mz2 = sqr(thdm.mz);
-   const auto mm2 = sqr(thdm.mm);
 
    const auto cw2 = mw2/mz2;
    const auto xhSM = mhSM2/mz2;
@@ -335,7 +334,7 @@ double amu2L_B_Yuk(const THDM_B_parameters& thdm) noexcept
          + a5z1*lambda5*zetal
          )*eta;
 
-   const auto pref = al*al/(576*pi2*sqr(cw2)*sqr(1.0 - cw2)) * mm2/mz2;
+   const auto pref = sqr(al/(24*pi*cw2*(1.0 - cw2)) * thdm.mm/thdm.mz);
 
    return pref*res;
 }
