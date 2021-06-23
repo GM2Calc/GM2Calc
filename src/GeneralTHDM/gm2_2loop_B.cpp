@@ -250,7 +250,7 @@ double T4(double u, double w, double cw2, double xH, double xA) noexcept
 }
 
 /// Eq.(76), arxiv:1607.06292
-double T5(double u, double w, double cw2, double xH, double xA) noexcept
+double T5(double u, double w, double cw2) noexcept
 {
    const auto cw4 = cw2*cw2;
    const auto sw2 = 1.0 - cw2;
@@ -263,7 +263,7 @@ double T5(double u, double w, double cw2, double xH, double xA) noexcept
 }
 
 /// Eq.(77), arxiv:1607.06292
-double T6(double u, double w, double cw2, double xH, double xA) noexcept
+double T6(double u, double w, double cw2) noexcept
 {
    const auto cw4 = cw2*cw2;
    const auto u2 = u*u;
@@ -271,6 +271,19 @@ double T6(double u, double w, double cw2, double xH, double xA) noexcept
    return 9.0/2*(
       (u - w)*(u2 - 2*u*w + w*(w - cw2))/cw4*std::log(u/w)*std::log(w/cw2)
       + std::log(cw2)/cw2*(2*u2 + u*(cw2 - 4*w) - w*(cw2 - 2*w)));
+}
+
+/// Eq.(78), arxiv:1607.06292
+double T7(double u, double w, double cw2) noexcept
+{
+   const auto cw4 = cw2*cw2;
+   const auto sw2 = 1.0 - cw2;
+   const auto u2 = u*u;
+   const auto f5 = cw2*(5 - 16*cw2 + 8*cw4)/sw2;
+   const auto s1 = u + w - 1 + std::sqrt(1 + sqr(u - w) - 2*(u + w));
+
+   return f5*(2*(u + w) - sqr(u - w) - 1)*std::log(s1/(2*std::sqrt(u*w)))
+      *(u + w - 1 - 4*u*w/s1);
 }
 
 /// Eq.(103), arxiv:1607.06292
