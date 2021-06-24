@@ -139,11 +139,10 @@ TEST_CASE("2-loop_bosonic_nonYuk")
    pars.mw = 80.379;
    pars.mz = 91.1876;
    pars.mh << 0.0, 300.0;
-   pars.mhSM = 125.0;
    pars.mA = 10.0;
    pars.mHp = 500.0;
 
    const auto amu = gm2calc::general_thdm::amu2L_B_nonYuk(pars);
 
-   // CHECK_CLOSE(1e10*amu, -1.0, 1e-12);
+   // CHECK_CLOSE(1e10*amu, -0.9831098470297721, 1e-12);
 }
