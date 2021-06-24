@@ -37,12 +37,10 @@ T2[u_, w_, cw2_, xH_, xA_, xHp_, sgn_] :=
     )
 
 
-T2p[u_, w_, cw2_, xH_, xA_, xHp_] :=
-    T2[u, w, cw2, xH, xA, xHp, +1]
+T2p[args__] := T2[args, +1]
 
 
-T2m[u_, w_, cw2_, xH_, xA_, xHp_] :=
-    T2[u, w, cw2, xH, xA, xHp, -1]
+T2m[args__] := T2[args, -1]
 
 
 (* Eq.(75), arxiv:1607.06292 *)
