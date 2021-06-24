@@ -56,7 +56,7 @@ double YF1(double u, double w, double cw2) noexcept
       - 72*c0 - 36*c0*std::log(w)
       + 9*(-8*cw4 - 3*u + 2*cw2*(4 + u))*(u + 2*w)/(2*(u-1)*u)*std::log(u)
       - 9*(3 - 10*cw2 + 8*cw4)*w*(u + 2*w)/((4*w-1)*(u-1))*Phi(w,w,1)
-      + 9*(8*cw4 + 3*u - 2*cw2*(4 + u))*w*(u + 2*w)/((4*w-u)*(u-1)*u*u)*Phi(w,w,w)
+      + 9*(8*cw4 + 3*u - 2*cw2*(4 + u))*w*(u + 2*w)/((4*w-u)*(u-1)*u*u)*Phi(u,w,w)
       ;
 }
 
@@ -77,8 +77,8 @@ double YFZ(double u, double cw2) noexcept
       + z1*u*li
       + z2/(2*u2)*(6*(-4 + u)*u + pi2*(4 + 3*u) + 6*u*(4 + u)*lu
                    - 6*(4 + 3*u)*li + 6*u*(2 + u)*phi)
-      + z3*u*(6 + pi2*(-4 + u)*u + 3*lu*(4 + (-4 + u)*u*lu))
-      + 12*(-4 + u)*u*li + 6*(-2 + u)*phi;
+      + z3*u*(6 + pi2*(-4 + u)*u + 3*lu*(4 + (-4 + u)*u*lu)
+              + 12*(-4 + u)*u*li + 6*(-2 + u)*phi);
 
    return res;
 }
@@ -280,7 +280,7 @@ double T7(double u, double w, double cw2) noexcept
    const auto sw2 = 1.0 - cw2;
    const auto f5 = cw2*(5 - 16*cw2 + 8*cw4)/sw2;
    const auto ra = std::complex<double>(1 + sqr(u - w) - 2*(u + w), 0.0);
-   const auto s1 = u + w - 1.0 + std::sqrt(ra);
+   const auto s1 = u + w - 1.0 + std::sqrt(ra); // Eq.(79)
 
    const auto res =
       f5*(2*(u + w) - sqr(u - w) - 1)*std::log(s1/(2*std::sqrt(u*w)))
@@ -289,14 +289,14 @@ double T7(double u, double w, double cw2) noexcept
    return std::real(res);
 }
 
-/// Eq.(79), arxiv:1607.06292
+/// Eq.(80), arxiv:1607.06292
 double T8(double u, double w, double cw2) noexcept
 {
    const auto cw4 = cw2*cw2;
    const auto sw2 = 1.0 - cw2;
    const auto f6 = (7 - 14*cw2 + 4*cw4)/(4*cw2*sw2);
    const auto ra = std::complex<double>(sqr(u + w - cw2) - 4*u*w, 0.0);
-   const auto s2 = u + w - cw2 + std::sqrt(ra);
+   const auto s2 = u + w - cw2 + std::sqrt(ra); // Eq.(81)
 
    const auto res =
       2.0*f6*(4*u*w - sqr(u + w - cw2))*std::log(s2/(2*std::sqrt(u*w)))
@@ -343,7 +343,7 @@ double fb(double u, double w, double al, double cw2) noexcept
 /// Eq.(100), arxiv:1607.06292
 double Fm0(double u, double w, double al, double cw2) noexcept
 {
-   return 1.0/(al*pi) * YF1(u,w,cw2);
+   return 1.0/(al*pi) * cw2*(-1 + cw2)/(u + 2*w) * YF1(u,w,cw2);
 }
 
 /// Eq.(101), arxiv:1607.06292
