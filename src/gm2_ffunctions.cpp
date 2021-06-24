@@ -137,9 +137,12 @@ namespace {
                    + clausen_2(2*std::acos((-1 + 2*u)/(2.*std::abs(u)))))/lambda;
       }
 
-      return 2*(+ clausen_2(2*std::acos((1 + u - v)/(2.*std::sqrt(u))))
-                + clausen_2(2*std::acos((1 - u + v)/(2.*std::sqrt(v))))
-                + clausen_2(2*std::acos((-1 + u + v)/(2.*std::sqrt(u*v)))))/lambda;
+      const auto sqrtu = std::sqrt(u);
+      const auto sqrtv = std::sqrt(v);
+
+      return 2*(+ clausen_2(2*std::acos(0.5*(1 + u - v)/sqrtu))
+                + clausen_2(2*std::acos(0.5*(1 - u + v)/sqrtv))
+                + clausen_2(2*std::acos(0.5*(-1 + u + v)/(sqrtu*sqrtv))))/lambda;
    }
 
    /**
