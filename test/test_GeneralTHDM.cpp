@@ -146,3 +146,45 @@ TEST_CASE("2-loop_bosonic_nonYuk")
 
    // CHECK_CLOSE(1e10*amu, -0.9831098470297721, 1e-12);
 }
+
+
+TEST_CASE("2-loop_bosonic_Yuk")
+{
+   gm2calc::general_thdm::THDM_B_parameters pars;
+   pars.alpha = 1./137.036;
+   pars.mm = 0.10565837;
+   pars.mw = 80.379;
+   pars.mz = 91.1876;
+   pars.mh << 0.0, 300.0;
+   pars.mhSM = 125.0;
+   pars.mHp = 500.0;
+   pars.tb = 30.0;
+   pars.zetal = 1.0;
+   pars.eta = 2.0;
+   pars.lambda5 = 3.0;
+
+   const auto amu = gm2calc::general_thdm::amu2L_B_Yuk(pars);
+
+   /* number to compare to has been generated with:
+
+pp = {
+    AL -> 1/137.036,
+    MM -> 0.10565837,
+    MW -> 80.379,
+    MZ -> 91.1876,
+    MH -> 125,
+    MHH -> 300,
+    MA0 -> 1,
+    MHp -> 500,
+    CW -> MW/MZ,
+    TB -> 30,
+    ZetaL -> 1,
+    aeps -> 2, (* eta *)
+    Lambda5 -> 3
+}
+
+10^10 aYuk /. TF[x___] :> TFex[x] //. pp
+
+    */
+   CHECK_CLOSE(1e10*amu, -0.5388969587184598, 1e-12);
+}
