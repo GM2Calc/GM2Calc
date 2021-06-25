@@ -79,23 +79,23 @@ double amu2L_F_charged(const THDM_F_parameters&) noexcept;
 double amu2L_F_neutral(const THDM_F_parameters&) noexcept;
 
 /// Eq (53), arxiv:1607.06292, f = u, S = h or H
-double fuS(double ms2, double mu2, double mw, double mz) noexcept;
+double fuS(double ms2, double mu2, double mw2, double mz2) noexcept;
 /// Eq (53), arxiv:1607.06292, f = d, S = h or H
-double fdS(double ms2, double md2, double mw, double mz) noexcept;
+double fdS(double ms2, double md2, double mw2, double mz2) noexcept;
 /// Eq (53), arxiv:1607.06292, f = l, S = h or H
-double flS(double ms2, double ml2, double mw, double mz) noexcept;
+double flS(double ms2, double ml2, double mw2, double mz2) noexcept;
 /// Eq (53), arxiv:1607.06292, f = u, S = A
-double fuA(double ms2, double mu2, double mw, double mz) noexcept;
+double fuA(double ms2, double mu2, double mw2, double mz2) noexcept;
 /// Eq (53), arxiv:1607.06292, f = d, S = A
-double fdA(double ms2, double md2, double mw, double mz) noexcept;
+double fdA(double ms2, double md2, double mw2, double mz2) noexcept;
 /// Eq (53), arxiv:1607.06292, f = l, S = A
-double flA(double ms2, double ml2, double mw, double mz) noexcept;
+double flA(double ms2, double ml2, double mw2, double mz2) noexcept;
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = u
-double fuHp(double ms2, double md2, double mu2, double mw, double mz) noexcept;
+double fuHp(double ms2, double md2, double mu2, double mw2, double mz2) noexcept;
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = d
-double fdHp(double ms2, double md2, double mu2, double mw, double mz) noexcept;
+double fdHp(double ms2, double md2, double mu2, double mw2, double mz2) noexcept;
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = l
-double flHp(double ms2, double ml2, double mw, double mz) noexcept;
+double flHp(double ms2, double ml2, double mw2, double mz2) noexcept;
 
 } // namespace general_thdm
 
