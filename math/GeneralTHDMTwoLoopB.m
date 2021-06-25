@@ -28,7 +28,7 @@ T1[u_, w_] :=
 
 
 (* Eq.(74), arxiv:1607.06292 *)
-T2[u_, w_, xH_, xA_, xHp_, sgn_] :=
+T2[u_, w_, sgn_] :=
     Log[u]*(
       + (6*u^2 + CW2*(u - xHp) + 2*CW2^2*(u - xHp))/(2*(u - w))
       + f6*(u - xHp)^2*(3*CW2^2 + 3*CW2*(u - xHp) + (u - xHp)^2)/(CW2*(u - w))
@@ -37,15 +37,13 @@ T2[u_, w_, xH_, xA_, xHp_, sgn_] :=
       - f9*3*u*(u - xHp)/(2*(u - w))
     )
 
-
 T2p[args__] := T2[args, +1]
-
 
 T2m[args__] := T2[args, -1]
 
 
 (* Eq.(75), arxiv:1607.06292 *)
-T4[u_, w_, xH_, xA_] :=
+T4[u_, w_] :=
     (u - w)*Log[u]/4*f5*(xA*(3 + 2*xH) - xA^2 + 3*xH - xH^2 - 3)
 
 
@@ -78,14 +76,14 @@ T8[u_, w_] :=
 
 (* Eq (71), arxiv:1607:06292 *)
 amu2LBNonYuk = (AL/(24*Pi*CW2*(1 - CW2)) MM/MZ)^2 (
-    + (xA - xH)/(xA - xHp)*T2p[xA, xH, xH, xA, xHp]
-    + T2m[xH, xHp, xH, xA, xHp]
-    + (xA - xH)/(xA - xHp)*T4[xA, xHp, xH, xA]
-    + T4[xH, xA, xH, xA]
+    + (xA - xH)/(xA - xHp)*T2p[xA, xH]
+    + T2m[xH, xHp]
+    + (xA - xH)/(xA - xHp)*T4[xA, xHp]
+    + T4[xH, xA]
     + T5[xHp, xH]
     + T5[xHp, xA]
-    + T2p[xHp, xH, xH, xA, xHp]
-    + T2p[xHp, xA, xH, xA, xHp]
+    + T2p[xHp, xH]
+    + T2p[xHp, xA]
     + T6[xA, xHp]
     + T6[xH, xHp]
     + T7[xA, xH]
