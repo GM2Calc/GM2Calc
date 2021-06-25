@@ -49,9 +49,6 @@ struct F_neut_pars {
 };
 
 struct F_char_pars {
-   double mf2;   ///< squared fermion mass
-   double md2;   ///< squared mass of up-type fermion
-   double mu2;   ///< squared mass of down-type fermion
    double qd;    ///< electromagnetic charge of up-type fermion
    double qu;    ///< electromagnetic charge of down-type fermion
    double nc;    ///< number of colors
@@ -163,30 +160,36 @@ double FuHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
 }
 
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = l
-double flHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm) noexcept
+double flHp(double ms2, double ml2, const F_char_pars& pars, const F_sm_pars& sm) noexcept
 {
    const double mw2 = sm.mw2;
-   const double mf2 = pars.mf2;
-   const double ml2 = pars.md2;
    const double nc = pars.nc;
 
-   return nc*mf2/(ms2 - mw2) * (FlHp(ms2, ml2) - FlHp(mw2, ml2));
+   return nc*ml2/(ms2 - mw2) * (FlHp(ms2, ml2) - FlHp(mw2, ml2));
 }
 
-/// Eq (59), arxiv:1607.06292, S = H^\pm, f = u or d
-template <typename F>
-double fqHp(double ms2, const F_char_pars& pars, const F_sm_pars& sm, F FfHp) noexcept
+/// Eq (59), arxiv:1607.06292, S = H^\pm, f = u
+double fuHp(double ms2, double md2, double mu2, const F_char_pars& pars, const F_sm_pars& sm) noexcept
 {
    const double mw2 = sm.mw2;
-   const double mf2 = pars.mf2;
-   const double md2 = pars.md2;
-   const double mu2 = pars.mu2;
    const double qd = pars.qd;
    const double qu = pars.qu;
    const double nc = pars.nc;
 
-   return nc*mf2/(ms2 - mw2)
-      * (FfHp(ms2, md2, mu2, qd, qu) - FfHp(mw2, md2, mu2, qd, qu));
+   return nc*mu2/(ms2 - mw2)
+      * (FuHp(ms2, md2, mu2, qd, qu) - FuHp(mw2, md2, mu2, qd, qu));
+}
+
+/// Eq (59), arxiv:1607.06292, S = H^\pm, f = d
+double fdHp(double ms2, double md2, double mu2, const F_char_pars& pars, const F_sm_pars& sm) noexcept
+{
+   const double mw2 = sm.mw2;
+   const double qd = pars.qd;
+   const double qu = pars.qu;
+   const double nc = pars.nc;
+
+   return nc*md2/(ms2 - mw2)
+      * (FdHp(ms2, md2, mu2, qd, qu) - FdHp(mw2, md2, mu2, qd, qu));
 }
 
 } // anonymous namespace
@@ -201,26 +204,18 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
 {
    const F_sm_pars sm{ sqr(thdm.mw), sqr(thdm.mz) };
    const double mHp2 = sqr(thdm.mHp);
-
-   const auto lFuHp = [] (double ms2, double md2, double mu2, double qd, double qu) {
-      return FuHp(ms2, md2, mu2, qd, qu);
-   };
-   const auto lFdHp = [] (double ms2, double md2, double mu2, double qd, double qu) {
-      return FdHp(ms2, md2, mu2, qd, qu);
-   };
+   const F_char_pars pars_u{q_d, q_u, 3.0};
+   const F_char_pars pars_d{q_d, q_u, 3.0};
+   const F_char_pars pars_l{q_l, q_v, 1.0};
 
    double res = 0.0;
 
    // loop over generations
    for (int i = 0; i < 3; ++i) {
-      const F_char_pars pars_u{sqr(thdm.mu(i)), sqr(thdm.md(i)), sqr(thdm.mu(i)), q_d, q_u, 3.0};
-      const F_char_pars pars_d{sqr(thdm.md(i)), sqr(thdm.md(i)), sqr(thdm.mu(i)), q_d, q_u, 3.0};
-      const F_char_pars pars_l{sqr(thdm.ml(i)), sqr(thdm.ml(i)), 0.0, q_l, q_v, 1.0};
-
       // H^\pm
-      res += fqHp(mHp2, pars_u, sm, lFuHp)*thdm.yuS(i,2)*thdm.ylS(1,2);
-      res += fqHp(mHp2, pars_d, sm, lFdHp)*thdm.ydS(i,2)*thdm.ylS(1,2);
-      res += flHp(mHp2, pars_l, sm)*thdm.ylS(i,2)*thdm.ylS(1,2);
+      res += fuHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), pars_u, sm)*thdm.yuS(i,2)*thdm.ylS(1,2);
+      res += fdHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), pars_d, sm)*thdm.ydS(i,2)*thdm.ylS(1,2);
+      res += flHp(mHp2, sqr(thdm.ml(i)), pars_l, sm)*thdm.ylS(i,2)*thdm.ylS(1,2);
    }
 
    const double sw2 = 1.0 - sm.mw2/sm.mz2;
