@@ -41,7 +41,6 @@ struct F_sm_pars {
 };
 
 struct F_neut_pars {
-   double mf2;   ///< squared mass of fermion f
    double qf;    ///< electromagnetic charge of fermion f
    double ql;    ///< electromagnetic charge of fermion l
    double t3f;   ///< SU(2)_L charge of ferimon f
@@ -85,9 +84,8 @@ double FA(double ms2, double mf2)
 
 /// Eq (54), arxiv:1607.06292, S = h or H
 template <typename F>
-double fSgamma(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexcept
+double fSgamma(double ms2, double mf2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexcept
 {
-   const double mf2 = pars.mf2;
    const double qf2 = sqr(pars.qf);
    const double nc = pars.nc;
 
@@ -96,13 +94,12 @@ double fSgamma(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) n
 
 /// Eq (55), arxiv:1607.06292, S = h or H
 template <typename F>
-double fSZ(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexcept
+double fSZ(double ms2, double mf2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexcept
 {
    const double mw2 = sm.mw2;
    const double mz2 = sm.mz2;
    const double cw2 = mw2/mz2;
    const double sw2 = 1.0 - cw2;
-   const double mf2 = pars.mf2;
    const double qf = pars.qf;
    const double ql = pars.ql;
    const double nc = pars.nc;
@@ -115,9 +112,9 @@ double fSZ(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexc
 
 /// Eq (53), arxiv:1607.06292, S = h or H
 template <typename F>
-double ffS(double ms2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexcept
+double ffS(double ms2, double mf2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexcept
 {
-   return fSgamma(ms2, pars, sm, FS) + fSZ(ms2, pars, sm, FS);
+   return fSgamma(ms2, mf2, pars, sm, FS) + fSZ(ms2, mf2, pars, sm, FS);
 }
 
 /// Eq (60), arxiv:1607.06292
@@ -249,33 +246,33 @@ double amu2L_F_neutral(const THDM_F_parameters& thdm) noexcept
    const auto lFS = [] (double ms2, double mf2) { return FS(ms2, mf2); };
    const auto lFA = [] (double ms2, double mf2) { return FA(ms2, mf2); };
 
+   const F_neut_pars pars_u{q_u, q_l, t3_u, t3_l, 3.0};
+   const F_neut_pars pars_d{q_d, q_l, t3_d, t3_l, 3.0};
+   const F_neut_pars pars_l{q_l, q_l, t3_l, t3_l, 1.0};
+
    double res = 0.0;
 
    // loop over generations
    for (int i = 0; i < 3; ++i) {
-      const F_neut_pars pars_u{sqr(thdm.mu(i)), q_u, q_l, t3_u, t3_l, 3.0};
-      const F_neut_pars pars_d{sqr(thdm.md(i)), q_d, q_l, t3_d, t3_l, 3.0};
-      const F_neut_pars pars_l{sqr(thdm.ml(i)), q_l, q_l, t3_l, t3_l, 1.0};
-
       // h
-      res += ffS(mh2, pars_u, sm, lFS)*thdm.yuS(i,0)*thdm.ylS(1,0);
-      res += ffS(mh2, pars_d, sm, lFS)*thdm.ydS(i,0)*thdm.ylS(1,0);
-      res += ffS(mh2, pars_l, sm, lFS)*thdm.ylS(i,0)*thdm.ylS(1,0);
+      res += ffS(mh2, sqr(thdm.mu(i)), pars_u, sm, lFS)*thdm.yuS(i,0)*thdm.ylS(1,0);
+      res += ffS(mh2, sqr(thdm.md(i)), pars_d, sm, lFS)*thdm.ydS(i,0)*thdm.ylS(1,0);
+      res += ffS(mh2, sqr(thdm.ml(i)), pars_l, sm, lFS)*thdm.ylS(i,0)*thdm.ylS(1,0);
 
       // H
-      res += ffS(mH2, pars_u, sm, lFS)*thdm.yuS(i,1)*thdm.ylS(1,1);
-      res += ffS(mH2, pars_d, sm, lFS)*thdm.ydS(i,1)*thdm.ylS(1,1);
-      res += ffS(mH2, pars_l, sm, lFS)*thdm.ylS(i,1)*thdm.ylS(1,1);
+      res += ffS(mH2, sqr(thdm.mu(i)), pars_u, sm, lFS)*thdm.yuS(i,1)*thdm.ylS(1,1);
+      res += ffS(mH2, sqr(thdm.md(i)), pars_d, sm, lFS)*thdm.ydS(i,1)*thdm.ylS(1,1);
+      res += ffS(mH2, sqr(thdm.ml(i)), pars_l, sm, lFS)*thdm.ylS(i,1)*thdm.ylS(1,1);
 
       // A
-      res += ffS(mA2, pars_u, sm, lFA)*thdm.yuS(i,2)*thdm.ylS(1,2);
-      res += ffS(mA2, pars_d, sm, lFA)*thdm.ydS(i,2)*thdm.ylS(1,2);
-      res += ffS(mA2, pars_l, sm, lFA)*thdm.ylS(i,2)*thdm.ylS(1,2);
+      res += ffS(mA2, sqr(thdm.mu(i)), pars_u, sm, lFA)*thdm.yuS(i,2)*thdm.ylS(1,2);
+      res += ffS(mA2, sqr(thdm.md(i)), pars_d, sm, lFA)*thdm.ydS(i,2)*thdm.ylS(1,2);
+      res += ffS(mA2, sqr(thdm.ml(i)), pars_l, sm, lFA)*thdm.ylS(i,2)*thdm.ylS(1,2);
 
       // subtract hSM
-      res -= ffS(mhSM2, pars_u, sm, lFS);
-      res -= ffS(mhSM2, pars_d, sm, lFS);
-      res -= ffS(mhSM2, pars_l, sm, lFS);
+      res -= ffS(mhSM2, sqr(thdm.mu(i)), pars_u, sm, lFS);
+      res -= ffS(mhSM2, sqr(thdm.md(i)), pars_d, sm, lFS);
+      res -= ffS(mhSM2, sqr(thdm.ml(i)), pars_l, sm, lFS);
    }
 
    const double sw2 = 1.0 - sm.mw2/sm.mz2;
