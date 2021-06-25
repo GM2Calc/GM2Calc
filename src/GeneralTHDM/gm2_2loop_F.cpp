@@ -194,6 +194,90 @@ double fdHp(double ms2, double md2, double mu2, const F_char_pars& pars, const F
 
 } // anonymous namespace
 
+/// Eq (53), arxiv:1607.06292, f = u, S = h or H
+double fuS(double ms2, double mf2, double mw, double mz) noexcept
+{
+   const F_neut_pars pars{q_u, q_l, t3_u, t3_l, 3.0};
+   const F_sm_pars sm{ sqr(mw), sqr(mz) };
+   const auto lFS = [] (double ms2, double mf2) { return FS(ms2, mf2); };
+
+   return ffS(ms2, mf2, pars, sm, lFS);
+}
+
+/// Eq (53), arxiv:1607.06292, f = d, S = h or H
+double fdS(double ms2, double mf2, double mw, double mz) noexcept
+{
+   const F_neut_pars pars{q_d, q_l, t3_d, t3_l, 3.0};
+   const F_sm_pars sm{ sqr(mw), sqr(mz) };
+   const auto lFS = [] (double ms2, double mf2) { return FS(ms2, mf2); };
+
+   return ffS(ms2, mf2, pars, sm, lFS);
+}
+
+/// Eq (53), arxiv:1607.06292, f = d, S = h or H
+double flS(double ms2, double mf2, double mw, double mz) noexcept
+{
+   const F_neut_pars pars{q_l, q_l, t3_l, t3_l, 1.0};
+   const F_sm_pars sm{ sqr(mw), sqr(mz) };
+   const auto lFS = [] (double ms2, double mf2) { return FS(ms2, mf2); };
+
+   return ffS(ms2, mf2, pars, sm, lFS);
+}
+
+/// Eq (53), arxiv:1607.06292, f = u, S = A
+double fuA(double ms2, double mf2, double mw, double mz) noexcept
+{
+   const F_neut_pars pars{q_u, q_l, t3_u, t3_l, 3.0};
+   const F_sm_pars sm{ sqr(mw), sqr(mz) };
+   const auto lFA = [] (double ms2, double mf2) { return FA(ms2, mf2); };
+
+   return ffS(ms2, mf2, pars, sm, lFA);
+}
+
+/// Eq (53), arxiv:1607.06292, f = d, S = A
+double fdA(double ms2, double mf2, double mw, double mz) noexcept
+{
+   const F_neut_pars pars{q_d, q_l, t3_d, t3_l, 3.0};
+   const F_sm_pars sm{ sqr(mw), sqr(mz) };
+   const auto lFA = [] (double ms2, double mf2) { return FA(ms2, mf2); };
+
+   return ffS(ms2, mf2, pars, sm, lFA);
+}
+
+/// Eq (53), arxiv:1607.06292, f = d, S = A
+double flA(double ms2, double mf2, double mw, double mz) noexcept
+{
+   const F_neut_pars pars{q_l, q_l, t3_l, t3_l, 1.0};
+   const F_sm_pars sm{sqr(mw), sqr(mz)};
+   const auto lFA = [] (double ms2, double mf2) { return FA(ms2, mf2); };
+
+   return ffS(ms2, mf2, pars, sm, lFA);
+}
+
+/// Eq (59), arxiv:1607.06292, S = H^\pm, f = u
+double fuHp(double ms2, double md2, double mu2, double mw, double mz) noexcept
+{
+   const F_char_pars pars{q_d, q_u, 3.0};
+   const F_sm_pars sm{sqr(mw), sqr(mz)};
+   return fuHp(ms2, md2, mu2, pars, sm);
+}
+
+/// Eq (59), arxiv:1607.06292, S = H^\pm, f = d
+double fdHp(double ms2, double md2, double mu2, double mw, double mz) noexcept
+{
+   const F_char_pars pars{q_d, q_u, 3.0};
+   const F_sm_pars sm{sqr(mw), sqr(mz)};
+   return fdHp(ms2, md2, mu2, pars, sm);
+}
+
+/// Eq (59), arxiv:1607.06292, S = H^\pm, f = l
+double flHp(double ms2, double ml2, double mw, double mz) noexcept
+{
+   const F_char_pars pars{q_l, q_v, 1.0};
+   const F_sm_pars sm{sqr(mw), sqr(mz)};
+   return flHp(ms2, ml2, pars, sm);
+}
+
 /**
  * Calculates 2-loop fermionic contributions with charged Higgs
  * bosons.
@@ -202,23 +286,19 @@ double fdHp(double ms2, double md2, double mu2, const F_char_pars& pars, const F
  */
 double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
 {
-   const F_sm_pars sm{ sqr(thdm.mw), sqr(thdm.mz) };
    const double mHp2 = sqr(thdm.mHp);
-   const F_char_pars pars_u{q_d, q_u, 3.0};
-   const F_char_pars pars_d{q_d, q_u, 3.0};
-   const F_char_pars pars_l{q_l, q_v, 1.0};
 
    double res = 0.0;
 
    // loop over generations
    for (int i = 0; i < 3; ++i) {
       // H^\pm
-      res += fuHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), pars_u, sm)*thdm.yuS(i,2)*thdm.ylS(1,2);
-      res += fdHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), pars_d, sm)*thdm.ydS(i,2)*thdm.ylS(1,2);
-      res += flHp(mHp2, sqr(thdm.ml(i)), pars_l, sm)*thdm.ylS(i,2)*thdm.ylS(1,2);
+      res += fuHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), thdm.mw, thdm.mz)*thdm.yuS(i,2)*thdm.ylS(1,2);
+      res += fdHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), thdm.mw, thdm.mz)*thdm.ydS(i,2)*thdm.ylS(1,2);
+      res += flHp(mHp2, sqr(thdm.ml(i)), thdm.mw, thdm.mz)*thdm.ylS(i,2)*thdm.ylS(1,2);
    }
 
-   const double sw2 = 1.0 - sm.mw2/sm.mz2;
+   const double sw2 = 1.0 - sqr(thdm.mw)/sqr(thdm.mz);
    const double pref = sqr(thdm.alpha*thdm.mm/(4*pi*thdm.mw*sw2))/2;
 
    return pref*res;
@@ -232,45 +312,37 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
  */
 double amu2L_F_neutral(const THDM_F_parameters& thdm) noexcept
 {
-   const F_sm_pars sm{ sqr(thdm.mw), sqr(thdm.mz) };
    const double mh2 = sqr(thdm.mh(0));
    const double mH2 = sqr(thdm.mh(1));
    const double mA2 = sqr(thdm.mA);
    const double mhSM2 = sqr(thdm.mhSM);
-
-   const auto lFS = [] (double ms2, double mf2) { return FS(ms2, mf2); };
-   const auto lFA = [] (double ms2, double mf2) { return FA(ms2, mf2); };
-
-   const F_neut_pars pars_u{q_u, q_l, t3_u, t3_l, 3.0};
-   const F_neut_pars pars_d{q_d, q_l, t3_d, t3_l, 3.0};
-   const F_neut_pars pars_l{q_l, q_l, t3_l, t3_l, 1.0};
 
    double res = 0.0;
 
    // loop over generations
    for (int i = 0; i < 3; ++i) {
       // h
-      res += ffS(mh2, sqr(thdm.mu(i)), pars_u, sm, lFS)*thdm.yuS(i,0)*thdm.ylS(1,0);
-      res += ffS(mh2, sqr(thdm.md(i)), pars_d, sm, lFS)*thdm.ydS(i,0)*thdm.ylS(1,0);
-      res += ffS(mh2, sqr(thdm.ml(i)), pars_l, sm, lFS)*thdm.ylS(i,0)*thdm.ylS(1,0);
+      res += fuS(mh2, sqr(thdm.mu(i)), thdm.mw, thdm.mz)*thdm.yuS(i,0)*thdm.ylS(1,0);
+      res += fdS(mh2, sqr(thdm.md(i)), thdm.mw, thdm.mz)*thdm.ydS(i,0)*thdm.ylS(1,0);
+      res += flS(mh2, sqr(thdm.ml(i)), thdm.mw, thdm.mz)*thdm.ylS(i,0)*thdm.ylS(1,0);
 
       // H
-      res += ffS(mH2, sqr(thdm.mu(i)), pars_u, sm, lFS)*thdm.yuS(i,1)*thdm.ylS(1,1);
-      res += ffS(mH2, sqr(thdm.md(i)), pars_d, sm, lFS)*thdm.ydS(i,1)*thdm.ylS(1,1);
-      res += ffS(mH2, sqr(thdm.ml(i)), pars_l, sm, lFS)*thdm.ylS(i,1)*thdm.ylS(1,1);
+      res += fuS(mH2, sqr(thdm.mu(i)), thdm.mw, thdm.mz)*thdm.yuS(i,1)*thdm.ylS(1,1);
+      res += fdS(mH2, sqr(thdm.md(i)), thdm.mw, thdm.mz)*thdm.ydS(i,1)*thdm.ylS(1,1);
+      res += flS(mH2, sqr(thdm.ml(i)), thdm.mw, thdm.mz)*thdm.ylS(i,1)*thdm.ylS(1,1);
 
       // A
-      res += ffS(mA2, sqr(thdm.mu(i)), pars_u, sm, lFA)*thdm.yuS(i,2)*thdm.ylS(1,2);
-      res += ffS(mA2, sqr(thdm.md(i)), pars_d, sm, lFA)*thdm.ydS(i,2)*thdm.ylS(1,2);
-      res += ffS(mA2, sqr(thdm.ml(i)), pars_l, sm, lFA)*thdm.ylS(i,2)*thdm.ylS(1,2);
+      res += fuA(mA2, sqr(thdm.mu(i)), thdm.mw, thdm.mz)*thdm.yuS(i,2)*thdm.ylS(1,2);
+      res += fdA(mA2, sqr(thdm.md(i)), thdm.mw, thdm.mz)*thdm.ydS(i,2)*thdm.ylS(1,2);
+      res += flA(mA2, sqr(thdm.ml(i)), thdm.mw, thdm.mz)*thdm.ylS(i,2)*thdm.ylS(1,2);
 
       // subtract hSM
-      res -= ffS(mhSM2, sqr(thdm.mu(i)), pars_u, sm, lFS);
-      res -= ffS(mhSM2, sqr(thdm.md(i)), pars_d, sm, lFS);
-      res -= ffS(mhSM2, sqr(thdm.ml(i)), pars_l, sm, lFS);
+      res -= fuS(mhSM2, sqr(thdm.mu(i)), thdm.mw, thdm.mz);
+      res -= fdS(mhSM2, sqr(thdm.md(i)), thdm.mw, thdm.mz);
+      res -= flS(mhSM2, sqr(thdm.ml(i)), thdm.mw, thdm.mz);
    }
 
-   const double sw2 = 1.0 - sm.mw2/sm.mz2;
+   const double sw2 = 1.0 - sqr(thdm.mw)/sqr(thdm.mz);
    const auto pref = sqr(thdm.alpha*thdm.mm/(2*pi*thdm.mw))/sw2;
 
    return pref*res;
