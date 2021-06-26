@@ -145,7 +145,8 @@ TEST_CASE("fermionic_figure_8")
    const double mz2 = sqr(91.1876);
    const double cw2 = mw2/mz2;
    const double sw2 = 1 - cw2;
-   const double pref = sqr(alpha*mm/(2*pi))/(mw2*sw2);
+   const double pref_neut = sqr(alpha*mm/(2*pi))/(mw2*sw2);
+   const double pref_char = sqr(alpha*mm/(4*pi))/(2*mw2*sqr(sw2));
    Eigen::Matrix<double,3,1> mu2;
    Eigen::Matrix<double,3,1> md2;
    Eigen::Matrix<double,3,1> ml2;
@@ -204,10 +205,10 @@ TEST_CASE("fermionic_figure_8")
    for (int i = 0; i <= N_steps; ++i) {
       ostr << std::setprecision(std::numeric_limits<double>::digits10 + 1)
            << mS[i]
-           << '\t' << pref*amu_H_u[i] << '\t' << pref*amu_H_d[i] << '\t' << pref*amu_H_l[i]
-           << '\t' << pref*amu_A_u[i] << '\t' << pref*amu_A_d[i] << '\t' << pref*amu_A_l[i]
-           << '\t' << pref*amu_Hp_u[i] << '\t' << pref*amu_Hp_d[i] << '\t' << pref*amu_Hp_l[i]
-           << '\t' << pref*amu_hH_u[i] << '\t' << pref*amu_hH_d[i] << '\t' << pref*amu_hH_l[i]
+           << '\t' << pref_neut*amu_H_u[i] << '\t' << pref_neut*amu_H_d[i] << '\t' << pref_neut*amu_H_l[i]
+           << '\t' << pref_neut*amu_A_u[i] << '\t' << pref_neut*amu_A_d[i] << '\t' << pref_neut*amu_A_l[i]
+           << '\t' << pref_char*amu_Hp_u[i] << '\t' << pref_char*amu_Hp_d[i] << '\t' << pref_char*amu_Hp_l[i]
+           << '\t' << pref_neut*amu_hH_u[i] << '\t' << pref_neut*amu_hH_d[i] << '\t' << pref_neut*amu_hH_l[i]
            << '\n';
    }
    */
