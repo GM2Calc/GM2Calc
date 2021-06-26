@@ -3,6 +3,7 @@
 #include "doctest.h"
 #include "GeneralTHDM/gm2_2loop_helpers.hpp"
 
+#include <array>
 #include <fstream>
 #include <iomanip>
 #include <limits>
