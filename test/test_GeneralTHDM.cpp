@@ -3,6 +3,10 @@
 #include "doctest.h"
 #include "GeneralTHDM/gm2_2loop_helpers.hpp"
 
+#include <fstream>
+#include <iomanip>
+#include <limits>
+
 #define CHECK_CLOSE(a,b,eps)                            \
    do {                                                 \
       CHECK((a) == doctest::Approx(b).epsilon(eps));    \
@@ -127,6 +131,86 @@ TEST_CASE("2-loop_fermionic_neutral")
    const auto amu = gm2calc::general_thdm::amu2L_F_neutral(pars);
 
    CHECK_CLOSE(1e10*amu, -1023.0630847112763, 1e-12);
+}
+
+
+// check data of Fig.8 of arxiv:1607.06292
+TEST_CASE("fermionic_figure_8")
+{
+   const auto sqr = [] (double x) { return x*x; };
+   const double pi = 3.1415926535897932;
+   const double alpha = 1./137.036;
+   const double mm = 0.10565837;
+   const double mw2 = sqr(80.379);
+   const double mz2 = sqr(91.1876);
+   const double cw2 = mw2/mz2;
+   const double sw2 = 1 - cw2;
+   const double pref = sqr(alpha*mm/(2*pi))/(mw2*sw2);
+   Eigen::Matrix<double,3,1> mu2;
+   Eigen::Matrix<double,3,1> md2;
+   Eigen::Matrix<double,3,1> ml2;
+   mu2 << sqr(2.16e-3), sqr(1.270), sqr(173.1);
+   md2 << sqr(4.67e-3), sqr(0.093), sqr(4.180);
+   ml2 << sqr(511e-6), sqr(mm), sqr(1.7768);
+
+   constexpr int N_steps = 1000;
+   const double m_start = 0;
+   const double m_stop = 500;
+
+   std::array<double, N_steps + 1> mS{};
+   std::array<double, N_steps + 1> amu_H_u{}, amu_A_u{}, amu_Hp_u{}, amu_hH_u{};
+   std::array<double, N_steps + 1> amu_H_d{}, amu_A_d{}, amu_Hp_d{}, amu_hH_d{};
+   std::array<double, N_steps + 1> amu_H_l{}, amu_A_l{}, amu_Hp_l{}, amu_hH_l{};
+
+   for (int i = 0; i <= N_steps; ++i) {
+      mS[i] = m_start + i*(m_stop - m_start)/N_steps;
+
+      for (int g = 0; g < 3; ++g) {
+         // Eq.(64), first line, first term for h = H
+         amu_H_u[i] += gm2calc::general_thdm::fuS(sqr(mS[i]), mu2(g), mw2, mz2);
+         amu_H_d[i] += gm2calc::general_thdm::fdS(sqr(mS[i]), md2(g), mw2, mz2);
+         amu_H_l[i] += gm2calc::general_thdm::flS(sqr(mS[i]), ml2(g), mw2, mz2);
+
+         // Eq.(64), first line, first term for h = A
+         amu_A_u[i] += gm2calc::general_thdm::fuA(sqr(mS[i]), mu2(g), mw2, mz2);
+         amu_A_d[i] += gm2calc::general_thdm::fdA(sqr(mS[i]), md2(g), mw2, mz2);
+         amu_A_l[i] += gm2calc::general_thdm::flA(sqr(mS[i]), ml2(g), mw2, mz2);
+
+         // Eq.(64), first line, second term
+         amu_Hp_u[i] += gm2calc::general_thdm::fuHp(sqr(mS[i]), md2(g), mu2(g), mw2, mz2);
+         amu_Hp_d[i] += gm2calc::general_thdm::fdHp(sqr(mS[i]), md2(g), mu2(g), mw2, mz2);
+         amu_Hp_l[i] += gm2calc::general_thdm::flHp(sqr(mS[i]), ml2(g), mw2, mz2);
+
+         // Eq.(64), second line
+         amu_hH_u[i] += gm2calc::general_thdm::fuS(sqr(125.0), mu2(g), mw2, mz2)
+                      - gm2calc::general_thdm::fuS(sqr(mS[i]), mu2(g), mw2, mz2);
+         amu_hH_d[i] += gm2calc::general_thdm::fdS(sqr(125.0), md2(g), mw2, mz2)
+                      - gm2calc::general_thdm::fdS(sqr(mS[i]), md2(g), mw2, mz2);
+         amu_hH_l[i] += gm2calc::general_thdm::flS(sqr(125.0), ml2(g), mw2, mz2)
+                      - gm2calc::general_thdm::flS(sqr(mS[i]), ml2(g), mw2, mz2);
+      }
+   }
+
+   /*
+   std::ofstream ostr("figure_8.txt");
+
+   ostr << "# mS^2"
+        << '\t' << "a_u^H" << '\t' << "a_d^H" << '\t' << "a_l^H"
+        << '\t' << "a_u^A" << '\t' << "a_d^A" << '\t' << "a_l^A"
+        << '\t' << "a_u^Hp" << '\t' << "a_d^Hp" << '\t' << "a_l^Hp"
+        << '\t' << "a_u^hH" << '\t' << "a_d^hH" << '\t' << "a_l^hH"
+        << '\n';
+
+   for (int i = 0; i <= N_steps; ++i) {
+      ostr << std::setprecision(std::numeric_limits<double>::digits10 + 1)
+           << mS[i]
+           << '\t' << pref*amu_H_u[i] << '\t' << pref*amu_H_d[i] << '\t' << pref*amu_H_l[i]
+           << '\t' << pref*amu_A_u[i] << '\t' << pref*amu_A_d[i] << '\t' << pref*amu_A_l[i]
+           << '\t' << pref*amu_Hp_u[i] << '\t' << pref*amu_Hp_d[i] << '\t' << pref*amu_Hp_l[i]
+           << '\t' << pref*amu_hH_u[i] << '\t' << pref*amu_hH_d[i] << '\t' << pref*amu_hH_l[i]
+           << '\n';
+   }
+   */
 }
 
 
