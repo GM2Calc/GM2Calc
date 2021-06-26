@@ -140,10 +140,11 @@ TEST_CASE("fermionic_figure_8")
 {
    const auto sqr = [] (double x) { return x*x; };
    const double pi = 3.1415926535897932;
-   const double alpha = 1./137.036;
-   const double mm = 0.10565837;
-   const double mw2 = sqr(80.379);
+   const double alpha = 1./137.0;
+   const double mm = 0.105658;
+   const double mw2 = sqr(80.385);
    const double mz2 = sqr(91.1876);
+   const double mh2 = sqr(125.09);
    const double cw2 = mw2/mz2;
    const double sw2 = 1 - cw2;
    const double pref_neut = sqr(alpha*mm/(2*pi))/(mw2*sw2);
@@ -151,9 +152,9 @@ TEST_CASE("fermionic_figure_8")
    Eigen::Matrix<double,3,1> mu2;
    Eigen::Matrix<double,3,1> md2;
    Eigen::Matrix<double,3,1> ml2;
-   mu2 << sqr(2.16e-3), sqr(1.270), sqr(173.1);
-   md2 << sqr(4.67e-3), sqr(0.093), sqr(4.180);
-   ml2 << sqr(511e-6), sqr(mm), sqr(1.7768);
+   mu2 << sqr(2.2e-3), sqr(1.28), sqr(173.34);
+   md2 << sqr(4.7e-3), sqr(0.096), sqr(4.18);
+   ml2 << sqr(510.999e-6), sqr(mm), sqr(1.7768);
 
    constexpr int N_steps = 1000;
    const double m_start = 0;
@@ -184,11 +185,11 @@ TEST_CASE("fermionic_figure_8")
          amu_Hp_l[i] += gm2calc::general_thdm::flHp(sqr(mS[i]), ml2(g), mw2, mz2);
 
          // Eq.(64), second line
-         amu_hH_u[i] += gm2calc::general_thdm::fuS(sqr(125.0), mu2(g), mw2, mz2)
+         amu_hH_u[i] += gm2calc::general_thdm::fuS(mh2       , mu2(g), mw2, mz2)
                       - gm2calc::general_thdm::fuS(sqr(mS[i]), mu2(g), mw2, mz2);
-         amu_hH_d[i] += gm2calc::general_thdm::fdS(sqr(125.0), md2(g), mw2, mz2)
+         amu_hH_d[i] += gm2calc::general_thdm::fdS(mh2       , md2(g), mw2, mz2)
                       - gm2calc::general_thdm::fdS(sqr(mS[i]), md2(g), mw2, mz2);
-         amu_hH_l[i] += gm2calc::general_thdm::flS(sqr(125.0), ml2(g), mw2, mz2)
+         amu_hH_l[i] += gm2calc::general_thdm::flS(mh2       , ml2(g), mw2, mz2)
                       - gm2calc::general_thdm::flS(sqr(mS[i]), ml2(g), mw2, mz2);
       }
    }
