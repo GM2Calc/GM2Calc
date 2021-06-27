@@ -85,7 +85,7 @@ Yf2A = { YmuA, 4, 5 };
 Yf3A = { YmuA, 4, 5 }*10;
 MhSM = 125;
 Mphi = { 100, 400, 300 }; (* h, H, A *)
-T3 = { -1, -1, 1 }; (* l, d, u *)
+T3 = { -1/2, -1/2, 1/2 }; (* l, d, u *)
 gfv = T3/2 - Qf sw2;
 Yf1phi = { Yf1A, Yf1A, Yf1A };
 Yf2phi = { Yf2A, Yf2A, Yf2A };
@@ -131,7 +131,7 @@ TEST_CASE("2-loop_fermionic_neutral")
 
    const auto amu = gm2calc::general_thdm::amu2L_F_neutral(pars);
 
-   CHECK_CLOSE(1e10*amu, -1023.0630847112763, 1e-12);
+   CHECK_CLOSE(1e10*amu, -683.88944303928634, 1e-12);
 }
 
 
