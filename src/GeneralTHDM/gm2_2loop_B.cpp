@@ -361,7 +361,160 @@ double Fmp(double u, double w, double al, double cw2) noexcept
  */
 double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
 {
-   return 2.3e-11 * thdm.eta * thdm.zetal;
+   const auto mw2 = sqr(thdm.mw);
+   const auto mz2 = sqr(thdm.mz);
+   const auto cw2 = mw2/mz2;
+   const auto cw = thdm.mw/thdm.mz;
+   const auto mh2 = sqr(thdm.mh(0));
+
+   const auto cw4  = cw2*cw2;
+   const auto cw6  = cw4*cw2;
+   const auto cw8  = cw4*cw4;
+   const auto cw10 = cw8*cw2;
+   const auto cw12 = cw8*cw4;
+   const auto cw14 = cw8*cw6;
+   const auto xh = mh2/mz2;
+   const auto xh2 = xh*xh;
+   const auto xh3 = xh2*xh;
+   const auto xh4 = xh2*xh2;
+   const auto xh5 = xh4*xh;
+   const auto xh6 = xh4*xh2;
+   const auto s0 = std::sqrt(std::complex<double>(1 - 4*cw2, 0.0));
+   const auto s1 = std::sqrt(std::complex<double>(-4*xh + xh2, 0.0));
+   const auto s2 = std::sqrt(std::complex<double>(-((4*cw2 - xh)*xh), 0.0));
+   const auto s3 = std::sqrt(std::complex<double>(-4*xh + xh2/cw2, 0.0));
+   const auto lh = std::log(xh);
+   const auto lc = std::log(cw2);
+   const auto l1 = std::log((2.0 - s1 - xh)/2.0);
+   const auto l2 = std::log((-s1 + xh)/2.0);
+   const auto l3 = std::log((1.0 - s0)/2.0);
+   const auto l4 = std::log((2.0 - s3/cw - xh/cw2)/2.0);
+   const auto l5 = std::log((-(s3/cw) + xh/cw2)/2.0);
+   const auto li1 = dilog((xh - s1)/2.0);
+   const auto li2 = dilog((2.0 - xh - s1)/2.0);
+   const auto li3 = dilog(1 - xh/cw2);
+   const auto li4 = dilog(1 - xh);
+   const auto li5 = dilog((1.0 - s0)/2.0);
+   const auto li6 = dilog((2.0 - xh/cw2 - s3/cw)/2.0);
+   const auto li7 = dilog((xh/cw2 - s3/cw)/2.0);
+   const auto l32 = l3*l3;
+   const auto lc2 = lc*lc;
+   const auto lh2 = lh*lh;
+
+   const auto x0 =
+    -80.*(-6.*li4 + pi2) + (36864.*cw14*(6.*l32 - 3.*lc2 - 12.*li5 + pi2))/s0 -
+    (6912.*cw12*(78.*l32 - 39.*lc2 - 156.*li5 + 13.*pi2 + 32.*s0 + 16.*lc*s0))/s0 +
+    32.*cw2*(-120. + 120.*lh - 66.*li4 + 11.*pi2 + 60.*l1*l2*s1 - 60.*li1*s1 - 60.*li2*s1 + 10.*pi2*s1) -
+    (64.*cw10*(-6570.*l32 + 3285.*lc2 + 13140.*li5 - 1095.*pi2 - 3744.*s0 - 1668.*lc*s0 + 336.*lh*s0 -
+         48.*li3*s0 - 576.*li4*s0 + 104.*pi2*s0 + 192.*l1*l2*s0*s1 - 192.*li1*s0*s1 - 192.*li2*s0*s1 +
+         32.*pi2*s0*s1))/s0 - 4.*cw4*
+     (-3744. + 4704.*lh + 1632.*li4 - 272.*pi2 + 2592.*l1*l2*s1 - 2592.*li1*s1 - 2592.*li2*s1 + 432.*pi2*s1 -
+       1386.*l4*l5*s2 + 1386.*li6*s2 + 1386.*li7*s2 - 231.*pi2*s2) +
+    (4.*cw6*(3024.*l32 - 1512.*lc2 - 6048.*li5 + 504.*pi2 - 3348.*s0 - 2244.*lc*s0 + 4356.*lh*s0 -
+         96.*li3*s0 + 11136.*li4*s0 - 1816.*pi2*s0 + 2304.*l1*l2*s0*s1 - 2304.*li1*s0*s1 - 2304.*li2*s0*s1 +
+         384.*pi2*s0*s1 - 6222.*l4*l5*s0*s2 + 6222.*li6*s0*s2 + 6222.*li7*s0*s2 - 1037.*pi2*s0*s2))/
+     s0 + (16.*cw8*(-7596.*l32 + 3798.*lc2 + 15192.*li5 - 1266.*pi2 + 852.*s0 + 1224.*lc*s0 -
+         564.*lh*s0 + 48.*li3*s0 - 4416.*li4*s0 + 704.*pi2*s0 + 576.*l1*l2*s0*s1 - 576.*li1*s0*s1 -
+         576.*li2*s0*s1 + 96.*pi2*s0*s1 + 678.*l4*l5*s0*s2 - 678.*li6*s0*s2 - 678.*li7*s0*s2 + 113.*pi2*s0*s2))
+      /s0;
+
+   const auto xm2 =
+    (-1280.*cw4*(-6.*li4 + pi2) + 8192.*cw6*(-6.*li4 + pi2) -
+       768.*cw10*(-4.*li3 + 64.*li4 - 10.*pi2 + 90.*l4*l5*s2 - 90.*li6*s2 - 90.*li7*s2 + 15.*pi2*s2) +
+       256.*cw8*(336.*li4 + 54.*(l4*l5 - li6 - li7)*s2 + pi2*(-56. + 9.*s2)) +
+       1024.*cw12*(-12.*li3 + 54.*(l4*l5 - li6 - li7)*s2 + pi2*(2. + 9.*s2)))/xh2;
+
+   const auto xm1 =
+    (2048.*cw12*(108. + 54.*lc - 54.*lh + 6.*li3 - pi2) + 640.*cw2*(-6.*li4 + pi2) -
+       64.*cw4*(-120. + 120.*lh - 354.*li4 + 59.*pi2 + 60.*l1*l2*s1 - 60.*li1*s1 - 60.*li2*s1 + 10.*pi2*s1) -
+       16.*cw8*(-9024. - 1920.*lc + 7296.*lh - 48.*li3 - 192.*li4 + 40.*pi2 + 2688.*l1*l2*s1 - 2688.*li1*s1 -
+          2688.*li2*s1 + 448.*pi2*s1 - 6594.*l4*l5*s2 + 6594.*li6*s2 + 6594.*li7*s2 - 1099.*pi2*s2) +
+       4.*cw6*(-12288. + 12288.*lh - 7680.*li4 + 1280.*pi2 + 6144.*l1*l2*s1 - 6144.*li1*s1 - 6144.*li2*s1 +
+          1024.*pi2*s1 - 5442.*l4*l5*s2 + 5442.*li6*s2 + 5442.*li7*s2 - 907.*pi2*s2) +
+       1024.*cw10*(-330. - 147.*lc + 195.*lh - 6.*li3 + 12.*li4 - pi2 + 24.*l1*l2*s1 - 24.*li1*s1 -
+          24.*li2*s1 + 4.*pi2*s1 - 72.*l4*l5*s2 + 72.*li6*s2 + 72.*li7*s2 - 12.*pi2*s2))/xh;
+
+   const auto x1 =
+    ((-14592.*cw12*(6.*l32 - 3.*lc2 - 12.*li5 + pi2))/s0 -
+       20.*(-24. + 24.*lh + 6.*li4 - pi2 + 12.*l1*l2*s1 - 12.*li1*s1 - 12.*li2*s1 + 2.*pi2*s1) -
+       (64.*cw10*(-3762.*l32 + 1881.*lc2 + 7524.*li5 - 627.*pi2 - 1824.*s0 - 684.*lc*s0 - 384.*lh*s0 -
+            768.*li4*s0 + 768.*l1*l2*s0*s1 - 768.*li1*s0*s1 - 768.*li2*s0*s1 + 128.*pi2*s0*s1))/s0 +
+       (64.*cw8*(-3114.*l32 + 1557.*lc2 + 6228.*li5 - 519.*pi2 - 2853.*s0 - 768.*lc*s0 - 291.*lh*s0 -
+            24.*li3*s0 - 1632.*li4*s0 + 58.*pi2*s0 + 1440.*l1*l2*s0*s1 - 1440.*li1*s0*s1 - 1440.*li2*s0*s1 +
+            240.*pi2*s0*s1))/s0 + 2.*cw2*
+        (864. + 96.*lh + 1824.*li4 - 304.*pi2 + 288.*l1*l2*s1 - 288.*li1*s1 - 288.*li2*s1 + 48.*pi2*s1 +
+          270.*l4*l5*s2 - 270.*li6*s2 - 270.*li7*s2 + 45.*pi2*s2) +
+       (4.*cw4*(-1512.*l32 + 756.*lc2 + 3024.*li5 - 252.*pi2 - 5190.*s0 - 345.*lc*s0 + 3081.*lh*s0 -
+            804.*li3*s0 - 6576.*li4*s0 + 818.*pi2*s0 + 2496.*l1*l2*s0*s1 - 2496.*li1*s0*s1 - 2496.*li2*s0*s1 +
+            416.*pi2*s0*s1 - 198.*l4*l5*s0*s2 + 198.*li6*s0*s2 + 198.*li7*s0*s2 - 33.*pi2*s0*s2))/s0\
+        - (16.*cw6*(-3690.*l32 + 1845.*lc2 + 7380.*li5 - 615.*pi2 - 3939.*s0 - 780.*lc*s0 + 1158.*lh*s0 -
+            828.*li3*s0 - 4848.*li4*s0 + 348.*pi2*s0 + 3360.*l1*l2*s0*s1 - 3360.*li1*s0*s1 - 3360.*li2*s0*s1 +
+            560.*pi2*s0*s1 + 342.*l4*l5*s0*s2 - 342.*li6*s0*s2 - 342.*li7*s0*s2 + 57.*pi2*s0*s2))/s0)
+      *xh;
+
+   const auto x2 =
+    ((384.*cw10*(6.*l32 - 3.*lc2 - 12.*li5 + pi2 - 48.*s0 - 96.*lh*s0 - 96.*lh2*s0 - 512.*li4*s0 -
+            32.*pi2*s0 + 144.*l1*l2*s0*s1 - 144.*li1*s0*s1 - 144.*li2*s0*s1 + 24.*pi2*s0*s1))/s0 +
+       (12.*cw6*(1734.*l32 - 867.*lc2 - 3468.*li5 + 289.*pi2 + 1368.*s0 - 232.*lc*s0 - 964.*lh*s0 -
+            2688.*lh2*s0 - 1072.*li3*s0 - 10688.*li4*s0 - 936.*pi2*s0 + 384.*l1*l2*s0*s1 - 384.*li1*s0*s1 -
+            384.*li2*s0*s1 + 64.*pi2*s0*s1))/s0 -
+       (16.*cw8*(1206.*l32 - 603.*lc2 - 2412.*li5 + 201.*pi2 - 960.*s0 + 72.*lc*s0 - 3264.*lh*s0 -
+            4032.*lh2*s0 - 19968.*li4*s0 - 1344.*pi2*s0 + 4512.*l1*l2*s0*s1 - 4512.*li1*s0*s1 -
+            4512.*li2*s0*s1 + 752.*pi2*s0*s1))/s0 +
+       cw2*(3867. + 426.*lc - 2106.*lh + 1572.*li3 + 5568.*li4 - 384.*pi2 + (756.*l32)/s0 -
+          (378.*lc2)/s0 - (1512.*li5)/s0 + (126.*pi2)/s0 - 4032.*l1*l2*s1 +
+          4032.*li1*s1 + 4032.*li2*s1 - 672.*pi2*s1 - 420.*l4*l5*s2 + 420.*li6*s2 + 420.*li7*s2 - 70.*pi2*s2)\
+        + 4.*(-150. + 90.*lh - 90.*li4 + 15.*pi2 + 30.*l1*l2*s1 - 30.*li1*s1 - 30.*li2*s1 + 5.*pi2*s1 -
+          48.*l4*l5*s2 + 48.*li6*s2 + 48.*li7*s2 - 8.*pi2*s2) +
+       (6.*cw4*(-1122.*l32 + 561.*lc2 + 2244.*li5 - 187.*pi2 - 1774.*s0 - 48.*lc*s0 + 478.*lh*s0 +
+            768.*lh2*s0 - 512.*li3*s0 - 224.*li4*s0 + 372.*pi2*s0 + 2784.*l1*l2*s0*s1 - 2784.*li1*s0*s1 -
+            2784.*li2*s0*s1 + 464.*pi2*s0*s1 + 792.*l4*l5*s0*s2 - 792.*li6*s0*s2 - 792.*li7*s0*s2 +
+            132.*pi2*s0*s2))/s0)*xh2;
+
+   const auto x3 =
+    (-3072.*cw10*(-15.*lh2 - 60.*li4 - 5.*pi2 + 6.*l1*l2*s1 - 6.*li1*s1 - 6.*li2*s1 + pi2*s1) +
+       (2.*cw4*(342.*l32 - 171.*lc2 - 684.*li5 + 57.*pi2 + 3366.*s0 + 834.*lc*s0 + 6444.*lh*s0 +
+            5184.*lh2*s0 + 3144.*li3*s0 + 29184.*li4*s0 + 1728.*pi2*s0 - 8256.*l1*l2*s0*s1 + 8256.*li1*s0*s1 +
+            8256.*li2*s0*s1 - 1376.*pi2*s0*s1))/s0 +
+       (48.*cw8*(30.*l32 - 15.*lc2 - 60.*li5 + 5.*pi2 + 192.*s0 + 384.*lh*s0 - 1296.*lh2*s0 - 4672.*li4*s0 -
+            432.*pi2*s0 + 96.*l1*l2*s0*s1 - 96.*li1*s0*s1 - 96.*li2*s0*s1 + 16.*pi2*s0*s1))/s0 +
+       (4.*cw6*(-450.*l32 + 225.*lc2 + 900.*li5 - 75.*pi2 - 3936.*s0 - 180.*lc*s0 - 7680.*lh*s0 +
+            2016.*lh2*s0 - 1920.*li4*s0 + 672.*pi2*s0 + 7296.*l1*l2*s0*s1 - 7296.*li1*s0*s1 -
+            7296.*li2*s0*s1 + 1216.*pi2*s0*s1))/s0 +
+       4.*(-6. - 15.*lh - 48.*li3 - 102.*li4 + 102.*l1*l2*s1 - 102.*li1*s1 - 102.*li2*s1 + 17.*pi2*s1 +
+          48.*l4*l5*s2 - 48.*li6*s2 - 48.*li7*s2 + 8.*pi2*s2) -
+       (1.*cw2*(108.*l32 - 54.*lc2 - 216.*li5 + 18.*pi2 + 747.*s0 + 426.*lc*s0 + 1350.*lh*s0 + 2304.*lh2*s0 +
+            804.*li3*s0 + 9696.*li4*s0 + 768.*pi2*s0 - 672.*l1*l2*s0*s1 + 672.*li1*s0*s1 + 672.*li2*s0*s1 -
+            112.*pi2*s0*s1 + 768.*l4*l5*s0*s2 - 768.*li6*s0*s2 - 768.*li7*s0*s2 + 128.*pi2*s0*s2))/s0
+       )*xh3;
+
+   const auto x4 =
+    (-3072.*cw10*(3.*lh2 + 12.*li4 + pi2) +
+       768.*cw8*(-9.*lh2 - 36.*li4 - 3.*pi2 + 12.*l1*l2*s1 - 12.*li1*s1 - 12.*li2*s1 + 2.*pi2*s1) -
+       24.*(-6. - 12.*lh - 12.*lh2 - 8.*li3 - 65.*li4 - 4.*pi2 + 18.*l1*l2*s1 - 18.*li1*s1 - 18.*li2*s1 +
+          3.*pi2*s1) + 48.*cw4*(42. + 84.*lh - 312.*lh2 - 1136.*li4 - 104.*pi2 + 42.*l1*l2*s1 - 42.*li1*s1 -
+          42.*li2*s1 + 7.*pi2*s1) - 192.*cw6*
+        (6. + 12.*lh - 156.*lh2 - 608.*li4 - 52.*pi2 + 66.*l1*l2*s1 - 66.*li1*s1 - 66.*li2*s1 + 11.*pi2*s1) +
+       24.*cw2*(-42. - 84.*lh + 36.*lh2 - 32.*li3 + 28.*li4 + 12.*pi2 + 78.*l1*l2*s1 - 78.*li1*s1 -
+          78.*li2*s1 + 13.*pi2*s1))*xh4;
+
+   const auto x5 =
+    (1536.*cw8*(3.*lh2 + 12.*li4 + pi2) +
+       24.*(-15.*lh2 - 60.*li4 - 5.*pi2 + 6.*l1*l2*s1 - 6.*li1*s1 - 6.*li2*s1 + pi2*s1) +
+       336.*cw4*(-3.*lh2 - 12.*li4 - pi2 + 6.*l1*l2*s1 - 6.*li1*s1 - 6.*li2*s1 + pi2*s1) -
+       192.*cw6*(27.*lh2 + 108.*li4 + 9.*pi2 + 6.*l1*l2*s1 - 6.*li1*s1 - 6.*li2*s1 + pi2*s1) -
+       24.*cw2*(-81.*lh2 - 324.*li4 - 27.*pi2 + 42.*l1*l2*s1 - 42.*li1*s1 - 42.*li2*s1 + 7.*pi2*s1))*xh5;
+
+   const auto x6 =
+    (24.*(3.*lh2 + 12.*li4 + pi2) - 168.*cw2*(3.*lh2 + 12.*li4 + pi2) + 336.*cw4*(3.*lh2 + 12.*li4 + pi2) -
+       192.*cw6*(3.*lh2 + 12.*li4 + pi2))*xh6;
+
+   const auto res = xm2 + xm1 + x0 + x1 + x2 + x3 + x4 + x5 + x6;
+
+   const auto pref = sqr(thdm.alpha*thdm.mm/(48*thdm.mz*pi*cw2*(4*cw2 - xh)*(1 - cw2)))
+      /(2*(-1 + 4*cw2)*(-1 + xh));
+
+   return pref * std::real(res) * thdm.eta * thdm.zetal;
 }
 
 /**

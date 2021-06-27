@@ -220,13 +220,20 @@ TEST_CASE("fermionic_figure_8")
 TEST_CASE("2-loop_bosonic_EWadd")
 {
    gm2calc::general_thdm::THDM_B_parameters pars;
-   pars.eta = 2;
-   pars.zetal = 3;
+   pars.alpha = 1/137.036;
+   pars.mm = 0.10565837;
+   pars.mw = 80.379;
+   pars.mz = 91.1876;
+   pars.mhSM = 125.0;
+   pars.mh << pars.mhSM, 0.0;
+   pars.zetal = 2;
+   pars.eta = 3;
 
    const auto amu = gm2calc::general_thdm::amu2L_B_EWadd(pars);
 
    // Eq.(49), arxiv:1607.06292
-   CHECK_CLOSE(1e10*amu, 2.3e-1*pars.eta*pars.zetal, 1e-12);
+   CHECK_CLOSE(1e10*amu, 2.3e-1*pars.eta*pars.zetal, 0.01);
+   CHECK_CLOSE(1e10*amu, 2.304734800631431e-1*pars.eta*pars.zetal, 1e-12);
 }
 
 
