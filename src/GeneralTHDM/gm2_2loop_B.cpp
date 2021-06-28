@@ -372,10 +372,9 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const auto cw14 = cw8*cw6;
    const auto mh2 = sqr(thdm.mh(0));
    const auto xh = mh2/mz2;
-   const auto xh2 = xh*xh;
    const auto s0 = std::sqrt(std::complex<double>(1 - 4*cw2, 0.0));
-   const auto s1 = std::sqrt(std::complex<double>(-4*xh + xh2, 0.0));
-   const auto s2 = std::sqrt(std::complex<double>(-4*xh*cw2 + xh2, 0.0));
+   const auto s1 = std::sqrt(std::complex<double>(xh*(-4 + xh), 0.0));
+   const auto s2 = std::sqrt(std::complex<double>(xh*(-4*cw2 + xh), 0.0));
    const auto lh = std::log(xh);
    const auto lc = std::log(cw2);
    const auto l1 = std::log((2.0 - s1 - xh)/2.0);
