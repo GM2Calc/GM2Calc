@@ -363,16 +363,15 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
 {
    const auto mw2 = sqr(thdm.mw);
    const auto mz2 = sqr(thdm.mz);
-   const auto cw2 = mw2/mz2;
    const auto cw = thdm.mw/thdm.mz;
-   const auto mh2 = sqr(thdm.mh(0));
-
+   const auto cw2 = mw2/mz2;
    const auto cw4  = cw2*cw2;
    const auto cw6  = cw4*cw2;
    const auto cw8  = cw4*cw4;
    const auto cw10 = cw8*cw2;
    const auto cw12 = cw8*cw4;
    const auto cw14 = cw8*cw6;
+   const auto mh2 = sqr(thdm.mh(0));
    const auto xh = mh2/mz2;
    const auto xh2 = xh*xh;
    const auto xh3 = xh2*xh;
@@ -401,6 +400,22 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const auto lc2 = lc*lc;
    const auto lh2 = lh*lh;
 
+   const auto xm2 =
+    (-1280.*cw4*(-6.*li4 + pi2) + 8192.*cw6*(-6.*li4 + pi2) -
+       768.*cw10*(-4.*li3 + 64.*li4 - 10.*pi2 + 90.*l4*l5*s2 - 90.*li6*s2 - 90.*li7*s2 + 15.*pi2*s2) +
+       256.*cw8*(336.*li4 + 54.*(l4*l5 - li6 - li7)*s2 + pi2*(-56. + 9.*s2)) +
+       1024.*cw12*(-12.*li3 + 54.*(l4*l5 - li6 - li7)*s2 + pi2*(2. + 9.*s2)))/xh2;
+
+   const auto xm1 =
+    (2048.*cw12*(108. + 54.*lc - 54.*lh + 6.*li3 - pi2) + 640.*cw2*(-6.*li4 + pi2) -
+       64.*cw4*(-120. + 120.*lh - 354.*li4 + 59.*pi2 + 60.*l1*l2*s1 - 60.*li1*s1 - 60.*li2*s1 + 10.*pi2*s1) -
+       16.*cw8*(-9024. - 1920.*lc + 7296.*lh - 48.*li3 - 192.*li4 + 40.*pi2 + 2688.*l1*l2*s1 - 2688.*li1*s1 -
+          2688.*li2*s1 + 448.*pi2*s1 - 6594.*l4*l5*s2 + 6594.*li6*s2 + 6594.*li7*s2 - 1099.*pi2*s2) +
+       4.*cw6*(-12288. + 12288.*lh - 7680.*li4 + 1280.*pi2 + 6144.*l1*l2*s1 - 6144.*li1*s1 - 6144.*li2*s1 +
+          1024.*pi2*s1 - 5442.*l4*l5*s2 + 5442.*li6*s2 + 5442.*li7*s2 - 907.*pi2*s2) +
+       1024.*cw10*(-330. - 147.*lc + 195.*lh - 6.*li3 + 12.*li4 - pi2 + 24.*l1*l2*s1 - 24.*li1*s1 -
+          24.*li2*s1 + 4.*pi2*s1 - 72.*l4*l5*s2 + 72.*li6*s2 + 72.*li7*s2 - 12.*pi2*s2))/xh;
+
    const auto x0 =
     -80.*(-6.*li4 + pi2) + (36864.*cw14*(6.*l32 - 3.*lc2 - 12.*li5 + pi2))/s0 -
     (6912.*cw12*(78.*l32 - 39.*lc2 - 156.*li5 + 13.*pi2 + 32.*s0 + 16.*lc*s0))/s0 +
@@ -418,22 +433,6 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
          576.*li2*s0*s1 + 96.*pi2*s0*s1 + 678.*l4*l5*s0*s2 - 678.*li6*s0*s2 - 678.*li7*s0*s2 + 113.*pi2*s0*s2))
       /s0;
 
-   const auto xm2 =
-    (-1280.*cw4*(-6.*li4 + pi2) + 8192.*cw6*(-6.*li4 + pi2) -
-       768.*cw10*(-4.*li3 + 64.*li4 - 10.*pi2 + 90.*l4*l5*s2 - 90.*li6*s2 - 90.*li7*s2 + 15.*pi2*s2) +
-       256.*cw8*(336.*li4 + 54.*(l4*l5 - li6 - li7)*s2 + pi2*(-56. + 9.*s2)) +
-       1024.*cw12*(-12.*li3 + 54.*(l4*l5 - li6 - li7)*s2 + pi2*(2. + 9.*s2)))/xh2;
-
-   const auto xm1 =
-    (2048.*cw12*(108. + 54.*lc - 54.*lh + 6.*li3 - pi2) + 640.*cw2*(-6.*li4 + pi2) -
-       64.*cw4*(-120. + 120.*lh - 354.*li4 + 59.*pi2 + 60.*l1*l2*s1 - 60.*li1*s1 - 60.*li2*s1 + 10.*pi2*s1) -
-       16.*cw8*(-9024. - 1920.*lc + 7296.*lh - 48.*li3 - 192.*li4 + 40.*pi2 + 2688.*l1*l2*s1 - 2688.*li1*s1 -
-          2688.*li2*s1 + 448.*pi2*s1 - 6594.*l4*l5*s2 + 6594.*li6*s2 + 6594.*li7*s2 - 1099.*pi2*s2) +
-       4.*cw6*(-12288. + 12288.*lh - 7680.*li4 + 1280.*pi2 + 6144.*l1*l2*s1 - 6144.*li1*s1 - 6144.*li2*s1 +
-          1024.*pi2*s1 - 5442.*l4*l5*s2 + 5442.*li6*s2 + 5442.*li7*s2 - 907.*pi2*s2) +
-       1024.*cw10*(-330. - 147.*lc + 195.*lh - 6.*li3 + 12.*li4 - pi2 + 24.*l1*l2*s1 - 24.*li1*s1 -
-          24.*li2*s1 + 4.*pi2*s1 - 72.*l4*l5*s2 + 72.*li6*s2 + 72.*li7*s2 - 12.*pi2*s2))/xh;
-
    const auto x1 =
     ((-14592.*cw12*(6.*l32 - 3.*lc2 - 12.*li5 + pi2))/s0 -
        20.*(-24. + 24.*lh + 6.*li4 - pi2 + 12.*l1*l2*s1 - 12.*li1*s1 - 12.*li2*s1 + 2.*pi2*s1) -
@@ -446,7 +445,7 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
           270.*l4*l5*s2 - 270.*li6*s2 - 270.*li7*s2 + 45.*pi2*s2) +
        (4.*cw4*(-1512.*l32 + 756.*lc2 + 3024.*li5 - 252.*pi2 - 5190.*s0 - 345.*lc*s0 + 3081.*lh*s0 -
             804.*li3*s0 - 6576.*li4*s0 + 818.*pi2*s0 + 2496.*l1*l2*s0*s1 - 2496.*li1*s0*s1 - 2496.*li2*s0*s1 +
-            416.*pi2*s0*s1 - 198.*l4*l5*s0*s2 + 198.*li6*s0*s2 + 198.*li7*s0*s2 - 33.*pi2*s0*s2))/s0\
+            416.*pi2*s0*s1 - 198.*l4*l5*s0*s2 + 198.*li6*s0*s2 + 198.*li7*s0*s2 - 33.*pi2*s0*s2))/s0
         - (16.*cw6*(-3690.*l32 + 1845.*lc2 + 7380.*li5 - 615.*pi2 - 3939.*s0 - 780.*lc*s0 + 1158.*lh*s0 -
             828.*li3*s0 - 4848.*li4*s0 + 348.*pi2*s0 + 3360.*l1*l2*s0*s1 - 3360.*li1*s0*s1 - 3360.*li2*s0*s1 +
             560.*pi2*s0*s1 + 342.*l4*l5*s0*s2 - 342.*li6*s0*s2 - 342.*li7*s0*s2 + 57.*pi2*s0*s2))/s0)
@@ -463,7 +462,7 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
             4512.*li2*s0*s1 + 752.*pi2*s0*s1))/s0 +
        cw2*(3867. + 426.*lc - 2106.*lh + 1572.*li3 + 5568.*li4 - 384.*pi2 + (756.*l32)/s0 -
           (378.*lc2)/s0 - (1512.*li5)/s0 + (126.*pi2)/s0 - 4032.*l1*l2*s1 +
-          4032.*li1*s1 + 4032.*li2*s1 - 672.*pi2*s1 - 420.*l4*l5*s2 + 420.*li6*s2 + 420.*li7*s2 - 70.*pi2*s2)\
+          4032.*li1*s1 + 4032.*li2*s1 - 672.*pi2*s1 - 420.*l4*l5*s2 + 420.*li6*s2 + 420.*li7*s2 - 70.*pi2*s2)
         + 4.*(-150. + 90.*lh - 90.*li4 + 15.*pi2 + 30.*l1*l2*s1 - 30.*li1*s1 - 30.*li2*s1 + 5.*pi2*s1 -
           48.*l4*l5*s2 + 48.*li6*s2 + 48.*li7*s2 - 8.*pi2*s2) +
        (6.*cw4*(-1122.*l32 + 561.*lc2 + 2244.*li5 - 187.*pi2 - 1774.*s0 - 48.*lc*s0 + 478.*lh*s0 +
