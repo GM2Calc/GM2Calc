@@ -310,7 +310,7 @@ expandEW = {
     s0 -> Sqrt[1 - 4*CW2],
     s1 -> Sqrt[-4*xh + xh2],
     s2 -> Sqrt[-((4*CW2 - xh)*xh)],
-    s3 -> Sqrt[-4*xh + xh2/CW2],
+    s3 -> s2/CW,
     lh -> Log[xh],
     lc -> Log[CW2],
     l1 -> Log[(2 - s1 - xh)/2],
