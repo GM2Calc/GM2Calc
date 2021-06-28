@@ -374,10 +374,6 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const auto mh2 = sqr(thdm.mh(0));
    const auto xh = mh2/mz2;
    const auto xh2 = xh*xh;
-   const auto xh3 = xh2*xh;
-   const auto xh4 = xh2*xh2;
-   const auto xh5 = xh4*xh;
-   const auto xh6 = xh4*xh2;
    const auto s0 = std::sqrt(std::complex<double>(1 - 4*cw2, 0.0));
    const auto s1 = std::sqrt(std::complex<double>(-4*xh + xh2, 0.0));
    const auto s2 = std::sqrt(std::complex<double>(-((4*cw2 - xh)*xh), 0.0));
@@ -506,7 +502,7 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
       24.*(3.*lh2 + 12.*li4 + pi2) - 168.*cw2*(3.*lh2 + 12.*li4 + pi2) + 336.*cw4*(3.*lh2 + 12.*li4 + pi2) -
        192.*cw6*(3.*lh2 + 12.*li4 + pi2);
 
-   const auto res = xm2/xh2 + xm1/xh + x0 + x1*xh + x2*xh2 + x3*xh3 + x4*xh4 + x5*xh5 + x6*xh6;
+   const auto res = (xm2/xh + xm1)/xh + x0 + xh*(x1 + xh*(x2 + xh*(x3 + xh*(x4 + xh*(x5 + xh*x6)))));
 
    const auto pref = sqr(thdm.alpha*thdm.mm/(48*thdm.mz*pi*cw2*(4*cw2 - xh)*(1 - cw2)))
       /(2*(-1 + 4*cw2)*(-1 + xh));
