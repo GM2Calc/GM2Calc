@@ -2,8 +2,8 @@
 
 #include "doctest.h"
 #include "GeneralTHDM/gm2_2loop_helpers.hpp"
+#include "read_data.hpp"
 
-#include <array>
 #include <fstream>
 #include <iomanip>
 #include <limits>
@@ -156,66 +156,174 @@ TEST_CASE("fermionic_figure_8")
    md2 << sqr(4.7e-3), sqr(0.096), sqr(4.18);
    ml2 << sqr(510.999e-6), sqr(mm), sqr(1.7768);
 
+   // Eq.(64), first line, first term for f = u, h = H
+   const auto amu_H_u = [&](double mS) {
+      return pref_neut*(
+         + gm2calc::general_thdm::fuS(sqr(mS), mu2(0), mw2, mz2)
+         + gm2calc::general_thdm::fuS(sqr(mS), mu2(1), mw2, mz2)
+         + gm2calc::general_thdm::fuS(sqr(mS), mu2(2), mw2, mz2));
+   };
+
+   // Eq.(64), first line, first term for f = d, h = H
+   const auto amu_H_d = [&](double mS) {
+      return pref_neut*(
+         + gm2calc::general_thdm::fdS(sqr(mS), md2(0), mw2, mz2)
+         + gm2calc::general_thdm::fdS(sqr(mS), md2(1), mw2, mz2)
+         + gm2calc::general_thdm::fdS(sqr(mS), md2(2), mw2, mz2));
+   };
+
+   // Eq.(64), first line, first term for f = l, h = H
+   const auto amu_H_l = [&](double mS) {
+      return pref_neut*(
+         + gm2calc::general_thdm::flS(sqr(mS), ml2(0), mw2, mz2)
+         + gm2calc::general_thdm::flS(sqr(mS), ml2(1), mw2, mz2)
+         + gm2calc::general_thdm::flS(sqr(mS), ml2(2), mw2, mz2));
+   };
+
+   // Eq.(64), first line, first term for f = u, h = A
+   const auto amu_A_u = [&](double mS) {
+      return -pref_neut*(
+         + gm2calc::general_thdm::fuA(sqr(mS), mu2(0), mw2, mz2)
+         + gm2calc::general_thdm::fuA(sqr(mS), mu2(1), mw2, mz2)
+         + gm2calc::general_thdm::fuA(sqr(mS), mu2(2), mw2, mz2));
+   };
+
+   // Eq.(64), first line, first term for f = d, h = A
+   const auto amu_A_d = [&](double mS) {
+      return pref_neut*(
+         + gm2calc::general_thdm::fdA(sqr(mS), md2(0), mw2, mz2)
+         + gm2calc::general_thdm::fdA(sqr(mS), md2(1), mw2, mz2)
+         + gm2calc::general_thdm::fdA(sqr(mS), md2(2), mw2, mz2));
+   };
+
+   // Eq.(64), first line, first term for f = l, h = A
+   const auto amu_A_l = [&](double mS) {
+      return pref_neut*(
+         + gm2calc::general_thdm::flA(sqr(mS), ml2(0), mw2, mz2)
+         + gm2calc::general_thdm::flA(sqr(mS), ml2(1), mw2, mz2)
+         + gm2calc::general_thdm::flA(sqr(mS), ml2(2), mw2, mz2));
+   };
+
+   // Eq.(64), first line, second term
+   const auto amu_Hp_u = [&](double mS) {
+      return -pref_char*(
+         + gm2calc::general_thdm::fuHp(sqr(mS), md2(0), mu2(0), mw2, mz2)
+         + gm2calc::general_thdm::fuHp(sqr(mS), md2(1), mu2(1), mw2, mz2)
+         + gm2calc::general_thdm::fuHp(sqr(mS), md2(2), mu2(2), mw2, mz2));
+   };
+
+   // Eq.(64), first line, second term
+   const auto amu_Hp_d = [&](double mS) {
+      return pref_char*(
+         + gm2calc::general_thdm::fdHp(sqr(mS), md2(0), mu2(0), mw2, mz2)
+         + gm2calc::general_thdm::fdHp(sqr(mS), md2(1), mu2(1), mw2, mz2)
+         + gm2calc::general_thdm::fdHp(sqr(mS), md2(2), mu2(2), mw2, mz2));
+   };
+
+   // Eq.(64), first line, second term
+   const auto amu_Hp_l = [&](double mS) {
+      return pref_char*(
+         + gm2calc::general_thdm::flHp(sqr(mS), ml2(0), mw2, mz2)
+         + gm2calc::general_thdm::flHp(sqr(mS), ml2(1), mw2, mz2)
+         + gm2calc::general_thdm::flHp(sqr(mS), ml2(2), mw2, mz2));
+   };
+
+   // Eq.(64), second line for f = u
+   const auto amu_hH_u = [&](double mS) {
+      return pref_neut*(
+         + gm2calc::general_thdm::fuS(mh2    , mu2(0), mw2, mz2)
+         - gm2calc::general_thdm::fuS(sqr(mS), mu2(0), mw2, mz2)
+         + gm2calc::general_thdm::fuS(mh2    , mu2(1), mw2, mz2)
+         - gm2calc::general_thdm::fuS(sqr(mS), mu2(1), mw2, mz2)
+         + gm2calc::general_thdm::fuS(mh2    , mu2(2), mw2, mz2)
+         - gm2calc::general_thdm::fuS(sqr(mS), mu2(2), mw2, mz2)
+         );
+   };
+
+   // Eq.(64), second line for f = d
+   const auto amu_hH_d = [&](double mS) {
+      return pref_neut*(
+         + gm2calc::general_thdm::fdS(mh2    , md2(0), mw2, mz2)
+         - gm2calc::general_thdm::fdS(sqr(mS), md2(0), mw2, mz2)
+         + gm2calc::general_thdm::fdS(mh2    , md2(1), mw2, mz2)
+         - gm2calc::general_thdm::fdS(sqr(mS), md2(1), mw2, mz2)
+         + gm2calc::general_thdm::fdS(mh2    , md2(2), mw2, mz2)
+         - gm2calc::general_thdm::fdS(sqr(mS), md2(2), mw2, mz2)
+         );
+   };
+
+   // Eq.(64), second line, all terms ~ eta*zeta_l
+   const auto amu_hH_l = [&](double mS) {
+      double res = 0.0;
+      for (int g = 0; g < 3; ++g) {
+         res += 2 * (gm2calc::general_thdm::flS(mh2, ml2(g), mw2, mz2) -
+                     gm2calc::general_thdm::flS(sqr(mS), ml2(g), mw2, mz2)) +
+                gm2calc::general_thdm::fuS(mh2    , mu2(g), mw2, mz2) -
+                gm2calc::general_thdm::fuS(sqr(mS), mu2(g), mw2, mz2) +
+                gm2calc::general_thdm::fdS(mh2    , md2(g), mw2, mz2) -
+                gm2calc::general_thdm::fdS(sqr(mS), md2(g), mw2, mz2);
+      }
+      return pref_neut * res;
+   };
+
+   const auto data = gm2calc::test::read_from_file<double>(
+      std::string(TEST_DATA_DIR) + PATH_SEPARATOR + "figure_8" +
+      PATH_SEPARATOR + "figure_8.txt");
+
+   for (const auto& p: data) {
+      const auto mS = p.at(0);
+      const auto a_H_u = p.at(1);
+      const auto a_H_d = p.at(2);
+      const auto a_H_l = p.at(3);
+      const auto a_A_u = p.at(4);
+      const auto a_A_d = p.at(5);
+      const auto a_A_l = p.at(6);
+      const auto a_Hp_u = p.at(7);
+      const auto a_Hp_d = p.at(8);
+      const auto a_Hp_l = p.at(9);
+      const auto a_hH_u = p.at(10);
+      const auto a_hH_d = p.at(11);
+      const auto a_hH_l = p.at(12);
+      CHECK_CLOSE(std::abs(1e10*amu_H_u(mS)), std::abs(1e10*a_H_u), 1e-12);
+      CHECK_CLOSE(std::abs(1e10*amu_H_d(mS)), std::abs(1e10*a_H_d), 1e-12);
+      CHECK_CLOSE(std::abs(1e10*amu_H_l(mS)), std::abs(1e10*a_H_l), 1e-12);
+      CHECK_CLOSE(std::abs(1e10*amu_A_u(mS)), std::abs(1e10*a_A_u), 1e-12);
+      CHECK_CLOSE(std::abs(1e10*amu_A_d(mS)), std::abs(1e10*a_A_d), 1e-12);
+      CHECK_CLOSE(std::abs(1e10*amu_A_l(mS)), std::abs(1e10*a_A_l), 1e-12);
+      CHECK_CLOSE(std::abs(1e10*amu_Hp_u(mS)), std::abs(1e10*a_Hp_u), 1e-12);
+      CHECK_CLOSE(std::abs(1e10*amu_Hp_d(mS)), std::abs(1e10*a_Hp_d), 1e-12);
+      CHECK_CLOSE(std::abs(1e10*amu_Hp_l(mS)), std::abs(1e10*a_Hp_l), 1e-12);
+      CHECK_CLOSE(std::abs(1e10*amu_hH_u(mS)), std::abs(1e10*a_hH_u), 1e-12);
+      CHECK_CLOSE(std::abs(1e10*amu_hH_d(mS)), std::abs(1e10*a_hH_d), 1e-12);
+      CHECK_CLOSE(std::abs(1e10*amu_hH_l(mS)), std::abs(1e10*a_hH_l), 1e-12);
+   }
+
+   /*
    constexpr int N_steps = 1000;
    const double m_start = 0;
    const double m_stop = 500;
 
-   std::array<double, N_steps> mS{};
-   std::array<double, N_steps> amu_H_u{}, amu_A_u{}, amu_Hp_u{}, amu_hH_u{};
-   std::array<double, N_steps> amu_H_d{}, amu_A_d{}, amu_Hp_d{}, amu_hH_d{};
-   std::array<double, N_steps> amu_H_l{}, amu_A_l{}, amu_Hp_l{}, amu_hH_l{};
-
-   for (int i = 0; i < N_steps; ++i) {
-      mS[i] = m_start + (i + 1.0)*(m_stop - m_start)/N_steps;
-
-      for (int g = 0; g < 3; ++g) {
-         // Eq.(64), first line, first term for h = H
-         amu_H_u[i] += gm2calc::general_thdm::fuS(sqr(mS[i]), mu2(g), mw2, mz2);
-         amu_H_d[i] += gm2calc::general_thdm::fdS(sqr(mS[i]), md2(g), mw2, mz2);
-         amu_H_l[i] += gm2calc::general_thdm::flS(sqr(mS[i]), ml2(g), mw2, mz2);
-
-         // Eq.(64), first line, first term for h = A
-         amu_A_u[i] += -gm2calc::general_thdm::fuA(sqr(mS[i]), mu2(g), mw2, mz2);
-         amu_A_d[i] += gm2calc::general_thdm::fdA(sqr(mS[i]), md2(g), mw2, mz2);
-         amu_A_l[i] += gm2calc::general_thdm::flA(sqr(mS[i]), ml2(g), mw2, mz2);
-
-         // Eq.(64), first line, second term
-         amu_Hp_u[i] += -gm2calc::general_thdm::fuHp(sqr(mS[i]), md2(g), mu2(g), mw2, mz2);
-         amu_Hp_d[i] += gm2calc::general_thdm::fdHp(sqr(mS[i]), md2(g), mu2(g), mw2, mz2);
-         amu_Hp_l[i] += gm2calc::general_thdm::flHp(sqr(mS[i]), ml2(g), mw2, mz2);
-
-         // Eq.(64), second line
-         amu_hH_u[i] += gm2calc::general_thdm::fuS(mh2       , mu2(g), mw2, mz2)
-                      - gm2calc::general_thdm::fuS(sqr(mS[i]), mu2(g), mw2, mz2);
-         amu_hH_d[i] += gm2calc::general_thdm::fdS(mh2       , md2(g), mw2, mz2)
-                      - gm2calc::general_thdm::fdS(sqr(mS[i]), md2(g), mw2, mz2);
-         amu_hH_l[i] += 2*(gm2calc::general_thdm::flS(mh2       , ml2(g), mw2, mz2)
-                         - gm2calc::general_thdm::flS(sqr(mS[i]), ml2(g), mw2, mz2))
-                      + gm2calc::general_thdm::fuS(mh2       , mu2(g), mw2, mz2)
-                      - gm2calc::general_thdm::fuS(sqr(mS[i]), mu2(g), mw2, mz2)
-                      + gm2calc::general_thdm::fdS(mh2       , md2(g), mw2, mz2)
-                      - gm2calc::general_thdm::fdS(sqr(mS[i]), md2(g), mw2, mz2);
-      }
-   }
-
    std::ofstream ostr("figure_8.txt");
 
-   ostr << "# mS^2"
-        << '\t' << "a_u^H" << '\t' << "a_d^H" << '\t' << "a_l^H"
-        << '\t' << "a_u^A" << '\t' << "a_d^A" << '\t' << "a_l^A"
-        << '\t' << "a_u^Hp" << '\t' << "a_d^Hp" << '\t' << "a_l^Hp"
-        << '\t' << "a_u^hH" << '\t' << "a_d^hH" << '\t' << "a_l^hH"
-        << '\n';
+   // ostr << "# mS^2"
+   //      << '\t' << "a_u^H" << '\t' << "a_d^H" << '\t' << "a_l^H"
+   //      << '\t' << "a_u^A" << '\t' << "a_d^A" << '\t' << "a_l^A"
+   //      << '\t' << "a_u^Hp" << '\t' << "a_d^Hp" << '\t' << "a_l^Hp"
+   //      << '\t' << "a_u^hH" << '\t' << "a_d^hH" << '\t' << "a_l^hH"
+   //      << '\n';
 
    for (int i = 0; i < N_steps; ++i) {
+      const double mS = m_start + (i + 1.0)*(m_stop - m_start)/N_steps;
+
       ostr << std::setprecision(std::numeric_limits<double>::digits10 + 1)
-           << mS[i]
-           << '\t' << pref_neut*amu_H_u[i] << '\t' << pref_neut*amu_H_d[i] << '\t' << pref_neut*amu_H_l[i]
-           << '\t' << pref_neut*amu_A_u[i] << '\t' << pref_neut*amu_A_d[i] << '\t' << pref_neut*amu_A_l[i]
-           << '\t' << pref_char*amu_Hp_u[i] << '\t' << pref_char*amu_Hp_d[i] << '\t' << pref_char*amu_Hp_l[i]
-           << '\t' << pref_neut*amu_hH_u[i] << '\t' << pref_neut*amu_hH_d[i] << '\t' << pref_neut*amu_hH_l[i]
+           << mS
+           << '\t' << amu_H_u(mS) << '\t' << amu_H_d(mS) << '\t' << amu_H_l(mS)
+           << '\t' << amu_A_u(mS) << '\t' << amu_A_d(mS) << '\t' << amu_A_l(mS)
+           << '\t' << amu_Hp_u(mS) << '\t' << amu_Hp_d(mS) << '\t' << amu_Hp_l(mS)
+           << '\t' << amu_hH_u(mS) << '\t' << amu_hH_d(mS) << '\t' << amu_hH_l(mS)
            << '\n';
    }
+   */
 }
 
 
