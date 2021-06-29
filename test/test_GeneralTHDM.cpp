@@ -270,7 +270,7 @@ TEST_CASE("fermionic_figure_8")
       std::string(TEST_DATA_DIR) + PATH_SEPARATOR + "figure_8" +
       PATH_SEPARATOR + "figure_8.txt");
 
-   const double eps = 1e-11;
+   const double eps = 1e-10;
 
    for (const auto& p: data) {
       const auto mS = p.at(0);
