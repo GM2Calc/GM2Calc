@@ -163,6 +163,8 @@ FNeutral[Mphi_,mf_,alpha_,mmu_,MW_,MZ_,sw2_,Qf_,gfv_,Yfphi_,Ymuphi_] :=
 
 FCl[xl_] := xl + xl (xl-1) (PolyLog[2,1-1/xl]-Pi^2/6) + (xl-1/2) Log[xl]
 
+(* Note: Second function of Phi commented in FCd and FCu out as should not be in arxiv:1607.06292v2 *)
+
 FCd[xu_,xd_,Qu_,Qd_] :=
     Module[{c,cb,y,s},
            c=(xu-xd)^2-Qu xu+Qd xd;
