@@ -189,8 +189,12 @@ TEST_CASE("fermionic_figure_8")
                       - gm2calc::general_thdm::fuS(sqr(mS[i]), mu2(g), mw2, mz2);
          amu_hH_d[i] += gm2calc::general_thdm::fdS(mh2       , md2(g), mw2, mz2)
                       - gm2calc::general_thdm::fdS(sqr(mS[i]), md2(g), mw2, mz2);
-         amu_hH_l[i] += gm2calc::general_thdm::flS(mh2       , ml2(g), mw2, mz2)
-                      - gm2calc::general_thdm::flS(sqr(mS[i]), ml2(g), mw2, mz2);
+         amu_hH_l[i] += 2*(gm2calc::general_thdm::flS(mh2       , ml2(g), mw2, mz2)
+                         - gm2calc::general_thdm::flS(sqr(mS[i]), ml2(g), mw2, mz2))
+                      + gm2calc::general_thdm::fuS(mh2       , mu2(g), mw2, mz2)
+                      - gm2calc::general_thdm::fuS(sqr(mS[i]), mu2(g), mw2, mz2)
+                      + gm2calc::general_thdm::fdS(mh2       , md2(g), mw2, mz2)
+                      - gm2calc::general_thdm::fdS(sqr(mS[i]), md2(g), mw2, mz2);
       }
    }
 
