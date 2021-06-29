@@ -270,6 +270,8 @@ TEST_CASE("fermionic_figure_8")
       std::string(TEST_DATA_DIR) + PATH_SEPARATOR + "figure_8" +
       PATH_SEPARATOR + "figure_8.txt");
 
+   const double eps = 1e-11;
+
    for (const auto& p: data) {
       const auto mS = p.at(0);
       const auto a_H_u = p.at(1);
@@ -284,18 +286,18 @@ TEST_CASE("fermionic_figure_8")
       const auto a_hH_u = p.at(10);
       const auto a_hH_d = p.at(11);
       const auto a_hH_l = p.at(12);
-      CHECK_CLOSE(std::abs(1e10*amu_H_u(mS)), std::abs(1e10*a_H_u), 1e-12);
-      CHECK_CLOSE(std::abs(1e10*amu_H_d(mS)), std::abs(1e10*a_H_d), 1e-12);
-      CHECK_CLOSE(std::abs(1e10*amu_H_l(mS)), std::abs(1e10*a_H_l), 1e-12);
-      CHECK_CLOSE(std::abs(1e10*amu_A_u(mS)), std::abs(1e10*a_A_u), 1e-12);
-      CHECK_CLOSE(std::abs(1e10*amu_A_d(mS)), std::abs(1e10*a_A_d), 1e-12);
-      CHECK_CLOSE(std::abs(1e10*amu_A_l(mS)), std::abs(1e10*a_A_l), 1e-12);
-      CHECK_CLOSE(std::abs(1e10*amu_Hp_u(mS)), std::abs(1e10*a_Hp_u), 1e-12);
-      CHECK_CLOSE(std::abs(1e10*amu_Hp_d(mS)), std::abs(1e10*a_Hp_d), 1e-12);
-      CHECK_CLOSE(std::abs(1e10*amu_Hp_l(mS)), std::abs(1e10*a_Hp_l), 1e-12);
-      CHECK_CLOSE(std::abs(1e10*amu_hH_u(mS)), std::abs(1e10*a_hH_u), 1e-12);
-      CHECK_CLOSE(std::abs(1e10*amu_hH_d(mS)), std::abs(1e10*a_hH_d), 1e-12);
-      CHECK_CLOSE(std::abs(1e10*amu_hH_l(mS)), std::abs(1e10*a_hH_l), 1e-12);
+      CHECK_CLOSE(std::abs(1e10*amu_H_u(mS)), std::abs(1e10*a_H_u), eps);
+      CHECK_CLOSE(std::abs(1e10*amu_H_d(mS)), std::abs(1e10*a_H_d), eps);
+      CHECK_CLOSE(std::abs(1e10*amu_H_l(mS)), std::abs(1e10*a_H_l), eps);
+      CHECK_CLOSE(std::abs(1e10*amu_A_u(mS)), std::abs(1e10*a_A_u), eps);
+      CHECK_CLOSE(std::abs(1e10*amu_A_d(mS)), std::abs(1e10*a_A_d), eps);
+      CHECK_CLOSE(std::abs(1e10*amu_A_l(mS)), std::abs(1e10*a_A_l), eps);
+      CHECK_CLOSE(std::abs(1e10*amu_Hp_u(mS)), std::abs(1e10*a_Hp_u), eps);
+      CHECK_CLOSE(std::abs(1e10*amu_Hp_d(mS)), std::abs(1e10*a_Hp_d), eps);
+      CHECK_CLOSE(std::abs(1e10*amu_Hp_l(mS)), std::abs(1e10*a_Hp_l), eps);
+      CHECK_CLOSE(std::abs(1e10*amu_hH_u(mS)), std::abs(1e10*a_hH_u), eps);
+      CHECK_CLOSE(std::abs(1e10*amu_hH_d(mS)), std::abs(1e10*a_hH_d), eps);
+      CHECK_CLOSE(std::abs(1e10*amu_hH_l(mS)), std::abs(1e10*a_hH_l), eps);
    }
 
    /*
