@@ -175,12 +175,12 @@ TEST_CASE("fermionic_figure_8")
          amu_H_l[i] += gm2calc::general_thdm::flS(sqr(mS[i]), ml2(g), mw2, mz2);
 
          // Eq.(64), first line, first term for h = A
-         amu_A_u[i] += gm2calc::general_thdm::fuA(sqr(mS[i]), mu2(g), mw2, mz2);
+         amu_A_u[i] += -gm2calc::general_thdm::fuA(sqr(mS[i]), mu2(g), mw2, mz2);
          amu_A_d[i] += gm2calc::general_thdm::fdA(sqr(mS[i]), md2(g), mw2, mz2);
          amu_A_l[i] += gm2calc::general_thdm::flA(sqr(mS[i]), ml2(g), mw2, mz2);
 
          // Eq.(64), first line, second term
-         amu_Hp_u[i] += gm2calc::general_thdm::fuHp(sqr(mS[i]), md2(g), mu2(g), mw2, mz2);
+         amu_Hp_u[i] += -gm2calc::general_thdm::fuHp(sqr(mS[i]), md2(g), mu2(g), mw2, mz2);
          amu_Hp_d[i] += gm2calc::general_thdm::fdHp(sqr(mS[i]), md2(g), mu2(g), mw2, mz2);
          amu_Hp_l[i] += gm2calc::general_thdm::flHp(sqr(mS[i]), ml2(g), mw2, mz2);
 
@@ -198,7 +198,6 @@ TEST_CASE("fermionic_figure_8")
       }
    }
 
-   /*
    std::ofstream ostr("figure_8.txt");
 
    ostr << "# mS^2"
@@ -217,7 +216,6 @@ TEST_CASE("fermionic_figure_8")
            << '\t' << pref_neut*amu_hH_u[i] << '\t' << pref_neut*amu_hH_d[i] << '\t' << pref_neut*amu_hH_l[i]
            << '\n';
    }
-   */
 }
 
 
