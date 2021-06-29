@@ -282,8 +282,10 @@ double T7(double u, double w, double cw2) noexcept
    const auto ra = std::complex<double>(1 + sqr(u - w) - 2*(u + w), 0.0);
    const auto s1 = u + w - 1.0 + std::sqrt(ra); // Eq.(79)
 
+   // Note: overall factor -1/2 is missing in arxiv:1607.06292v2
+
    const auto res =
-      f5*(2*(u + w) - sqr(u - w) - 1)*std::log(s1/(2*std::sqrt(u*w)))
+      -0.5*f5*(2*(u + w) - sqr(u - w) - 1)*std::log(s1/(2*std::sqrt(u*w)))
       *(u + w - 1 - 4*u*w/s1);
 
    return std::real(res);

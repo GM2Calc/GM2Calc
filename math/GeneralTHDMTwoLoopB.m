@@ -61,6 +61,7 @@ T6[u_, w_] :=
 
 
 (* Eq.(78), arxiv:1607.06292 *)
+(* Note: overall factor -1/2 is missing in arxiv:1607.06292v2 *)
 T7[u_, w_] :=
     Module[{ s1 = u + w - 1 + Sqrt[1 + (u - w)^2 - 2*(u + w)] },
            -1/2*f5*(2*(u + w) - (u - w)^2 - 1)*Log[s1/(2*Sqrt[u*w])]*(u + w - 1 - 4*u*w/s1)

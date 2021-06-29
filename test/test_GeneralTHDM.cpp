@@ -251,7 +251,7 @@ TEST_CASE("2-loop_bosonic_nonYuk")
 
    const auto amu = gm2calc::general_thdm::amu2L_B_nonYuk(pars);
 
-   // CHECK_CLOSE(1e10*amu, -0.9831098470297721, 1e-12);
+   CHECK_CLOSE(1e10*amu, -0.9831098470297721, 1e-9);
 }
 
 
