@@ -160,13 +160,13 @@ TEST_CASE("fermionic_figure_8")
    const double m_start = 0;
    const double m_stop = 500;
 
-   std::array<double, N_steps + 1> mS{};
-   std::array<double, N_steps + 1> amu_H_u{}, amu_A_u{}, amu_Hp_u{}, amu_hH_u{};
-   std::array<double, N_steps + 1> amu_H_d{}, amu_A_d{}, amu_Hp_d{}, amu_hH_d{};
-   std::array<double, N_steps + 1> amu_H_l{}, amu_A_l{}, amu_Hp_l{}, amu_hH_l{};
+   std::array<double, N_steps> mS{};
+   std::array<double, N_steps> amu_H_u{}, amu_A_u{}, amu_Hp_u{}, amu_hH_u{};
+   std::array<double, N_steps> amu_H_d{}, amu_A_d{}, amu_Hp_d{}, amu_hH_d{};
+   std::array<double, N_steps> amu_H_l{}, amu_A_l{}, amu_Hp_l{}, amu_hH_l{};
 
-   for (int i = 0; i <= N_steps; ++i) {
-      mS[i] = m_start + i*(m_stop - m_start)/N_steps;
+   for (int i = 0; i < N_steps; ++i) {
+      mS[i] = m_start + (i + 1.0)*(m_stop - m_start)/N_steps;
 
       for (int g = 0; g < 3; ++g) {
          // Eq.(64), first line, first term for h = H
@@ -207,7 +207,7 @@ TEST_CASE("fermionic_figure_8")
         << '\t' << "a_u^hH" << '\t' << "a_d^hH" << '\t' << "a_l^hH"
         << '\n';
 
-   for (int i = 0; i <= N_steps; ++i) {
+   for (int i = 0; i < N_steps; ++i) {
       ostr << std::setprecision(std::numeric_limits<double>::digits10 + 1)
            << mS[i]
            << '\t' << pref_neut*amu_H_u[i] << '\t' << pref_neut*amu_H_d[i] << '\t' << pref_neut*amu_H_l[i]
