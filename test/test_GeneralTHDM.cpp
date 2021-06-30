@@ -26,7 +26,7 @@ double sqr(double x) noexcept { return x*x; }
 TEST_CASE("1-loop_approximation")
 {
    const double zetal = 0.1;
-   const double eta = 0.01; // terms of O(eta) are neglected
+   const double eta = 0.001; // terms of O(eta) are neglected
 
    gm2calc::general_thdm::THDM_1L_parameters pars;
    pars.alpha = 1./137.036;
@@ -34,8 +34,8 @@ TEST_CASE("1-loop_approximation")
    pars.mw = 80.379;
    pars.mz = 91.1876;
    pars.mhSM = 125.09;
-   pars.mh << pars.mhSM, 500.0;
-   pars.mA = 500.0;
+   pars.mh << pars.mhSM, 180.0;
+   pars.mA = 250.0;
    pars.mHp = 500.0;
    pars.ylS << 0.0, 0.0, 0.0,   // electron to {h,H,A}
                1 + eta*zetal,   // muon to h
@@ -57,7 +57,7 @@ TEST_CASE("1-loop_approximation")
          - 0.04/sqr(xHp)
       );
 
-   // CHECK_CLOSE(a1L*1e16, a1L_expected*1e6, 1e-12);
+   CHECK_CLOSE(a1L*1e16, a1L_expected*1e6, 0.01);
 }
 
 
