@@ -33,7 +33,7 @@ namespace {
 
 const double pi = 3.1415926535897932;
 const double pi2 = 9.8696044010893586; // Pi^2
-const double sqrt2 = std::sqrt(2.0); // Sqrt[2]
+const double sqrt2 = 1.4142135623730950; // Sqrt[2]
 
 } // anonymous namespace
 
