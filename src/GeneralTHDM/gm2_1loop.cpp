@@ -29,9 +29,31 @@ namespace gm2calc {
 
 namespace general_thdm {
 
-double amu1L(const THDM_1L_parameters&) noexcept
+namespace {
+
+const double pi = 3.1415926535897932;
+const double pi2 = 9.8696044010893586; // Pi^2
+const double sqrt2 = std::sqrt(2.0); // Sqrt[2]
+
+} // anonymous namespace
+
+double amu1L(const THDM_1L_parameters& pars) noexcept
 {
-   return 0.0;
+   const auto mm2 = pars.mm*pars.mm;
+   const auto mw2 = pars.mw*pars.mw;
+   const auto mz2 = pars.mz*pars.mz;
+   const auto cw2 = mw2/mz2;
+   const auto sw2 = 1 - cw2;
+   const auto delta_r = 0.0; // @todo(alex)
+
+   // Eq.(27), arxiv:1607.06292
+   const auto res = 0.0; // @todo(alex)
+
+   // Eq.(33), arxiv:1607.06292
+   const auto GF = pi*pars.alpha/sqrt2*sw2*mw2*(1 + delta_r);
+   const auto pref = GF*mm2/(4*sqrt2*pi2);
+
+   return pref*res;
 }
 
 } // namespace general_thdm
