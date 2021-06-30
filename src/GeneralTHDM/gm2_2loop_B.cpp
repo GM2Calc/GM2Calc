@@ -273,7 +273,11 @@ double T6(double u, double w, double cw2) noexcept
       + std::log(cw2)/cw2*(2*u2 + u*(cw2 - 4*w) - w*(cw2 - 2*w)));
 }
 
-/// Eq.(78), arxiv:1607.06292
+/**
+ * Eq (78), arxiv:1607.06292
+ *
+ * @note overall factor -1/2 is missing in arxiv:1607.06292v2
+ */
 double T7(double u, double w, double cw2) noexcept
 {
    const auto cw4 = cw2*cw2;
@@ -281,8 +285,6 @@ double T7(double u, double w, double cw2) noexcept
    const auto f5 = cw2*(5 - 16*cw2 + 8*cw4)/sw2;
    const auto ra = std::complex<double>(1 + sqr(u - w) - 2*(u + w), 0.0);
    const auto s1 = u + w - 1.0 + std::sqrt(ra); // Eq.(79)
-
-   // Note: overall factor -1/2 is missing in arxiv:1607.06292v2
 
    const auto res =
       -0.5*f5*(2*(u + w) - sqr(u - w) - 1)*std::log(s1/(2*std::sqrt(u*w)))
