@@ -1,9 +1,11 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN 1
 
 #include "doctest.h"
+#include "GeneralTHDM/gm2_1loop_helpers.hpp"
 #include "GeneralTHDM/gm2_2loop_helpers.hpp"
 #include "read_data.hpp"
 
+#include <cmath>
 #include <fstream>
 #include <iomanip>
 #include <limits>
@@ -12,6 +14,51 @@
    do {                                                 \
       CHECK((a) == doctest::Approx(b).epsilon(eps));    \
    } while (0)
+
+
+namespace {
+
+double sqr(double x) noexcept { return x*x; }
+
+} // anonymous namespace
+
+
+TEST_CASE("1-loop_approximation")
+{
+   const double zetal = 0.1;
+   const double eta = 0.01; // terms of O(eta) are neglected
+
+   gm2calc::general_thdm::THDM_1L_parameters pars;
+   pars.alpha = 1./137.036;
+   pars.mm = 0.10565837;
+   pars.mw = 80.379;
+   pars.mz = 91.1876;
+   pars.mhSM = 125.09;
+   pars.mh << pars.mhSM, 500.0;
+   pars.mA = 500.0;
+   pars.mHp = 500.0;
+   pars.ylS << 0.0, 0.0, 0.0,   // electron to {h,H,A}
+               1 + eta*zetal,   // muon to h
+               -zetal + eta,    // muon to H
+               -zetal,          // muon to A
+               0.0, 0.0, 0.0;   // tau to {h,H,A}
+
+   const auto a1L = gm2calc::general_thdm::amu1L(pars);
+
+   const double xH = pars.mh(1)/100.0;
+   const double xA = pars.mA/100.0;
+   const double xHp = pars.mHp/100.0;
+
+   // Eq.(31), arxiv:1607.06292
+   const double a1L_expected =
+      sqr(zetal/100.0)*(
+         + (3.3 + 0.5*std::log(xH))/sqr(xH)
+         - (3.1 + 0.5*std::log(xA))/sqr(xA)
+         - 0.04/sqr(xHp)
+      );
+
+   // CHECK_CLOSE(a1L*1e16, a1L_expected*1e6, 1e-12);
+}
 
 
 /* Generated with:
@@ -138,7 +185,6 @@ TEST_CASE("2-loop_fermionic_neutral")
 // check data of Fig.8 of arxiv:1607.06292
 TEST_CASE("fermionic_figure_8")
 {
-   const auto sqr = [] (double x) { return x*x; };
    const double pi = 3.1415926535897932;
    const double alpha = 1./137.0;
    const double mm = 0.105658;
