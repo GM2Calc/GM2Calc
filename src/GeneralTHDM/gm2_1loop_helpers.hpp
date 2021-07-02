@@ -44,6 +44,10 @@ struct THDM_1L_parameters {
 
 double amu1L(const THDM_1L_parameters&) noexcept;
 
+// approximations
+
+double amu1L_approx(const THDM_1L_parameters&) noexcept;
+
 } // namespace general_thdm
 
 } // namespace gm2calc
