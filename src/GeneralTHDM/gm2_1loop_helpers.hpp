@@ -53,17 +53,8 @@ double amu1L_approx(const THDM_1L_parameters&) noexcept;
 
 // === auxiliary functions ===
 
-/// parameters to be passed to the 1-loop Delta r contribution
-struct THDM_delta_r_parameters {
-   double alpha{}; ///< alpha_em
-   double mw{};    ///< W boson mass
-   double mz{};    ///< Z boson mass
-   double mA{};    ///< CP-odd Higgs boson mass
-   double mHp{};   ///< charged Higgs boson mass
-   Eigen::Matrix<double,2,1> mh{Eigen::Matrix<double,2,1>::Zero()}; ///< CP-even Higgs bosons masses
-};
-
-double delta_r(const THDM_delta_r_parameters&) noexcept;
+/// 1-loop THDM contribution to \f$\Delta r\f$
+double delta_alpha(double alpha, double mHp, double q) noexcept;
 
 } // namespace general_thdm
 

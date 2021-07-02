@@ -87,44 +87,7 @@ double AHp(int gen, const Eigen::Matrix<double,3,1>& mv, double mS2, const Eigen
 }
 
 
-/// 1-loop THDM contribution to \f$\Delta r\f$
-double delta_alpha(double alpha, double mHp, double q) noexcept
-{
-   return -alpha/(6*pi)*std::log(std::abs(mHp/q));
-}
-
-/// 1-loop THDM contribution to \f$\Delta\rho\f$
-double delta_rho() noexcept
-{
-   return 0.0; // @todo(alex)
-}
-
-/// 1-loop THDM contribution to \f$\Delta r_{\text{rem}}\f$
-double delta_rem() noexcept
-{
-   return 0.0; // @todo(alex)
-}
-
 } // anonymous namespace
-
-
-/**
- * Calculation of the 1-loop THDM contribution to \f$\Delta r\f$
- * from arxiv:1211.0311
- */
-double delta_r(const THDM_delta_r_parameters& pars) noexcept
-{
-   const auto mw2 = sqr(pars.mw);
-   const auto mz2 = sqr(pars.mz);
-   const auto cw2 = mw2/mz2;
-   const auto sw2 = 1 - cw2;
-   const auto d_alpha = delta_alpha(pars.alpha, pars.mHp, pars.mw);
-   const auto d_rho = delta_rho();
-   const auto d_rem = delta_rem();
-
-   // Eq.(11), arxiv:1211.0311
-   return d_alpha - cw2/sw2*d_rho + d_rem;
-}
 
 /**
  * Approximation for 1-loop contribution
@@ -198,6 +161,20 @@ double amu1L(const THDM_1L_parameters& pars) noexcept
    const auto pref = GF*mm2/(4*sqrt2*pi2);
 
    return pref*res;
+}
+
+/**
+ * Calculates the 1-loop THDM contribution to \f$\Delta r\f$
+ *
+ * @param alpha electromagnetic coupling
+ * @param mHp charged Higgs mass
+ * @param q renormalization scalar
+ *
+ * @return 1-loop THDM contribution to \f$\Delta r\f$
+ */
+double delta_alpha(double alpha, double mHp, double q) noexcept
+{
+   return -alpha/(6*pi)*std::log(std::abs(mHp/q));
 }
 
 } // namespace general_thdm
