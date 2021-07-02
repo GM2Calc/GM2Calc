@@ -37,11 +37,10 @@ TEST_CASE("1-loop_approximation")
    pars.mh << pars.mhSM, 180.0;
    pars.mA = 250.0;
    pars.mHp = 500.0;
-   pars.ylS << 0.0, 0.0, 0.0,   // electron to {h,H,A}
-               1 + eta*zetal,   // muon to h
-               -zetal + eta,    // muon to H
-               -zetal,          // muon to A
-               0.0, 0.0, 0.0;   // tau to {h,H,A}
+   pars.ylh(1,1) = 1 + eta*zetal;
+   pars.ylH(1,1) = -zetal + eta;
+   pars.ylA(1,1) = -zetal;
+   pars.ylHp(1,1) = pars.ylA(1,1);
 
    const auto a1L = gm2calc::general_thdm::amu1L_approx(pars);
 

@@ -78,10 +78,10 @@ double amu1L_approx(const THDM_1L_parameters& pars) noexcept
 
    // Eq.(27), arxiv:1607.06292
    const auto res =
-      + sqr(pars.ylS(1,0)) * mm2/mh2 * Fh(mm2/mh2)
-      + sqr(pars.ylS(1,1)) * mm2/mH2 * Fh(mm2/mH2)
-      + sqr(pars.ylS(1,2)) * mm2/mA2 * FA(mm2/mA2)
-      + sqr(pars.ylS(1,2)) * mm2/mHp2 * FHp(mm2/mHp2) // @todo(check) Yukawa prefactor
+      + sqr(pars.ylh(1,1)) * mm2/mh2 * Fh(mm2/mh2)
+      + sqr(pars.ylH(1,1)) * mm2/mH2 * Fh(mm2/mH2)
+      + sqr(pars.ylA(1,1)) * mm2/mA2 * FA(mm2/mA2)
+      + sqr(pars.ylHp(1,1)) * mm2/mHp2 * FHp(mm2/mHp2) // @todo(check) Yukawa prefactor
       // subtract SM contribution
       - mm2/mhSM2 * Fh(mm2/mhSM2);
 

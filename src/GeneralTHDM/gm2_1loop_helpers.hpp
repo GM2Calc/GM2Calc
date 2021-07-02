@@ -34,8 +34,11 @@ struct THDM_1L_parameters {
    double mhSM{};  ///< SM Higgs boson mass
    double mA{};    ///< CP-odd Higgs boson mass
    double mHp{};   ///< charged Higgs boson mass
-   Eigen::Matrix<double,2,1> mh{Eigen::Matrix<double,2,1>::Zero()}; ///< CP-even Higgs bosons mass
-   Eigen::Matrix<double,3,3> ylS{Eigen::Matrix<double,3,3>::Zero()};///< Y_f^S coefficients with f={e,m,τ} and S={h,H,A}
+   Eigen::Matrix<double,2,1> mh{Eigen::Matrix<double,2,1>::Zero()};  ///< CP-even Higgs bosons mass
+   Eigen::Matrix<double,3,3> ylh{Eigen::Matrix<double,3,3>::Zero()}; ///< Y_l^h coefficients with l={e,m,τ}
+   Eigen::Matrix<double,3,3> ylH{Eigen::Matrix<double,3,3>::Zero()}; ///< Y_l^H coefficients with l={e,m,τ}
+   Eigen::Matrix<double,3,3> ylA{Eigen::Matrix<double,3,3>::Zero()}; ///< Y_l^A coefficients with l={e,m,τ}
+   Eigen::Matrix<double,3,3> ylHp{Eigen::Matrix<double,3,3>::Zero()};///< Y_l^{H^\pm} coefficients with l={e,m,τ}
 };
 
 // === 1-loop contributions ===
