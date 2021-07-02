@@ -147,7 +147,7 @@ double amu1L(const THDM_1L_parameters& pars) noexcept
 
    double res = 0.0;
 
-   for (int g = 1; g <= 1; ++g) {
+   for (int g = 0; g < 3; ++g) {
       res += 0.5 * mm2/mh2 * AS(g, pars.ml, mh2, pars.ylh);
       res += 0.5 * mm2/mH2 * AS(g, pars.ml, mH2, pars.ylH);
       res += 0.5 * mm2/mA2 * AA(g, pars.ml, mA2, pars.ylA);
