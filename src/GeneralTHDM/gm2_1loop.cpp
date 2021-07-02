@@ -17,7 +17,9 @@
 // ====================================================================
 
 #include "GeneralTHDM/gm2_1loop_helpers.hpp"
+#include "gm2_ffunctions.hpp"
 #include <cmath>
+#include <complex>
 
 /**
  * \file gm2_1loop.cpp
@@ -38,6 +40,8 @@ const double sqrt2 = 1.4142135623730950; // Sqrt[2]
 
 double sqr(double x) noexcept { return x*x; }
 
+double conj(double x) noexcept { return x; }
+
 /// Eq.(28), arxiv:1607.06292
 double Fh(double x) noexcept
 {
@@ -54,6 +58,22 @@ double FA(double x) noexcept
 double FHp(double x) noexcept
 {
    return -1.0/6;
+}
+
+double AS(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen::Matrix<double,3,3>& y) noexcept
+{
+   const auto x = sqr(ml(gen))/mS2;
+   const double y2 = conj(y(gen, 1))*conj(y(1, gen));
+
+   return
+      + 1.0/12*F1C(x)*(std::norm(y(gen, 1)) + std::norm(y(1, gen)))
+      + 2.0/3*ml(gen)/ml(1)*F2C(x)*y2;
+}
+
+double AHp(int gen, const Eigen::Matrix<double,3,1>& mv, double mS2, const Eigen::Matrix<double,3,3>& y) noexcept
+{
+   return std::norm(y(gen, 1))/24*(
+      F1N(sqr(mv(1))/mS2) + F1N(sqr(mv(gen))/mS2));
 }
 
 } // anonymous namespace
@@ -92,9 +112,39 @@ double amu1L_approx(const THDM_1L_parameters& pars) noexcept
    return pref*res;
 }
 
-double amu1L(const THDM_1L_parameters&) noexcept
+double amu1L(const THDM_1L_parameters& pars) noexcept
 {
-   return 0.0;
+   const auto mm2 = sqr(pars.mm);
+   const auto mw2 = sqr(pars.mw);
+   const auto mz2 = sqr(pars.mz);
+   const auto cw2 = mw2/mz2;
+   const auto sw2 = 1 - cw2;
+   const auto mhSM2 = sqr(pars.mhSM);
+   const auto mh2 = sqr(pars.mh(0));
+   const auto mH2 = sqr(pars.mh(1));
+   const auto mA2 = sqr(pars.mA);
+   const auto mHp2 = sqr(pars.mHp);
+   const auto delta_r = 0.0; // @todo(alex)
+   Eigen::Matrix<double,3,3> ylhSM{Eigen::Matrix<double,3,3>::Zero()};
+   ylhSM(1,1) = 1.0;
+
+   double res = 0.0;
+
+   for (int g = 0; g < 3; ++g) {
+      res += mm2/mh2 * AS(g, pars.ml, mh2, pars.ylh);
+      res += mm2/mH2 * AS(g, pars.ml, mH2, pars.ylH);
+      res += mm2/mA2 * AS(g, pars.ml, mA2, pars.ylA);
+      res += mm2/mHp2 * AHp(g, pars.mv, mHp2, pars.ylHp);
+      // subtract SM contribution
+      res -= mm2/mhSM2 * AS(g, pars.ml, mhSM2, ylhSM);
+   }
+
+   const auto GF = pi*pars.alpha/(sqrt2*sw2*mw2)*(1 + delta_r);
+   const auto pref = GF*mm2/(4*sqrt2*pi2);
+
+   // const auto pref = 2*pi*pars.alpha*mm2/(sw2*mw2);
+
+   return pref*res;
 }
 
 } // namespace general_thdm

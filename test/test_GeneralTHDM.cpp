@@ -23,6 +23,33 @@ double sqr(double x) noexcept { return x*x; }
 } // anonymous namespace
 
 
+TEST_CASE("1-loop")
+{
+   const double zetal = 0.1;
+   const double eta = 0.001; // terms of O(eta) are neglected
+
+   gm2calc::general_thdm::THDM_1L_parameters pars;
+   pars.alpha = 1./137.036;
+   pars.mm = 0.10565837;
+   pars.ml << 510.999e-6, pars.mm, 1.7768;
+   pars.mw = 80.379;
+   pars.mz = 91.1876;
+   pars.mhSM = 125.09;
+   pars.mh << pars.mhSM, 180.0;
+   pars.mA = 250.0;
+   pars.mHp = 500.0;
+   pars.ylh(1,1) = 1 + eta*zetal;
+   pars.ylH(1,1) = -zetal + eta;
+   pars.ylA(1,1) = -zetal;
+   pars.ylHp(1,1) = pars.ylA(1,1);
+
+   const auto a1L = gm2calc::general_thdm::amu1L(pars);
+   const auto a1L_approx = gm2calc::general_thdm::amu1L_approx(pars);
+
+   // CHECK_CLOSE(a1L*1e16, a1L_approx*1e16, 0.01);
+}
+
+
 TEST_CASE("1-loop_approximation")
 {
    const double zetal = 0.1;
