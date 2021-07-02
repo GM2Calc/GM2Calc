@@ -70,6 +70,16 @@ double AS(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen:
       + 2.0/3*ml(gen)/ml(1)*F2C(x)*y2;
 }
 
+double AA(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen::Matrix<double,3,3>& y) noexcept
+{
+   const auto x = sqr(ml(gen))/mS2;
+   const double y2 = conj(y(gen, 1))*conj(y(1, gen));
+
+   return
+      + 1.0/12*F1C(x)*(std::norm(y(gen, 1)) + std::norm(y(1, gen)))
+      - 2.0/3*ml(gen)/ml(1)*F2C(x)*y2;
+}
+
 double AHp(int gen, const Eigen::Matrix<double,3,1>& mv, double mS2, const Eigen::Matrix<double,3,3>& y) noexcept
 {
    return std::norm(y(gen, 1))/24*(
@@ -101,7 +111,7 @@ double amu1L_approx(const THDM_1L_parameters& pars) noexcept
       + sqr(pars.ylh(1,1)) * mm2/mh2 * Fh(mm2/mh2)
       + sqr(pars.ylH(1,1)) * mm2/mH2 * Fh(mm2/mH2)
       + sqr(pars.ylA(1,1)) * mm2/mA2 * FA(mm2/mA2)
-      + sqr(pars.ylHp(1,1)) * mm2/mHp2 * FHp(mm2/mHp2) // @todo(check) Yukawa prefactor
+      + sqr(pars.ylHp(1,1)) * mm2/mHp2 * FHp(mm2/mHp2)
       // subtract SM contribution
       - mm2/mhSM2 * Fh(mm2/mhSM2);
 
@@ -112,6 +122,13 @@ double amu1L_approx(const THDM_1L_parameters& pars) noexcept
    return pref*res;
 }
 
+/**
+ * 1-loop contribution
+ *
+ * @note The CP-odd couplings are assumed to be real
+ * @todo(alex) check prefactor 1/2 for neutral contributions
+ * @todo(alex) check prefactor (-1) for charged contributions
+ */
 double amu1L(const THDM_1L_parameters& pars) noexcept
 {
    const auto mm2 = sqr(pars.mm);
@@ -130,19 +147,17 @@ double amu1L(const THDM_1L_parameters& pars) noexcept
 
    double res = 0.0;
 
-   for (int g = 0; g < 3; ++g) {
-      res += mm2/mh2 * AS(g, pars.ml, mh2, pars.ylh);
-      res += mm2/mH2 * AS(g, pars.ml, mH2, pars.ylH);
-      res += mm2/mA2 * AS(g, pars.ml, mA2, pars.ylA);
-      res += mm2/mHp2 * AHp(g, pars.mv, mHp2, pars.ylHp);
+   for (int g = 1; g <= 1; ++g) {
+      res += 0.5 * mm2/mh2 * AS(g, pars.ml, mh2, pars.ylh);
+      res += 0.5 * mm2/mH2 * AS(g, pars.ml, mH2, pars.ylH);
+      res += 0.5 * mm2/mA2 * AA(g, pars.ml, mA2, pars.ylA);
+      res += -mm2/mHp2 * AHp(g, pars.mv, mHp2, pars.ylHp);
       // subtract SM contribution
-      res -= mm2/mhSM2 * AS(g, pars.ml, mhSM2, ylhSM);
+      res -= 0.5 * mm2/mhSM2 * AS(g, pars.ml, mhSM2, ylhSM);
    }
 
    const auto GF = pi*pars.alpha/(sqrt2*sw2*mw2)*(1 + delta_r);
    const auto pref = GF*mm2/(4*sqrt2*pi2);
-
-   // const auto pref = 2*pi*pars.alpha*mm2/(sw2*mw2);
 
    return pref*res;
 }
