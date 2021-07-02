@@ -58,7 +58,11 @@ double FHp(double x) noexcept
 
 } // anonymous namespace
 
-double amu1L(const THDM_1L_parameters& pars) noexcept
+/**
+ * Approximation for 1-loop contribution
+ * Eq (27) from arxiv:1607.06292
+ */
+double amu1L_approx(const THDM_1L_parameters& pars) noexcept
 {
    const auto mm2 = sqr(pars.mm);
    const auto mw2 = sqr(pars.mw);
@@ -86,6 +90,11 @@ double amu1L(const THDM_1L_parameters& pars) noexcept
    const auto pref = GF*mm2/(4*sqrt2*pi2);
 
    return pref*res;
+}
+
+double amu1L(const THDM_1L_parameters&) noexcept
+{
+   return 0.0;
 }
 
 } // namespace general_thdm

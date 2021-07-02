@@ -35,14 +35,16 @@ struct THDM_1L_parameters {
    double mA{};    ///< CP-odd Higgs boson mass
    double mHp{};   ///< charged Higgs boson mass
    Eigen::Matrix<double,2,1> mh{Eigen::Matrix<double,2,1>::Zero()}; ///< CP-even Higgs bosons mass
-   Eigen::Matrix<double,3,3> yuS{Eigen::Matrix<double,3,3>::Zero()};///< Y_f^S coefficients with f={u,c,t} and S={h,H,A}
-   Eigen::Matrix<double,3,3> ydS{Eigen::Matrix<double,3,3>::Zero()};///< Y_f^S coefficients with f={d,s,b} and S={h,H,A}
    Eigen::Matrix<double,3,3> ylS{Eigen::Matrix<double,3,3>::Zero()};///< Y_f^S coefficients with f={e,m,τ} and S={h,H,A}
 };
 
 // === 1-loop contributions ===
 
 double amu1L(const THDM_1L_parameters&) noexcept;
+
+// approximations
+
+double amu1L_approx(const THDM_1L_parameters&) noexcept;
 
 } // namespace general_thdm
 

@@ -43,7 +43,7 @@ TEST_CASE("1-loop_approximation")
                -zetal,          // muon to A
                0.0, 0.0, 0.0;   // tau to {h,H,A}
 
-   const auto a1L = gm2calc::general_thdm::amu1L(pars);
+   const auto a1L = gm2calc::general_thdm::amu1L_approx(pars);
 
    const double xH = pars.mh(1)/100.0;
    const double xA = pars.mA/100.0;
