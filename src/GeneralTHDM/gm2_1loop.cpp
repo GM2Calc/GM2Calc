@@ -45,19 +45,19 @@ double conj(double x) noexcept { return x; }
 /// Eq.(28), arxiv:1607.06292
 double Fh(double x) noexcept
 {
-   return -std::log(x) - 7.0/6;
+   return F1C(x)/12 + F2C(x)/3;
 }
 
 /// Eq.(29), arxiv:1607.06292
 double FA(double x) noexcept
 {
-   return std::log(x) + 11.0/6;
+   return F1C(x)/12 - F2C(x)/3;
 }
 
 /// Eq.(30), arxiv:1607.06292
 double FHp(double x) noexcept
 {
-   return -1.0/6;
+   return -F1N(x)/12;
 }
 
 double AS(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen::Matrix<double,3,3>& y) noexcept

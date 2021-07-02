@@ -46,7 +46,7 @@ TEST_CASE("1-loop")
    const auto a1L = gm2calc::general_thdm::amu1L(pars);
    const auto a1L_approx = gm2calc::general_thdm::amu1L_approx(pars);
 
-   CHECK_CLOSE(a1L*1e16, a1L_approx*1e16, 1e-6);
+   CHECK_CLOSE(a1L*1e16, a1L_approx*1e16, 1e-10);
 }
 
 
