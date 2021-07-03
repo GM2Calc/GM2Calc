@@ -53,7 +53,7 @@ double amu1L_approx(const THDM_1L_parameters&) noexcept;
 
 // === auxiliary functions ===
 
-/// 1-loop THDM contribution to \f$\Delta r\f$
+/// 1-loop THDM contribution to \f$\Delta\alpha\f$
 double delta_alpha(double alpha, double mHp, double q) noexcept;
 
 } // namespace general_thdm

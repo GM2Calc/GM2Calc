@@ -164,13 +164,14 @@ double amu1L(const THDM_1L_parameters& pars) noexcept
 }
 
 /**
- * Calculates the 1-loop THDM contribution to \f$\Delta r\f$
+ * Calculates the 1-loop THDM contribution to \f$\Delta\alpha\f$.
+ * \f$\alpha^{\text{THDM}} = \alpha^{\text{SM}}/(1 - \Delta\alpha)\f$
  *
  * @param alpha electromagnetic coupling
  * @param mHp charged Higgs mass
- * @param q renormalization scalar
+ * @param q renormalization scale
  *
- * @return 1-loop THDM contribution to \f$\Delta r\f$
+ * @return 1-loop THDM contribution to \f$\Delta\alpha\f$
  */
 double delta_alpha(double alpha, double mHp, double q) noexcept
 {
