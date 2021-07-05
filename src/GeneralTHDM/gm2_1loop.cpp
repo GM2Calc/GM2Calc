@@ -143,8 +143,11 @@ double amu1L(const THDM_1L_parameters& pars) noexcept
    const auto mA2 = sqr(pars.mA);
    const auto mHp2 = sqr(pars.mHp);
    const auto delta_r = 0.0; // neglected
-   Eigen::Matrix<double,3,3> ylhSM{Eigen::Matrix<double,3,3>::Zero()};
-   ylhSM(1,1) = 1.0;
+   const Eigen::Matrix<double, 3, 3> ylhSM{
+      (Eigen::Matrix<double, 3, 3>()
+       << 0.0, 0.0, 0.0,
+          0.0, 1.0, 0.0,
+          0.0, 0.0, 0.0).finished()};
 
    double res = 0.0;
 
