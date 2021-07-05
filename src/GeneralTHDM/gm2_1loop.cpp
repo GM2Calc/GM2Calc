@@ -156,9 +156,10 @@ double amu1L(const THDM_1L_parameters& pars) noexcept
       res += 0.5 * mm2/mH2 * AS(g, pars.ml, mH2, pars.ylH);
       res += 0.5 * mm2/mA2 * AA(g, pars.ml, mA2, pars.ylA);
       res += -mm2/mHp2 * AHp(g, pars.mv, mHp2, pars.ylHp);
-      // subtract SM contribution
-      res -= 0.5 * mm2/mhSM2 * AS(g, pars.ml, mhSM2, ylhSM);
    }
+
+   // subtract SM contribution
+   res -= 0.5 * mm2/mhSM2 * AS(1, pars.ml, mhSM2, ylhSM);
 
    const auto GF = pi*pars.alpha/(sqrt2*sw2*mw2)*(1 + delta_r);
    const auto pref = GF*mm2/(4*sqrt2*pi2);
