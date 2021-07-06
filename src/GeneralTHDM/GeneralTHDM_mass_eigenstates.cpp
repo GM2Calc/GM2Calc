@@ -245,36 +245,22 @@ Eigen::Array<double,1,1> CLASSNAME::get_MPseudoscalarHiggs() const
 
 double CLASSNAME::get_mass_matrix_VG() const
 {
-   const double mass_matrix_VG = 0.0;
-   return mass_matrix_VG;
+   return 0.0;
 }
 
 void CLASSNAME::calculate_MVG()
 {
-   const auto mass_matrix_VG = get_mass_matrix_VG();
-   MVG = mass_matrix_VG;
+   MVG = 0.0;
 }
 
 Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fv() const
 {
-   Eigen::Matrix<double,3,3> mass_matrix_Fv;
-
-   mass_matrix_Fv(0,0) = 0;
-   mass_matrix_Fv(0,1) = 0;
-   mass_matrix_Fv(0,2) = 0;
-   mass_matrix_Fv(1,1) = 0;
-   mass_matrix_Fv(1,2) = 0;
-   mass_matrix_Fv(2,2) = 0;
-
-   symmetrize(mass_matrix_Fv);
-
-   return mass_matrix_Fv;
+   return Eigen::Matrix<double,3,3>::Zero();
 }
 
 void CLASSNAME::calculate_MFv()
 {
-
-   MFv.setConstant(0);
+   MFv.setZero();
 }
 
 Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_hh() const
