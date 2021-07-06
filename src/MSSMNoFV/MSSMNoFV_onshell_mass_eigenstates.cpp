@@ -32,6 +32,7 @@
 
 #include "gm2_eigen_utils.hpp"
 #include "gm2_linalg.hpp"
+#include "gm2_numerics.hpp"
 #include "gm2_raii.hpp"
 
 #include <cmath>
@@ -102,10 +103,10 @@ int CLASSNAME::solve_ewsb_tree_level_via_soft_higgs_masses()
    const double old_mHu2 = mHu2;
 
    mHd2 = (0.025*(-40*vd*sqr(Mu) + 20*vu*BMu + 20*vu*
-      BMu - 3*std::pow(vd,3)*sqr(g1) - 5*std::pow(vd,3)*sqr(g2) + 3*vd*sqr(g1)*sqr
+      BMu - 3*cube(vd)*sqr(g1) - 5*cube(vd)*sqr(g2) + 3*vd*sqr(g1)*sqr
       (vu) + 5*vd*sqr(g2)*sqr(vu)))/vd;
    mHu2 = (0.025*(-40*vu*sqr(Mu) + 20*vd*BMu + 20*vd*
-      BMu - 3*std::pow(vu,3)*sqr(g1) - 5*std::pow(vu,3)*sqr(g2) + 3*vu*sqr(g1)*sqr
+      BMu - 3*cube(vu)*sqr(g1) - 5*cube(vu)*sqr(g2) + 3*vu*sqr(g1)*sqr
       (vd) + 5*vu*sqr(g2)*sqr(vd)))/vu;
 
    const bool is_finite = std::isfinite(mHd2) && std::isfinite(mHu2);
@@ -963,7 +964,7 @@ void CLASSNAME::calculate_MVWm()
 double CLASSNAME::get_ewsb_eq_hh_1() const
 {
    double result = mHd2*vd + vd*sqr(Mu) - 0.5*vu*BMu - 0.5*vu*BMu +
-      0.075*std::pow(vd,3)*sqr(g1) + 0.125*std::pow(vd,3)*sqr(g2) - 0.075*vd*sqr(g1)*
+      0.075*cube(vd)*sqr(g1) + 0.125*cube(vd)*sqr(g2) - 0.075*vd*sqr(g1)*
       sqr(vu) - 0.125*vd*sqr(g2)*sqr(vu);
 
    return result;
@@ -972,7 +973,7 @@ double CLASSNAME::get_ewsb_eq_hh_1() const
 double CLASSNAME::get_ewsb_eq_hh_2() const
 {
    double result = mHu2*vu + vu*sqr(Mu) - 0.5*vd*BMu - 0.5*vd*BMu +
-      0.075*std::pow(vu,3)*sqr(g1) + 0.125*std::pow(vu,3)*sqr(g2) - 0.075*vu*sqr(g1)*
+      0.075*cube(vu)*sqr(g1) + 0.125*cube(vu)*sqr(g2) - 0.075*vu*sqr(g1)*
       sqr(vd) - 0.125*vu*sqr(g2)*sqr(vd);
 
    return result;

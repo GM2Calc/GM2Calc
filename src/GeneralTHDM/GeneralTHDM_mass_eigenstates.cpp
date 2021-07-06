@@ -39,12 +39,6 @@
 
 namespace gm2calc {
 
-namespace {
-
-double cube(double x) noexcept { return x*x*x; }
-
-} // anonymous namespace
-
 #define CLASSNAME GeneralTHDM_mass_eigenstates
 #define PHYSICAL(parameter) physical.parameter
 
