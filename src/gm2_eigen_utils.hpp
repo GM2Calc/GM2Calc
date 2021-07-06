@@ -131,35 +131,6 @@ Eigen::Array<Real,Nsrc - Ncmp,1> remove_if_equal(
 }
 
 /**
- * Copies all elements from src to dst which are not close to the
- * elements in cmp.
- *
- * @todo(alex) remove this function and replace by simpler one
- *
- * @param src source vector
- * @param cmp vector with elements to compare against
- * @param dst destination vector
- */
-template<class Real, int Nsrc, int Ncmp, int Ndst>
-void remove_if_equal(const Eigen::Array<Real,Nsrc,1>& src,
-                     const Eigen::Array<Real,Ncmp,1>& cmp,
-                     Eigen::Array<Real,Ndst,1>& dst)
-{
-   static_assert(Nsrc == Ncmp + Ndst,
-                 "Error: remove_if_equal: vectors have incompatible length!");
-
-   Eigen::Array<Real,Nsrc,1> non_equal(src);
-
-   for (int i = 0; i < Ncmp; i++) {
-      const int idx = closest_index(cmp(i), non_equal);
-      non_equal(idx) = std::numeric_limits<double>::infinity();
-   }
-
-   std::remove_copy_if(non_equal.data(), non_equal.data() + Nsrc,
-                       dst.data(), Is_not_finite<Real>());
-}
-
-/**
  * @brief reorders vector v according to ordering in vector v2
  * @param v vector with elementes to be reordered
  * @param v2 vector with reference ordering

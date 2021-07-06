@@ -232,7 +232,7 @@ Eigen::Array<double,1,1> CLASSNAME::get_MChargedHiggs() const
    Eigen::Array<double,1,1> MHm_goldstone;
    MHm_goldstone(0) = MVWm;
 
-   return remove_if_equal(MHm, MHm_goldstone);
+   return remove_if_equal<double,2,1>(MHm, MHm_goldstone);
 }
 
 Eigen::Array<double,1,1> CLASSNAME::get_MPseudoscalarHiggs() const
@@ -240,7 +240,7 @@ Eigen::Array<double,1,1> CLASSNAME::get_MPseudoscalarHiggs() const
    Eigen::Array<double,1,1> MAh_goldstone;
    MAh_goldstone(0) = MVZ;
 
-   return remove_if_equal(MAh, MAh_goldstone);
+   return remove_if_equal<double,2,1>(MAh, MAh_goldstone);
 }
 
 double CLASSNAME::get_mass_matrix_VG() const

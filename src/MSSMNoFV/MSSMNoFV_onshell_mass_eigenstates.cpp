@@ -319,26 +319,18 @@ void CLASSNAME::reorder_pole_masses()
 
 Eigen::Array<double,1,1> CLASSNAME::get_MChargedHiggs() const
 {
-   Eigen::Array<double,1,1> MHpm_ChargedHiggs;
    Eigen::Array<double,1,1> MHpm_goldstone;
-
    MHpm_goldstone(0) = MVWm;
 
-   remove_if_equal<double,2,1,1>(MHpm, MHpm_goldstone, MHpm_ChargedHiggs);
-
-   return MHpm_ChargedHiggs;
+   return remove_if_equal<double,2,1>(MHpm, MHpm_goldstone);
 }
 
 Eigen::Array<double,1,1> CLASSNAME::get_MPseudoscalarHiggs() const
 {
-   Eigen::Array<double,1,1> MAh_PseudoscalarHiggs;
    Eigen::Array<double,1,1> MAh_goldstone;
-
    MAh_goldstone(0) = MVZ;
 
-   remove_if_equal<double,2,1,1>(MAh, MAh_goldstone, MAh_PseudoscalarHiggs);
-
-   return MAh_PseudoscalarHiggs;
+   return remove_if_equal<double,2,1>(MAh, MAh_goldstone);
 }
 
 
