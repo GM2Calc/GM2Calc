@@ -16,6 +16,9 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
+#ifndef GM2_EIGEN_UTILS_HPP
+#define GM2_EIGEN_UTILS_HPP
+
 #include <Eigen/Core>
 
 namespace gm2calc {
@@ -100,8 +103,38 @@ void move_goldstone_to(int idx, double mass, Eigen::ArrayBase<DerivedArray>& v,
 }
 
 /**
+ * Returns all elements from src, which are not close to the elements
+ * in cmp.  The returned vector will have the length (src.size() -
+ * cmp.size()).
+ *
+ * @param src source vector
+ * @param cmp vector with elements to compare against
+ * @return vector with elements of src not close to cmp
+ */
+template<class Real, int Nsrc, int Ncmp>
+Eigen::Array<Real,Nsrc - Ncmp,1> remove_if_equal(
+   const Eigen::Array<Real,Nsrc,1>& src,
+   const Eigen::Array<Real,Ncmp,1>& cmp)
+{
+   Eigen::Array<Real,Nsrc,1> non_equal(src);
+   Eigen::Array<Real,Nsrc - Ncmp,1> dst;
+
+   for (int i = 0; i < Ncmp; i++) {
+      const int idx = closest_index(cmp(i), non_equal);
+      non_equal(idx) = std::numeric_limits<double>::infinity();
+   }
+
+   std::remove_copy_if(non_equal.data(), non_equal.data() + Nsrc,
+                       dst.data(), Is_not_finite<Real>());
+
+   return dst;
+}
+
+/**
  * Copies all elements from src to dst which are not close to the
  * elements in cmp.
+ *
+ * @todo(alex) remove this function and replace by simpler one
  *
  * @param src source vector
  * @param cmp vector with elements to compare against
@@ -176,3 +209,5 @@ void symmetrize(Eigen::MatrixBase<Derived>& m)
 }
 
 } // namespace gm2calc
+
+#endif

@@ -32,6 +32,7 @@
 
 #include "gm2_eigen_utils.hpp"
 #include "gm2_linalg.hpp"
+#include "gm2_raii.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -39,31 +40,6 @@
 #include <limits>
 
 namespace {
-
-/**
- * @class RAII_save
- * @brief Saves value of variable and restores it at destruction
- */
-template <typename T>
-class RAII_save {
-public:
-   explicit RAII_save(T& var_) noexcept : var(var_), value(var_) {}
-   RAII_save(const RAII_save&) = delete;
-   RAII_save(RAII_save&&) noexcept = default;
-   ~RAII_save() { var = value; }
-   RAII_save& operator=(const RAII_save&) = delete;
-   RAII_save& operator=(RAII_save&& other) noexcept = default;
-
-private:
-   T& var;
-   T value{};
-};
-
-template <typename T>
-constexpr RAII_save<T> make_raii_save(T& var)
-{
-   return RAII_save<T>(var);
-}
 
 template <typename Derived>
 void hermitianize(Eigen::MatrixBase<Derived>& m)
