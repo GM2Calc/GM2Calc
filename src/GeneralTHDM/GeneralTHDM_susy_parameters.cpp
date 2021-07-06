@@ -16,7 +16,7 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "GeneralTHDM_susy_parameters.hpp"
+#include "gm2calc/GeneralTHDM_susy_parameters.hpp"
 
 #include <iostream>
 

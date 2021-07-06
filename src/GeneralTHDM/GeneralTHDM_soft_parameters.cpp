@@ -16,7 +16,7 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "GeneralTHDM_soft_parameters.hpp"
+#include "gm2calc/GeneralTHDM_soft_parameters.hpp"
 
 #include <iostream>
 
