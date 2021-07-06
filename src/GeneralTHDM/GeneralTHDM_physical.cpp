@@ -52,7 +52,6 @@ void GeneralTHDM_physical::print(std::ostream& ostr) const
    ostr << "Ve = " << Ve << '\n';
    ostr << "Ue = " << Ue << '\n';
    ostr << "ZZ = " << ZZ << '\n';
-
 }
 
 std::ostream& operator<<(std::ostream& ostr, const GeneralTHDM_physical& phys_pars)
