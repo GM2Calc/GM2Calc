@@ -21,6 +21,7 @@ add_library(gm2calc
   GeneralTHDM/gm2_1loop.cpp
   GeneralTHDM/gm2_2loop_B.cpp
   GeneralTHDM/gm2_2loop_F.cpp
+  GeneralTHDM/GTHDM_susy_parameters.cpp
   )
 target_include_directories(gm2calc
   PUBLIC
