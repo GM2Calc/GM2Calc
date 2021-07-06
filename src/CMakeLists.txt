@@ -21,7 +21,9 @@ add_library(gm2calc
   GeneralTHDM/gm2_1loop.cpp
   GeneralTHDM/gm2_2loop_B.cpp
   GeneralTHDM/gm2_2loop_F.cpp
+  GeneralTHDM/GeneralTHDM_mass_eigenstates.cpp
   GeneralTHDM/GeneralTHDM_physical.cpp
+  GeneralTHDM/GeneralTHDM_problems.cpp
   GeneralTHDM/GeneralTHDM_soft_parameters.cpp
   GeneralTHDM/GeneralTHDM_susy_parameters.cpp
   )
