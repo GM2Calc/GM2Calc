@@ -28,31 +28,31 @@ namespace gm2calc {
 template <typename T> T sqr(T x) noexcept { return x*x; }
 
 /// returns square root of absolute of number
-double abs_sqrt(double);
+double abs_sqrt(double) noexcept;
 
 /// returns sign of real number
 int sign(double) noexcept;
 
 /// returns square root of absolute of number, times sign
-double signed_abs_sqrt(double);
+double signed_abs_sqrt(double) noexcept;
 
 /// returns square of number, times sign
-double signed_sqr(double);
+double signed_sqr(double) noexcept;
 
 template <typename T>
-bool is_zero(T a, T eps)
+bool is_zero(T a, T eps) noexcept
 {
    return std::fabs(a) < eps;
 }
 
 template <typename T>
-bool is_equal(T a, T b, T eps)
+bool is_equal(T a, T b, T eps) noexcept
 {
    return is_zero(a - b, eps);
 }
 
 template <typename T>
-bool is_equal_rel(T a, T b, T eps)
+bool is_equal_rel(T a, T b, T eps) noexcept
 {
    const double zero_eps = std::numeric_limits<T>::epsilon();
 
