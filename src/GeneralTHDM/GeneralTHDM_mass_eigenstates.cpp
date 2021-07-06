@@ -156,7 +156,7 @@ void CLASSNAME::print(std::ostream& ostr) const
 /**
  * routine which finds the MSbar mass eigenstates and mixings.
  */
-void CLASSNAME::calculate_DRbar_masses()
+void CLASSNAME::calculate_MSbar_masses()
 {
    const auto save_M112_raii = make_raii_save(M112);
    const auto save_M222_raii = make_raii_save(M222);
@@ -175,7 +175,7 @@ void CLASSNAME::calculate_DRbar_masses()
    calculate_MVG();
 }
 
-void CLASSNAME::copy_DRbar_masses_to_pole_masses()
+void CLASSNAME::copy_MSbar_masses_to_pole_masses()
 {
    PHYSICAL(MVG) = MVG;
    PHYSICAL(MFv) = MFv;
@@ -206,7 +206,7 @@ void CLASSNAME::copy_DRbar_masses_to_pole_masses()
  * gauge boson (see Z-boson definition in default particles.m file
  * in the Models directory of your SARAH distribution for example)
  */
-void CLASSNAME::reorder_DRbar_masses()
+void CLASSNAME::reorder_MSbar_masses()
 {
    move_goldstone_to(0, MVZ, MAh, ZA);
    move_goldstone_to(0, MVWm, MHm, ZP);

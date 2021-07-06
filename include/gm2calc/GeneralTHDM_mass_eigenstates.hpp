@@ -50,11 +50,11 @@ public:
 
    void print(std::ostream&) const override;
 
-   void calculate_DRbar_masses();
-   void copy_DRbar_masses_to_pole_masses();
+   void calculate_MSbar_masses();
+   void copy_MSbar_masses_to_pole_masses();
    void do_force_output(bool);
    bool do_force_output() const;
-   void reorder_DRbar_masses();
+   void reorder_MSbar_masses();
    void reorder_pole_masses();
    void set_physical(const GeneralTHDM_physical&);
    const GeneralTHDM_physical& get_physical() const;
