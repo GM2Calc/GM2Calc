@@ -34,10 +34,8 @@
 #include "gm2_linalg.hpp"
 #include "gm2_raii.hpp"
 
-#include <algorithm>
 #include <cmath>
 #include <iostream>
-#include <limits>
 
 namespace {
 

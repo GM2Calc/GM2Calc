@@ -19,6 +19,8 @@
 #ifndef GM2_EIGEN_UTILS_HPP
 #define GM2_EIGEN_UTILS_HPP
 
+#include <algorithm>
+#include <limits>
 #include <Eigen/Core>
 
 namespace gm2calc {

@@ -35,9 +35,7 @@
 #include "gm2_raii.hpp"
 
 #include <cmath>
-#include <functional>
 #include <iostream>
-#include <algorithm>
 
 namespace gm2calc {
 
