@@ -528,7 +528,7 @@ double CLASSNAME::get_ewsb_eq_hh_2() const
 
 double CLASSNAME::beta() const
 {
-   return std::asin(std::abs(ZP(0,1)));
+   return std::atan(v2/v1);
 }
 
 double CLASSNAME::alpha() const
