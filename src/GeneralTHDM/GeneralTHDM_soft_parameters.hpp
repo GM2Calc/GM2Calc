@@ -16,25 +16,25 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GTHDM_soft_parameters_H
-#define GTHDM_soft_parameters_H
+#ifndef GeneralTHDM_soft_parameters_H
+#define GeneralTHDM_soft_parameters_H
 
-#include "GTHDM_susy_parameters.hpp"
+#include "GeneralTHDM_susy_parameters.hpp"
 
 #include <iosfwd>
 
 namespace gm2calc {
 
 /**
- * @class GTHDM_soft_parameters
+ * @class GeneralTHDM_soft_parameters
  * @brief contains dimensionfull parameters of the THDM model
  *
  * Dimensionfull parameters are: scalar squared mass parameters for
  * the Higgs doublets and vacuum expectation values.
  */
-class GTHDM_soft_parameters : public GTHDM_susy_parameters {
+class GeneralTHDM_soft_parameters : public GeneralTHDM_susy_parameters {
 public:
-   virtual ~GTHDM_soft_parameters() = default;
+   virtual ~GeneralTHDM_soft_parameters() = default;
 
    virtual void print(std::ostream&) const override;
 
@@ -58,7 +58,7 @@ protected:
    double v2{0.0};
 };
 
-std::ostream& operator<<(std::ostream&, const GTHDM_soft_parameters&);
+std::ostream& operator<<(std::ostream&, const GeneralTHDM_soft_parameters&);
 
 } // namespace gm2calc
 

@@ -16,15 +16,15 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "GTHDM_soft_parameters.hpp"
+#include "GeneralTHDM_soft_parameters.hpp"
 
 #include <iostream>
 
 namespace gm2calc {
 
-void GTHDM_soft_parameters::print(std::ostream& ostr) const
+void GeneralTHDM_soft_parameters::print(std::ostream& ostr) const
 {
-   GTHDM_susy_parameters::print(ostr);
+   GeneralTHDM_susy_parameters::print(ostr);
    ostr << "dimensionfull parameters at Q = " << get_scale() << ":\n";
    ostr << "M122 = " << M122 << '\n';
    ostr << "M112 = " << M112 << '\n';
@@ -33,7 +33,7 @@ void GTHDM_soft_parameters::print(std::ostream& ostr) const
    ostr << "v2 = " << v2 << '\n';
 }
 
-std::ostream& operator<<(std::ostream& ostr, const GTHDM_soft_parameters& soft_pars)
+std::ostream& operator<<(std::ostream& ostr, const GeneralTHDM_soft_parameters& soft_pars)
 {
    soft_pars.print(ostr);
    return ostr;

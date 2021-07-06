@@ -16,13 +16,13 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "GTHDM_susy_parameters.hpp"
+#include "GeneralTHDM_susy_parameters.hpp"
 
 #include <iostream>
 
 namespace gm2calc {
 
-void GTHDM_susy_parameters::print(std::ostream& ostr) const
+void GeneralTHDM_susy_parameters::print(std::ostream& ostr) const
 {
    ostr << "dimensionless parameters at Q = " << get_scale() << ":\n";
    ostr << "g1 = " << g1 << '\n';
@@ -44,7 +44,7 @@ void GTHDM_susy_parameters::print(std::ostream& ostr) const
 
 }
 
-std::ostream& operator<<(std::ostream& ostr, const GTHDM_susy_parameters& susy_pars)
+std::ostream& operator<<(std::ostream& ostr, const GeneralTHDM_susy_parameters& susy_pars)
 {
    susy_pars.print(ostr);
    return ostr;

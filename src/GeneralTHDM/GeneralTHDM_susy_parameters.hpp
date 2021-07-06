@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GTHDM_susy_parameters_H
-#define GTHDM_susy_parameters_H
+#ifndef GeneralTHDM_susy_parameters_H
+#define GeneralTHDM_susy_parameters_H
 
 #include <iosfwd>
 
@@ -26,16 +26,16 @@
 namespace gm2calc {
 
 /**
- * @class GTHDM_susy_parameters
- * @brief contains dimensionless parameters of the GTHDM model
+ * @class GeneralTHDM_susy_parameters
+ * @brief contains dimensionless parameters of the GeneralTHDM model
  *
  * dimensionless parameters are: Gauge couplings, Yukawa couplings and
  * scalar couplings.  In addition, this class stores the current
  * renormalization scale.
  */
-class GTHDM_susy_parameters {
+class GeneralTHDM_susy_parameters {
 public:
-   virtual ~GTHDM_susy_parameters() = default;
+   virtual ~GeneralTHDM_susy_parameters() = default;
 
    virtual void print(std::ostream&) const;
 
@@ -108,7 +108,7 @@ protected:
    Eigen::Matrix<double,3,3> Xe{Eigen::Matrix<double,3,3>::Zero()};
 };
 
-std::ostream& operator<<(std::ostream&, const GTHDM_susy_parameters&);
+std::ostream& operator<<(std::ostream&, const GeneralTHDM_susy_parameters&);
 
 } // namespace gm2calc
 
