@@ -66,8 +66,8 @@ double AS(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen:
    const double y2 = conj(y(gen, 1))*conj(y(1, gen));
 
    return
-      + 1.0/12*F1C(x)*(std::norm(y(gen, 1)) + std::norm(y(1, gen)))
-      + 2.0/3*ml(gen)/ml(1)*F2C(x)*y2;
+      + (std::norm(y(gen, 1)) + std::norm(y(1, gen)))*F1C(x)/24
+      + y2*ml(gen)/ml(1)*F2C(x)/3;
 }
 
 double AA(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen::Matrix<double,3,3>& y) noexcept
@@ -76,8 +76,8 @@ double AA(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen:
    const double y2 = conj(y(gen, 1))*conj(y(1, gen));
 
    return
-      + 1.0/12*F1C(x)*(std::norm(y(gen, 1)) + std::norm(y(1, gen)))
-      - 2.0/3*ml(gen)/ml(1)*F2C(x)*y2;
+      + (std::norm(y(gen, 1)) + std::norm(y(1, gen)))*F1C(x)/24
+      - y2*ml(gen)/ml(1)*F2C(x)/3;
 }
 
 double AHp(int gen, const Eigen::Matrix<double,3,1>& mv, double mS2, const Eigen::Matrix<double,3,3>& y) noexcept
@@ -152,14 +152,14 @@ double amu1L(const THDM_1L_parameters& pars) noexcept
    double res = 0.0;
 
    for (int g = 0; g < 3; ++g) {
-      res += 0.5 * mm2/mh2 * AS(g, pars.ml, mh2, pars.ylh);
-      res += 0.5 * mm2/mH2 * AS(g, pars.ml, mH2, pars.ylH);
-      res += 0.5 * mm2/mA2 * AA(g, pars.ml, mA2, pars.ylA);
+      res += mm2/mh2 * AS(g, pars.ml, mh2, pars.ylh);
+      res += mm2/mH2 * AS(g, pars.ml, mH2, pars.ylH);
+      res += mm2/mA2 * AA(g, pars.ml, mA2, pars.ylA);
       res += -mm2/mHp2 * AHp(g, pars.mv, mHp2, pars.ylHp);
    }
 
    // subtract SM contribution
-   res -= 0.5 * mm2/mhSM2 * AS(1, pars.ml, mhSM2, ylhSM);
+   res -= mm2/mhSM2 * AS(1, pars.ml, mhSM2, ylhSM);
 
    const auto GF = pi*pars.alpha/(sqrt2*sw2*mw2)*(1 + delta_r);
    const auto pref = GF*mm2/(4*sqrt2*pi2);
