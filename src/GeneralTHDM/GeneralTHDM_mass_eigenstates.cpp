@@ -407,7 +407,7 @@ Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fd() const
 void CLASSNAME::calculate_MFd()
 {
    const auto mass_matrix_Fd(get_mass_matrix_Fd());
-   fs_svd(mass_matrix_Fd, MFd, Vd, Ud);
+   fs_svd<double,3,3>(mass_matrix_Fd, MFd, Vd, Ud);
 }
 
 Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fu() const
@@ -439,7 +439,7 @@ Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fu() const
 void CLASSNAME::calculate_MFu()
 {
    const auto mass_matrix_Fu(get_mass_matrix_Fu());
-   fs_svd(mass_matrix_Fu, MFu, Vu, Uu);
+   fs_svd<double,3,3>(mass_matrix_Fu, MFu, Vu, Uu);
 }
 
 Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fe() const
@@ -471,7 +471,7 @@ Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fe() const
 void CLASSNAME::calculate_MFe()
 {
    const auto mass_matrix_Fe(get_mass_matrix_Fe());
-   fs_svd(mass_matrix_Fe, MFe, Ve, Ue);
+   fs_svd<double,3,3>(mass_matrix_Fe, MFe, Ve, Ue);
 }
 
 double CLASSNAME::get_mass_matrix_VWm() const
@@ -510,18 +510,9 @@ void CLASSNAME::calculate_MVPVZ()
 {
    const auto mass_matrix_VPVZ(get_mass_matrix_VPVZ());
    Eigen::Array<double,2,1> MVPVZ;
-
-
-#ifdef CHECK_EIGENVALUE_ERROR
-   double eigenvalue_error;
-   fs_diagonalize_hermitian(mass_matrix_VPVZ, MVPVZ, ZZ, eigenvalue_error);
-#else
-
-   fs_diagonalize_hermitian(mass_matrix_VPVZ, MVPVZ, ZZ);
-#endif
+   fs_diagonalize_hermitian<double,double,2>(mass_matrix_VPVZ, MVPVZ, ZZ);
    ZZ.transposeInPlace();
    normalize_to_interval(ZZ);
-
 
    MVPVZ = sqrt(MVPVZ.cwiseAbs());
 
