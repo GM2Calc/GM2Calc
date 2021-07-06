@@ -55,7 +55,6 @@ namespace gm2calc {
 
 #define CLASSNAME MSSMNoFV_onshell_mass_eigenstates
 #define PHYSICAL(parameter) physical.parameter
-#define MODELPARAMETER(parameter) model->get_##parameter()
 
 void CLASSNAME::do_force_output(bool flag)
 {
