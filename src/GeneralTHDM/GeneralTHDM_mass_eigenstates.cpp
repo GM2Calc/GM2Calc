@@ -144,6 +144,14 @@ void CLASSNAME::print(std::ostream& ostr) const
    ostr << "Ue = " << Ue << '\n';
    ostr << "ZZ = " << ZZ << '\n';
 
+   ostr << "----------------------------------------\n"
+           "derived parameters:\n"
+           "----------------------------------------\n";
+   ostr << "v = " << v() << '\n';
+   ostr << "theta_w = " << ThetaW() << '\n';
+   ostr << "alpha_H = " << alpha() << '\n';
+   ostr << "beta_H = " << beta() << '\n';
+
    physical.print(ostr);
 }
 

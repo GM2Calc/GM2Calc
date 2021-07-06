@@ -17,3 +17,15 @@
 // ====================================================================
 
 #include "gm2calc/GeneralTHDM.hpp"
+
+#include <iostream>
+
+namespace gm2calc {
+
+std::ostream& operator<<(std::ostream& ostr, const GeneralTHDM& model)
+{
+   model.print(ostr);
+   return ostr;
+}
+
+} // namespace gm2calc

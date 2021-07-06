@@ -15,6 +15,7 @@ endfunction()
 
 add_gm2calc_bench(test_benchmark           cpp)
 add_gm2calc_test(test_c_interface          cpp)
+add_gm2calc_test(test_GeneralTHDM          cpp)
 add_gm2calc_test(test_GeneralTHDM_amu      cpp)
 add_gm2calc_test(test_MSSMNoFV_onshell     cpp)
 add_gm2calc_test(test_slha_io              cpp)
