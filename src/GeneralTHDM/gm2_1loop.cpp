@@ -124,11 +124,7 @@ double amu1L_approx(const THDM_1L_parameters& pars) noexcept
 }
 
 /**
- * 1-loop contribution
- *
- * @note The CP-odd couplings are assumed to be real
- * @todo(alex) check prefactor 1/2 for neutral contributions
- * @todo(alex) check prefactor (-1) for charged contributions
+ * Full (CP-conserving) 1-loop contribution
  */
 double amu1L(const THDM_1L_parameters& pars) noexcept
 {
