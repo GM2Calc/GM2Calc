@@ -16,37 +16,26 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "GTHDM_susy_parameters.hpp"
+#include "GTHDM_soft_parameters.hpp"
 
 #include <iostream>
 
 namespace gm2calc {
 
-void GTHDM_susy_parameters::print(std::ostream& ostr) const
+void GTHDM_soft_parameters::print(std::ostream& ostr) const
 {
-   ostr << "dimensionless parameters at Q = " << get_scale() << ":\n";
-   ostr << "g1 = " << g1 << '\n';
-   ostr << "g2 = " << g2 << '\n';
-   ostr << "g3 = " << g3 << '\n';
-   ostr << "Lambda6 = " << Lambda6 << '\n';
-   ostr << "Lambda5 = " << Lambda5 << '\n';
-   ostr << "Lambda7 = " << Lambda7 << '\n';
-   ostr << "Lambda1 = " << Lambda1 << '\n';
-   ostr << "Lambda4 = " << Lambda4 << '\n';
-   ostr << "Lambda3 = " << Lambda3 << '\n';
-   ostr << "Lambda2 = " << Lambda2 << '\n';
-   ostr << "Yu = " << Yu << '\n';
-   ostr << "Xu = " << Xu << '\n';
-   ostr << "Yd = " << Yd << '\n';
-   ostr << "Ye = " << Ye << '\n';
-   ostr << "Xd = " << Xd << '\n';
-   ostr << "Xe = " << Xe << '\n';
-
+   GTHDM_susy_parameters::print(ostr);
+   ostr << "dimensionfull parameters at Q = " << get_scale() << ":\n";
+   ostr << "M122 = " << M122 << '\n';
+   ostr << "M112 = " << M112 << '\n';
+   ostr << "M222 = " << M222 << '\n';
+   ostr << "v1 = " << v1 << '\n';
+   ostr << "v2 = " << v2 << '\n';
 }
 
-std::ostream& operator<<(std::ostream& ostr, const GTHDM_susy_parameters& susy_pars)
+std::ostream& operator<<(std::ostream& ostr, const GTHDM_soft_parameters& soft_pars)
 {
-   susy_pars.print(ostr);
+   soft_pars.print(ostr);
    return ostr;
 }
 
