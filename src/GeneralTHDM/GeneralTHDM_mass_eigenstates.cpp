@@ -225,7 +225,6 @@ void CLASSNAME::reorder_pole_masses()
 {
    move_goldstone_to(0, MVZ, PHYSICAL(MAh), PHYSICAL(ZA));
    move_goldstone_to(0, MVWm, PHYSICAL(MHm), PHYSICAL(ZP));
-
 }
 
 Eigen::Array<double,1,1> CLASSNAME::get_MChargedHiggs() const
@@ -301,8 +300,7 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_hh() const
 void CLASSNAME::calculate_Mhh()
 {
    const auto mass_matrix_hh(get_mass_matrix_hh());
-
-   fs_diagonalize_hermitian(mass_matrix_hh, Mhh, ZH);
+   fs_diagonalize_hermitian<double,double,2>(mass_matrix_hh, Mhh, ZH);
    normalize_to_interval(ZH);
 
    if (Mhh.minCoeff() < 0.) {
@@ -340,8 +338,7 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Ah() const
 void CLASSNAME::calculate_MAh()
 {
    const auto mass_matrix_Ah(get_mass_matrix_Ah());
-
-   fs_diagonalize_hermitian(mass_matrix_Ah, MAh, ZA);
+   fs_diagonalize_hermitian<double,double,2>(mass_matrix_Ah, MAh, ZA);
    normalize_to_interval(ZA);
 
    if (MAh.minCoeff() < 0.) {
@@ -371,8 +368,7 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Hm() const
 void CLASSNAME::calculate_MHm()
 {
    const auto mass_matrix_Hm(get_mass_matrix_Hm());
-
-   fs_diagonalize_hermitian(mass_matrix_Hm, MHm, ZP);
+   fs_diagonalize_hermitian<double,double,2>(mass_matrix_Hm, MHm, ZP);
    normalize_to_interval(ZP);
 
    if (MHm.minCoeff() < 0.) {
