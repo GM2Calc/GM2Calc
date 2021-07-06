@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GeneralTHDM_susy_parameters_H
-#define GeneralTHDM_susy_parameters_H
+#ifndef GM2_GeneralTHDM_SUSY_PARAMETERS_H
+#define GM2_GeneralTHDM_SUSY_PARAMETERS_H
 
 #include <iosfwd>
 

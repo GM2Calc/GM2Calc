@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GeneralTHDM_soft_parameters_H
-#define GeneralTHDM_soft_parameters_H
+#ifndef GeneralTHDM_SOFT_PARAMETERS_H
+#define GeneralTHDM_SOFT_PARAMETERS_H
 
 #include "GeneralTHDM_susy_parameters.hpp"
 
