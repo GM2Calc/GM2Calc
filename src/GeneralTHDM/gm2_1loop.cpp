@@ -82,7 +82,7 @@ double AA(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen:
 
 double AHp(int gen, const Eigen::Matrix<double,3,1>& mv, double mS2, const Eigen::Matrix<double,3,3>& y) noexcept
 {
-   return std::norm(y(gen, 1))/24*(
+   return -std::norm(y(gen, 1))/24*(
       F1N(sqr(mv(1))/mS2) + F1N(sqr(mv(gen))/mS2));
 }
 
@@ -155,7 +155,7 @@ double amu1L(const THDM_1L_parameters& pars) noexcept
       res += mm2/mh2 * AS(g, pars.ml, mh2, pars.ylh);
       res += mm2/mH2 * AS(g, pars.ml, mH2, pars.ylH);
       res += mm2/mA2 * AA(g, pars.ml, mA2, pars.ylA);
-      res += -mm2/mHp2 * AHp(g, pars.mv, mHp2, pars.ylHp);
+      res += mm2/mHp2 * AHp(g, pars.mv, mHp2, pars.ylHp);
    }
 
    // subtract SM contribution
