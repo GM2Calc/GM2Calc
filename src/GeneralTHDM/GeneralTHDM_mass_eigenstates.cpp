@@ -494,7 +494,6 @@ void CLASSNAME::calculate_MVWm()
 
 Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_VPVZ() const
 {
-
    Eigen::Matrix<double,2,2> mass_matrix_VPVZ;
 
    mass_matrix_VPVZ(0,0) = 0.15*sqr(g1)*sqr(v1) + 0.15*sqr(g1)*sqr(v2);
