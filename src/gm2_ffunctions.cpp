@@ -748,7 +748,13 @@ double Gn(double wa, double wb, int n) noexcept {
       return std::pow(x,n)*G(wa, wb, x);
    };
 
-   return integrate(fun, 0.0 + eps, 1.0 - eps, eps);
+   double res = std::numeric_limits<double>::quiet_NaN();
+
+   try {
+      integrate(fun, 0.0 + eps, 1.0 - eps, eps);
+   } catch (...) {}
+
+   return res;
 }
 
 /**
