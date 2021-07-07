@@ -252,11 +252,6 @@ Eigen::Array<double,1,1> CLASSNAME::get_MPseudoscalarHiggs() const
    return remove_if_equal<double,2,1>(MAh, MAh_goldstone);
 }
 
-double CLASSNAME::get_mass_matrix_VG() const
-{
-   return 0.0;
-}
-
 void CLASSNAME::calculate_MVG()
 {
    MVG = 0.0;
@@ -416,11 +411,6 @@ void CLASSNAME::calculate_MVWm()
 {
    const auto mass_matrix_VWm = get_mass_matrix_VWm();
    MVWm = abs_sqrt(mass_matrix_VWm);
-}
-
-double CLASSNAME::get_mass_matrix_VP() const
-{
-   return 0;
 }
 
 void CLASSNAME::calculate_MVP()
