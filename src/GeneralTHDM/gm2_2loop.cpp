@@ -32,7 +32,37 @@ namespace gm2calc {
  */
 double calculate_amu_2loop(const GeneralTHDM& model)
 {
-   return 0.0;
+   general_thdm::THDM_B_parameters pars_b;
+   pars_b.alpha = model.get_alpha_em();
+   pars_b.mm = model.get_MFe(1);
+   pars_b.mw = model.get_MVWm();
+   pars_b.mz = model.get_MVZ();
+   pars_b.mhSM = model.get_physical().MhSM;
+   pars_b.mA = model.get_MAh(1);
+   pars_b.mHp = model.get_MHm(1);
+   pars_b.mh = model.get_Mhh();
+   pars_b.tb = model.get_tan_beta();
+   // pars_b.zetal = ?;
+   pars_b.eta = model.get_eta();
+   // pars_b.lambda5 = ?;
+
+   general_thdm::THDM_F_parameters pars_f;
+   pars_f.alpha = model.get_alpha_em();
+   pars_f.mm = model.get_MFe(1);
+   pars_f.mw = model.get_MVWm();
+   pars_f.mz = model.get_MVZ();
+   pars_f.mhSM = model.get_physical().MhSM;
+   pars_f.mA = model.get_MAh(1);
+   pars_f.mHp = model.get_MHm(1);
+   pars_f.mh = model.get_Mhh();
+   pars_f.ml = model.get_MFe();
+   pars_f.mu = model.get_MFu();
+   pars_f.md = model.get_MFd();
+   // pars_b.yuS = ?;
+   // pars_b.ydS = ?;
+   // pars_b.ylS = ?;
+
+   return amu2L_B(pars_b) + amu2L_F(pars_f);
 }
 
 } // namespace gm2calc
