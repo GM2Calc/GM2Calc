@@ -437,7 +437,7 @@ void CLASSNAME::calculate_MVP()
 double CLASSNAME::get_mass_matrix_VZ() const
 {
    const double mass_matrix_VZ = 0.25*(sqr(v1) + sqr(v2))*sqr(g2*std::cos(
-      ThetaW()) + 0.7745966692414834*g1*std::sin(ThetaW()));
+      ThetaW()) + gut_normalization*g1*std::sin(ThetaW()));
 
    return mass_matrix_VZ;
 }
@@ -539,7 +539,7 @@ double CLASSNAME::get_LambdaFive() const
 
 double CLASSNAME::ThetaW() const
 {
-   return std::atan((0.7745966692414834*g1)/g2);
+   return std::atan(gut_normalization*g1/g2);
 }
 
 double CLASSNAME::get_v() const
