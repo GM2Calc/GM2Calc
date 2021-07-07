@@ -4,7 +4,6 @@
 #include "gm2calc/GeneralTHDM.hpp"
 
 #include <cmath>
-#include <iostream>
 
 #define CHECK_CLOSE(a,b,eps)                            \
    do {                                                 \
