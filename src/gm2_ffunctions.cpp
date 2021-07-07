@@ -311,8 +311,7 @@ double F3N(double x) noexcept {
 }
 
 double F4N(double x) noexcept {
-   const double PI = 3.14159265358979323846;
-   const double PI2 = PI * PI;
+   const double PI2 = 9.8696044010893586; // Pi^2
 
    if (is_zero(x, eps)) {
       return -3.0/4.0*(-9.0 + PI2);
