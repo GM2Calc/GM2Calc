@@ -134,6 +134,7 @@ public:
    double get_beta() const;
    double get_alpha_h() const;  ///< CP-even Higgs mixing angle
    double get_alpha_em() const; ///< electromagnetic coupling
+   double get_eta() const;      ///< deviation of CP-even Higgs mixing angle from SM limit
    double ThetaW() const;
    double get_v() const;
    double get_v_sqr() const;

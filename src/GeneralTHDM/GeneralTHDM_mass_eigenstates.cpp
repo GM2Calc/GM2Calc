@@ -41,6 +41,7 @@ namespace gm2calc {
 
 namespace {
 
+const double pi = 3.1415926535897932;
 const double sqrt_inv = 0.70710678118654752; // 1/Sqrt[2]
 const double gut_normalization = 0.77459666924148338; // Sqrt[3/5]
 
@@ -155,9 +156,10 @@ void CLASSNAME::print(std::ostream& ostr) const
            "----------------------------------------\n";
    ostr << "v = " << get_v() << '\n';
    ostr << "theta_w = " << ThetaW() << '\n';
-   ostr << "alpha_H = " << get_alpha_h() << '\n';
-   ostr << "beta_H = " << get_beta() << '\n';
-   ostr << "tan_beta = " << get_tan_beta() << '\n';
+   ostr << "alpha_h = " << get_alpha_h() << '\n';
+   ostr << "beta = " << get_beta() << '\n';
+   ostr << "eta = " << get_eta() << '\n';
+   ostr << "tan(beta) = " << get_tan_beta() << '\n';
 
    physical.print(ostr);
 }
@@ -494,7 +496,6 @@ double CLASSNAME::get_tan_beta() const
  */
 double CLASSNAME::get_alpha_h() const
 {
-   const double pi = 3.1415926535897932;
    double alpha_h = std::atan2(ZH(1,1), ZH(0,1));
    const double bma = get_beta() - alpha_h;
 
@@ -509,6 +510,20 @@ double CLASSNAME::get_alpha_em() const
    const double gY = g1*gut_normalization;
    const double e2 = sqr(gY)*sqr(g2)/(sqr(gY) + sqr(g2));
    return e2/12.566370614359173; // e^2/(4 Pi)
+}
+
+/**
+ * Returns the CP-even Higgs mixing angle contribution \f$\eta\f$ that
+ * describes the deviation from the SM limit.
+ *
+ * The \f$\eta\f$ parameter is defined as
+ * \f$\beta - \alpha = \pi/2 - \eta\f$.
+ *
+ * @return \f$\eta\f$
+ */
+double CLASSNAME::get_eta() const
+{
+   return pi/2 + get_alpha_h() - get_beta();
 }
 
 double CLASSNAME::ThetaW() const

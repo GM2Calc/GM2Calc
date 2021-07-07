@@ -143,16 +143,17 @@ TEST_CASE("tree-level-spectrum")
    CHECK_CLOSE(model.get_Mhh(0), std::sqrt(mh2), eps);
    CHECK_CLOSE(model.get_Mhh(1), std::sqrt(mH2), eps);
 
-   // CP-even Higgs mixing angle alpha_H
+   // CP-even Higgs mixing angle alpha_h
    const double l345 = l3 + l4 + l5;
    const double lhat = 0.5*s2b*(l1*cb2 - l2*sb2 - l345*c2b) - l6*cb*c3b - l7*sb*s3b;
    const double lA = c2b*(l1*cb2 - l2*sb2) + l345*s2b*s2b - l5 + 2*l6*cb*s3b - 2*l7*sb*c3b;
    const double s2ba = 2.*lhat*v_sqr;
    const double c2ba = -(mA2 - lA*v_sqr);
    const double bma = 0.5*std::atan2(s2ba, c2ba);
-   const double alpha_H = model.get_beta() - bma;
+   const double alpha_h = model.get_beta() - bma;
 
-   CHECK_CLOSE(model.get_alpha_h(), alpha_H, eps);
+   CHECK_CLOSE(model.get_alpha_h(), alpha_h, eps);
+   CHECK_CLOSE(model.get_eta(), pi/2 - bma, eps);
 
    // fermions
    CHECK_CLOSE(model.get_MFu(0), mu(0,0), eps);
