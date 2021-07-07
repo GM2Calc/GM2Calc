@@ -90,21 +90,21 @@ namespace {
          return 2.343907238689459;
       }
 
-      const double Pi = 3.141592653589793;
+      const double pi23 = 3.2898681336964529;
       const auto lambda = std::sqrt(lambda_2(u,v));
 
       if (is_equal(u, v, eps)) {
          return (-(sqr(std::log(u)))
                  + 2*sqr(std::log((1 - lambda)/2.))
                  - 4*dilog((1 - lambda)/2.)
-                 + sqr(Pi)/3.)/lambda;
+                 + pi23)/lambda;
       }
 
       return (-(std::log(u)*std::log(v))
               + 2*std::log((1 - lambda + u - v)/2.)*std::log((1 - lambda - u + v)/2.)
               - 2*dilog((1 - lambda + u - v)/2.)
               - 2*dilog((1 - lambda - u + v)/2.)
-              + sqr(Pi)/3.)/lambda;
+              + pi23)/lambda;
    }
 
    /// lambda^2(u,v) < 0, u = 1
