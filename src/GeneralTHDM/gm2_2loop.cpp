@@ -44,7 +44,7 @@ double calculate_amu_2loop(const GeneralTHDM& model)
    pars_b.tb = model.get_tan_beta();
    // pars_b.zetal = ?;
    pars_b.eta = model.get_eta();
-   // pars_b.lambda5 = ?;
+   pars_b.lambda5 = model.get_LambdaFive();
 
    general_thdm::THDM_F_parameters pars_f;
    pars_f.alpha = model.get_alpha_em();

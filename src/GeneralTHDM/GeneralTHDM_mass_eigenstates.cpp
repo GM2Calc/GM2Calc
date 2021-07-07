@@ -526,6 +526,17 @@ double CLASSNAME::get_eta() const
    return pi/2 + get_alpha_h() - get_beta();
 }
 
+/**
+ * Returns \f$\Lambda_5\f$, Eq (14) arxiv:1607.06292
+ * @return \f$\Lambda_5\f$
+ */
+double CLASSNAME::get_LambdaFive() const
+{
+   const double tb = get_tan_beta();
+   const double sbcb = tb/(1.0 + sqr(tb)); // Sin[beta] Cos[beta]
+   return 2*get_M122()/(get_v_sqr() * sbcb);
+}
+
 double CLASSNAME::ThetaW() const
 {
    return std::atan((0.7745966692414834*g1)/g2);
