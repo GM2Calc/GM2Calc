@@ -39,7 +39,23 @@ namespace gm2calc {
  */
 double calculate_amu_1loop(const GeneralTHDM& model)
 {
-   return 0.0;
+   general_thdm::THDM_1L_parameters pars;
+   pars.alpha = model.get_alpha_em();
+   pars.mm = model.get_MFe(1);
+   pars.mw = model.get_MVWm();
+   pars.mz = model.get_MVZ();
+   pars.mhSM = model.get_physical().MhSM;
+   pars.mA = model.get_MAh(1);
+   pars.mHp = model.get_MHm(1);
+   pars.ml = model.get_MFe();
+   pars.mv = model.get_MFv();
+   pars.mh = model.get_Mhh();
+   // pars.ylh = ?;
+   // pars.ylH = ?;
+   // pars.ylA = ?;
+   // pars.ylHp = ?;
+
+   return general_thdm::amu1L(pars);
 }
 
 } // namespace gm2calc

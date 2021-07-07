@@ -36,6 +36,7 @@ struct GeneralTHDM_physical {
    double MVWm{0.0};
    double MVP{0.0};
    double MVZ{0.0};
+   double MhSM{0.0};
    Eigen::Array<double,3,1> MFv{Eigen::Array<double,3,1>::Zero()};
    Eigen::Array<double,2,1> Mhh{Eigen::Array<double,2,1>::Zero()};
    Eigen::Array<double,2,1> MAh{Eigen::Array<double,2,1>::Zero()};
