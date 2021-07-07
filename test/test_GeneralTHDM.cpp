@@ -72,14 +72,15 @@ gm2calc::GeneralTHDM setup()
 
 TEST_CASE("tree-level-spectrum")
 {
+   const double eps = 1e-14;
    auto model = setup();
    const bool have_problem = model.get_problems().have_problem();
 
    CHECK(!have_problem);
    CHECK(model.get_MVG() == 0.0);
    CHECK(model.get_MVP() == 0.0);
-   CHECK_CLOSE(model.get_MVZ(), mz, 1e-12);
-   CHECK_CLOSE(model.get_MVWm(), mw, 1e-12);
+   CHECK_CLOSE(model.get_MVZ(), mz, eps);
+   CHECK_CLOSE(model.get_MVWm(), mw, eps);
 
    const double m122 = model.get_M122();
    const double tb = model.get_tan_beta();
@@ -87,8 +88,12 @@ TEST_CASE("tree-level-spectrum")
    const double v_sqr = model.get_v_sqr();
    const double sb = tb/std::sqrt(1.0 + sqr(tb));
    const double cb = 1./std::sqrt(1.0 + sqr(tb));
+   const double s2b = 2*sb*cb;
    const double sb2 = sqr(sb);
    const double cb2 = sqr(cb);
+   const double s3b = 3*sb - 4*sb*sb2;
+   const double c3b = 4*cb*cb2 - 3*cb;
+   const double c2b = cb2 - sb2;
    const double l1 = model.get_Lambda1();
    const double l2 = model.get_Lambda2();
    const double l3 = model.get_Lambda3();
@@ -100,14 +105,14 @@ TEST_CASE("tree-level-spectrum")
    // CP-odd Higgs boson
    const double mA2 = m122/sb/cb - 0.5*v_sqr*(2*l5 + l6*ctb + l7*tb);
 
-   CHECK_CLOSE(model.get_MAh(0), model.get_MVZ(), 1e-12);
-   CHECK_CLOSE(model.get_MAh(1), std::sqrt(mA2), 1e-12);
+   CHECK_CLOSE(model.get_MAh(0), model.get_MVZ(), eps);
+   CHECK_CLOSE(model.get_MAh(1), std::sqrt(mA2), eps);
 
    // charged Higgs boson
    const double mHp2 = mA2 + 0.5*v_sqr*(l5 - l4);
 
-   CHECK_CLOSE(model.get_MHm(0), model.get_MVWm(), 1e-12);
-   CHECK_CLOSE(model.get_MHm(1), std::sqrt(mHp2), 1e-12);
+   CHECK_CLOSE(model.get_MHm(0), model.get_MVWm(), eps);
+   CHECK_CLOSE(model.get_MHm(1), std::sqrt(mHp2), eps);
 
    // CP-even Higgs bosons
    const double M112 =  mA2*sb2 + v_sqr*(l1*cb2 + 2*l6*sb*cb + l5*sb2);
@@ -116,6 +121,16 @@ TEST_CASE("tree-level-spectrum")
    const double mh2 = 0.5*(M112+M222 - std::sqrt((M112-M222)*(M112-M222) + 4*M122*M122));
    const double mH2 = 0.5*(M112+M222 + std::sqrt((M112-M222)*(M112-M222) + 4*M122*M122));
 
-   CHECK_CLOSE(model.get_Mhh(0), std::sqrt(mh2), 1e-12);
-   CHECK_CLOSE(model.get_Mhh(1), std::sqrt(mH2), 1e-12);
+   CHECK_CLOSE(model.get_Mhh(0), std::sqrt(mh2), eps);
+   CHECK_CLOSE(model.get_Mhh(1), std::sqrt(mH2), eps);
+
+   const double l345 = l3 + l4 + l5;
+   const double lhat = 0.5*s2b*(l1*cb2 - l2*sb2 - l345*c2b) - l6*cb*c3b - l7*sb*s3b;
+   const double lA = c2b*(l1*cb2 - l2*sb2) + l345*s2b*s2b - l5 + 2*l6*cb*s3b - 2*l7*sb*c3b;
+   const double s2ba = 2.*lhat*v_sqr;
+   const double c2ba = -(mA2 - lA*v_sqr);
+   const double bma = 0.5*std::atan2(s2ba, c2ba);
+   const double alpha_H = model.get_beta() - bma;
+
+   CHECK_CLOSE(model.get_alpha(), alpha_H, eps);
 }
