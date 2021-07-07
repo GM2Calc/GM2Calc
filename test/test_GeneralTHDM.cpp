@@ -80,4 +80,42 @@ TEST_CASE("tree-level-spectrum")
    CHECK(model.get_MVP() == 0.0);
    CHECK_CLOSE(model.get_MVZ(), mz, 1e-12);
    CHECK_CLOSE(model.get_MVWm(), mw, 1e-12);
+
+   const double m122 = model.get_M122();
+   const double tb = model.get_tan_beta();
+   const double ctb = 1./tb;
+   const double v_sqr = model.get_v_sqr();
+   const double sb = tb/std::sqrt(1.0 + sqr(tb));
+   const double cb = 1./std::sqrt(1.0 + sqr(tb));
+   const double sb2 = sqr(sb);
+   const double cb2 = sqr(cb);
+   const double l1 = model.get_Lambda1();
+   const double l2 = model.get_Lambda2();
+   const double l3 = model.get_Lambda3();
+   const double l4 = model.get_Lambda4();
+   const double l5 = model.get_Lambda5();
+   const double l6 = model.get_Lambda6();
+   const double l7 = model.get_Lambda7();
+
+   // CP-odd Higgs boson
+   const double mA2 = m122/sb/cb - 0.5*v_sqr*(2*l5 + l6*ctb + l7*tb);
+
+   CHECK_CLOSE(model.get_MAh(0), model.get_MVZ(), 1e-12);
+   CHECK_CLOSE(model.get_MAh(1), std::sqrt(mA2), 1e-12);
+
+   // charged Higgs boson
+   const double mHp2 = mA2 + 0.5*v_sqr*(l5 - l4);
+
+   CHECK_CLOSE(model.get_MHm(0), model.get_MVWm(), 1e-12);
+   CHECK_CLOSE(model.get_MHm(1), std::sqrt(mHp2), 1e-12);
+
+   // CP-even Higgs bosons
+   const double M112 =  mA2*sb2 + v_sqr*(l1*cb2 + 2*l6*sb*cb + l5*sb2);
+   const double M122 = -mA2*sb*cb + v_sqr*((l3 + l4)*sb*cb+l6*cb2 + l7*sb2);
+   const double M222 =  mA2*cb2 + v_sqr*(l2*sb2 + 2*l7*sb*cb + l5*cb2);
+   const double mh2 = 0.5*(M112+M222 - std::sqrt((M112-M222)*(M112-M222) + 4*M122*M122));
+   const double mH2 = 0.5*(M112+M222 + std::sqrt((M112-M222)*(M112-M222) + 4*M122*M122));
+
+   CHECK_CLOSE(model.get_Mhh(0), std::sqrt(mh2), 1e-12);
+   CHECK_CLOSE(model.get_Mhh(1), std::sqrt(mH2), 1e-12);
 }
