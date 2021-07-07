@@ -174,7 +174,6 @@ void CLASSNAME::calculate_MSbar_masses()
 
    solve_ewsb_tree_level();
 
-   calculate_MVP();
    calculate_MVZ();
    calculate_MVWm();
    calculate_MFe();
@@ -184,7 +183,6 @@ void CLASSNAME::calculate_MSbar_masses()
    calculate_MAh();
    calculate_Mhh();
    calculate_MFv();
-   calculate_MVG();
 }
 
 void CLASSNAME::copy_MSbar_masses_to_pole_masses()
@@ -250,11 +248,6 @@ Eigen::Array<double,1,1> CLASSNAME::get_MPseudoscalarHiggs() const
    MAh_goldstone(0) = MVZ;
 
    return remove_if_equal<double,2,1>(MAh, MAh_goldstone);
-}
-
-void CLASSNAME::calculate_MVG()
-{
-   MVG = 0.0;
 }
 
 Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fv() const
@@ -411,11 +404,6 @@ void CLASSNAME::calculate_MVWm()
 {
    const auto mass_matrix_VWm = get_mass_matrix_VWm();
    MVWm = abs_sqrt(mass_matrix_VWm);
-}
-
-void CLASSNAME::calculate_MVP()
-{
-   MVP = 0.0;
 }
 
 double CLASSNAME::get_mass_matrix_VZ() const

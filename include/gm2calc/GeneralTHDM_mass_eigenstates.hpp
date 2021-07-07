@@ -104,8 +104,6 @@ public:
    const Eigen::Matrix<std::complex<double>,3,3>& get_Ue() const { return Ue; }
    std::complex<double> get_Ue(int i, int k) const { return Ue(i,k); }
 
-   void calculate_MVG();
-   void calculate_MVP();
    double get_mass_matrix_VZ() const;
    void calculate_MVZ();
    double get_mass_matrix_VWm() const;
