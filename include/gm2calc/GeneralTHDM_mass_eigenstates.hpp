@@ -104,11 +104,15 @@ public:
    std::complex<double> get_Ve(int i, int k) const { return Ve(i,k); }
    const Eigen::Matrix<std::complex<double>,3,3>& get_Ue() const { return Ue; }
    std::complex<double> get_Ue(int i, int k) const { return Ue(i,k); }
-   const Eigen::Matrix<double,2,2>& get_ZZ() const { return ZZ; }
-   double get_ZZ(int i, int k) const { return ZZ(i,k); }
 
    double get_mass_matrix_VG() const;
    void calculate_MVG();
+   double get_mass_matrix_VP() const;
+   void calculate_MVP();
+   double get_mass_matrix_VZ() const;
+   void calculate_MVZ();
+   double get_mass_matrix_VWm() const;
+   void calculate_MVWm();
    Eigen::Matrix<double,3,3> get_mass_matrix_Fv() const;
    void calculate_MFv();
    Eigen::Matrix<double,2,2> get_mass_matrix_hh() const;
@@ -123,10 +127,6 @@ public:
    void calculate_MFu();
    Eigen::Matrix<double,3,3> get_mass_matrix_Fe() const;
    void calculate_MFe();
-   double get_mass_matrix_VWm() const;
-   void calculate_MVWm();
-   Eigen::Matrix<double,2,2> get_mass_matrix_VPVZ() const;
-   void calculate_MVPVZ();
 
    double get_ewsb_eq_hh_1() const;
    double get_ewsb_eq_hh_2() const;
@@ -164,8 +164,6 @@ private:
    Eigen::Matrix<std::complex<double>,3,3> Uu{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
    Eigen::Matrix<std::complex<double>,3,3> Ve{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
    Eigen::Matrix<std::complex<double>,3,3> Ue{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
-   Eigen::Matrix<double,2,2> ZZ{Eigen::Matrix<double,2,2>::Zero()};
-
 };
 
 std::ostream& operator<<(std::ostream&, const GeneralTHDM_mass_eigenstates&);

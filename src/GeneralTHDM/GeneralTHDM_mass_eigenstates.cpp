@@ -142,7 +142,6 @@ void CLASSNAME::print(std::ostream& ostr) const
    ostr << "Uu = " << Uu << '\n';
    ostr << "Ve = " << Ve << '\n';
    ostr << "Ue = " << Ue << '\n';
-   ostr << "ZZ = " << ZZ << '\n';
 
    ostr << "----------------------------------------\n"
            "derived parameters:\n"
@@ -165,7 +164,8 @@ void CLASSNAME::calculate_MSbar_masses()
 
    solve_ewsb_tree_level();
 
-   calculate_MVPVZ();
+   calculate_MVP();
+   calculate_MVZ();
    calculate_MVWm();
    calculate_MFe();
    calculate_MFu();
@@ -199,7 +199,6 @@ void CLASSNAME::copy_MSbar_masses_to_pole_masses()
    PHYSICAL(MVWm) = MVWm;
    PHYSICAL(MVP) = MVP;
    PHYSICAL(MVZ) = MVZ;
-   PHYSICAL(ZZ) = ZZ;
 }
 
 /**
@@ -478,32 +477,29 @@ void CLASSNAME::calculate_MVWm()
    MVWm = abs_sqrt(MVWm);
 }
 
-Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_VPVZ() const
+double CLASSNAME::get_mass_matrix_VP() const
 {
-   Eigen::Matrix<double,2,2> mass_matrix_VPVZ;
-
-   mass_matrix_VPVZ(0,0) = 0.15*sqr(g1)*sqr(v1) + 0.15*sqr(g1)*sqr(v2);
-   mass_matrix_VPVZ(0,1) = -0.19364916731037085*g1*g2*sqr(v1) -
-      0.19364916731037085*g1*g2*sqr(v2);
-   mass_matrix_VPVZ(1,1) = 0.25*sqr(g2)*sqr(v1) + 0.25*sqr(g2)*sqr(v2);
-
-   symmetrize(mass_matrix_VPVZ);
-
-   return mass_matrix_VPVZ;
+   return 0;
 }
 
-void CLASSNAME::calculate_MVPVZ()
+void CLASSNAME::calculate_MVP()
 {
-   const auto mass_matrix_VPVZ(get_mass_matrix_VPVZ());
-   Eigen::Array<double,2,1> MVPVZ;
-   fs_diagonalize_hermitian<double,double,2>(mass_matrix_VPVZ, MVPVZ, ZZ);
-   ZZ.transposeInPlace();
-   normalize_to_interval<2,2>(ZZ);
+   const auto mass_matrix_VP = get_mass_matrix_VP();
+   MVP = std::abs(mass_matrix_VP);
+}
 
-   MVPVZ = sqrt(MVPVZ.cwiseAbs());
+double CLASSNAME::get_mass_matrix_VZ() const
+{
+   const double mass_matrix_VZ = 0.25*(sqr(v1) + sqr(v2))*sqr(g2*std::cos(
+      ThetaW()) + 0.7745966692414834*g1*std::sin(ThetaW()));
 
-   MVP = 0.;
-   MVZ = MVPVZ(1);
+   return mass_matrix_VZ;
+}
+
+void CLASSNAME::calculate_MVZ()
+{
+   const auto mass_matrix_VZ = get_mass_matrix_VZ();
+   MVZ = std::sqrt(std::abs(mass_matrix_VZ));
 }
 
 double CLASSNAME::get_ewsb_eq_hh_1() const
@@ -538,7 +534,7 @@ double CLASSNAME::alpha() const
 
 double CLASSNAME::ThetaW() const
 {
-   return std::acos(std::abs(ZZ(0,0)));
+   return std::atan((0.7745966692414834*g1)/g2);
 }
 
 double CLASSNAME::v() const
