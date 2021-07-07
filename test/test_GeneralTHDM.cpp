@@ -123,6 +123,7 @@ TEST_CASE("tree-level-spectrum")
    CHECK_CLOSE(model.get_Mhh(0), std::sqrt(mh2), eps);
    CHECK_CLOSE(model.get_Mhh(1), std::sqrt(mH2), eps);
 
+   // CP-even Higgs mixing angle alpha_H
    const double l345 = l3 + l4 + l5;
    const double lhat = 0.5*s2b*(l1*cb2 - l2*sb2 - l345*c2b) - l6*cb*c3b - l7*sb*s3b;
    const double lA = c2b*(l1*cb2 - l2*sb2) + l345*s2b*s2b - l5 + 2*l6*cb*s3b - 2*l7*sb*c3b;
