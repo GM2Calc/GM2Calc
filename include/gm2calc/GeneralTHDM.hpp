@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_GeneralTHDM_ONSHELL_HPP
-#define GM2_GeneralTHDM_ONSHELL_HPP
+#ifndef GM2_GeneralTHDM_HPP
+#define GM2_GeneralTHDM_HPP
 
 #include "GeneralTHDM_mass_eigenstates.hpp"
 
