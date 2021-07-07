@@ -39,6 +39,12 @@
 
 namespace gm2calc {
 
+namespace {
+
+const double sqrt_inv = 0.70710678118654752; // 1/Sqrt[2]
+
+} // anonymous namespace
+
 #define CLASSNAME GeneralTHDM_mass_eigenstates
 #define PHYSICAL(parameter) physical.parameter
 
@@ -366,28 +372,7 @@ void CLASSNAME::calculate_MHm()
 
 Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fd() const
 {
-   Eigen::Matrix<double,3,3> mass_matrix_Fd;
-
-   mass_matrix_Fd(0,0) = 0.7071067811865475*v2*Xd(0,0) + 0.7071067811865475*v1*
-      Yd(0,0);
-   mass_matrix_Fd(0,1) = 0.7071067811865475*v2*Xd(0,1) + 0.7071067811865475*v1*
-      Yd(0,1);
-   mass_matrix_Fd(0,2) = 0.7071067811865475*v2*Xd(0,2) + 0.7071067811865475*v1*
-      Yd(0,2);
-   mass_matrix_Fd(1,0) = 0.7071067811865475*v2*Xd(1,0) + 0.7071067811865475*v1*
-      Yd(1,0);
-   mass_matrix_Fd(1,1) = 0.7071067811865475*v2*Xd(1,1) + 0.7071067811865475*v1*
-      Yd(1,1);
-   mass_matrix_Fd(1,2) = 0.7071067811865475*v2*Xd(1,2) + 0.7071067811865475*v1*
-      Yd(1,2);
-   mass_matrix_Fd(2,0) = 0.7071067811865475*v2*Xd(2,0) + 0.7071067811865475*v1*
-      Yd(2,0);
-   mass_matrix_Fd(2,1) = 0.7071067811865475*v2*Xd(2,1) + 0.7071067811865475*v1*
-      Yd(2,1);
-   mass_matrix_Fd(2,2) = 0.7071067811865475*v2*Xd(2,2) + 0.7071067811865475*v1*
-      Yd(2,2);
-
-   return mass_matrix_Fd;
+   return sqrt_inv*(v1*Yd + v2*Xd);
 }
 
 void CLASSNAME::calculate_MFd()
@@ -398,28 +383,7 @@ void CLASSNAME::calculate_MFd()
 
 Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fu() const
 {
-   Eigen::Matrix<double,3,3> mass_matrix_Fu;
-
-   mass_matrix_Fu(0,0) = 0.7071067811865475*v1*Xu(0,0) + 0.7071067811865475*v2*
-      Yu(0,0);
-   mass_matrix_Fu(0,1) = 0.7071067811865475*v1*Xu(0,1) + 0.7071067811865475*v2*
-      Yu(0,1);
-   mass_matrix_Fu(0,2) = 0.7071067811865475*v1*Xu(0,2) + 0.7071067811865475*v2*
-      Yu(0,2);
-   mass_matrix_Fu(1,0) = 0.7071067811865475*v1*Xu(1,0) + 0.7071067811865475*v2*
-      Yu(1,0);
-   mass_matrix_Fu(1,1) = 0.7071067811865475*v1*Xu(1,1) + 0.7071067811865475*v2*
-      Yu(1,1);
-   mass_matrix_Fu(1,2) = 0.7071067811865475*v1*Xu(1,2) + 0.7071067811865475*v2*
-      Yu(1,2);
-   mass_matrix_Fu(2,0) = 0.7071067811865475*v1*Xu(2,0) + 0.7071067811865475*v2*
-      Yu(2,0);
-   mass_matrix_Fu(2,1) = 0.7071067811865475*v1*Xu(2,1) + 0.7071067811865475*v2*
-      Yu(2,1);
-   mass_matrix_Fu(2,2) = 0.7071067811865475*v1*Xu(2,2) + 0.7071067811865475*v2*
-      Yu(2,2);
-
-   return mass_matrix_Fu;
+   return sqrt_inv*(v2*Yu + v1*Xu);
 }
 
 void CLASSNAME::calculate_MFu()
@@ -430,28 +394,7 @@ void CLASSNAME::calculate_MFu()
 
 Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fe() const
 {
-   Eigen::Matrix<double,3,3> mass_matrix_Fe;
-
-   mass_matrix_Fe(0,0) = 0.7071067811865475*v2*Xe(0,0) + 0.7071067811865475*v1*
-      Ye(0,0);
-   mass_matrix_Fe(0,1) = 0.7071067811865475*v2*Xe(0,1) + 0.7071067811865475*v1*
-      Ye(0,1);
-   mass_matrix_Fe(0,2) = 0.7071067811865475*v2*Xe(0,2) + 0.7071067811865475*v1*
-      Ye(0,2);
-   mass_matrix_Fe(1,0) = 0.7071067811865475*v2*Xe(1,0) + 0.7071067811865475*v1*
-      Ye(1,0);
-   mass_matrix_Fe(1,1) = 0.7071067811865475*v2*Xe(1,1) + 0.7071067811865475*v1*
-      Ye(1,1);
-   mass_matrix_Fe(1,2) = 0.7071067811865475*v2*Xe(1,2) + 0.7071067811865475*v1*
-      Ye(1,2);
-   mass_matrix_Fe(2,0) = 0.7071067811865475*v2*Xe(2,0) + 0.7071067811865475*v1*
-      Ye(2,0);
-   mass_matrix_Fe(2,1) = 0.7071067811865475*v2*Xe(2,1) + 0.7071067811865475*v1*
-      Ye(2,1);
-   mass_matrix_Fe(2,2) = 0.7071067811865475*v2*Xe(2,2) + 0.7071067811865475*v1*
-      Ye(2,2);
-
-   return mass_matrix_Fe;
+   return sqrt_inv*(v1*Ye + v2*Xe);
 }
 
 void CLASSNAME::calculate_MFe()
@@ -499,7 +442,7 @@ double CLASSNAME::get_mass_matrix_VZ() const
 void CLASSNAME::calculate_MVZ()
 {
    const auto mass_matrix_VZ = get_mass_matrix_VZ();
-   MVZ = std::sqrt(std::abs(mass_matrix_VZ));
+   MVZ = abs_sqrt(mass_matrix_VZ);
 }
 
 double CLASSNAME::get_ewsb_eq_hh_1() const
