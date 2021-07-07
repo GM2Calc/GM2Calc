@@ -40,7 +40,7 @@ namespace gm2calc {
 double calculate_amu_1loop(const GeneralTHDM& model)
 {
    general_thdm::THDM_1L_parameters pars;
-   pars.alpha = model.get_alpha_em();
+   pars.alpha_em = model.get_alpha_em();
    pars.mm = model.get_MFe(1);
    pars.mw = model.get_MVWm();
    pars.mz = model.get_MVZ();

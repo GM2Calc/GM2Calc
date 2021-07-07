@@ -33,7 +33,7 @@ namespace gm2calc {
 double calculate_amu_2loop(const GeneralTHDM& model)
 {
    general_thdm::THDM_B_parameters pars_b;
-   pars_b.alpha = model.get_alpha_em();
+   pars_b.alpha_em = model.get_alpha_em();
    pars_b.mm = model.get_MFe(1);
    pars_b.mw = model.get_MVWm();
    pars_b.mz = model.get_MVZ();
@@ -47,7 +47,7 @@ double calculate_amu_2loop(const GeneralTHDM& model)
    pars_b.lambda5 = model.get_LambdaFive();
 
    general_thdm::THDM_F_parameters pars_f;
-   pars_f.alpha = model.get_alpha_em();
+   pars_f.alpha_em = model.get_alpha_em();
    pars_f.mm = model.get_MFe(1);
    pars_f.mw = model.get_MVWm();
    pars_f.mz = model.get_MVZ();

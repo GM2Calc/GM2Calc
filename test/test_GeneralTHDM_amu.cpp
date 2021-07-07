@@ -29,7 +29,7 @@ TEST_CASE("1-loop")
    const double eta = 0.001; // terms of O(eta) are neglected
 
    gm2calc::general_thdm::THDM_1L_parameters pars;
-   pars.alpha = 1./137.036;
+   pars.alpha_em = 1./137.036;
    pars.mm = 0.10565837;
    pars.ml << 510.999e-6, pars.mm, 1.7768;
    pars.mw = 80.379;
@@ -56,7 +56,7 @@ TEST_CASE("1-loop_approximation")
    const double eta = 0.001; // terms of O(eta) are neglected
 
    gm2calc::general_thdm::THDM_1L_parameters pars;
-   pars.alpha = 1./137.036;
+   pars.alpha_em = 1./137.036;
    pars.mm = 0.10565837;
    pars.mw = 80.379;
    pars.mz = 91.1876;
@@ -121,7 +121,7 @@ Print["amuC 10^10 = ", N[10^10 amuC, 17]]
 TEST_CASE("2-loop_fermionic_charged")
 {
    gm2calc::general_thdm::THDM_F_parameters pars;
-   pars.alpha = 1./137;
+   pars.alpha_em = 1./137;
    pars.mm = 1.0;
    pars.mw = 80.0;
    pars.mz = 90.0;
@@ -187,7 +187,7 @@ Print["amuN 10^10 = ", N[10^10 amuN, 17]]
 TEST_CASE("2-loop_fermionic_neutral")
 {
    gm2calc::general_thdm::THDM_F_parameters pars;
-   pars.alpha = 1./137;
+   pars.alpha_em = 1./137;
    pars.mm = 1.0;
    pars.mw = 80.0;
    pars.mz = 90.0;
@@ -404,7 +404,7 @@ TEST_CASE("fermionic_figure_8")
 TEST_CASE("2-loop_bosonic_EWadd")
 {
    gm2calc::general_thdm::THDM_B_parameters pars;
-   pars.alpha = 1/137.036;
+   pars.alpha_em = 1/137.036;
    pars.mm = 0.10565837;
    pars.mw = 80.379;
    pars.mz = 91.1876;
@@ -425,7 +425,7 @@ TEST_CASE("2-loop_bosonic_nonYuk")
 {
    gm2calc::general_thdm::THDM_B_parameters pars;
    // parameter point from Fig.4a, arxiv:1607.06292
-   pars.alpha = 1./137.036;
+   pars.alpha_em = 1./137.036;
    pars.mm = 0.10565837;
    pars.mw = 80.379;
    pars.mz = 91.1876;
@@ -442,7 +442,7 @@ TEST_CASE("2-loop_bosonic_nonYuk")
 TEST_CASE("2-loop_bosonic_Yuk")
 {
    gm2calc::general_thdm::THDM_B_parameters pars;
-   pars.alpha = 1./137.036;
+   pars.alpha_em = 1./137.036;
    pars.mm = 0.10565837;
    pars.mw = 80.379;
    pars.mz = 91.1876;

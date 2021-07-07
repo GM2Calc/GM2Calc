@@ -27,7 +27,7 @@ namespace general_thdm {
 
 /// parameters to be passed to the bosonic contribution functions
 struct THDM_B_parameters {
-   double alpha{};   ///< alpha_em
+   double alpha_em{};///< electromagnetic coupling
    double mm{};      ///< muon mass for prefactor
    double mw{};      ///< W boson mass
    double mz{};      ///< Z boson mass
@@ -43,13 +43,13 @@ struct THDM_B_parameters {
 
 /// parameters to be passed to the fermionic contribution functions
 struct THDM_F_parameters {
-   double alpha{}; ///< alpha_em
-   double mm{};    ///< muon mass for prefactor
-   double mw{};    ///< W boson mass
-   double mz{};    ///< Z boson mass
-   double mhSM{};  ///< SM Higgs boson mass
-   double mA{};    ///< CP-odd Higgs boson mass
-   double mHp{};   ///< charged Higgs boson mass
+   double alpha_em{}; ///< electromagnetic coupling
+   double mm{};       ///< muon mass for prefactor
+   double mw{};       ///< W boson mass
+   double mz{};       ///< Z boson mass
+   double mhSM{};     ///< SM Higgs boson mass
+   double mA{};       ///< CP-odd Higgs boson mass
+   double mHp{};      ///< charged Higgs boson mass
    Eigen::Matrix<double,2,1> mh{Eigen::Matrix<double,2,1>::Zero()}; ///< CP-even Higgs bosons mass
    Eigen::Matrix<double,3,1> ml{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type lepton masses
    Eigen::Matrix<double,3,1> mu{Eigen::Matrix<double,3,1>::Zero()}; ///< up-type quark masses

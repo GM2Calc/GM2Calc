@@ -117,7 +117,7 @@ double amu1L_approx(const THDM_1L_parameters& pars) noexcept
       - mm2/mhSM2 * Fh(mm2/mhSM2);
 
    // Eq.(33), arxiv:1607.06292
-   const auto GF = pi*pars.alpha/(sqrt2*sw2*mw2)*(1 + delta_r);
+   const auto GF = pi*pars.alpha_em/(sqrt2*sw2*mw2)*(1 + delta_r);
    const auto pref = GF*mm2/(4*sqrt2*pi2);
 
    return pref*res;
@@ -157,7 +157,7 @@ double amu1L(const THDM_1L_parameters& pars) noexcept
    // subtract SM contribution
    res -= mm2/mhSM2 * AS(1, pars.ml, mhSM2, ylhSM);
 
-   const auto GF = pi*pars.alpha/(sqrt2*sw2*mw2)*(1 + delta_r);
+   const auto GF = pi*pars.alpha_em/(sqrt2*sw2*mw2)*(1 + delta_r);
    const auto pref = GF*mm2/(4*sqrt2*pi2);
 
    return pref*res;

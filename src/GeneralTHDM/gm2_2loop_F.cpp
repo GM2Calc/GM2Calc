@@ -301,7 +301,7 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
    }
 
    const double sw2 = 1.0 - mw2/mz2;
-   const double pref = sqr(thdm.alpha*thdm.mm/(4*pi*thdm.mw*sw2))/2;
+   const double pref = sqr(thdm.alpha_em*thdm.mm/(4*pi*thdm.mw*sw2))/2;
 
    return pref*res;
 }
@@ -347,7 +347,7 @@ double amu2L_F_neutral(const THDM_F_parameters& thdm) noexcept
    }
 
    const double sw2 = 1.0 - mw2/mz2;
-   const auto pref = sqr(thdm.alpha*thdm.mm/(2*pi*thdm.mw))/sw2;
+   const auto pref = sqr(thdm.alpha_em*thdm.mm/(2*pi*thdm.mw))/sw2;
 
    return pref*res;
 }

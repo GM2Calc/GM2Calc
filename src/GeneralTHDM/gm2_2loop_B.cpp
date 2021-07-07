@@ -506,7 +506,7 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
 
    const auto res = (xm2/xh + xm1)/xh + x0 + xh*(x1 + xh*(x2 + xh*(x3 + xh*(x4 + xh*(x5 + xh*x6)))));
 
-   const auto pref = sqr(thdm.alpha*thdm.mm/(48*thdm.mz*pi*cw2*(4*cw2 - xh)*(1 - cw2)))
+   const auto pref = sqr(thdm.alpha_em*thdm.mm/(48*thdm.mz*pi*cw2*(4*cw2 - xh)*(1 - cw2)))
       /(2*(-1 + 4*cw2)*(-1 + xh));
 
    return pref * std::real(res) * thdm.eta * thdm.zetal;
@@ -569,7 +569,7 @@ double amu2L_B_nonYuk(const THDM_B_parameters& thdm) noexcept
       + T0(xH, xHp, cw2)
       ;
 
-   const auto pref = sqr(thdm.alpha/(24*pi*cw2*sw2) * thdm.mm/thdm.mz);
+   const auto pref = sqr(thdm.alpha_em/(24*pi*cw2*sw2) * thdm.mm/thdm.mz);
 
    return pref*res;
 }
@@ -585,7 +585,7 @@ double amu2L_B_Yuk(const THDM_B_parameters& thdm) noexcept
    const auto zetal = thdm.zetal;
    const auto lambda5 = thdm.lambda5;
    const auto eta = thdm.eta;
-   const auto al = thdm.alpha;
+   const auto al = thdm.alpha_em;
    const auto mhSM2 = sqr(thdm.mhSM);
    const auto mH2 = sqr(thdm.mh(1));
    const auto mHp2 = sqr(thdm.mHp);
