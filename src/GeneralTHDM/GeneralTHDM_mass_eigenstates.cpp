@@ -146,10 +146,11 @@ void CLASSNAME::print(std::ostream& ostr) const
    ostr << "----------------------------------------\n"
            "derived parameters:\n"
            "----------------------------------------\n";
-   ostr << "v = " << v() << '\n';
+   ostr << "v = " << get_v() << '\n';
    ostr << "theta_w = " << ThetaW() << '\n';
-   ostr << "alpha_H = " << alpha() << '\n';
-   ostr << "beta_H = " << beta() << '\n';
+   ostr << "alpha_H = " << get_alpha() << '\n';
+   ostr << "beta_H = " << get_beta() << '\n';
+   ostr << "tan_beta = " << get_tan_beta() << '\n';
 
    physical.print(ostr);
 }
@@ -521,12 +522,17 @@ double CLASSNAME::get_ewsb_eq_hh_2() const
    return result;
 }
 
-double CLASSNAME::beta() const
+double CLASSNAME::get_beta() const
 {
-   return std::atan(v2/v1);
+   return std::atan(get_tan_beta());
 }
 
-double CLASSNAME::alpha() const
+double CLASSNAME::get_tan_beta() const
+{
+   return v2/v1;
+}
+
+double CLASSNAME::get_alpha() const
 {
    return std::atan(ZH(1,1)/ZH(0,1));
 }
@@ -536,9 +542,14 @@ double CLASSNAME::ThetaW() const
    return std::atan((0.7745966692414834*g1)/g2);
 }
 
-double CLASSNAME::v() const
+double CLASSNAME::get_v() const
 {
-   return std::sqrt(sqr(v1) + sqr(v2));
+   return std::sqrt(get_v_sqr());
+}
+
+double CLASSNAME::get_v_sqr() const
+{
+   return sqr(v1) + sqr(v2);
 }
 
 std::ostream& operator<<(std::ostream& ostr, const CLASSNAME& model)

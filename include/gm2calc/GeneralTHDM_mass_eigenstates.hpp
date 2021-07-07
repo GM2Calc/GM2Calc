@@ -131,10 +131,12 @@ public:
    double get_ewsb_eq_hh_1() const;
    double get_ewsb_eq_hh_2() const;
 
-   double beta() const;
-   double alpha() const;
+   double get_tan_beta() const;
+   double get_beta() const;
+   double get_alpha() const;
    double ThetaW() const;
-   double v() const;
+   double get_v() const;
+   double get_v_sqr() const;
 
 private:
    bool force_output{false};        ///< switch to force output of pole masses
