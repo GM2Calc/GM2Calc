@@ -415,13 +415,7 @@ double CLASSNAME::get_mass_matrix_VWm() const
 void CLASSNAME::calculate_MVWm()
 {
    const auto mass_matrix_VWm = get_mass_matrix_VWm();
-   MVWm = mass_matrix_VWm;
-
-   if (MVWm < 0.) {
-      problems.flag_tachyon("VWm");
-   }
-
-   MVWm = abs_sqrt(MVWm);
+   MVWm = abs_sqrt(mass_matrix_VWm);
 }
 
 double CLASSNAME::get_mass_matrix_VP() const
