@@ -61,7 +61,8 @@ namespace {
    }
 
    template <typename T>
-   double integrate(T fun, double start, double stop, double dt) {
+   double integrate(T fun, double start, double stop, double dt)
+   {
       using boost::numeric::odeint::integrate;
       using state_type = std::array<double, 1>;
 
