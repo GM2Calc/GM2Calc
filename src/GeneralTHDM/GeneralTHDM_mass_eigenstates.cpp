@@ -484,8 +484,7 @@ double CLASSNAME::get_mass_matrix_VP() const
 
 void CLASSNAME::calculate_MVP()
 {
-   const auto mass_matrix_VP = get_mass_matrix_VP();
-   MVP = std::abs(mass_matrix_VP);
+   MVP = 0.0;
 }
 
 double CLASSNAME::get_mass_matrix_VZ() const
