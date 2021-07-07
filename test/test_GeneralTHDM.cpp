@@ -76,4 +76,8 @@ TEST_CASE("tree-level-spectrum")
    const bool have_problem = model.get_problems().have_problem();
 
    CHECK(!have_problem);
+   CHECK(model.get_MVG() == 0.0);
+   CHECK(model.get_MVP() == 0.0);
+   CHECK_CLOSE(model.get_MVZ(), mz, 1e-12);
+   CHECK_CLOSE(model.get_MVWm(), mw, 1e-12);
 }
