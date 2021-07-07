@@ -16,31 +16,23 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_1LOOP_HPP
-#define GM2_1LOOP_HPP
+#include "gm2calc/gm2_2loop.hpp"
+#include "gm2calc/GeneralTHDM.hpp"
+#include "GeneralTHDM/gm2_2loop_helpers.hpp"
 
 namespace gm2calc {
 
-class GeneralTHDM;
-class MSSMNoFV_onshell;
-
-/// calculates full 1-loop contributions to a_mu in the general THDM
-double calculate_amu_1loop(const GeneralTHDM&);
-
-/// calculates full 1-loop SUSY contributions to (g-2) in the MSSM (w/ tan(beta) resummation)
-double calculate_amu_1loop(const MSSMNoFV_onshell&);
-
-/// calculates full 1-loop SUSY contributions to (g-2) in the MSSM (no tan(beta) resummation)
-double calculate_amu_1loop_non_tan_beta_resummed(const MSSMNoFV_onshell&);
-
-// === routines for individual 1-loop contributions ===
-
-/// 1-loop neutralino contribution
-double amu1LChi0(const MSSMNoFV_onshell&);
-
-/// 1-loop chargino contribution
-double amu1LChipm(const MSSMNoFV_onshell&);
+/**
+ * Calculates full 2-loop contribution to a_mu in the general THDM.
+ *
+ * @todo(alex) to be implemented
+ *
+ * @param model THDM model parameters, masses and mixings
+ * @return 2-loop contribution to a_mu
+ */
+double calculate_amu_2loop(const GeneralTHDM& model)
+{
+   return 0.0;
+}
 
 } // namespace gm2calc
-
-#endif

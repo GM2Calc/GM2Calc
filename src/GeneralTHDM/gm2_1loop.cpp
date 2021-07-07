@@ -17,6 +17,8 @@
 // ====================================================================
 
 #include "GeneralTHDM/gm2_1loop_helpers.hpp"
+#include "gm2calc/gm2_1loop.hpp"
+#include "gm2calc/GeneralTHDM.hpp"
 #include "gm2_ffunctions.hpp"
 #include <cmath>
 #include <complex>
@@ -179,5 +181,18 @@ double delta_alpha(double alpha, double mHp, double q) noexcept
 }
 
 } // namespace general_thdm
+
+/**
+ * Calculates full 1-loop contribution to a_mu in the general THDM.
+ *
+ * @todo(alex) to be implemented
+ *
+ * @param model THDM model parameters, masses and mixings
+ * @return 1-loop contribution to a_mu
+ */
+double calculate_amu_1loop(const GeneralTHDM& model)
+{
+   return 0.0;
+}
 
 } // namespace gm2calc
