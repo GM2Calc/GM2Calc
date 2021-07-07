@@ -29,6 +29,22 @@ const double g1 = gY*std::sqrt(5.0/3.0);
 const double g2 = e/sw;
 const double v = 2*mw/g2;
 
+const Eigen::Matrix<double,3,3> mu{
+   (Eigen::Matrix<double,3,3>()
+    << 2.16e-3, 0.0, 0.0,
+    0.0, 1.270, 0.0,
+    0.0, 0.0, 172.760).finished()
+};
+
+const Eigen::Matrix<double,3,3> md{
+   (Eigen::Matrix<double,3,3>()
+    << 4.67e-3, 0.0, 0.0,
+    0.0, 93e-3, 0.0,
+    0.0, 0.0, 4.18).finished()
+};
+
+const Eigen::Matrix<double,3,3> mv{Eigen::Matrix<double,3,3>::Zero()};
+
 const Eigen::Matrix<double,3,3> ml{
    (Eigen::Matrix<double,3,3>()
     << 510.999e-6, 0.0, 0.0,
@@ -58,6 +74,8 @@ gm2calc::GeneralTHDM setup()
    model.set_Lambda6(0.2);
    model.set_Lambda7(0.1);
    model.set_M122(sqr(100.0));
+   model.set_Yu(std::sqrt(2.0)*mu/vu);
+   model.set_Yd(std::sqrt(2.0)*md/vd);
    model.set_Ye(std::sqrt(2.0)*ml/vd);
 
    model.solve_ewsb();
@@ -133,4 +151,18 @@ TEST_CASE("tree-level-spectrum")
    const double alpha_H = model.get_beta() - bma;
 
    CHECK_CLOSE(model.get_alpha(), alpha_H, eps);
+
+   // fermions
+   CHECK_CLOSE(model.get_MFu(0), mu(0,0), eps);
+   CHECK_CLOSE(model.get_MFu(1), mu(1,1), eps);
+   CHECK_CLOSE(model.get_MFu(2), mu(2,2), eps);
+   CHECK_CLOSE(model.get_MFd(0), md(0,0), eps);
+   CHECK_CLOSE(model.get_MFd(1), md(1,1), eps);
+   CHECK_CLOSE(model.get_MFd(2), md(2,2), eps);
+   CHECK_CLOSE(model.get_MFv(0), mv(0,0), eps);
+   CHECK_CLOSE(model.get_MFv(1), mv(1,1), eps);
+   CHECK_CLOSE(model.get_MFv(2), mv(2,2), eps);
+   CHECK_CLOSE(model.get_MFe(0), ml(0,0), eps);
+   CHECK_CLOSE(model.get_MFe(1), ml(1,1), eps);
+   CHECK_CLOSE(model.get_MFe(2), ml(2,2), eps);
 }
