@@ -466,6 +466,14 @@ double CLASSNAME::get_ewsb_eq_hh_2() const
    return result;
 }
 
+/**
+ * Returns the CP-odd Higgs mixing angle \f$\beta\f$.
+ *
+ * The mixing angle \f$\beta\f$ is chosen such that
+ * \f$0 \leq \beta \leq \pi/2\f$.
+ *
+ * @return CP-odd Higgs mixing angle \f$\beta\f$
+ */
 double CLASSNAME::get_beta() const
 {
    return std::atan(get_tan_beta());
@@ -476,16 +484,31 @@ double CLASSNAME::get_tan_beta() const
    return v2/v1;
 }
 
+/**
+ * Returns the CP-even Higgs mixing angle \f$\alpha_h\f$.
+ *
+ * The mixing angle \f$\alpha_h\f$ is chosen such that
+ * \f$-\pi/2 \leq \beta - \alpha_h \leq \pi/2\f$.
+ *
+ * @return CP-even Higgs mixing angle \f$\alpha_h\f$
+ */
 double CLASSNAME::get_alpha_h() const
 {
-   return std::atan(ZH(1,1)/ZH(0,1));
+   const double pi = 3.1415926535897932;
+   double alpha_h = std::atan2(ZH(1,1), ZH(0,1));
+   const double bma = get_beta() - alpha_h;
+
+   if (bma < -pi/2) { alpha_h -= pi; }
+   if (bma >  pi/2) { alpha_h += pi; }
+
+   return alpha_h;
 }
 
 double CLASSNAME::get_alpha_em() const
 {
    const double gY = g1*gut_normalization;
    const double e2 = sqr(gY)*sqr(g2)/(sqr(gY) + sqr(g2));
-   return e2/12.566370614359173;
+   return e2/12.566370614359173; // e^2/(4 Pi)
 }
 
 double CLASSNAME::ThetaW() const
