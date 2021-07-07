@@ -14,35 +14,36 @@
 
 namespace {
 
-const double pi = 3.1415926535897932;
-
 double sqr(double x) noexcept { return x*x; }
+
+const double pi = 3.1415926535897932;
+const double alpha = 1./137.036;
+const double e = std::sqrt(alpha*4*pi);
+const double alpha_s = 0.1184;
+const double g3 = std::sqrt(alpha_s*4*pi);
+const double mw = 80.379;
+const double mz = 91.1876;
+const double cw = mw/mz;
+const double sw = std::sqrt(1 - sqr(cw));
+const double gY = e/cw;
+const double g1 = gY*std::sqrt(5.0/3.0);
+const double g2 = e/sw;
+const double v = 2*mw/g2;
+
+const Eigen::Matrix<double,3,3> ml{
+   (Eigen::Matrix<double,3,3>()
+    << 510.999e-6, 0.0, 0.0,
+    0.0, 0.10565837, 0.0,
+    0.0, 0.0, 1.7768).finished()
+};
 
 gm2calc::GeneralTHDM setup()
 {
-   const double alpha = 1./137.036;
-   const double e = std::sqrt(alpha*4*pi);
-   const double alpha_s = 0.1184;
-   const double g3 = std::sqrt(alpha_s*4*pi);
-   const double mw = 80.379;
-   const double mz = 91.1876;
-   const double cw = mw/mz;
-   const double sw = std::sqrt(1 - sqr(cw));
-   const double gY = e/cw;
-   const double g1 = gY*std::sqrt(5.0/3.0);
-   const double g2 = e/sw;
    const double tb = 20.0;
    const double sb = tb/std::sqrt(1.0 + sqr(tb));
    const double cb = 1./std::sqrt(1.0 + sqr(tb));
-   const double v = 2*mw/g2;
    const double vu = v*sb;
    const double vd = v*cb;
-   const Eigen::Matrix<double,3,3> ml{
-      (Eigen::Matrix<double,3,3>()
-       << 510.999e-6, 0.0, 0.0,
-          0.0, 0.10565837, 0.0,
-          0.0, 0.0, 1.7768).finished()
-   };
 
    gm2calc::GeneralTHDM model;
    model.set_g1(g1);
