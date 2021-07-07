@@ -751,7 +751,7 @@ double Gn(double wa, double wb, int n) noexcept {
    double res = std::numeric_limits<double>::quiet_NaN();
 
    try {
-      integrate(fun, 0.0 + eps, 1.0 - eps, eps);
+      res = integrate(fun, 0.0 + eps, 1.0 - eps, eps);
    } catch (...) {}
 
    return res;
