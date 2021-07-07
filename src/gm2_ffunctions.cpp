@@ -597,7 +597,7 @@ double f_PS(double z) noexcept {
    if (z < 0.0) {
       ERROR("f_PS: z must not be negative!");
       return std::numeric_limits<double>::quiet_NaN();
-   } else  if (z == 0.0) {
+   } else if (z == 0.0) {
       return 0.0;
    } else if (z < 0.25) {
       const double y = std::sqrt(1. - 4. * z);
