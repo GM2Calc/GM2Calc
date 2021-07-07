@@ -608,8 +608,7 @@ double f_PS(double z) noexcept {
 
    // z > 0.25
    const std::complex<double> y = std::sqrt(std::complex<double>(1.0 - 4.0*z, 0.0));
-   const std::complex<double> zc(z, 0.0);
-   return std::real(2.0*zc/y*(dilog(1.0 - 0.5*(1.0 - y)/zc) - dilog(1.0 - 0.5*(1.0 + y)/zc)));
+   return std::real(2.0*z/y*(dilog(1.0 - 0.5*(1.0 - y)/z) - dilog(1.0 - 0.5*(1.0 + y)/z)));
 }
 
 /**
