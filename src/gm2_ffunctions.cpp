@@ -90,7 +90,7 @@ namespace {
          return 2.343907238689459;
       }
 
-      const double pi23 = 3.2898681336964529;
+      const double pi23 = 3.2898681336964529; // Pi^2/3
       const auto lambda = std::sqrt(lambda_2(u,v));
 
       if (is_equal(u, v, eps)) {
