@@ -51,6 +51,20 @@ unsigned closest_index(double mass, const Eigen::ArrayBase<Derived>& v)
    return pos;
 }
 
+template <class Derived>
+bool is_equal(const Eigen::ArrayBase<Derived>& a,
+              const Eigen::ArrayBase<Derived>& b,
+              double precision_goal)
+{
+   return (a - b).cwiseAbs().maxCoeff() < precision_goal;
+}
+
+template <class Derived>
+bool is_zero(const Eigen::ArrayBase<Derived>& a, double eps)
+{
+   return a.cwiseAbs().maxCoeff() < eps;
+}
+
 /**
  * Normalize each element of the given real matrix to be within the
  * interval [min, max].  Values < min are set to min.  Values > max
