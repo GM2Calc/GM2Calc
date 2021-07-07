@@ -54,26 +54,27 @@ const Eigen::Matrix<double,3,3> ml{
 
 gm2calc::GeneralTHDM setup()
 {
-   const double tb = 20.0;
+   const double tb = 3.0;
    const double sb = tb/std::sqrt(1.0 + sqr(tb));
    const double cb = 1./std::sqrt(1.0 + sqr(tb));
    const double vu = v*sb;
    const double vd = v*cb;
 
+   // parameter point from 2HDMC Demo.cpp
    gm2calc::GeneralTHDM model;
    model.set_g1(g1);
    model.set_g2(g2);
    model.set_g3(g3);
    model.set_v1(vd);
    model.set_v2(vu);
-   model.set_Lambda1(0.7);
-   model.set_Lambda2(0.6);
-   model.set_Lambda3(0.5);
-   model.set_Lambda4(0.4);
-   model.set_Lambda5(0.3);
-   model.set_Lambda6(0.2);
-   model.set_Lambda7(0.1);
-   model.set_M122(sqr(100.0));
+   model.set_Lambda1(4.81665);
+   model.set_Lambda2(0.23993);
+   model.set_Lambda3(2.09923);
+   model.set_Lambda4(-1.27781);
+   model.set_Lambda5(-0.71038);
+   model.set_Lambda6(0.0);
+   model.set_Lambda7(0.0);
+   model.set_M122(sqr(200.0));
    model.set_Yu(std::sqrt(2.0)*mu/vu);
    model.set_Yd(std::sqrt(2.0)*md/vd);
    model.set_Ye(std::sqrt(2.0)*ml/vd);
