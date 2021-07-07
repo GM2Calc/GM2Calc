@@ -117,8 +117,8 @@ TEST_CASE("tree-level-spectrum")
    const double M112 =  mA2*sb2 + v_sqr*(l1*cb2 + 2*l6*sb*cb + l5*sb2);
    const double M122 = -mA2*sb*cb + v_sqr*((l3 + l4)*sb*cb+l6*cb2 + l7*sb2);
    const double M222 =  mA2*cb2 + v_sqr*(l2*sb2 + 2*l7*sb*cb + l5*cb2);
-   const double mh2 = 0.5*(M112+M222 - std::sqrt((M112-M222)*(M112-M222) + 4*M122*M122));
-   const double mH2 = 0.5*(M112+M222 + std::sqrt((M112-M222)*(M112-M222) + 4*M122*M122));
+   const double mh2 = 0.5*(M112 + M222 - std::sqrt(sqr(M112 - M222) + 4*sqr(M122)));
+   const double mH2 = 0.5*(M112 + M222 + std::sqrt(sqr(M112 - M222) + 4*sqr(M122)));
 
    CHECK_CLOSE(model.get_Mhh(0), std::sqrt(mh2), eps);
    CHECK_CLOSE(model.get_Mhh(1), std::sqrt(mH2), eps);
