@@ -16,8 +16,8 @@ namespace {
 double sqr(double x) noexcept { return x*x; }
 
 const double pi = 3.1415926535897932;
-const double alpha = 1./137.036;
-const double e = std::sqrt(alpha*4*pi);
+const double alpha_em = 1./137.036;
+const double e = std::sqrt(alpha_em*4*pi);
 const double alpha_s = 0.1184;
 const double g3 = std::sqrt(alpha_s*4*pi);
 const double mw = 80.379;
@@ -94,6 +94,7 @@ TEST_CASE("tree-level-spectrum")
    const bool have_problem = model.get_problems().have_problem();
 
    CHECK(!have_problem);
+   CHECK_CLOSE(model.get_alpha_em(), alpha_em, eps);
    CHECK(model.get_MVG() == 0.0);
    CHECK(model.get_MVP() == 0.0);
    CHECK_CLOSE(model.get_MVZ(), mz, eps);
@@ -150,7 +151,7 @@ TEST_CASE("tree-level-spectrum")
    const double bma = 0.5*std::atan2(s2ba, c2ba);
    const double alpha_H = model.get_beta() - bma;
 
-   CHECK_CLOSE(model.get_alpha(), alpha_H, eps);
+   CHECK_CLOSE(model.get_alpha_h(), alpha_H, eps);
 
    // fermions
    CHECK_CLOSE(model.get_MFu(0), mu(0,0), eps);

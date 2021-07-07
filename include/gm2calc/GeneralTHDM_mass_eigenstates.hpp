@@ -132,7 +132,8 @@ public:
 
    double get_tan_beta() const;
    double get_beta() const;
-   double get_alpha() const;
+   double get_alpha_h() const;  ///< CP-even Higgs mixing angle
+   double get_alpha_em() const; ///< electromagnetic coupling
    double ThetaW() const;
    double get_v() const;
    double get_v_sqr() const;
