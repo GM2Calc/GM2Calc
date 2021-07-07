@@ -81,7 +81,7 @@ double FA(double ms2, double mf2)
 
 /// Eq (54), arxiv:1607.06292, S = h or H
 template <typename F>
-double fSgamma(double ms2, double mf2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexcept
+double fSgamma(double ms2, double mf2, const F_neut_pars& pars, F FS) noexcept
 {
    const double qf2 = sqr(pars.qf);
    const double nc = pars.nc;
@@ -111,7 +111,7 @@ double fSZ(double ms2, double mf2, const F_neut_pars& pars, const F_sm_pars& sm,
 template <typename F>
 double ffS(double ms2, double mf2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexcept
 {
-   return fSgamma(ms2, mf2, pars, sm, FS) + fSZ(ms2, mf2, pars, sm, FS);
+   return fSgamma(ms2, mf2, pars, FS) + fSZ(ms2, mf2, pars, sm, FS);
 }
 
 /// Eq (60), arxiv:1607.06292
