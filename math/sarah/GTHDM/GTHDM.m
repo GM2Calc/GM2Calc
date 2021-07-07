@@ -75,8 +75,8 @@ LagHC = -(-M122 conj[H1].H2
           + Lambda5/2 conj[H2].H1.conj[H2].H1
           + Lambda6 conj[H1].H1.conj[H1].H2
           + Lambda7 conj[H2].H2.conj[H1].H2
-          + Yd conj[H1].d.q + Ye conj[H1].e.l - Yu H2.u.q
-          + Xd conj[H2].d.q + Xe conj[H2].e.l - Xu H1.u.q);
+          + Yd q.conj[H1].d + Ye l.conj[H1].e + Yu q.H2.u
+          + Xd q.conj[H2].d + Xe l.conj[H2].e + Xu q.H1.u);
 
 (* Gauge Sector *)
 
