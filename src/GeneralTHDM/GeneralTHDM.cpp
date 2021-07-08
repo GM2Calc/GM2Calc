@@ -67,12 +67,16 @@ std::ostream& operator<<(std::ostream& ostr, const GeneralTHDM& model)
    switch (model.get_yukawa_scheme()) {
       case GeneralTHDM::Yukawa_scheme::type_1:
          ostr << "Type I\n";
+         break;
       case GeneralTHDM::Yukawa_scheme::type_2:
          ostr << "Type II\n";
+         break;
       case GeneralTHDM::Yukawa_scheme::type_X:
          ostr << "Type X\n";
+         break;
       case GeneralTHDM::Yukawa_scheme::type_Y:
          ostr << "Type Y\n";
+         break;
    }
 
    ostr << "zeta_u = " << model.get_zeta_u() << '\n';
