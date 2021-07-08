@@ -106,8 +106,11 @@ TEST_CASE("tree-level-spectrum")
 {
    const double eps = 1e-14;
 
+   // parameter point where choice of range
+   // -pi/2 <= beta - alpha_h <= pi/2
+   // matters
    THDM_pars pars;
-   pars.lambda1 = 4.81665;
+   pars.lambda1 = 0.26249;
    pars.lambda2 = 0.23993;
    pars.lambda3 = 2.09923;
    pars.lambda4 = -1.27781;
