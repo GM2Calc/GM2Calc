@@ -40,7 +40,6 @@ double sqr(double x) noexcept { return x*x; }
 /**
  * Calculates full 1-loop contribution to a_mu in the general THDM.
  *
- * @todo(alex) to be implemented
  * @todo(alex) check convention for ylHp
  *
  * @param model THDM model parameters, masses and mixings
@@ -59,7 +58,7 @@ double calculate_amu_1loop(const GeneralTHDM& model)
    const Eigen::Matrix<double,3,3> id = Eigen::Matrix<double,3,3>::Identity();
 
    const Eigen::Matrix<double,3,3> zetal =
-      model.get_Xe()*v/(cb*sqrt2*mm) - tb*id;
+      model.get_Xe()*v/(cb*sqrt2*mm) + model.get_zeta_l()*id;
 
    general_thdm::THDM_1L_parameters pars;
    pars.alpha_em = model.get_alpha_em();

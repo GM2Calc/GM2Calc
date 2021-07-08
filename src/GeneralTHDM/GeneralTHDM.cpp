@@ -22,6 +22,24 @@
 
 namespace gm2calc {
 
+/// @todo(alex) chose according to Table 1, arxiv:1607.06292
+double GeneralTHDM::get_zeta_u() const
+{
+   return 1.0/get_tan_beta();
+}
+
+/// @todo(alex) chose according to Table 1, arxiv:1607.06292
+double GeneralTHDM::get_zeta_d() const
+{
+   return -get_tan_beta();
+}
+
+/// @todo(alex) chose according to Table 1, arxiv:1607.06292
+double GeneralTHDM::get_zeta_l() const
+{
+   return -get_tan_beta();
+}
+
 std::ostream& operator<<(std::ostream& ostr, const GeneralTHDM& model)
 {
    model.print(ostr);

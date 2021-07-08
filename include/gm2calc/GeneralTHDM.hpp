@@ -34,6 +34,10 @@ namespace gm2calc {
 class GeneralTHDM : public GeneralTHDM_mass_eigenstates {
 public:
    virtual ~GeneralTHDM() = default;
+
+   double get_zeta_u() const;
+   double get_zeta_d() const;
+   double get_zeta_l() const;
 };
 
 /// streaming operator

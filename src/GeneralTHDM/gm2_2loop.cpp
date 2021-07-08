@@ -25,20 +25,15 @@ namespace gm2calc {
 /**
  * Calculates full 2-loop contribution to a_mu in the general THDM.
  *
- * @todo(alex) to be implemented
- * @todo(alex) allow for input of zeta_f, see Table 1, arxiv:1607.06292
- *
  * @param model THDM model parameters, masses and mixings
  * @return 2-loop contribution to a_mu
  */
 double calculate_amu_2loop(const GeneralTHDM& model)
 {
    const double tb = model.get_tan_beta();
-   const double ctb = 1.0/tb;
-   const double zetau = ctb; // @todo(alex) make a parameter
-   const double zetad = -tb; // @todo(alex) make a parameter
-   const double zetal = -tb; // @todo(alex) make a parameter
-
+   const double zeta_u = model.get_zeta_u();
+   const double zeta_d = model.get_zeta_d();
+   const double zeta_l = model.get_zeta_l();
    const double alpha_h = model.get_alpha_h();
    const double beta = model.get_beta();
    const double sba = std::sin(beta - alpha_h);
@@ -55,25 +50,25 @@ double calculate_amu_2loop(const GeneralTHDM& model)
    pars_b.mHp = model.get_MHm(1);
    pars_b.mh = model.get_Mhh();
    pars_b.tb = model.get_tan_beta();
-   pars_b.zetal = zetal;
+   pars_b.zetal = zeta_l;
    pars_b.eta = model.get_eta();
    pars_b.lambda5 = model.get_LambdaFive();
 
    // Eq.(18), arxiv:1607.06292
    Eigen::Matrix<double,3,3> yuS;
-   yuS.col(0) = id*(sba + cba*zetau); // S = h
-   yuS.col(1) = id*(cba - sba*zetau); // S = H
-   yuS.col(2) = id*zetau;             // S = A
+   yuS.col(0) = id*(sba + cba*zeta_u); // S = h
+   yuS.col(1) = id*(cba - sba*zeta_u); // S = H
+   yuS.col(2) = id*zeta_u;             // S = A
 
    Eigen::Matrix<double,3,3> ydS;
-   ydS.col(0) = id*(sba + cba*zetad); // S = h
-   ydS.col(1) = id*(cba - sba*zetad); // S = H
-   ydS.col(2) = id*(-zetad);          // S = A
+   ydS.col(0) = id*(sba + cba*zeta_d); // S = h
+   ydS.col(1) = id*(cba - sba*zeta_d); // S = H
+   ydS.col(2) = id*(-zeta_d);          // S = A
 
    Eigen::Matrix<double,3,3> ylS;
-   ylS.col(0) = id*(sba + cba*zetal); // S = h
-   ylS.col(1) = id*(cba - sba*zetal); // S = H
-   ylS.col(2) = id*(-zetal);          // S = A
+   ylS.col(0) = id*(sba + cba*zeta_l); // S = h
+   ylS.col(1) = id*(cba - sba*zeta_l); // S = H
+   ylS.col(2) = id*(-zeta_l);          // S = A
 
    general_thdm::THDM_F_parameters pars_f;
    pars_f.alpha_em = model.get_alpha_em();
