@@ -524,6 +524,15 @@ double CLASSNAME::get_v_sqr() const
    return sqr(v1) + sqr(v2);
 }
 
+void CLASSNAME::set_tan_beta_and_v(double tan_beta, double v)
+{
+   const double sq = std::sqrt(1.0 + sqr(tan_beta));
+   const double sb = tan_beta/sq;
+   const double cb = 1/sq;
+   v1 = v*cb;
+   v2 = v*sb;
+}
+
 std::ostream& operator<<(std::ostream& ostr, const CLASSNAME& model)
 {
    model.print(ostr);

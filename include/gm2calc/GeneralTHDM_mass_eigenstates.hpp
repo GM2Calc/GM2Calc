@@ -136,6 +136,9 @@ public:
    double get_v() const;
    double get_v_sqr() const;
 
+   /// set tan(beta) and vacuum expectation value
+   void set_tan_beta_and_v(double, double);
+
 private:
    bool force_output{false};        ///< switch to force output of pole masses
    GeneralTHDM_physical physical{}; ///< contains the pole masses and mixings
