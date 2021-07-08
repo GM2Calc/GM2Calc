@@ -2,6 +2,8 @@
 
 #include "doctest.h"
 #include "gm2calc/GeneralTHDM.hpp"
+#include "gm2calc/gm2_1loop.hpp"
+#include "gm2calc/gm2_2loop.hpp"
 
 #include <cmath>
 
@@ -195,4 +197,53 @@ TEST_CASE("tree-level-spectrum")
    CHECK_CLOSE(model.get_MFe(0), ml(0,0), eps);
    CHECK_CLOSE(model.get_MFe(1), ml(1,1), eps);
    CHECK_CLOSE(model.get_MFe(2), ml(2,2), eps);
+}
+
+
+TEST_CASE("2HDMC-demo-point")
+{
+   THDM_pars pars;
+   pars.lambda1 = 4.81665;
+   pars.lambda2 = 0.23993;
+   pars.lambda3 = 2.09923;
+   pars.lambda4 = -1.27781;
+   pars.lambda5 = -0.71038;
+   pars.lambda6 = 0.0;
+   pars.lambda7 = 0.0;
+   pars.tan_beta = 3.0;
+   pars.M122 = sqr(200.0);
+
+   auto model = setup(pars);
+   const bool have_problem = model.get_problems().have_problem();
+
+   CHECK(!have_problem);
+
+   const auto amu = gm2calc::calculate_amu_1loop(model)
+                  + gm2calc::calculate_amu_2loop(model);
+
+   // CHECK_CLOSE(amu*1e14, -4.84754, 1e-10);
+}
+
+
+TEST_CASE("test-point-GAMBIT")
+{
+   THDM_pars pars;
+   pars.lambda1 =  2.0292;
+   pars.lambda2 =  0.2581;
+   pars.lambda3 =  0.8158;
+   pars.lambda4 =  0.4343;
+   pars.lambda5 = -0.5587;
+   pars.lambda6 =  0.0;
+   pars.lambda7 =  0.0;
+   pars.tan_beta = 20.0;
+   pars.M122 = 1428;
+
+   auto model = setup(pars);
+   const bool have_problem = model.get_problems().have_problem();
+
+   CHECK(!have_problem);
+
+   const auto amu = gm2calc::calculate_amu_1loop(model);
+
+   // CHECK_CLOSE(amu*1e8, 7.2833824, 1e-10);
 }
