@@ -37,7 +37,7 @@ double calculate_amu_2loop(const GeneralTHDM& model)
    const double beta = model.get_beta();
    const double sba = std::sin(beta - alpha_h);
    const double cba = std::cos(beta - alpha_h);
-   const Eigen::Matrix<double,3,1> id = Eigen::Matrix<double,3,1>::Identity();
+   const Eigen::Matrix<double,3,1> id = Eigen::Matrix<double,3,1>::Ones();
 
    general_thdm::THDM_B_parameters pars_b;
    pars_b.alpha_em = model.get_alpha_em();
