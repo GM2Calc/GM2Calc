@@ -74,7 +74,7 @@ double calculate_amu_1loop(const GeneralTHDM& model)
    pars.ylh = sba*id + cba*zetal; // Eq.(18), arxiv:1607.06292
    pars.ylH = cba*id - sba*zetal; // Eq.(18), arxiv:1607.06292
    pars.ylA = -zetal;             // Eq.(18), arxiv:1607.06292
-   pars.ylHp = pars.ylA; // @todo(alex) check convention
+   pars.ylHp = pars.ylA/std::sqrt(2.0); // @todo(alex) check convention
 
    return general_thdm::amu1L(pars);
 }
