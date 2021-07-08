@@ -18,10 +18,11 @@ namespace {
 double sqr(double x) noexcept { return x*x; }
 
 const double pi = 3.1415926535897932;
-const double alpha_em = 1./137.036;
+const double alpha_em = 1./137.0359997;
 const double e = std::sqrt(alpha_em*4*pi);
 const double alpha_s = 0.1184;
 const double g3 = std::sqrt(alpha_s*4*pi);
+const double mhSM = 125.09;
 const double mw = 80.379;
 const double mz = 91.1876;
 const double cw = mw/mz;
@@ -95,6 +96,8 @@ gm2calc::GeneralTHDM setup(const THDM_pars& pars)
 
    model.solve_ewsb();
    model.calculate_MSbar_masses();
+
+   model.get_physical().MhSM = mhSM;
 
    return model;
 }
@@ -237,6 +240,7 @@ TEST_CASE("test-point-GAMBIT")
    pars.lambda7 =  0.0;
    pars.tan_beta = 20.0;
    pars.M122 = 1428;
+   pars.Xe(1,1) = 0.1;
 
    auto model = setup(pars);
    const bool have_problem = model.get_problems().have_problem();
