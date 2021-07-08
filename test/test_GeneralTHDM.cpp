@@ -60,6 +60,10 @@ gm2calc::GeneralTHDM setup()
    const double vu = v*sb;
    const double vd = v*cb;
 
+   const Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
+   const Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
+   const Eigen::Matrix<double,3,3> Xe{Eigen::Matrix<double,3,3>::Zero()};
+
    // parameter point from 2HDMC Demo.cpp
    gm2calc::GeneralTHDM model;
    model.set_g1(g1);
@@ -75,9 +79,9 @@ gm2calc::GeneralTHDM setup()
    model.set_Lambda6(0.0);
    model.set_Lambda7(0.0);
    model.set_M122(sqr(200.0));
-   model.set_Yu(std::sqrt(2.0)*mu/vu);
-   model.set_Yd(std::sqrt(2.0)*md/vd);
-   model.set_Ye(std::sqrt(2.0)*ml/vd);
+   model.set_Yu(std::sqrt(2.0)*mu/vu - vd/vu*Xu);
+   model.set_Yd(std::sqrt(2.0)*md/vd - vu/vd*Xd);
+   model.set_Ye(std::sqrt(2.0)*ml/vd - vu/vd*Xe);
 
    model.solve_ewsb();
    model.calculate_MSbar_masses();
