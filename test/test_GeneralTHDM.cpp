@@ -60,6 +60,7 @@ struct THDM_pars {
    double lambda5{0.0};
    double lambda6{0.0};
    double lambda7{0.0};
+   double tan_beta{0.0};
    double M122{0.0};
    Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
@@ -68,7 +69,7 @@ struct THDM_pars {
 
 gm2calc::GeneralTHDM setup(const THDM_pars& pars)
 {
-   const double tb = 3.0;
+   const double tb = pars.tan_beta;
    const double sb = tb/std::sqrt(1.0 + sqr(tb));
    const double cb = 1./std::sqrt(1.0 + sqr(tb));
    const double vu = v*sb;
@@ -117,6 +118,7 @@ TEST_CASE("tree-level-spectrum")
    pars.lambda5 = -0.71038;
    pars.lambda6 = 0.0;
    pars.lambda7 = 0.0;
+   pars.tan_beta = 3.0;
    pars.M122 = sqr(200.0);
 
    auto model = setup(pars);
