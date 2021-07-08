@@ -218,10 +218,15 @@ TEST_CASE("2HDMC-demo-point")
 
    CHECK(!have_problem);
 
-   const auto amu = gm2calc::calculate_amu_1loop(model)
-                  + gm2calc::calculate_amu_2loop(model);
+   const auto amu1L = gm2calc::calculate_amu_1loop(model);
+   const auto amu2L = gm2calc::calculate_amu_2loop(model);
 
-   // CHECK_CLOSE(amu*1e14, -4.84754, 1e-10);
+   // Notes on the 2HDMC result:
+   // * the SM Higgs contribution is not subtracted
+
+   const auto amu1LSM = 2.08436e-14;
+
+   CHECK_CLOSE((amu1L + amu1LSM)*1e14, 1.95524, 0.05);
 }
 
 
