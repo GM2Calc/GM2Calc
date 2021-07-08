@@ -43,6 +43,7 @@ public:
    double get_zeta_d() const;
    double get_zeta_l() const;
 
+   Yukawa_scheme get_yukawa_scheme() const { return yukawa_scheme; }
    void set_yukawa_scheme(Yukawa_scheme ys) { yukawa_scheme = ys; }
 
 private:
