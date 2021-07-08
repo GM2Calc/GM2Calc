@@ -22,22 +22,40 @@
 
 namespace gm2calc {
 
-/// @todo(alex) chose according to Table 1, arxiv:1607.06292
+/// Table 1, arxiv:1607.06292
 double GeneralTHDM::get_zeta_u() const
 {
    return 1.0/get_tan_beta();
 }
 
-/// @todo(alex) chose according to Table 1, arxiv:1607.06292
+/// Table 1, arxiv:1607.06292
 double GeneralTHDM::get_zeta_d() const
 {
-   return -get_tan_beta();
+   switch (yukawa_scheme) {
+      case Yukawa_scheme::type_1:
+         return 1.0/get_tan_beta();
+      case Yukawa_scheme::type_2:
+         return -get_tan_beta();
+      case Yukawa_scheme::type_X:
+         return 1.0/get_tan_beta();
+      case Yukawa_scheme::type_Y:
+         return -get_tan_beta();
+   }
 }
 
-/// @todo(alex) chose according to Table 1, arxiv:1607.06292
+/// Table 1, arxiv:1607.06292
 double GeneralTHDM::get_zeta_l() const
 {
-   return -get_tan_beta();
+   switch (yukawa_scheme) {
+      case Yukawa_scheme::type_1:
+         return 1.0/get_tan_beta();
+      case Yukawa_scheme::type_2:
+         return -get_tan_beta();
+      case Yukawa_scheme::type_X:
+         return -get_tan_beta();
+      case Yukawa_scheme::type_Y:
+         return 1.0/get_tan_beta();
+   }
 }
 
 std::ostream& operator<<(std::ostream& ostr, const GeneralTHDM& model)

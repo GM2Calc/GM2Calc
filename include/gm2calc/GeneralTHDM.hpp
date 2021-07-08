@@ -33,11 +33,20 @@ namespace gm2calc {
  */
 class GeneralTHDM : public GeneralTHDM_mass_eigenstates {
 public:
+   enum class Yukawa_scheme {
+      type_1, type_2, type_X, type_Y
+   };
+
    virtual ~GeneralTHDM() = default;
 
    double get_zeta_u() const;
    double get_zeta_d() const;
    double get_zeta_l() const;
+
+   void set_yukawa_scheme(Yukawa_scheme ys) { yukawa_scheme = ys; }
+
+private:
+   Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
 };
 
 /// streaming operator
