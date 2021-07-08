@@ -69,19 +69,12 @@ struct THDM_pars {
 
 gm2calc::GeneralTHDM setup(const THDM_pars& pars)
 {
-   const double tb = pars.tan_beta;
-   const double sb = tb/std::sqrt(1.0 + sqr(tb));
-   const double cb = 1./std::sqrt(1.0 + sqr(tb));
-   const double vu = v*sb;
-   const double vd = v*cb;
-
    // parameter point from 2HDMC Demo.cpp
    gm2calc::GeneralTHDM model;
    model.set_g1(g1);
    model.set_g2(g2);
    model.set_g3(g3);
-   model.set_v1(vd);
-   model.set_v2(vu);
+   model.set_tan_beta_and_v(pars.tan_beta, v);
    model.set_Lambda1(pars.lambda1);
    model.set_Lambda2(pars.lambda2);
    model.set_Lambda3(pars.lambda3);
@@ -90,6 +83,10 @@ gm2calc::GeneralTHDM setup(const THDM_pars& pars)
    model.set_Lambda6(pars.lambda6);
    model.set_Lambda7(pars.lambda7);
    model.set_M122(pars.M122);
+
+   const double vd = model.get_v1();
+   const double vu = model.get_v2();
+
    model.set_Yu(std::sqrt(2.0)*mu/vu - vd/vu*pars.Xu);
    model.set_Yd(std::sqrt(2.0)*md/vd - vu/vd*pars.Xd);
    model.set_Ye(std::sqrt(2.0)*ml/vd - vu/vd*pars.Xe);
