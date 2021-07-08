@@ -61,6 +61,24 @@ double GeneralTHDM::get_zeta_l() const
 std::ostream& operator<<(std::ostream& ostr, const GeneralTHDM& model)
 {
    model.print(ostr);
+
+   ostr << "Yukawa scheme: ";
+
+   switch (model.get_yukawa_scheme()) {
+      case GeneralTHDM::Yukawa_scheme::type_1:
+         ostr << "Type I\n";
+      case GeneralTHDM::Yukawa_scheme::type_2:
+         ostr << "Type II\n";
+      case GeneralTHDM::Yukawa_scheme::type_X:
+         ostr << "Type X\n";
+      case GeneralTHDM::Yukawa_scheme::type_Y:
+         ostr << "Type Y\n";
+   }
+
+   ostr << "zeta_u = " << model.get_zeta_u() << '\n';
+   ostr << "zeta_d = " << model.get_zeta_d() << '\n';
+   ostr << "zeta_l = " << model.get_zeta_l() << '\n';
+
    return ostr;
 }
 
