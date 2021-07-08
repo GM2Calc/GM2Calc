@@ -52,17 +52,27 @@ const Eigen::Matrix<double,3,3> ml{
     0.0, 0.0, 1.7768).finished()
 };
 
-gm2calc::GeneralTHDM setup()
+struct THDM_pars {
+   double lambda1{0.0};
+   double lambda2{0.0};
+   double lambda3{0.0};
+   double lambda4{0.0};
+   double lambda5{0.0};
+   double lambda6{0.0};
+   double lambda7{0.0};
+   double M122{0.0};
+   Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xe{Eigen::Matrix<double,3,3>::Zero()};
+};
+
+gm2calc::GeneralTHDM setup(const THDM_pars& pars)
 {
    const double tb = 3.0;
    const double sb = tb/std::sqrt(1.0 + sqr(tb));
    const double cb = 1./std::sqrt(1.0 + sqr(tb));
    const double vu = v*sb;
    const double vd = v*cb;
-
-   const Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
-   const Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
-   const Eigen::Matrix<double,3,3> Xe{Eigen::Matrix<double,3,3>::Zero()};
 
    // parameter point from 2HDMC Demo.cpp
    gm2calc::GeneralTHDM model;
@@ -71,17 +81,17 @@ gm2calc::GeneralTHDM setup()
    model.set_g3(g3);
    model.set_v1(vd);
    model.set_v2(vu);
-   model.set_Lambda1(4.81665);
-   model.set_Lambda2(0.23993);
-   model.set_Lambda3(2.09923);
-   model.set_Lambda4(-1.27781);
-   model.set_Lambda5(-0.71038);
-   model.set_Lambda6(0.0);
-   model.set_Lambda7(0.0);
-   model.set_M122(sqr(200.0));
-   model.set_Yu(std::sqrt(2.0)*mu/vu - vd/vu*Xu);
-   model.set_Yd(std::sqrt(2.0)*md/vd - vu/vd*Xd);
-   model.set_Ye(std::sqrt(2.0)*ml/vd - vu/vd*Xe);
+   model.set_Lambda1(pars.lambda1);
+   model.set_Lambda2(pars.lambda2);
+   model.set_Lambda3(pars.lambda3);
+   model.set_Lambda4(pars.lambda4);
+   model.set_Lambda5(pars.lambda5);
+   model.set_Lambda6(pars.lambda6);
+   model.set_Lambda7(pars.lambda7);
+   model.set_M122(pars.M122);
+   model.set_Yu(std::sqrt(2.0)*mu/vu - vd/vu*pars.Xu);
+   model.set_Yd(std::sqrt(2.0)*md/vd - vu/vd*pars.Xd);
+   model.set_Ye(std::sqrt(2.0)*ml/vd - vu/vd*pars.Xe);
 
    model.solve_ewsb();
    model.calculate_MSbar_masses();
@@ -95,7 +105,18 @@ gm2calc::GeneralTHDM setup()
 TEST_CASE("tree-level-spectrum")
 {
    const double eps = 1e-14;
-   auto model = setup();
+
+   THDM_pars pars;
+   pars.lambda1 = 4.81665;
+   pars.lambda2 = 0.23993;
+   pars.lambda3 = 2.09923;
+   pars.lambda4 = -1.27781;
+   pars.lambda5 = -0.71038;
+   pars.lambda6 = 0.0;
+   pars.lambda7 = 0.0;
+   pars.M122 = sqr(200.0);
+
+   auto model = setup(pars);
    const bool have_problem = model.get_problems().have_problem();
 
    CHECK(!have_problem);
