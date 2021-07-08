@@ -524,6 +524,14 @@ double CLASSNAME::get_v_sqr() const
    return sqr(v1) + sqr(v2);
 }
 
+void CLASSNAME::set_alpha_em_and_cw(double alpha_em, double cw)
+{
+   const double e = std::sqrt(alpha_em*4*pi);
+   const double sw = std::sqrt(1 - sqr(cw));
+   g1 = e/(cw*gut_normalization);
+   g2 = e/sw;
+}
+
 void CLASSNAME::set_tan_beta_and_v(double tan_beta, double v)
 {
    const double sq = std::sqrt(1.0 + sqr(tan_beta));

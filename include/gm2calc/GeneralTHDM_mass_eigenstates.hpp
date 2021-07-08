@@ -136,6 +136,9 @@ public:
    double get_v() const;
    double get_v_sqr() const;
 
+   /// set alpha_em and cos(theta_w)
+   void set_alpha_em_and_cw(double, double);
+
    /// set tan(beta) and vacuum expectation value
    void set_tan_beta_and_v(double, double);
 

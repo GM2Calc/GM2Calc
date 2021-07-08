@@ -27,8 +27,6 @@ const double mw = 80.379;
 const double mz = 91.1876;
 const double cw = mw/mz;
 const double sw = std::sqrt(1 - sqr(cw));
-const double gY = e/cw;
-const double g1 = gY*std::sqrt(5.0/3.0);
 const double g2 = e/sw;
 const double v = 2*mw/g2;
 
@@ -74,8 +72,7 @@ gm2calc::GeneralTHDM setup(const THDM_pars& pars)
 {
    // parameter point from 2HDMC Demo.cpp
    gm2calc::GeneralTHDM model;
-   model.set_g1(g1);
-   model.set_g2(g2);
+   model.set_alpha_em_and_cw(alpha_em, cw);
    model.set_g3(g3);
    model.set_tan_beta_and_v(pars.tan_beta, v);
    model.set_Lambda1(pars.lambda1);
