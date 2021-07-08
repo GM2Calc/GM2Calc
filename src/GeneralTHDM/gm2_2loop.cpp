@@ -30,7 +30,6 @@ namespace gm2calc {
  */
 double calculate_amu_2loop(const GeneralTHDM& model)
 {
-   const double tb = model.get_tan_beta();
    const double zeta_u = model.get_zeta_u();
    const double zeta_d = model.get_zeta_d();
    const double zeta_l = model.get_zeta_l();
