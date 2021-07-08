@@ -26,12 +26,25 @@ namespace gm2calc {
  * Calculates full 2-loop contribution to a_mu in the general THDM.
  *
  * @todo(alex) to be implemented
+ * @todo(alex) allow for input of zeta_f, see Table 1, arxiv:1607.06292
  *
  * @param model THDM model parameters, masses and mixings
  * @return 2-loop contribution to a_mu
  */
 double calculate_amu_2loop(const GeneralTHDM& model)
 {
+   const double tb = model.get_tan_beta();
+   const double ctb = 1.0/tb;
+   const double zetau = ctb; // @todo(alex) make a parameter
+   const double zetad = -tb; // @todo(alex) make a parameter
+   const double zetal = -tb; // @todo(alex) make a parameter
+
+   const double alpha_h = model.get_alpha_h();
+   const double beta = model.get_beta();
+   const double sba = std::sin(beta - alpha_h);
+   const double cba = std::cos(beta - alpha_h);
+   const Eigen::Matrix<double,3,1> id = Eigen::Matrix<double,3,1>::Identity();
+
    general_thdm::THDM_B_parameters pars_b;
    pars_b.alpha_em = model.get_alpha_em();
    pars_b.mm = model.get_MFe(1);
@@ -42,9 +55,25 @@ double calculate_amu_2loop(const GeneralTHDM& model)
    pars_b.mHp = model.get_MHm(1);
    pars_b.mh = model.get_Mhh();
    pars_b.tb = model.get_tan_beta();
-   // pars_b.zetal = ?;
+   pars_b.zetal = zetal;
    pars_b.eta = model.get_eta();
    pars_b.lambda5 = model.get_LambdaFive();
+
+   // Eq.(18), arxiv:1607.06292
+   Eigen::Matrix<double,3,3> yuS;
+   yuS.col(0) = id*(sba + cba*zetau); // S = h
+   yuS.col(1) = id*(cba - sba*zetau); // S = H
+   yuS.col(2) = id*zetau;             // S = A
+
+   Eigen::Matrix<double,3,3> ydS;
+   ydS.col(0) = id*(sba + cba*zetad); // S = h
+   ydS.col(1) = id*(cba - sba*zetad); // S = H
+   ydS.col(2) = id*(-zetad);          // S = A
+
+   Eigen::Matrix<double,3,3> ylS;
+   ylS.col(0) = id*(sba + cba*zetal); // S = h
+   ylS.col(1) = id*(cba - sba*zetal); // S = H
+   ylS.col(2) = id*(-zetal);          // S = A
 
    general_thdm::THDM_F_parameters pars_f;
    pars_f.alpha_em = model.get_alpha_em();
@@ -58,9 +87,9 @@ double calculate_amu_2loop(const GeneralTHDM& model)
    pars_f.ml = model.get_MFe();
    pars_f.mu = model.get_MFu();
    pars_f.md = model.get_MFd();
-   // pars_b.yuS = ?;
-   // pars_b.ydS = ?;
-   // pars_b.ylS = ?;
+   pars_f.yuS = yuS;
+   pars_f.ydS = ydS;
+   pars_f.ylS = ylS;
 
    return amu2L_B(pars_b) + amu2L_F(pars_f);
 }
