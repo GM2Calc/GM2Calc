@@ -295,9 +295,9 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
    // loop over generations
    for (int i = 0; i < 3; ++i) {
       // H^\pm
-      res += fuHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*thdm.yuS(i,2)*thdm.ylS(1,2);
-      res += fdHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*thdm.ydS(i,2)*thdm.ylS(1,2);
-      res += flHp(mHp2, sqr(thdm.ml(i)), mw2, mz2)*thdm.ylS(i,2)*thdm.ylS(1,2);
+      res += fuHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*thdm.yuS(i,3)*thdm.ylS(1,3);
+      res += fdHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*thdm.ydS(i,3)*thdm.ylS(1,3);
+      res += flHp(mHp2, sqr(thdm.ml(i)), mw2, mz2)*thdm.ylS(i,3)*thdm.ylS(1,3);
    }
 
    const double sw2 = 1.0 - mw2/mz2;

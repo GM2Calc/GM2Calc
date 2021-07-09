@@ -54,9 +54,9 @@ struct THDM_F_parameters {
    Eigen::Matrix<double,3,1> ml{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type lepton masses
    Eigen::Matrix<double,3,1> mu{Eigen::Matrix<double,3,1>::Zero()}; ///< up-type quark masses
    Eigen::Matrix<double,3,1> md{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type quark masses
-   Eigen::Matrix<double,3,3> yuS{Eigen::Matrix<double,3,3>::Zero()};///< Y_f^S coefficients with f={u,c,t} and S={h,H,A}
-   Eigen::Matrix<double,3,3> ydS{Eigen::Matrix<double,3,3>::Zero()};///< Y_f^S coefficients with f={d,s,b} and S={h,H,A}
-   Eigen::Matrix<double,3,3> ylS{Eigen::Matrix<double,3,3>::Zero()};///< Y_f^S coefficients with f={e,m,τ} and S={h,H,A}
+   Eigen::Matrix<double,3,4> yuS{Eigen::Matrix<double,3,4>::Zero()};///< Y_f^S coefficients with f={u,c,t} and S={h,H,A,H^+}
+   Eigen::Matrix<double,3,4> ydS{Eigen::Matrix<double,3,4>::Zero()};///< Y_f^S coefficients with f={d,s,b} and S={h,H,A,H^+}
+   Eigen::Matrix<double,3,4> ylS{Eigen::Matrix<double,3,4>::Zero()};///< Y_f^S coefficients with f={e,m,τ} and S={h,H,A,H^+}
 };
 
 // === 2-loop bosonic contributions ===

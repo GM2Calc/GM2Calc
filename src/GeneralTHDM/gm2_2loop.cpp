@@ -54,20 +54,23 @@ double calculate_amu_2loop(const GeneralTHDM& model)
    pars_b.lambda5 = model.get_LambdaFive();
 
    // Eq.(18), arxiv:1607.06292
-   Eigen::Matrix<double,3,3> yuS;
+   Eigen::Matrix<double,3,4> yuS;
    yuS.col(0) = id*(sba + cba*zeta_u); // S = h
    yuS.col(1) = id*(cba - sba*zeta_u); // S = H
    yuS.col(2) = id*zeta_u;             // S = A
+   yuS.col(3) = id*zeta_u;             // S = H^p
 
-   Eigen::Matrix<double,3,3> ydS;
+   Eigen::Matrix<double,3,4> ydS;
    ydS.col(0) = id*(sba + cba*zeta_d); // S = h
    ydS.col(1) = id*(cba - sba*zeta_d); // S = H
    ydS.col(2) = id*(-zeta_d);          // S = A
+   ydS.col(3) = id*(-zeta_d);          // S = H^p
 
-   Eigen::Matrix<double,3,3> ylS;
+   Eigen::Matrix<double,3,4> ylS;
    ylS.col(0) = id*(sba + cba*zeta_l); // S = h
    ylS.col(1) = id*(cba - sba*zeta_l); // S = H
    ylS.col(2) = id*(-zeta_l);          // S = A
+   ylS.col(3) = id*(-zeta_l);          // S = H^+
 
    general_thdm::THDM_F_parameters pars_f;
    pars_f.alpha_em = model.get_alpha_em();
