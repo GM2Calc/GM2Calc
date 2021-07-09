@@ -18,12 +18,12 @@ namespace {
 double sqr(double x) noexcept { return x*x; }
 
 const double pi = 3.1415926535897932;
-const double alpha_em = 1./137.0359997;
+const double alpha_em = 1./127.95000; // 1./137.0359997;
 const double e = std::sqrt(alpha_em*4*pi);
 const double alpha_s = 0.1184;
 const double g3 = std::sqrt(alpha_s*4*pi);
 const double mhSM = 125.09;
-const double mw = 80.379;
+const double mw = 80.385;
 const double mz = 91.1876;
 const double cw = mw/mz;
 const double sw = std::sqrt(1 - sqr(cw));
@@ -32,15 +32,15 @@ const double v = 2*mw/g2;
 
 const Eigen::Matrix<double,3,3> mu{
    (Eigen::Matrix<double,3,3>()
-    << 2.16e-3, 0.0, 0.0,
-    0.0, 1.270, 0.0,
-    0.0, 0.0, 172.760).finished()
+    << 2.2e-3, 0.0, 0.0,
+    0.0, 1.28, 0.0,
+    0.0, 0.0, 173.34).finished()
 };
 
 const Eigen::Matrix<double,3,3> md{
    (Eigen::Matrix<double,3,3>()
-    << 4.67e-3, 0.0, 0.0,
-    0.0, 93e-3, 0.0,
+    << 4.7e-3, 0.0, 0.0,
+    0.0, 0.096, 0.0,
     0.0, 0.0, 4.18).finished()
 };
 
@@ -48,9 +48,9 @@ const Eigen::Matrix<double,3,3> mv{Eigen::Matrix<double,3,3>::Zero()};
 
 const Eigen::Matrix<double,3,3> ml{
    (Eigen::Matrix<double,3,3>()
-    << 510.999e-6, 0.0, 0.0,
-    0.0, 0.10565837, 0.0,
-    0.0, 0.0, 1.7768).finished()
+    << 510.998946e-6, 0.0, 0.0,
+    0.0, 0.105658375, 0.0,
+    0.0, 0.0, 1.77686).finished()
 };
 
 struct THDM_pars {
@@ -239,11 +239,11 @@ TEST_CASE("2HDMC-demo-point")
 TEST_CASE("test-point-GAMBIT")
 {
    THDM_pars pars;
-   pars.lambda1 =  2.0292;
-   pars.lambda2 =  0.2581;
-   pars.lambda3 =  0.8158;
-   pars.lambda4 =  0.4343;
-   pars.lambda5 = -0.5587;
+   pars.lambda1 =  2.0292452;
+   pars.lambda2 =  0.25812067;
+   pars.lambda3 =  0.81575007;
+   pars.lambda4 =  0.4343387;
+   pars.lambda5 = -0.55866546;
    pars.lambda6 =  0.0;
    pars.lambda7 =  0.0;
    pars.tan_beta = 20.0;
@@ -257,5 +257,5 @@ TEST_CASE("test-point-GAMBIT")
 
    const auto amu = gm2calc::calculate_amu_1loop(model);
 
-   CHECK_CLOSE(amu*1e8, 7.2833824, 0.02);
+   CHECK_CLOSE(amu*1e8, 6.9952544, 0.005);
 }
