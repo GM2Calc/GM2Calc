@@ -225,8 +225,9 @@ TEST_CASE("2HDMC-demo-point")
    const auto amu2L = gm2calc::calculate_amu_2loop(model);
 
    // Notes on the 2HDMC result:
-   // * the 1-loop SM Higgs contribution is not subtracted
-   // * at 2-loop only the Barr-Zee contributions are implemented
+   // * the 1- and 2-loop SM Higgs contributions are not subtracted
+   // * at 2-loop only the ferimonic Barr-Zee contributions from
+   //   neutral Higgs bosons are implemented
 
    const auto amu1LSM = 2.08436e-14;
 
