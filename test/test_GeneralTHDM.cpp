@@ -83,6 +83,9 @@ gm2calc::GeneralTHDM setup(const THDM_pars& pars)
    model.set_Lambda6(pars.lambda6);
    model.set_Lambda7(pars.lambda7);
    model.set_M122(pars.M122);
+   model.set_Xu(pars.Xu);
+   model.set_Xd(pars.Xd);
+   model.set_Xe(pars.Xe);
 
    const double vd = model.get_v1();
    const double vu = model.get_v2();
@@ -253,5 +256,5 @@ TEST_CASE("test-point-GAMBIT")
 
    const auto amu = gm2calc::calculate_amu_1loop(model);
 
-   // CHECK_CLOSE(amu*1e8, 7.2833824, 1e-10);
+   CHECK_CLOSE(amu*1e8, 7.2833824, 0.02);
 }
