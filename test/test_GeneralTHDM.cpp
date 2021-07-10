@@ -18,13 +18,6 @@ namespace {
 double sqr(double x) noexcept { return x*x; }
 
 const double pi = 3.1415926535897932;
-const double alpha_em = 1./127.95000; // 1./137.0359997;
-const double e = std::sqrt(alpha_em*4*pi);
-const double alpha_s = 0.1184;
-const double g3 = std::sqrt(alpha_s*4*pi);
-const double mhSM = 125.09;
-const double mw = 80.385;
-const double mz = 91.1876;
 
 const Eigen::Matrix<double,3,3> mu{
    (Eigen::Matrix<double,3,3>()
@@ -93,8 +86,6 @@ gm2calc::GeneralTHDM setup(const THDM_pars& pars)
    model.solve_ewsb();
    model.calculate_MSbar_masses();
 
-   model.get_sm().set_mh(mhSM);
-
    return model;
 }
 
@@ -125,8 +116,8 @@ TEST_CASE("tree-level-spectrum")
    CHECK(!have_problem);
    CHECK(model.get_MVG() == 0.0);
    CHECK(model.get_MVP() == 0.0);
-   CHECK_CLOSE(model.get_MVZ(), mz, eps);
-   CHECK_CLOSE(model.get_MVWm(), mw, eps);
+   CHECK_CLOSE(model.get_MVZ(), model.get_sm().get_mz(), eps);
+   CHECK_CLOSE(model.get_MVWm(), model.get_sm().get_mw(), eps);
 
    const double m122 = model.get_M122();
    const double tb = model.get_tan_beta();
