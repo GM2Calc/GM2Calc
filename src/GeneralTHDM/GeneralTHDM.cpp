@@ -34,19 +34,20 @@ void GeneralTHDM::init_gauge_couplings()
    set_alpha_em_and_cw(sm.get_alpha_em_mz(), sm.get_cw());
 }
 
-/// @todo(alex) fix Yukawa couplings for all THDM types in a generic way
+/**
+ * Initialize Yukawa couplings
+ *
+ * @todo(alex) fix Yukawa couplings for all THDM types in a generic way
+ */
 void GeneralTHDM::init_yukawas()
 {
-   const double vd = get_v1();
-   const double vu = get_v2();
+   const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
+   const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
+   const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
 
-   Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
-   Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
-   Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
-
-   set_Yu(std::sqrt(2.0)*mu/vu - vd/vu*Xu);
-   set_Yd(std::sqrt(2.0)*md/vd - vu/vd*Xd);
-   set_Ye(std::sqrt(2.0)*ml/vd - vu/vd*Xe);
+   set_Yu(std::sqrt(2.0)*mu/v2 - v1/v2*Xu);
+   set_Yd(std::sqrt(2.0)*md/v1 - v2/v1*Xd);
+   set_Ye(std::sqrt(2.0)*ml/v1 - v2/v1*Xe);
 }
 
 /// Table 1, arxiv:1607.06292
