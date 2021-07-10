@@ -79,6 +79,7 @@ gm2calc::GeneralTHDM setup(const THDM_pars& pars)
    const double vd = model.get_v1();
    const double vu = model.get_v2();
 
+   // @todo(alex) fix Yukawa couplings for all THDM types in a generic way
    model.set_Yu(std::sqrt(2.0)*mu/vu - vd/vu*pars.Xu);
    model.set_Yd(std::sqrt(2.0)*md/vd - vu/vd*pars.Xd);
    model.set_Ye(std::sqrt(2.0)*ml/vd - vu/vd*pars.Xe);
@@ -111,9 +112,8 @@ TEST_CASE("tree-level-spectrum")
    pars.M122 = sqr(200.0);
 
    auto model = setup(pars);
-   const bool have_problem = model.get_problems().have_problem();
 
-   CHECK(!have_problem);
+   CHECK(!model.get_problems().have_problem());
    CHECK(model.get_MVG() == 0.0);
    CHECK(model.get_MVP() == 0.0);
    CHECK_CLOSE(model.get_MVZ(), model.get_sm().get_mz(), eps);
