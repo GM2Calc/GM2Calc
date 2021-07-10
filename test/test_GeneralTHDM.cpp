@@ -19,77 +19,6 @@ double sqr(double x) noexcept { return x*x; }
 
 const double pi = 3.1415926535897932;
 
-const Eigen::Matrix<double,3,3> mu{
-   (Eigen::Matrix<double,3,3>()
-    << 2.2e-3, 0.0, 0.0,
-    0.0, 1.28, 0.0,
-    0.0, 0.0, 173.34).finished()
-};
-
-const Eigen::Matrix<double,3,3> md{
-   (Eigen::Matrix<double,3,3>()
-    << 4.7e-3, 0.0, 0.0,
-    0.0, 0.096, 0.0,
-    0.0, 0.0, 4.18).finished()
-};
-
-const Eigen::Matrix<double,3,3> mv{Eigen::Matrix<double,3,3>::Zero()};
-
-const Eigen::Matrix<double,3,3> ml{
-   (Eigen::Matrix<double,3,3>()
-    << 510.998946e-6, 0.0, 0.0,
-    0.0, 0.105658375, 0.0,
-    0.0, 0.0, 1.77686).finished()
-};
-
-struct THDM_pars {
-   double lambda1{0.0};
-   double lambda2{0.0};
-   double lambda3{0.0};
-   double lambda4{0.0};
-   double lambda5{0.0};
-   double lambda6{0.0};
-   double lambda7{0.0};
-   double tan_beta{0.0};
-   double M122{0.0};
-   Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xe{Eigen::Matrix<double,3,3>::Zero()};
-   gm2calc::SM sm;
-};
-
-gm2calc::GeneralTHDM setup(const THDM_pars& pars)
-{
-   // parameter point from 2HDMC Demo.cpp
-   gm2calc::GeneralTHDM model;
-   model.set_sm(pars.sm);
-   model.set_tan_beta(pars.tan_beta);
-   model.set_Lambda1(pars.lambda1);
-   model.set_Lambda2(pars.lambda2);
-   model.set_Lambda3(pars.lambda3);
-   model.set_Lambda4(pars.lambda4);
-   model.set_Lambda5(pars.lambda5);
-   model.set_Lambda6(pars.lambda6);
-   model.set_Lambda7(pars.lambda7);
-   model.set_M122(pars.M122);
-   model.set_Xu(pars.Xu);
-   model.set_Xd(pars.Xd);
-   model.set_Xe(pars.Xe);
-
-   const double vd = model.get_v1();
-   const double vu = model.get_v2();
-
-   // @todo(alex) fix Yukawa couplings for all THDM types in a generic way
-   model.set_Yu(std::sqrt(2.0)*mu/vu - vd/vu*pars.Xu);
-   model.set_Yd(std::sqrt(2.0)*md/vd - vu/vd*pars.Xd);
-   model.set_Ye(std::sqrt(2.0)*ml/vd - vu/vd*pars.Xe);
-
-   model.solve_ewsb();
-   model.calculate_MSbar_masses();
-
-   return model;
-}
-
 } // anonymous namespace
 
 
@@ -100,18 +29,19 @@ TEST_CASE("tree-level-spectrum")
    // parameter point where choice of range
    // -pi/2 <= beta - alpha_h <= pi/2
    // matters
-   THDM_pars pars;
-   pars.lambda1 = 0.26249;
-   pars.lambda2 = 0.23993;
-   pars.lambda3 = 2.09923;
-   pars.lambda4 = -1.27781;
-   pars.lambda5 = -0.71038;
-   pars.lambda6 = 0.0;
-   pars.lambda7 = 0.0;
-   pars.tan_beta = 3.0;
-   pars.M122 = sqr(200.0);
+   gm2calc::GeneralTHDM::General_basis basis;
+   basis.lambda1 = 0.26249;
+   basis.lambda2 = 0.23993;
+   basis.lambda3 = 2.09923;
+   basis.lambda4 = -1.27781;
+   basis.lambda5 = -0.71038;
+   basis.lambda6 = 0.0;
+   basis.lambda7 = 0.0;
+   basis.tan_beta = 3.0;
+   basis.M122 = sqr(200.0);
 
-   auto model = setup(pars);
+   gm2calc::GeneralTHDM model;
+   model.set_basis(basis);
 
    CHECK(!model.get_problems().have_problem());
    CHECK(model.get_MVG() == 0.0);
@@ -174,18 +104,18 @@ TEST_CASE("tree-level-spectrum")
    CHECK_CLOSE(model.get_eta(), pi/2 - bma, eps);
 
    // fermions
-   CHECK_CLOSE(model.get_MFu(0), mu(0,0), eps);
-   CHECK_CLOSE(model.get_MFu(1), mu(1,1), eps);
-   CHECK_CLOSE(model.get_MFu(2), mu(2,2), eps);
-   CHECK_CLOSE(model.get_MFd(0), md(0,0), eps);
-   CHECK_CLOSE(model.get_MFd(1), md(1,1), eps);
-   CHECK_CLOSE(model.get_MFd(2), md(2,2), eps);
-   CHECK_CLOSE(model.get_MFv(0), mv(0,0), eps);
-   CHECK_CLOSE(model.get_MFv(1), mv(1,1), eps);
-   CHECK_CLOSE(model.get_MFv(2), mv(2,2), eps);
-   CHECK_CLOSE(model.get_MFe(0), ml(0,0), eps);
-   CHECK_CLOSE(model.get_MFe(1), ml(1,1), eps);
-   CHECK_CLOSE(model.get_MFe(2), ml(2,2), eps);
+   CHECK_CLOSE(model.get_MFu(0), model.get_sm().get_mu(0), eps);
+   CHECK_CLOSE(model.get_MFu(1), model.get_sm().get_mu(1), eps);
+   CHECK_CLOSE(model.get_MFu(2), model.get_sm().get_mu(2), eps);
+   CHECK_CLOSE(model.get_MFd(0), model.get_sm().get_md(0), eps);
+   CHECK_CLOSE(model.get_MFd(1), model.get_sm().get_md(1), eps);
+   CHECK_CLOSE(model.get_MFd(2), model.get_sm().get_md(2), eps);
+   CHECK_CLOSE(model.get_MFe(0), model.get_sm().get_ml(0), eps);
+   CHECK_CLOSE(model.get_MFe(1), model.get_sm().get_ml(1), eps);
+   CHECK_CLOSE(model.get_MFe(2), model.get_sm().get_ml(2), eps);
+   CHECK_CLOSE(model.get_MFv(0), 0.0, eps);
+   CHECK_CLOSE(model.get_MFv(1), 0.0, eps);
+   CHECK_CLOSE(model.get_MFv(2), 0.0, eps);
 }
 
 
@@ -270,21 +200,21 @@ TEST_CASE("physical_basis")
 
 TEST_CASE("2HDMC-demo-point")
 {
-   THDM_pars pars;
-   pars.lambda1 = 4.81665;
-   pars.lambda2 = 0.23993;
-   pars.lambda3 = 2.09923;
-   pars.lambda4 = -1.27781;
-   pars.lambda5 = -0.71038;
-   pars.lambda6 = 0.0;
-   pars.lambda7 = 0.0;
-   pars.tan_beta = 3.0;
-   pars.M122 = sqr(200.0);
+   gm2calc::GeneralTHDM::General_basis basis;
+   basis.lambda1 = 4.81665;
+   basis.lambda2 = 0.23993;
+   basis.lambda3 = 2.09923;
+   basis.lambda4 = -1.27781;
+   basis.lambda5 = -0.71038;
+   basis.lambda6 = 0.0;
+   basis.lambda7 = 0.0;
+   basis.tan_beta = 3.0;
+   basis.M122 = sqr(200.0);
 
-   auto model = setup(pars);
-   const bool have_problem = model.get_problems().have_problem();
+   gm2calc::GeneralTHDM model;
+   model.set_basis(basis);
 
-   CHECK(!have_problem);
+   CHECK(!model.get_problems().have_problem());
 
    const auto amu1L = gm2calc::calculate_amu_1loop(model);
    const auto amu2L = gm2calc::calculate_amu_2loop(model);
@@ -303,22 +233,22 @@ TEST_CASE("2HDMC-demo-point")
 
 TEST_CASE("test-point-GAMBIT")
 {
-   THDM_pars pars;
-   pars.lambda1 =  2.0292452;
-   pars.lambda2 =  0.25812067;
-   pars.lambda3 =  0.81575007;
-   pars.lambda4 =  0.4343387;
-   pars.lambda5 = -0.55866546;
-   pars.lambda6 =  0.0;
-   pars.lambda7 =  0.0;
-   pars.tan_beta = 20.0;
-   pars.M122 = 1428;
-   pars.Xe(1,1) = 0.1;
+   gm2calc::GeneralTHDM::General_basis basis;
+   basis.lambda1 =  2.0292452;
+   basis.lambda2 =  0.25812067;
+   basis.lambda3 =  0.81575007;
+   basis.lambda4 =  0.4343387;
+   basis.lambda5 = -0.55866546;
+   basis.lambda6 =  0.0;
+   basis.lambda7 =  0.0;
+   basis.tan_beta = 20.0;
+   basis.M122 = 1428;
 
-   auto model = setup(pars);
-   const bool have_problem = model.get_problems().have_problem();
+   gm2calc::GeneralTHDM model;
+   model.set_basis(basis);
+   model.set_Xe(1, 1, 0.1);
 
-   CHECK(!have_problem);
+   CHECK(!model.get_problems().have_problem());
 
    const auto amu = gm2calc::calculate_amu_1loop(model);
 

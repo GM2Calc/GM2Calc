@@ -26,12 +26,27 @@ namespace gm2calc {
 
 GeneralTHDM::GeneralTHDM()
 {
-   init();
+   init_gauge_couplings();
 }
 
-void GeneralTHDM::init()
+void GeneralTHDM::init_gauge_couplings()
 {
    set_alpha_em_and_cw(sm.get_alpha_em_mz(), sm.get_cw());
+}
+
+/// @todo(alex) fix Yukawa couplings for all THDM types in a generic way
+void GeneralTHDM::init_yukawas()
+{
+   const double vd = get_v1();
+   const double vu = get_v2();
+
+   Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
+   Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
+   Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
+
+   set_Yu(std::sqrt(2.0)*mu/vu - vd/vu*Xu);
+   set_Yd(std::sqrt(2.0)*md/vd - vu/vd*Xd);
+   set_Ye(std::sqrt(2.0)*ml/vd - vu/vd*Xe);
 }
 
 /// Table 1, arxiv:1607.06292
@@ -82,6 +97,7 @@ void GeneralTHDM::set_basis(const GeneralTHDM::General_basis& basis)
    set_tan_beta_and_v(basis.tan_beta, sm.get_v());
    set_M122(basis.M122);
 
+   init_yukawas();
    solve_ewsb();
    calculate_MSbar_masses();
 }
@@ -148,6 +164,7 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
    set_tan_beta_and_v(basis.tan_beta, v);
    set_M122(basis.M122);
 
+   init_yukawas();
    solve_ewsb();
    calculate_MSbar_masses();
 }
@@ -155,7 +172,7 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
 void GeneralTHDM::set_sm(const SM& sm_)
 {
    sm = sm_;
-   init();
+   init_gauge_couplings();
 }
 
 void GeneralTHDM::set_tan_beta(double tb)

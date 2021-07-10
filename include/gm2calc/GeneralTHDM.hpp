@@ -85,7 +85,8 @@ private:
    Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
    SM sm{};
 
-   void init();
+   void init_gauge_couplings();
+   void init_yukawas();
 };
 
 /// streaming operator
