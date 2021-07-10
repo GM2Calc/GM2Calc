@@ -28,7 +28,6 @@
 #ifndef GM2_GeneralTHDM_MASS_EIGENSTATES_H
 #define GM2_GeneralTHDM_MASS_EIGENSTATES_H
 
-#include "GeneralTHDM_physical.hpp"
 #include "GeneralTHDM_problems.hpp"
 #include "GeneralTHDM_soft_parameters.hpp"
 
@@ -50,14 +49,10 @@ public:
    void print(std::ostream&) const override;
 
    void calculate_MSbar_masses();
-   void copy_MSbar_masses_to_pole_masses();
+
    void do_force_output(bool);
    bool do_force_output() const;
    void reorder_MSbar_masses();
-   void reorder_pole_masses();
-   void set_physical(const GeneralTHDM_physical&);
-   const GeneralTHDM_physical& get_physical() const;
-   GeneralTHDM_physical& get_physical();
    const GeneralTHDM_problems& get_problems() const;
    GeneralTHDM_problems& get_problems();
    int solve_ewsb_tree_level();
@@ -146,7 +141,6 @@ public:
 
 private:
    bool force_output{false};        ///< switch to force output of pole masses
-   GeneralTHDM_physical physical{}; ///< contains the pole masses and mixings
    GeneralTHDM_problems problems{}; ///< problems
 
    // DR-bar masses

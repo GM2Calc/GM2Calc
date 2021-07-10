@@ -97,7 +97,7 @@ gm2calc::GeneralTHDM setup(const THDM_pars& pars)
    model.solve_ewsb();
    model.calculate_MSbar_masses();
 
-   model.get_physical().MhSM = mhSM;
+   model.get_sm().set_mh(mhSM);
 
    return model;
 }
@@ -236,7 +236,7 @@ TEST_CASE("general_basis")
    // initialize using set_basis
    gm2calc::GeneralTHDM model2;
    model2.set_alpha_em_and_cw(alpha_em, cw);
-   model2.get_physical().MVWm = mw;
+   model2.get_sm().set_mw(mw);
    CHECK_NOTHROW(model2.set_basis(basis));
 
    CHECK_CLOSE(model1.get_Mhh(0), model2.get_Mhh(0), eps);
@@ -264,7 +264,7 @@ TEST_CASE("physical_basis")
    // initialize using set_basis
    gm2calc::GeneralTHDM model2;
    model2.set_alpha_em_and_cw(alpha_em, cw);
-   model2.get_physical().MVWm = mw;
+   model2.get_sm().set_mw(mw);
    CHECK_NOTHROW(model2.set_basis(basis));
    CHECK(!model2.get_problems().have_problem());
 

@@ -20,6 +20,7 @@
 #define GM2_GeneralTHDM_HPP
 
 #include "GeneralTHDM_mass_eigenstates.hpp"
+#include "SM.hpp"
 
 #include <iosfwd>
 
@@ -73,8 +74,13 @@ public:
    void set_basis(const General_basis&);
    void set_basis(const Physical_basis&);
 
+   void set_sm(const SM& s) { sm = s; }
+   const SM& get_sm() const { return sm; }
+   SM& get_sm() { return sm; }
+
 private:
    Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
+   SM sm;
 };
 
 /// streaming operator

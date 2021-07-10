@@ -21,7 +21,7 @@
  * @brief implementation of the GeneralTHDM model class
  *
  * Contains the definition of the GeneralTHDM model class methods
- * which solve EWSB and calculate pole masses and mixings from MSbar
+ * which solve EWSB and calculate masses and mixings from MSbar
  * parameters.
  *
  * This file was generated with FlexibleSUSY 2.6.0 and SARAH 4.14.3 .
@@ -48,7 +48,6 @@ const double gut_normalization = 0.77459666924148338; // Sqrt[3/5]
 } // anonymous namespace
 
 #define CLASSNAME GeneralTHDM_mass_eigenstates
-#define PHYSICAL(parameter) physical.parameter
 
 void CLASSNAME::do_force_output(bool flag)
 {
@@ -58,21 +57,6 @@ void CLASSNAME::do_force_output(bool flag)
 bool CLASSNAME::do_force_output() const
 {
    return force_output;
-}
-
-const GeneralTHDM_physical& CLASSNAME::get_physical() const
-{
-   return physical;
-}
-
-GeneralTHDM_physical& CLASSNAME::get_physical()
-{
-   return physical;
-}
-
-void CLASSNAME::set_physical(const GeneralTHDM_physical& physical_)
-{
-   physical = physical_;
 }
 
 const GeneralTHDM_problems& CLASSNAME::get_problems() const
@@ -160,8 +144,6 @@ void CLASSNAME::print(std::ostream& ostr) const
    ostr << "beta = " << get_beta() << '\n';
    ostr << "eta = " << get_eta() << '\n';
    ostr << "tan(beta) = " << get_tan_beta() << '\n';
-
-   physical.print(ostr);
 }
 
 /**
@@ -185,30 +167,6 @@ void CLASSNAME::calculate_MSbar_masses()
    calculate_MFv();
 }
 
-void CLASSNAME::copy_MSbar_masses_to_pole_masses()
-{
-   PHYSICAL(MVG) = MVG;
-   PHYSICAL(MFv) = MFv;
-   PHYSICAL(Mhh) = Mhh;
-   PHYSICAL(ZH) = ZH;
-   PHYSICAL(MAh) = MAh;
-   PHYSICAL(ZA) = ZA;
-   PHYSICAL(MHm) = MHm;
-   PHYSICAL(ZP) = ZP;
-   PHYSICAL(MFd) = MFd;
-   PHYSICAL(Vd) = Vd;
-   PHYSICAL(Ud) = Ud;
-   PHYSICAL(MFu) = MFu;
-   PHYSICAL(Vu) = Vu;
-   PHYSICAL(Uu) = Uu;
-   PHYSICAL(MFe) = MFe;
-   PHYSICAL(Ve) = Ve;
-   PHYSICAL(Ue) = Ue;
-   PHYSICAL(MVWm) = MVWm;
-   PHYSICAL(MVP) = MVP;
-   PHYSICAL(MVZ) = MVZ;
-}
-
 /**
  * reorders MSbar masses so that golstones are placed at the index
  * specified in the model files definition of the associated
@@ -220,18 +178,6 @@ void CLASSNAME::reorder_MSbar_masses()
    move_goldstone_to(0, MVZ, MAh, ZA);
    move_goldstone_to(0, MVWm, MHm, ZP);
 
-}
-
-/**
- * reorders pole masses so that golstones are placed at the index
- * specified in the model files definition of the associated
- * gauge boson (see Z-boson definition in default particles.m file
- * in the Models directory of your SARAH distribution for example)
- */
-void CLASSNAME::reorder_pole_masses()
-{
-   move_goldstone_to(0, MVZ, PHYSICAL(MAh), PHYSICAL(ZA));
-   move_goldstone_to(0, MVWm, PHYSICAL(MHm), PHYSICAL(ZP));
 }
 
 Eigen::Array<double,1,1> CLASSNAME::get_MChargedHiggs() const

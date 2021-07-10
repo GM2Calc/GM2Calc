@@ -65,7 +65,7 @@ double calculate_amu_1loop(const GeneralTHDM& model)
    pars.mm = model.get_MFe(1);
    pars.mw = model.get_MVWm();
    pars.mz = model.get_MVZ();
-   pars.mhSM = model.get_physical().MhSM;
+   pars.mhSM = model.get_sm().get_mh();
    pars.mA = model.get_MAh(1);
    pars.mHp = model.get_MHm(1);
    pars.ml = model.get_MFe();

@@ -44,7 +44,7 @@ double calculate_amu_2loop(const GeneralTHDM& model)
    pars_b.mm = model.get_MFe(1);
    pars_b.mw = model.get_MVWm();
    pars_b.mz = model.get_MVZ();
-   pars_b.mhSM = model.get_physical().MhSM;
+   pars_b.mhSM = model.get_sm().get_mh();
    pars_b.mA = model.get_MAh(1);
    pars_b.mHp = model.get_MHm(1);
    pars_b.mh = model.get_Mhh();
@@ -77,7 +77,7 @@ double calculate_amu_2loop(const GeneralTHDM& model)
    pars_f.mm = model.get_MFe(1);
    pars_f.mw = model.get_MVWm();
    pars_f.mz = model.get_MVZ();
-   pars_f.mhSM = model.get_physical().MhSM;
+   pars_f.mhSM = model.get_sm().get_mh();
    pars_f.mA = model.get_MAh(1);
    pars_f.mHp = model.get_MHm(1);
    pars_f.mh = model.get_Mhh();

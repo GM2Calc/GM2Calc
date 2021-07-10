@@ -62,12 +62,6 @@ double GeneralTHDM::get_zeta_l() const
 
 void GeneralTHDM::set_basis(const GeneralTHDM::General_basis& basis)
 {
-   const double mw = get_MVWm() > 0.0 ? get_MVWm() : get_physical().MVWm;
-
-   if (mw == 0.0) {
-      throw EInvalidInput("mw must be non-zero.");
-   }
-
    set_Lambda1(basis.lambda1);
    set_Lambda2(basis.lambda2);
    set_Lambda3(basis.lambda3);
@@ -75,7 +69,7 @@ void GeneralTHDM::set_basis(const GeneralTHDM::General_basis& basis)
    set_Lambda5(basis.lambda5);
    set_Lambda6(basis.lambda6);
    set_Lambda7(basis.lambda7);
-   set_tan_beta_and_v(basis.tan_beta, get_v_from_mW(mw));
+   set_tan_beta_and_v(basis.tan_beta, get_v_from_mW(sm.get_mw()));
    set_M122(basis.M122);
 
    solve_ewsb();
@@ -112,12 +106,6 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
       throw EInvalidInput("mHp must be greater than or equal to zero.");
    }
 
-   const double mw = get_MVWm() > 0.0 ? get_MVWm() : get_physical().MVWm;
-
-   if (mw == 0.0) {
-      throw EInvalidInput("mw must be non-zero.");
-   }
-
    const double sba = basis.sin_beta_minus_alpha;
    const double tb = basis.tan_beta;
    const double ctb = 1./tb;
@@ -137,7 +125,8 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
    const double lambda6 = basis.lambda6;
    const double lambda7 = basis.lambda7;
    const double m12_2 = basis.M122;
-   const double v2 = sqr(get_v_from_mW(mw));
+   const double v = get_v_from_mW(sm.get_mw());
+   const double v2 = sqr(v);
 
    set_Lambda1((sqr(mH)*ca2 + sqr(mh)*sa2 - m12_2*tb)/v2/cb2 - 1.5*lambda6*tb + 0.5*lambda7*tb*tb*tb);
    set_Lambda2((sqr(mH)*sa2 + sqr(mh)*ca2 - m12_2*ctb)/v2/sb2 + 0.5*lambda6*ctb*ctb*ctb - 1.5*lambda7*ctb);
@@ -146,7 +135,7 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
    set_Lambda5((m12_2 - sqr(mA)*sb*cb)/v2/sb/cb - 0.5*lambda6*ctb - 0.5*lambda7*tb);
    set_Lambda6(basis.lambda6);
    set_Lambda7(basis.lambda7);
-   set_tan_beta_and_v(basis.tan_beta, get_v_from_mW(mw));
+   set_tan_beta_and_v(basis.tan_beta, v);
    set_M122(basis.M122);
 
    solve_ewsb();
