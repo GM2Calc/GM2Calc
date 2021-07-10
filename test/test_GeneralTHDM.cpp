@@ -26,9 +26,6 @@ const double mhSM = 125.09;
 const double mw = 80.385;
 const double mz = 91.1876;
 const double cw = mw/mz;
-const double sw = std::sqrt(1 - sqr(cw));
-const double g2 = e/sw;
-const double v = 2*mw/g2;
 
 const Eigen::Matrix<double,3,3> mu{
    (Eigen::Matrix<double,3,3>()
@@ -66,14 +63,15 @@ struct THDM_pars {
    Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Xe{Eigen::Matrix<double,3,3>::Zero()};
+   gm2calc::SM sm;
 };
 
 gm2calc::GeneralTHDM setup(const THDM_pars& pars)
 {
    // parameter point from 2HDMC Demo.cpp
    gm2calc::GeneralTHDM model;
-   model.set_alpha_em_and_cw(alpha_em, cw);
-   model.set_tan_beta_and_v(pars.tan_beta, v);
+   model.set_sm(pars.sm);
+   model.set_tan_beta(pars.tan_beta);
    model.set_Lambda1(pars.lambda1);
    model.set_Lambda2(pars.lambda2);
    model.set_Lambda3(pars.lambda3);
@@ -126,7 +124,6 @@ TEST_CASE("tree-level-spectrum")
    const bool have_problem = model.get_problems().have_problem();
 
    CHECK(!have_problem);
-   CHECK_CLOSE(model.get_alpha_em(), alpha_em, eps);
    CHECK(model.get_MVG() == 0.0);
    CHECK(model.get_MVP() == 0.0);
    CHECK_CLOSE(model.get_MVZ(), mz, eps);

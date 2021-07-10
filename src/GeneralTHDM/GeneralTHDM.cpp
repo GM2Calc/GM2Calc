@@ -142,6 +142,17 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
    calculate_MSbar_masses();
 }
 
+void GeneralTHDM::set_sm(const SM& sm_)
+{
+   sm = sm_;
+   set_alpha_em_and_cw(sm.get_alpha_em_mz(), sm.get_cw());
+}
+
+void GeneralTHDM::set_tan_beta(double tb)
+{
+   set_tan_beta_and_v(tb, sm.get_v());
+}
+
 std::ostream& operator<<(std::ostream& ostr, const GeneralTHDM& model)
 {
    model.print(ostr);

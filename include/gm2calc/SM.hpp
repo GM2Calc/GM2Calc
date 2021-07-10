@@ -56,6 +56,7 @@ public:
    double get_g2() const;
    double get_cw() const;
    double get_sw() const;
+   double get_v() const;
 
 private:
    double alpha_em_0{0.0};  ///< electromagnetic coupling in Thompson limit

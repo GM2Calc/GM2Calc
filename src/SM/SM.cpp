@@ -71,5 +71,10 @@ double SM::get_sw() const
    return std::sqrt(1 - sqr(get_cw()));
 }
 
+double SM::get_v() const
+{
+   return 2*mw/get_g2();
+}
+
 
 } // namespace gm2calc

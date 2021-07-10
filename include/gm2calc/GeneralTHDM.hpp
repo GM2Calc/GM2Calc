@@ -74,9 +74,11 @@ public:
    void set_basis(const General_basis&);
    void set_basis(const Physical_basis&);
 
-   void set_sm(const SM& s) { sm = s; }
+   void set_sm(const SM&);
    const SM& get_sm() const { return sm; }
    SM& get_sm() { return sm; }
+
+   void set_tan_beta(double);
 
 private:
    Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
