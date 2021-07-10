@@ -37,6 +37,30 @@ public:
       type_1, type_2, type_X, type_Y
    };
 
+   struct General_basis {
+      double lambda1{0.0};
+      double lambda2{0.0};
+      double lambda3{0.0};
+      double lambda4{0.0};
+      double lambda5{0.0};
+      double lambda6{0.0};
+      double lambda7{0.0};
+      double tan_beta{0.0};
+      double M122{0.0};
+   };
+
+   struct Physical_basis {
+      double mh{0.0};
+      double mH{0.0};
+      double mA{0.0};
+      double mHp{0.0};
+      double sin_beta_minus_alpha{0.0};
+      double lambda6{0.0};
+      double lambda7{0.0};
+      double tan_beta{0.0};
+      double M122{0.0};
+   };
+
    virtual ~GeneralTHDM() = default;
 
    double get_zeta_u() const;
@@ -45,6 +69,9 @@ public:
 
    Yukawa_scheme get_yukawa_scheme() const { return yukawa_scheme; }
    void set_yukawa_scheme(Yukawa_scheme ys) { yukawa_scheme = ys; }
+
+   void set_basis(const General_basis&);
+   void set_basis(const Physical_basis&);
 
 private:
    Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};

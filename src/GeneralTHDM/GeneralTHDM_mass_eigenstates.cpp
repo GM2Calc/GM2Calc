@@ -524,6 +524,11 @@ double CLASSNAME::get_v_sqr() const
    return sqr(v1) + sqr(v2);
 }
 
+double CLASSNAME::get_v_from_mW(double mw) const
+{
+   return 2*mw/g2;
+}
+
 void CLASSNAME::set_alpha_em_and_cw(double alpha_em, double cw)
 {
    const double e = std::sqrt(alpha_em*4*pi);

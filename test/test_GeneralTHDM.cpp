@@ -203,6 +203,90 @@ TEST_CASE("tree-level-spectrum")
 }
 
 
+TEST_CASE("general_basis")
+{
+   const double eps = 1e-14;
+
+   gm2calc::GeneralTHDM::General_basis basis;
+   basis.lambda1 = 0.7;
+   basis.lambda2 = 0.6;
+   basis.lambda3 = 0.5;
+   basis.lambda4 = 0.4;
+   basis.lambda5 = 0.3;
+   basis.lambda6 = 0.2;
+   basis.lambda7 = 0.1;
+   basis.tan_beta = 20;
+   basis.M122 = sqr(200);
+
+   // initialize by hand
+   gm2calc::GeneralTHDM model1;
+   model1.set_alpha_em_and_cw(alpha_em, cw);
+   model1.set_tan_beta_and_v(basis.tan_beta, model1.get_v_from_mW(mw));
+   model1.set_Lambda1(basis.lambda1);
+   model1.set_Lambda2(basis.lambda2);
+   model1.set_Lambda3(basis.lambda3);
+   model1.set_Lambda4(basis.lambda4);
+   model1.set_Lambda5(basis.lambda5);
+   model1.set_Lambda6(basis.lambda6);
+   model1.set_Lambda7(basis.lambda7);
+   model1.set_M122(basis.M122);
+   model1.solve_ewsb();
+   model1.calculate_MSbar_masses();
+
+   // initialize using set_basis
+   gm2calc::GeneralTHDM model2;
+   model2.set_alpha_em_and_cw(alpha_em, cw);
+   model2.get_physical().MVWm = mw;
+   CHECK_NOTHROW(model2.set_basis(basis));
+
+   CHECK_CLOSE(model1.get_Mhh(0), model2.get_Mhh(0), eps);
+   CHECK_CLOSE(model1.get_Mhh(1), model2.get_Mhh(1), eps);
+   CHECK_CLOSE(model1.get_MAh(1), model2.get_MAh(1), eps);
+   CHECK_CLOSE(model1.get_MHm(1), model2.get_MHm(1), eps);
+}
+
+
+TEST_CASE("physical_basis")
+{
+   const double eps = 1e-14;
+
+   gm2calc::GeneralTHDM::Physical_basis basis;
+   basis.mh = 125;
+   basis.mH = 400;
+   basis.mA = 420;
+   basis.mHp = 440;
+   basis.sin_beta_minus_alpha = 0.999;
+   basis.lambda6 = 0.1;
+   basis.lambda7 = 0.2;
+   basis.tan_beta = 3;
+   basis.M122 = 4000;
+
+   // initialize using set_basis
+   gm2calc::GeneralTHDM model2;
+   model2.set_alpha_em_and_cw(alpha_em, cw);
+   model2.get_physical().MVWm = mw;
+   CHECK_NOTHROW(model2.set_basis(basis));
+   CHECK(!model2.get_problems().have_problem());
+
+   // initialize by hand
+   gm2calc::GeneralTHDM model1(model2);
+   // recalculate mass spectrum from Lagrangian parameters
+   model1.solve_ewsb();
+   model1.calculate_MSbar_masses();
+   CHECK(!model1.get_problems().have_problem());
+
+   CHECK_CLOSE(model1.get_Mhh(0), basis.mh, eps);
+   CHECK_CLOSE(model1.get_Mhh(1), basis.mH, eps);
+   CHECK_CLOSE(model1.get_MAh(1), basis.mA, eps);
+   CHECK_CLOSE(model1.get_MHm(1), basis.mHp, eps);
+
+   CHECK_CLOSE(model1.get_Mhh(0), model2.get_Mhh(0), eps);
+   CHECK_CLOSE(model1.get_Mhh(1), model2.get_Mhh(1), eps);
+   CHECK_CLOSE(model1.get_MAh(1), model2.get_MAh(1), eps);
+   CHECK_CLOSE(model1.get_MHm(1), model2.get_MHm(1), eps);
+}
+
+
 TEST_CASE("2HDMC-demo-point")
 {
    THDM_pars pars;
