@@ -62,6 +62,7 @@ public:
       double M122{0.0};
    };
 
+   GeneralTHDM();
    virtual ~GeneralTHDM() = default;
 
    double get_zeta_u() const;
@@ -82,7 +83,9 @@ public:
 
 private:
    Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
-   SM sm;
+   SM sm{};
+
+   void init();
 };
 
 /// streaming operator

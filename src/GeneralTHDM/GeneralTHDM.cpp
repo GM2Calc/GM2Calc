@@ -24,6 +24,16 @@
 
 namespace gm2calc {
 
+GeneralTHDM::GeneralTHDM()
+{
+   init();
+}
+
+void GeneralTHDM::init()
+{
+   set_alpha_em_and_cw(sm.get_alpha_em_mz(), sm.get_cw());
+}
+
 /// Table 1, arxiv:1607.06292
 double GeneralTHDM::get_zeta_u() const
 {
@@ -145,7 +155,7 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
 void GeneralTHDM::set_sm(const SM& sm_)
 {
    sm = sm_;
-   set_alpha_em_and_cw(sm.get_alpha_em_mz(), sm.get_cw());
+   init();
 }
 
 void GeneralTHDM::set_tan_beta(double tb)

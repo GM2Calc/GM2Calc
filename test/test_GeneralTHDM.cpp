@@ -25,7 +25,6 @@ const double g3 = std::sqrt(alpha_s*4*pi);
 const double mhSM = 125.09;
 const double mw = 80.385;
 const double mz = 91.1876;
-const double cw = mw/mz;
 
 const Eigen::Matrix<double,3,3> mu{
    (Eigen::Matrix<double,3,3>()
@@ -216,8 +215,7 @@ TEST_CASE("general_basis")
 
    // initialize by hand
    gm2calc::GeneralTHDM model1;
-   model1.set_alpha_em_and_cw(alpha_em, cw);
-   model1.set_tan_beta_and_v(basis.tan_beta, model1.get_v_from_mW(mw));
+   model1.set_tan_beta(basis.tan_beta);
    model1.set_Lambda1(basis.lambda1);
    model1.set_Lambda2(basis.lambda2);
    model1.set_Lambda3(basis.lambda3);
@@ -231,8 +229,6 @@ TEST_CASE("general_basis")
 
    // initialize using set_basis
    gm2calc::GeneralTHDM model2;
-   model2.set_alpha_em_and_cw(alpha_em, cw);
-   model2.get_sm().set_mw(mw);
    CHECK_NOTHROW(model2.set_basis(basis));
 
    CHECK_CLOSE(model1.get_Mhh(0), model2.get_Mhh(0), eps);
@@ -259,8 +255,6 @@ TEST_CASE("physical_basis")
 
    // initialize using set_basis
    gm2calc::GeneralTHDM model2;
-   model2.set_alpha_em_and_cw(alpha_em, cw);
-   model2.get_sm().set_mw(mw);
    CHECK_NOTHROW(model2.set_basis(basis));
    CHECK(!model2.get_problems().have_problem());
 
