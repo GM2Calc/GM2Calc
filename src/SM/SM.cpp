@@ -18,6 +18,7 @@
 
 #include "gm2calc/SM.hpp"
 #include "gm2_numerics.hpp"
+#include "gm2_constants.h"
 #include <cmath>
 
 namespace gm2calc {
@@ -28,19 +29,36 @@ const double pi = 3.1415926535897932;
 
 } // anonymous namespace
 
-double SM::get_e() const
+SM::SM()
+   : alpha_em_0(GM2CALC_ALPHA_EM_THOMPSON)
+   , alpha_em_mz(GM2CALC_ALPHA_EM_MZ)
+   , mh(GM2CALC_MH)
+   , mw(GM2CALC_MW)
+   , mz(GM2CALC_MZ)
+   , mu((Eigen::Matrix<double,3,1>() << GM2CALC_MU, GM2CALC_MC, GM2CALC_MT).finished())
+   , md((Eigen::Matrix<double,3,1>() << GM2CALC_MD, GM2CALC_MS, GM2CALC_MBMB).finished())
+   , ml((Eigen::Matrix<double,3,1>() << GM2CALC_ME, GM2CALC_MM, GM2CALC_ML).finished())
 {
-   return std::sqrt(alpha_em*4*pi);
+}
+
+double SM::get_e_0() const
+{
+   return std::sqrt(alpha_em_0*4*pi);
+}
+
+double SM::get_e_mz() const
+{
+   return std::sqrt(alpha_em_mz*4*pi);
 }
 
 double SM::get_gY() const
 {
-   return get_e()/get_cw();
+   return get_e_mz()/get_cw();
 }
 
 double SM::get_g2() const
 {
-   return get_e()/get_sw();
+   return get_e_mz()/get_sw();
 }
 
 double SM::get_cw() const

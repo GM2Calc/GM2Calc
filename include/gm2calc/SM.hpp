@@ -25,7 +25,10 @@ namespace gm2calc {
 
 class SM {
 public:
-   void set_alpha_em(double a) noexcept { alpha_em = a; }
+   SM();
+
+   void set_alpha_em_0(double a) noexcept { alpha_em_0 = a; }
+   void set_alpha_em_mz(double a) noexcept { alpha_em_mz = a; }
    void set_mw(double m) noexcept { mw = m; }
    void set_mz(double m) noexcept { mz = m; }
    void set_mh(double m) noexcept { mh = m; }
@@ -36,7 +39,8 @@ public:
    void set_md(int i, double m) noexcept { md(i) = m; }
    void set_ml(int i, double m) noexcept { ml(i) = m; }
 
-   double get_alpha_em() const { return alpha_em; }
+   double get_alpha_em_0() const { return alpha_em_0; }
+   double get_alpha_em_mz() const { return alpha_em_mz; }
    double get_mw() const { return mw; }
    double get_mz() const { return mz; }
    double get_mh() const { return mh; }
@@ -46,20 +50,22 @@ public:
    double get_mu(int i) const { return mu(i); }
    double get_md(int i) const { return md(i); }
    double get_ml(int i) const { return ml(i); }
-   double get_e() const;
+   double get_e_0() const;
+   double get_e_mz() const;
    double get_gY() const;
    double get_g2() const;
    double get_cw() const;
    double get_sw() const;
 
 private:
-   double alpha_em{0.0};
-   double mw{0.0};
-   double mz{0.0};
-   double mh{0.0};
+   double alpha_em_0{0.0};  ///< electromagnetic coupling in Thompson limit
+   double alpha_em_mz{0.0}; ///< electromagnetic coupling at Q = MZ
+   double mh{0.0};          ///< Higgs boson pole mass
+   double mw{0.0};          ///< W boson pole mass
+   double mz{0.0};          ///< Z boson pole mass
    Eigen::Matrix<double,3,1> mu{Eigen::Matrix<double,3,1>::Zero()}; ///< up-type quark masses
    Eigen::Matrix<double,3,1> md{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type quark masses
-   Eigen::Matrix<double,3,1> ml{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type lepton masses
+   Eigen::Matrix<double,3,1> ml{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type lepton pole masses
 };
 
 } // namespace gm2calc

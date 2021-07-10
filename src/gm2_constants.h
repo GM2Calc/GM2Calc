@@ -38,14 +38,29 @@
 /* strong coupling alpha_s at Q = MZ */
 #define GM2CALC_ALPHA_S_MZ 0.1184
 
+/* Higgs boson pole mass */
+#define GM2CALC_MH 125.09
+
 /* W boson pole mass */
 #define GM2CALC_MW 80.385
 
 /* Z boson pole mass */
 #define GM2CALC_MZ 91.1876
 
+/* Up quark mass */
+#define GM2CALC_MU 0.0022
+
+/* Charm quark mass */
+#define GM2CALC_MC 1.28
+
 /* Top quark pole mass */
 #define GM2CALC_MT 173.34
+
+/* Down quark mass */
+#define GM2CALC_MD 0.0047
+
+/* Strange quark mass */
+#define GM2CALC_MS 0.096
 
 /* SM MS-bar bottom quark mass mb at the scale mb */
 #define GM2CALC_MBMB 4.18
