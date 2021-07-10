@@ -73,7 +73,6 @@ gm2calc::GeneralTHDM setup(const THDM_pars& pars)
    // parameter point from 2HDMC Demo.cpp
    gm2calc::GeneralTHDM model;
    model.set_alpha_em_and_cw(alpha_em, cw);
-   model.set_g3(g3);
    model.set_tan_beta_and_v(pars.tan_beta, v);
    model.set_Lambda1(pars.lambda1);
    model.set_Lambda2(pars.lambda2);
