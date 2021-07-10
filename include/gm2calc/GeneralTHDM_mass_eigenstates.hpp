@@ -130,6 +130,8 @@ public:
    double ThetaW() const;
    double get_v() const;
    double get_v_sqr() const;
+
+protected:
    /// calculates v from W boson mass and g2
    double get_v_from_mW(double mw) const;
 
