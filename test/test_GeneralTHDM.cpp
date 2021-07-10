@@ -145,7 +145,6 @@ TEST_CASE("general_basis")
    model1.set_Lambda6(basis.lambda6);
    model1.set_Lambda7(basis.lambda7);
    model1.set_M122(basis.M122);
-   model1.solve_ewsb();
    model1.calculate_MSbar_masses();
 
    // initialize using set_basis
@@ -182,7 +181,6 @@ TEST_CASE("physical_basis")
    // initialize by hand
    gm2calc::GeneralTHDM model1(model2);
    // recalculate mass spectrum from Lagrangian parameters
-   model1.solve_ewsb();
    model1.calculate_MSbar_masses();
    CHECK(!model1.get_problems().have_problem());
 
