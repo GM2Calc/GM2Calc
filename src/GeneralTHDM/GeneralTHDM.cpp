@@ -79,7 +79,7 @@ void GeneralTHDM::set_basis(const GeneralTHDM::General_basis& basis)
    set_Lambda5(basis.lambda5);
    set_Lambda6(basis.lambda6);
    set_Lambda7(basis.lambda7);
-   set_tan_beta_and_v(basis.tan_beta, get_v_from_mW(sm.get_mw()));
+   set_tan_beta_and_v(basis.tan_beta, sm.get_v());
    set_M122(basis.M122);
 
    solve_ewsb();
@@ -135,7 +135,7 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
    const double lambda6 = basis.lambda6;
    const double lambda7 = basis.lambda7;
    const double m12_2 = basis.M122;
-   const double v = get_v_from_mW(sm.get_mw());
+   const double v = sm.get_v();
    const double v2 = sqr(v);
 
    set_Lambda1((sqr(mH)*ca2 + sqr(mh)*sa2 - m12_2*tb)/v2/cb2 - 1.5*lambda6*tb + 0.5*lambda7*tb*tb*tb);

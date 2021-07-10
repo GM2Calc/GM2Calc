@@ -132,9 +132,6 @@ public:
    double get_v_sqr() const;
 
 protected:
-   /// calculates v from W boson mass and g2
-   double get_v_from_mW(double mw) const;
-
    /// set alpha_em and cos(theta_w)
    void set_alpha_em_and_cw(double, double);
 
