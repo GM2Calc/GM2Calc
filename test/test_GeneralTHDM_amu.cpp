@@ -472,6 +472,7 @@ TEST_CASE("2-loop_bosonic_nonYuk_figure_4")
 
       for (const auto& p: data) {
          if (p.size() < 3) continue;
+         if (!std::isfinite(p.at(2))) continue;
 
          gm2calc::general_thdm::THDM_B_parameters pars;
          pars.alpha_em = 1./137.036;
