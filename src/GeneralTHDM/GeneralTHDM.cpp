@@ -176,12 +176,6 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
    calculate_MSbar_masses();
 }
 
-void GeneralTHDM::set_sm(const SM& sm_)
-{
-   sm = sm_;
-   init_gauge_couplings();
-}
-
 void GeneralTHDM::set_tan_beta(double tb)
 {
    set_tan_beta_and_v(tb, sm.get_v());

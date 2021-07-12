@@ -76,7 +76,6 @@ public:
    void set_basis(const General_basis&);
    void set_basis(const Physical_basis&);
 
-   void set_sm(const SM&);
    const SM& get_sm() const { return sm; }
 
    void set_tan_beta(double);
