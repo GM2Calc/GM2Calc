@@ -29,6 +29,12 @@ GeneralTHDM::GeneralTHDM()
    init_gauge_couplings();
 }
 
+GeneralTHDM::GeneralTHDM(const SM& sm_)
+   : sm(sm_)
+{
+   init_gauge_couplings();
+}
+
 void GeneralTHDM::init_gauge_couplings()
 {
    set_alpha_em_and_cw(sm.get_alpha_em_mz(), sm.get_cw());

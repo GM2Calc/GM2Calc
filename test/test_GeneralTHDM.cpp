@@ -245,8 +245,7 @@ TEST_CASE("test-point-GAMBIT")
    gm2calc::SM sm;
    sm.set_alpha_em_mz(1.0/132.23323);
 
-   gm2calc::GeneralTHDM model;
-   model.set_sm(sm);
+   gm2calc::GeneralTHDM model(sm);
    model.set_Xe(1, 1, 0.1);
    model.set_basis(basis);
 

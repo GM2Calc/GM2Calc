@@ -63,6 +63,7 @@ public:
    };
 
    GeneralTHDM();
+   GeneralTHDM(const SM&);
    virtual ~GeneralTHDM() = default;
 
    double get_zeta_u() const;
