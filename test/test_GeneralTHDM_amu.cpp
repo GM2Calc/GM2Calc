@@ -41,12 +41,12 @@ TEST_CASE("1-loop")
    pars.ylh(1,1) = 1 + eta*zetal;
    pars.ylH(1,1) = -zetal + eta;
    pars.ylA(1,1) = -zetal;
-   pars.ylHp(1,1) = pars.ylA(1,1);
+   pars.ylHp(1,1) = std::sqrt(2.0)*pars.ylA(1,1);
 
    const auto a1L = gm2calc::general_thdm::amu1L(pars);
    const auto a1L_approx = gm2calc::general_thdm::amu1L_approx(pars);
 
-   CHECK_CLOSE(a1L*1e16, a1L_approx*1e16, 1e-10);
+   CHECK_CLOSE(a1L*1e16, a1L_approx*1e16, 1e-9);
 }
 
 
@@ -67,7 +67,7 @@ TEST_CASE("1-loop_approximation")
    pars.ylh(1,1) = 1 + eta*zetal;
    pars.ylH(1,1) = -zetal + eta;
    pars.ylA(1,1) = -zetal;
-   pars.ylHp(1,1) = pars.ylA(1,1);
+   pars.ylHp(1,1) = std::sqrt(2.0)*pars.ylA(1,1);
 
    const auto a1L = gm2calc::general_thdm::amu1L_approx(pars);
 
