@@ -60,9 +60,9 @@ const double q_u =  2.0/3.0;  ///< electric charge of up-type quarks
 const double q_d = -1.0/3.0;  ///< electric charge of down-type quarks
 const double q_v =  0.0;      ///< electric charge of up-type leptons
 const double q_l = -1.0;      ///< electric charge of down-type leptons
-const double t3_u = +0.5;     ///< SU(2)_L charge of up-type quark @todo(alex) check convention
-const double t3_d = -0.5;     ///< SU(2)_L charge of down-type quark @todo(alex) check convention
-const double t3_l = -0.5;     ///< SU(2)_L charge of charged lepton @todo(alex) check convention
+const double t3_u = +0.5;     ///< SU(2)_L charge of up-type quark
+const double t3_d = -0.5;     ///< SU(2)_L charge of down-type quark
+const double t3_l = -0.5;     ///< SU(2)_L charge of charged lepton
 
 double sqr(double x) noexcept { return x*x; }
 
