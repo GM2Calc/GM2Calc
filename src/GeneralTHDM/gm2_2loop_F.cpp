@@ -280,7 +280,12 @@ double flHp(double ms2, double ml2, double mw2, double mz2) noexcept
 
 /**
  * Calculates 2-loop fermionic contributions with charged Higgs
- * bosons.
+ * boson.
+ *
+ * @note The contribution is expressed in terms of \f$Y_f^{H^\pm} =
+ * \sqrt{2} \; Y_f^A\f$, not in terms of \f$Y_f^A\f$.  For this reason
+ * there is an extra factor 1/2 in front of the charged Higgs
+ * contribution in this implementation.
  *
  * Eq (58), arxiv:1607:06292
  */
@@ -295,9 +300,9 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
    // loop over generations
    for (int i = 0; i < 3; ++i) {
       // H^\pm
-      res += fuHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*thdm.yuS(i,3)*thdm.ylS(1,3);
-      res += fdHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*thdm.ydS(i,3)*thdm.ylS(1,3);
-      res += flHp(mHp2, sqr(thdm.ml(i)), mw2, mz2)*thdm.ylS(i,3)*thdm.ylS(1,3);
+      res += 0.5*fuHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*thdm.yuS(i,3)*thdm.ylS(1,3);
+      res += 0.5*fdHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*thdm.ydS(i,3)*thdm.ylS(1,3);
+      res += 0.5*flHp(mHp2, sqr(thdm.ml(i)), mw2, mz2)*thdm.ylS(i,3)*thdm.ylS(1,3);
    }
 
    const double sw2 = 1.0 - mw2/mz2;

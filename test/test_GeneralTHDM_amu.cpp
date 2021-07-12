@@ -19,6 +19,7 @@
 namespace {
 
 double sqr(double x) noexcept { return x*x; }
+const double sqrt2 = 1.4142135623730950; // Sqrt[2]
 
 } // anonymous namespace
 
@@ -41,7 +42,7 @@ TEST_CASE("1-loop")
    pars.ylh(1,1) = 1 + eta*zetal;
    pars.ylH(1,1) = -zetal + eta;
    pars.ylA(1,1) = -zetal;
-   pars.ylHp(1,1) = std::sqrt(2.0)*pars.ylA(1,1);
+   pars.ylHp(1,1) = sqrt2*pars.ylA(1,1);
 
    const auto a1L = gm2calc::general_thdm::amu1L(pars);
    const auto a1L_approx = gm2calc::general_thdm::amu1L_approx(pars);
@@ -67,7 +68,7 @@ TEST_CASE("1-loop_approximation")
    pars.ylh(1,1) = 1 + eta*zetal;
    pars.ylH(1,1) = -zetal + eta;
    pars.ylA(1,1) = -zetal;
-   pars.ylHp(1,1) = std::sqrt(2.0)*pars.ylA(1,1);
+   pars.ylHp(1,1) = sqrt2*pars.ylA(1,1);
 
    const auto a1L = gm2calc::general_thdm::amu1L_approx(pars);
 
@@ -129,15 +130,15 @@ TEST_CASE("2-loop_fermionic_charged")
    pars.mu << 0.3, 3.0, 30.0;
    pars.md << 0.2, 2.0, 20.0;
    pars.ml << 0.1, 1.0, 10.0;
-   pars.yuS << 0.5, 0.5, 0.5, 0.5,
-               5.0, 5.0, 5.0, 5.0,
-               50.0, 50.0, 50.0, 50.0;
-   pars.ydS << 0.4, 0.4, 0.4, 0.4,
-               4.0, 4.0, 4.0, 4.0,
-               40.0, 40.0, 40.0, 40.0;
-   pars.ylS << 0.3, 0.3, 0.3, 0.3,
-               3.0, 3.0, 3.0, 3.0,
-               30.0, 30.0, 30.0, 30.0;
+   pars.yuS << 0.5, 0.5, 0.5, sqrt2*0.5,
+               5.0, 5.0, 5.0, sqrt2*5.0,
+               50.0, 50.0, 50.0, sqrt2*50.0;
+   pars.ydS << 0.4, 0.4, 0.4, sqrt2*0.4,
+               4.0, 4.0, 4.0, sqrt2*4.0,
+               40.0, 40.0, 40.0, sqrt2*40.0;
+   pars.ylS << 0.3, 0.3, 0.3, sqrt2*0.3,
+               3.0, 3.0, 3.0, sqrt2*3.0,
+               30.0, 30.0, 30.0, sqrt2*30.0;
 
    const auto amu = gm2calc::general_thdm::amu2L_F_charged(pars);
 
@@ -204,15 +205,15 @@ TEST_CASE("2-loop_fermionic_neutral")
    pars.mu << 0.3, 3.0, 30.0;
    pars.md << 0.2, 2.0, 20.0;
    pars.ml << 0.1, 1.0, 10.0;
-   pars.yuS << 0.5, 0.5, 0.5, 0.5,
-               5.0, 5.0, 5.0, 5.0,
-               50.0, 50.0, 50.0, 50.0;
-   pars.ydS << 0.4, 0.4, 0.4, 0.4,
-               4.0, 4.0, 4.0, 4.0,
-               40.0, 40.0, 40.0, 40.0;
-   pars.ylS << 0.3, 0.3, 0.3, 0.3,
-               3.0, 3.0, 3.0, 3.0,
-               30.0, 30.0, 30.0, 30.0;
+   pars.yuS << 0.5, 0.5, 0.5, 0.0,
+               5.0, 5.0, 5.0, 0.0,
+               50.0, 50.0, 50.0, 0.0;
+   pars.ydS << 0.4, 0.4, 0.4, 0.0,
+               4.0, 4.0, 4.0, 0.0,
+               40.0, 40.0, 40.0, 0.0;
+   pars.ylS << 0.3, 0.3, 0.3, 0.0,
+               3.0, 3.0, 3.0, 0.0,
+               30.0, 30.0, 30.0, 0.0;
 
    const auto amu = gm2calc::general_thdm::amu2L_F_neutral(pars);
 
