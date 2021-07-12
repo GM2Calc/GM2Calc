@@ -131,12 +131,11 @@ public:
    double get_v() const;
    double get_v_sqr() const;
 
-protected:
-   /// set alpha_em and cos(theta_w)
-   void set_alpha_em_and_cw(double, double);
-
    /// set tan(beta) and vacuum expectation value
    void set_tan_beta_and_v(double, double);
+
+   /// set alpha_em and cos(theta_w)
+   void set_alpha_em_and_cw(double, double);
 
 private:
    bool force_output{false};        ///< switch to force output of pole masses

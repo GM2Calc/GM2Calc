@@ -103,6 +103,9 @@ void GeneralTHDM::set_basis(const GeneralTHDM::General_basis& basis)
    set_Lambda7(basis.lambda7);
    set_tan_beta_and_v(basis.tan_beta, sm.get_v());
    set_M122(basis.M122);
+   set_Xu(basis.Xu);
+   set_Xd(basis.Xd);
+   set_Xe(basis.Xe);
 
    init_yukawas();
    solve_ewsb();
@@ -170,6 +173,9 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
    set_Lambda7(basis.lambda7);
    set_tan_beta_and_v(basis.tan_beta, v);
    set_M122(basis.M122);
+   set_Xu(basis.Xu);
+   set_Xd(basis.Xd);
+   set_Xe(basis.Xe);
 
    init_yukawas();
    solve_ewsb();

@@ -134,9 +134,14 @@ TEST_CASE("general_basis")
    basis.tan_beta = 20;
    basis.M122 = sqr(200);
 
+   // initialize using set_basis
+   gm2calc::GeneralTHDM model2;
+   CHECK_NOTHROW(model2.set_basis(basis));
+
    // initialize by hand
-   gm2calc::GeneralTHDM model1;
-   model1.set_tan_beta(basis.tan_beta);
+   gm2calc::GeneralTHDM_mass_eigenstates model1;
+   model1.set_tan_beta_and_v(basis.tan_beta, model2.get_sm().get_v());
+   model1.set_alpha_em_and_cw(model2.get_sm().get_alpha_em_mz(), model2.get_sm().get_mw()/model2.get_sm().get_mz());
    model1.set_Lambda1(basis.lambda1);
    model1.set_Lambda2(basis.lambda2);
    model1.set_Lambda3(basis.lambda3);
@@ -146,10 +151,6 @@ TEST_CASE("general_basis")
    model1.set_Lambda7(basis.lambda7);
    model1.set_M122(basis.M122);
    model1.calculate_MSbar_masses();
-
-   // initialize using set_basis
-   gm2calc::GeneralTHDM model2;
-   CHECK_NOTHROW(model2.set_basis(basis));
 
    CHECK_CLOSE(model1.get_Mhh(0), model2.get_Mhh(0), eps);
    CHECK_CLOSE(model1.get_Mhh(1), model2.get_Mhh(1), eps);
@@ -179,7 +180,19 @@ TEST_CASE("physical_basis")
    CHECK(!model2.get_problems().have_problem());
 
    // initialize by hand
-   gm2calc::GeneralTHDM model1(model2);
+   gm2calc::GeneralTHDM_mass_eigenstates model1;
+   model1.set_g1(model2.get_g1());
+   model1.set_g2(model2.get_g2());
+   model1.set_v1(model2.get_v1());
+   model1.set_v2(model2.get_v2());
+   model1.set_Lambda1(model2.get_Lambda1());
+   model1.set_Lambda2(model2.get_Lambda2());
+   model1.set_Lambda3(model2.get_Lambda3());
+   model1.set_Lambda4(model2.get_Lambda4());
+   model1.set_Lambda5(model2.get_Lambda5());
+   model1.set_Lambda6(model2.get_Lambda6());
+   model1.set_Lambda7(model2.get_Lambda7());
+   model1.set_M122(basis.M122);
    // recalculate mass spectrum from Lagrangian parameters
    model1.calculate_MSbar_masses();
    CHECK(!model1.get_problems().have_problem());
@@ -241,12 +254,12 @@ TEST_CASE("test-point-GAMBIT")
    basis.lambda7 =  0.0;
    basis.tan_beta = 20.0;
    basis.M122 = 1428;
+   basis.Xe(1,1) = 0.1;
 
    gm2calc::SM sm;
    sm.set_alpha_em_mz(1.0/132.23323);
 
    gm2calc::GeneralTHDM model(sm);
-   model.set_Xe(1, 1, 0.1);
    model.set_basis(basis);
 
    CHECK(!model.get_problems().have_problem());

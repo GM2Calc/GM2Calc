@@ -32,7 +32,7 @@ namespace gm2calc {
  * @class GeneralTHDM
  * @brief Contains routines to determine the THDM parameters
  */
-class GeneralTHDM : public GeneralTHDM_mass_eigenstates {
+class GeneralTHDM : private GeneralTHDM_mass_eigenstates {
 public:
    enum class Yukawa_scheme {
       type_1, type_2, type_X, type_Y
@@ -48,6 +48,9 @@ public:
       double lambda7{0.0};
       double tan_beta{0.0};
       double M122{0.0};
+      Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
+      Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
+      Eigen::Matrix<double,3,3> Xe{Eigen::Matrix<double,3,3>::Zero()};
    };
 
    struct Physical_basis {
@@ -60,6 +63,9 @@ public:
       double lambda7{0.0};
       double tan_beta{0.0};
       double M122{0.0};
+      Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
+      Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
+      Eigen::Matrix<double,3,3> Xe{Eigen::Matrix<double,3,3>::Zero()};
    };
 
    GeneralTHDM();
@@ -79,6 +85,48 @@ public:
    const SM& get_sm() const { return sm; }
 
    void set_tan_beta(double);
+
+   using GeneralTHDM_mass_eigenstates::get_alpha_em;
+   using GeneralTHDM_mass_eigenstates::get_alpha_h;
+   using GeneralTHDM_mass_eigenstates::get_beta;
+   using GeneralTHDM_mass_eigenstates::get_eta;
+   using GeneralTHDM_mass_eigenstates::get_tan_beta;
+   using GeneralTHDM_mass_eigenstates::get_v;
+   using GeneralTHDM_mass_eigenstates::get_v_sqr;
+   using GeneralTHDM_mass_eigenstates::get_Lambda1;
+   using GeneralTHDM_mass_eigenstates::get_Lambda2;
+   using GeneralTHDM_mass_eigenstates::get_Lambda3;
+   using GeneralTHDM_mass_eigenstates::get_Lambda4;
+   using GeneralTHDM_mass_eigenstates::get_Lambda5;
+   using GeneralTHDM_mass_eigenstates::get_Lambda6;
+   using GeneralTHDM_mass_eigenstates::get_Lambda7;
+   using GeneralTHDM_mass_eigenstates::get_LambdaFive;
+   using GeneralTHDM_mass_eigenstates::get_M122;
+   using GeneralTHDM_mass_eigenstates::get_g1;
+   using GeneralTHDM_mass_eigenstates::get_g2;
+   using GeneralTHDM_mass_eigenstates::get_Yu;
+   using GeneralTHDM_mass_eigenstates::get_Yd;
+   using GeneralTHDM_mass_eigenstates::get_Ye;
+   using GeneralTHDM_mass_eigenstates::get_Xu;
+   using GeneralTHDM_mass_eigenstates::get_Xd;
+   using GeneralTHDM_mass_eigenstates::get_Xe;
+   using GeneralTHDM_mass_eigenstates::get_v1;
+   using GeneralTHDM_mass_eigenstates::get_v2;
+   using GeneralTHDM_mass_eigenstates::get_Mhh;
+   using GeneralTHDM_mass_eigenstates::get_MAh;
+   using GeneralTHDM_mass_eigenstates::get_MHm;
+   using GeneralTHDM_mass_eigenstates::get_MFu;
+   using GeneralTHDM_mass_eigenstates::get_MFd;
+   using GeneralTHDM_mass_eigenstates::get_MFv;
+   using GeneralTHDM_mass_eigenstates::get_MFe;
+   using GeneralTHDM_mass_eigenstates::get_MVG;
+   using GeneralTHDM_mass_eigenstates::get_MVP;
+   using GeneralTHDM_mass_eigenstates::get_MVWm;
+   using GeneralTHDM_mass_eigenstates::get_MVZ;
+
+   using GeneralTHDM_mass_eigenstates::get_problems;
+
+   friend std::ostream& operator<<(std::ostream&, const GeneralTHDM&);
 
 private:
    Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
