@@ -222,7 +222,7 @@ TEST_CASE("2-loop_fermionic_neutral")
 
 
 // check data of Fig.8 of arxiv:1607.06292
-TEST_CASE("fermionic_figure_8")
+TEST_CASE("2-loop_fermionic_figure_8")
 {
    const double pi = 3.1415926535897932;
    const double alpha = 1./137.0;
