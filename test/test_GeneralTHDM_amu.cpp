@@ -452,6 +452,79 @@ TEST_CASE("2-loop_bosonic_nonYuk")
 }
 
 
+TEST_CASE("2-loop_bosonic_nonYuk_figure_4")
+{
+   const struct Subfigs {
+      char nr;
+      double mA;
+   } subfigs[] = {
+      {'a',  10.0},
+      {'b',  50.0},
+      {'c', 100.0},
+      {'d', 200.0}
+   };
+
+   for (const auto& fig: subfigs) {
+      const auto data = gm2calc::test::read_from_file<double>(
+         std::string(TEST_DATA_DIR) + PATH_SEPARATOR + "figure_4" +
+         PATH_SEPARATOR + "figure_4" + fig.nr + ".txt");
+
+      for (const auto& p: data) {
+         if (p.size() < 3) continue;
+
+         gm2calc::general_thdm::THDM_B_parameters pars;
+         pars.alpha_em = 1./137.036;
+         pars.mm = 0.10565837;
+         pars.mw = 80.379;
+         pars.mz = 91.1876;
+         pars.mh << 0.0, p.at(1);
+         pars.mA = fig.mA;
+         pars.mHp = p.at(0);
+
+         const double amu = gm2calc::general_thdm::amu2L_B_nonYuk(pars);
+         const double amu_nonYuk = p.at(2);
+
+         CHECK_CLOSE(1e10*amu_nonYuk, 1e10*amu, 1e-10);
+      }
+   }
+
+   /*
+   const double mH_min = 0.0;
+   const double mH_max = 500.0;
+   const double mHp_min = 80.0;
+   const double mHp_max = 500.0;
+   const int N_steps = 200;
+
+   for (const auto& fig: subfigs) {
+      std::ofstream ostr(std::string("figure_4") + fig.nr + ".txt");
+      const double mA = fig.mA;
+
+      for (int i = 0; i < N_steps; ++i) {
+         const double mHp = mHp_min + (i + 1.0)*(mHp_max - mHp_min)/N_steps;
+
+         for (int k = 0; k < N_steps; ++k) {
+            const double mH  = mH_min  + (k + 1.0)*(mH_max  - mH_min )/N_steps;
+
+            gm2calc::general_thdm::THDM_B_parameters pars;
+            pars.alpha_em = 1./137.036;
+            pars.mm = 0.10565837;
+            pars.mw = 80.379;
+            pars.mz = 91.1876;
+            pars.mh << 0.0, mH;
+            pars.mA = mA;
+            pars.mHp = mHp;
+
+            const auto amu = gm2calc::general_thdm::amu2L_B_nonYuk(pars);
+
+            ostr << std::setprecision(std::numeric_limits<double>::digits10 + 1)
+                 << mHp << '\t' << mH << '\t' << amu << '\n';
+         }
+      }
+   }
+   */
+}
+
+
 TEST_CASE("2-loop_bosonic_Yuk")
 {
    gm2calc::general_thdm::THDM_B_parameters pars;
