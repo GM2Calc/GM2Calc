@@ -78,7 +78,6 @@ public:
 
    void set_sm(const SM&);
    const SM& get_sm() const { return sm; }
-   SM& get_sm() { return sm; }
 
    void set_tan_beta(double);
 
