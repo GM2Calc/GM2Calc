@@ -452,6 +452,7 @@ TEST_CASE("2-loop_bosonic_nonYuk")
 }
 
 
+// reproduce Figure 4a-d, arxiv:1607.06292
 TEST_CASE("2-loop_bosonic_nonYuk_figure_4")
 {
    const struct Subfigs {
