@@ -29,7 +29,7 @@
 #define GM2_GeneralTHDM_MASS_EIGENSTATES_H
 
 #include "GeneralTHDM_problems.hpp"
-#include "GeneralTHDM_soft_parameters.hpp"
+#include "GeneralTHDM_parameters.hpp"
 
 #include <iosfwd>
 
@@ -41,10 +41,10 @@ namespace gm2calc {
  * @class GeneralTHDM_mass_eigenstates
  * @brief model class with routines for determing masses and mixinga and EWSB
  */
-class GeneralTHDM_mass_eigenstates : public GeneralTHDM_soft_parameters
+class GeneralTHDM_mass_eigenstates : public GeneralTHDM_parameters
 {
 public:
-   void print(std::ostream&) const override;
+   void print(std::ostream&) const;
 
    void calculate_MSbar_masses();
 

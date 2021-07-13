@@ -26,8 +26,7 @@ add_library(gm2calc
   GeneralTHDM/GeneralTHDM.cpp
   GeneralTHDM/GeneralTHDM_mass_eigenstates.cpp
   GeneralTHDM/GeneralTHDM_problems.cpp
-  GeneralTHDM/GeneralTHDM_soft_parameters.cpp
-  GeneralTHDM/GeneralTHDM_susy_parameters.cpp
+  GeneralTHDM/GeneralTHDM_parameters.cpp
   SM/SM.cpp
   )
 target_include_directories(gm2calc

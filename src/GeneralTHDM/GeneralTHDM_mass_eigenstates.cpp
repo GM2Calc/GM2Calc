@@ -106,9 +106,9 @@ void CLASSNAME::print(std::ostream& ostr) const
    ostr << "========================================\n"
            "GeneralTHDM\n"
            "========================================\n";
-   GeneralTHDM_soft_parameters::print(ostr);
+   GeneralTHDM_parameters::print(ostr);
    ostr << "----------------------------------------\n"
-           "tree-level MSbar masses:\n"
+           "Masses:\n"
            "----------------------------------------\n";
    ostr << "MVG = " << MVG << '\n';
    ostr << "MFv = " << MFv.transpose() << '\n';
@@ -119,24 +119,23 @@ void CLASSNAME::print(std::ostream& ostr) const
    ostr << "MFu = " << MFu.transpose() << '\n';
    ostr << "MFe = " << MFe.transpose() << '\n';
    ostr << "MVWm = " << MVWm << '\n';
-   ostr << "MVP = " << MVP << '\n';
    ostr << "MVZ = " << MVZ << '\n';
 
    ostr << "----------------------------------------\n"
-           "tree-level MSbar mixing matrices:\n"
+           "Mixing matrices:\n"
            "----------------------------------------\n";
-   ostr << "ZH = " << ZH << '\n';
-   ostr << "ZA = " << ZA << '\n';
-   ostr << "ZP = " << ZP << '\n';
-   ostr << "Vd = " << Vd << '\n';
-   ostr << "Ud = " << Ud << '\n';
-   ostr << "Vu = " << Vu << '\n';
-   ostr << "Uu = " << Uu << '\n';
-   ostr << "Ve = " << Ve << '\n';
-   ostr << "Ue = " << Ue << '\n';
+   ostr << "ZH =\n" << ZH << '\n';
+   ostr << "ZA =\n" << ZA << '\n';
+   ostr << "ZP =\n" << ZP << '\n';
+   ostr << "Vd =\n" << Vd << '\n';
+   ostr << "Ud =\n" << Ud << '\n';
+   ostr << "Vu =\n" << Vu << '\n';
+   ostr << "Uu =\n" << Uu << '\n';
+   ostr << "Ve =\n" << Ve << '\n';
+   ostr << "Ue =\n" << Ue << '\n';
 
    ostr << "----------------------------------------\n"
-           "derived parameters:\n"
+           "Derived parameters:\n"
            "----------------------------------------\n";
    ostr << "v = " << get_v() << '\n';
    ostr << "theta_w = " << ThetaW() << '\n';
