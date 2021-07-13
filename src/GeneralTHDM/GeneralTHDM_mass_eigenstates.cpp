@@ -110,13 +110,12 @@ void CLASSNAME::print(std::ostream& ostr) const
    ostr << "----------------------------------------\n"
            "Masses:\n"
            "----------------------------------------\n";
-   ostr << "MVG = " << MVG << '\n';
-   ostr << "MFv = " << MFv.transpose() << '\n';
    ostr << "Mhh = " << Mhh.transpose() << '\n';
    ostr << "MAh = " << MAh.transpose() << '\n';
    ostr << "MHm = " << MHm.transpose() << '\n';
-   ostr << "MFd = " << MFd.transpose() << '\n';
    ostr << "MFu = " << MFu.transpose() << '\n';
+   ostr << "MFd = " << MFd.transpose() << '\n';
+   ostr << "MFv = " << MFv.transpose() << '\n';
    ostr << "MFe = " << MFe.transpose() << '\n';
    ostr << "MVWm = " << MVWm << '\n';
    ostr << "MVZ = " << MVZ << '\n';
