@@ -24,7 +24,9 @@
  * which solve EWSB and calculate masses and mixings from MSbar
  * parameters.
  *
- * This file was generated with FlexibleSUSY 2.6.0 and SARAH 4.14.3 .
+ * This file was generated with FlexibleSUSY 2.6.0 and SARAH 4.14.3.
+ *
+ * @todo(alex) test parameter point where A and/or H^+ are lighter than Z and W
  */
 
 #include "gm2calc/GeneralTHDM_mass_eigenstates.hpp"
@@ -174,7 +176,6 @@ void CLASSNAME::reorder_MSbar_masses()
 {
    move_goldstone_to(0, MVZ, MAh, ZA);
    move_goldstone_to(0, MVWm, MHm, ZP);
-
 }
 
 Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fv() const
