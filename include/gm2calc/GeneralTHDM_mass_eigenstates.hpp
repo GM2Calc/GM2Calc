@@ -97,25 +97,6 @@ public:
    const Eigen::Matrix<std::complex<double>,3,3>& get_Ue() const { return Ue; }
    std::complex<double> get_Ue(int i, int k) const { return Ue(i,k); }
 
-   double get_mass_matrix_VZ() const;
-   void calculate_MVZ();
-   double get_mass_matrix_VWm() const;
-   void calculate_MVWm();
-   Eigen::Matrix<double,3,3> get_mass_matrix_Fv() const;
-   void calculate_MFv();
-   Eigen::Matrix<double,2,2> get_mass_matrix_hh() const;
-   void calculate_Mhh();
-   Eigen::Matrix<double,2,2> get_mass_matrix_Ah() const;
-   void calculate_MAh();
-   Eigen::Matrix<double,2,2> get_mass_matrix_Hm() const;
-   void calculate_MHm();
-   Eigen::Matrix<double,3,3> get_mass_matrix_Fd() const;
-   void calculate_MFd();
-   Eigen::Matrix<double,3,3> get_mass_matrix_Fu() const;
-   void calculate_MFu();
-   Eigen::Matrix<double,3,3> get_mass_matrix_Fe() const;
-   void calculate_MFe();
-
    double get_ewsb_eq_hh_1() const;
    double get_ewsb_eq_hh_2() const;
 
@@ -135,11 +116,31 @@ public:
    /// set alpha_em and cos(theta_w)
    void set_alpha_em_and_cw(double, double);
 
+protected:
+   double get_mass_matrix_VZ() const;
+   void calculate_MVZ();
+   double get_mass_matrix_VWm() const;
+   void calculate_MVWm();
+   Eigen::Matrix<double,3,3> get_mass_matrix_Fv() const;
+   void calculate_MFv();
+   Eigen::Matrix<double,2,2> get_mass_matrix_hh() const;
+   void calculate_Mhh();
+   Eigen::Matrix<double,2,2> get_mass_matrix_Ah() const;
+   void calculate_MAh();
+   Eigen::Matrix<double,2,2> get_mass_matrix_Hm() const;
+   void calculate_MHm();
+   Eigen::Matrix<double,3,3> get_mass_matrix_Fd() const;
+   void calculate_MFd();
+   Eigen::Matrix<double,3,3> get_mass_matrix_Fu() const;
+   void calculate_MFu();
+   Eigen::Matrix<double,3,3> get_mass_matrix_Fe() const;
+   void calculate_MFe();
+
 private:
    bool force_output{false};        ///< switch to force output of pole masses
    GeneralTHDM_problems problems{}; ///< problems
 
-   // DR-bar masses
+   // masses
    double MVG{0.0};
    double MVWm{0.0};
    double MVP{0.0};
@@ -152,7 +153,7 @@ private:
    Eigen::Array<double,3,1> MFu{Eigen::Array<double,3,1>::Zero()};
    Eigen::Array<double,3,1> MFe{Eigen::Array<double,3,1>::Zero()};
 
-   // DR-bar mixing matrices
+   // mixing matrices
    Eigen::Matrix<double,2,2> ZH{Eigen::Matrix<double,2,2>::Zero()};
    Eigen::Matrix<double,2,2> ZA{Eigen::Matrix<double,2,2>::Zero()};
    Eigen::Matrix<double,2,2> ZP{Eigen::Matrix<double,2,2>::Zero()};
