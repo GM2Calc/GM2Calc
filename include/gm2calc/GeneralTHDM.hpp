@@ -70,7 +70,6 @@ public:
 
    GeneralTHDM(const General_basis&, const SM& sm_ = SM{});
    GeneralTHDM(const Physical_basis&, const SM& sm_ = SM{});
-   virtual ~GeneralTHDM() = default;
 
    double get_zeta_u() const;
    double get_zeta_d() const;

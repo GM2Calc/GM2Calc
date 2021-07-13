@@ -24,7 +24,7 @@ namespace gm2calc {
 
 void GeneralTHDM_susy_parameters::print(std::ostream& ostr) const
 {
-   ostr << "dimensionless parameters at Q = " << get_scale() << ":\n";
+   ostr << "dimensionless parameters:\n";
    ostr << "g1 = " << g1 << '\n';
    ostr << "g2 = " << g2 << '\n';
    ostr << "g3 = " << g3 << '\n';

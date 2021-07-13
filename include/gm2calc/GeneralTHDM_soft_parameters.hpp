@@ -34,9 +34,7 @@ namespace gm2calc {
  */
 class GeneralTHDM_soft_parameters : public GeneralTHDM_susy_parameters {
 public:
-   virtual ~GeneralTHDM_soft_parameters() = default;
-
-   virtual void print(std::ostream&) const override;
+   void print(std::ostream&) const override;
 
    void set_M122(double M122_) { M122 = M122_; }
    void set_M112(double M112_) { M112 = M112_; }

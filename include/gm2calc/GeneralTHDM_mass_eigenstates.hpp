@@ -44,8 +44,6 @@ namespace gm2calc {
 class GeneralTHDM_mass_eigenstates : public GeneralTHDM_soft_parameters
 {
 public:
-   virtual ~GeneralTHDM_mass_eigenstates() = default;
-
    void print(std::ostream&) const override;
 
    void calculate_MSbar_masses();

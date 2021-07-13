@@ -35,12 +35,7 @@ namespace gm2calc {
  */
 class GeneralTHDM_susy_parameters {
 public:
-   virtual ~GeneralTHDM_susy_parameters() = default;
-
    virtual void print(std::ostream&) const;
-
-   void set_scale(double s) { scale = s; }
-   double get_scale() const { return scale; }
 
    void set_g1(double g1_) { g1 = g1_; }
    void set_g2(double g2_) { g2 = g2_; }
@@ -89,7 +84,6 @@ public:
    double get_Xe(int i, int k) const { return Xe(i,k); }
 
 protected:
-   double scale{0.0};
    double g1{0.0};
    double g2{0.0};
    double g3{0.0};

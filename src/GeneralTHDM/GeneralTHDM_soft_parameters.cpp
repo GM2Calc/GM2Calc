@@ -25,7 +25,7 @@ namespace gm2calc {
 void GeneralTHDM_soft_parameters::print(std::ostream& ostr) const
 {
    GeneralTHDM_susy_parameters::print(ostr);
-   ostr << "dimensionfull parameters at Q = " << get_scale() << ":\n";
+   ostr << "dimensionfull parameters:\n";
    ostr << "M122 = " << M122 << '\n';
    ostr << "M112 = " << M112 << '\n';
    ostr << "M222 = " << M222 << '\n';
