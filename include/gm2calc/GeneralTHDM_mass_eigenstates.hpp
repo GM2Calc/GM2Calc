@@ -57,23 +57,23 @@ public:
    int solve_ewsb();
 
    double get_MVG() const { return MVG; }
-   const Eigen::Array<double,3,1>& get_MFv() const { return MFv; }
-   double get_MFv(int i) const { return MFv(i); }
+   double get_MVP() const { return MVP; }
+   double get_MVWm() const { return MVWm; }
+   double get_MVZ() const { return MVZ; }
    const Eigen::Array<double,2,1>& get_Mhh() const { return Mhh; }
    double get_Mhh(int i) const { return Mhh(i); }
    const Eigen::Array<double,2,1>& get_MAh() const { return MAh; }
    double get_MAh(int i) const { return MAh(i); }
    const Eigen::Array<double,2,1>& get_MHm() const { return MHm; }
    double get_MHm(int i) const { return MHm(i); }
-   const Eigen::Array<double,3,1>& get_MFd() const { return MFd; }
-   double get_MFd(int i) const { return MFd(i); }
    const Eigen::Array<double,3,1>& get_MFu() const { return MFu; }
    double get_MFu(int i) const { return MFu(i); }
+   const Eigen::Array<double,3,1>& get_MFd() const { return MFd; }
+   double get_MFd(int i) const { return MFd(i); }
+   const Eigen::Array<double,3,1>& get_MFv() const { return MFv; }
+   double get_MFv(int i) const { return MFv(i); }
    const Eigen::Array<double,3,1>& get_MFe() const { return MFe; }
    double get_MFe(int i) const { return MFe(i); }
-   double get_MVWm() const { return MVWm; }
-   double get_MVP() const { return MVP; }
-   double get_MVZ() const { return MVZ; }
 
    Eigen::Array<double,1,1> get_MChargedHiggs() const;
    Eigen::Array<double,1,1> get_MPseudoscalarHiggs() const;
@@ -100,15 +100,15 @@ public:
    double get_ewsb_eq_hh_1() const;
    double get_ewsb_eq_hh_2() const;
 
-   double get_tan_beta() const;
-   double get_beta() const;
-   double get_alpha_h() const;  ///< CP-even Higgs mixing angle
-   double get_alpha_em() const; ///< electromagnetic coupling
-   double get_eta() const;      ///< deviation of CP-even Higgs mixing angle from SM limit
+   double get_tan_beta() const;   ///< ratio of VEVs v2/v1
+   double get_beta() const;       ///< CP-odd and charged Higgs mixing angle
+   double get_alpha_h() const;    ///< CP-even Higgs mixing angle
+   double get_alpha_em() const;   ///< electromagnetic coupling
+   double get_eta() const;        ///< deviation of CP-even Higgs mixing angle from SM limit
    double get_LambdaFive() const; ///< capital Lambda5, Eq (14) arxiv:1607.06292
-   double ThetaW() const;
-   double get_v() const;
-   double get_v_sqr() const;
+   double ThetaW() const;         ///< weak mixing angle
+   double get_v() const;          ///< SM-like VEV
+   double get_v_sqr() const;      ///< squared SM-like VEV
 
    /// set tan(beta) and vacuum expectation value
    void set_tan_beta_and_v(double, double);
