@@ -74,9 +74,6 @@ public:
    const Eigen::Array<double,3,1>& get_MFe() const { return MFe; }
    double get_MFe(int i) const { return MFe(i); }
 
-   Eigen::Array<double,1,1> get_MChargedHiggs() const;
-   Eigen::Array<double,1,1> get_MPseudoscalarHiggs() const;
-
    const Eigen::Matrix<double,2,2>& get_ZH() const { return ZH; }
    double get_ZH(int i, int k) const { return ZH(i,k); }
    const Eigen::Matrix<double,2,2>& get_ZA() const { return ZA; }
