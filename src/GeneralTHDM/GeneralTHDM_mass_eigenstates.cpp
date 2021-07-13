@@ -164,6 +164,8 @@ void CLASSNAME::calculate_MSbar_masses()
    calculate_MAh();
    calculate_Mhh();
    calculate_MFv();
+
+   reorder_MSbar_masses();
 }
 
 /**

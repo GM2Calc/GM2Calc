@@ -118,6 +118,39 @@ TEST_CASE("tree-level-spectrum")
 }
 
 
+// This test ensures that the Goldstone bosons are always at the first
+// position (index 0) in the MAh and MHm multiplets, even if they are
+// heavier than the corresponding Higgs bosons.
+TEST_CASE("test_light_Higgs_spectrum")
+{
+   const double eps = 1e-14;
+   const double tb = 2.0;
+   const double v = 245.0;
+
+   gm2calc::GeneralTHDM_mass_eigenstates model;
+   model.set_tan_beta_and_v(tb, v);
+   model.set_alpha_em_and_cw(1.0/137.0, 80.0/91.0);
+   model.set_Lambda1(0.0);
+   model.set_Lambda2(0.0);
+   model.set_Lambda3(0.0);
+   model.set_Lambda4(0.0);
+   model.set_Lambda5(0.0);
+   model.set_Lambda6(0.0);
+   model.set_Lambda7(0.0);
+   model.set_M122(0.1);
+   model.calculate_MSbar_masses();
+
+   CHECK(!model.get_problems().have_problem());
+
+   // Higgs bosons are lighter than W and Z
+   CHECK_LT(model.get_MAh(1), model.get_MVZ());
+   CHECK_LT(model.get_MHm(1), model.get_MVWm());
+   // Goldstone bosons are at position 0
+   CHECK_CLOSE(model.get_MAh(0), model.get_MVZ(), eps);
+   CHECK_CLOSE(model.get_MHm(0), model.get_MVWm(), eps);
+}
+
+
 TEST_CASE("general_basis")
 {
    const double eps = 1e-14;
