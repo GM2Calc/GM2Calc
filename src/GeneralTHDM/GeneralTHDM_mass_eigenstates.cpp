@@ -64,11 +64,6 @@ const GeneralTHDM_problems& CLASSNAME::get_problems() const
    return problems;
 }
 
-GeneralTHDM_problems& CLASSNAME::get_problems()
-{
-   return problems;
-}
-
 int CLASSNAME::solve_ewsb_tree_level()
 {
    int error = 0;

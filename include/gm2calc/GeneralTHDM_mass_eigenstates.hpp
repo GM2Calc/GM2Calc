@@ -52,7 +52,6 @@ public:
    bool do_force_output() const;
    void reorder_MSbar_masses();
    const GeneralTHDM_problems& get_problems() const;
-   GeneralTHDM_problems& get_problems();
    int solve_ewsb_tree_level();
    int solve_ewsb();
 
