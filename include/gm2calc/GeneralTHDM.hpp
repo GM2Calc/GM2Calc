@@ -68,8 +68,8 @@ public:
       Eigen::Matrix<double,3,3> Xe{Eigen::Matrix<double,3,3>::Zero()};
    };
 
-   GeneralTHDM();
-   explicit GeneralTHDM(const SM&);
+   GeneralTHDM(const General_basis&, const SM& sm_ = SM{});
+   GeneralTHDM(const Physical_basis&, const SM& sm_ = SM{});
    virtual ~GeneralTHDM() = default;
 
    double get_zeta_u() const;
@@ -78,9 +78,6 @@ public:
 
    Yukawa_scheme get_yukawa_scheme() const { return yukawa_scheme; }
    void set_yukawa_scheme(Yukawa_scheme ys) { yukawa_scheme = ys; }
-
-   void set_basis(const General_basis&);
-   void set_basis(const Physical_basis&);
 
    const SM& get_sm() const { return sm; }
 
@@ -134,6 +131,8 @@ private:
 
    void init_gauge_couplings();
    void init_yukawas();
+   void set_basis(const General_basis&);
+   void set_basis(const Physical_basis&);
 };
 
 /// streaming operator

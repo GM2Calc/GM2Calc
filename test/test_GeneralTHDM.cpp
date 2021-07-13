@@ -40,8 +40,7 @@ TEST_CASE("tree-level-spectrum")
    basis.tan_beta = 3.0;
    basis.M122 = sqr(200.0);
 
-   gm2calc::GeneralTHDM model;
-   model.set_basis(basis);
+   gm2calc::GeneralTHDM model(basis);
 
    CHECK(!model.get_problems().have_problem());
    CHECK(model.get_MVG() == 0.0);
@@ -134,9 +133,8 @@ TEST_CASE("general_basis")
    basis.tan_beta = 20;
    basis.M122 = sqr(200);
 
-   // initialize using set_basis
-   gm2calc::GeneralTHDM model2;
-   CHECK_NOTHROW(model2.set_basis(basis));
+   // initialize using the basis
+   gm2calc::GeneralTHDM model2(basis);
 
    // initialize by hand
    gm2calc::GeneralTHDM_mass_eigenstates model1;
@@ -174,9 +172,8 @@ TEST_CASE("physical_basis")
    basis.tan_beta = 3;
    basis.M122 = 4000;
 
-   // initialize using set_basis
-   gm2calc::GeneralTHDM model2;
-   CHECK_NOTHROW(model2.set_basis(basis));
+   // initialize using the basis
+   gm2calc::GeneralTHDM model2(basis);
    CHECK(!model2.get_problems().have_problem());
 
    // initialize by hand
@@ -222,9 +219,7 @@ TEST_CASE("2HDMC-demo-point")
    basis.tan_beta = 3.0;
    basis.M122 = sqr(200.0);
 
-   gm2calc::GeneralTHDM model;
-   model.set_basis(basis);
-
+   gm2calc::GeneralTHDM model(basis);
    CHECK(!model.get_problems().have_problem());
 
    const auto amu1L = gm2calc::calculate_amu_1loop(model);
@@ -259,8 +254,7 @@ TEST_CASE("test-point-GAMBIT")
    gm2calc::SM sm;
    sm.set_alpha_em_mz(1.0/132.23323);
 
-   gm2calc::GeneralTHDM model(sm);
-   model.set_basis(basis);
+   gm2calc::GeneralTHDM model(basis, sm);
 
    CHECK(!model.get_problems().have_problem());
 

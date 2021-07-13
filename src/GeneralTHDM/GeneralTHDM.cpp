@@ -24,15 +24,18 @@
 
 namespace gm2calc {
 
-GeneralTHDM::GeneralTHDM()
-{
-   init_gauge_couplings();
-}
-
-GeneralTHDM::GeneralTHDM(const SM& sm_)
+GeneralTHDM::GeneralTHDM(const General_basis& basis, const SM& sm_)
    : sm(sm_)
 {
    init_gauge_couplings();
+   set_basis(basis);
+}
+
+GeneralTHDM::GeneralTHDM(const Physical_basis& basis, const SM& sm_)
+   : sm(sm_)
+{
+   init_gauge_couplings();
+   set_basis(basis);
 }
 
 void GeneralTHDM::init_gauge_couplings()
