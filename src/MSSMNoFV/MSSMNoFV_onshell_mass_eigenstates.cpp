@@ -236,6 +236,8 @@ void CLASSNAME::calculate_DRbar_masses()
    calculate_MHpm();
    calculate_MChi();
    calculate_MCha();
+
+   reorder_DRbar_masses();
 }
 
 void CLASSNAME::copy_DRbar_masses_to_pole_masses()
@@ -290,6 +292,7 @@ void CLASSNAME::copy_DRbar_masses_to_pole_masses()
    PHYSICAL(UP) = UP;
    PHYSICAL(MVWm) = MVWm;
 
+   reorder_pole_masses();
 }
 
 /**

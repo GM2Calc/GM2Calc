@@ -250,3 +250,57 @@ TEST_CASE("calculate_masses")
    // model.get_MFtau() includes higher-order corrections from the tan(beta) resummation
    CHECK_CLOSE(model.get_MFtau(), model.get_physical().MFtau  , 0.1);
 }
+
+
+// This test ensures that the Goldstone bosons are always at the first
+// position (index 0) in the MAh and MHpm multiplets, even if they are
+// heavier than the corresponding Higgs bosons.
+TEST_CASE("goldstone_boson_position")
+{
+   const double eps = 1e-15;
+   const double Pi = 3.141592653589793;
+   const Eigen::Matrix<double,3,3> UnitMatrix
+      = Eigen::Matrix<double,3,3>::Identity();
+
+   gm2calc::MSSMNoFV_onshell model;
+
+   model.set_alpha_MZ(0.0077552);
+   model.set_alpha_thompson(0.00729735);
+   model.set_g3(std::sqrt(4 * Pi * 0.1184));
+   model.get_physical().MFt   = 173.34;
+   model.get_physical().MFb   = 4.18;
+   model.get_physical().MFm   = 0.1056583715;
+   model.get_physical().MFtau = 1.777;
+   model.get_physical().MVWm  = 80.385;
+   model.get_physical().MVZ   = 91.1876;
+
+   const double cW = model.get_physical().MVWm / model.get_physical().MVZ;
+   model.set_g1(std::sqrt(5./3.) * model.get_EL() / cW);
+   model.set_g2(model.get_EL()/std::sqrt(1. - cW*cW));
+   model.set_TB(2);
+   model.set_Mu(500);
+   model.set_MassB(200);
+   model.set_MassWB(400);
+   model.set_MassG(2000);
+   model.set_BMu(500); // very small so that MAh < MZ
+   model.set_Mu(350);
+   model.set_MassB(150);
+   model.set_MassWB(300);
+   model.set_MassG(1000);
+   model.set_mq2(500 * 500 * UnitMatrix);
+   model.set_ml2(500 * 500 * UnitMatrix);
+   model.set_md2(500 * 500 * UnitMatrix);
+   model.set_mu2(500 * 500 * UnitMatrix);
+   model.set_me2(500 * 500 * UnitMatrix);
+   model.set_Au(2,2,0);
+   model.set_Ad(2,2,0);
+   model.set_Ae(2,2,0);
+   model.set_scale(1000);
+
+   model.calculate_DRbar_masses();
+
+   CHECK(!model.get_problems().have_problem());
+
+   CHECK_CLOSE(model.get_MAh(0), model.get_MVZ(), eps);
+   CHECK_CLOSE(model.get_MHpm(0), model.get_MVWm(), eps);
+}
