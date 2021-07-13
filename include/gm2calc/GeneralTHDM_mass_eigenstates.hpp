@@ -55,30 +55,54 @@ public:
    int solve_ewsb_tree_level();
    int solve_ewsb();
 
+   /// gluon mass
    double get_MVG() const { return MVG; }
+   /// photon mass
    double get_MVP() const { return MVP; }
+   /// W boson mass
    double get_MVWm() const { return MVWm; }
+   /// Z boson mass
    double get_MVZ() const { return MVZ; }
+   /// CP-even Higgs boson masses
    const Eigen::Array<double,2,1>& get_Mhh() const { return Mhh; }
+   /// CP-even Higgs boson i mass
    double get_Mhh(int i) const { return Mhh(i); }
+   /// Goldstone and CP-odd Higgs boson masses (in that order)
    const Eigen::Array<double,2,1>& get_MAh() const { return MAh; }
+   /// Goldstone (i = 0) or CP-odd Higgs boson (i = 1) mass
    double get_MAh(int i) const { return MAh(i); }
+   /// Goldstone and charged Higgs boson masses (in that order)
    const Eigen::Array<double,2,1>& get_MHm() const { return MHm; }
+   /// Goldstone (i = 0) or charged Higgs boson (i = 1) mass
    double get_MHm(int i) const { return MHm(i); }
+   /// up-type quark masses
    const Eigen::Array<double,3,1>& get_MFu() const { return MFu; }
+   /// up-type quark i mass
    double get_MFu(int i) const { return MFu(i); }
+   /// down-type quark masses
    const Eigen::Array<double,3,1>& get_MFd() const { return MFd; }
+   /// down-type quark i mass
    double get_MFd(int i) const { return MFd(i); }
+   /// neutrino masses
    const Eigen::Array<double,3,1>& get_MFv() const { return MFv; }
+   /// neutrino i mass
    double get_MFv(int i) const { return MFv(i); }
+   /// charged lepton masses
    const Eigen::Array<double,3,1>& get_MFe() const { return MFe; }
+   /// charged lepton i mass
    double get_MFe(int i) const { return MFe(i); }
 
+   /// CP-even Higgs boson mixing matrix
    const Eigen::Matrix<double,2,2>& get_ZH() const { return ZH; }
+   /// CP-even Higgs boson mixing matrix element
    double get_ZH(int i, int k) const { return ZH(i,k); }
+   /// CP-odd Higgs boson mixing matrix
    const Eigen::Matrix<double,2,2>& get_ZA() const { return ZA; }
+   /// CP-odd Higgs boson mixing matrix element
    double get_ZA(int i, int k) const { return ZA(i,k); }
+   /// charged Higgs boson mixing matrix
    const Eigen::Matrix<double,2,2>& get_ZP() const { return ZP; }
+   /// charged Higgs boson mixing matrix element
    double get_ZP(int i, int k) const { return ZP(i,k); }
    const Eigen::Matrix<std::complex<double>,3,3>& get_Vd() const { return Vd; }
    std::complex<double> get_Vd(int i, int k) const { return Vd(i,k); }
