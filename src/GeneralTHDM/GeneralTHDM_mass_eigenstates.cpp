@@ -134,13 +134,17 @@ void CLASSNAME::print(std::ostream& ostr) const
    ostr << "Ve =\n" << Ve << '\n';
    ostr << "Ue =\n" << Ue << '\n';
 
+   const double beta = get_beta();
+   const double alpha_h = get_alpha_h();
+
    ostr << "----------------------------------------\n"
            "Derived parameters:\n"
            "----------------------------------------\n";
    ostr << "v = " << get_v() << '\n';
    ostr << "theta_w = " << ThetaW() << '\n';
-   ostr << "alpha_h = " << get_alpha_h() << '\n';
-   ostr << "beta = " << get_beta() << '\n';
+   ostr << "alpha_h = " << alpha_h << '\n';
+   ostr << "beta = " << beta << '\n';
+   ostr << "sin(beta - alpha_h) = " << std::sin(beta - alpha_h) << '\n';
    ostr << "eta = " << get_eta() << '\n';
    ostr << "tan(beta) = " << get_tan_beta() << '\n';
 }
