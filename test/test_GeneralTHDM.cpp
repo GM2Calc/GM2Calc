@@ -328,6 +328,7 @@ TEST_CASE("2HDMC-mA-scan")
    sm.set_md(2, 4.75);
    sm.set_ml(2, 1.77684);
 
+   const double amu1LSM = 2.2334814296705501e-14;
    const double amu2LSM = -1.6644614586036608e-11;
    const double amu2LCharged = 8.1484174579402084e-12;
 
@@ -349,8 +350,12 @@ TEST_CASE("2HDMC-mA-scan")
 
       INFO("mA = " << mA);
 
+      const auto amu1L = gm2calc::calculate_amu_1loop(model);
       const auto amu2LF = gm2calc::calculate_amu_2loop_fermionic(model);
+      const auto amu1L2HDMC = p.at(1);
       const auto amu2L2HDMC = p.at(2);
+
+      CHECK_CLOSE(amu1L*1e13, (amu1L2HDMC - amu1LSM)*1e13, 0.03);
 
       if (mA > 200 && mA < 450) {
          CHECK_CLOSE(amu2LF*1e12, (amu2L2HDMC + amu2LCharged - amu2LSM)*1e12, 0.05);
