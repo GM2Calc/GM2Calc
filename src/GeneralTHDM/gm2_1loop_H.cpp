@@ -82,7 +82,7 @@ double AA(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen:
 
 double AHp(int gen, const Eigen::Matrix<double,3,1>& mv, double mS2, const Eigen::Matrix<double,3,3>& y) noexcept
 {
-   return -std::norm(y(gen, 1))/24*(
+   return -std::norm(y(gen, 1))/48*(
       F1N(sqr(mv(1))/mS2) + F1N(sqr(mv(gen))/mS2));
 }
 

@@ -292,6 +292,7 @@ TEST_CASE("test-point-GAMBIT")
    CHECK(!model.get_problems().have_problem());
 
    const auto amu = gm2calc::calculate_amu_1loop(model);
+   const auto amu2L = gm2calc::calculate_amu_2loop(model);
 
-   // CHECK_CLOSE(amu*1e8, 6.9952544, 0.005);
+   CHECK_CLOSE(amu*1e8, 6.9952544, 1e-7);
 }
