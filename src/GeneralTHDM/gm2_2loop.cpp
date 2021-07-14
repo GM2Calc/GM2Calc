@@ -40,7 +40,7 @@ double calculate_amu_2loop_bosonic(const GeneralTHDM& model)
    pars_b.mHp = model.get_MHm(1);
    pars_b.mh = model.get_Mhh();
    pars_b.tb = model.get_tan_beta();
-   pars_b.zetal = model.get_zeta_l();
+   pars_b.zetal = model.get_zeta_bar_l();
    pars_b.eta = model.get_eta();
    pars_b.lambda5 = model.get_LambdaFive();
 
@@ -56,9 +56,9 @@ double calculate_amu_2loop_bosonic(const GeneralTHDM& model)
 double calculate_amu_2loop_fermionic(const GeneralTHDM& model)
 {
    const double sqrt2 = 1.4142135623730950; // Sqrt[2]
-   const double zeta_u = model.get_zeta_u();
-   const double zeta_d = model.get_zeta_d();
-   const double zeta_l = model.get_zeta_l();
+   const double zeta_u = model.get_zeta_bar_u();
+   const double zeta_d = model.get_zeta_bar_d();
+   const double zeta_l = model.get_zeta_bar_l();
    const double alpha_h = model.get_alpha_h();
    const double beta = model.get_beta();
    const double sba = std::sin(beta - alpha_h);

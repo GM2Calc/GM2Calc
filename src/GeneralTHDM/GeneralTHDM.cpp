@@ -67,13 +67,13 @@ void GeneralTHDM::init_yukawas()
 }
 
 /// Table 1, arxiv:1607.06292
-double GeneralTHDM::get_zeta_u() const
+double GeneralTHDM::get_zeta_bar_u() const
 {
    return 1.0/get_tan_beta();
 }
 
 /// Table 1, arxiv:1607.06292
-double GeneralTHDM::get_zeta_d() const
+double GeneralTHDM::get_zeta_bar_d() const
 {
    switch (yukawa_scheme) {
       case Yukawa_scheme::type_1:
@@ -88,7 +88,7 @@ double GeneralTHDM::get_zeta_d() const
 }
 
 /// Table 1, arxiv:1607.06292
-double GeneralTHDM::get_zeta_l() const
+double GeneralTHDM::get_zeta_bar_l() const
 {
    switch (yukawa_scheme) {
       case Yukawa_scheme::type_1:
@@ -108,7 +108,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_zeta_l_matrix() const
    const double mm = get_MFe(1);
    const double v = get_v();
 
-   return get_Xe()*v/(cb*sqrt2*mm) + get_zeta_l()*id33;
+   return get_Xe()*v/(cb*sqrt2*mm) + get_zeta_bar_l()*id33;
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ylh() const
@@ -257,9 +257,9 @@ std::ostream& operator<<(std::ostream& ostr, const GeneralTHDM& model)
          break;
    }
 
-   ostr << "zeta_u = " << model.get_zeta_u() << '\n';
-   ostr << "zeta_d = " << model.get_zeta_d() << '\n';
-   ostr << "zeta_l = " << model.get_zeta_l() << '\n';
+   ostr << "zeta_u = " << model.get_zeta_bar_u() << '\n';
+   ostr << "zeta_d = " << model.get_zeta_bar_d() << '\n';
+   ostr << "zeta_l = " << model.get_zeta_bar_l() << '\n';
 
    return ostr;
 }
