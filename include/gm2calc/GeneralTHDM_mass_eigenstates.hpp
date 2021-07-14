@@ -125,6 +125,8 @@ public:
    double get_tan_beta() const;   ///< tan(beta) = ratio of VEVs v2/v1
    double get_beta() const;       ///< CP-odd and charged Higgs mixing angle
    double get_alpha_h() const;    ///< CP-even Higgs mixing angle
+   double get_sin_beta_minus_alpha() const; ///< sin(beta - alpha_h)
+   double get_cos_beta_minus_alpha() const; ///< cos(beta - alpha_h)
    double get_alpha_em() const;   ///< electromagnetic coupling
    double get_eta() const;        ///< deviation of CP-even Higgs mixing angle from SM limit
    double get_LambdaFive() const; ///< capital Lambda5, Eq (14) arxiv:1607.06292

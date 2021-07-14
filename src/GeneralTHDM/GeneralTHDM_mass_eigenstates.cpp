@@ -130,17 +130,14 @@ void CLASSNAME::print(std::ostream& ostr) const
    ostr << "Ve =\n" << Ve << '\n';
    ostr << "Ue =\n" << Ue << '\n';
 
-   const double beta = get_beta();
-   const double alpha_h = get_alpha_h();
-
    ostr << "----------------------------------------\n"
            "Derived parameters:\n"
            "----------------------------------------\n";
    ostr << "v = " << get_v() << '\n';
    ostr << "theta_w = " << ThetaW() << '\n';
-   ostr << "alpha_h = " << alpha_h << '\n';
-   ostr << "beta = " << beta << '\n';
-   ostr << "sin(beta - alpha_h) = " << std::sin(beta - alpha_h) << '\n';
+   ostr << "alpha_h = " << get_alpha_h() << '\n';
+   ostr << "beta = " << get_beta() << '\n';
+   ostr << "sin(beta - alpha_h) = " << get_sin_beta_minus_alpha() << '\n';
    ostr << "eta = " << get_eta() << '\n';
    ostr << "tan(beta) = " << get_tan_beta() << '\n';
 }
@@ -417,6 +414,16 @@ double CLASSNAME::get_alpha_h() const
    if (bma >  pi/2) { alpha_h += pi; }
 
    return alpha_h;
+}
+
+double CLASSNAME::get_sin_beta_minus_alpha() const
+{
+   return std::sin(get_beta() - get_alpha_h());
+}
+
+double CLASSNAME::get_cos_beta_minus_alpha() const
+{
+   return std::cos(get_beta() - get_alpha_h());
 }
 
 double CLASSNAME::get_alpha_em() const
