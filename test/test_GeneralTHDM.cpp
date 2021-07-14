@@ -4,6 +4,8 @@
 #include "gm2calc/GeneralTHDM.hpp"
 #include "gm2calc/gm2_1loop.hpp"
 #include "gm2calc/gm2_2loop.hpp"
+#include "GeneralTHDM/gm2_2loop_helpers.hpp"
+#include "read_data.hpp"
 
 #include <cmath>
 
@@ -291,8 +293,64 @@ TEST_CASE("test-point-GAMBIT")
 
    CHECK(!model.get_problems().have_problem());
 
-   const auto amu = gm2calc::calculate_amu_1loop(model);
-   const auto amu2L = gm2calc::calculate_amu_2loop(model);
+   const auto amu1L = gm2calc::calculate_amu_1loop(model);
+   const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
 
-   CHECK_CLOSE(amu*1e8, 6.9952544, 1e-7);
+   CHECK_CLOSE(amu1L*1e8, 6.9952544, 1e-7);
+   // CHECK_CLOSE(amu2L*1e8, -5.6596159, 1e-7);
+}
+
+
+// This tests compares the 2-loop fermionic contributions to 2HDMC.
+// 2HDMC includes the following contributions: 2-loop fermionic
+// Barr-Zee diagrams with only a photon and neutral Higgs bosons
+// connecting to the muon line.  I.e. the following contributions are
+// missing in 2HDMC:
+//
+// * 2-loop bosonic contributions
+// * 2-loop fermionic contributions with a Z connecting to the muon line
+// * 2-loop fermionic contributions with a charged Higgs connecting to the muon line
+//
+// Furhermore, 2HDMC does not subtract the SM Higgs contribution.
+TEST_CASE("2HDMC-mA-scan")
+{
+   const auto data = gm2calc::test::read_from_file<double>(
+      std::string(TEST_DATA_DIR) + PATH_SEPARATOR + "2HDMC" +
+      PATH_SEPARATOR + "2HDMC-2L-scan-mA.txt");
+
+   gm2calc::SM sm;
+   sm.set_alpha_em_mz(1.0/127.934);
+   sm.set_mu(2, 172.5);
+   sm.set_mu(1, 1.42);
+   sm.set_md(2, 4.75);
+   sm.set_ml(2, 1.77684);
+
+   const double amu2LSM = -1.6644614586036608e-11;
+   const double amu2LCharged = 8.1484174579402084e-12;
+
+   for (const auto& p: data) {
+      const auto mA = p.at(0);
+
+      gm2calc::GeneralTHDM::Physical_basis basis;
+      basis.mh = 125;
+      basis.mH = 400;
+      basis.mA = mA;
+      basis.mHp = 440;
+      basis.sin_beta_minus_alpha = 0.999;
+      basis.lambda6 = 0;
+      basis.lambda7 = 0;
+      basis.tan_beta = 3;
+      basis.M122 = 40000;
+
+      gm2calc::GeneralTHDM model(basis, sm);
+
+      INFO("mA = " << mA);
+
+      const auto amu2LF = gm2calc::calculate_amu_2loop_fermionic(model);
+      const auto amu2L2HDMC = p.at(1);
+
+      if (mA > 200 && mA < 450) {
+         CHECK_CLOSE(amu2LF*1e12, (amu2L2HDMC + amu2LCharged - amu2LSM)*1e12, 0.05);
+      }
+   }
 }
