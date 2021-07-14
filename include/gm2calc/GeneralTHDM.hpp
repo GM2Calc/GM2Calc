@@ -39,6 +39,7 @@ public:
    };
 
    struct General_basis {
+      Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
       double lambda1{0.0};
       double lambda2{0.0};
       double lambda3{0.0};
@@ -54,6 +55,7 @@ public:
    };
 
    struct Physical_basis {
+      Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
       double mh{0.0};
       double mH{0.0};
       double mA{0.0};
@@ -82,7 +84,6 @@ public:
    Eigen::Matrix<double,3,3> get_ylHp() const;
 
    Yukawa_scheme get_yukawa_scheme() const { return yukawa_scheme; }
-   void set_yukawa_scheme(Yukawa_scheme ys) { yukawa_scheme = ys; }
 
    const SM& get_sm() const { return sm; }
 
@@ -131,8 +132,8 @@ public:
    friend std::ostream& operator<<(std::ostream&, const GeneralTHDM&);
 
 private:
-   Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
    SM sm{};
+   Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
 
    void init_gauge_couplings();
    void init_yukawas();

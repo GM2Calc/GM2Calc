@@ -33,6 +33,7 @@ const Eigen::Matrix<double,3,3> id33 = Eigen::Matrix<double,3,3>::Identity();
 
 GeneralTHDM::GeneralTHDM(const General_basis& basis, const SM& sm_)
    : sm(sm_)
+   , yukawa_scheme(basis.yukawa_scheme)
 {
    init_gauge_couplings();
    set_basis(basis);
@@ -40,6 +41,7 @@ GeneralTHDM::GeneralTHDM(const General_basis& basis, const SM& sm_)
 
 GeneralTHDM::GeneralTHDM(const Physical_basis& basis, const SM& sm_)
    : sm(sm_)
+   , yukawa_scheme(basis.yukawa_scheme)
 {
    init_gauge_couplings();
    set_basis(basis);
