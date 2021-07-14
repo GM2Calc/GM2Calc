@@ -145,13 +145,13 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_ylHp() const
 
 void GeneralTHDM::set_basis(const GeneralTHDM::General_basis& basis)
 {
-   set_Lambda1(basis.lambda1);
-   set_Lambda2(basis.lambda2);
-   set_Lambda3(basis.lambda3);
-   set_Lambda4(basis.lambda4);
-   set_Lambda5(basis.lambda5);
-   set_Lambda6(basis.lambda6);
-   set_Lambda7(basis.lambda7);
+   set_lambda1(basis.lambda1);
+   set_lambda2(basis.lambda2);
+   set_lambda3(basis.lambda3);
+   set_lambda4(basis.lambda4);
+   set_lambda5(basis.lambda5);
+   set_lambda6(basis.lambda6);
+   set_lambda7(basis.lambda7);
    set_tan_beta_and_v(basis.tan_beta, sm.get_v());
    set_M122(basis.M122);
    set_Xu(basis.Xu);
@@ -215,13 +215,13 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
    const double v = sm.get_v();
    const double v2 = sqr(v);
 
-   set_Lambda1((sqr(mH)*ca2 + sqr(mh)*sa2 - m12_2*tb)/v2/cb2 - 1.5*lambda6*tb + 0.5*lambda7*tb*tb*tb);
-   set_Lambda2((sqr(mH)*sa2 + sqr(mh)*ca2 - m12_2*ctb)/v2/sb2 + 0.5*lambda6*ctb*ctb*ctb - 1.5*lambda7*ctb);
-   set_Lambda3(((sqr(mH) - sqr(mh))*ca*sa + 2.*mHp*mHp*sb*cb - m12_2)/v2/sb/cb - 0.5*lambda6*ctb - 0.5*lambda7*tb);
-   set_Lambda4(((sqr(mA) - 2.*mHp*mHp)*cb*sb + m12_2)/v2/sb/cb - 0.5*lambda6*ctb - 0.5*lambda7*tb);
-   set_Lambda5((m12_2 - sqr(mA)*sb*cb)/v2/sb/cb - 0.5*lambda6*ctb - 0.5*lambda7*tb);
-   set_Lambda6(basis.lambda6);
-   set_Lambda7(basis.lambda7);
+   set_lambda1((sqr(mH)*ca2 + sqr(mh)*sa2 - m12_2*tb)/v2/cb2 - 1.5*lambda6*tb + 0.5*lambda7*tb*tb*tb);
+   set_lambda2((sqr(mH)*sa2 + sqr(mh)*ca2 - m12_2*ctb)/v2/sb2 + 0.5*lambda6*ctb*ctb*ctb - 1.5*lambda7*ctb);
+   set_lambda3(((sqr(mH) - sqr(mh))*ca*sa + 2.*mHp*mHp*sb*cb - m12_2)/v2/sb/cb - 0.5*lambda6*ctb - 0.5*lambda7*tb);
+   set_lambda4(((sqr(mA) - 2.*mHp*mHp)*cb*sb + m12_2)/v2/sb/cb - 0.5*lambda6*ctb - 0.5*lambda7*tb);
+   set_lambda5((m12_2 - sqr(mA)*sb*cb)/v2/sb/cb - 0.5*lambda6*ctb - 0.5*lambda7*tb);
+   set_lambda6(basis.lambda6);
+   set_lambda7(basis.lambda7);
    set_tan_beta_and_v(basis.tan_beta, v);
    set_M122(basis.M122);
    set_Xu(basis.Xu);

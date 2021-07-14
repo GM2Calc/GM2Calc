@@ -62,13 +62,13 @@ TEST_CASE("tree-level-spectrum")
    const double s3b = 3*sb - 4*sb*sb2;
    const double c3b = 4*cb*cb2 - 3*cb;
    const double c2b = cb2 - sb2;
-   const double l1 = model.get_Lambda1();
-   const double l2 = model.get_Lambda2();
-   const double l3 = model.get_Lambda3();
-   const double l4 = model.get_Lambda4();
-   const double l5 = model.get_Lambda5();
-   const double l6 = model.get_Lambda6();
-   const double l7 = model.get_Lambda7();
+   const double l1 = model.get_lambda1();
+   const double l2 = model.get_lambda2();
+   const double l3 = model.get_lambda3();
+   const double l4 = model.get_lambda4();
+   const double l5 = model.get_lambda5();
+   const double l6 = model.get_lambda6();
+   const double l7 = model.get_lambda7();
 
    // CP-odd Higgs boson
    const double mA2 = m122/sb/cb - 0.5*v_sqr*(2*l5 + l6*ctb + l7*tb);
@@ -132,13 +132,13 @@ TEST_CASE("test_light_Higgs_spectrum")
    gm2calc::GeneralTHDM_mass_eigenstates model;
    model.set_tan_beta_and_v(tb, v);
    model.set_alpha_em_and_cw(1.0/137.0, 80.0/91.0);
-   model.set_Lambda1(0.0);
-   model.set_Lambda2(0.0);
-   model.set_Lambda3(0.0);
-   model.set_Lambda4(0.0);
-   model.set_Lambda5(0.0);
-   model.set_Lambda6(0.0);
-   model.set_Lambda7(0.0);
+   model.set_lambda1(0.0);
+   model.set_lambda2(0.0);
+   model.set_lambda3(0.0);
+   model.set_lambda4(0.0);
+   model.set_lambda5(0.0);
+   model.set_lambda6(0.0);
+   model.set_lambda7(0.0);
    model.set_M122(0.1);
    model.calculate_MSbar_masses();
 
@@ -175,13 +175,13 @@ TEST_CASE("general_basis")
    gm2calc::GeneralTHDM_mass_eigenstates model1;
    model1.set_tan_beta_and_v(basis.tan_beta, model2.get_sm().get_v());
    model1.set_alpha_em_and_cw(model2.get_sm().get_alpha_em_mz(), model2.get_sm().get_mw()/model2.get_sm().get_mz());
-   model1.set_Lambda1(basis.lambda1);
-   model1.set_Lambda2(basis.lambda2);
-   model1.set_Lambda3(basis.lambda3);
-   model1.set_Lambda4(basis.lambda4);
-   model1.set_Lambda5(basis.lambda5);
-   model1.set_Lambda6(basis.lambda6);
-   model1.set_Lambda7(basis.lambda7);
+   model1.set_lambda1(basis.lambda1);
+   model1.set_lambda2(basis.lambda2);
+   model1.set_lambda3(basis.lambda3);
+   model1.set_lambda4(basis.lambda4);
+   model1.set_lambda5(basis.lambda5);
+   model1.set_lambda6(basis.lambda6);
+   model1.set_lambda7(basis.lambda7);
    model1.set_M122(basis.M122);
    model1.calculate_MSbar_masses();
 
@@ -217,13 +217,13 @@ TEST_CASE("physical_basis")
    model1.set_g2(model2.get_g2());
    model1.set_v1(model2.get_v1());
    model1.set_v2(model2.get_v2());
-   model1.set_Lambda1(model2.get_Lambda1());
-   model1.set_Lambda2(model2.get_Lambda2());
-   model1.set_Lambda3(model2.get_Lambda3());
-   model1.set_Lambda4(model2.get_Lambda4());
-   model1.set_Lambda5(model2.get_Lambda5());
-   model1.set_Lambda6(model2.get_Lambda6());
-   model1.set_Lambda7(model2.get_Lambda7());
+   model1.set_lambda1(model2.get_lambda1());
+   model1.set_lambda2(model2.get_lambda2());
+   model1.set_lambda3(model2.get_lambda3());
+   model1.set_lambda4(model2.get_lambda4());
+   model1.set_lambda5(model2.get_lambda5());
+   model1.set_lambda6(model2.get_lambda6());
+   model1.set_lambda7(model2.get_lambda7());
    model1.set_M122(basis.M122);
    // recalculate mass spectrum from Lagrangian parameters
    model1.calculate_MSbar_masses();

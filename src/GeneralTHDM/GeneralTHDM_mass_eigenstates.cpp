@@ -71,14 +71,14 @@ int CLASSNAME::solve_ewsb_tree_level()
    const double old_M112 = M112;
    const double old_M222 = M222;
 
-   M112 = (0.25*(2*M122*v2 + 2*v2*M122 - 2*Lambda1*cube(v1) - Lambda7*
-      cube(v2) - Lambda7*cube(v2) - 3*Lambda6*v2*sqr(v1) - 3*v2*Lambda6*sqr(v1)
-      - 2*Lambda3*v1*sqr(v2) - 2*Lambda4*v1*sqr(v2) - Lambda5*v1*sqr(v2)
-      - v1*Lambda5*sqr(v2)))/v1;
-   M222 = (0.25*(2*M122*v1 + 2*v1*M122 - Lambda6*cube(v1) - Lambda6
-      *cube(v1) - 2*Lambda2*cube(v2) - 2*Lambda3*v2*sqr(v1) - 2*Lambda4*v2*sqr(v1)
-      - Lambda5*v2*sqr(v1) - v2*Lambda5*sqr(v1) - 3*Lambda7*v1*sqr(v2) - 3*
-      v1*Lambda7*sqr(v2)))/v2;
+   M112 = (0.25*(2*M122*v2 + 2*v2*M122 - 2*lambda1*cube(v1) - lambda7*
+      cube(v2) - lambda7*cube(v2) - 3*lambda6*v2*sqr(v1) - 3*v2*lambda6*sqr(v1)
+      - 2*lambda3*v1*sqr(v2) - 2*lambda4*v1*sqr(v2) - lambda5*v1*sqr(v2)
+      - v1*lambda5*sqr(v2)))/v1;
+   M222 = (0.25*(2*M122*v1 + 2*v1*M122 - lambda6*cube(v1) - lambda6
+      *cube(v1) - 2*lambda2*cube(v2) - 2*lambda3*v2*sqr(v1) - 2*lambda4*v2*sqr(v1)
+      - lambda5*v2*sqr(v1) - v2*lambda5*sqr(v1) - 3*lambda7*v1*sqr(v2) - 3*
+      v1*lambda7*sqr(v2)))/v2;
 
    const bool is_finite = std::isfinite(M112) && std::isfinite(M222);
 
@@ -189,16 +189,16 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_hh() const
 {
    Eigen::Matrix<double,2,2> mass_matrix_hh;
 
-   mass_matrix_hh(0,0) = M112 + 1.5*Lambda6*v1*v2 + 1.5*v1*v2*Lambda6 +
-      1.5*Lambda1*sqr(v1) + 0.5*Lambda3*sqr(v2) + 0.5*Lambda4*sqr(v2) + 0.25*
-      Lambda5*sqr(v2) + 0.25*Lambda5*sqr(v2);
-   mass_matrix_hh(0,1) = -0.5*M122 + Lambda3*v1*v2 + Lambda4*v1*v2 + 0.5*
-      Lambda5*v1*v2 + 0.5*v1*v2*Lambda5 - 0.5*M122 + 0.75*Lambda6*
-      sqr(v1) + 0.75*Lambda6*sqr(v1) + 0.75*Lambda7*sqr(v2) + 0.75*
-      Lambda7*sqr(v2);
-   mass_matrix_hh(1,1) = M222 + 1.5*Lambda7*v1*v2 + 1.5*v1*v2*Lambda7 +
-      0.5*Lambda3*sqr(v1) + 0.5*Lambda4*sqr(v1) + 0.25*Lambda5*sqr(v1) + 0.25*
-      Lambda5*sqr(v1) + 1.5*Lambda2*sqr(v2);
+   mass_matrix_hh(0,0) = M112 + 1.5*lambda6*v1*v2 + 1.5*v1*v2*lambda6 +
+      1.5*lambda1*sqr(v1) + 0.5*lambda3*sqr(v2) + 0.5*lambda4*sqr(v2) + 0.25*
+      lambda5*sqr(v2) + 0.25*lambda5*sqr(v2);
+   mass_matrix_hh(0,1) = -0.5*M122 + lambda3*v1*v2 + lambda4*v1*v2 + 0.5*
+      lambda5*v1*v2 + 0.5*v1*v2*lambda5 - 0.5*M122 + 0.75*lambda6*
+      sqr(v1) + 0.75*lambda6*sqr(v1) + 0.75*lambda7*sqr(v2) + 0.75*
+      lambda7*sqr(v2);
+   mass_matrix_hh(1,1) = M222 + 1.5*lambda7*v1*v2 + 1.5*v1*v2*lambda7 +
+      0.5*lambda3*sqr(v1) + 0.5*lambda4*sqr(v1) + 0.25*lambda5*sqr(v1) + 0.25*
+      lambda5*sqr(v1) + 1.5*lambda2*sqr(v2);
 
    symmetrize(mass_matrix_hh);
 
@@ -222,19 +222,19 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Ah() const
 {
    Eigen::Matrix<double,2,2> mass_matrix_Ah;
 
-   mass_matrix_Ah(0,0) = M112 + 0.5*Lambda6*v1*v2 + 0.5*v1*v2*Lambda6 +
-      0.5*Lambda1*sqr(v1) + 0.3872983346207417*g1*g2*std::cos(ThetaW())*std::sin(ThetaW()
-      )*sqr(v1) + 0.5*Lambda3*sqr(v2) + 0.5*Lambda4*sqr(v2) - 0.25*Lambda5*sqr(
-      v2) - 0.25*Lambda5*sqr(v2) + 0.25*sqr(g2)*sqr(v1)*sqr(std::cos(ThetaW())
+   mass_matrix_Ah(0,0) = M112 + 0.5*lambda6*v1*v2 + 0.5*v1*v2*lambda6 +
+      0.5*lambda1*sqr(v1) + 0.3872983346207417*g1*g2*std::cos(ThetaW())*std::sin(ThetaW()
+      )*sqr(v1) + 0.5*lambda3*sqr(v2) + 0.5*lambda4*sqr(v2) - 0.25*lambda5*sqr(
+      v2) - 0.25*lambda5*sqr(v2) + 0.25*sqr(g2)*sqr(v1)*sqr(std::cos(ThetaW())
       ) + 0.15*sqr(g1)*sqr(v1)*sqr(std::sin(ThetaW()));
-   mass_matrix_Ah(0,1) = -0.5*M122 + 0.5*Lambda5*v1*v2 + 0.5*v1*v2*Lambda5
+   mass_matrix_Ah(0,1) = -0.5*M122 + 0.5*lambda5*v1*v2 + 0.5*v1*v2*lambda5
       - 0.5*M122 + 0.3872983346207417*g1*g2*v1*v2*std::cos(ThetaW())*std::sin(
-      ThetaW()) + 0.25*Lambda6*sqr(v1) + 0.25*Lambda6*sqr(v1) + 0.25*
-      Lambda7*sqr(v2) + 0.25*Lambda7*sqr(v2) + 0.25*v1*v2*sqr(g2)*sqr(std::cos
+      ThetaW()) + 0.25*lambda6*sqr(v1) + 0.25*lambda6*sqr(v1) + 0.25*
+      lambda7*sqr(v2) + 0.25*lambda7*sqr(v2) + 0.25*v1*v2*sqr(g2)*sqr(std::cos
       (ThetaW())) + 0.15*v1*v2*sqr(g1)*sqr(std::sin(ThetaW()));
-   mass_matrix_Ah(1,1) = M222 + 0.5*Lambda7*v1*v2 + 0.5*v1*v2*Lambda7 +
-      0.5*Lambda3*sqr(v1) + 0.5*Lambda4*sqr(v1) - 0.25*Lambda5*sqr(v1) - 0.25*
-      Lambda5*sqr(v1) + 0.5*Lambda2*sqr(v2) + 0.3872983346207417*g1*g2*
+   mass_matrix_Ah(1,1) = M222 + 0.5*lambda7*v1*v2 + 0.5*v1*v2*lambda7 +
+      0.5*lambda3*sqr(v1) + 0.5*lambda4*sqr(v1) - 0.25*lambda5*sqr(v1) - 0.25*
+      lambda5*sqr(v1) + 0.5*lambda2*sqr(v2) + 0.3872983346207417*g1*g2*
       std::cos(ThetaW())*std::sin(ThetaW())*sqr(v2) + 0.25*sqr(g2)*sqr(v2)*sqr(std::cos(ThetaW
       ())) + 0.15*sqr(g1)*sqr(v2)*sqr(std::sin(ThetaW()));
 
@@ -260,15 +260,15 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Hm() const
 {
    Eigen::Matrix<double,2,2> mass_matrix_Hm;
 
-   mass_matrix_Hm(0,0) = M112 + 0.5*Lambda6*v1*v2 + 0.5*v1*v2*Lambda6 +
-      0.5*Lambda1*sqr(v1) + 0.25*sqr(g2)*sqr(v1) + 0.5*Lambda3*sqr(v2);
-   mass_matrix_Hm(0,1) = 0.5*Lambda4*v1*v2 + 0.5*Lambda5*v1*v2 - M122 +
-      0.25*v1*v2*sqr(g2) + 0.5*Lambda6*sqr(v1) + 0.5*Lambda7*sqr(v2
+   mass_matrix_Hm(0,0) = M112 + 0.5*lambda6*v1*v2 + 0.5*v1*v2*lambda6 +
+      0.5*lambda1*sqr(v1) + 0.25*sqr(g2)*sqr(v1) + 0.5*lambda3*sqr(v2);
+   mass_matrix_Hm(0,1) = 0.5*lambda4*v1*v2 + 0.5*lambda5*v1*v2 - M122 +
+      0.25*v1*v2*sqr(g2) + 0.5*lambda6*sqr(v1) + 0.5*lambda7*sqr(v2
       );
-   mass_matrix_Hm(1,0) = -M122 + 0.5*Lambda4*v1*v2 + 0.5*v1*v2*Lambda5 +
-      0.25*v1*v2*sqr(g2) + 0.5*Lambda6*sqr(v1) + 0.5*Lambda7*sqr(v2);
-   mass_matrix_Hm(1,1) = M222 + 0.5*Lambda7*v1*v2 + 0.5*v1*v2*Lambda7 +
-      0.5*Lambda3*sqr(v1) + 0.5*Lambda2*sqr(v2) + 0.25*sqr(g2)*sqr(v2);
+   mass_matrix_Hm(1,0) = -M122 + 0.5*lambda4*v1*v2 + 0.5*v1*v2*lambda5 +
+      0.25*v1*v2*sqr(g2) + 0.5*lambda6*sqr(v1) + 0.5*lambda7*sqr(v2);
+   mass_matrix_Hm(1,1) = M222 + 0.5*lambda7*v1*v2 + 0.5*v1*v2*lambda7 +
+      0.5*lambda3*sqr(v1) + 0.5*lambda2*sqr(v2) + 0.25*sqr(g2)*sqr(v2);
 
    return mass_matrix_Hm;
 }
@@ -347,20 +347,20 @@ void CLASSNAME::calculate_MVZ()
 
 double CLASSNAME::get_ewsb_eq_hh_1() const
 {
-   double result = M112*v1 - 0.5*M122*v2 - 0.5*v2*M122 + 0.5*Lambda1*cube
-      (v1) + 0.25*Lambda7*cube(v2) + 0.25*Lambda7*cube(v2) + 0.75*Lambda6*v2
-      *sqr(v1) + 0.75*v2*Lambda6*sqr(v1) + 0.5*Lambda3*v1*sqr(v2) + 0.5*
-      Lambda4*v1*sqr(v2) + 0.25*Lambda5*v1*sqr(v2) + 0.25*v1*Lambda5*sqr(v2);
+   double result = M112*v1 - 0.5*M122*v2 - 0.5*v2*M122 + 0.5*lambda1*cube
+      (v1) + 0.25*lambda7*cube(v2) + 0.25*lambda7*cube(v2) + 0.75*lambda6*v2
+      *sqr(v1) + 0.75*v2*lambda6*sqr(v1) + 0.5*lambda3*v1*sqr(v2) + 0.5*
+      lambda4*v1*sqr(v2) + 0.25*lambda5*v1*sqr(v2) + 0.25*v1*lambda5*sqr(v2);
 
    return result;
 }
 
 double CLASSNAME::get_ewsb_eq_hh_2() const
 {
-   double result = -0.5*M122*v1 + M222*v2 - 0.5*v1*M122 + 0.25*Lambda6*
-      cube(v1) + 0.25*Lambda6*cube(v1) + 0.5*Lambda2*cube(v2) + 0.5*Lambda3*
-      v2*sqr(v1) + 0.5*Lambda4*v2*sqr(v1) + 0.25*Lambda5*v2*sqr(v1) + 0.25*v2*
-      Lambda5*sqr(v1) + 0.75*Lambda7*v1*sqr(v2) + 0.75*v1*Lambda7*sqr(v2);
+   double result = -0.5*M122*v1 + M222*v2 - 0.5*v1*M122 + 0.25*lambda6*
+      cube(v1) + 0.25*lambda6*cube(v1) + 0.5*lambda2*cube(v2) + 0.5*lambda3*
+      v2*sqr(v1) + 0.5*lambda4*v2*sqr(v1) + 0.25*lambda5*v2*sqr(v1) + 0.25*v2*
+      lambda5*sqr(v1) + 0.75*lambda7*v1*sqr(v2) + 0.75*v1*lambda7*sqr(v2);
 
    return result;
 }

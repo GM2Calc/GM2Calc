@@ -35,13 +35,13 @@ public:
    void set_g1(double g1_) { g1 = g1_; }
    void set_g2(double g2_) { g2 = g2_; }
    void set_g3(double g3_) { g3 = g3_; }
-   void set_Lambda1(double Lambda1_) { Lambda1 = Lambda1_; }
-   void set_Lambda2(double Lambda2_) { Lambda2 = Lambda2_; }
-   void set_Lambda3(double Lambda3_) { Lambda3 = Lambda3_; }
-   void set_Lambda4(double Lambda4_) { Lambda4 = Lambda4_; }
-   void set_Lambda5(double Lambda5_) { Lambda5 = Lambda5_; }
-   void set_Lambda6(double Lambda6_) { Lambda6 = Lambda6_; }
-   void set_Lambda7(double Lambda7_) { Lambda7 = Lambda7_; }
+   void set_lambda1(double lambda1_) { lambda1 = lambda1_; }
+   void set_lambda2(double lambda2_) { lambda2 = lambda2_; }
+   void set_lambda3(double lambda3_) { lambda3 = lambda3_; }
+   void set_lambda4(double lambda4_) { lambda4 = lambda4_; }
+   void set_lambda5(double lambda5_) { lambda5 = lambda5_; }
+   void set_lambda6(double lambda6_) { lambda6 = lambda6_; }
+   void set_lambda7(double lambda7_) { lambda7 = lambda7_; }
    void set_Yu(const Eigen::Matrix<double,3,3>& Yu_) { Yu = Yu_; }
    void set_Yu(int i, int k, const double& value) { Yu(i,k) = value; }
    void set_Xu(const Eigen::Matrix<double,3,3>& Xu_) { Xu = Xu_; }
@@ -68,13 +68,13 @@ public:
    double get_g1() const { return g1; }
    double get_g2() const { return g2; }
    double get_g3() const { return g3; }
-   double get_Lambda1() const { return Lambda1; }
-   double get_Lambda2() const { return Lambda2; }
-   double get_Lambda3() const { return Lambda3; }
-   double get_Lambda4() const { return Lambda4; }
-   double get_Lambda5() const { return Lambda5; }
-   double get_Lambda6() const { return Lambda6; }
-   double get_Lambda7() const { return Lambda7; }
+   double get_lambda1() const { return lambda1; }
+   double get_lambda2() const { return lambda2; }
+   double get_lambda3() const { return lambda3; }
+   double get_lambda4() const { return lambda4; }
+   double get_lambda5() const { return lambda5; }
+   double get_lambda6() const { return lambda6; }
+   double get_lambda7() const { return lambda7; }
    const Eigen::Matrix<double,3,3>& get_Yu() const { return Yu; }
    double get_Yu(int i, int k) const { return Yu(i,k); }
    const Eigen::Matrix<double,3,3>& get_Xu() const { return Xu; }
@@ -92,13 +92,13 @@ protected:
    double g1{0.0};
    double g2{0.0};
    double g3{0.0};
-   double Lambda6{0.0};
-   double Lambda5{0.0};
-   double Lambda7{0.0};
-   double Lambda1{0.0};
-   double Lambda4{0.0};
-   double Lambda3{0.0};
-   double Lambda2{0.0};
+   double lambda6{0.0};
+   double lambda5{0.0};
+   double lambda7{0.0};
+   double lambda1{0.0};
+   double lambda4{0.0};
+   double lambda3{0.0};
+   double lambda2{0.0};
    Eigen::Matrix<double,3,3> Yu{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Yd{Eigen::Matrix<double,3,3>::Zero()};
