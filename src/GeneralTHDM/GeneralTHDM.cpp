@@ -102,7 +102,7 @@ double GeneralTHDM::get_zeta_bar_l() const
    }
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_zeta_l_matrix() const
+Eigen::Matrix<double,3,3> GeneralTHDM::get_zeta_l() const
 {
    const double cb = get_cos_beta();
    const double mm = get_MFe(1);
@@ -117,7 +117,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_ylh() const
    const double sba = get_sin_beta_minus_alpha();
 
    // Eq.(18), arxiv:1607.06292
-   return sba*id33 + cba*get_zeta_l_matrix();
+   return sba*id33 + cba*get_zeta_l();
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ylH() const
@@ -126,13 +126,13 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_ylH() const
    const double sba = get_sin_beta_minus_alpha();
 
    // Eq.(18), arxiv:1607.06292
-   return cba*id33 - sba*get_zeta_l_matrix();
+   return cba*id33 - sba*get_zeta_l();
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ylA() const
 {
    // Eq.(18), arxiv:1607.06292
-   return -get_zeta_l_matrix();
+   return -get_zeta_l();
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ylHp() const
