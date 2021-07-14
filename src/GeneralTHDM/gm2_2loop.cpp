@@ -23,23 +23,13 @@
 namespace gm2calc {
 
 /**
- * Calculates full 2-loop contribution to a_mu in the general THDM.
+ * Calculates 2-loop bosonic contribution to a_mu in the THDM.
  *
  * @param model THDM model parameters, masses and mixings
  * @return 2-loop contribution to a_mu
  */
-double calculate_amu_2loop(const GeneralTHDM& model)
+double calculate_amu_2loop_bosonic(const GeneralTHDM& model)
 {
-   const double sqrt2 = 1.4142135623730950; // Sqrt[2]
-   const double zeta_u = model.get_zeta_u();
-   const double zeta_d = model.get_zeta_d();
-   const double zeta_l = model.get_zeta_l();
-   const double alpha_h = model.get_alpha_h();
-   const double beta = model.get_beta();
-   const double sba = std::sin(beta - alpha_h);
-   const double cba = std::cos(beta - alpha_h);
-   const Eigen::Matrix<double,3,1> id = Eigen::Matrix<double,3,1>::Ones();
-
    general_thdm::THDM_B_parameters pars_b;
    pars_b.alpha_em = model.get_alpha_em();
    pars_b.mm = model.get_MFe(1);
@@ -50,9 +40,30 @@ double calculate_amu_2loop(const GeneralTHDM& model)
    pars_b.mHp = model.get_MHm(1);
    pars_b.mh = model.get_Mhh();
    pars_b.tb = model.get_tan_beta();
-   pars_b.zetal = zeta_l;
+   pars_b.zetal = model.get_zeta_l();
    pars_b.eta = model.get_eta();
    pars_b.lambda5 = model.get_LambdaFive();
+
+   return amu2L_B(pars_b);
+}
+
+/**
+ * Calculates fermionic 2-loop contribution to a_mu in the THDM.
+ *
+ * @param model THDM model parameters, masses and mixings
+ * @return 2-loop contribution to a_mu
+ */
+double calculate_amu_2loop_fermionic(const GeneralTHDM& model)
+{
+   const double sqrt2 = 1.4142135623730950; // Sqrt[2]
+   const double zeta_u = model.get_zeta_u();
+   const double zeta_d = model.get_zeta_d();
+   const double zeta_l = model.get_zeta_l();
+   const double alpha_h = model.get_alpha_h();
+   const double beta = model.get_beta();
+   const double sba = std::sin(beta - alpha_h);
+   const double cba = std::cos(beta - alpha_h);
+   const Eigen::Matrix<double,3,1> id = Eigen::Matrix<double,3,1>::Ones();
 
    // Eq.(18), arxiv:1607.06292
    Eigen::Matrix<double,3,4> yuS;
@@ -89,7 +100,19 @@ double calculate_amu_2loop(const GeneralTHDM& model)
    pars_f.ydS = ydS;
    pars_f.ylS = ylS;
 
-   return amu2L_B(pars_b) + amu2L_F(pars_f);
+   return amu2L_F(pars_f);
+}
+
+/**
+ * Calculates full 2-loop contribution to a_mu in the general THDM.
+ *
+ * @param model THDM model parameters, masses and mixings
+ * @return 2-loop contribution to a_mu
+ */
+double calculate_amu_2loop(const GeneralTHDM& model)
+{
+   return calculate_amu_2loop_bosonic(model)
+      + calculate_amu_2loop_fermionic(model);
 }
 
 } // namespace gm2calc
