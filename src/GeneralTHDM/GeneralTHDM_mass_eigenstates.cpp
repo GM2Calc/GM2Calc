@@ -25,8 +25,6 @@
  * parameters.
  *
  * This file was generated with FlexibleSUSY 2.6.0 and SARAH 4.14.3.
- *
- * @todo(alex) test parameter point where A and/or H^+ are lighter than Z and W
  */
 
 #include "gm2calc/GeneralTHDM_mass_eigenstates.hpp"
