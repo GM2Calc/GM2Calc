@@ -357,6 +357,12 @@ TEST_CASE("2HDMC-mA-scan")
 
       CHECK_CLOSE(amu1L*1e13, (amu1L2HDMC - amu1LSM)*1e13, 0.03);
 
+      // For mA < 200 the Z contribution in GM2Calc becomes larger, so
+      // the test must be restricted to mA > 200.
+      //
+      // For mA > 450 the fact that running fermion masses are used in
+      // 2HDMC becomes more relevant.  So the test must be restricted
+      // to mA < 450.
       if (mA > 200 && mA < 450) {
          CHECK_CLOSE(amu2LF*1e12, (amu2L2HDMC + amu2LCharged - amu2LSM)*1e12, 0.05);
       }
