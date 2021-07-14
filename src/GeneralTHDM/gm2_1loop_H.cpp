@@ -92,6 +92,11 @@ double AHp(int gen, const Eigen::Matrix<double,3,1>& mv, double mS2, const Eigen
 /**
  * Approximation for 1-loop contribution
  * Eq (27) from arxiv:1607.06292
+ *
+ * @note The factor 1/2 in front of the charged Higgs contribution
+ * stems from the fact that \f$Y_l^{H^\pm} = \sqrt{2}\; Y_l^A\f$.  In
+ * Eq.(27) the prefactor of the charged Higgs contribution is
+ * \f$(Y_l^A)^2\f$, not \f$(Y_l^{H^\pm})^2\f$.
  */
 double amu1L_approx(const THDM_1L_parameters& pars) noexcept
 {
@@ -112,7 +117,7 @@ double amu1L_approx(const THDM_1L_parameters& pars) noexcept
       + sqr(pars.ylh(1,1)) * mm2/mh2 * Fh(mm2/mh2)
       + sqr(pars.ylH(1,1)) * mm2/mH2 * Fh(mm2/mH2)
       + sqr(pars.ylA(1,1)) * mm2/mA2 * FA(mm2/mA2)
-      + sqr(pars.ylHp(1,1)) * mm2/mHp2 * FHp(mm2/mHp2)
+      + 0.5 * sqr(pars.ylHp(1,1)) * mm2/mHp2 * FHp(mm2/mHp2)
       // subtract SM contribution
       - mm2/mhSM2 * Fh(mm2/mhSM2);
 
