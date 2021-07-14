@@ -319,7 +319,7 @@ TEST_CASE("2HDMC-mA-scan")
 {
    const auto data = gm2calc::test::read_from_file<double>(
       std::string(TEST_DATA_DIR) + PATH_SEPARATOR + "2HDMC" +
-      PATH_SEPARATOR + "2HDMC-2L-scan-mA.txt");
+      PATH_SEPARATOR + "2HDMC-scan-mA.txt");
 
    gm2calc::SM sm;
    sm.set_alpha_em_mz(1.0/127.934);
@@ -350,7 +350,7 @@ TEST_CASE("2HDMC-mA-scan")
       INFO("mA = " << mA);
 
       const auto amu2LF = gm2calc::calculate_amu_2loop_fermionic(model);
-      const auto amu2L2HDMC = p.at(1);
+      const auto amu2L2HDMC = p.at(2);
 
       if (mA > 200 && mA < 450) {
          CHECK_CLOSE(amu2LF*1e12, (amu2L2HDMC + amu2LCharged - amu2LSM)*1e12, 0.05);
