@@ -383,6 +383,18 @@ double CLASSNAME::get_beta() const
    return std::atan(get_tan_beta());
 }
 
+double CLASSNAME::get_sin_beta() const
+{
+   const double tb = get_tan_beta();
+   return tb/std::sqrt(1.0 + sqr(tb));
+}
+
+double CLASSNAME::get_cos_beta() const
+{
+   const double tb = get_tan_beta();
+   return 1.0/std::sqrt(1.0 + sqr(tb));
+}
+
 double CLASSNAME::get_tan_beta() const
 {
    return v2/v1;

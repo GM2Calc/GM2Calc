@@ -120,7 +120,9 @@ public:
    double get_ewsb_eq_hh_1() const;
    double get_ewsb_eq_hh_2() const;
 
-   double get_tan_beta() const;   ///< ratio of VEVs v2/v1
+   double get_sin_beta() const;   ///< sin(beta)
+   double get_cos_beta() const;   ///< cos(beta)
+   double get_tan_beta() const;   ///< tan(beta) = ratio of VEVs v2/v1
    double get_beta() const;       ///< CP-odd and charged Higgs mixing angle
    double get_alpha_h() const;    ///< CP-even Higgs mixing angle
    double get_alpha_em() const;   ///< electromagnetic coupling
