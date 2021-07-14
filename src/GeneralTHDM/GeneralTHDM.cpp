@@ -24,6 +24,13 @@
 
 namespace gm2calc {
 
+namespace {
+
+const double sqrt2 = 1.4142135623730950; // Sqrt[2]
+const Eigen::Matrix<double,3,3> id33 = Eigen::Matrix<double,3,3>::Identity();
+
+} // anonymous namespace
+
 GeneralTHDM::GeneralTHDM(const General_basis& basis, const SM& sm_)
    : sm(sm_)
 {
@@ -93,6 +100,45 @@ double GeneralTHDM::get_zeta_l() const
       case Yukawa_scheme::type_Y:
          return 1.0/get_tan_beta();
    }
+}
+
+Eigen::Matrix<double,3,3> GeneralTHDM::get_zeta_l_matrix() const
+{
+   const double cb = get_cos_beta();
+   const double mm = get_MFe(1);
+   const double v = get_v();
+
+   return get_Xe()*v/(cb*sqrt2*mm) + get_zeta_l()*id33;
+}
+
+Eigen::Matrix<double,3,3> GeneralTHDM::get_ylh() const
+{
+   const double cba = get_cos_beta_minus_alpha();
+   const double sba = get_sin_beta_minus_alpha();
+
+   // Eq.(18), arxiv:1607.06292
+   return sba*id33 + cba*get_zeta_l_matrix();
+}
+
+Eigen::Matrix<double,3,3> GeneralTHDM::get_ylH() const
+{
+   const double cba = get_cos_beta_minus_alpha();
+   const double sba = get_sin_beta_minus_alpha();
+
+   // Eq.(18), arxiv:1607.06292
+   return cba*id33 - sba*get_zeta_l_matrix();
+}
+
+Eigen::Matrix<double,3,3> GeneralTHDM::get_ylA() const
+{
+   // Eq.(18), arxiv:1607.06292
+   return -get_zeta_l_matrix();
+}
+
+Eigen::Matrix<double,3,3> GeneralTHDM::get_ylHp() const
+{
+   // Eq.(18), arxiv:1607.06292
+   return sqrt2*get_ylA();
 }
 
 void GeneralTHDM::set_basis(const GeneralTHDM::General_basis& basis)

@@ -74,6 +74,12 @@ public:
    double get_zeta_u() const;
    double get_zeta_d() const;
    double get_zeta_l() const;
+   Eigen::Matrix<double,3,3> get_zeta_l_matrix() const;
+
+   Eigen::Matrix<double,3,3> get_ylh() const;
+   Eigen::Matrix<double,3,3> get_ylH() const;
+   Eigen::Matrix<double,3,3> get_ylA() const;
+   Eigen::Matrix<double,3,3> get_ylHp() const;
 
    Yukawa_scheme get_yukawa_scheme() const { return yukawa_scheme; }
    void set_yukawa_scheme(Yukawa_scheme ys) { yukawa_scheme = ys; }
