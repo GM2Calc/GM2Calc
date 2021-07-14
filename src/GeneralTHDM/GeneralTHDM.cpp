@@ -61,9 +61,9 @@ void GeneralTHDM::init_yukawas()
    const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
    const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
 
-   set_Yu(std::sqrt(2.0)*mu/v2 - v1/v2*Xu);
-   set_Yd(std::sqrt(2.0)*md/v1 - v2/v1*Xd);
-   set_Ye(std::sqrt(2.0)*ml/v1 - v2/v1*Xe);
+   set_Yu(sqrt2*mu/v2 - v1/v2*Xu);
+   set_Yd(sqrt2*md/v1 - v2/v1*Xd);
+   set_Ye(sqrt2*ml/v1 - v2/v1*Xe);
 }
 
 /// Table 1, arxiv:1607.06292
