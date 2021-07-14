@@ -301,7 +301,7 @@ TEST_CASE("test-point-GAMBIT")
 }
 
 
-// This tests compares the 2-loop fermionic contributions to 2HDMC.
+// This test compares the 2-loop fermionic contributions to 2HDMC.
 // 2HDMC includes the following contributions: 2-loop fermionic
 // Barr-Zee diagrams with only a photon and neutral Higgs bosons
 // connecting to the muon line.  I.e. the following contributions are
@@ -312,6 +312,9 @@ TEST_CASE("test-point-GAMBIT")
 // * 2-loop fermionic contributions with a charged Higgs connecting to the muon line
 //
 // Furhermore, 2HDMC does not subtract the SM Higgs contribution.
+//
+// To generate the 2HDMC, the running of the Yukawa couplings has been
+// disabled in the function THBM::get_coupling_huu() in 2HDMC.
 TEST_CASE("2HDMC-mA-scan")
 {
    const auto data = gm2calc::test::read_from_file<double>(
