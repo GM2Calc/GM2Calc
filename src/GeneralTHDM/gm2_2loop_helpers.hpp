@@ -23,6 +23,8 @@
 
 namespace gm2calc {
 
+class GeneralTHDM;
+
 namespace general_thdm {
 
 /// parameters to be passed to the bosonic contribution functions
@@ -61,6 +63,8 @@ struct THDM_F_parameters {
 
 // === 2-loop bosonic contributions ===
 
+double calculate_amu_2loop_bosonic(const GeneralTHDM&);
+
 double amu2L_B(const THDM_B_parameters&) noexcept;
 
 // routines for sub-expressions
@@ -70,6 +74,8 @@ double amu2L_B_nonYuk(const THDM_B_parameters&) noexcept;
 double amu2L_B_Yuk(const THDM_B_parameters&) noexcept;
 
 // === 2-loop fermionic contributions ===
+
+double calculate_amu_2loop_fermionic(const GeneralTHDM&);
 
 double amu2L_F(const THDM_F_parameters&) noexcept;
 
