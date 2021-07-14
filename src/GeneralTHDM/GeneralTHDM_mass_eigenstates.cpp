@@ -68,23 +68,23 @@ int CLASSNAME::solve_ewsb_tree_level()
 {
    int error = 0;
 
-   const double old_M112 = M112;
-   const double old_M222 = M222;
+   const double old_m112 = m112;
+   const double old_m222 = m222;
 
-   M112 = (0.25*(2*M122*v2 + 2*v2*M122 - 2*lambda1*cube(v1) - lambda7*
+   m112 = (0.25*(2*m122*v2 + 2*v2*m122 - 2*lambda1*cube(v1) - lambda7*
       cube(v2) - lambda7*cube(v2) - 3*lambda6*v2*sqr(v1) - 3*v2*lambda6*sqr(v1)
       - 2*lambda3*v1*sqr(v2) - 2*lambda4*v1*sqr(v2) - lambda5*v1*sqr(v2)
       - v1*lambda5*sqr(v2)))/v1;
-   M222 = (0.25*(2*M122*v1 + 2*v1*M122 - lambda6*cube(v1) - lambda6
+   m222 = (0.25*(2*m122*v1 + 2*v1*m122 - lambda6*cube(v1) - lambda6
       *cube(v1) - 2*lambda2*cube(v2) - 2*lambda3*v2*sqr(v1) - 2*lambda4*v2*sqr(v1)
       - lambda5*v2*sqr(v1) - v2*lambda5*sqr(v1) - 3*lambda7*v1*sqr(v2) - 3*
       v1*lambda7*sqr(v2)))/v2;
 
-   const bool is_finite = std::isfinite(M112) && std::isfinite(M222);
+   const bool is_finite = std::isfinite(m112) && std::isfinite(m222);
 
    if (!is_finite) {
-      M112 = old_M112;
-      M222 = old_M222;
+      m112 = old_m112;
+      m222 = old_m222;
       error = 1;
    }
 
@@ -145,8 +145,8 @@ void CLASSNAME::print(std::ostream& ostr) const
  */
 void CLASSNAME::calculate_MSbar_masses()
 {
-   const auto save_M112_raii = make_raii_save(M112);
-   const auto save_M222_raii = make_raii_save(M222);
+   const auto save_m112_raii = make_raii_save(m112);
+   const auto save_m222_raii = make_raii_save(m222);
 
    solve_ewsb_tree_level();
 
@@ -189,14 +189,14 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_hh() const
 {
    Eigen::Matrix<double,2,2> mass_matrix_hh;
 
-   mass_matrix_hh(0,0) = M112 + 1.5*lambda6*v1*v2 + 1.5*v1*v2*lambda6 +
+   mass_matrix_hh(0,0) = m112 + 1.5*lambda6*v1*v2 + 1.5*v1*v2*lambda6 +
       1.5*lambda1*sqr(v1) + 0.5*lambda3*sqr(v2) + 0.5*lambda4*sqr(v2) + 0.25*
       lambda5*sqr(v2) + 0.25*lambda5*sqr(v2);
-   mass_matrix_hh(0,1) = -0.5*M122 + lambda3*v1*v2 + lambda4*v1*v2 + 0.5*
-      lambda5*v1*v2 + 0.5*v1*v2*lambda5 - 0.5*M122 + 0.75*lambda6*
+   mass_matrix_hh(0,1) = -0.5*m122 + lambda3*v1*v2 + lambda4*v1*v2 + 0.5*
+      lambda5*v1*v2 + 0.5*v1*v2*lambda5 - 0.5*m122 + 0.75*lambda6*
       sqr(v1) + 0.75*lambda6*sqr(v1) + 0.75*lambda7*sqr(v2) + 0.75*
       lambda7*sqr(v2);
-   mass_matrix_hh(1,1) = M222 + 1.5*lambda7*v1*v2 + 1.5*v1*v2*lambda7 +
+   mass_matrix_hh(1,1) = m222 + 1.5*lambda7*v1*v2 + 1.5*v1*v2*lambda7 +
       0.5*lambda3*sqr(v1) + 0.5*lambda4*sqr(v1) + 0.25*lambda5*sqr(v1) + 0.25*
       lambda5*sqr(v1) + 1.5*lambda2*sqr(v2);
 
@@ -222,17 +222,17 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Ah() const
 {
    Eigen::Matrix<double,2,2> mass_matrix_Ah;
 
-   mass_matrix_Ah(0,0) = M112 + 0.5*lambda6*v1*v2 + 0.5*v1*v2*lambda6 +
+   mass_matrix_Ah(0,0) = m112 + 0.5*lambda6*v1*v2 + 0.5*v1*v2*lambda6 +
       0.5*lambda1*sqr(v1) + 0.3872983346207417*g1*g2*std::cos(ThetaW())*std::sin(ThetaW()
       )*sqr(v1) + 0.5*lambda3*sqr(v2) + 0.5*lambda4*sqr(v2) - 0.25*lambda5*sqr(
       v2) - 0.25*lambda5*sqr(v2) + 0.25*sqr(g2)*sqr(v1)*sqr(std::cos(ThetaW())
       ) + 0.15*sqr(g1)*sqr(v1)*sqr(std::sin(ThetaW()));
-   mass_matrix_Ah(0,1) = -0.5*M122 + 0.5*lambda5*v1*v2 + 0.5*v1*v2*lambda5
-      - 0.5*M122 + 0.3872983346207417*g1*g2*v1*v2*std::cos(ThetaW())*std::sin(
+   mass_matrix_Ah(0,1) = -0.5*m122 + 0.5*lambda5*v1*v2 + 0.5*v1*v2*lambda5
+      - 0.5*m122 + 0.3872983346207417*g1*g2*v1*v2*std::cos(ThetaW())*std::sin(
       ThetaW()) + 0.25*lambda6*sqr(v1) + 0.25*lambda6*sqr(v1) + 0.25*
       lambda7*sqr(v2) + 0.25*lambda7*sqr(v2) + 0.25*v1*v2*sqr(g2)*sqr(std::cos
       (ThetaW())) + 0.15*v1*v2*sqr(g1)*sqr(std::sin(ThetaW()));
-   mass_matrix_Ah(1,1) = M222 + 0.5*lambda7*v1*v2 + 0.5*v1*v2*lambda7 +
+   mass_matrix_Ah(1,1) = m222 + 0.5*lambda7*v1*v2 + 0.5*v1*v2*lambda7 +
       0.5*lambda3*sqr(v1) + 0.5*lambda4*sqr(v1) - 0.25*lambda5*sqr(v1) - 0.25*
       lambda5*sqr(v1) + 0.5*lambda2*sqr(v2) + 0.3872983346207417*g1*g2*
       std::cos(ThetaW())*std::sin(ThetaW())*sqr(v2) + 0.25*sqr(g2)*sqr(v2)*sqr(std::cos(ThetaW
@@ -260,14 +260,14 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Hm() const
 {
    Eigen::Matrix<double,2,2> mass_matrix_Hm;
 
-   mass_matrix_Hm(0,0) = M112 + 0.5*lambda6*v1*v2 + 0.5*v1*v2*lambda6 +
+   mass_matrix_Hm(0,0) = m112 + 0.5*lambda6*v1*v2 + 0.5*v1*v2*lambda6 +
       0.5*lambda1*sqr(v1) + 0.25*sqr(g2)*sqr(v1) + 0.5*lambda3*sqr(v2);
-   mass_matrix_Hm(0,1) = 0.5*lambda4*v1*v2 + 0.5*lambda5*v1*v2 - M122 +
+   mass_matrix_Hm(0,1) = 0.5*lambda4*v1*v2 + 0.5*lambda5*v1*v2 - m122 +
       0.25*v1*v2*sqr(g2) + 0.5*lambda6*sqr(v1) + 0.5*lambda7*sqr(v2
       );
-   mass_matrix_Hm(1,0) = -M122 + 0.5*lambda4*v1*v2 + 0.5*v1*v2*lambda5 +
+   mass_matrix_Hm(1,0) = -m122 + 0.5*lambda4*v1*v2 + 0.5*v1*v2*lambda5 +
       0.25*v1*v2*sqr(g2) + 0.5*lambda6*sqr(v1) + 0.5*lambda7*sqr(v2);
-   mass_matrix_Hm(1,1) = M222 + 0.5*lambda7*v1*v2 + 0.5*v1*v2*lambda7 +
+   mass_matrix_Hm(1,1) = m222 + 0.5*lambda7*v1*v2 + 0.5*v1*v2*lambda7 +
       0.5*lambda3*sqr(v1) + 0.5*lambda2*sqr(v2) + 0.25*sqr(g2)*sqr(v2);
 
    return mass_matrix_Hm;
@@ -347,7 +347,7 @@ void CLASSNAME::calculate_MVZ()
 
 double CLASSNAME::get_ewsb_eq_hh_1() const
 {
-   double result = M112*v1 - 0.5*M122*v2 - 0.5*v2*M122 + 0.5*lambda1*cube
+   double result = m112*v1 - 0.5*m122*v2 - 0.5*v2*m122 + 0.5*lambda1*cube
       (v1) + 0.25*lambda7*cube(v2) + 0.25*lambda7*cube(v2) + 0.75*lambda6*v2
       *sqr(v1) + 0.75*v2*lambda6*sqr(v1) + 0.5*lambda3*v1*sqr(v2) + 0.5*
       lambda4*v1*sqr(v2) + 0.25*lambda5*v1*sqr(v2) + 0.25*v1*lambda5*sqr(v2);
@@ -357,7 +357,7 @@ double CLASSNAME::get_ewsb_eq_hh_1() const
 
 double CLASSNAME::get_ewsb_eq_hh_2() const
 {
-   double result = -0.5*M122*v1 + M222*v2 - 0.5*v1*M122 + 0.25*lambda6*
+   double result = -0.5*m122*v1 + m222*v2 - 0.5*v1*m122 + 0.25*lambda6*
       cube(v1) + 0.25*lambda6*cube(v1) + 0.5*lambda2*cube(v2) + 0.5*lambda3*
       v2*sqr(v1) + 0.5*lambda4*v2*sqr(v1) + 0.25*lambda5*v2*sqr(v1) + 0.25*v2*
       lambda5*sqr(v1) + 0.75*lambda7*v1*sqr(v2) + 0.75*v1*lambda7*sqr(v2);
@@ -453,7 +453,7 @@ double CLASSNAME::get_LambdaFive() const
 {
    const double tb = get_tan_beta();
    const double sbcb = tb/(1.0 + sqr(tb)); // Sin[beta] Cos[beta]
-   return 2*get_M122()/(get_v_sqr() * sbcb);
+   return 2*get_m122()/(get_v_sqr() * sbcb);
 }
 
 double CLASSNAME::ThetaW() const

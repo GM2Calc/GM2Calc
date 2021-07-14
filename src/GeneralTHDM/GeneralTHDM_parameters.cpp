@@ -43,9 +43,9 @@ void GeneralTHDM_parameters::print(std::ostream& ostr) const
    ostr << "Ye =\n" << Ye << '\n';
    ostr << "Xd =\n" << Xd << '\n';
    ostr << "Xe =\n" << Xe << '\n';
-   ostr << "M122 = " << M122 << '\n';
-   ostr << "M112 = " << M112 << '\n';
-   ostr << "M222 = " << M222 << '\n';
+   ostr << "m122 = " << m122 << '\n';
+   ostr << "m112 = " << m112 << '\n';
+   ostr << "m222 = " << m222 << '\n';
    ostr << "v1 = " << v1 << '\n';
    ostr << "v2 = " << v2 << '\n';
 }

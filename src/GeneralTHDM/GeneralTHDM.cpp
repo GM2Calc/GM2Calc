@@ -153,7 +153,7 @@ void GeneralTHDM::set_basis(const GeneralTHDM::General_basis& basis)
    set_lambda6(basis.lambda6);
    set_lambda7(basis.lambda7);
    set_tan_beta_and_v(basis.tan_beta, sm.get_v());
-   set_M122(basis.M122);
+   set_m122(basis.m122);
    set_Xu(basis.Xu);
    set_Xd(basis.Xd);
    set_Xe(basis.Xe);
@@ -211,7 +211,7 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
    const double mHp = basis.mHp;
    const double lambda6 = basis.lambda6;
    const double lambda7 = basis.lambda7;
-   const double m12_2 = basis.M122;
+   const double m12_2 = basis.m122;
    const double v = sm.get_v();
    const double v2 = sqr(v);
 
@@ -223,7 +223,7 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
    set_lambda6(basis.lambda6);
    set_lambda7(basis.lambda7);
    set_tan_beta_and_v(basis.tan_beta, v);
-   set_M122(basis.M122);
+   set_m122(basis.m122);
    set_Xu(basis.Xu);
    set_Xd(basis.Xd);
    set_Xe(basis.Xe);

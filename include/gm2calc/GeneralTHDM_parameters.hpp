@@ -54,15 +54,15 @@ public:
    void set_Xd(int i, int k, const double& value) { Xd(i,k) = value; }
    void set_Xe(const Eigen::Matrix<double,3,3>& Xe_) { Xe = Xe_; }
    void set_Xe(int i, int k, const double& value) { Xe(i,k) = value; }
-   void set_M122(double M122_) { M122 = M122_; }
-   void set_M112(double M112_) { M112 = M112_; }
-   void set_M222(double M222_) { M222 = M222_; }
+   void set_m122(double m122_) { m122 = m122_; }
+   void set_m112(double m112_) { m112 = m112_; }
+   void set_m222(double m222_) { m222 = m222_; }
    void set_v1(double v1_) { v1 = v1_; }
    void set_v2(double v2_) { v2 = v2_; }
 
-   double get_M122() const { return M122; }
-   double get_M112() const { return M112; }
-   double get_M222() const { return M222; }
+   double get_m122() const { return m122; }
+   double get_m112() const { return m112; }
+   double get_m222() const { return m222; }
    double get_v1() const { return v1; }
    double get_v2() const { return v2; }
    double get_g1() const { return g1; }
@@ -105,9 +105,9 @@ protected:
    Eigen::Matrix<double,3,3> Ye{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Xe{Eigen::Matrix<double,3,3>::Zero()};
-   double M122{0.0};
-   double M112{0.0};
-   double M222{0.0};
+   double m122{0.0};
+   double m112{0.0};
+   double m222{0.0};
    double v1{0.0};
    double v2{0.0};
 };

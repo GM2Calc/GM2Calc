@@ -48,7 +48,7 @@ public:
       double lambda6{0.0};
       double lambda7{0.0};
       double tan_beta{0.0};
-      double M122{0.0};
+      double m122{0.0};
       Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
       Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
       Eigen::Matrix<double,3,3> Xe{Eigen::Matrix<double,3,3>::Zero()};
@@ -64,7 +64,7 @@ public:
       double lambda6{0.0};
       double lambda7{0.0};
       double tan_beta{0.0};
-      double M122{0.0};
+      double m122{0.0};
       Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
       Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
       Eigen::Matrix<double,3,3> Xe{Eigen::Matrix<double,3,3>::Zero()};
@@ -104,7 +104,7 @@ public:
    using GeneralTHDM_mass_eigenstates::get_lambda6;
    using GeneralTHDM_mass_eigenstates::get_lambda7;
    using GeneralTHDM_mass_eigenstates::get_LambdaFive;
-   using GeneralTHDM_mass_eigenstates::get_M122;
+   using GeneralTHDM_mass_eigenstates::get_m122;
    using GeneralTHDM_mass_eigenstates::get_g1;
    using GeneralTHDM_mass_eigenstates::get_g2;
    using GeneralTHDM_mass_eigenstates::get_Yu;

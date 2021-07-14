@@ -40,7 +40,7 @@ TEST_CASE("tree-level-spectrum")
    basis.lambda6 = 0.0;
    basis.lambda7 = 0.0;
    basis.tan_beta = 3.0;
-   basis.M122 = sqr(200.0);
+   basis.m122 = sqr(200.0);
 
    gm2calc::GeneralTHDM model(basis);
 
@@ -50,7 +50,7 @@ TEST_CASE("tree-level-spectrum")
    CHECK_CLOSE(model.get_MVZ(), model.get_sm().get_mz(), eps);
    CHECK_CLOSE(model.get_MVWm(), model.get_sm().get_mw(), eps);
 
-   const double m122 = model.get_M122();
+   const double m122 = model.get_m122();
    const double tb = model.get_tan_beta();
    const double ctb = 1./tb;
    const double v_sqr = model.get_v_sqr();
@@ -139,7 +139,7 @@ TEST_CASE("test_light_Higgs_spectrum")
    model.set_lambda5(0.0);
    model.set_lambda6(0.0);
    model.set_lambda7(0.0);
-   model.set_M122(0.1);
+   model.set_m122(0.1);
    model.calculate_MSbar_masses();
 
    CHECK(!model.get_problems().have_problem());
@@ -166,7 +166,7 @@ TEST_CASE("general_basis")
    basis.lambda6 = 0.2;
    basis.lambda7 = 0.1;
    basis.tan_beta = 20;
-   basis.M122 = sqr(200);
+   basis.m122 = sqr(200);
 
    // initialize using the basis
    gm2calc::GeneralTHDM model2(basis);
@@ -182,7 +182,7 @@ TEST_CASE("general_basis")
    model1.set_lambda5(basis.lambda5);
    model1.set_lambda6(basis.lambda6);
    model1.set_lambda7(basis.lambda7);
-   model1.set_M122(basis.M122);
+   model1.set_m122(basis.m122);
    model1.calculate_MSbar_masses();
 
    CHECK_CLOSE(model1.get_Mhh(0), model2.get_Mhh(0), eps);
@@ -205,7 +205,7 @@ TEST_CASE("physical_basis")
    basis.lambda6 = 0.1;
    basis.lambda7 = 0.2;
    basis.tan_beta = 3;
-   basis.M122 = 4000;
+   basis.m122 = 4000;
 
    // initialize using the basis
    gm2calc::GeneralTHDM model2(basis);
@@ -224,7 +224,7 @@ TEST_CASE("physical_basis")
    model1.set_lambda5(model2.get_lambda5());
    model1.set_lambda6(model2.get_lambda6());
    model1.set_lambda7(model2.get_lambda7());
-   model1.set_M122(basis.M122);
+   model1.set_m122(basis.m122);
    // recalculate mass spectrum from Lagrangian parameters
    model1.calculate_MSbar_masses();
    CHECK(!model1.get_problems().have_problem());
@@ -252,7 +252,7 @@ TEST_CASE("2HDMC-demo-point")
    basis.lambda6 = 0.0;
    basis.lambda7 = 0.0;
    basis.tan_beta = 3.0;
-   basis.M122 = sqr(200.0);
+   basis.m122 = sqr(200.0);
 
    gm2calc::GeneralTHDM model(basis);
    CHECK(!model.get_problems().have_problem());
@@ -283,7 +283,7 @@ TEST_CASE("test-point-GAMBIT")
    basis.lambda6 =  0.0;
    basis.lambda7 =  0.0;
    basis.tan_beta = 20.0;
-   basis.M122 = 1428;
+   basis.m122 = 1428;
    basis.Xe(1,1) = 0.1;
 
    gm2calc::SM sm;
@@ -344,7 +344,7 @@ TEST_CASE("2HDMC-mA-scan")
       basis.lambda6 = 0;
       basis.lambda7 = 0;
       basis.tan_beta = 3;
-      basis.M122 = 40000;
+      basis.m122 = 40000;
 
       gm2calc::GeneralTHDM model(basis, sm);
 
