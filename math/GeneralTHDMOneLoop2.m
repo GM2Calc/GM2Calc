@@ -18,19 +18,19 @@
  *)
 
 (* coupling of down-type leptons i and j to h *)
-yh[i_, j_] := ml[[2]]/vev*Sqrt[1 - cosab^2]*KroneckerDelta[i, j] + cosab/Sqrt[2] zetaL[[i, j]]
+yh[i_, j_] := ml[[2]]/vev*Sqrt[1 - cosab^2]*KroneckerDelta[i, j] + cosab/Sqrt[2] xiL[[i, j]]
 
 
 (* coupling of down-type leptons i and j to H *)
-yH[i_, j_] := ml[[2]]/vev*cosab*KroneckerDelta[i, j] - Sqrt[1 - cosab^2]/Sqrt[2] zetaL[[i, j]]
+yH[i_, j_] := ml[[2]]/vev*cosab*KroneckerDelta[i, j] - Sqrt[1 - cosab^2]/Sqrt[2] xiL[[i, j]]
 
 
 (* coupling of down-type leptons i and j to H^\pm *)
-yHp[i_, j_] := zetaL[[i, j]]
+yHp[i_, j_] := xiL[[i, j]]
 
 
 (* coupling of down-type leptons i and j to A *)
-yA[i_, j_] := I/Sqrt[2] zetaL[[i, j]]
+yA[i_, j_] := I/Sqrt[2] xiL[[i, j]]
 
 
 (* h, H and A contribution *)
