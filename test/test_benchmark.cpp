@@ -170,7 +170,7 @@ double time_in_milliseconds(unsigned N, F&& f)
 
 } // anonymous namespace
 
-TEST_CASE("benchmark GM2Calc")
+TEST_CASE("benchmark MSSM GM2Calc")
 {
    const unsigned N = 10000;
    const auto time_in_ms = time_in_milliseconds(
@@ -179,7 +179,7 @@ TEST_CASE("benchmark GM2Calc")
    std::cout << "Average time per point: " << time_in_ms/N << " ms (GM2Calc)\n";
 }
 
-TEST_CASE("benchmark SLHA")
+TEST_CASE("benchmark MSSM SLHA")
 {
    const unsigned N = 10000;
    const auto time_in_ms = time_in_milliseconds(
