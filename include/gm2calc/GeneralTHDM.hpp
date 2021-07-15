@@ -76,7 +76,6 @@ public:
    double get_zeta_bar_u() const;
    double get_zeta_bar_d() const;
    double get_zeta_bar_l() const;
-   Eigen::Matrix<double,3,3> get_zeta_l() const;
 
    Eigen::Matrix<double,3,3> get_xi_u() const;
    Eigen::Matrix<double,3,3> get_xi_d() const;
@@ -141,6 +140,7 @@ private:
 
    void init_gauge_couplings();
    void init_yukawas();
+   Eigen::Matrix<double,3,3> get_zeta_l() const;
    void set_basis(const General_basis&);
    void set_basis(const Physical_basis&);
 };
