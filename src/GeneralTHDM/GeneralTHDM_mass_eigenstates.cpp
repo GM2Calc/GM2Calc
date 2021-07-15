@@ -42,7 +42,7 @@ namespace gm2calc {
 namespace {
 
 const double pi = 3.1415926535897932;
-const double sqrt_inv = 0.70710678118654752; // 1/Sqrt[2]
+const double sqrt2_inv = 0.70710678118654752; // 1/Sqrt[2]
 const double gut_normalization = 0.77459666924148338; // Sqrt[3/5]
 
 } // anonymous namespace
@@ -288,7 +288,7 @@ void CLASSNAME::calculate_MHm()
 
 Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fd() const
 {
-   return sqrt_inv*(v1*Yd + v2*Xd);
+   return sqrt2_inv*(v1*Yd + v2*Xd);
 }
 
 void CLASSNAME::calculate_MFd()
@@ -299,7 +299,7 @@ void CLASSNAME::calculate_MFd()
 
 Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fu() const
 {
-   return sqrt_inv*(v2*Yu + v1*Xu);
+   return sqrt2_inv*(v2*Yu + v1*Xu);
 }
 
 void CLASSNAME::calculate_MFu()
@@ -310,7 +310,7 @@ void CLASSNAME::calculate_MFu()
 
 Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fe() const
 {
-   return sqrt_inv*(v1*Ye + v2*Xe);
+   return sqrt2_inv*(v1*Ye + v2*Xe);
 }
 
 void CLASSNAME::calculate_MFe()
