@@ -54,7 +54,7 @@ LowScaleInput = {
    {Lambda7, Lambda7IN},
    {v1, 2 MZMSbar / Sqrt[GUTNormalization[g1]^2 g1^2 + g2^2] Cos[ArcTan[TanBeta]]},
    {v2, 2 MZMSbar / Sqrt[GUTNormalization[g1]^2 g1^2 + g2^2] Sin[ArcTan[TanBeta]]},
-   {Yu, Tp[Sqrt[2] upQuarksDRbar / v2 - v1 / v2 * Xu]},
+   {Yu, Tp[Sqrt[2] upQuarksDRbar / v1 - v2 / v1 * Xu]},
    {Yd, Tp[Sqrt[2] downQuarksDRbar / v1 - v2 / v1 * Xd]},
    {Ye, Tp[Sqrt[2] downLeptonsDRbar / v1 - v2 / v1 * Xe]},
    {Xu, LHInput[Xu]},
