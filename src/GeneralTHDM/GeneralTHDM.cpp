@@ -86,6 +86,8 @@ double GeneralTHDM::get_zeta_bar_d() const
          return 1.0/get_tan_beta();
       case Yukawa_scheme::type_Y:
          return -get_tan_beta();
+      case Yukawa_scheme::general:
+         return -get_tan_beta(); /// @todo(alex) check
    }
 }
 
@@ -101,6 +103,8 @@ double GeneralTHDM::get_zeta_bar_l() const
          return -get_tan_beta();
       case Yukawa_scheme::type_Y:
          return 1.0/get_tan_beta();
+      case Yukawa_scheme::general:
+         return -get_tan_beta(); /// @todo(alex) check
    }
 }
 
@@ -256,6 +260,9 @@ std::ostream& operator<<(std::ostream& ostr, const GeneralTHDM& model)
          break;
       case GeneralTHDM::Yukawa_scheme::type_Y:
          ostr << "Type Y\n";
+         break;
+      case GeneralTHDM::Yukawa_scheme::general:
+         ostr << "General\n";
          break;
    }
 

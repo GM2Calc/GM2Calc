@@ -35,7 +35,7 @@ namespace gm2calc {
 class GeneralTHDM : private GeneralTHDM_mass_eigenstates {
 public:
    enum class Yukawa_scheme {
-      type_1, type_2, type_X, type_Y
+      type_1, type_2, type_X, type_Y, general
    };
 
    struct General_basis {
