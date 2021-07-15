@@ -63,9 +63,45 @@ void GeneralTHDM::init_yukawas()
    const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
    const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
 
-   set_Yu(sqrt2*mu/v1 - v2/v1*Xu);
-   set_Yd(sqrt2*md/v1 - v2/v1*Xd);
-   set_Ye(sqrt2*ml/v1 - v2/v1*Xe);
+   switch (yukawa_scheme) {
+   case Yukawa_scheme::type_1:
+      Xu.setZero();
+      Xd.setZero();
+      Xe.setZero();
+      set_Yu(sqrt2*mu/v1);
+      set_Yd(sqrt2*md/v1);
+      set_Ye(sqrt2*ml/v1);
+      break;
+   case Yukawa_scheme::type_2:
+      Yu.setZero();
+      Xd.setZero();
+      Xe.setZero();
+      set_Xu(sqrt2*mu/v2);
+      set_Yd(sqrt2*md/v1);
+      set_Ye(sqrt2*ml/v1);
+      break;
+   case Yukawa_scheme::type_X:
+      Yu.setZero();
+      Yd.setZero();
+      Xe.setZero();
+      set_Xu(sqrt2*mu/v2);
+      set_Xd(sqrt2*md/v2);
+      set_Ye(sqrt2*ml/v1);
+      break;
+   case Yukawa_scheme::type_Y:
+      Xu.setZero();
+      Xd.setZero();
+      Ye.setZero();
+      set_Yu(sqrt2*mu/v1);
+      set_Yd(sqrt2*md/v1);
+      set_Xe(sqrt2*ml/v2);
+      break;
+   case Yukawa_scheme::general:
+      set_Yu(sqrt2*mu/v1 - v2/v1*Xu);
+      set_Yd(sqrt2*md/v1 - v2/v1*Xd);
+      set_Ye(sqrt2*ml/v1 - v2/v1*Xe);
+      break;
+   }
 }
 
 /// Table 1, arxiv:1607.06292

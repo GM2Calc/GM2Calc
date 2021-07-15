@@ -275,6 +275,7 @@ TEST_CASE("2HDMC-demo-point")
 TEST_CASE("test-point-GAMBIT")
 {
    gm2calc::GeneralTHDM::General_basis basis;
+   basis.yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::general;
    basis.lambda1 =  2.02924518279587396;
    basis.lambda2 =  0.25812066515822629;
    basis.lambda3 =  0.81575007334344507;
