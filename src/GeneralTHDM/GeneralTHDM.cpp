@@ -144,6 +144,36 @@ double GeneralTHDM::get_zeta_bar_l() const
    }
 }
 
+Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_u() const
+{
+   const double cb = get_cos_beta();
+   const double v = get_v();
+   const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
+
+   /// @todo(alex) use non-zero Yukawa coupling here, depending on type
+   return get_Xu()/cb + sqrt2*mu*get_zeta_bar_u()/v;
+}
+
+Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_d() const
+{
+   const double cb = get_cos_beta();
+   const double v = get_v();
+   const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
+
+   /// @todo(alex) use non-zero Yukawa coupling here, depending on type
+   return get_Xd()/cb + sqrt2*md*get_zeta_bar_d()/v;
+}
+
+Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_l() const
+{
+   const double cb = get_cos_beta();
+   const double v = get_v();
+   const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
+
+   /// @todo(alex) use non-zero Yukawa coupling here, depending on type
+   return get_Xe()/cb + sqrt2*ml*get_zeta_bar_l()/v;
+}
+
 Eigen::Matrix<double,3,3> GeneralTHDM::get_zeta_l() const
 {
    const double cb = get_cos_beta();

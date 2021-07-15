@@ -78,6 +78,10 @@ public:
    double get_zeta_bar_l() const;
    Eigen::Matrix<double,3,3> get_zeta_l() const;
 
+   Eigen::Matrix<double,3,3> get_xi_u() const;
+   Eigen::Matrix<double,3,3> get_xi_d() const;
+   Eigen::Matrix<double,3,3> get_xi_l() const;
+
    Eigen::Matrix<double,3,3> get_ylh() const;
    Eigen::Matrix<double,3,3> get_ylH() const;
    Eigen::Matrix<double,3,3> get_ylA() const;
