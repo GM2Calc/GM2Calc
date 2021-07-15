@@ -299,7 +299,7 @@ void CLASSNAME::calculate_MFd()
 
 Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fu() const
 {
-   return sqrt2_inv*(v2*Yu + v1*Xu);
+   return sqrt2_inv*(v1*Yu + v2*Xu);
 }
 
 void CLASSNAME::calculate_MFu()
