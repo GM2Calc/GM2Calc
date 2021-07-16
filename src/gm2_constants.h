@@ -74,4 +74,15 @@
 /* Tau lepton pole mass */
 #define GM2CALC_ML 1.777
 
+/* From Vus/Vud in global CKM fit, PDG */
+#define GM2CALC_CKM_THETA12 0.229206
+
+/* From Vub in global CKM fit, PDG */
+#define GM2CALC_CKM_THETA13 0.003960
+
+/* From Vcb/Vtb in global CKM fit, PDG */
+#define GM2CALC_CKM_THETA23 0.042223
+
+#define GM2CALC_CKM_DELTA 0
+
 #endif

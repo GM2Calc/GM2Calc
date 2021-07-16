@@ -30,7 +30,7 @@ namespace {
 const double pi = 3.1415926535897932;
 
 Eigen::Matrix<std::complex<double>,3,3> get_ckm_from_angles(
-   double theta_12, double theta_13, double theta_23, double delta)
+   double theta_12, double theta_13, double theta_23, double delta) noexcept
 {
    const std::complex<double> eID(std::polar(1.0, delta));
    const double s12 = std::sin(theta_12);
@@ -94,6 +94,7 @@ SM::SM()
    , mu((Eigen::Matrix<double,3,1>() << GM2CALC_MU, GM2CALC_MC, GM2CALC_MT).finished())
    , md((Eigen::Matrix<double,3,1>() << GM2CALC_MD, GM2CALC_MS, GM2CALC_MBMB).finished())
    , ml((Eigen::Matrix<double,3,1>() << GM2CALC_ME, GM2CALC_MM, GM2CALC_ML).finished())
+   , ckm(get_ckm_from_angles(GM2CALC_CKM_THETA12, GM2CALC_CKM_THETA13, GM2CALC_CKM_THETA23, GM2CALC_CKM_DELTA))
 {
 }
 

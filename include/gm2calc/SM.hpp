@@ -69,10 +69,10 @@ private:
    double mh{0.0};          ///< Higgs boson pole mass
    double mw{0.0};          ///< W boson pole mass
    double mz{0.0};          ///< Z boson pole mass
-   Eigen::Matrix<std::complex<double>,3,3> ckm{Eigen::Matrix<std::complex<double>,3,3>::Identity()}; ///< CKM matrix
    Eigen::Matrix<double,3,1> mu{Eigen::Matrix<double,3,1>::Zero()}; ///< up-type quark masses
    Eigen::Matrix<double,3,1> md{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type quark masses
    Eigen::Matrix<double,3,1> ml{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type lepton pole masses
+   Eigen::Matrix<std::complex<double>,3,3> ckm{Eigen::Matrix<std::complex<double>,3,3>::Identity()}; ///< CKM matrix
 };
 
 } // namespace gm2calc
