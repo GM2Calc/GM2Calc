@@ -149,17 +149,8 @@ TEST_CASE("2-loop_fermionic_charged")
       (Eigen::Matrix<double,3,1>() << 0.3, 3.0, 30.0).finished()
    };
 
-   pars.yuh.diagonal() = yu;
-   pars.yuH.diagonal() = yu;
-   pars.yuA.diagonal() = yu;
    pars.yuHp.diagonal() = sqrt2*yu;
-   pars.ydh.diagonal() = yd;
-   pars.ydH.diagonal() = yd;
-   pars.ydA.diagonal() = yd;
    pars.ydHp.diagonal() = sqrt2*yd;
-   pars.ylh.diagonal() = yl;
-   pars.ylH.diagonal() = yl;
-   pars.ylA.diagonal() = yl;
    pars.ylHp.diagonal() = sqrt2*yl;
 
    const auto amu = gm2calc::general_thdm::amu2L_F_charged(pars);
@@ -241,15 +232,12 @@ TEST_CASE("2-loop_fermionic_neutral")
    pars.yuh.diagonal() = yu;
    pars.yuH.diagonal() = yu;
    pars.yuA.diagonal() = yu;
-   pars.yuHp.diagonal() = sqrt2*yu;
    pars.ydh.diagonal() = yd;
    pars.ydH.diagonal() = yd;
    pars.ydA.diagonal() = yd;
-   pars.ydHp.diagonal() = sqrt2*yd;
    pars.ylh.diagonal() = yl;
    pars.ylH.diagonal() = yl;
    pars.ylA.diagonal() = yl;
-   pars.ylHp.diagonal() = sqrt2*yl;
 
    const auto amu = gm2calc::general_thdm::amu2L_F_neutral(pars);
 
