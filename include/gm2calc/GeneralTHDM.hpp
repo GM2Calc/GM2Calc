@@ -73,9 +73,9 @@ public:
    GeneralTHDM(const General_basis&, const SM& sm_ = SM{});
    GeneralTHDM(const Physical_basis&, const SM& sm_ = SM{});
 
-   double get_zeta_bar_u() const;
-   double get_zeta_bar_d() const;
-   double get_zeta_bar_l() const;
+   double get_zeta_u() const;
+   double get_zeta_d() const;
+   double get_zeta_l() const;
 
    Eigen::Matrix<double,3,3> get_xi_u() const;
    Eigen::Matrix<double,3,3> get_xi_d() const;

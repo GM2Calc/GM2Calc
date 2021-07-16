@@ -105,13 +105,13 @@ void GeneralTHDM::init_yukawas()
 }
 
 /// Table 1, arxiv:1607.06292
-double GeneralTHDM::get_zeta_bar_u() const
+double GeneralTHDM::get_zeta_u() const
 {
    return 1.0/get_tan_beta();
 }
 
 /// Table 1, arxiv:1607.06292
-double GeneralTHDM::get_zeta_bar_d() const
+double GeneralTHDM::get_zeta_d() const
 {
    switch (yukawa_scheme) {
       case Yukawa_scheme::type_1:
@@ -128,7 +128,7 @@ double GeneralTHDM::get_zeta_bar_d() const
 }
 
 /// Table 1, arxiv:1607.06292
-double GeneralTHDM::get_zeta_bar_l() const
+double GeneralTHDM::get_zeta_l() const
 {
    switch (yukawa_scheme) {
       case Yukawa_scheme::type_1:
@@ -152,10 +152,10 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_u() const
 
    /// @todo(alex) check
    if (yukawa_scheme != Yukawa_scheme::general) {
-      return sqrt2*mu*get_zeta_bar_u()/v;
+      return sqrt2*mu*get_zeta_u()/v;
    }
 
-   return get_Xu()/cb + sqrt2*mu*get_zeta_bar_u()/v;
+   return get_Xu()/cb + sqrt2*mu*get_zeta_u()/v;
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_d() const
@@ -166,10 +166,10 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_d() const
 
    /// @todo(alex) check
    if (yukawa_scheme != Yukawa_scheme::general) {
-      return sqrt2*md*get_zeta_bar_d()/v;
+      return sqrt2*md*get_zeta_d()/v;
    }
 
-   return get_Xd()/cb + sqrt2*md*get_zeta_bar_d()/v;
+   return get_Xd()/cb + sqrt2*md*get_zeta_d()/v;
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_l() const
@@ -180,10 +180,10 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_l() const
 
    /// @todo(alex) check
    if (yukawa_scheme != Yukawa_scheme::general) {
-      return sqrt2*ml*get_zeta_bar_l()/v;
+      return sqrt2*ml*get_zeta_l()/v;
    }
 
-   return get_Xe()/cb + sqrt2*ml*get_zeta_bar_l()/v;
+   return get_Xe()/cb + sqrt2*ml*get_zeta_l()/v;
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ylh() const
@@ -336,9 +336,9 @@ std::ostream& operator<<(std::ostream& ostr, const GeneralTHDM& model)
          break;
    }
 
-   ostr << "zeta_u = " << model.get_zeta_bar_u() << '\n';
-   ostr << "zeta_d = " << model.get_zeta_bar_d() << '\n';
-   ostr << "zeta_l = " << model.get_zeta_bar_l() << '\n';
+   ostr << "zeta_u = " << model.get_zeta_u() << '\n';
+   ostr << "zeta_d = " << model.get_zeta_d() << '\n';
+   ostr << "zeta_l = " << model.get_zeta_l() << '\n';
 
    return ostr;
 }
