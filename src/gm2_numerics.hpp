@@ -30,6 +30,9 @@ template <typename T> T sqr(T x) noexcept { return x*x; }
 /// returns number to the third power
 template <typename T> T cube(T x) noexcept { return x*x*x; }
 
+/// returns number to the 4th power
+template <typename T> T pow4(T x) noexcept { return sqr(sqr(x)); }
+
 /// returns square root of absolute of number
 double abs_sqrt(double) noexcept;
 

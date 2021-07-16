@@ -20,6 +20,7 @@
 #define GM2_SM_HPP
 
 #include <Eigen/Core>
+#include <complex>
 
 namespace gm2calc {
 
@@ -29,21 +30,24 @@ public:
 
    void set_alpha_em_0(double a) noexcept { alpha_em_0 = a; }
    void set_alpha_em_mz(double a) noexcept { alpha_em_mz = a; }
+   void set_mh(double m) noexcept { mh = m; }
    void set_mw(double m) noexcept { mw = m; }
    void set_mz(double m) noexcept { mz = m; }
-   void set_mh(double m) noexcept { mh = m; }
    void set_mu(const Eigen::Matrix<double,3,1>& m) noexcept { mu = m; }
    void set_md(const Eigen::Matrix<double,3,1>& m) noexcept { md = m; }
    void set_ml(const Eigen::Matrix<double,3,1>& m) noexcept { ml = m; }
    void set_mu(int i, double m) noexcept { mu(i) = m; }
    void set_md(int i, double m) noexcept { md(i) = m; }
    void set_ml(int i, double m) noexcept { ml(i) = m; }
+   void set_ckm(const Eigen::Matrix<std::complex<double>,3,3>& m) { ckm = m; }
+   void set_ckm_from_wolfenstein(double lambdaW, double aCkm, double rhobar, double etabar);
+   void set_ckm_from_angles(double theta_12, double theta_13, double theta_23, double delta);
 
    double get_alpha_em_0() const { return alpha_em_0; }
    double get_alpha_em_mz() const { return alpha_em_mz; }
+   double get_mh() const { return mh; }
    double get_mw() const { return mw; }
    double get_mz() const { return mz; }
-   double get_mh() const { return mh; }
    const Eigen::Matrix<double,3,1>& get_mu() const { return mu; }
    const Eigen::Matrix<double,3,1>& get_md() const { return md; }
    const Eigen::Matrix<double,3,1>& get_ml() const { return ml; }
@@ -57,6 +61,7 @@ public:
    double get_cw() const;
    double get_sw() const;
    double get_v() const;
+   const Eigen::Matrix<std::complex<double>,3,3>& get_ckm() const { return ckm; }
 
 private:
    double alpha_em_0{0.0};  ///< electromagnetic coupling in Thompson limit
@@ -64,6 +69,7 @@ private:
    double mh{0.0};          ///< Higgs boson pole mass
    double mw{0.0};          ///< W boson pole mass
    double mz{0.0};          ///< Z boson pole mass
+   Eigen::Matrix<std::complex<double>,3,3> ckm{Eigen::Matrix<std::complex<double>,3,3>::Identity()}; ///< CKM matrix
    Eigen::Matrix<double,3,1> mu{Eigen::Matrix<double,3,1>::Zero()}; ///< up-type quark masses
    Eigen::Matrix<double,3,1> md{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type quark masses
    Eigen::Matrix<double,3,1> ml{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type lepton pole masses
