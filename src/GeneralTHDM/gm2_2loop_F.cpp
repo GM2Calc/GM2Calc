@@ -305,6 +305,8 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
    const double mw2 = sqr(thdm.mw);
    const double mz2 = sqr(thdm.mz);
    const double v2 = calc_v2(thdm);
+   const double sw2 = 1.0 - mw2/mz2;
+   const double pref = sqr(thdm.alpha_em*thdm.mm/(4*pi*thdm.mw*sw2))/2;
 
    double res = 0.0;
 
@@ -315,9 +317,6 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
       res += 0.5*fdHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*thdm.ydHp(i,i)*thdm.ylHp(1,1)*v2/(thdm.md(i)*thdm.ml(1));
       res += 0.5*flHp(mHp2, sqr(thdm.ml(i)), mw2, mz2)                 *thdm.ylHp(i,i)*thdm.ylHp(1,1)*v2/(thdm.ml(i)*thdm.ml(1));
    }
-
-   const double sw2 = 1.0 - mw2/mz2;
-   const double pref = sqr(thdm.alpha_em*thdm.mm/(4*pi*thdm.mw*sw2))/2;
 
    return pref*res;
 }
@@ -337,6 +336,8 @@ double amu2L_F_neutral(const THDM_F_parameters& thdm) noexcept
    const double mw2 = sqr(thdm.mw);
    const double mz2 = sqr(thdm.mz);
    const double v2 = calc_v2(thdm);
+   const double sw2 = 1.0 - mw2/mz2;
+   const auto pref = sqr(thdm.alpha_em*thdm.mm/(2*pi*thdm.mw))/sw2;
 
    double res = 0.0;
 
@@ -362,9 +363,6 @@ double amu2L_F_neutral(const THDM_F_parameters& thdm) noexcept
       res -= fdS(mhSM2, sqr(thdm.md(i)), mw2, mz2);
       res -= flS(mhSM2, sqr(thdm.ml(i)), mw2, mz2);
    }
-
-   const double sw2 = 1.0 - mw2/mz2;
-   const auto pref = sqr(thdm.alpha_em*thdm.mm/(2*pi*thdm.mw))/sw2;
 
    return pref*res;
 }
