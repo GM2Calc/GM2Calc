@@ -27,7 +27,6 @@ namespace gm2calc {
 namespace {
 
 const double sqrt2 = 1.4142135623730950; // Sqrt[2]
-const Eigen::Matrix<double,3,3> id33 = Eigen::Matrix<double,3,3>::Identity();
 
 } // anonymous namespace
 
