@@ -7,6 +7,7 @@
 #include "gm2calc/gm2_uncertainty.hpp"
 #include "gm2calc/gm2_error.hpp"
 #include "gm2calc/MSSMNoFV_onshell.hpp"
+#include "gm2calc/GeneralTHDM.hpp"
 
 #include "stopwatch.hpp"
 
@@ -27,6 +28,9 @@ double random(double start, double stop)
 
 /// random value for SUSY scale MS
 auto rMS = [] { return random(400, 4000); };
+
+/// random value for Higgs boson mass
+auto rMH = [] { return random(130, 400); };
 
 /// random value for tan(beta)
 auto rTB = [] { return random(2, 1000); };
@@ -130,8 +134,35 @@ gm2calc::MSSMNoFV_onshell random_point_gm2calc()
    return model;
 }
 
+/// generate random THDM input parameter point
+gm2calc::GeneralTHDM random_point_thdm()
+{
+   gm2calc::SM sm;
+   sm.set_alpha_em_mz(1.0/127.934);
+   sm.set_mu(2, 172.5);
+   sm.set_mu(1, 1.42);
+   sm.set_md(2, 4.75);
+   sm.set_ml(2, 1.77684);
+
+   gm2calc::GeneralTHDM::Physical_basis basis;
+   basis.mh = 125;
+   basis.mH = rMH();
+   basis.mA = rMH();
+   basis.mHp = rMH();
+   basis.sin_beta_minus_alpha = 0.995;
+   basis.lambda6 = 0.1;
+   basis.lambda7 = 0.2;
+   basis.tan_beta = rTB();
+   basis.m122 = sqr(rMH());
+
+   gm2calc::GeneralTHDM model(basis, sm);
+
+   return model;
+}
+
 /// calculate amu and uncertainty
-std::pair<double, double> calculate_amu(const gm2calc::MSSMNoFV_onshell& model)
+template <class Model>
+std::pair<double, double> calculate_amu(const Model& model)
 {
    const double amu = gm2calc::calculate_amu_1loop(model) +
                       gm2calc::calculate_amu_2loop(model);
@@ -186,4 +217,13 @@ TEST_CASE("benchmark MSSM SLHA")
       N, [] { return calculate_amu(random_point_slha()); });
 
    std::cout << "Average time per point: " << time_in_ms/N << " ms (SLHA)\n";
+}
+
+TEST_CASE("benchmark THDM")
+{
+   const unsigned N = 10000;
+   const auto time_in_ms = time_in_milliseconds(
+      N, [] { return calculate_amu(random_point_thdm()); });
+
+   std::cout << "Average time per point: " << time_in_ms/N << " ms (THDM)\n";
 }
