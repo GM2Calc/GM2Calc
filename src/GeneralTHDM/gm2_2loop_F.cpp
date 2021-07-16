@@ -66,6 +66,16 @@ const double t3_l = -0.5;     ///< SU(2)_L charge of charged lepton
 
 double sqr(double x) noexcept { return x*x; }
 
+double calc_v(const THDM_F_parameters& thdm)
+{
+   const double mw2 = sqr(thdm.mw);
+   const double mz2 = sqr(thdm.mz);
+   const double sw2 = 1.0 - mw2/mz2;
+   const double e2 = 4*pi*thdm.alpha_em;
+   const double g2 = std::sqrt(e2/sw2);
+   return 2*thdm.mw/g2;
+}
+
 /// Eq (56), arxiv:1607.06292, S = h or H
 double FS(double ms2, double mf2)
 {
@@ -294,15 +304,16 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
    const double mHp2 = sqr(thdm.mHp);
    const double mw2 = sqr(thdm.mw);
    const double mz2 = sqr(thdm.mz);
+   const double v = calc_v(thdm);
 
    double res = 0.0;
 
    // loop over generations
    for (int i = 0; i < 3; ++i) {
       // H^\pm
-      res += 0.5*fuHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*thdm.yuHp(i,i)*thdm.ylHp(1,1);
-      res += 0.5*fdHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*thdm.ydHp(i,i)*thdm.ylHp(1,1);
-      res += 0.5*flHp(mHp2, sqr(thdm.ml(i)), mw2, mz2)                 *thdm.ylHp(i,i)*thdm.ylHp(1,1);
+      res += 0.5*fuHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*thdm.yuHp(i,i)*thdm.ylHp(1,1)*(v/thdm.mu(i))*(v/thdm.ml(1));
+      res += 0.5*fdHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*thdm.ydHp(i,i)*thdm.ylHp(1,1)*(v/thdm.md(i))*(v/thdm.ml(1));
+      res += 0.5*flHp(mHp2, sqr(thdm.ml(i)), mw2, mz2)                 *thdm.ylHp(i,i)*thdm.ylHp(1,1)*(v/thdm.ml(i))*(v/thdm.ml(1));
    }
 
    const double sw2 = 1.0 - mw2/mz2;
@@ -325,25 +336,26 @@ double amu2L_F_neutral(const THDM_F_parameters& thdm) noexcept
    const double mhSM2 = sqr(thdm.mhSM);
    const double mw2 = sqr(thdm.mw);
    const double mz2 = sqr(thdm.mz);
+   const double v = calc_v(thdm);
 
    double res = 0.0;
 
    // loop over generations
    for (int i = 0; i < 3; ++i) {
       // h
-      res += fuS(mh2, sqr(thdm.mu(i)), mw2, mz2)*thdm.yuh(i,i)*thdm.ylh(1,1);
-      res += fdS(mh2, sqr(thdm.md(i)), mw2, mz2)*thdm.ydh(i,i)*thdm.ylh(1,1);
-      res += flS(mh2, sqr(thdm.ml(i)), mw2, mz2)*thdm.ylh(i,i)*thdm.ylh(1,1);
+      res += fuS(mh2, sqr(thdm.mu(i)), mw2, mz2)*thdm.yuh(i,i)*thdm.ylh(1,1)*(v/thdm.mu(i))*(v/thdm.ml(1));
+      res += fdS(mh2, sqr(thdm.md(i)), mw2, mz2)*thdm.ydh(i,i)*thdm.ylh(1,1)*(v/thdm.md(i))*(v/thdm.ml(1));
+      res += flS(mh2, sqr(thdm.ml(i)), mw2, mz2)*thdm.ylh(i,i)*thdm.ylh(1,1)*(v/thdm.ml(i))*(v/thdm.ml(1));
 
       // H
-      res += fuS(mH2, sqr(thdm.mu(i)), mw2, mz2)*thdm.yuH(i,i)*thdm.ylH(1,1);
-      res += fdS(mH2, sqr(thdm.md(i)), mw2, mz2)*thdm.ydH(i,i)*thdm.ylH(1,1);
-      res += flS(mH2, sqr(thdm.ml(i)), mw2, mz2)*thdm.ylH(i,i)*thdm.ylH(1,1);
+      res += fuS(mH2, sqr(thdm.mu(i)), mw2, mz2)*thdm.yuH(i,i)*thdm.ylH(1,1)*(v/thdm.mu(i))*(v/thdm.ml(1));
+      res += fdS(mH2, sqr(thdm.md(i)), mw2, mz2)*thdm.ydH(i,i)*thdm.ylH(1,1)*(v/thdm.md(i))*(v/thdm.ml(1));
+      res += flS(mH2, sqr(thdm.ml(i)), mw2, mz2)*thdm.ylH(i,i)*thdm.ylH(1,1)*(v/thdm.ml(i))*(v/thdm.ml(1));
 
       // A
-      res += fuA(mA2, sqr(thdm.mu(i)), mw2, mz2)*thdm.yuA(i,i)*thdm.ylA(1,1);
-      res += fdA(mA2, sqr(thdm.md(i)), mw2, mz2)*thdm.ydA(i,i)*thdm.ylA(1,1);
-      res += flA(mA2, sqr(thdm.ml(i)), mw2, mz2)*thdm.ylA(i,i)*thdm.ylA(1,1);
+      res += fuA(mA2, sqr(thdm.mu(i)), mw2, mz2)*thdm.yuA(i,i)*thdm.ylA(1,1)*(v/thdm.mu(i))*(v/thdm.ml(1));
+      res += fdA(mA2, sqr(thdm.md(i)), mw2, mz2)*thdm.ydA(i,i)*thdm.ylA(1,1)*(v/thdm.md(i))*(v/thdm.ml(1));
+      res += flA(mA2, sqr(thdm.ml(i)), mw2, mz2)*thdm.ylA(i,i)*thdm.ylA(1,1)*(v/thdm.ml(i))*(v/thdm.ml(1));
 
       // subtract hSM
       res -= fuS(mhSM2, sqr(thdm.mu(i)), mw2, mz2);
