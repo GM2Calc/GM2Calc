@@ -150,7 +150,11 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_u() const
    const double v = get_v();
    const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
 
-   /// @todo(alex) use non-zero Yukawa coupling here, depending on type
+   /// @todo(alex) check
+   if (yukawa_scheme != Yukawa_scheme::general) {
+      return sqrt2*mu*get_zeta_bar_u()/v;
+   }
+
    return get_Xu()/cb + sqrt2*mu*get_zeta_bar_u()/v;
 }
 
@@ -160,7 +164,11 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_d() const
    const double v = get_v();
    const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
 
-   /// @todo(alex) use non-zero Yukawa coupling here, depending on type
+   /// @todo(alex) check
+   if (yukawa_scheme != Yukawa_scheme::general) {
+      return sqrt2*md*get_zeta_bar_d()/v;
+   }
+
    return get_Xd()/cb + sqrt2*md*get_zeta_bar_d()/v;
 }
 
@@ -170,46 +178,42 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_l() const
    const double v = get_v();
    const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
 
-   /// @todo(alex) use non-zero Yukawa coupling here, depending on type
+   /// @todo(alex) check
+   if (yukawa_scheme != Yukawa_scheme::general) {
+      return sqrt2*ml*get_zeta_bar_l()/v;
+   }
+
    return get_Xe()/cb + sqrt2*ml*get_zeta_bar_l()/v;
-}
-
-Eigen::Matrix<double,3,3> GeneralTHDM::get_zeta_l() const
-{
-   const double cb = get_cos_beta();
-   const double mm = get_MFe(1);
-   const double v = get_v();
-
-   return get_Xe()*v/(cb*sqrt2*mm) + get_zeta_bar_l()*id33;
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ylh() const
 {
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
+   const double v = get_v();
+   const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
 
-   // Eq.(18), arxiv:1607.06292
-   return sba*id33 + cba*get_zeta_l();
+   return sba*ml/v + cba*get_xi_l()/sqrt2;
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ylH() const
 {
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
+   const double v = get_v();
+   const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
 
-   // Eq.(18), arxiv:1607.06292
-   return cba*id33 - sba*get_zeta_l();
+   return cba*ml/v - sba*get_xi_l()/sqrt2;
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ylA() const
 {
-   // Eq.(18), arxiv:1607.06292
-   return -get_zeta_l();
+   return -get_xi_l()/sqrt2;
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ylHp() const
 {
-   // Eq.(18), arxiv:1607.06292
+   /// @todo(alex) add CKM matrix
    return sqrt2*get_ylA();
 }
 

@@ -140,7 +140,6 @@ private:
 
    void init_gauge_couplings();
    void init_yukawas();
-   Eigen::Matrix<double,3,3> get_zeta_l() const;
    void set_basis(const General_basis&);
    void set_basis(const Physical_basis&);
 };

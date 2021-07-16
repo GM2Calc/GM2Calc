@@ -18,6 +18,8 @@
 
 namespace {
 
+const double pi = 3.1415926535897932;
+
 double sqr(double x) noexcept { return x*x; }
 const double sqrt2 = 1.4142135623730950; // Sqrt[2]
 
@@ -65,10 +67,16 @@ TEST_CASE("1-loop_approximation")
    pars.mh << pars.mhSM, 180.0;
    pars.mA = 250.0;
    pars.mHp = 500.0;
-   pars.ylh(1,1) = 1 + eta*zetal;
-   pars.ylH(1,1) = -zetal + eta;
-   pars.ylA(1,1) = -zetal;
-   pars.ylHp(1,1) = sqrt2*pars.ylA(1,1);
+
+   const auto sw = std::sqrt(1.0 - sqr(pars.mw/pars.mz));
+   const auto e = std::sqrt(pars.alpha_em*4*pi);
+   const auto g2 = e/sw;
+   const auto v = 2*pars.mw/g2;
+
+   pars.ylh(1,1)  = pars.mm/v*(1 + eta*zetal);
+   pars.ylH(1,1)  = pars.mm/v*(-zetal + eta);
+   pars.ylA(1,1)  = pars.mm/v*(-zetal);
+   pars.ylHp(1,1) = pars.mm/v*(sqrt2*pars.ylA(1,1));
 
    const auto a1L = gm2calc::general_thdm::amu1L_approx(pars);
 
