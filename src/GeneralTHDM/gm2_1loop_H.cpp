@@ -103,17 +103,15 @@ double amu1L_approx(const THDM_1L_parameters& pars) noexcept
    const auto mm2 = sqr(pars.mm);
    const auto mw2 = sqr(pars.mw);
    const auto mz2 = sqr(pars.mz);
-   const auto cw2 = mw2/mz2;
-   const auto sw2 = 1 - cw2;
    const auto mhSM2 = sqr(pars.mhSM);
    const auto mh2 = sqr(pars.mh(0));
    const auto mH2 = sqr(pars.mh(1));
    const auto mA2 = sqr(pars.mA);
    const auto mHp2 = sqr(pars.mHp);
-   const auto sw = std::sqrt(sw2);
-   const auto e = std::sqrt(pars.alpha_em*4*pi);
-   const auto g2 = e/sw;
-   const auto v = 2*pars.mw/g2;
+   const auto sw2 = 1 - mw2/mz2;
+   const auto e2 = 4*pi*pars.alpha_em;
+   const auto g22 = e2/sw2;
+   const auto v2 = 4*mw2/g22;
 
    // Eq.(27), arxiv:1607.06292
    const auto res =
@@ -122,7 +120,7 @@ double amu1L_approx(const THDM_1L_parameters& pars) noexcept
       + sqr(pars.ylA(1,1)) * mm2/mA2 * FA(mm2/mA2)
       + 0.5 * sqr(pars.ylHp(1,1)) * mm2/mHp2 * FHp(mm2/mHp2)
       // subtract SM contribution
-      - sqr(pars.mm/v) * mm2/mhSM2 * Fh(mm2/mhSM2);
+      - mm2/v2 * mm2/mhSM2 * Fh(mm2/mhSM2);
 
    return res/(8*pi2);
 }
@@ -135,16 +133,14 @@ double amu1L(const THDM_1L_parameters& pars) noexcept
    const auto mm2 = sqr(pars.mm);
    const auto mw2 = sqr(pars.mw);
    const auto mz2 = sqr(pars.mz);
-   const auto cw2 = mw2/mz2;
-   const auto sw2 = 1 - cw2;
    const auto mhSM2 = sqr(pars.mhSM);
    const auto mh2 = sqr(pars.mh(0));
    const auto mH2 = sqr(pars.mh(1));
    const auto mA2 = sqr(pars.mA);
    const auto mHp2 = sqr(pars.mHp);
-   const auto sw = std::sqrt(sw2);
-   const auto e = std::sqrt(pars.alpha_em*4*pi);
-   const auto g2 = e/sw;
+   const auto sw2 = 1 - mw2/mz2;
+   const auto e2 = 4*pi*pars.alpha_em;
+   const auto g2 = std::sqrt(e2/sw2);
    const auto v = 2*pars.mw/g2;
 
    const Eigen::Matrix<double, 3, 3> ylhSM{
