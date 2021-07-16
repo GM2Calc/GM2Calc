@@ -186,6 +186,68 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_l() const
    return get_Xe()/cb + sqrt2*ml*get_zeta_l()/v;
 }
 
+Eigen::Matrix<double,3,3> GeneralTHDM::get_yuh() const
+{
+   const double cba = get_cos_beta_minus_alpha();
+   const double sba = get_sin_beta_minus_alpha();
+   const double v = get_v();
+   const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
+
+   return sba*mu/v + cba*get_xi_u()/sqrt2;
+}
+
+Eigen::Matrix<double,3,3> GeneralTHDM::get_yuH() const
+{
+   const double cba = get_cos_beta_minus_alpha();
+   const double sba = get_sin_beta_minus_alpha();
+   const double v = get_v();
+   const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
+
+   return cba*mu/v - sba*get_xi_u()/sqrt2;
+}
+
+Eigen::Matrix<double,3,3> GeneralTHDM::get_yuA() const
+{
+   return get_xi_u()/sqrt2;
+}
+
+Eigen::Matrix<double,3,3> GeneralTHDM::get_yuHp() const
+{
+   /// @todo(alex) add CKM matrix
+   return sqrt2*get_yuA();
+}
+
+Eigen::Matrix<double,3,3> GeneralTHDM::get_ydh() const
+{
+   const double cba = get_cos_beta_minus_alpha();
+   const double sba = get_sin_beta_minus_alpha();
+   const double v = get_v();
+   const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
+
+   return sba*md/v + cba*get_xi_d()/sqrt2;
+}
+
+Eigen::Matrix<double,3,3> GeneralTHDM::get_ydH() const
+{
+   const double cba = get_cos_beta_minus_alpha();
+   const double sba = get_sin_beta_minus_alpha();
+   const double v = get_v();
+   const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
+
+   return cba*md/v - sba*get_xi_d()/sqrt2;
+}
+
+Eigen::Matrix<double,3,3> GeneralTHDM::get_ydA() const
+{
+   return -get_xi_d()/sqrt2;
+}
+
+Eigen::Matrix<double,3,3> GeneralTHDM::get_ydHp() const
+{
+   /// @todo(alex) add CKM matrix
+   return sqrt2*get_ydA();
+}
+
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ylh() const
 {
    const double cba = get_cos_beta_minus_alpha();

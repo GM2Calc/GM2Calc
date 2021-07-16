@@ -55,35 +55,6 @@ double calculate_amu_2loop_bosonic(const GeneralTHDM& model)
  */
 double calculate_amu_2loop_fermionic(const GeneralTHDM& model)
 {
-   const double sqrt2 = 1.4142135623730950; // Sqrt[2]
-   const double zeta_u = model.get_zeta_u();
-   const double zeta_d = model.get_zeta_d();
-   const double zeta_l = model.get_zeta_l();
-   const double alpha_h = model.get_alpha_h();
-   const double beta = model.get_beta();
-   const double sba = std::sin(beta - alpha_h);
-   const double cba = std::cos(beta - alpha_h);
-   const Eigen::Matrix<double,3,1> id = Eigen::Matrix<double,3,1>::Ones();
-
-   // Eq.(18), arxiv:1607.06292
-   Eigen::Matrix<double,3,4> yuS;
-   yuS.col(0) = id*(sba + cba*zeta_u); // S = h
-   yuS.col(1) = id*(cba - sba*zeta_u); // S = H
-   yuS.col(2) = id*zeta_u;             // S = A
-   yuS.col(3) = sqrt2*yuS.col(2);      // S = H^+
-
-   Eigen::Matrix<double,3,4> ydS;
-   ydS.col(0) = id*(sba + cba*zeta_d); // S = h
-   ydS.col(1) = id*(cba - sba*zeta_d); // S = H
-   ydS.col(2) = id*(-zeta_d);          // S = A
-   ydS.col(3) = sqrt2*ydS.col(2);      // S = H^+
-
-   Eigen::Matrix<double,3,4> ylS;
-   ylS.col(0) = id*(sba + cba*zeta_l); // S = h
-   ylS.col(1) = id*(cba - sba*zeta_l); // S = H
-   ylS.col(2) = id*(-zeta_l);          // S = A
-   ylS.col(3) = sqrt2*ylS.col(2);      // S = H^+
-
    general_thdm::THDM_F_parameters pars_f;
    pars_f.alpha_em = model.get_alpha_em();
    pars_f.mm = model.get_MFe(1);
@@ -96,9 +67,18 @@ double calculate_amu_2loop_fermionic(const GeneralTHDM& model)
    pars_f.ml = model.get_MFe();
    pars_f.mu = model.get_MFu();
    pars_f.md = model.get_MFd();
-   pars_f.yuS = yuS;
-   pars_f.ydS = ydS;
-   pars_f.ylS = ylS;
+   pars_f.yuh = model.get_yuh();
+   pars_f.yuH = model.get_yuH();
+   pars_f.yuA = model.get_yuA();
+   pars_f.yuHp = model.get_yuHp();
+   pars_f.ydh = model.get_ydh();
+   pars_f.ydH = model.get_ydH();
+   pars_f.ydA = model.get_ydA();
+   pars_f.ydHp = model.get_ydHp();
+   pars_f.ylh = model.get_ylh();
+   pars_f.ylH = model.get_ylH();
+   pars_f.ylA = model.get_ylA();
+   pars_f.ylHp = model.get_ylHp();
 
    return amu2L_F(pars_f);
 }

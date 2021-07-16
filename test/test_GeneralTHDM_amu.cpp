@@ -138,15 +138,29 @@ TEST_CASE("2-loop_fermionic_charged")
    pars.mu << 0.3, 3.0, 30.0;
    pars.md << 0.2, 2.0, 20.0;
    pars.ml << 0.1, 1.0, 10.0;
-   pars.yuS << 0.5, 0.5, 0.5, sqrt2*0.5,
-               5.0, 5.0, 5.0, sqrt2*5.0,
-               50.0, 50.0, 50.0, sqrt2*50.0;
-   pars.ydS << 0.4, 0.4, 0.4, sqrt2*0.4,
-               4.0, 4.0, 4.0, sqrt2*4.0,
-               40.0, 40.0, 40.0, sqrt2*40.0;
-   pars.ylS << 0.3, 0.3, 0.3, sqrt2*0.3,
-               3.0, 3.0, 3.0, sqrt2*3.0,
-               30.0, 30.0, 30.0, sqrt2*30.0;
+
+   const Eigen::Matrix<double,3,1> yu{
+      (Eigen::Matrix<double,3,1>() << 0.5, 5.0, 50.0).finished()
+   };
+   const Eigen::Matrix<double,3,1> yd{
+      (Eigen::Matrix<double,3,1>() << 0.4, 4.0, 40.0).finished()
+   };
+   const Eigen::Matrix<double,3,1> yl{
+      (Eigen::Matrix<double,3,1>() << 0.3, 3.0, 30.0).finished()
+   };
+
+   pars.yuh.diagonal() = yu;
+   pars.yuH.diagonal() = yu;
+   pars.yuA.diagonal() = yu;
+   pars.yuHp.diagonal() = sqrt2*yu;
+   pars.ydh.diagonal() = yd;
+   pars.ydH.diagonal() = yd;
+   pars.ydA.diagonal() = yd;
+   pars.ydHp.diagonal() = sqrt2*yd;
+   pars.ylh.diagonal() = yl;
+   pars.ylH.diagonal() = yl;
+   pars.ylA.diagonal() = yl;
+   pars.ylHp.diagonal() = sqrt2*yl;
 
    const auto amu = gm2calc::general_thdm::amu2L_F_charged(pars);
 
@@ -213,15 +227,29 @@ TEST_CASE("2-loop_fermionic_neutral")
    pars.mu << 0.3, 3.0, 30.0;
    pars.md << 0.2, 2.0, 20.0;
    pars.ml << 0.1, 1.0, 10.0;
-   pars.yuS << 0.5, 0.5, 0.5, 0.0,
-               5.0, 5.0, 5.0, 0.0,
-               50.0, 50.0, 50.0, 0.0;
-   pars.ydS << 0.4, 0.4, 0.4, 0.0,
-               4.0, 4.0, 4.0, 0.0,
-               40.0, 40.0, 40.0, 0.0;
-   pars.ylS << 0.3, 0.3, 0.3, 0.0,
-               3.0, 3.0, 3.0, 0.0,
-               30.0, 30.0, 30.0, 0.0;
+
+   const Eigen::Matrix<double,3,1> yu{
+      (Eigen::Matrix<double,3,1>() << 0.5, 5.0, 50.0).finished()
+   };
+   const Eigen::Matrix<double,3,1> yd{
+      (Eigen::Matrix<double,3,1>() << 0.4, 4.0, 40.0).finished()
+   };
+   const Eigen::Matrix<double,3,1> yl{
+      (Eigen::Matrix<double,3,1>() << 0.3, 3.0, 30.0).finished()
+   };
+
+   pars.yuh.diagonal() = yu;
+   pars.yuH.diagonal() = yu;
+   pars.yuA.diagonal() = yu;
+   pars.yuHp.diagonal() = sqrt2*yu;
+   pars.ydh.diagonal() = yd;
+   pars.ydH.diagonal() = yd;
+   pars.ydA.diagonal() = yd;
+   pars.ydHp.diagonal() = sqrt2*yd;
+   pars.ylh.diagonal() = yl;
+   pars.ylH.diagonal() = yl;
+   pars.ylA.diagonal() = yl;
+   pars.ylHp.diagonal() = sqrt2*yl;
 
    const auto amu = gm2calc::general_thdm::amu2L_F_neutral(pars);
 

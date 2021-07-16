@@ -54,13 +54,22 @@ struct THDM_F_parameters {
    double mhSM{};     ///< SM Higgs boson mass
    double mA{};       ///< CP-odd Higgs boson mass
    double mHp{};      ///< charged Higgs boson mass
-   Eigen::Matrix<double,2,1> mh{Eigen::Matrix<double,2,1>::Zero()}; ///< CP-even Higgs bosons mass
-   Eigen::Matrix<double,3,1> ml{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type lepton masses
-   Eigen::Matrix<double,3,1> mu{Eigen::Matrix<double,3,1>::Zero()}; ///< up-type quark masses
-   Eigen::Matrix<double,3,1> md{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type quark masses
-   Eigen::Matrix<double,3,4> yuS{Eigen::Matrix<double,3,4>::Zero()};///< Y_f^S coefficients with f={u,c,t} and S={h,H,A,H^+}
-   Eigen::Matrix<double,3,4> ydS{Eigen::Matrix<double,3,4>::Zero()};///< Y_f^S coefficients with f={d,s,b} and S={h,H,A,H^+}
-   Eigen::Matrix<double,3,4> ylS{Eigen::Matrix<double,3,4>::Zero()};///< Y_f^S coefficients with f={e,m,τ} and S={h,H,A,H^+}
+   Eigen::Matrix<double,2,1> mh{Eigen::Matrix<double,2,1>::Zero()};  ///< CP-even Higgs bosons mass
+   Eigen::Matrix<double,3,1> ml{Eigen::Matrix<double,3,1>::Zero()};  ///< down-type lepton masses
+   Eigen::Matrix<double,3,1> mu{Eigen::Matrix<double,3,1>::Zero()};  ///< up-type quark masses
+   Eigen::Matrix<double,3,1> md{Eigen::Matrix<double,3,1>::Zero()};  ///< down-type quark masses
+   Eigen::Matrix<double,3,3> yuh{Eigen::Matrix<double,3,3>::Zero()}; ///< y_f^S coefficients with f={u,c,t} and S=h
+   Eigen::Matrix<double,3,3> yuH{Eigen::Matrix<double,3,3>::Zero()}; ///< y_f^S coefficients with f={u,c,t} and S=H
+   Eigen::Matrix<double,3,3> yuA{Eigen::Matrix<double,3,3>::Zero()}; ///< y_f^S coefficients with f={u,c,t} and S=A
+   Eigen::Matrix<double,3,3> yuHp{Eigen::Matrix<double,3,3>::Zero()};///< y_f^S coefficients with f={u,c,t} and S=H^+
+   Eigen::Matrix<double,3,3> ydh{Eigen::Matrix<double,3,3>::Zero()}; ///< y_f^S coefficients with f={d,s,b} and S=h
+   Eigen::Matrix<double,3,3> ydH{Eigen::Matrix<double,3,3>::Zero()}; ///< y_f^S coefficients with f={d,s,b} and S=H
+   Eigen::Matrix<double,3,3> ydA{Eigen::Matrix<double,3,3>::Zero()}; ///< y_f^S coefficients with f={d,s,b} and S=A
+   Eigen::Matrix<double,3,3> ydHp{Eigen::Matrix<double,3,3>::Zero()};///< y_f^S coefficients with f={d,s,b} and S=H^+
+   Eigen::Matrix<double,3,3> ylh{Eigen::Matrix<double,3,3>::Zero()}; ///< y_f^S coefficients with f={e,m,τ} and S=h
+   Eigen::Matrix<double,3,3> ylH{Eigen::Matrix<double,3,3>::Zero()}; ///< y_f^S coefficients with f={e,m,τ} and S=H
+   Eigen::Matrix<double,3,3> ylA{Eigen::Matrix<double,3,3>::Zero()}; ///< y_f^S coefficients with f={e,m,τ} and S=A
+   Eigen::Matrix<double,3,3> ylHp{Eigen::Matrix<double,3,3>::Zero()};///< y_f^S coefficients with f={e,m,τ} and S=H^+
 };
 
 // === 2-loop bosonic contributions ===
