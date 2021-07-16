@@ -19,9 +19,19 @@
 namespace {
 
 const double pi = 3.1415926535897932;
+const double sqrt2 = 1.4142135623730950; // Sqrt[2]
 
 double sqr(double x) noexcept { return x*x; }
-const double sqrt2 = 1.4142135623730950; // Sqrt[2]
+
+double calc_v(const gm2calc::general_thdm::THDM_F_parameters& pars)
+{
+   const double mw2 = sqr(pars.mw);
+   const double mz2 = sqr(pars.mz);
+   const double sw2 = 1.0 - mw2/mz2;
+   const double e2 = 4*pi*pars.alpha_em;
+   const double g2 = std::sqrt(e2/sw2);
+   return 2*pars.mw/g2;
+}
 
 } // anonymous namespace
 
@@ -139,14 +149,28 @@ TEST_CASE("2-loop_fermionic_charged")
    pars.md << 0.2, 2.0, 20.0;
    pars.ml << 0.1, 1.0, 10.0;
 
+   const double v = calc_v(pars);
+
    const Eigen::Matrix<double,3,1> yu{
-      (Eigen::Matrix<double,3,1>() << 0.5, 5.0, 50.0).finished()
+      (Eigen::Matrix<double,3,1>() <<
+       0.5 *pars.mu(0)/v,
+       5.0 *pars.mu(1)/v,
+       50.0*pars.mu(2)/v
+      ).finished()
    };
    const Eigen::Matrix<double,3,1> yd{
-      (Eigen::Matrix<double,3,1>() << 0.4, 4.0, 40.0).finished()
+      (Eigen::Matrix<double,3,1>() <<
+       0.4 *pars.md(0)/v,
+       4.0 *pars.md(1)/v,
+       40.0*pars.md(2)/v
+      ).finished()
    };
    const Eigen::Matrix<double,3,1> yl{
-      (Eigen::Matrix<double,3,1>() << 0.3, 3.0, 30.0).finished()
+      (Eigen::Matrix<double,3,1>() <<
+       0.3 *pars.ml(0)/v,
+       3.0 *pars.ml(1)/v,
+       30.0*pars.ml(2)/v
+      ).finished()
    };
 
    pars.yuHp.diagonal() = sqrt2*yu;
@@ -204,6 +228,7 @@ Print["amuN 10^10 = ", N[10^10 amuN, 17]]
 
 */
 
+
 TEST_CASE("2-loop_fermionic_neutral")
 {
    gm2calc::general_thdm::THDM_F_parameters pars;
@@ -219,14 +244,28 @@ TEST_CASE("2-loop_fermionic_neutral")
    pars.md << 0.2, 2.0, 20.0;
    pars.ml << 0.1, 1.0, 10.0;
 
+   const double v = calc_v(pars);
+
    const Eigen::Matrix<double,3,1> yu{
-      (Eigen::Matrix<double,3,1>() << 0.5, 5.0, 50.0).finished()
+      (Eigen::Matrix<double,3,1>() <<
+       0.5 *pars.mu(0)/v,
+       5.0 *pars.mu(1)/v,
+       50.0*pars.mu(2)/v
+      ).finished()
    };
    const Eigen::Matrix<double,3,1> yd{
-      (Eigen::Matrix<double,3,1>() << 0.4, 4.0, 40.0).finished()
+      (Eigen::Matrix<double,3,1>() <<
+       0.4 *pars.md(0)/v,
+       4.0 *pars.md(1)/v,
+       40.0*pars.md(2)/v
+      ).finished()
    };
    const Eigen::Matrix<double,3,1> yl{
-      (Eigen::Matrix<double,3,1>() << 0.3, 3.0, 30.0).finished()
+      (Eigen::Matrix<double,3,1>() <<
+       0.3 *pars.ml(0)/v,
+       3.0 *pars.ml(1)/v,
+       30.0*pars.ml(2)/v
+      ).finished()
    };
 
    pars.yuh.diagonal() = yu;
