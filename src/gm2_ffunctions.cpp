@@ -535,10 +535,10 @@ double I20bc(double b, double c) noexcept {
 } // anonymous namespace
 
 double Iabc(double a, double b, double c) noexcept {
+   sort(a, b, c);
+
    if ((is_zero(a, eps) && is_zero(b, eps) && is_zero(c, eps)) ||
-       (is_zero(a, eps) && is_zero(b, eps)) ||
-       (is_zero(a, eps) && is_zero(c, eps)) ||
-       (is_zero(b, eps) && is_zero(c, eps))) {
+       (is_zero(a, eps) && is_zero(b, eps))) {
       return 0.0;
    }
 
@@ -552,9 +552,6 @@ double Iabc(double a, double b, double c) noexcept {
    }
 
    if (is_equal(a2, b2, eps_eq)) {
-      if (is_zero(c, eps)) {
-         return I2aa0(a2, b2);
-      }
       return I2aac(a2, b2, c2);
    }
 
@@ -565,23 +562,8 @@ double Iabc(double a, double b, double c) noexcept {
       return I2aac(b2, c2, a2);
    }
 
-   if (is_equal(a2, c2, eps_eq)) {
-      if (is_zero(b, eps)) {
-         return I2aa0(a2, c2);
-      }
-      return I2aac(a2, c2, b2);
-   }
-
    if (is_zero(a, eps)) {
       return I20bc(b2, c2);
-   }
-
-   if (is_zero(b, eps)) {
-      return I20bc(c2, a2);
-   }
-
-   if (is_zero(c, eps)) {
-      return I20bc(a2, b2);
    }
 
    return (+ a2 * b2 * std::log(a2/b2)

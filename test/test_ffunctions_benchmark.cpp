@@ -29,6 +29,28 @@ double time_in_milliseconds(F&& f)
 
 } // anonymous namespace
 
+TEST_CASE("benchmark Iabc")
+{
+   const unsigned N = 1000000;
+   std::vector<double> x(N), y(N) ,z(N);
+
+   const auto ran = [] { return random(0.1, 1000); };
+
+   std::generate(std::begin(x), std::end(x), ran);
+   std::generate(std::begin(y), std::end(y), ran);
+   std::generate(std::begin(z), std::end(z), ran);
+
+   const auto time_in_ms = time_in_milliseconds(
+      [&] {
+         for (unsigned i = 0; i < N; ++i) {
+            (void) gm2calc::Iabc(x[i], y[i], z[i]);
+         }
+      }
+   );
+
+   std::cout << "Iabc(x,y,z): average time per point: " << time_in_ms*1000/N << " ns\n";
+}
+
 TEST_CASE("benchmark Phi")
 {
    const unsigned N = 1000000;
