@@ -289,6 +289,7 @@ TEST_CASE("test-point-GAMBIT")
 
    gm2calc::SM sm;
    sm.set_alpha_em_mz(1.0/132.23323);
+   sm.set_ckm_from_wolfenstein(0.22537, 0.814, 0.117, 0.353);
 
    gm2calc::GeneralTHDM model(basis, sm);
 
