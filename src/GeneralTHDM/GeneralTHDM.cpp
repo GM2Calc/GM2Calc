@@ -154,7 +154,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_u() const
       return sqrt2*mu*get_zeta_u()/v;
    }
 
-   return get_Xu()/cb + sqrt2*mu*get_zeta_u()/v;
+   return get_Xu()/cb - sqrt2*mu*get_tan_beta()/v;
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_d() const
@@ -168,7 +168,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_d() const
       return sqrt2*md*get_zeta_d()/v;
    }
 
-   return get_Xd()/cb + sqrt2*md*get_zeta_d()/v;
+   return get_Xd()/cb - sqrt2*md*get_tan_beta()/v;
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_l() const
@@ -182,7 +182,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_l() const
       return sqrt2*ml*get_zeta_l()/v;
    }
 
-   return get_Xe()/cb + sqrt2*ml*get_zeta_l()/v;
+   return get_Xe()/cb - sqrt2*ml*get_tan_beta()/v;
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_yuh() const
