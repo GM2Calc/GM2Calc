@@ -20,10 +20,10 @@ int main()
    basis.m122 = 40000;
 
    gm2calc::SM sm;
-   sm.set_alpha_em_mz(1.0/127.934);
-   sm.set_mu(2, 172.5);
-   sm.set_mu(1, 1.42);
-   sm.set_md(2, 4.75);
+   sm.set_alpha_em_mz(1.0/128.94579);
+   sm.set_mu(2, 173.34);
+   sm.set_mu(1, 1.28);
+   sm.set_md(2, 4.18);
    sm.set_ml(2, 1.77684);
 
    try {
