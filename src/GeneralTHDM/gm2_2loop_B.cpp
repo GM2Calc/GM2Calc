@@ -19,6 +19,7 @@
 #include "GeneralTHDM/gm2_2loop_helpers.hpp"
 #include "gm2_dilog.hpp"
 #include "gm2_ffunctions.hpp"
+#include "gm2_numerics.hpp"
 
 /**
  * \file gm2_2loop_B.cpp
@@ -41,10 +42,6 @@ namespace {
 
 const double pi = 3.1415926535897932;
 const double pi2 = 9.8696044010893586; // Pi^2
-
-double sqr(double x) noexcept { return x*x; }
-
-double pow3(double x) noexcept { return sqr(x)*x; }
 
 /// Eq.(102), arxiv:1607.06292
 double YF1(double u, double w, double cw2) noexcept
@@ -194,7 +191,7 @@ double T0(double u, double w, double cw2) noexcept
    const auto cw4 = cw2*cw2;
 
    return
-      9/cw4*(u - w)*(cw2*(u - w)*(u + 2*w) - pow3(u - w) + cw4*w)
+      9/cw4*(u - w)*(cw2*(u - w)*(u + 2*w) - cube(u - w) + cw4*w)
       /(cw4 + sqr(u - w) - 2*cw2*(u + w))*Phi(u,w,cw2);
 }
 
@@ -258,7 +255,7 @@ double T5(double u, double w, double cw2) noexcept
    const auto f8 = (13 - 20*cw2 + 4*cw4)/(cw2*sw2);
 
    return std::log(u)*(
-      3.0/2*u + f6/cw2*(pow3(u - w) + 3*cw2*sqr(u - w) + 3*cw4*(u - w))
+      3.0/2*u + f6/cw2*(cube(u - w) + 3*cw2*sqr(u - w) + 3*cw4*(u - w))
       - 3.0/2*f8*u*(u - w) - cw2/2 - cw4);
 }
 
@@ -317,7 +314,7 @@ double T9(double u, double w, double cw2) noexcept
    const auto w2 = w*w;
 
    return
-      - 2*(cw4*w + cw2*(u2 + u*w - 2*w2) - pow3(u-w))*Phi(u,w,cw2)
+      - 2*(cw4*w + cw2*(u2 + u*w - 2*w2) - cube(u-w))*Phi(u,w,cw2)
         /((cw2 - w)*(cw4 - 2*cw2*(u+w) + sqr(u-w)))
       + 2*cw4*(u2 - 4*u*w + 2*w2)*Phi(u,w,w)/(w2*(w-cw2)*(u-4*w))
       - 2*(cw2*u*(u-2*w) + w*sqr(u-w))*dilog(1.0 - u/w)/w2;
