@@ -31,7 +31,6 @@
  * @todo(alex) Catch divergent case: w = 0
  * @todo(alex) Catch divergent case: w = 1/4
  * @todo(alex) Catch divergent case: w = u/4
- * @todo(alex) add neglected 2-loop \f$\Delta r\f$ term to 2-loop uncertainty
  */
 
 namespace gm2calc {
