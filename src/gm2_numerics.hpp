@@ -20,6 +20,7 @@
 #define GM2_NUMERICS_HPP
 
 #include <cmath>
+#include <complex>
 #include <limits>
 
 namespace gm2calc {
@@ -35,6 +36,16 @@ template <typename T> T pow4(T x) noexcept { return sqr(sqr(x)); }
 
 /// returns square root of absolute of number
 double abs_sqrt(double) noexcept;
+
+/// fast implementation of complex logarithm
+template <class T>
+std::complex<T> log(const std::complex<T>& z) noexcept
+{
+   const T rz = std::real(z);
+   const T iz = std::imag(z);
+
+   return std::complex<T>(0.5*std::log(rz*rz + iz*iz), std::atan2(iz, rz));
+}
 
 /// returns sign of real number
 int sign(double) noexcept;

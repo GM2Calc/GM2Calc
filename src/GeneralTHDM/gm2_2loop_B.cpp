@@ -284,7 +284,7 @@ double T7(double u, double w, double cw2) noexcept
    const auto s1 = u + w - 1.0 + std::sqrt(ra); // Eq.(79)
 
    const auto res =
-      -0.5*f5*(2*(u + w) - sqr(u - w) - 1)*std::log(s1/(2*std::sqrt(u*w)))
+      -0.5*f5*(2*(u + w) - sqr(u - w) - 1)*gm2calc::log(s1/(2*std::sqrt(u*w)))
       *(u + w - 1 - 4*u*w/s1);
 
    return std::real(res);
@@ -300,7 +300,7 @@ double T8(double u, double w, double cw2) noexcept
    const auto s2 = u + w - cw2 + std::sqrt(ra); // Eq.(81)
 
    const auto res =
-      2.0*f6*(4*u*w - sqr(u + w - cw2))*std::log(s2/(2*std::sqrt(u*w)))
+      2.0*f6*(4*u*w - sqr(u + w - cw2))*gm2calc::log(s2/(2*std::sqrt(u*w)))
       *((u + w)/cw2 - 4.0*u*w/(cw2*s2) - 1.0);
 
    return std::real(res);
@@ -378,11 +378,11 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const auto s2 = std::sqrt(std::complex<double>(xh*(-4*cw2 + xh), 0.0));
    const auto lh = std::log(xh);
    const auto lc = std::log(cw2);
-   const auto l1 = std::log(1.0 - (s1 + xh)/2.0);
-   const auto l2 = std::log((-s1 + xh)/2.0);
-   const auto l3 = std::log((1.0 - s0)/2.0);
-   const auto l4 = std::log(1.0 - (s2 + xh)/(2.0*cw2));
-   const auto l5 = std::log((-s2 + xh)/(2.0*cw2));
+   const auto l1 = gm2calc::log(1.0 - (s1 + xh)/2.0);
+   const auto l2 = gm2calc::log((-s1 + xh)/2.0);
+   const auto l3 = gm2calc::log((1.0 - s0)/2.0);
+   const auto l4 = gm2calc::log(1.0 - (s2 + xh)/(2.0*cw2));
+   const auto l5 = gm2calc::log((-s2 + xh)/(2.0*cw2));
    const auto li1 = dilog((xh - s1)/2.0);
    const auto li2 = dilog(1.0 - (xh + s1)/2.0);
    const auto li3 = dilog(1.0 - xh/cw2);
