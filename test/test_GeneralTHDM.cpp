@@ -289,7 +289,7 @@ TEST_CASE("test-point-GAMBIT")
 
    gm2calc::SM sm;
    sm.set_alpha_em_mz(1.0/132.23323);
-   sm.set_ckm_from_wolfenstein(0.22537, 0.814, 0.117, 0.353);
+   sm.set_ckm_from_wolfenstein(0, 0, 0, 0);
 
    gm2calc::GeneralTHDM model(basis, sm);
 
@@ -299,7 +299,7 @@ TEST_CASE("test-point-GAMBIT")
    const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
 
    CHECK_CLOSE(amu1L*1e8, 6.9952544, 1e-7);
-   // CHECK_CLOSE(amu2L*1e8, -5.6596159, 1e-7);
+   CHECK_CLOSE(amu2L*1e8, 265.56157, 1e-7);
 }
 
 
