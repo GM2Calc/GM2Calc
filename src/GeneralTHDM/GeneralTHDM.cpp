@@ -20,8 +20,6 @@
 #include "gm2calc/gm2_error.hpp"
 #include "gm2_numerics.hpp"
 
-#include <iostream>
-
 namespace gm2calc {
 
 namespace {
