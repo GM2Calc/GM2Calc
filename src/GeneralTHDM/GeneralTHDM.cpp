@@ -206,7 +206,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_yuA() const
 Eigen::Matrix<double,3,3> GeneralTHDM::get_yuHp() const
 {
    /// @todo(alex) add CKM matrix
-   return sqrt2*get_yuA();
+   return -get_xi_u();
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ydh() const
@@ -237,7 +237,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_ydA() const
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ydHp() const
 {
    /// @todo(alex) add CKM matrix
-   return sqrt2*get_ydA();
+   return get_xi_d();
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ylh() const
@@ -267,8 +267,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_ylA() const
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ylHp() const
 {
-   /// @todo(alex) add CKM matrix
-   return sqrt2*get_ylA();
+   return get_xi_l();
 }
 
 void GeneralTHDM::set_basis(const GeneralTHDM::General_basis& basis)
