@@ -205,8 +205,8 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_yuA() const
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_yuHp() const
 {
-   /// @todo(alex) add CKM matrix
-   return -get_xi_u();
+   /// @todo(alex) check complex phases of CKM matrix
+   return -sm.get_ckm().adjoint().real()*get_xi_u();
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ydh() const
@@ -236,8 +236,8 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_ydA() const
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ydHp() const
 {
-   /// @todo(alex) add CKM matrix
-   return get_xi_d();
+   /// @todo(alex) check complex phases of CKM matrix
+   return sm.get_ckm().real()*get_xi_d();
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ylh() const
