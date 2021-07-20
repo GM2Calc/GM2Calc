@@ -120,7 +120,7 @@ double GeneralTHDM::get_zeta_d() const
       case Yukawa_scheme::type_Y:
          return -get_tan_beta();
       case Yukawa_scheme::general:
-         return -get_tan_beta(); /// @todo(alex) check
+         return -get_tan_beta(); // should never arrive here
    }
 }
 
@@ -137,7 +137,7 @@ double GeneralTHDM::get_zeta_l() const
       case Yukawa_scheme::type_Y:
          return 1.0/get_tan_beta();
       case Yukawa_scheme::general:
-         return -get_tan_beta(); /// @todo(alex) check
+         return -get_tan_beta(); // should never arrive here
    }
 }
 
@@ -147,7 +147,6 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_u() const
    const double v = get_v();
    const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
 
-   /// @todo(alex) check
    if (yukawa_scheme != Yukawa_scheme::general) {
       return sqrt2*mu*get_zeta_u()/v;
    }
@@ -161,7 +160,6 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_d() const
    const double v = get_v();
    const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
 
-   /// @todo(alex) check
    if (yukawa_scheme != Yukawa_scheme::general) {
       return sqrt2*md*get_zeta_d()/v;
    }
@@ -175,7 +173,6 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_l() const
    const double v = get_v();
    const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
 
-   /// @todo(alex) check
    if (yukawa_scheme != Yukawa_scheme::general) {
       return sqrt2*ml*get_zeta_l()/v;
    }
