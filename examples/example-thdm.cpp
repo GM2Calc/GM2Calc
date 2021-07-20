@@ -28,7 +28,7 @@ int main()
    sm.set_ml(2, 1.77684);
 
    try {
-      gm2calc::GeneralTHDM model(basis);
+      gm2calc::GeneralTHDM model(basis, sm);
 
       const double amu = gm2calc::calculate_amu_1loop(model)
                        + gm2calc::calculate_amu_2loop(model);
