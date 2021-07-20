@@ -51,8 +51,6 @@ void GeneralTHDM::init_gauge_couplings()
 
 /**
  * Initialize Yukawa couplings
- *
- * @todo(alex) fix Yukawa couplings for all THDM types in a generic way
  */
 void GeneralTHDM::init_yukawas()
 {
