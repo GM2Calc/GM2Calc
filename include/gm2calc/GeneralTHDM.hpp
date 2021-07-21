@@ -84,12 +84,12 @@ public:
    Eigen::Matrix<double,3,3> get_yuh() const;
    Eigen::Matrix<double,3,3> get_yuH() const;
    Eigen::Matrix<double,3,3> get_yuA() const;
-   Eigen::Matrix<double,3,3> get_yuHp() const;
+   Eigen::Matrix<std::complex<double>,3,3> get_yuHp() const;
 
    Eigen::Matrix<double,3,3> get_ydh() const;
    Eigen::Matrix<double,3,3> get_ydH() const;
    Eigen::Matrix<double,3,3> get_ydA() const;
-   Eigen::Matrix<double,3,3> get_ydHp() const;
+   Eigen::Matrix<std::complex<double>,3,3> get_ydHp() const;
 
    Eigen::Matrix<double,3,3> get_ylh() const;
    Eigen::Matrix<double,3,3> get_ylH() const;

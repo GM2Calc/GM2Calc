@@ -203,10 +203,9 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_yuA() const
    return get_xi_u()/sqrt2;
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_yuHp() const
+Eigen::Matrix<std::complex<double>,3,3> GeneralTHDM::get_yuHp() const
 {
-   /// @todo(alex) check complex phases of CKM matrix
-   return -(sm.get_ckm().adjoint().real()*get_xi_u()).transpose();
+   return -(sm.get_ckm().adjoint()*get_xi_u()).transpose();
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ydh() const
@@ -234,9 +233,8 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_ydA() const
    return -get_xi_d()/sqrt2;
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_ydHp() const
+Eigen::Matrix<std::complex<double>,3,3> GeneralTHDM::get_ydHp() const
 {
-   /// @todo(alex) check complex phases of CKM matrix
    return sm.get_ckm().real()*get_xi_d();
 }
 
