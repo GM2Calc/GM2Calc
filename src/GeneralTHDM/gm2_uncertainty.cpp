@@ -82,15 +82,20 @@ double calculate_uncertainty_amu_1loop(const GeneralTHDM& model)
  */
 double calculate_uncertainty_amu_2loop(const GeneralTHDM& model)
 {
+   const double pi = 3.1415926535897932;
    const double delta_r_shift_max = 2e-12;
 
    const double alpha_em = model.get_alpha_em();
+   const double mm = model.get_MFe(1);
+   const double mH = model.get_Mhh(1);
+   const double mA = model.get_MAh(1);
    const double mHp = model.get_MHm(1);
-   const double mz = model.get_MVZ();
-   const double delta_alpha_em_shift
-      = calculate_amu_2loop(model)*general_thdm::delta_alpha(alpha_em, mHp, mz);
+   const double mNP = std::cbrt(mH*mA*mHp); // new physics scale
+   // universal 2-loop QED logarithmic correction from Eq.(51) hep-ph/9803384
+   const double delta_alpha_em = -4*alpha_em/pi*std::log(std::abs(mNP/mm));
+   const double delta_alpha_em_shift = std::abs(calculate_amu_2loop(model)*delta_alpha_em);
 
-   return delta_r_shift_max + std::abs(delta_alpha_em_shift);
+   return delta_r_shift_max + delta_alpha_em_shift;
 }
 
 } // namespace gm2calc
