@@ -204,7 +204,7 @@ double T1(double u, double w, double cw2) noexcept
 }
 
 /// Eq.(74), arxiv:1607.06292, factor 1/(u-w) has been pulled out
-double T2(double u, double /* w */, double cw2, double xH, double xA, double xHp, int sgn) noexcept
+double T2(double u, double cw2, double xH, double xA, double xHp, int sgn) noexcept
 {
    const auto cw4 = cw2*cw2;
    const auto sw2 = 1.0 - cw2;
@@ -225,15 +225,15 @@ double T2(double u, double /* w */, double cw2, double xH, double xA, double xHp
 }
 
 /// Eq.(74), arxiv:1607.06292 with positive sign
-double T2p(double u, double w, double cw2, double xH, double xA, double xHp) noexcept
+double T2p(double u, double cw2, double xH, double xA, double xHp) noexcept
 {
-   return T2(u, w, cw2, xH, xA, xHp, +1);
+   return T2(u, cw2, xH, xA, xHp, +1);
 }
 
 /// Eq.(74), arxiv:1607.06292 with negative sign
-double T2m(double u, double w, double cw2, double xH, double xA, double xHp) noexcept
+double T2m(double u, double cw2, double xH, double xA, double xHp) noexcept
 {
-   return T2(u, w, cw2, xH, xA, xHp, -1);
+   return T2(u, cw2, xH, xA, xHp, -1);
 }
 
 /// Eq.(75), arxiv:1607.06292, prefactor (u-v) has been pulled out
@@ -537,8 +537,8 @@ double amu2L_B_nonYuk(const THDM_B_parameters& thdm) noexcept
    const auto f5 = cw2*(5 - 16*cw2 + 8*cw4)/sw2;
 
    const double res =
-      + (T2p(xA, xH, cw2, xH, xA, xHp) - T2p(xHp, xA, cw2, xH, xA, xHp))/(xA - xHp)
-      + (T2m(xH, xHp, cw2, xH, xA, xHp) - T2p(xHp, xH, cw2, xH, xA, xHp))/(xH - xHp)
+      + (T2p(xA, cw2, xH, xA, xHp) - T2p(xHp, cw2, xH, xA, xHp))/(xA - xHp)
+      + (T2m(xH, cw2, xH, xA, xHp) - T2p(xHp, cw2, xH, xA, xHp))/(xH - xHp)
       + (xA - xH)*T4(xA, xHp, cw2, xH, xA)
       + (xH - xA)*T4(xH, xA, cw2, xH, xA)
       + T5(xHp, xH, cw2)
