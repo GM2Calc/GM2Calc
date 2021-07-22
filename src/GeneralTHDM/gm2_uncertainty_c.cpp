@@ -1,0 +1,42 @@
+/* ====================================================================
+ * This file is part of GM2Calc.
+ *
+ * GM2Calc is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * GM2Calc is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with GM2Calc.  If not, see
+ * <http://www.gnu.org/licenses/>.
+ * ==================================================================== */
+
+#include "gm2calc/gm2_uncertainty.h"
+#include "gm2calc/gm2_uncertainty.hpp"
+
+extern "C" {
+
+double gm2calc_generalthdm_calculate_uncertainty_amu_0loop(const GeneralTHDM* model)
+{
+   return gm2calc::calculate_uncertainty_amu_0loop(
+      *reinterpret_cast<const gm2calc::GeneralTHDM*>(model));
+}
+
+double gm2calc_generalthdm_calculate_uncertainty_amu_1loop(const GeneralTHDM* model)
+{
+   return gm2calc::calculate_uncertainty_amu_1loop(
+      *reinterpret_cast<const gm2calc::GeneralTHDM*>(model));
+}
+
+double gm2calc_generalthdm_calculate_uncertainty_amu_2loop(const GeneralTHDM* model)
+{
+   return gm2calc::calculate_uncertainty_amu_2loop(
+      *reinterpret_cast<const gm2calc::GeneralTHDM*>(model));
+}
+
+} /* extern "C" */

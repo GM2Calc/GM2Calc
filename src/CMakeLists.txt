@@ -19,16 +19,21 @@ add_library(gm2calc
   MSSMNoFV/MSSMNoFV_onshell_soft_parameters.cpp
   MSSMNoFV/MSSMNoFV_onshell_susy_parameters.cpp
   GeneralTHDM/gm2_1loop.cpp
+  GeneralTHDM/gm2_1loop_c.cpp
   GeneralTHDM/gm2_1loop_H.cpp
   GeneralTHDM/gm2_2loop.cpp
+  GeneralTHDM/gm2_2loop_c.cpp
   GeneralTHDM/gm2_2loop_B.cpp
   GeneralTHDM/gm2_2loop_F.cpp
   GeneralTHDM/gm2_uncertainty.cpp
+  GeneralTHDM/gm2_uncertainty_c.cpp
   GeneralTHDM/GeneralTHDM.cpp
+  GeneralTHDM/GeneralTHDM_c.cpp
   GeneralTHDM/GeneralTHDM_mass_eigenstates.cpp
   GeneralTHDM/GeneralTHDM_problems.cpp
   GeneralTHDM/GeneralTHDM_parameters.cpp
   SM/SM.cpp
+  SM/SM_c.cpp
   )
 target_include_directories(gm2calc
   PUBLIC
