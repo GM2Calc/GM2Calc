@@ -236,14 +236,14 @@ double T2m(double u, double w, double cw2, double xH, double xA, double xHp) noe
    return T2(u, w, cw2, xH, xA, xHp, -1);
 }
 
-/// Eq.(75), arxiv:1607.06292
+/// Eq.(75), arxiv:1607.06292, prefactor (u-v) has been pulled out
 double T4(double u, double w, double cw2, double xH, double xA) noexcept
 {
    const auto cw4 = cw2*cw2;
    const auto sw2 = 1.0 - cw2;
    const auto f5 = cw2*(5 - 16*cw2 + 8*cw4)/sw2;
 
-   return (u - w)*std::log(u)/4*f5*(xA*(3 + 2*xH) - sqr(xA) + 3*xH - sqr(xH) - 3);
+   return std::log(u)/4*f5*(xA*(3 + 2*xH) - sqr(xA) + 3*xH - sqr(xH) - 3);
 }
 
 /// Eq.(76), arxiv:1607.06292
@@ -539,8 +539,8 @@ double amu2L_B_nonYuk(const THDM_B_parameters& thdm) noexcept
    const double res =
       + (xA - xH)/(xA - xHp)*T2p(xA, xH, cw2, xH, xA, xHp)
       + T2m(xH, xHp, cw2, xH, xA, xHp)
-      + (xA - xH)/(xA - xHp)*T4(xA, xHp, cw2, xH, xA)
-      + T4(xH, xA, cw2, xH, xA)
+      + (xA - xH)*T4(xA, xHp, cw2, xH, xA)
+      + (xH - xA)*T4(xH, xA, cw2, xH, xA)
       + T5(xHp, xH, cw2)
       + T5(xHp, xA, cw2)
       + T2p(xHp, xH, cw2, xH, xA, xHp)
