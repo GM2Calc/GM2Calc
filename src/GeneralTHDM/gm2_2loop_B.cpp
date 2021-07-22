@@ -237,7 +237,7 @@ double T2m(double u, double w, double cw2, double xH, double xA, double xHp) noe
 }
 
 /// Eq.(75), arxiv:1607.06292, prefactor (u-v) has been pulled out
-double T4(double u, double w, double cw2, double xH, double xA) noexcept
+double T4(double u, double /* w */, double cw2, double xH, double xA) noexcept
 {
    const auto cw4 = cw2*cw2;
    const auto sw2 = 1.0 - cw2;
