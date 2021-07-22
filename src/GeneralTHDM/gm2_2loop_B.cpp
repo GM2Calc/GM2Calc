@@ -538,13 +538,13 @@ double amu2L_B_nonYuk(const THDM_B_parameters& thdm) noexcept
 
    const double res =
       + T2p(xA, xH, cw2, xH, xA, xHp)/(xA - xHp)
+      + T2p(xHp, xA, cw2, xH, xA, xHp)/(xHp - xA)
       + T2m(xH, xHp, cw2, xH, xA, xHp)/(xH - xHp)
+      + T2p(xHp, xH, cw2, xH, xA, xHp)/(xHp - xH)
       + (xA - xH)*T4(xA, xHp, cw2, xH, xA)
       + (xH - xA)*T4(xH, xA, cw2, xH, xA)
       + T5(xHp, xH, cw2)
       + T5(xHp, xA, cw2)
-      + T2p(xHp, xH, cw2, xH, xA, xHp)/(xHp - xH)
-      + T2p(xHp, xA, cw2, xH, xA, xHp)/(xHp - xA)
       + T6(xA, xHp, cw2)
       + T6(xH, xHp, cw2)
       + T7(xA, xH, cw2)
