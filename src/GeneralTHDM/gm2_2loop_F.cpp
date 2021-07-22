@@ -21,6 +21,7 @@
 #include "gm2_ffunctions.hpp"
 
 #include <cmath>
+#include <limits>
 
 /**
  * \file gm2_2loop_F.cpp
@@ -79,6 +80,10 @@ double calc_v2(const THDM_F_parameters& thdm)
 /// Eq (56), arxiv:1607.06292, S = h or H
 double FS(double ms2, double mf2)
 {
+   if (std::abs(ms2 - 4*mf2) < std::numeric_limits<double>::epsilon()) {
+      return -2.0;
+   }
+
    return -2.0 + std::log(ms2/mf2)
       - (ms2 - 2*mf2)/ms2 * Phi(ms2, mf2, mf2)/(ms2 - 4*mf2);
 }
@@ -86,6 +91,10 @@ double FS(double ms2, double mf2)
 /// Eq (57), arxiv:1607.06292, S = A
 double FA(double ms2, double mf2)
 {
+   if (std::abs(ms2 - 4*mf2) < std::numeric_limits<double>::epsilon()) {
+      return 2.7725887222397812; // Log[16]
+   }
+
    return Phi(ms2, mf2, mf2)/(ms2 - 4*mf2);
 }
 
