@@ -536,9 +536,11 @@ double amu2L_B_nonYuk(const THDM_B_parameters& thdm) noexcept
    const auto f4 = 13.0/2 - 15*cw2 + 10*cw4;
    const auto f5 = cw2*(5 - 16*cw2 + 8*cw4)/sw2;
 
-   const double res =
+   const double t2 =
       + (T2p(xA, cw2, xH, xA, xHp) - T2p(xHp, cw2, xH, xA, xHp))/(xA - xHp)
-      + (T2m(xH, cw2, xH, xA, xHp) - T2p(xHp, cw2, xH, xA, xHp))/(xH - xHp)
+      + (T2m(xH, cw2, xH, xA, xHp) - T2p(xHp, cw2, xH, xA, xHp))/(xH - xHp);
+
+   const double res = t2
       + (xA - xH)*(T4(xA, cw2, xH, xA) - T4(xH, cw2, xH, xA))
       + T5(xHp, xH, cw2)
       + T5(xHp, xA, cw2)
