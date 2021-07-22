@@ -237,7 +237,7 @@ double T2m(double u, double cw2, double xH, double xA, double xHp) noexcept
 }
 
 /// Eq.(75), arxiv:1607.06292, prefactor (u-v) has been pulled out
-double T4(double u, double /* w */, double cw2, double xH, double xA) noexcept
+double T4(double u, double cw2, double xH, double xA) noexcept
 {
    const auto cw4 = cw2*cw2;
    const auto sw2 = 1.0 - cw2;
@@ -539,8 +539,8 @@ double amu2L_B_nonYuk(const THDM_B_parameters& thdm) noexcept
    const double res =
       + (T2p(xA, cw2, xH, xA, xHp) - T2p(xHp, cw2, xH, xA, xHp))/(xA - xHp)
       + (T2m(xH, cw2, xH, xA, xHp) - T2p(xHp, cw2, xH, xA, xHp))/(xH - xHp)
-      + (xA - xH)*T4(xA, xHp, cw2, xH, xA)
-      + (xH - xA)*T4(xH, xA, cw2, xH, xA)
+      + (xA - xH)*T4(xA, cw2, xH, xA)
+      + (xH - xA)*T4(xH, cw2, xH, xA)
       + T5(xHp, xH, cw2)
       + T5(xHp, xA, cw2)
       + T6(xA, xHp, cw2)
