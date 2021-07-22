@@ -216,12 +216,12 @@ double T2(double u, double w, double cw2, double xH, double xA, double xHp, int 
    const auto f9 = 7 - 12*cw2 + 8*cw4;
 
    return std::log(u)*(
-      + (6*u2 + cw2*(u - xHp) + 2*cw4*(u - xHp))/(2*(u - w))
-      + f6*sqr(u - xHp)*(3*cw4 + 3*cw2*(u - xHp) + sqr(u - xHp))/(cw2*(u - w))
-      + sgn*f7*3*u2*(u - xHp)/((xA - xH)*(u - w))
-      - f8*3*u*sqr(u - xHp)/(2*(u - w))
-      - f9*3*u*(u - xHp)/(2*(u - w))
-      );
+      + (6*u2 + cw2*(u - xHp) + 2*cw4*(u - xHp))/2
+      + f6*sqr(u - xHp)*(3*cw4 + 3*cw2*(u - xHp) + sqr(u - xHp))/cw2
+      + sgn*f7*3*u2*(u - xHp)/(xA - xH)
+      - f8*3*u*sqr(u - xHp)/2
+      - f9*3*u*(u - xHp)/2
+      )/(u - w);
 }
 
 /// Eq.(74), arxiv:1607.06292 with positive sign
