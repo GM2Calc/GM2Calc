@@ -303,7 +303,7 @@ TEST_CASE("test-point-GAMBIT")
 }
 
 
-TEST_CASE("test-point-GAMBIT-CKM")
+TEST_CASE("test-point-GAMBIT-real-CKM")
 {
    gm2calc::GeneralTHDM::General_basis basis;
    basis.yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::general;
@@ -336,6 +336,42 @@ TEST_CASE("test-point-GAMBIT-CKM")
 
    CHECK_CLOSE(amu1L*1e8, 6.9952544, 1e-7);
    CHECK_CLOSE(amu2L*1e8, 265.56157, 1e-7);
+}
+
+
+TEST_CASE("test-point-GAMBIT-complex-CKM")
+{
+   gm2calc::GeneralTHDM::General_basis basis;
+   basis.yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::general;
+   basis.lambda1 =  2.02924518279587396;
+   basis.lambda2 =  0.25812066515822629;
+   basis.lambda3 =  0.81575007334344507;
+   basis.lambda4 =  0.43433870128700558;
+   basis.lambda5 = -0.55866546170766029;
+   basis.lambda6 =  0.0;
+   basis.lambda7 =  0.0;
+   basis.tan_beta = 20.0;
+   basis.m122 = 1428;
+   basis.Xu << 0.0, 0.0, 0.0, 0.0, 0.3, 0.05, 0.0, 0.05, 0.3;
+   basis.Xd << 0.0, 0.0, 0.0, 0.0, 0.2, 0.03, 0.0, 0.03, 0.2;
+   basis.Xe << 0.0, 0.0, 0.0, 0.0, 0.1, 0.01, 0.0, 0.01, 0.1;
+
+   Eigen::Matrix<std::complex<double>,3,3> ckm;
+   ckm << 1.0, 0.22537, std::complex<double>(0.0010901809,-0.0032891784),
+         -0.22537, 1.0, 0.041344392,
+         std::complex<double>(0.0082276048,-0.0032891784), -0.041344392, 1.0;
+
+   gm2calc::SM sm;
+   sm.set_alpha_em_mz(1.0/132.23323);
+   sm.set_ckm(ckm);
+
+   gm2calc::GeneralTHDM model(basis, sm);
+
+   CHECK(!model.get_problems().have_problem());
+
+   const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
+
+   // CHECK_CLOSE(amu2L*1e8, 173.724, 1e-6);
 }
 
 
