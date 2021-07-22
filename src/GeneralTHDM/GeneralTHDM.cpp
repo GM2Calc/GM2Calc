@@ -235,7 +235,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_ydA() const
 
 Eigen::Matrix<std::complex<double>,3,3> GeneralTHDM::get_ydHp() const
 {
-   return sm.get_ckm().real()*get_xi_d();
+   return sm.get_ckm()*get_xi_d();
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_ylh() const
