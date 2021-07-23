@@ -28,7 +28,6 @@
  * contributions for g-2 at the 2-loop level.
  *
  * @todo(alex) Catch divergent case: u = 0
- * @todo(alex) Catch divergent case: u = 1 (test exists)
  * @todo(alex) Catch divergent case: w = 0
  * @todo(alex) Catch divergent case: w = cw2 (test exists)
  */
@@ -52,6 +51,9 @@ double YF1(double u, double w, double cw2) noexcept
    }
    if (is_equal_rel(0.25, w, eps_shift)) {
       w = (1 + eps_shift)*0.25;
+   }
+   if (is_equal_rel(1.0, u, eps_shift)) {
+      u = 1 + eps_shift;
    }
 
    const auto cw4 = cw2*cw2;
