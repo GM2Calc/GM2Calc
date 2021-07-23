@@ -28,10 +28,11 @@
  * contributions for g-2 at the 2-loop level.
  *
  * @todo(alex) Catch divergent case: u = 0
- * @todo(alex) Catch divergent case: u = 1
+ * @todo(alex) Catch divergent case: u = 1 (test exists)
  * @todo(alex) Catch divergent case: w = 0
- * @todo(alex) Catch divergent case: w = 1/4
- * @todo(alex) Catch divergent case: w = u/4
+ * @todo(alex) Catch divergent case: w = 1/4 (test exists)
+ * @todo(alex) Catch divergent case: w = u/4 (test exists)
+ * @todo(alex) Catch divergent case: w = cw2 (test exists)
  */
 
 namespace gm2calc {

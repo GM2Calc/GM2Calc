@@ -690,3 +690,101 @@ pp = {
     */
    CHECK_CLOSE(1e10*amu, -0.5388969587184598, 1e-12);
 }
+
+
+TEST_CASE("2-loop_bosonic_Yuk-divergence")
+{
+   // test non-divergence for mH = mHp
+   {
+      gm2calc::general_thdm::THDM_B_parameters pars;
+      pars.alpha_em = 1./137.036;
+      pars.mm = 0.10565837;
+      pars.mw = 80.379;
+      pars.mz = 91.1876;
+      pars.mh << 0.0, 300.0;
+      pars.mhSM = 125.0;
+      pars.mHp = pars.mh(1);
+      pars.tb = 30.0;
+      pars.zetal = 1.0;
+      pars.eta = 2.0;
+      pars.lambda5 = 3.0;
+
+      CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_Yuk(pars)));
+   }
+
+   // test non-divergence for mH = 2 mHp
+   {
+      gm2calc::general_thdm::THDM_B_parameters pars;
+      pars.alpha_em = 1./137.036;
+      pars.mm = 0.10565837;
+      pars.mw = 80.379;
+      pars.mz = 91.1876;
+      pars.mh << 0.0, 300.0;
+      pars.mhSM = 125.0;
+      pars.mHp = 150.0;
+      pars.tb = 30.0;
+      pars.zetal = 1.0;
+      pars.eta = 2.0;
+      pars.lambda5 = 3.0;
+
+      // @todo(alex)
+      // CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_Yuk(pars)));
+   }
+
+   // test non-divergence for mHp = mw
+   {
+      gm2calc::general_thdm::THDM_B_parameters pars;
+      pars.alpha_em = 1./137.036;
+      pars.mm = 0.10565837;
+      pars.mw = 80.379;
+      pars.mz = 91.1876;
+      pars.mh << 0.0, 300.0;
+      pars.mhSM = 125.0;
+      pars.mHp = pars.mw;
+      pars.tb = 30.0;
+      pars.zetal = 1.0;
+      pars.eta = 2.0;
+      pars.lambda5 = 3.0;
+
+      // @todo(alex)
+      // CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_Yuk(pars)));
+   }
+
+   // test non-divergence for mh = mz
+   {
+      gm2calc::general_thdm::THDM_B_parameters pars;
+      pars.alpha_em = 1./137.036;
+      pars.mm = 0.10565837;
+      pars.mw = 80.379;
+      pars.mz = 91.1876;
+      pars.mh << 0.0, 300.0;
+      pars.mhSM = pars.mz;
+      pars.mHp = 200.0;
+      pars.tb = 30.0;
+      pars.zetal = 1.0;
+      pars.eta = 2.0;
+      pars.lambda5 = 3.0;
+
+      // @todo(alex)
+      // CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_Yuk(pars)));
+   }
+
+   // test non-divergence for mHp = mz/2
+   {
+      gm2calc::general_thdm::THDM_B_parameters pars;
+      pars.alpha_em = 1./137.036;
+      pars.mm = 0.10565837;
+      pars.mw = 80.379;
+      pars.mz = 91.1876;
+      pars.mh << 0.0, 300.0;
+      pars.mhSM = 125.0;
+      pars.mHp = pars.mz/2;
+      pars.tb = 30.0;
+      pars.zetal = 1.0;
+      pars.eta = 2.0;
+      pars.lambda5 = 3.0;
+
+      // @todo(alex)
+      // CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_Yuk(pars)));
+   }
+}
