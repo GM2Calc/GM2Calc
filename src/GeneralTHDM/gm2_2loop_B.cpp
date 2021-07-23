@@ -30,7 +30,6 @@
  * @todo(alex) Catch divergent case: u = 0
  * @todo(alex) Catch divergent case: u = 1 (test exists)
  * @todo(alex) Catch divergent case: w = 0
- * @todo(alex) Catch divergent case: w = 1/4 (test exists)
  * @todo(alex) Catch divergent case: w = cw2 (test exists)
  */
 
@@ -50,6 +49,9 @@ double YF1(double u, double w, double cw2) noexcept
 {
    if (is_equal_rel(u, 4*w, eps_shift)) {
       u = (1 + eps_shift)*4*w;
+   }
+   if (is_equal_rel(0.25, w, eps_shift)) {
+      w = (1 + eps_shift)*0.25;
    }
 
    const auto cw4 = cw2*cw2;
