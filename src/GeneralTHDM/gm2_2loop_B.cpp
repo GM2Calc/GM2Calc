@@ -203,6 +203,12 @@ double T1(double u, double w, double cw2) noexcept
    return 9/cw4*(u - w)*(cw2*w - sqr(u - w))*dilog(1.0 - u/w);
 }
 
+/// calculates potentially divergent (a^2 Log[a] - b^2 Log[b])/(a - b)
+double dxlog(double a, double b) noexcept
+{
+   return (sqr(a)*std::log(a) - sqr(b)*std::log(b))/(a - b);
+}
+
 /**
  * Calculates the following combination of T2 loop functions, Eq.(74),
  * arxiv:1607.06292:
@@ -218,9 +224,9 @@ double TX(double xH, double xA, double xHp, double cw2) noexcept
    const auto f8 = (13 - 20*cw2 + 4*cw4)/(cw2*sw2);
    const auto f9 = 7 - 12*cw2 + 8*cw4;
 
-   const auto xAH = (sqr(xA)*std::log(xA) - sqr(xH)*std::log(xH))/(xA - xH);
-   const auto xAHp = (sqr(xA)*std::log(xA) - sqr(xHp)*std::log(xHp))/(xA - xHp);
-   const auto xHHp = (sqr(xH)*std::log(xH) - sqr(xHp)*std::log(xHp))/(xH - xHp);
+   const auto xAH  = dxlog(xA, xH);
+   const auto xAHp = dxlog(xA, xHp);
+   const auto xHHp = dxlog(xH, xHp);
 
    return
    (cw2 + 2*cw4 - 3*f9*xA)*std::log(xA)/2
