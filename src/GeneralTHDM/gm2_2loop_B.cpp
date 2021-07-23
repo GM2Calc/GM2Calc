@@ -203,37 +203,33 @@ double T1(double u, double w, double cw2) noexcept
    return 9/cw4*(u - w)*(cw2*w - sqr(u - w))*dilog(1.0 - u/w);
 }
 
-/// Eq.(74), arxiv:1607.06292, factor 1/(u-w) has been pulled out
-double T2(double u, double cw2, double xH, double xA, double xHp, int sgn) noexcept
+/**
+ * Calculates the following combination of T2 loop functions, Eq.(74),
+ * arxiv:1607.06292:
+ *
+ * (xA - xH)/(xA - xHp)*T2p[xA, xH] + T2m[xH, xHp] + T2p[xHp, xH] + T2p[xHp, xA]
+ */
+double TX(double xH, double xA, double xHp, double cw2) noexcept
 {
-   const auto cw4 = cw2*cw2;
+   const auto cw4 = sqr(cw2);
    const auto sw2 = 1.0 - cw2;
-   const auto u2 = u*u;
-
    const auto f6 = (7 - 14*cw2 + 4*cw4)/(4*cw2*sw2);
    const auto f7 = 1 - 6*cw2 + 4*cw4;
    const auto f8 = (13 - 20*cw2 + 4*cw4)/(cw2*sw2);
    const auto f9 = 7 - 12*cw2 + 8*cw4;
 
-   return std::log(u)*(
-      + (6*u2 + cw2*(u - xHp) + 2*cw4*(u - xHp))/2
-      + f6*sqr(u - xHp)*(3*cw4 + 3*cw2*(u - xHp) + sqr(u - xHp))/cw2
-      + sgn*f7*3*u2*(u - xHp)/(xA - xH)
-      - f8*3*u*sqr(u - xHp)/2
-      - f9*3*u*(u - xHp)/2
-      );
-}
-
-/// Eq.(74), arxiv:1607.06292 with positive sign
-double T2p(double u, double cw2, double xH, double xA, double xHp) noexcept
-{
-   return T2(u, cw2, xH, xA, xHp, +1);
-}
-
-/// Eq.(74), arxiv:1607.06292 with negative sign
-double T2m(double u, double cw2, double xH, double xA, double xHp) noexcept
-{
-   return T2(u, cw2, xH, xA, xHp, -1);
+   return
+   (cw2 + 2*cw4 - 3*f9*xA)*std::log(xA)/2
+   + (3*cw2*f6 - (3*f8*xA)/2.)*(xA - xHp)*std::log(xA)
+   + 3*f6*sqr(xA - xHp)*std::log(xA)
+   + (f6*cube(xA - xHp)*std::log(xA))/cw2
+   + ((cw2 + 2*cw4 - 3*f9*xH)*std::log(xH))/2
+   + (3*cw2*f6 - (3*f8*xH)/2.)*(xH - xHp)*std::log(xH)
+   + 3*f6*sqr(xH - xHp)*std::log(xH)
+   + (f6*cube(xH - xHp)*std::log(xH))/cw2
+   + (3*f7*sqr(xA)*std::log(xA) - 3*f7*sqr(xH)*std::log(xH))/(xA - xH)
+   + (3*sqr(xA)*std::log(xA) - 3*sqr(xHp)*std::log(xHp))/(xA - xHp)
+   + (3*sqr(xH)*std::log(xH) - 3*sqr(xHp)*std::log(xHp))/(xH - xHp);
 }
 
 /// Eq.(75), arxiv:1607.06292, prefactor (u-v) has been pulled out
@@ -536,11 +532,8 @@ double amu2L_B_nonYuk(const THDM_B_parameters& thdm) noexcept
    const auto f4 = 13.0/2 - 15*cw2 + 10*cw4;
    const auto f5 = cw2*(5 - 16*cw2 + 8*cw4)/sw2;
 
-   const double t2 =
-      + (T2p(xA, cw2, xH, xA, xHp) - T2p(xHp, cw2, xH, xA, xHp))/(xA - xHp)
-      + (T2m(xH, cw2, xH, xA, xHp) - T2p(xHp, cw2, xH, xA, xHp))/(xH - xHp);
-
-   const double res = t2
+   const double res =
+      + TX(xH, xA, xHp, cw2)
       + (xA - xH)*(T4(xA, cw2, xH, xA) - T4(xH, cw2, xH, xA))
       + T5(xHp, xH, cw2)
       + T5(xHp, xA, cw2)
