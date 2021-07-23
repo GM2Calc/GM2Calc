@@ -31,7 +31,6 @@
  * @todo(alex) Catch divergent case: u = 1 (test exists)
  * @todo(alex) Catch divergent case: w = 0
  * @todo(alex) Catch divergent case: w = 1/4 (test exists)
- * @todo(alex) Catch divergent case: w = u/4 (test exists)
  * @todo(alex) Catch divergent case: w = cw2 (test exists)
  */
 
@@ -44,9 +43,15 @@ namespace {
 const double pi = 3.1415926535897932;
 const double pi2 = 9.8696044010893586; // Pi^2
 
+const double eps_shift = 1e-8; // shift to avoid spurious divergence for u = 4w
+
 /// Eq.(102), arxiv:1607.06292
 double YF1(double u, double w, double cw2) noexcept
 {
+   if (is_equal_rel(u, 4*w, eps_shift)) {
+      u = (1 + eps_shift)*4*w;
+   }
+
    const auto cw4 = cw2*cw2;
    const auto c0 = cw2*(-1 + cw2)*(u + 2*w)/u;
 
@@ -321,6 +326,10 @@ double T8(double u, double w, double cw2) noexcept
 /// Eq.(103), arxiv:1607.06292
 double T9(double u, double w, double cw2) noexcept
 {
+   if (is_equal_rel(u, 4*w, eps_shift)) {
+      u = (1 + eps_shift)*4*w;
+   }
+
    const auto cw4 = cw2*cw2;
    const auto u2 = u*u;
    const auto w2 = w*w;
