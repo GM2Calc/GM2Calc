@@ -29,7 +29,6 @@
  *
  * @todo(alex) Catch divergent case: u = 0
  * @todo(alex) Catch divergent case: w = 0
- * @todo(alex) Catch divergent case: w = cw2 (test exists)
  */
 
 namespace gm2calc {
@@ -110,6 +109,13 @@ double YFW(double u, double cw2) noexcept
 /// Eq.(105), arxiv:1607.06292
 double YF2(double u, double cw2) noexcept
 {
+   if (is_equal_rel(4*cw2, u, eps_shift)) {
+      u = (1 + eps_shift)*4*cw2;
+   }
+   if (is_equal_rel(1.0, u, eps_shift)) {
+      u = 1 + eps_shift;
+   }
+
    const auto cw4 = cw2*cw2;
    const auto cw6 = cw4*cw2;
    const auto cw8 = cw4*cw4;
@@ -148,6 +154,13 @@ double YF2(double u, double cw2) noexcept
 /// Eq.(126), arxiv:1607.06292
 double YF3(double u, double w, double cw2) noexcept
 {
+   if (is_equal_rel(4*cw2, u, eps_shift)) {
+      u = (1 + eps_shift)*4*cw2;
+   }
+   if (is_equal_rel(cw2, w, eps_shift)) {
+      w = (1 + eps_shift)*cw2;
+   }
+
    const auto cw4 = cw2*cw2;
    const auto cw6 = cw4*cw2;
    const auto cw8 = cw4*cw4;
@@ -333,6 +346,9 @@ double T9(double u, double w, double cw2) noexcept
    if (is_equal_rel(u, 4*w, eps_shift)) {
       u = (1 + eps_shift)*4*w;
    }
+   if (is_equal_rel(cw2, w, eps_shift)) {
+      w = (1 + eps_shift)*cw2;
+   }
 
    const auto cw4 = cw2*cw2;
    const auto u2 = u*u;
@@ -348,6 +364,10 @@ double T9(double u, double w, double cw2) noexcept
 /// Eq.(104), arxiv:1607.06292
 double T10(double u, double w, double cw2) noexcept
 {
+   if (is_equal_rel(cw2, w, eps_shift)) {
+      w = (1 + eps_shift)*cw2;
+   }
+
    const auto u2 = u*u;
    const auto w2 = w*w;
    const auto lwu = std::log(w/u);
