@@ -218,18 +218,20 @@ double TX(double xH, double xA, double xHp, double cw2) noexcept
    const auto f8 = (13 - 20*cw2 + 4*cw4)/(cw2*sw2);
    const auto f9 = 7 - 12*cw2 + 8*cw4;
 
+   const auto xAH = (3*f7*sqr(xA)*std::log(xA) - 3*f7*sqr(xH)*std::log(xH))/(xA - xH);
+   const auto xAHp = (3*sqr(xA)*std::log(xA) - 3*sqr(xHp)*std::log(xHp))/(xA - xHp);
+   const auto xHHp = (3*sqr(xH)*std::log(xH) - 3*sqr(xHp)*std::log(xHp))/(xH - xHp);
+
    return
    (cw2 + 2*cw4 - 3*f9*xA)*std::log(xA)/2
-   + (3*cw2*f6 - (3*f8*xA)/2.)*(xA - xHp)*std::log(xA)
+   + (3*cw2*f6 - (3*f8*xA)/2)*(xA - xHp)*std::log(xA)
    + 3*f6*sqr(xA - xHp)*std::log(xA)
    + (f6*cube(xA - xHp)*std::log(xA))/cw2
-   + ((cw2 + 2*cw4 - 3*f9*xH)*std::log(xH))/2
-   + (3*cw2*f6 - (3*f8*xH)/2.)*(xH - xHp)*std::log(xH)
+   + (cw2 + 2*cw4 - 3*f9*xH)*std::log(xH)/2
+   + (3*cw2*f6 - (3*f8*xH)/2)*(xH - xHp)*std::log(xH)
    + 3*f6*sqr(xH - xHp)*std::log(xH)
    + (f6*cube(xH - xHp)*std::log(xH))/cw2
-   + (3*f7*sqr(xA)*std::log(xA) - 3*f7*sqr(xH)*std::log(xH))/(xA - xH)
-   + (3*sqr(xA)*std::log(xA) - 3*sqr(xHp)*std::log(xHp))/(xA - xHp)
-   + (3*sqr(xH)*std::log(xH) - 3*sqr(xHp)*std::log(xHp))/(xH - xHp);
+   + xAH + xAHp + xHHp;
 }
 
 /// Eq.(75), arxiv:1607.06292, prefactor (u-v) has been pulled out
