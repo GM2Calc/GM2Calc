@@ -206,7 +206,13 @@ double T1(double u, double w, double cw2) noexcept
 /// calculates potentially divergent (a^2 Log[a] - b^2 Log[b])/(a - b)
 double dxlog(double a, double b) noexcept
 {
-   return (sqr(a)*std::log(a) - sqr(b)*std::log(b))/(a - b);
+   const double lb = std::log(b);
+
+   if (is_equal_rel(a, b, 1e-4)) {
+      return b*(1 + 2*lb) + (a - b)*(1.5 + lb) + sqr(a - b)/(3*b);
+   }
+
+   return (sqr(a)*std::log(a) - sqr(b)*lb)/(a - b);
 }
 
 /**
