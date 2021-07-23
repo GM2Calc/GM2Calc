@@ -497,6 +497,25 @@ TEST_CASE("2-loop_bosonic_EWadd")
 }
 
 
+TEST_CASE("2-loop_bosonic_EWadd-divergence")
+{
+   // test non-divergence for mh = mhSM = mz
+   {
+      gm2calc::general_thdm::THDM_B_parameters pars;
+      pars.alpha_em = 1/137.036;
+      pars.mm = 0.10565837;
+      pars.mw = 80.379;
+      pars.mz = 91.1876;
+      pars.mhSM = pars.mz;
+      pars.mh << pars.mz, 0.0;
+      pars.zetal = 2;
+      pars.eta = 3;
+
+      CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_EWadd(pars)));
+   }
+}
+
+
 TEST_CASE("2-loop_bosonic_nonYuk")
 {
    gm2calc::general_thdm::THDM_B_parameters pars;
