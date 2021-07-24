@@ -42,18 +42,20 @@ const double pi2 = 9.8696044010893586; // Pi^2
 
 const double eps_shift = 1e-8; // shift to avoid spurious divergence for u = 4w
 
+/// shift value away from limit, if it is close to the limit
+void shift(double& val, double limit, double eps) noexcept
+{
+   if (is_equal_rel(val, limit, eps)) {
+      val = (1 + eps_shift)*limit;
+   }
+}
+
 /// Eq.(102), arxiv:1607.06292
 double YF1(double u, double w, double cw2) noexcept
 {
-   if (is_equal_rel(u, 4*w, eps_shift)) {
-      u = (1 + eps_shift)*4*w;
-   }
-   if (is_equal_rel(0.25, w, eps_shift)) {
-      w = (1 + eps_shift)*0.25;
-   }
-   if (is_equal_rel(1.0, u, eps_shift)) {
-      u = 1 + eps_shift;
-   }
+   shift(u, 4*w, eps_shift);
+   shift(w, 0.25, eps_shift);
+   shift(u, 1.0, eps_shift);
 
    const auto cw4 = cw2*cw2;
    const auto c0 = cw2*(-1 + cw2)*(u + 2*w)/u;
@@ -109,12 +111,8 @@ double YFW(double u, double cw2) noexcept
 /// Eq.(105), arxiv:1607.06292
 double YF2(double u, double cw2) noexcept
 {
-   if (is_equal_rel(4*cw2, u, eps_shift)) {
-      u = (1 + eps_shift)*4*cw2;
-   }
-   if (is_equal_rel(1.0, u, eps_shift)) {
-      u = 1 + eps_shift;
-   }
+   shift(u, 4*cw2, eps_shift);
+   shift(u, 1.0, eps_shift);
 
    const auto cw4 = cw2*cw2;
    const auto cw6 = cw4*cw2;
@@ -154,12 +152,8 @@ double YF2(double u, double cw2) noexcept
 /// Eq.(126), arxiv:1607.06292
 double YF3(double u, double w, double cw2) noexcept
 {
-   if (is_equal_rel(4*cw2, u, eps_shift)) {
-      u = (1 + eps_shift)*4*cw2;
-   }
-   if (is_equal_rel(cw2, w, eps_shift)) {
-      w = (1 + eps_shift)*cw2;
-   }
+   shift(u, 4*cw2, eps_shift);
+   shift(w, cw2, eps_shift);
 
    const auto cw4 = cw2*cw2;
    const auto cw6 = cw4*cw2;
@@ -343,12 +337,8 @@ double T8(double u, double w, double cw2) noexcept
 /// Eq.(103), arxiv:1607.06292
 double T9(double u, double w, double cw2) noexcept
 {
-   if (is_equal_rel(u, 4*w, eps_shift)) {
-      u = (1 + eps_shift)*4*w;
-   }
-   if (is_equal_rel(cw2, w, eps_shift)) {
-      w = (1 + eps_shift)*cw2;
-   }
+   shift(u, 4*w, eps_shift);
+   shift(w, cw2, eps_shift);
 
    const auto cw4 = cw2*cw2;
    const auto u2 = u*u;
@@ -364,9 +354,7 @@ double T9(double u, double w, double cw2) noexcept
 /// Eq.(104), arxiv:1607.06292
 double T10(double u, double w, double cw2) noexcept
 {
-   if (is_equal_rel(cw2, w, eps_shift)) {
-      w = (1 + eps_shift)*cw2;
-   }
+   shift(w, cw2, eps_shift);
 
    const auto u2 = u*u;
    const auto w2 = w*w;
