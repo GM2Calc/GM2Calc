@@ -59,38 +59,38 @@ namespace {
       return e * e / (4. * Pi);
    }
 
+   /// prints Eigen Matrix/Array row in pretty format
+   template <class Derived>
+   void print_row(std::ostream& str, const Eigen::DenseBase<Derived>& row)
+   {
+      str << '{';
+      if (row.rows() > 0) {
+         str << row(0);
+         for (int i = 1; i < row.cols(); ++i) {
+            str << ", " << row(i);
+         }
+      }
+      str << '}';
+   }
+
    /// prints Eigen Matrix/Array in pretty format
    template <class Derived>
    std::string pretty_print(const Eigen::DenseBase<Derived>& v)
    {
-      const bool is_matrix = v.rows() > 1;
-
       std::ostringstream sstr;
 
-      for (auto i = 0; i < v.rows(); i++) {
-         if (is_matrix && i == 0) {
-            sstr << '{';
-         }
-
-         for (auto k = 0; k < v.cols(); k++) {
-            if (k == 0) {
-               sstr << '{';
-            }
-            sstr << v(i,k);
-            if (k + 1 == v.cols()) {
-               sstr << '}';
-            } else {
+      if (v.rows() == 1) {
+         print_row(sstr, v.row(0));
+      } else {
+         sstr << '{';
+         if (v.rows() > 0) {
+            print_row(sstr, v.row(0));
+            for (int r = 1; r < v.rows(); ++r) {
                sstr << ", ";
+               print_row(sstr, v.row(r));
             }
          }
-
-         if (is_matrix) {
-            if (i + 1 == v.rows()) {
-               sstr << '}';
-            } else {
-               sstr << ", ";
-            }
-         }
+         sstr << '}';
       }
 
       return sstr.str();
