@@ -258,7 +258,7 @@ TEST_CASE("2HDMC-demo-point")
    CHECK(!model.get_problems().have_problem());
 
    const auto amu1L = gm2calc::calculate_amu_1loop(model);
-   const auto amu2L = gm2calc::calculate_amu_2loop(model);
+   // const auto amu2L = gm2calc::calculate_amu_2loop(model);
 
    // Notes on the 2HDMC result:
    // * the 1- and 2-loop SM Higgs contributions are not subtracted
@@ -369,7 +369,7 @@ TEST_CASE("test-point-GAMBIT-complex-CKM")
 
    CHECK(!model.get_problems().have_problem());
 
-   const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
+   // const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
 
    // CHECK_CLOSE(amu2L*1e8, 173.724, 1e-6);
 }
