@@ -27,26 +27,35 @@ double time_in_milliseconds(F&& f)
    return sw.get_time_in_milliseconds();
 }
 
-} // anonymous namespace
-
-TEST_CASE("benchmark F1")
+template <class F>
+double bench_1_in_ms(double start, double stop, unsigned N, F f)
 {
-   const unsigned N = 1000000;
    std::vector<double> x(N);
 
-   const auto ran = [] { return random(0.1, 1000); };
+   const auto ran = [&] { return random(start, stop); };
 
    std::generate(std::begin(x), std::end(x), ran);
 
    const auto time_in_ms = time_in_milliseconds(
       [&] {
          for (unsigned i = 0; i < N; ++i) {
-            (void) gm2calc::F1(x[i]);
+            (void) f(x[i]);
          }
       }
    );
 
-   std::cout << "F1(x): average time per point: " << time_in_ms*1000/N << " ns\n";
+   return time_in_ms/N;
+}
+
+} // anonymous namespace
+
+TEST_CASE("benchmark F1")
+{
+   const auto time_in_ms = bench_1_in_ms(
+      0.1, 1000.0, 1000000,
+      [] (double x) { return gm2calc::F1(x); });
+
+   std::cout << "F1(x): average time per point: " << time_in_ms*1000 << " ns\n";
 }
 
 TEST_CASE("benchmark Iabc")
