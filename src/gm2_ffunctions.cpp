@@ -621,6 +621,9 @@ double f_sferm(double z) noexcept {
    return 0.5*z*(2.0 + std::log(z) - f_PS(z));
 }
 
+/**
+ * \f$\mathcal{F}_1(\omega)\f$, Eq (25) arxiv:1502.04199
+ */
 double F1(double w) noexcept {
    if (w < 0.0) {
       ERROR("F1: w must not be negative!");
@@ -647,10 +650,16 @@ double F1(double w) noexcept {
    return std::real(w/y*res);
 }
 
+/**
+ * \f$\tilde{\mathcal{F}}_1(\omega)\f$, Eq (26) arxiv:1502.04199
+ */
 double F1t(double w) noexcept {
    return 0.5*f_PS(w);
 }
 
+/**
+ * \f$\mathcal{F}_2(\omega)\f$, Eq (27) arxiv:1502.04199
+ */
 double F2(double w) noexcept {
    if (w < 0.0) {
       ERROR("F2: w must not be negative!");
@@ -676,6 +685,9 @@ double F2(double w) noexcept {
    return std::real(w/y*res);
 }
 
+/**
+ * \f$\mathcal{F}_3(\omega)\f$, Eq (28) arxiv:1502.04199
+ */
 double F3(double w) noexcept {
    if (w < 0.0) {
       ERROR("F2: w must not be negative!");
