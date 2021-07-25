@@ -26,8 +26,6 @@
 #include <complex>
 #include <limits>
 
-#include <boost/numeric/odeint.hpp>
-
 namespace gm2calc {
 
 namespace {
@@ -58,21 +56,6 @@ namespace {
       if (x > y) { std::swap(x, y); }
       if (y > z) { std::swap(y, z); }
       if (x > y) { std::swap(x, y); }
-   }
-
-   template <typename T>
-   double integrate(T fun, double start, double stop, double dt)
-   {
-      using boost::numeric::odeint::integrate;
-      using state_type = std::array<double, 1>;
-
-      const auto f = [fun](const state_type& /* unused */, state_type& dxdt,
-                           double x) { dxdt[0] = fun(x); };
-
-      state_type x0 = {start};
-      integrate(f, x0, start, stop, dt);
-
-      return x0[0];
    }
 
    /// lambda^2(u,v)
@@ -731,24 +714,6 @@ double F3(double w) noexcept {
       ;
 
    return std::real(w/(12.0*y)*res);
-}
-
-double G(double wa, double wb, double x) noexcept {
-   return std::log((wa*x+wb*(1-x))/(x*(1-x)))/(x*(1-x)-wa*x-wb*(1-x));
-}
-
-double Gn(double wa, double wb, int n) noexcept {
-   const auto fun = [wa, wb, n](double x) {
-      return std::pow(x,n)*G(wa, wb, x);
-   };
-
-   double res = std::numeric_limits<double>::quiet_NaN();
-
-   try {
-      res = integrate(fun, 0.0 + eps, 1.0 - eps, eps);
-   } catch (...) {}
-
-   return res;
 }
 
 /**

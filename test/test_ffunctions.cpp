@@ -147,14 +147,6 @@ TEST_CASE("test_Fab")
    test_2("Fb", [] (double x, double y) { return gm2calc::Fb(x,y); }, 1e-7);
 }
 
-TEST_CASE("test_Gn")
-{
-   test_2("Gn0", [] (double x, double y) { return gm2calc::Gn(x, y, 0); }, 1e-5);
-   test_2("Gn1", [] (double x, double y) { return gm2calc::Gn(x, y, 1); }, 1e-5);
-   test_2("Gn2", [] (double x, double y) { return gm2calc::Gn(x, y, 2); }, 1e-5);
-   test_2("Gn3", [] (double x, double y) { return gm2calc::Gn(x, y, 3); }, 1e-5);
-}
-
 template <typename T>
 void test_3(const char* func_name, T func, double eps)
 {
