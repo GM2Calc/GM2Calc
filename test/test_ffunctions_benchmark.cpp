@@ -29,6 +29,26 @@ double time_in_milliseconds(F&& f)
 
 } // anonymous namespace
 
+TEST_CASE("benchmark F1")
+{
+   const unsigned N = 1000000;
+   std::vector<double> x(N);
+
+   const auto ran = [] { return random(0.1, 1000); };
+
+   std::generate(std::begin(x), std::end(x), ran);
+
+   const auto time_in_ms = time_in_milliseconds(
+      [&] {
+         for (unsigned i = 0; i < N; ++i) {
+            (void) gm2calc::F1(x[i]);
+         }
+      }
+   );
+
+   std::cout << "F1(x): average time per point: " << time_in_ms*1000/N << " ns\n";
+}
+
 TEST_CASE("benchmark Iabc")
 {
    const unsigned N = 1000000;
