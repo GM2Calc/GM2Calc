@@ -25,10 +25,6 @@
  *
  * This file contains the declarations for the C interface functions
  * used to set and retrieve the model parameters and masses.
- *
- * @todo adding getters and setters for general basis parameters
- * @todo adding getters and setters for physical basis parameters
- * @todo adding getters for THDM model parameters
  */
 
 #include "gm2calc/gm2_error.h"

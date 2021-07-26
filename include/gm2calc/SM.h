@@ -25,8 +25,6 @@
  *
  * This file contains the declarations for the C interface functions
  * used to set and retrieve the SM parameters and masses.
- *
- * @todo adding getters and setters for SM parameters
  */
 
 #ifdef __cplusplus
