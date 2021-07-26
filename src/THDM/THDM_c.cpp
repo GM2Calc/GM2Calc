@@ -175,7 +175,7 @@ extern "C"
  */
 gm2calc_error gm2calc_thdm_new_with_general_basis(THDM** model, THDM_general_basis* basis, ::SM* sm)
 {
-   if (model == 0 || basis == 0 || sm == 0) {
+   if (model == 0) {
       return gm2calc_InvalidInput;
    }
 
@@ -214,7 +214,7 @@ gm2calc_error gm2calc_thdm_new_with_general_basis(THDM** model, THDM_general_bas
  */
 gm2calc_error gm2calc_thdm_new_with_physical_basis(THDM** model, THDM_physical_basis* basis, ::SM* sm)
 {
-   if (model == 0 || basis == 0 || sm == 0) {
+   if (model == 0) {
       return gm2calc_InvalidInput;
    }
 
