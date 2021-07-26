@@ -61,6 +61,92 @@ gm2calc::SM convert_to_SM(gm2calc_SM* sm)
    return s;
 }
 
+gm2calc::GeneralTHDM::General_basis convert_to_basis(GeneralTHDM_general_basis* basis)
+{
+   gm2calc::GeneralTHDM::General_basis b;
+
+   if (basis != 0) {
+      switch (basis->yukawa_scheme) {
+      case GeneralTHDM_type_1:
+         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_1;
+         break;
+      case GeneralTHDM_type_2:
+         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_2;
+         break;
+      case GeneralTHDM_type_X:
+         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_X;
+         break;
+      case GeneralTHDM_type_Y:
+         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_Y;
+         break;
+      case GeneralTHDM_general:
+         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::general;
+         break;
+      }
+      b.lambda1 = basis->lambda1;
+      b.lambda2 = basis->lambda2;
+      b.lambda3 = basis->lambda3;
+      b.lambda4 = basis->lambda4;
+      b.lambda5 = basis->lambda5;
+      b.lambda6 = basis->lambda6;
+      b.lambda7 = basis->lambda7;
+      b.tan_beta = basis->tan_beta;
+      b.m122 = basis->m122;
+      for (int i = 0; i < 3; i++) {
+         for (int k = 0; k < 3; k++) {
+            b.Xu(i, k) = basis->Xu[i][k];
+            b.Xd(i, k) = basis->Xd[i][k];
+            b.Xl(i, k) = basis->Xl[i][k];
+         }
+      }
+   }
+
+   return b;
+}
+
+gm2calc::GeneralTHDM::Physical_basis convert_to_basis(GeneralTHDM_physical_basis* basis)
+{
+   gm2calc::GeneralTHDM::Physical_basis b;
+
+   if (basis != 0) {
+      switch (basis->yukawa_scheme) {
+      case GeneralTHDM_type_1:
+         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_1;
+         break;
+      case GeneralTHDM_type_2:
+         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_2;
+         break;
+      case GeneralTHDM_type_X:
+         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_X;
+         break;
+      case GeneralTHDM_type_Y:
+         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_Y;
+         break;
+      case GeneralTHDM_general:
+         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::general;
+         break;
+      }
+      b.mh = basis->mh;
+      b.mH = basis->mH;
+      b.mA = basis->mA;
+      b.mHp = basis->mHp;
+      b.sin_beta_minus_alpha = basis->sin_beta_minus_alpha;
+      b.lambda6 = basis->lambda6;
+      b.lambda7 = basis->lambda7;
+      b.tan_beta = basis->tan_beta;
+      b.m122 = basis->m122;
+      for (int i = 0; i < 3; i++) {
+         for (int k = 0; k < 3; k++) {
+            b.Xu(i, k) = basis->Xu[i][k];
+            b.Xd(i, k) = basis->Xd[i][k];
+            b.Xl(i, k) = basis->Xl[i][k];
+         }
+      }
+   }
+
+   return b;
+}
+
 } // anonymous namespace
 } // namespace gm2calc
 
@@ -74,214 +160,6 @@ gm2calc::SM convert_to_SM(gm2calc_SM* sm)
 
 extern "C"
 {
-
-/* ********** general basis ********** */
-
-/**
- * @brief Allocate a new general basis for the general THDM.
- * @return pointer to general basis
- */
-GeneralTHDM_general_basis* gm2calc_generalthdm_general_basis_new()
-{
-   return reinterpret_cast<GeneralTHDM_general_basis*>(new gm2calc::GeneralTHDM::General_basis());
-}
-
-/**
- * @brief Deletes a general basis for the general THDM.
- * @param pointer to general basis
- */
-void gm2calc_generalthdm_general_basis_free(GeneralTHDM_general_basis* basis)
-{
-   delete reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis);
-}
-
-void gm2calc_generalthdm_general_basis_set_yukawa_scheme(GeneralTHDM_general_basis* basis, GeneralTHDM_yukawa_scheme yukawa_scheme)
-{
-   auto b = reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis);
-
-   switch (yukawa_scheme) {
-   case GeneralTHDM_type_1:
-      b->yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::type_1;
-      break;
-   case GeneralTHDM_type_2:
-      b->yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::type_2;
-      break;
-   case GeneralTHDM_type_X:
-      b->yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::type_X;
-      break;
-   case GeneralTHDM_type_Y:
-      b->yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::type_Y;
-      break;
-   case GeneralTHDM_general:
-      b->yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::general;
-      break;
-   }
-}
-
-void gm2calc_generalthdm_general_basis_set_lambda_1(GeneralTHDM_general_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis)->lambda1 = val;
-}
-
-void gm2calc_generalthdm_general_basis_set_lambda_2(GeneralTHDM_general_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis)->lambda2 = val;
-}
-
-void gm2calc_generalthdm_general_basis_set_lambda_3(GeneralTHDM_general_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis)->lambda3 = val;
-}
-
-void gm2calc_generalthdm_general_basis_set_lambda_4(GeneralTHDM_general_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis)->lambda4 = val;
-}
-
-void gm2calc_generalthdm_general_basis_set_lambda_5(GeneralTHDM_general_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis)->lambda5 = val;
-}
-
-void gm2calc_generalthdm_general_basis_set_lambda_6(GeneralTHDM_general_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis)->lambda6 = val;
-}
-
-void gm2calc_generalthdm_general_basis_set_lambda_7(GeneralTHDM_general_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis)->lambda7 = val;
-}
-
-void gm2calc_generalthdm_general_basis_set_tan_beta(GeneralTHDM_general_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis)->tan_beta = val;
-}
-
-void gm2calc_generalthdm_general_basis_set_m122(GeneralTHDM_general_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis)->m122 = val;
-}
-
-void gm2calc_generalthdm_general_basis_set_Xu(GeneralTHDM_general_basis* basis, unsigned i, unsigned j, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis)->Xu(i, j) = val;
-}
-
-void gm2calc_generalthdm_general_basis_set_Xd(GeneralTHDM_general_basis* basis, unsigned i, unsigned j, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis)->Xd(i, j) = val;
-}
-
-void gm2calc_generalthdm_general_basis_set_Xl(GeneralTHDM_general_basis* basis, unsigned i, unsigned j, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis)->Xl(i, j) = val;
-}
-
-/* ********** physical basis ********** */
-
-/**
- * @brief Allocate a new physical basis for the general THDM.
- * @return pointer to physical basis
- */
-GeneralTHDM_physical_basis* gm2calc_generalthdm_physical_basis_new()
-{
-   return reinterpret_cast<GeneralTHDM_physical_basis*>(new gm2calc::GeneralTHDM::Physical_basis());
-}
-
-/**
- * @brief Deletes a physical basis for the physical THDM.
- * @param pointer to physical basis
- */
-void gm2calc_generalthdm_physical_basis_free(GeneralTHDM_physical_basis* basis)
-{
-   delete reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis);
-}
-
-void gm2calc_generalthdm_physical_basis_set_yukawa_scheme(GeneralTHDM_physical_basis* basis, GeneralTHDM_yukawa_scheme yukawa_scheme)
-{
-   auto b = reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis);
-
-   switch (yukawa_scheme) {
-   case GeneralTHDM_type_1:
-      b->yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::type_1;
-      break;
-   case GeneralTHDM_type_2:
-      b->yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::type_2;
-      break;
-   case GeneralTHDM_type_X:
-      b->yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::type_X;
-      break;
-   case GeneralTHDM_type_Y:
-      b->yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::type_Y;
-      break;
-   case GeneralTHDM_general:
-      b->yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::general;
-      break;
-   }
-}
-
-void gm2calc_generalthdm_physical_basis_set_mh(GeneralTHDM_physical_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis)->mh = val;
-}
-
-void gm2calc_generalthdm_physical_basis_set_mH(GeneralTHDM_physical_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis)->mH = val;
-}
-
-void gm2calc_generalthdm_physical_basis_set_mA(GeneralTHDM_physical_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis)->mA = val;
-}
-
-void gm2calc_generalthdm_physical_basis_set_mHp(GeneralTHDM_physical_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis)->mHp = val;
-}
-
-void gm2calc_generalthdm_physical_basis_set_sin_beta_minus_alpha(GeneralTHDM_physical_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis)->sin_beta_minus_alpha = val;
-}
-
-void gm2calc_generalthdm_physical_basis_set_lambda_6(GeneralTHDM_physical_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis)->lambda6 = val;
-}
-
-void gm2calc_generalthdm_physical_basis_set_lambda_7(GeneralTHDM_physical_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis)->lambda7 = val;
-}
-
-void gm2calc_generalthdm_physical_basis_set_tan_beta(GeneralTHDM_physical_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis)->tan_beta = val;
-}
-
-void gm2calc_generalthdm_physical_basis_set_m122(GeneralTHDM_physical_basis* basis, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis)->m122 = val;
-}
-
-void gm2calc_generalthdm_physical_basis_set_Xu(GeneralTHDM_physical_basis* basis, unsigned i, unsigned j, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis)->Xu(i, j) = val;
-}
-
-void gm2calc_generalthdm_physical_basis_set_Xd(GeneralTHDM_physical_basis* basis, unsigned i, unsigned j, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis)->Xd(i, j) = val;
-}
-
-void gm2calc_generalthdm_physical_basis_set_Xl(GeneralTHDM_physical_basis* basis, unsigned i, unsigned j, double val)
-{
-   reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis)->Xl(i, j) = val;
-}
-
-/* ********** THDM model ********** */
 
 /**
  * @brief Allocate a new general THDM model with general basis input.
@@ -304,9 +182,9 @@ gm2calc_error gm2calc_generalthdm_new_with_general_basis(GeneralTHDM** model, Ge
    gm2calc_error error;
 
    try {
-      const auto b = reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis);
-      const auto s = reinterpret_cast<gm2calc::SM*>(sm);
-      *model = reinterpret_cast<GeneralTHDM*>(new gm2calc::GeneralTHDM(*b, *s));
+      const auto b(gm2calc::convert_to_basis(basis));
+      const auto s(gm2calc::convert_to_SM(sm));
+      *model = reinterpret_cast<GeneralTHDM*>(new gm2calc::GeneralTHDM(b, s));
       error = gm2calc_NoError;
    } catch (const gm2calc::EInvalidInput&) {
       *model = 0;
@@ -343,9 +221,9 @@ gm2calc_error gm2calc_generalthdm_new_with_physical_basis(GeneralTHDM** model, G
    gm2calc_error error;
 
    try {
-      const auto b = reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis);
-      const gm2calc::SM s(gm2calc::convert_to_SM(sm));
-      *model = reinterpret_cast<GeneralTHDM*>(new gm2calc::GeneralTHDM(*b, s));
+      const auto b(gm2calc::convert_to_basis(basis));
+      const auto s(gm2calc::convert_to_SM(sm));
+      *model = reinterpret_cast<GeneralTHDM*>(new gm2calc::GeneralTHDM(b, s));
       error = gm2calc_NoError;
    } catch (const gm2calc::EInvalidInput&) {
       *model = 0;
