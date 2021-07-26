@@ -286,6 +286,10 @@ void GeneralTHDM::set_basis(const GeneralTHDM::General_basis& basis)
    init_yukawas();
    solve_ewsb();
    calculate_MSbar_masses();
+
+   if (get_problems().have_problem()) {
+      throw EPhysicalProblem(get_problems().get_problems());
+   }
 }
 
 void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
@@ -356,6 +360,10 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
    init_yukawas();
    solve_ewsb();
    calculate_MSbar_masses();
+
+   if (get_problems().have_problem()) {
+      throw EPhysicalProblem(get_problems().get_problems());
+   }
 }
 
 void GeneralTHDM::set_tan_beta(double tb)

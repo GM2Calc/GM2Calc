@@ -44,7 +44,6 @@ TEST_CASE("tree-level-spectrum")
 
    gm2calc::GeneralTHDM model(basis);
 
-   CHECK(!model.get_problems().have_problem());
    CHECK(model.get_MVG() == 0.0);
    CHECK(model.get_MVP() == 0.0);
    CHECK_CLOSE(model.get_MVZ(), model.get_sm().get_mz(), eps);
@@ -142,8 +141,6 @@ TEST_CASE("test_light_Higgs_spectrum")
    model.set_m122(0.1);
    model.calculate_MSbar_masses();
 
-   CHECK(!model.get_problems().have_problem());
-
    // Higgs bosons are lighter than W and Z
    CHECK_LT(model.get_MAh(1), model.get_MVZ());
    CHECK_LT(model.get_MHm(1), model.get_MVWm());
@@ -209,7 +206,6 @@ TEST_CASE("physical_basis")
 
    // initialize using the basis
    gm2calc::GeneralTHDM model2(basis);
-   CHECK(!model2.get_problems().have_problem());
 
    // initialize by hand
    gm2calc::GeneralTHDM_mass_eigenstates model1;
@@ -255,7 +251,6 @@ TEST_CASE("2HDMC-demo-point")
    basis.m122 = sqr(200.0);
 
    gm2calc::GeneralTHDM model(basis);
-   CHECK(!model.get_problems().have_problem());
 
    const auto amu1L = gm2calc::calculate_amu_1loop(model);
    // const auto amu2L = gm2calc::calculate_amu_2loop(model);
@@ -293,8 +288,6 @@ TEST_CASE("test-point-GAMBIT")
 
    gm2calc::GeneralTHDM model(basis, sm);
 
-   CHECK(!model.get_problems().have_problem());
-
    const auto amu1L = gm2calc::calculate_amu_1loop(model);
    const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
 
@@ -328,8 +321,6 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
    sm.set_ckm(ckm);
 
    gm2calc::GeneralTHDM model(basis, sm);
-
-   CHECK(!model.get_problems().have_problem());
 
    const auto amu1L = gm2calc::calculate_amu_1loop(model);
    const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
@@ -366,8 +357,6 @@ TEST_CASE("test-point-GAMBIT-complex-CKM")
    sm.set_ckm(ckm);
 
    gm2calc::GeneralTHDM model(basis, sm);
-
-   CHECK(!model.get_problems().have_problem());
 
    // const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
 
