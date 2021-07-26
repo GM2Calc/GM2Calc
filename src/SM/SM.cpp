@@ -118,6 +118,11 @@ double SM::get_g2() const
    return get_e_mz()/get_sw();
 }
 
+double SM::get_g3() const
+{
+   return std::sqrt(alpha_s_mz*4*pi);
+}
+
 double SM::get_cw() const
 {
    return std::abs(mw/mz);

@@ -35,6 +35,7 @@ void gm2calc_sm_set_to_default(SM* sm)
    gm2calc::SM def;
    sm->alpha_em_0 = def.get_alpha_em_0();
    sm->alpha_em_mz = def.get_alpha_em_mz();
+   sm->alpha_s_mz = def.get_alpha_s_mz();
    sm->mh = def.get_mh();
    sm->mw = def.get_mw();
    sm->mz = def.get_mz();

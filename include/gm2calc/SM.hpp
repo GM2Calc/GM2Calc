@@ -30,6 +30,7 @@ public:
 
    void set_alpha_em_0(double a) noexcept { alpha_em_0 = a; }
    void set_alpha_em_mz(double a) noexcept { alpha_em_mz = a; }
+   void set_alpha_s_mz(double a) noexcept { alpha_s_mz = a; }
    void set_mh(double m) noexcept { mh = m; }
    void set_mw(double m) noexcept { mw = m; }
    void set_mz(double m) noexcept { mz = m; }
@@ -46,6 +47,7 @@ public:
 
    double get_alpha_em_0() const { return alpha_em_0; }
    double get_alpha_em_mz() const { return alpha_em_mz; }
+   double get_alpha_s_mz() const { return alpha_s_mz; }
    double get_mh() const { return mh; }
    double get_mw() const { return mw; }
    double get_mz() const { return mz; }
@@ -59,6 +61,7 @@ public:
    double get_e_mz() const;
    double get_gY() const;
    double get_g2() const;
+   double get_g3() const;
    double get_cw() const;
    double get_sw() const;
    double get_v() const;
@@ -68,6 +71,7 @@ public:
 private:
    double alpha_em_0{0.0};  ///< electromagnetic coupling in Thompson limit
    double alpha_em_mz{0.0}; ///< electromagnetic coupling at Q = MZ
+   double alpha_s_mz{0.0};  ///< strong coupling at Q = MZ
    double mh{0.0};          ///< Higgs boson pole mass
    double mw{0.0};          ///< W boson pole mass
    double mz{0.0};          ///< Z boson pole mass

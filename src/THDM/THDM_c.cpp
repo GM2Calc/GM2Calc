@@ -37,6 +37,7 @@ gm2calc::SM convert_to_SM(::SM* sm)
    if (sm != 0) {
       s.set_alpha_em_0(sm->alpha_em_0);
       s.set_alpha_em_mz(sm->alpha_em_mz);
+      s.set_alpha_s_mz(sm->alpha_s_mz);
       s.set_mh(sm->mh);
       s.set_mw(sm->mw);
       s.set_mz(sm->mz);

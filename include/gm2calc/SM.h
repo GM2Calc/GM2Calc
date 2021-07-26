@@ -34,6 +34,7 @@ extern "C" {
 struct SM {
    double alpha_em_0;
    double alpha_em_mz;
+   double alpha_s_mz;
    double mh;
    double mw;
    double mz;
