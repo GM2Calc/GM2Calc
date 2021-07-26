@@ -19,7 +19,7 @@
 #include "gm2calc/gm2_uncertainty.hpp"
 #include "gm2calc/gm2_1loop.hpp"
 #include "gm2calc/gm2_2loop.hpp"
-#include "gm2calc/GeneralTHDM.hpp"
+#include "gm2calc/THDM.hpp"
 #include "gm2_1loop_helpers.hpp"
 
 #include <cmath>
@@ -43,7 +43,7 @@ namespace gm2calc {
  *
  * @return uncertainty for amu(0-loop)
  */
-double calculate_uncertainty_amu_0loop(const GeneralTHDM& model)
+double calculate_uncertainty_amu_0loop(const THDM& model)
 {
    const double amu_1L = calculate_amu_1loop(model);
    const double amu_2L = calculate_amu_2loop(model);
@@ -62,7 +62,7 @@ double calculate_uncertainty_amu_0loop(const GeneralTHDM& model)
  *
  * @return uncertainty for amu(1-loop)
  */
-double calculate_uncertainty_amu_1loop(const GeneralTHDM& model)
+double calculate_uncertainty_amu_1loop(const THDM& model)
 {
    const double amu_2L = calculate_amu_2loop(model);
    const double delta_amu_2L = calculate_uncertainty_amu_2loop(model);
@@ -80,7 +80,7 @@ double calculate_uncertainty_amu_1loop(const GeneralTHDM& model)
  *
  * @return uncertainty for amu(2-loop)
  */
-double calculate_uncertainty_amu_2loop(const GeneralTHDM& model)
+double calculate_uncertainty_amu_2loop(const THDM& model)
 {
    const double pi = 3.1415926535897932;
    const double delta_r_shift_max = 2e-12;

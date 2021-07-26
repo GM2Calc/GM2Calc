@@ -17,17 +17,17 @@
 // ====================================================================
 
 /**
- * @file GeneralTHDM_mass_eigenstates.cpp
- * @brief implementation of the GeneralTHDM model class
+ * @file THDM_mass_eigenstates.cpp
+ * @brief implementation of the THDM model class
  *
- * Contains the definition of the GeneralTHDM model class methods
+ * Contains the definition of the THDM model class methods
  * which solve EWSB and calculate masses and mixings from MSbar
  * parameters.
  *
  * This file was generated with FlexibleSUSY 2.6.0 and SARAH 4.14.3.
  */
 
-#include "gm2calc/GeneralTHDM_mass_eigenstates.hpp"
+#include "gm2calc/THDM_mass_eigenstates.hpp"
 
 #include "gm2_eigen_utils.hpp"
 #include "gm2_linalg.hpp"
@@ -47,7 +47,7 @@ const double gut_normalization = 0.77459666924148338; // Sqrt[3/5]
 
 } // anonymous namespace
 
-#define CLASSNAME GeneralTHDM_mass_eigenstates
+#define CLASSNAME THDM_mass_eigenstates
 
 void CLASSNAME::do_force_output(bool flag)
 {
@@ -59,7 +59,7 @@ bool CLASSNAME::do_force_output() const
    return force_output;
 }
 
-const GeneralTHDM_problems& CLASSNAME::get_problems() const
+const THDM_problems& CLASSNAME::get_problems() const
 {
    return problems;
 }
@@ -99,9 +99,9 @@ int CLASSNAME::solve_ewsb()
 void CLASSNAME::print(std::ostream& ostr) const
 {
    ostr << "========================================\n"
-           "GeneralTHDM\n"
+           "THDM\n"
            "========================================\n";
-   GeneralTHDM_parameters::print(ostr);
+   THDM_parameters::print(ostr);
    ostr << "----------------------------------------\n"
            "Masses:\n"
            "----------------------------------------\n";

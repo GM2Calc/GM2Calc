@@ -16,7 +16,7 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "GeneralTHDM/gm2_1loop_helpers.hpp"
+#include "THDM/gm2_1loop_helpers.hpp"
 #include "gm2_ffunctions.hpp"
 #include <cmath>
 #include <complex>

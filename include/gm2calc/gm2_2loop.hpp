@@ -21,11 +21,11 @@
 
 namespace gm2calc {
 
-class GeneralTHDM;
+class THDM;
 class MSSMNoFV_onshell;
 
 /// calculates full 2-loop contributions to a_mu in the general THDM
-double calculate_amu_2loop(const GeneralTHDM&);
+double calculate_amu_2loop(const THDM&);
 
 /// calculates best 2-loop SUSY contributions to a_mu in the MSSM (with tan(beta) resummation)
 double calculate_amu_2loop(const MSSMNoFV_onshell&);

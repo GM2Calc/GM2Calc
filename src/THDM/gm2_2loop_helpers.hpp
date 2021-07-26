@@ -23,9 +23,9 @@
 
 namespace gm2calc {
 
-class GeneralTHDM;
-double calculate_amu_2loop_bosonic(const GeneralTHDM&);
-double calculate_amu_2loop_fermionic(const GeneralTHDM&);
+class THDM;
+double calculate_amu_2loop_bosonic(const THDM&);
+double calculate_amu_2loop_fermionic(const THDM&);
 
 namespace general_thdm {
 

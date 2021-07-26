@@ -17,8 +17,8 @@
 // ====================================================================
 
 #include "gm2calc/gm2_2loop.hpp"
-#include "gm2calc/GeneralTHDM.hpp"
-#include "GeneralTHDM/gm2_2loop_helpers.hpp"
+#include "gm2calc/THDM.hpp"
+#include "THDM/gm2_2loop_helpers.hpp"
 
 namespace gm2calc {
 
@@ -28,7 +28,7 @@ namespace gm2calc {
  * @param model THDM model parameters, masses and mixings
  * @return 2-loop contribution to a_mu
  */
-double calculate_amu_2loop_bosonic(const GeneralTHDM& model)
+double calculate_amu_2loop_bosonic(const THDM& model)
 {
    general_thdm::THDM_B_parameters pars_b;
    pars_b.alpha_em = model.get_alpha_em();
@@ -53,7 +53,7 @@ double calculate_amu_2loop_bosonic(const GeneralTHDM& model)
  * @param model THDM model parameters, masses and mixings
  * @return 2-loop contribution to a_mu
  */
-double calculate_amu_2loop_fermionic(const GeneralTHDM& model)
+double calculate_amu_2loop_fermionic(const THDM& model)
 {
    general_thdm::THDM_F_parameters pars_f;
    pars_f.alpha_em = model.get_alpha_em();
@@ -89,7 +89,7 @@ double calculate_amu_2loop_fermionic(const GeneralTHDM& model)
  * @param model THDM model parameters, masses and mixings
  * @return 2-loop contribution to a_mu
  */
-double calculate_amu_2loop(const GeneralTHDM& model)
+double calculate_amu_2loop(const THDM& model)
 {
    return calculate_amu_2loop_bosonic(model)
       + calculate_amu_2loop_fermionic(model);

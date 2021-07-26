@@ -1,8 +1,8 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN 1
 
 #include "doctest.h"
-#include "GeneralTHDM/gm2_1loop_helpers.hpp"
-#include "GeneralTHDM/gm2_2loop_helpers.hpp"
+#include "THDM/gm2_1loop_helpers.hpp"
+#include "THDM/gm2_2loop_helpers.hpp"
 #include "read_data.hpp"
 
 #include <cmath>
@@ -108,7 +108,7 @@ TEST_CASE("1-loop_approximation")
 
 /* Generated with:
 
-<< ../math/GeneralTHDMBarrZee.m;
+<< ../math/THDMBarrZee.m;
 
 MW = 80;
 MZ = 90;

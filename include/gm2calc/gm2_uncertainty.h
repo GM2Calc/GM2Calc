@@ -23,17 +23,17 @@
 extern "C" {
 #endif
 
-typedef struct GeneralTHDM GeneralTHDM;
+typedef struct THDM THDM;
 typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
 
 /** calculates uncertainty for amu(0-loop) in the general THDM */
-double gm2calc_generalthdm_calculate_uncertainty_amu_0loop(const GeneralTHDM*);
+double gm2calc_thdm_calculate_uncertainty_amu_0loop(const THDM*);
 
 /** calculates uncertainty for amu(1-loop) in the general THDM */
-double gm2calc_generalthdm_calculate_uncertainty_amu_1loop(const GeneralTHDM*);
+double gm2calc_thdm_calculate_uncertainty_amu_1loop(const THDM*);
 
 /** calculates uncertainty for amu(2-loop) in the general THDM */
-double gm2calc_generalthdm_calculate_uncertainty_amu_2loop(const GeneralTHDM*);
+double gm2calc_thdm_calculate_uncertainty_amu_2loop(const THDM*);
 
 /** calculates uncertainty for amu(0-loop) in the MSSMNoFV w/ tan(beta) resummation */
 double gm2calc_mssmnofv_calculate_uncertainty_amu_0loop(const MSSMNoFV_onshell*);

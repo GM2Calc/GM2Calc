@@ -1,10 +1,10 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN 1
 
 #include "doctest.h"
-#include "gm2calc/GeneralTHDM.hpp"
+#include "gm2calc/THDM.hpp"
 #include "gm2calc/gm2_1loop.hpp"
 #include "gm2calc/gm2_2loop.hpp"
-#include "GeneralTHDM/gm2_2loop_helpers.hpp"
+#include "THDM/gm2_2loop_helpers.hpp"
 #include "read_data.hpp"
 
 #include <cmath>
@@ -31,7 +31,7 @@ TEST_CASE("tree-level-spectrum")
    // parameter point where choice of range
    // -pi/2 <= beta - alpha_h <= pi/2
    // matters
-   gm2calc::GeneralTHDM::General_basis basis;
+   gm2calc::THDM::General_basis basis;
    basis.lambda1 = 0.26249;
    basis.lambda2 = 0.23993;
    basis.lambda3 = 2.09923;
@@ -42,7 +42,7 @@ TEST_CASE("tree-level-spectrum")
    basis.tan_beta = 3.0;
    basis.m122 = sqr(200.0);
 
-   gm2calc::GeneralTHDM model(basis);
+   gm2calc::THDM model(basis);
 
    CHECK(model.get_MVG() == 0.0);
    CHECK(model.get_MVP() == 0.0);
@@ -121,7 +121,7 @@ TEST_CASE("tree-level-spectrum")
 
 TEST_CASE("tree-level-spectrum-with-tachyons")
 {
-   gm2calc::GeneralTHDM::General_basis basis;
+   gm2calc::THDM::General_basis basis;
    basis.lambda1 = -0.1;
    basis.lambda2 = -0.2;
    basis.lambda3 = 0;
@@ -132,7 +132,7 @@ TEST_CASE("tree-level-spectrum-with-tachyons")
    basis.tan_beta = 20;
    basis.m122 = sqr(200);
 
-   REQUIRE_THROWS(gm2calc::GeneralTHDM(basis));
+   REQUIRE_THROWS(gm2calc::THDM(basis));
 }
 
 
@@ -145,7 +145,7 @@ TEST_CASE("test_light_Higgs_spectrum")
    const double tb = 2.0;
    const double v = 245.0;
 
-   gm2calc::GeneralTHDM_mass_eigenstates model;
+   gm2calc::THDM_mass_eigenstates model;
    model.set_tan_beta_and_v(tb, v);
    model.set_alpha_em_and_cw(1.0/137.0, 80.0/91.0);
    model.set_lambda1(0.0);
@@ -171,7 +171,7 @@ TEST_CASE("general_basis")
 {
    const double eps = 1e-14;
 
-   gm2calc::GeneralTHDM::General_basis basis;
+   gm2calc::THDM::General_basis basis;
    basis.lambda1 = 0.7;
    basis.lambda2 = 0.6;
    basis.lambda3 = 0.5;
@@ -183,10 +183,10 @@ TEST_CASE("general_basis")
    basis.m122 = sqr(200);
 
    // initialize using the basis
-   gm2calc::GeneralTHDM model2(basis);
+   gm2calc::THDM model2(basis);
 
    // initialize by hand
-   gm2calc::GeneralTHDM_mass_eigenstates model1;
+   gm2calc::THDM_mass_eigenstates model1;
    model1.set_tan_beta_and_v(basis.tan_beta, model2.get_sm().get_v());
    model1.set_alpha_em_and_cw(model2.get_sm().get_alpha_em_mz(), model2.get_sm().get_mw()/model2.get_sm().get_mz());
    model1.set_lambda1(basis.lambda1);
@@ -210,7 +210,7 @@ TEST_CASE("physical_basis")
 {
    const double eps = 1e-14;
 
-   gm2calc::GeneralTHDM::Physical_basis basis;
+   gm2calc::THDM::Physical_basis basis;
    basis.mh = 125;
    basis.mH = 400;
    basis.mA = 420;
@@ -222,10 +222,10 @@ TEST_CASE("physical_basis")
    basis.m122 = 4000;
 
    // initialize using the basis
-   gm2calc::GeneralTHDM model2(basis);
+   gm2calc::THDM model2(basis);
 
    // initialize by hand
-   gm2calc::GeneralTHDM_mass_eigenstates model1;
+   gm2calc::THDM_mass_eigenstates model1;
    model1.set_g1(model2.get_g1());
    model1.set_g2(model2.get_g2());
    model1.set_v1(model2.get_v1());
@@ -256,7 +256,7 @@ TEST_CASE("physical_basis")
 
 TEST_CASE("2HDMC-demo-point")
 {
-   gm2calc::GeneralTHDM::General_basis basis;
+   gm2calc::THDM::General_basis basis;
    basis.lambda1 = 4.81665;
    basis.lambda2 = 0.23993;
    basis.lambda3 = 2.09923;
@@ -267,7 +267,7 @@ TEST_CASE("2HDMC-demo-point")
    basis.tan_beta = 3.0;
    basis.m122 = sqr(200.0);
 
-   gm2calc::GeneralTHDM model(basis);
+   gm2calc::THDM model(basis);
 
    const auto amu1L = gm2calc::calculate_amu_1loop(model);
    // const auto amu2L = gm2calc::calculate_amu_2loop(model);
@@ -286,8 +286,8 @@ TEST_CASE("2HDMC-demo-point")
 
 TEST_CASE("test-point-GAMBIT")
 {
-   gm2calc::GeneralTHDM::General_basis basis;
-   basis.yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::general;
+   gm2calc::THDM::General_basis basis;
+   basis.yukawa_scheme = gm2calc::THDM::Yukawa_scheme::general;
    basis.lambda1 =  2.02924518279587396;
    basis.lambda2 =  0.25812066515822629;
    basis.lambda3 =  0.81575007334344507;
@@ -303,7 +303,7 @@ TEST_CASE("test-point-GAMBIT")
    sm.set_alpha_em_mz(1.0/132.23323);
    sm.set_ckm_from_wolfenstein(0, 0, 0, 0);
 
-   gm2calc::GeneralTHDM model(basis, sm);
+   gm2calc::THDM model(basis, sm);
 
    const auto amu1L = gm2calc::calculate_amu_1loop(model);
    const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
@@ -315,8 +315,8 @@ TEST_CASE("test-point-GAMBIT")
 
 TEST_CASE("test-point-GAMBIT-real-CKM")
 {
-   gm2calc::GeneralTHDM::General_basis basis;
-   basis.yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::general;
+   gm2calc::THDM::General_basis basis;
+   basis.yukawa_scheme = gm2calc::THDM::Yukawa_scheme::general;
    basis.lambda1 =  2.02924518279587396;
    basis.lambda2 =  0.25812066515822629;
    basis.lambda3 =  0.81575007334344507;
@@ -337,7 +337,7 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
    sm.set_alpha_em_mz(1.0/132.23323);
    sm.set_ckm(ckm);
 
-   gm2calc::GeneralTHDM model(basis, sm);
+   gm2calc::THDM model(basis, sm);
 
    const auto amu1L = gm2calc::calculate_amu_1loop(model);
    const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
@@ -349,8 +349,8 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
 
 TEST_CASE("test-point-GAMBIT-complex-CKM")
 {
-   gm2calc::GeneralTHDM::General_basis basis;
-   basis.yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::general;
+   gm2calc::THDM::General_basis basis;
+   basis.yukawa_scheme = gm2calc::THDM::Yukawa_scheme::general;
    basis.lambda1 =  2.02924518279587396;
    basis.lambda2 =  0.25812066515822629;
    basis.lambda3 =  0.81575007334344507;
@@ -373,7 +373,7 @@ TEST_CASE("test-point-GAMBIT-complex-CKM")
    sm.set_alpha_em_mz(1.0/132.23323);
    sm.set_ckm(ckm);
 
-   gm2calc::GeneralTHDM model(basis, sm);
+   gm2calc::THDM model(basis, sm);
 
    // const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
 
@@ -415,7 +415,7 @@ TEST_CASE("2HDMC-mA-scan")
    for (const auto& p: data) {
       const auto mA = p.at(0);
 
-      gm2calc::GeneralTHDM::Physical_basis basis;
+      gm2calc::THDM::Physical_basis basis;
       basis.mh = 125;
       basis.mH = 400;
       basis.mA = mA;
@@ -426,7 +426,7 @@ TEST_CASE("2HDMC-mA-scan")
       basis.tan_beta = 3;
       basis.m122 = 40000;
 
-      gm2calc::GeneralTHDM model(basis, sm);
+      gm2calc::THDM model(basis, sm);
 
       INFO("mA = " << mA);
 

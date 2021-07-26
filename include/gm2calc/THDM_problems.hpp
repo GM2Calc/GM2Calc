@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_GeneralTHDM_PROBLEMS_HPP
-#define GM2_GeneralTHDM_PROBLEMS_HPP
+#ifndef GM2_THDM_PROBLEMS_HPP
+#define GM2_THDM_PROBLEMS_HPP
 
 #include <iosfwd>
 #include <string>
@@ -26,7 +26,7 @@
 namespace gm2calc {
 
 /**
- * @class GeneralTHDM_problems
+ * @class THDM_problems
  * @brief contains problem and warning flags
  *
  * If a problem has occurred, the physical particle spectrum cannot be
@@ -34,7 +34,7 @@ namespace gm2calc {
  * imprecision has occurred and care must be taken when interpreting
  * the particle spectrum.
  */
-class GeneralTHDM_problems {
+class THDM_problems {
 public:
    void clear();              ///< delete all problems and warnings
    void clear_problems();     ///< delete all problems
@@ -53,7 +53,7 @@ private:
    std::vector<std::string> tachyons;
 };
 
-std::ostream& operator<<(std::ostream&, const GeneralTHDM_problems&);
+std::ostream& operator<<(std::ostream&, const THDM_problems&);
 
 } // namespace gm2calc
 

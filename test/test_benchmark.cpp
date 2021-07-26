@@ -7,7 +7,7 @@
 #include "gm2calc/gm2_uncertainty.hpp"
 #include "gm2calc/gm2_error.hpp"
 #include "gm2calc/MSSMNoFV_onshell.hpp"
-#include "gm2calc/GeneralTHDM.hpp"
+#include "gm2calc/THDM.hpp"
 
 #include "stopwatch.hpp"
 
@@ -135,7 +135,7 @@ gm2calc::MSSMNoFV_onshell random_point_gm2calc()
 }
 
 /// generate random THDM input parameter point
-gm2calc::GeneralTHDM random_point_thdm()
+gm2calc::THDM random_point_thdm()
 {
    gm2calc::SM sm;
    sm.set_alpha_em_mz(1.0/127.934);
@@ -144,7 +144,7 @@ gm2calc::GeneralTHDM random_point_thdm()
    sm.set_md(2, 4.75);
    sm.set_ml(2, 1.77684);
 
-   gm2calc::GeneralTHDM::Physical_basis basis;
+   gm2calc::THDM::Physical_basis basis;
    basis.mh = 125;
    basis.mH = rMH();
    basis.mA = rMH();
@@ -155,7 +155,7 @@ gm2calc::GeneralTHDM random_point_thdm()
    basis.tan_beta = rTB();
    basis.m122 = sqr(rMH());
 
-   gm2calc::GeneralTHDM model(basis, sm);
+   gm2calc::THDM model(basis, sm);
 
    return model;
 }

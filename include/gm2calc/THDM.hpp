@@ -16,10 +16,10 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_GeneralTHDM_HPP
-#define GM2_GeneralTHDM_HPP
+#ifndef GM2_THDM_HPP
+#define GM2_THDM_HPP
 
-#include "GeneralTHDM_mass_eigenstates.hpp"
+#include "THDM_mass_eigenstates.hpp"
 #include "SM.hpp"
 
 #include <iosfwd>
@@ -29,10 +29,10 @@
 namespace gm2calc {
 
 /**
- * @class GeneralTHDM
+ * @class THDM
  * @brief Contains routines to determine the THDM parameters
  */
-class GeneralTHDM : private GeneralTHDM_mass_eigenstates {
+class THDM : private THDM_mass_eigenstates {
 public:
    enum class Yukawa_scheme {
       type_1, type_2, type_X, type_Y, general
@@ -70,8 +70,8 @@ public:
       Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
    };
 
-   GeneralTHDM(const General_basis&, const SM& sm_ = SM{});
-   GeneralTHDM(const Physical_basis&, const SM& sm_ = SM{});
+   THDM(const General_basis&, const SM& sm_ = SM{});
+   THDM(const Physical_basis&, const SM& sm_ = SM{});
 
    double get_zeta_u() const;
    double get_zeta_d() const;
@@ -102,45 +102,45 @@ public:
 
    void set_tan_beta(double);
 
-   using GeneralTHDM_mass_eigenstates::get_alpha_em;
-   using GeneralTHDM_mass_eigenstates::get_alpha_h;
-   using GeneralTHDM_mass_eigenstates::get_beta;
-   using GeneralTHDM_mass_eigenstates::get_eta;
-   using GeneralTHDM_mass_eigenstates::get_tan_beta;
-   using GeneralTHDM_mass_eigenstates::get_v;
-   using GeneralTHDM_mass_eigenstates::get_v_sqr;
-   using GeneralTHDM_mass_eigenstates::get_lambda1;
-   using GeneralTHDM_mass_eigenstates::get_lambda2;
-   using GeneralTHDM_mass_eigenstates::get_lambda3;
-   using GeneralTHDM_mass_eigenstates::get_lambda4;
-   using GeneralTHDM_mass_eigenstates::get_lambda5;
-   using GeneralTHDM_mass_eigenstates::get_lambda6;
-   using GeneralTHDM_mass_eigenstates::get_lambda7;
-   using GeneralTHDM_mass_eigenstates::get_LambdaFive;
-   using GeneralTHDM_mass_eigenstates::get_m122;
-   using GeneralTHDM_mass_eigenstates::get_g1;
-   using GeneralTHDM_mass_eigenstates::get_g2;
-   using GeneralTHDM_mass_eigenstates::get_Yu;
-   using GeneralTHDM_mass_eigenstates::get_Yd;
-   using GeneralTHDM_mass_eigenstates::get_Yl;
-   using GeneralTHDM_mass_eigenstates::get_Xu;
-   using GeneralTHDM_mass_eigenstates::get_Xd;
-   using GeneralTHDM_mass_eigenstates::get_Xl;
-   using GeneralTHDM_mass_eigenstates::get_v1;
-   using GeneralTHDM_mass_eigenstates::get_v2;
-   using GeneralTHDM_mass_eigenstates::get_Mhh;
-   using GeneralTHDM_mass_eigenstates::get_MAh;
-   using GeneralTHDM_mass_eigenstates::get_MHm;
-   using GeneralTHDM_mass_eigenstates::get_MFu;
-   using GeneralTHDM_mass_eigenstates::get_MFd;
-   using GeneralTHDM_mass_eigenstates::get_MFv;
-   using GeneralTHDM_mass_eigenstates::get_MFe;
-   using GeneralTHDM_mass_eigenstates::get_MVG;
-   using GeneralTHDM_mass_eigenstates::get_MVP;
-   using GeneralTHDM_mass_eigenstates::get_MVWm;
-   using GeneralTHDM_mass_eigenstates::get_MVZ;
+   using THDM_mass_eigenstates::get_alpha_em;
+   using THDM_mass_eigenstates::get_alpha_h;
+   using THDM_mass_eigenstates::get_beta;
+   using THDM_mass_eigenstates::get_eta;
+   using THDM_mass_eigenstates::get_tan_beta;
+   using THDM_mass_eigenstates::get_v;
+   using THDM_mass_eigenstates::get_v_sqr;
+   using THDM_mass_eigenstates::get_lambda1;
+   using THDM_mass_eigenstates::get_lambda2;
+   using THDM_mass_eigenstates::get_lambda3;
+   using THDM_mass_eigenstates::get_lambda4;
+   using THDM_mass_eigenstates::get_lambda5;
+   using THDM_mass_eigenstates::get_lambda6;
+   using THDM_mass_eigenstates::get_lambda7;
+   using THDM_mass_eigenstates::get_LambdaFive;
+   using THDM_mass_eigenstates::get_m122;
+   using THDM_mass_eigenstates::get_g1;
+   using THDM_mass_eigenstates::get_g2;
+   using THDM_mass_eigenstates::get_Yu;
+   using THDM_mass_eigenstates::get_Yd;
+   using THDM_mass_eigenstates::get_Yl;
+   using THDM_mass_eigenstates::get_Xu;
+   using THDM_mass_eigenstates::get_Xd;
+   using THDM_mass_eigenstates::get_Xl;
+   using THDM_mass_eigenstates::get_v1;
+   using THDM_mass_eigenstates::get_v2;
+   using THDM_mass_eigenstates::get_Mhh;
+   using THDM_mass_eigenstates::get_MAh;
+   using THDM_mass_eigenstates::get_MHm;
+   using THDM_mass_eigenstates::get_MFu;
+   using THDM_mass_eigenstates::get_MFd;
+   using THDM_mass_eigenstates::get_MFv;
+   using THDM_mass_eigenstates::get_MFe;
+   using THDM_mass_eigenstates::get_MVG;
+   using THDM_mass_eigenstates::get_MVP;
+   using THDM_mass_eigenstates::get_MVWm;
+   using THDM_mass_eigenstates::get_MVZ;
 
-   friend std::ostream& operator<<(std::ostream&, const GeneralTHDM&);
+   friend std::ostream& operator<<(std::ostream&, const THDM&);
 
 private:
    SM sm{};
@@ -153,7 +153,7 @@ private:
 };
 
 /// streaming operator
-std::ostream& operator<<(std::ostream&, const GeneralTHDM&);
+std::ostream& operator<<(std::ostream&, const THDM&);
 
 } // namespace gm2calc
 

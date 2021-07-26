@@ -16,11 +16,11 @@
  * <http://www.gnu.org/licenses/>.
  * ==================================================================== */
 
-#ifndef GM2_GeneralTHDM_H
-#define GM2_GeneralTHDM_H
+#ifndef GM2_THDM_H
+#define GM2_THDM_H
 
 /**
- * @file GeneralTHDM.h
+ * @file THDM.h
  * @brief contains declarations of C interface functions for the model
  *
  * This file contains the declarations for the C interface functions
@@ -34,21 +34,21 @@ extern "C" {
 #endif
 
 /** general THDM handle */
-struct GeneralTHDM;
-typedef struct GeneralTHDM GeneralTHDM;
+struct THDM;
+typedef struct THDM THDM;
 
 /** Yukawa schemes */
 typedef enum {
-   GeneralTHDM_type_1,
-   GeneralTHDM_type_2,
-   GeneralTHDM_type_X,
-   GeneralTHDM_type_Y,
-   GeneralTHDM_general
-} GeneralTHDM_yukawa_scheme;
+   THDM_type_1,
+   THDM_type_2,
+   THDM_type_X,
+   THDM_type_Y,
+   THDM_general
+} THDM_yukawa_scheme;
 
 /** general THDM general basis input */
-struct GeneralTHDM_general_basis {
-   GeneralTHDM_yukawa_scheme yukawa_scheme;
+struct THDM_general_basis {
+   THDM_yukawa_scheme yukawa_scheme;
    double lambda1;
    double lambda2;
    double lambda3;
@@ -62,11 +62,11 @@ struct GeneralTHDM_general_basis {
    double Xd[3][3];
    double Xl[3][3];
 };
-typedef struct GeneralTHDM_general_basis GeneralTHDM_general_basis;
+typedef struct THDM_general_basis THDM_general_basis;
 
 /** general THDM physical basis input */
-struct GeneralTHDM_physical_basis {
-   GeneralTHDM_yukawa_scheme yukawa_scheme;
+struct THDM_physical_basis {
+   THDM_yukawa_scheme yukawa_scheme;
    double mh;
    double mH;
    double mA;
@@ -80,19 +80,19 @@ struct GeneralTHDM_physical_basis {
    double Xd[3][3];
    double Xl[3][3];
 };
-typedef struct GeneralTHDM_physical_basis GeneralTHDM_physical_basis;
+typedef struct THDM_physical_basis THDM_physical_basis;
 
 struct gm2calc_SM;
 typedef struct gm2calc_SM gm2calc_SM;
 
 /** allocate new general THDM model with general basis input */
-gm2calc_error gm2calc_generalthdm_new_with_general_basis(GeneralTHDM**, GeneralTHDM_general_basis*, gm2calc_SM*);
+gm2calc_error gm2calc_thdm_new_with_general_basis(THDM**, THDM_general_basis*, gm2calc_SM*);
 
 /** allocate new general THDM model with physical basis input */
-gm2calc_error gm2calc_generalthdm_new_with_physical_basis(GeneralTHDM**, GeneralTHDM_physical_basis*, gm2calc_SM*);
+gm2calc_error gm2calc_thdm_new_with_physical_basis(THDM**, THDM_physical_basis*, gm2calc_SM*);
 
 /** delete general THDM model */
-void gm2calc_generalthdm_free(GeneralTHDM*);
+void gm2calc_thdm_free(THDM*);
 
 #ifdef __cplusplus
 } /* extern "C" */

@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GeneralTHDM_PARAMETERS_H
-#define GeneralTHDM_PARAMETERS_H
+#ifndef THDM_PARAMETERS_H
+#define THDM_PARAMETERS_H
 
 #include <iosfwd>
 #include <Eigen/Core>
@@ -25,10 +25,10 @@
 namespace gm2calc {
 
 /**
- * @class GeneralTHDM_parameters
+ * @class THDM_parameters
  * @brief Contains the parameters of the THDM model
  */
-class GeneralTHDM_parameters {
+class THDM_parameters {
 public:
    void print(std::ostream&) const;
 
@@ -112,7 +112,7 @@ protected:
    double v2{0.0};
 };
 
-std::ostream& operator<<(std::ostream&, const GeneralTHDM_parameters&);
+std::ostream& operator<<(std::ostream&, const THDM_parameters&);
 
 } // namespace gm2calc
 

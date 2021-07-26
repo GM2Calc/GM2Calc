@@ -17,7 +17,7 @@
 // ====================================================================
 
 /**
- * @file GeneralTHDM_mass_eigenstates.hpp
+ * @file THDM_mass_eigenstates.hpp
  *
  * @brief contains class for general THDM model with routines needed
  *        to solve EWSB and determine the masses and mixings.
@@ -25,11 +25,11 @@
  * This file was generated with FlexibleSUSY 2.6.0 and SARAH 4.14.3 .
  */
 
-#ifndef GM2_GeneralTHDM_MASS_EIGENSTATES_H
-#define GM2_GeneralTHDM_MASS_EIGENSTATES_H
+#ifndef GM2_THDM_MASS_EIGENSTATES_H
+#define GM2_THDM_MASS_EIGENSTATES_H
 
-#include "GeneralTHDM_problems.hpp"
-#include "GeneralTHDM_parameters.hpp"
+#include "THDM_problems.hpp"
+#include "THDM_parameters.hpp"
 
 #include <iosfwd>
 
@@ -38,10 +38,10 @@
 namespace gm2calc {
 
 /**
- * @class GeneralTHDM_mass_eigenstates
+ * @class THDM_mass_eigenstates
  * @brief model class with routines for determing masses and mixinga and EWSB
  */
-class GeneralTHDM_mass_eigenstates : public GeneralTHDM_parameters
+class THDM_mass_eigenstates : public THDM_parameters
 {
 public:
    void print(std::ostream&) const;
@@ -51,7 +51,7 @@ public:
    void do_force_output(bool);
    bool do_force_output() const;
    void reorder_MSbar_masses();
-   const GeneralTHDM_problems& get_problems() const;
+   const THDM_problems& get_problems() const;
    int solve_ewsb_tree_level();
    int solve_ewsb();
 
@@ -162,7 +162,7 @@ protected:
 
 private:
    bool force_output{false};        ///< switch to force output of pole masses
-   GeneralTHDM_problems problems{}; ///< problems
+   THDM_problems problems{}; ///< problems
 
    // masses
    double MVG{0.0};
@@ -189,7 +189,7 @@ private:
    Eigen::Matrix<std::complex<double>,3,3> Ue{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
 };
 
-std::ostream& operator<<(std::ostream&, const GeneralTHDM_mass_eigenstates&);
+std::ostream& operator<<(std::ostream&, const THDM_mass_eigenstates&);
 
 } // namespace gm2calc
 

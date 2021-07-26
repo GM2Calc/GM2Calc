@@ -16,13 +16,13 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "gm2calc/GeneralTHDM_parameters.hpp"
+#include "gm2calc/THDM_parameters.hpp"
 
 #include <iostream>
 
 namespace gm2calc {
 
-void GeneralTHDM_parameters::print(std::ostream& ostr) const
+void THDM_parameters::print(std::ostream& ostr) const
 {
    ostr << "----------------------------------------\n"
            "Parameters:\n"
@@ -50,7 +50,7 @@ void GeneralTHDM_parameters::print(std::ostream& ostr) const
    ostr << "v2 = " << v2 << '\n';
 }
 
-std::ostream& operator<<(std::ostream& ostr, const GeneralTHDM_parameters& pars)
+std::ostream& operator<<(std::ostream& ostr, const THDM_parameters& pars)
 {
    pars.print(ostr);
    return ostr;

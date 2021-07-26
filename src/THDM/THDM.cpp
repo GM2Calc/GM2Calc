@@ -16,7 +16,7 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "gm2calc/GeneralTHDM.hpp"
+#include "gm2calc/THDM.hpp"
 #include "gm2calc/gm2_error.hpp"
 #include "gm2_numerics.hpp"
 
@@ -28,7 +28,7 @@ const double sqrt2 = 1.4142135623730950; // Sqrt[2]
 
 } // anonymous namespace
 
-GeneralTHDM::GeneralTHDM(const General_basis& basis, const SM& sm_)
+THDM::THDM(const General_basis& basis, const SM& sm_)
    : sm(sm_)
    , yukawa_scheme(basis.yukawa_scheme)
 {
@@ -36,7 +36,7 @@ GeneralTHDM::GeneralTHDM(const General_basis& basis, const SM& sm_)
    set_basis(basis);
 }
 
-GeneralTHDM::GeneralTHDM(const Physical_basis& basis, const SM& sm_)
+THDM::THDM(const Physical_basis& basis, const SM& sm_)
    : sm(sm_)
    , yukawa_scheme(basis.yukawa_scheme)
 {
@@ -44,7 +44,7 @@ GeneralTHDM::GeneralTHDM(const Physical_basis& basis, const SM& sm_)
    set_basis(basis);
 }
 
-void GeneralTHDM::init_gauge_couplings()
+void THDM::init_gauge_couplings()
 {
    set_alpha_em_and_cw(sm.get_alpha_em_mz(), sm.get_cw());
 }
@@ -52,7 +52,7 @@ void GeneralTHDM::init_gauge_couplings()
 /**
  * Initialize Yukawa couplings
  */
-void GeneralTHDM::init_yukawas()
+void THDM::init_yukawas()
 {
    const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
    const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
@@ -100,13 +100,13 @@ void GeneralTHDM::init_yukawas()
 }
 
 /// Table 1, arxiv:1607.06292
-double GeneralTHDM::get_zeta_u() const
+double THDM::get_zeta_u() const
 {
    return 1.0/get_tan_beta();
 }
 
 /// Table 1, arxiv:1607.06292
-double GeneralTHDM::get_zeta_d() const
+double THDM::get_zeta_d() const
 {
    switch (yukawa_scheme) {
       case Yukawa_scheme::type_1:
@@ -123,7 +123,7 @@ double GeneralTHDM::get_zeta_d() const
 }
 
 /// Table 1, arxiv:1607.06292
-double GeneralTHDM::get_zeta_l() const
+double THDM::get_zeta_l() const
 {
    switch (yukawa_scheme) {
       case Yukawa_scheme::type_1:
@@ -139,7 +139,7 @@ double GeneralTHDM::get_zeta_l() const
    }
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_u() const
+Eigen::Matrix<double,3,3> THDM::get_xi_u() const
 {
    const double cb = get_cos_beta();
    const double v = get_v();
@@ -152,7 +152,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_u() const
    return get_Xu()/cb - sqrt2*mu*get_tan_beta()/v;
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_d() const
+Eigen::Matrix<double,3,3> THDM::get_xi_d() const
 {
    const double cb = get_cos_beta();
    const double v = get_v();
@@ -165,7 +165,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_d() const
    return get_Xd()/cb - sqrt2*md*get_tan_beta()/v;
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_l() const
+Eigen::Matrix<double,3,3> THDM::get_xi_l() const
 {
    const double cb = get_cos_beta();
    const double v = get_v();
@@ -178,7 +178,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_l() const
    return get_Xl()/cb - sqrt2*ml*get_tan_beta()/v;
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_yuh() const
+Eigen::Matrix<double,3,3> THDM::get_yuh() const
 {
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
@@ -188,7 +188,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_yuh() const
    return sba*mu/v + cba*get_xi_u()/sqrt2;
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_yuH() const
+Eigen::Matrix<double,3,3> THDM::get_yuH() const
 {
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
@@ -198,17 +198,17 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_yuH() const
    return cba*mu/v - sba*get_xi_u()/sqrt2;
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_yuA() const
+Eigen::Matrix<double,3,3> THDM::get_yuA() const
 {
    return get_xi_u()/sqrt2;
 }
 
-Eigen::Matrix<std::complex<double>,3,3> GeneralTHDM::get_yuHp() const
+Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuHp() const
 {
    return -(sm.get_ckm().adjoint()*get_xi_u()).transpose();
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_ydh() const
+Eigen::Matrix<double,3,3> THDM::get_ydh() const
 {
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
@@ -218,7 +218,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_ydh() const
    return sba*md/v + cba*get_xi_d()/sqrt2;
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_ydH() const
+Eigen::Matrix<double,3,3> THDM::get_ydH() const
 {
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
@@ -228,17 +228,17 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_ydH() const
    return cba*md/v - sba*get_xi_d()/sqrt2;
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_ydA() const
+Eigen::Matrix<double,3,3> THDM::get_ydA() const
 {
    return -get_xi_d()/sqrt2;
 }
 
-Eigen::Matrix<std::complex<double>,3,3> GeneralTHDM::get_ydHp() const
+Eigen::Matrix<std::complex<double>,3,3> THDM::get_ydHp() const
 {
    return sm.get_ckm()*get_xi_d();
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_ylh() const
+Eigen::Matrix<double,3,3> THDM::get_ylh() const
 {
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
@@ -248,7 +248,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_ylh() const
    return sba*ml/v + cba*get_xi_l()/sqrt2;
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_ylH() const
+Eigen::Matrix<double,3,3> THDM::get_ylH() const
 {
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
@@ -258,17 +258,17 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_ylH() const
    return cba*ml/v - sba*get_xi_l()/sqrt2;
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_ylA() const
+Eigen::Matrix<double,3,3> THDM::get_ylA() const
 {
    return -get_xi_l()/sqrt2;
 }
 
-Eigen::Matrix<double,3,3> GeneralTHDM::get_ylHp() const
+Eigen::Matrix<double,3,3> THDM::get_ylHp() const
 {
    return get_xi_l();
 }
 
-void GeneralTHDM::set_basis(const GeneralTHDM::General_basis& basis)
+void THDM::set_basis(const THDM::General_basis& basis)
 {
    set_lambda1(basis.lambda1);
    set_lambda2(basis.lambda2);
@@ -292,7 +292,7 @@ void GeneralTHDM::set_basis(const GeneralTHDM::General_basis& basis)
    }
 }
 
-void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
+void THDM::set_basis(const THDM::Physical_basis& basis)
 {
    if (basis.mh > basis.mH) {
       throw EInvalidInput("mh must be less than or equal to mH.");
@@ -366,31 +366,31 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
    }
 }
 
-void GeneralTHDM::set_tan_beta(double tb)
+void THDM::set_tan_beta(double tb)
 {
    set_tan_beta_and_v(tb, sm.get_v());
 }
 
-std::ostream& operator<<(std::ostream& ostr, const GeneralTHDM& model)
+std::ostream& operator<<(std::ostream& ostr, const THDM& model)
 {
    model.print(ostr);
 
    ostr << "Yukawa scheme: ";
 
    switch (model.get_yukawa_scheme()) {
-      case GeneralTHDM::Yukawa_scheme::type_1:
+      case THDM::Yukawa_scheme::type_1:
          ostr << "Type I\n";
          break;
-      case GeneralTHDM::Yukawa_scheme::type_2:
+      case THDM::Yukawa_scheme::type_2:
          ostr << "Type II\n";
          break;
-      case GeneralTHDM::Yukawa_scheme::type_X:
+      case THDM::Yukawa_scheme::type_X:
          ostr << "Type X\n";
          break;
-      case GeneralTHDM::Yukawa_scheme::type_Y:
+      case THDM::Yukawa_scheme::type_Y:
          ostr << "Type Y\n";
          break;
-      case GeneralTHDM::Yukawa_scheme::general:
+      case THDM::Yukawa_scheme::general:
          ostr << "General\n";
          break;
    }

@@ -16,29 +16,29 @@
  * <http://www.gnu.org/licenses/>.
  * ==================================================================== */
 
-#include "gm2calc/gm2_2loop.h"
-#include "gm2calc/gm2_2loop.hpp"
+#include "gm2calc/gm2_1loop.h"
+#include "gm2calc/gm2_1loop.hpp"
 
 #include <limits>
 
 /**
- * @file gm2_2loop_c.cpp
- * @brief contains definitions of C interface functions for 2-loop calculation
+ * @file gm2_1loop_c.cpp
+ * @brief contains definitions of C interface functions for 1-loop calculation
  *
  * This file contains the definitions for the C interface functions
- * used to calculate \f$a_\mu\f$ at the 2-loop level.
+ * used to calculate \f$a_\mu\f$ at the 1-loop level.
  */
 
 extern "C" {
 
-/** calculates 2-loop contributions to a_mu in the general THDM */
-double gm2calc_generalthdm_calculate_amu_2loop(const GeneralTHDM* model)
+/** calculates full 1-loop SUSY contributions to (g-2) in the MSSM (w/ tan(beta) resummation) */
+double gm2calc_thdm_calculate_amu_1loop(const THDM* model)
 {
    double amu = std::numeric_limits<double>::quiet_NaN();
 
    try {
-      amu = gm2calc::calculate_amu_2loop(
-         *reinterpret_cast<const gm2calc::GeneralTHDM*>(model));
+      amu = gm2calc::calculate_amu_1loop(
+         *reinterpret_cast<const gm2calc::THDM*>(model));
    } catch (...) {}
 
    return amu;

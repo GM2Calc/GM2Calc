@@ -16,7 +16,7 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "gm2calc/GeneralTHDM_problems.hpp"
+#include "gm2calc/THDM_problems.hpp"
 
 #include <algorithm>
 #include <iostream>
@@ -24,58 +24,58 @@
 
 namespace gm2calc {
 
-void GeneralTHDM_problems::clear_problems()
+void THDM_problems::clear_problems()
 {
    tachyons.clear();
 }
 
-void GeneralTHDM_problems::clear_warnings()
+void THDM_problems::clear_warnings()
 {
 }
 
-void GeneralTHDM_problems::clear()
+void THDM_problems::clear()
 {
    clear_problems();
    clear_warnings();
 }
 
-void GeneralTHDM_problems::flag_tachyon(const std::string& particle_name)
+void THDM_problems::flag_tachyon(const std::string& particle_name)
 {
    tachyons.push_back(particle_name);
    std::sort(tachyons.begin(), tachyons.end());
    tachyons.erase(std::unique(tachyons.begin(), tachyons.end()), tachyons.end());
 }
 
-bool GeneralTHDM_problems::have_tachyon() const
+bool THDM_problems::have_tachyon() const
 {
    return !tachyons.empty();
 }
 
-bool GeneralTHDM_problems::have_problem() const
+bool THDM_problems::have_problem() const
 {
    return have_tachyon();
 }
 
-bool GeneralTHDM_problems::have_warning() const
+bool THDM_problems::have_warning() const
 {
    return false;
 }
 
-std::string GeneralTHDM_problems::get_warnings() const
+std::string THDM_problems::get_warnings() const
 {
    std::ostringstream ostr;
    print_warnings(ostr);
    return ostr.str();
 }
 
-std::string GeneralTHDM_problems::get_problems() const
+std::string THDM_problems::get_problems() const
 {
    std::ostringstream ostr;
    print_problems(ostr);
    return ostr.str();
 }
 
-void GeneralTHDM_problems::print_problems(std::ostream& ostr) const
+void THDM_problems::print_problems(std::ostream& ostr) const
 {
    if (have_problem()) {
       ostr << "Problem: ";
@@ -91,20 +91,20 @@ void GeneralTHDM_problems::print_problems(std::ostream& ostr) const
    }
 }
 
-void GeneralTHDM_problems::print_warnings(std::ostream& ostr) const
+void THDM_problems::print_warnings(std::ostream& ostr) const
 {
    if (have_warning()) {
       ostr << "Warning:";
    }
 }
 
-void GeneralTHDM_problems::print(std::ostream& ostr) const
+void THDM_problems::print(std::ostream& ostr) const
 {
    print_warnings(ostr);
    print_problems(ostr);
 }
 
-std::ostream& operator<<(std::ostream& ostr, const GeneralTHDM_problems& problems)
+std::ostream& operator<<(std::ostream& ostr, const THDM_problems& problems)
 {
    problems.print(ostr);
    return ostr;

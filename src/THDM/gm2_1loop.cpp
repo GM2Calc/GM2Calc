@@ -17,8 +17,8 @@
 // ====================================================================
 
 #include "gm2calc/gm2_1loop.hpp"
-#include "gm2calc/GeneralTHDM.hpp"
-#include "GeneralTHDM/gm2_1loop_helpers.hpp"
+#include "gm2calc/THDM.hpp"
+#include "THDM/gm2_1loop_helpers.hpp"
 #include <cmath>
 
 /**
@@ -36,7 +36,7 @@ namespace gm2calc {
  * @param model THDM model parameters, masses and mixings
  * @return 1-loop contribution to a_mu
  */
-double calculate_amu_1loop(const GeneralTHDM& model)
+double calculate_amu_1loop(const THDM& model)
 {
    general_thdm::THDM_1L_parameters pars;
    pars.alpha_em = model.get_alpha_em();

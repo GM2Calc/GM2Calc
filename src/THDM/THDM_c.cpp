@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "gm2calc/GeneralTHDM.h"
-#include "gm2calc/GeneralTHDM.hpp"
+#include "gm2calc/THDM.h"
+#include "gm2calc/THDM.hpp"
 #include "gm2calc/gm2_error.hpp"
 #include "gm2calc/SM.h"
 
@@ -61,26 +61,26 @@ gm2calc::SM convert_to_SM(gm2calc_SM* sm)
    return s;
 }
 
-gm2calc::GeneralTHDM::General_basis convert_to_basis(GeneralTHDM_general_basis* basis)
+gm2calc::THDM::General_basis convert_to_basis(THDM_general_basis* basis)
 {
-   gm2calc::GeneralTHDM::General_basis b;
+   gm2calc::THDM::General_basis b;
 
    if (basis != 0) {
       switch (basis->yukawa_scheme) {
-      case GeneralTHDM_type_1:
-         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_1;
+      case THDM_type_1:
+         b.yukawa_scheme = THDM::Yukawa_scheme::type_1;
          break;
-      case GeneralTHDM_type_2:
-         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_2;
+      case THDM_type_2:
+         b.yukawa_scheme = THDM::Yukawa_scheme::type_2;
          break;
-      case GeneralTHDM_type_X:
-         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_X;
+      case THDM_type_X:
+         b.yukawa_scheme = THDM::Yukawa_scheme::type_X;
          break;
-      case GeneralTHDM_type_Y:
-         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_Y;
+      case THDM_type_Y:
+         b.yukawa_scheme = THDM::Yukawa_scheme::type_Y;
          break;
-      case GeneralTHDM_general:
-         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::general;
+      case THDM_general:
+         b.yukawa_scheme = THDM::Yukawa_scheme::general;
          break;
       }
       b.lambda1 = basis->lambda1;
@@ -104,26 +104,26 @@ gm2calc::GeneralTHDM::General_basis convert_to_basis(GeneralTHDM_general_basis* 
    return b;
 }
 
-gm2calc::GeneralTHDM::Physical_basis convert_to_basis(GeneralTHDM_physical_basis* basis)
+gm2calc::THDM::Physical_basis convert_to_basis(THDM_physical_basis* basis)
 {
-   gm2calc::GeneralTHDM::Physical_basis b;
+   gm2calc::THDM::Physical_basis b;
 
    if (basis != 0) {
       switch (basis->yukawa_scheme) {
-      case GeneralTHDM_type_1:
-         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_1;
+      case THDM_type_1:
+         b.yukawa_scheme = THDM::Yukawa_scheme::type_1;
          break;
-      case GeneralTHDM_type_2:
-         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_2;
+      case THDM_type_2:
+         b.yukawa_scheme = THDM::Yukawa_scheme::type_2;
          break;
-      case GeneralTHDM_type_X:
-         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_X;
+      case THDM_type_X:
+         b.yukawa_scheme = THDM::Yukawa_scheme::type_X;
          break;
-      case GeneralTHDM_type_Y:
-         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::type_Y;
+      case THDM_type_Y:
+         b.yukawa_scheme = THDM::Yukawa_scheme::type_Y;
          break;
-      case GeneralTHDM_general:
-         b.yukawa_scheme = GeneralTHDM::Yukawa_scheme::general;
+      case THDM_general:
+         b.yukawa_scheme = THDM::Yukawa_scheme::general;
          break;
       }
       b.mh = basis->mh;
@@ -151,7 +151,7 @@ gm2calc::GeneralTHDM::Physical_basis convert_to_basis(GeneralTHDM_physical_basis
 } // namespace gm2calc
 
 /**
- * @file GeneralTHDM_c.cpp
+ * @file THDM_c.cpp
  * @brief contains definitions of C interface functions for the model
  *
  * This file contains the definitions for the C interface functions
@@ -166,14 +166,14 @@ extern "C"
  *
  * This function allocates a new general THDM model and sets the
  * pointer to the created object.  To prevent a resource leak, the
- * model should be destroyed using gm2calc_generalthdm_free() .
+ * model should be destroyed using gm2calc_thdm_free() .
  *
  * If an error occurs, the model pointer will be set to 0 and a
  * corresponding error code will be returned.
  *
  * @return error code
  */
-gm2calc_error gm2calc_generalthdm_new_with_general_basis(GeneralTHDM** model, GeneralTHDM_general_basis* basis, gm2calc_SM* sm)
+gm2calc_error gm2calc_thdm_new_with_general_basis(THDM** model, THDM_general_basis* basis, gm2calc_SM* sm)
 {
    if (model == 0 || basis == 0 || sm == 0) {
       return gm2calc_InvalidInput;
@@ -184,7 +184,7 @@ gm2calc_error gm2calc_generalthdm_new_with_general_basis(GeneralTHDM** model, Ge
    try {
       const auto b(gm2calc::convert_to_basis(basis));
       const auto s(gm2calc::convert_to_SM(sm));
-      *model = reinterpret_cast<GeneralTHDM*>(new gm2calc::GeneralTHDM(b, s));
+      *model = reinterpret_cast<THDM*>(new gm2calc::THDM(b, s));
       error = gm2calc_NoError;
    } catch (const gm2calc::EInvalidInput&) {
       *model = 0;
@@ -205,14 +205,14 @@ gm2calc_error gm2calc_generalthdm_new_with_general_basis(GeneralTHDM** model, Ge
  *
  * This function allocates a new general THDM model and sets the
  * pointer to the created object.  To prevent a resource leak, the
- * model should be destroyed using gm2calc_generalthdm_free() .
+ * model should be destroyed using gm2calc_thdm_free() .
  *
  * If an error occurs, the model pointer will be set to 0 and a
  * corresponding error code will be returned.
  *
  * @return error code
  */
-gm2calc_error gm2calc_generalthdm_new_with_physical_basis(GeneralTHDM** model, GeneralTHDM_physical_basis* basis, gm2calc_SM* sm)
+gm2calc_error gm2calc_thdm_new_with_physical_basis(THDM** model, THDM_physical_basis* basis, gm2calc_SM* sm)
 {
    if (model == 0 || basis == 0 || sm == 0) {
       return gm2calc_InvalidInput;
@@ -223,7 +223,7 @@ gm2calc_error gm2calc_generalthdm_new_with_physical_basis(GeneralTHDM** model, G
    try {
       const auto b(gm2calc::convert_to_basis(basis));
       const auto s(gm2calc::convert_to_SM(sm));
-      *model = reinterpret_cast<GeneralTHDM*>(new gm2calc::GeneralTHDM(b, s));
+      *model = reinterpret_cast<THDM*>(new gm2calc::THDM(b, s));
       error = gm2calc_NoError;
    } catch (const gm2calc::EInvalidInput&) {
       *model = 0;
@@ -243,13 +243,13 @@ gm2calc_error gm2calc_generalthdm_new_with_physical_basis(GeneralTHDM** model, G
  * @brief Deletes a general THDM model.
  *
  * This function deletes a general THDM model object, which has been
- * created using gm2calc_generalthdm_new() .
+ * created using gm2calc_thdm_new() .
  *
  * @param model pointer to model object
  */
-void gm2calc_generalthdm_free(GeneralTHDM* model)
+void gm2calc_thdm_free(THDM* model)
 {
-   delete reinterpret_cast<gm2calc::GeneralTHDM*>(model);
+   delete reinterpret_cast<gm2calc::THDM*>(model);
 }
 
 } // extern "C"

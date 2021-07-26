@@ -2,14 +2,14 @@
 #include "gm2calc/gm2_2loop.hpp"
 #include "gm2calc/gm2_uncertainty.hpp"
 #include "gm2calc/gm2_error.hpp"
-#include "gm2calc/GeneralTHDM.hpp"
+#include "gm2calc/THDM.hpp"
 
 #include <iostream>
 
 int main()
 {
-   gm2calc::GeneralTHDM::Physical_basis basis;
-   basis.yukawa_scheme = gm2calc::GeneralTHDM::Yukawa_scheme::type_2;
+   gm2calc::THDM::Physical_basis basis;
+   basis.yukawa_scheme = gm2calc::THDM::Yukawa_scheme::type_2;
    basis.mh = 125;
    basis.mH = 400;
    basis.mA = 420;
@@ -28,7 +28,7 @@ int main()
    sm.set_ml(2, 1.77684);
 
    try {
-      gm2calc::GeneralTHDM model(basis, sm);
+      gm2calc::THDM model(basis, sm);
 
       const double amu = gm2calc::calculate_amu_1loop(model)
                        + gm2calc::calculate_amu_2loop(model);
