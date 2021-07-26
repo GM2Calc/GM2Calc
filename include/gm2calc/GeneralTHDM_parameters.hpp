@@ -48,12 +48,12 @@ public:
    void set_Xu(int i, int k, const double& value) { Xu(i,k) = value; }
    void set_Yd(const Eigen::Matrix<double,3,3>& Yd_) { Yd = Yd_; }
    void set_Yd(int i, int k, const double& value) { Yd(i,k) = value; }
-   void set_Ye(const Eigen::Matrix<double,3,3>& Ye_) { Ye = Ye_; }
-   void set_Ye(int i, int k, const double& value) { Ye(i,k) = value; }
+   void set_Yl(const Eigen::Matrix<double,3,3>& Yl_) { Yl = Yl_; }
+   void set_Yl(int i, int k, const double& value) { Yl(i,k) = value; }
    void set_Xd(const Eigen::Matrix<double,3,3>& Xd_) { Xd = Xd_; }
    void set_Xd(int i, int k, const double& value) { Xd(i,k) = value; }
-   void set_Xe(const Eigen::Matrix<double,3,3>& Xe_) { Xe = Xe_; }
-   void set_Xe(int i, int k, const double& value) { Xe(i,k) = value; }
+   void set_Xl(const Eigen::Matrix<double,3,3>& Xl_) { Xl = Xl_; }
+   void set_Xl(int i, int k, const double& value) { Xl(i,k) = value; }
    void set_m122(double m122_) { m122 = m122_; }
    void set_m112(double m112_) { m112 = m112_; }
    void set_m222(double m222_) { m222 = m222_; }
@@ -81,12 +81,12 @@ public:
    double get_Xu(int i, int k) const { return Xu(i,k); }
    const Eigen::Matrix<double,3,3>& get_Yd() const { return Yd; }
    double get_Yd(int i, int k) const { return Yd(i,k); }
-   const Eigen::Matrix<double,3,3>& get_Ye() const { return Ye; }
-   double get_Ye(int i, int k) const { return Ye(i,k); }
+   const Eigen::Matrix<double,3,3>& get_Yl() const { return Yl; }
+   double get_Yl(int i, int k) const { return Yl(i,k); }
    const Eigen::Matrix<double,3,3>& get_Xd() const { return Xd; }
    double get_Xd(int i, int k) const { return Xd(i,k); }
-   const Eigen::Matrix<double,3,3>& get_Xe() const { return Xe; }
-   double get_Xe(int i, int k) const { return Xe(i,k); }
+   const Eigen::Matrix<double,3,3>& get_Xl() const { return Xl; }
+   double get_Xl(int i, int k) const { return Xl(i,k); }
 
 protected:
    double g1{0.0};
@@ -102,9 +102,9 @@ protected:
    Eigen::Matrix<double,3,3> Yu{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Yd{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Ye{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Yl{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xe{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
    double m122{0.0};
    double m112{0.0};
    double m222{0.0};

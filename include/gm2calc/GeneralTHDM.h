@@ -77,7 +77,7 @@ void gm2calc_generalthdm_general_basis_set_tan_beta(GeneralTHDM_general_basis*, 
 void gm2calc_generalthdm_general_basis_set_m122(GeneralTHDM_general_basis*, double);
 void gm2calc_generalthdm_general_basis_set_Xu(GeneralTHDM_general_basis*, unsigned, unsigned, double);
 void gm2calc_generalthdm_general_basis_set_Xd(GeneralTHDM_general_basis*, unsigned, unsigned, double);
-void gm2calc_generalthdm_general_basis_set_Xe(GeneralTHDM_general_basis*, unsigned, unsigned, double);
+void gm2calc_generalthdm_general_basis_set_Xl(GeneralTHDM_general_basis*, unsigned, unsigned, double);
 
 /* ********** physical basis ********** */
 
@@ -99,7 +99,7 @@ void gm2calc_generalthdm_physical_basis_set_tan_beta(GeneralTHDM_physical_basis*
 void gm2calc_generalthdm_physical_basis_set_m122(GeneralTHDM_physical_basis*, double);
 void gm2calc_generalthdm_physical_basis_set_Xu(GeneralTHDM_physical_basis*, unsigned, unsigned, double);
 void gm2calc_generalthdm_physical_basis_set_Xd(GeneralTHDM_physical_basis*, unsigned, unsigned, double);
-void gm2calc_generalthdm_physical_basis_set_Xe(GeneralTHDM_physical_basis*, unsigned, unsigned, double);
+void gm2calc_generalthdm_physical_basis_set_Xl(GeneralTHDM_physical_basis*, unsigned, unsigned, double);
 
 /* ********** THDM model ********** */
 

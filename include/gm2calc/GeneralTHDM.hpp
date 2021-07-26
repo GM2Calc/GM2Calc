@@ -51,7 +51,7 @@ public:
       double m122{0.0};
       Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
       Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
-      Eigen::Matrix<double,3,3> Xe{Eigen::Matrix<double,3,3>::Zero()};
+      Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
    };
 
    struct Physical_basis {
@@ -67,7 +67,7 @@ public:
       double m122{0.0};
       Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
       Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
-      Eigen::Matrix<double,3,3> Xe{Eigen::Matrix<double,3,3>::Zero()};
+      Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
    };
 
    GeneralTHDM(const General_basis&, const SM& sm_ = SM{});
@@ -122,10 +122,10 @@ public:
    using GeneralTHDM_mass_eigenstates::get_g2;
    using GeneralTHDM_mass_eigenstates::get_Yu;
    using GeneralTHDM_mass_eigenstates::get_Yd;
-   using GeneralTHDM_mass_eigenstates::get_Ye;
+   using GeneralTHDM_mass_eigenstates::get_Yl;
    using GeneralTHDM_mass_eigenstates::get_Xu;
    using GeneralTHDM_mass_eigenstates::get_Xd;
-   using GeneralTHDM_mass_eigenstates::get_Xe;
+   using GeneralTHDM_mass_eigenstates::get_Xl;
    using GeneralTHDM_mass_eigenstates::get_v1;
    using GeneralTHDM_mass_eigenstates::get_v2;
    using GeneralTHDM_mass_eigenstates::get_Mhh;

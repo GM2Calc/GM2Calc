@@ -135,9 +135,9 @@ void gm2calc_generalthdm_general_basis_set_Xd(GeneralTHDM_general_basis* basis, 
    reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis)->Xd(i, j) = val;
 }
 
-void gm2calc_generalthdm_general_basis_set_Xe(GeneralTHDM_general_basis* basis, unsigned i, unsigned j, double val)
+void gm2calc_generalthdm_general_basis_set_Xl(GeneralTHDM_general_basis* basis, unsigned i, unsigned j, double val)
 {
-   reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis)->Xe(i, j) = val;
+   reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis)->Xl(i, j) = val;
 }
 
 /* ********** physical basis ********** */
@@ -238,9 +238,9 @@ void gm2calc_generalthdm_physical_basis_set_Xd(GeneralTHDM_physical_basis* basis
    reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis)->Xd(i, j) = val;
 }
 
-void gm2calc_generalthdm_physical_basis_set_Xe(GeneralTHDM_physical_basis* basis, unsigned i, unsigned j, double val)
+void gm2calc_generalthdm_physical_basis_set_Xl(GeneralTHDM_physical_basis* basis, unsigned i, unsigned j, double val)
 {
-   reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis)->Xe(i, j) = val;
+   reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis)->Xl(i, j) = val;
 }
 
 /* ********** THDM model ********** */

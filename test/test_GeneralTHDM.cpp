@@ -297,7 +297,7 @@ TEST_CASE("test-point-GAMBIT")
    basis.lambda7 =  0.0;
    basis.tan_beta = 20.0;
    basis.m122 = 1428;
-   basis.Xe(1,1) = 0.1;
+   basis.Xl(1,1) = 0.1;
 
    gm2calc::SM sm;
    sm.set_alpha_em_mz(1.0/132.23323);
@@ -326,7 +326,7 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
    basis.lambda7 =  0.0;
    basis.tan_beta = 20.0;
    basis.m122 = 1428;
-   basis.Xe(1,1) = 0.1;
+   basis.Xl(1,1) = 0.1;
 
    Eigen::Matrix<std::complex<double>,3,3> ckm;
    ckm << 1.00000000000000000e+00, 2.25369999999999987e-01, 1.09018092964207518e-03,
@@ -362,7 +362,7 @@ TEST_CASE("test-point-GAMBIT-complex-CKM")
    basis.m122 = 1428;
    basis.Xu << 0.0, 0.0, 0.0, 0.0, 0.3, 0.05, 0.0, 0.05, 0.3;
    basis.Xd << 0.0, 0.0, 0.0, 0.0, 0.2, 0.03, 0.0, 0.03, 0.2;
-   basis.Xe << 0.0, 0.0, 0.0, 0.0, 0.1, 0.01, 0.0, 0.01, 0.1;
+   basis.Xl << 0.0, 0.0, 0.0, 0.0, 0.1, 0.01, 0.0, 0.01, 0.1;
 
    Eigen::Matrix<std::complex<double>,3,3> ckm;
    ckm << 1.0, 0.22537, std::complex<double>(0.0010901809,-0.0032891784),

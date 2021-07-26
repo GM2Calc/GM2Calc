@@ -62,39 +62,39 @@ void GeneralTHDM::init_yukawas()
    case Yukawa_scheme::type_1:
       Xu.setZero();
       Xd.setZero();
-      Xe.setZero();
+      Xl.setZero();
       set_Yu(sqrt2*mu/v1);
       set_Yd(sqrt2*md/v1);
-      set_Ye(sqrt2*ml/v1);
+      set_Yl(sqrt2*ml/v1);
       break;
    case Yukawa_scheme::type_2:
       Yu.setZero();
       Xd.setZero();
-      Xe.setZero();
+      Xl.setZero();
       set_Xu(sqrt2*mu/v2);
       set_Yd(sqrt2*md/v1);
-      set_Ye(sqrt2*ml/v1);
+      set_Yl(sqrt2*ml/v1);
       break;
    case Yukawa_scheme::type_X:
       Yu.setZero();
       Yd.setZero();
-      Xe.setZero();
+      Xl.setZero();
       set_Xu(sqrt2*mu/v2);
       set_Xd(sqrt2*md/v2);
-      set_Ye(sqrt2*ml/v1);
+      set_Yl(sqrt2*ml/v1);
       break;
    case Yukawa_scheme::type_Y:
       Xu.setZero();
       Xd.setZero();
-      Ye.setZero();
+      Yl.setZero();
       set_Yu(sqrt2*mu/v1);
       set_Yd(sqrt2*md/v1);
-      set_Xe(sqrt2*ml/v2);
+      set_Xl(sqrt2*ml/v2);
       break;
    case Yukawa_scheme::general:
       set_Yu(sqrt2*mu/v1 - v2/v1*Xu);
       set_Yd(sqrt2*md/v1 - v2/v1*Xd);
-      set_Ye(sqrt2*ml/v1 - v2/v1*Xe);
+      set_Yl(sqrt2*ml/v1 - v2/v1*Xl);
       break;
    }
 }
@@ -175,7 +175,7 @@ Eigen::Matrix<double,3,3> GeneralTHDM::get_xi_l() const
       return sqrt2*ml*get_zeta_l()/v;
    }
 
-   return get_Xe()/cb - sqrt2*ml*get_tan_beta()/v;
+   return get_Xl()/cb - sqrt2*ml*get_tan_beta()/v;
 }
 
 Eigen::Matrix<double,3,3> GeneralTHDM::get_yuh() const
@@ -281,7 +281,7 @@ void GeneralTHDM::set_basis(const GeneralTHDM::General_basis& basis)
    set_m122(basis.m122);
    set_Xu(basis.Xu);
    set_Xd(basis.Xd);
-   set_Xe(basis.Xe);
+   set_Xl(basis.Xl);
 
    init_yukawas();
    solve_ewsb();
@@ -355,7 +355,7 @@ void GeneralTHDM::set_basis(const GeneralTHDM::Physical_basis& basis)
    set_m122(basis.m122);
    set_Xu(basis.Xu);
    set_Xd(basis.Xd);
-   set_Xe(basis.Xe);
+   set_Xl(basis.Xl);
 
    init_yukawas();
    solve_ewsb();

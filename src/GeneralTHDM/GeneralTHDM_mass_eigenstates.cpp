@@ -310,7 +310,7 @@ void CLASSNAME::calculate_MFu()
 
 Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fe() const
 {
-   return sqrt2_inv*(v1*Ye + v2*Xe);
+   return sqrt2_inv*(v1*Yl + v2*Xl);
 }
 
 void CLASSNAME::calculate_MFe()
