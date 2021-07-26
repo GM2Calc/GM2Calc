@@ -617,20 +617,7 @@ double F1(double w) noexcept {
       return -0.5;
    }
 
-   const auto y = std::sqrt(std::complex<double>(1 - 4*w));
-   const auto lm1my = std::log(-1.0 - y);
-   const auto l1my = std::log(1.0 - y);
-   const auto lw = std::log(w);
-   const auto l16 = 2.7725887222397812; // 4 Log[2]
-
-   const auto res =
-      - 2.0*y - y*lw + w*l16*l1my + 2.0*w*lw*l1my
-      - 2.0*w*l1my*(l1my + std::log(1.0 + y))
-      + (l1my - (1.0 - 2.0*w)*lm1my)*std::log((1.0 - y)*(1.0 + y)/(4.0*w))
-      + (1.0 - 2.0*w)*(dilog((1.0 + y)/(-1.0 + y)) - dilog((-1.0 + y)/(1.0 + y)))
-      ;
-
-   return std::real(w/y*res);
+   return (2*w - 1) * F1t(w) - w * (2 + std::log(w));
 }
 
 /**
