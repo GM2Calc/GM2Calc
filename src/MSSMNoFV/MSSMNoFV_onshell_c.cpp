@@ -37,27 +37,6 @@
 extern "C"
 {
 
-const char* gm2calc_error_str(gm2calc_error error)
-{
-   const char* error_str = "Unknown error";
-
-   switch (error) {
-   case gm2calc_NoError:
-      error_str = "no error";
-      break;
-   case gm2calc_InvalidInput:
-      error_str = "Input parameter set to invalid value";
-      break;
-   case gm2calc_PhysicalProblem:
-      error_str = "Physical problem has occurred during calculation";
-      break;
-   default:
-      break;
-   }
-
-   return error_str;
-}
-
 /**
  * @brief Allocate a new MSSMNoFV model.
  *

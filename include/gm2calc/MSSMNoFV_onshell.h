@@ -27,6 +27,8 @@
  * used to set and retrieve the model parameters and masses.
  */
 
+#include "gm2calc/gm2_error.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -34,17 +36,6 @@ extern "C" {
 /** handle */
 struct MSSMNoFV_onshell;
 typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
-
-/** error codes */
-typedef enum {
-   gm2calc_NoError = 0,
-   gm2calc_InvalidInput,
-   gm2calc_PhysicalProblem,
-   gm2calc_UnknownError
-} gm2calc_error;
-
-/** translate error codes into a string */
-const char* gm2calc_error_str(gm2calc_error);
 
 /** allocate new MSSMNoFV model */
 MSSMNoFV_onshell* gm2calc_mssmnofv_new(void);

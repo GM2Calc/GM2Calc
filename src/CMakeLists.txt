@@ -1,6 +1,7 @@
 # GM2Calc library
 add_library(gm2calc
   gm2_dilog.cpp
+  gm2_error_c.cpp
   gm2_ffunctions.cpp
   gm2_mb.cpp
   gm2_numerics.cpp
