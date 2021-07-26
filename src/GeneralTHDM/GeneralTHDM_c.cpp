@@ -62,6 +62,9 @@ GeneralTHDM_physical_basis* gm2calc_generalthdm_physical_basis_new()
  * pointer to the created object.  To prevent a resource leak, the
  * model should be destroyed using gm2calc_generalthdm_free() .
  *
+ * If an error occurs, the model pointer will be set to 0 and a
+ * corresponding error code will be returned.
+ *
  * @return error code
  */
 gm2calc_error gm2calc_generalthdm_new_with_general_basis(GeneralTHDM** model, GeneralTHDM_general_basis* basis, gm2calc_SM* sm)
@@ -93,6 +96,9 @@ gm2calc_error gm2calc_generalthdm_new_with_general_basis(GeneralTHDM** model, Ge
  * This function allocates a new general THDM model and sets the
  * pointer to the created object.  To prevent a resource leak, the
  * model should be destroyed using gm2calc_generalthdm_free() .
+ *
+ * If an error occurs, the model pointer will be set to 0 and a
+ * corresponding error code will be returned.
  *
  * @return error code
  */
