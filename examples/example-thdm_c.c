@@ -9,6 +9,17 @@
 int main()
 {
    GeneralTHDM_physical_basis* basis = gm2calc_generalthdm_physical_basis_new();
+   gm2calc_generalthdm_physical_basis_set_yukawa_scheme(basis, GeneralTHDM_type_2);
+   gm2calc_generalthdm_physical_basis_set_mh(basis, 125);
+   gm2calc_generalthdm_physical_basis_set_mH(basis, 400);
+   gm2calc_generalthdm_physical_basis_set_mA(basis, 420);
+   gm2calc_generalthdm_physical_basis_set_mHp(basis, 440);
+   gm2calc_generalthdm_physical_basis_set_sin_beta_minus_alpha(basis, 0.999);
+   gm2calc_generalthdm_physical_basis_set_lambda_6(basis, 0);
+   gm2calc_generalthdm_physical_basis_set_lambda_7(basis, 0);
+   gm2calc_generalthdm_physical_basis_set_tan_beta(basis, 3);
+   gm2calc_generalthdm_physical_basis_set_m122(basis, 40000);
+
    gm2calc_SM* sm = gm2calc_generalthdm_sm_new();
 
    GeneralTHDM* model = 0;
