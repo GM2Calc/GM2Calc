@@ -119,6 +119,23 @@ TEST_CASE("tree-level-spectrum")
 }
 
 
+TEST_CASE("tree-level-spectrum-with-tachyons")
+{
+   gm2calc::GeneralTHDM::General_basis basis;
+   basis.lambda1 = -0.1;
+   basis.lambda2 = -0.2;
+   basis.lambda3 = 0;
+   basis.lambda4 = 0;
+   basis.lambda5 = 0;
+   basis.lambda6 = 0;
+   basis.lambda7 = 0;
+   basis.tan_beta = 20;
+   basis.m122 = sqr(200);
+
+   REQUIRE_THROWS(gm2calc::GeneralTHDM(basis));
+}
+
+
 // This test ensures that the Goldstone bosons are always at the first
 // position (index 0) in the MAh and MHm multiplets, even if they are
 // heavier than the corresponding Higgs bosons.
