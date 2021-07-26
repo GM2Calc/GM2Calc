@@ -64,7 +64,7 @@ GeneralTHDM_physical_basis* gm2calc_generalthdm_physical_basis_new()
  *
  * @return pointer to model object
  */
-GeneralTHDM* gm2calc_generalthdm_new_general_basis_and_sm(GeneralTHDM_general_basis* basis, gm2calc_SM* sm)
+GeneralTHDM* gm2calc_generalthdm_new_with_general_basis(GeneralTHDM_general_basis* basis, gm2calc_SM* sm)
 {
    const auto b = reinterpret_cast<gm2calc::GeneralTHDM::General_basis*>(basis);
    const auto s = reinterpret_cast<gm2calc::SM*>(sm);
@@ -80,7 +80,7 @@ GeneralTHDM* gm2calc_generalthdm_new_general_basis_and_sm(GeneralTHDM_general_ba
  *
  * @return pointer to model object
  */
-GeneralTHDM* gm2calc_generalthdm_new_physical_basis_and_sm(GeneralTHDM_physical_basis* basis, gm2calc_SM* sm)
+GeneralTHDM* gm2calc_generalthdm_new_with_physical_basis(GeneralTHDM_physical_basis* basis, gm2calc_SM* sm)
 {
    const auto b = reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis);
    const auto s = reinterpret_cast<gm2calc::SM*>(sm);

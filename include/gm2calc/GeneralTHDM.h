@@ -57,10 +57,10 @@ GeneralTHDM_general_basis* gm2calc_generalthdm_general_basis_new();
 GeneralTHDM_physical_basis* gm2calc_generalthdm_physical_basis_new();
 
 /** allocate new general THDM model with general basis input */
-GeneralTHDM* gm2calc_generalthdm_new_general_basis_and_sm(GeneralTHDM_general_basis*, gm2calc_SM*);
+GeneralTHDM* gm2calc_generalthdm_new_with_general_basis(GeneralTHDM_general_basis*, gm2calc_SM*);
 
 /** allocate new general THDM model with physical basis input */
-GeneralTHDM* gm2calc_generalthdm_new_physical_basis_and_sm(GeneralTHDM_physical_basis*, gm2calc_SM*);
+GeneralTHDM* gm2calc_generalthdm_new_with_physical_basis(GeneralTHDM_physical_basis*, gm2calc_SM*);
 
 /** delete general basis */
 void gm2calc_generalthdm_general_basis_free(GeneralTHDM_general_basis*);

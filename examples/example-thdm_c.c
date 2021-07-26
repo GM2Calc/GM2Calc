@@ -11,7 +11,7 @@ int main()
    GeneralTHDM_physical_basis* basis = gm2calc_generalthdm_physical_basis_new();
    gm2calc_SM* sm = gm2calc_generalthdm_sm_new();
 
-   GeneralTHDM* model = gm2calc_generalthdm_new_physical_basis_and_sm(basis, sm);
+   GeneralTHDM* model = gm2calc_generalthdm_new_with_physical_basis(basis, sm);
 
    const double amu = gm2calc_generalthdm_calculate_amu_1loop(model)
                     + gm2calc_generalthdm_calculate_amu_2loop(model);
