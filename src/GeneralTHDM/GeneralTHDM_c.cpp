@@ -69,6 +69,10 @@ GeneralTHDM_physical_basis* gm2calc_generalthdm_physical_basis_new()
  */
 gm2calc_error gm2calc_generalthdm_new_with_general_basis(GeneralTHDM** model, GeneralTHDM_general_basis* basis, gm2calc_SM* sm)
 {
+   if (model == 0 || basis == 0 || sm == 0) {
+      return gm2calc_InvalidInput;
+   }
+
    gm2calc_error error;
 
    try {
@@ -104,6 +108,10 @@ gm2calc_error gm2calc_generalthdm_new_with_general_basis(GeneralTHDM** model, Ge
  */
 gm2calc_error gm2calc_generalthdm_new_with_physical_basis(GeneralTHDM** model, GeneralTHDM_physical_basis* basis, gm2calc_SM* sm)
 {
+   if (model == 0 || basis == 0 || sm == 0) {
+      return gm2calc_InvalidInput;
+   }
+
    gm2calc_error error;
 
    try {
