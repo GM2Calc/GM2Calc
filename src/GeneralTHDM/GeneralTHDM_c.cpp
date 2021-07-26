@@ -19,12 +19,50 @@
 #include "gm2calc/GeneralTHDM.h"
 #include "gm2calc/GeneralTHDM.hpp"
 #include "gm2calc/gm2_error.hpp"
+#include "gm2calc/SM.h"
 
 #include "gm2_log.hpp"
 
 #include <complex>
 #include <string>
 #include <iostream>
+
+namespace gm2calc {
+namespace {
+
+gm2calc::SM convert_to_SM(gm2calc_SM* sm)
+{
+   gm2calc::SM s;
+
+   if (sm != 0) {
+      s.set_alpha_em_0(sm->alpha_em_0);
+      s.set_alpha_em_mz(sm->alpha_em_mz);
+      s.set_mh(sm->mh);
+      s.set_mw(sm->mw);
+      s.set_mz(sm->mz);
+      for (int i = 0; i < 3; i++) {
+         s.set_mu(i, sm->mu[i]);
+      }
+      for (int i = 0; i < 3; i++) {
+         s.set_md(i, sm->md[i]);
+      }
+      for (int i = 0; i < 3; i++) {
+         s.set_ml(i, sm->ml[i]);
+      }
+      Eigen::Matrix<std::complex<double>,3,3> ckm;
+      for (int i = 0; i < 3; i++) {
+         for (int k = 0; k < 3; k++) {
+            ckm(i, k) = std::complex<double>(sm->ckm_real[i][k], sm->ckm_imag[i][k]);
+         }
+      }
+      s.set_ckm(ckm);
+   }
+
+   return s;
+}
+
+} // anonymous namespace
+} // namespace gm2calc
 
 /**
  * @file GeneralTHDM_c.cpp
@@ -306,8 +344,8 @@ gm2calc_error gm2calc_generalthdm_new_with_physical_basis(GeneralTHDM** model, G
 
    try {
       const auto b = reinterpret_cast<gm2calc::GeneralTHDM::Physical_basis*>(basis);
-      const auto s = reinterpret_cast<gm2calc::SM*>(sm);
-      *model = reinterpret_cast<GeneralTHDM*>(new gm2calc::GeneralTHDM(*b, *s));
+      const gm2calc::SM s(gm2calc::convert_to_SM(sm));
+      *model = reinterpret_cast<GeneralTHDM*>(new gm2calc::GeneralTHDM(*b, s));
       error = gm2calc_NoError;
    } catch (const gm2calc::EInvalidInput&) {
       *model = 0;

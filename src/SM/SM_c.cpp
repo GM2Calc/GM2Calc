@@ -18,90 +18,41 @@
 
 #include "gm2calc/SM.h"
 #include "gm2calc/SM.hpp"
+#include <complex>
 
 extern "C"
 {
 
 /**
- * @brief Allocate a new SM.
- * @return pointer to SM
+ * @brief Set gm2calc_SM prameters to default values
  */
-gm2calc_SM* gm2calc_sm_new()
+void gm2calc_sm_set_to_default(gm2calc_SM* sm)
 {
-   return reinterpret_cast<gm2calc_SM*>(new gm2calc::SM());
-}
+   if (sm == 0) {
+      return;
+   }
 
-/**
- * @brief Deletes a SM.
- * @return pointer to SM
- */
-void gm2calc_sm_free(gm2calc_SM* sm)
-{
-   delete reinterpret_cast<gm2calc::SM*>(sm);
-}
-
-void gm2calc_sm_set_alpha_em_0(gm2calc_SM* sm, double val)
-{
-   reinterpret_cast<gm2calc::SM*>(sm)->set_alpha_em_0(val);
-}
-
-void gm2calc_sm_set_alpha_em_mz(gm2calc_SM* sm, double val)
-{
-   reinterpret_cast<gm2calc::SM*>(sm)->set_alpha_em_mz(val);
-}
-
-void gm2calc_sm_set_mh(gm2calc_SM* sm, double val)
-{
-   reinterpret_cast<gm2calc::SM*>(sm)->set_mh(val);
-}
-
-void gm2calc_sm_set_mw(gm2calc_SM* sm, double val)
-{
-   reinterpret_cast<gm2calc::SM*>(sm)->set_mw(val);
-}
-
-void gm2calc_sm_set_mz(gm2calc_SM* sm, double val)
-{
-   reinterpret_cast<gm2calc::SM*>(sm)->set_mz(val);
-}
-
-void gm2calc_sm_set_mu(gm2calc_SM* sm, unsigned i, double val)
-{
-   reinterpret_cast<gm2calc::SM*>(sm)->set_mu(i, val);
-}
-
-void gm2calc_sm_set_md(gm2calc_SM* sm, unsigned i, double val)
-{
-   reinterpret_cast<gm2calc::SM*>(sm)->set_md(i, val);
-}
-
-void gm2calc_sm_set_ml(gm2calc_SM* sm, unsigned i, double val)
-{
-   reinterpret_cast<gm2calc::SM*>(sm)->set_ml(i, val);
-}
-
-void gm2calc_sm_set_ckm_real(gm2calc_SM* sm, unsigned i, unsigned j, double re)
-{
-   auto m = reinterpret_cast<gm2calc::SM*>(sm);
-   const auto im = std::imag(m->get_ckm(i, j));
-   m->set_ckm(i, j, std::complex<double>(re, im));
-}
-
-void gm2calc_sm_set_ckm_imag(gm2calc_SM* sm, unsigned i, unsigned j, double im)
-{
-   auto m = reinterpret_cast<gm2calc::SM*>(sm);
-   const auto re = std::imag(m->get_ckm(i, j));
-   m->set_ckm(i, j, std::complex<double>(re, im));
-}
-
-void gm2calc_sm_set_ckm_from_wolfenstein(gm2calc_SM* sm, double lambdaW, double aCkm, double rhobar, double etabar)
-{
-   reinterpret_cast<gm2calc::SM*>(sm)->set_ckm_from_wolfenstein(lambdaW, aCkm, rhobar, etabar);
-}
-
-void gm2calc_sm_set_ckm_from_angles(gm2calc_SM* sm, double theta_12, double theta_13, double theta_23, double delta)
-{
-   reinterpret_cast<gm2calc::SM*>(sm)->set_ckm_from_angles(theta_12, theta_13, theta_23, delta);
+   gm2calc::SM def;
+   sm->alpha_em_0 = def.get_alpha_em_0();
+   sm->alpha_em_mz = def.get_alpha_em_mz();
+   sm->mh = def.get_mh();
+   sm->mw = def.get_mw();
+   sm->mz = def.get_mz();
+   for (int i = 0; i < 3; i++) {
+      sm->mu[i] = def.get_mu(i);
+   }
+   for (int i = 0; i < 3; i++) {
+      sm->md[i] = def.get_md(i);
+   }
+   for (int i = 0; i < 3; i++) {
+      sm->ml[i] = def.get_ml(i);
+   }
+   for (int i = 0; i < 3; i++) {
+      for (int k = 0; k < 3; k++) {
+         sm->ckm_real[i][k] = std::real(def.get_ckm(i, k));
+         sm->ckm_imag[i][k] = std::imag(def.get_ckm(i, k));
+      }
+   }
 }
 
 } // extern "C"

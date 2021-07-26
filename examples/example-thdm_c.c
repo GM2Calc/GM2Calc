@@ -20,15 +20,16 @@ int main()
    gm2calc_generalthdm_physical_basis_set_tan_beta(basis, 3);
    gm2calc_generalthdm_physical_basis_set_m122(basis, 40000);
 
-   gm2calc_SM* sm = gm2calc_sm_new();
-   gm2calc_sm_set_alpha_em_mz(sm, 1.0/128.94579);
-   gm2calc_sm_set_mu(sm, 2, 173.34);
-   gm2calc_sm_set_mu(sm, 1, 1.28);
-   gm2calc_sm_set_md(sm, 2, 4.18);
-   gm2calc_sm_set_ml(sm, 2, 1.77684);
+   gm2calc_SM sm;
+   gm2calc_sm_set_to_default(&sm);
+   sm.alpha_em_mz = 1.0/128.94579;
+   sm.mu[2] = 173.34;
+   sm.mu[1] = 1.28;
+   sm.md[2] = 4.18;
+   sm.ml[2] = 1.77684;
 
    GeneralTHDM* model = 0;
-   gm2calc_error error = gm2calc_generalthdm_new_with_physical_basis(&model, basis, sm);
+   gm2calc_error error = gm2calc_generalthdm_new_with_physical_basis(&model, basis, &sm);
 
    if (error == gm2calc_NoError) {
       const double amu = gm2calc_generalthdm_calculate_amu_1loop(model)
@@ -43,7 +44,6 @@ int main()
    }
 
    gm2calc_generalthdm_free(model);
-   gm2calc_sm_free(sm);
    gm2calc_generalthdm_physical_basis_free(basis);
 
    return 0;
