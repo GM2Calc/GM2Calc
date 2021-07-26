@@ -31,7 +31,7 @@
 extern "C" {
 #endif
 
-struct gm2calc_SM {
+struct SM {
    double alpha_em_0;
    double alpha_em_mz;
    double mh;
@@ -44,9 +44,9 @@ struct gm2calc_SM {
    double ckm_imag[3][3];
 };
 
-typedef struct gm2calc_SM gm2calc_SM;
+typedef struct SM SM;
 
-void gm2calc_sm_set_to_default(gm2calc_SM*);
+void gm2calc_sm_set_to_default(SM*);
 
 #ifdef __cplusplus
 } /* extern "C" */

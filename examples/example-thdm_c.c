@@ -27,7 +27,7 @@ int main()
       }
    }
 
-   gm2calc_SM sm;
+   SM sm;
    gm2calc_sm_set_to_default(&sm);
    sm.alpha_em_mz = 1.0/128.94579;
    sm.mu[2] = 173.34;

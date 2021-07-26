@@ -82,14 +82,14 @@ struct THDM_physical_basis {
 };
 typedef struct THDM_physical_basis THDM_physical_basis;
 
-struct gm2calc_SM;
-typedef struct gm2calc_SM gm2calc_SM;
+struct SM;
+typedef struct SM SM;
 
 /** allocate new general THDM model with general basis input */
-gm2calc_error gm2calc_thdm_new_with_general_basis(THDM**, THDM_general_basis*, gm2calc_SM*);
+gm2calc_error gm2calc_thdm_new_with_general_basis(THDM**, THDM_general_basis*, SM*);
 
 /** allocate new general THDM model with physical basis input */
-gm2calc_error gm2calc_thdm_new_with_physical_basis(THDM**, THDM_physical_basis*, gm2calc_SM*);
+gm2calc_error gm2calc_thdm_new_with_physical_basis(THDM**, THDM_physical_basis*, SM*);
 
 /** delete general THDM model */
 void gm2calc_thdm_free(THDM*);

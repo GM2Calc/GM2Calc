@@ -30,7 +30,7 @@
 namespace gm2calc {
 namespace {
 
-gm2calc::SM convert_to_SM(gm2calc_SM* sm)
+gm2calc::SM convert_to_SM(::SM* sm)
 {
    gm2calc::SM s;
 
@@ -173,7 +173,7 @@ extern "C"
  *
  * @return error code
  */
-gm2calc_error gm2calc_thdm_new_with_general_basis(THDM** model, THDM_general_basis* basis, gm2calc_SM* sm)
+gm2calc_error gm2calc_thdm_new_with_general_basis(THDM** model, THDM_general_basis* basis, ::SM* sm)
 {
    if (model == 0 || basis == 0 || sm == 0) {
       return gm2calc_InvalidInput;
@@ -212,7 +212,7 @@ gm2calc_error gm2calc_thdm_new_with_general_basis(THDM** model, THDM_general_bas
  *
  * @return error code
  */
-gm2calc_error gm2calc_thdm_new_with_physical_basis(THDM** model, THDM_physical_basis* basis, gm2calc_SM* sm)
+gm2calc_error gm2calc_thdm_new_with_physical_basis(THDM** model, THDM_physical_basis* basis, ::SM* sm)
 {
    if (model == 0 || basis == 0 || sm == 0) {
       return gm2calc_InvalidInput;

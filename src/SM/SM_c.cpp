@@ -24,9 +24,9 @@ extern "C"
 {
 
 /**
- * @brief Set gm2calc_SM prameters to default values
+ * @brief Set SM prameters to default values
  */
-void gm2calc_sm_set_to_default(gm2calc_SM* sm)
+void gm2calc_sm_set_to_default(SM* sm)
 {
    if (sm == 0) {
       return;
