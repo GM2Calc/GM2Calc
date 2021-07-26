@@ -41,6 +41,19 @@ gm2calc_SM* gm2calc_generalthdm_sm_new();
 /** delete SM */
 void gm2calc_generalthdm_sm_free(gm2calc_SM*);
 
+void gm2calc_generalthdm_sm_set_alpha_em_0(gm2calc_SM*, double);
+void gm2calc_generalthdm_sm_set_alpha_em_mz(gm2calc_SM*, double);
+void gm2calc_generalthdm_sm_set_mh(gm2calc_SM*, double);
+void gm2calc_generalthdm_sm_set_mw(gm2calc_SM*, double);
+void gm2calc_generalthdm_sm_set_mz(gm2calc_SM*, double);
+void gm2calc_generalthdm_sm_set_mu(gm2calc_SM*, unsigned, double);
+void gm2calc_generalthdm_sm_set_md(gm2calc_SM*, unsigned, double);
+void gm2calc_generalthdm_sm_set_ml(gm2calc_SM*, unsigned, double);
+void gm2calc_generalthdm_sm_set_ckm_real(gm2calc_SM*, unsigned, unsigned, double);
+void gm2calc_generalthdm_sm_set_ckm_imag(gm2calc_SM*, unsigned, unsigned, double);
+void gm2calc_generalthdm_sm_set_ckm_from_wolfenstein(gm2calc_SM*, double lambdaW, double aCkm, double rhobar, double etabar);
+void gm2calc_generalthdm_sm_set_ckm_from_angles(gm2calc_SM*, double theta_12, double theta_13, double theta_23, double delta);
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

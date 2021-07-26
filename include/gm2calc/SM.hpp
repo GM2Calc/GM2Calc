@@ -40,6 +40,7 @@ public:
    void set_md(int i, double m) noexcept { md(i) = m; }
    void set_ml(int i, double m) noexcept { ml(i) = m; }
    void set_ckm(const Eigen::Matrix<std::complex<double>,3,3>& m) { ckm = m; }
+   void set_ckm(int i, int j, const std::complex<double>& m) { ckm(i, j) = m; }
    void set_ckm_from_wolfenstein(double lambdaW, double aCkm, double rhobar, double etabar);
    void set_ckm_from_angles(double theta_12, double theta_13, double theta_23, double delta);
 
@@ -62,6 +63,7 @@ public:
    double get_sw() const;
    double get_v() const;
    const Eigen::Matrix<std::complex<double>,3,3>& get_ckm() const { return ckm; }
+   std::complex<double> get_ckm(int i, int j) const { return ckm(i, j); }
 
 private:
    double alpha_em_0{0.0};  ///< electromagnetic coupling in Thompson limit

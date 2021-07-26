@@ -21,6 +21,11 @@ int main()
    gm2calc_generalthdm_physical_basis_set_m122(basis, 40000);
 
    gm2calc_SM* sm = gm2calc_generalthdm_sm_new();
+   gm2calc_generalthdm_sm_set_alpha_em_mz(sm, 1.0/128.94579);
+   gm2calc_generalthdm_sm_set_mu(sm, 2, 173.34);
+   gm2calc_generalthdm_sm_set_mu(sm, 1, 1.28);
+   gm2calc_generalthdm_sm_set_md(sm, 2, 4.18);
+   gm2calc_generalthdm_sm_set_ml(sm, 2, 1.77684);
 
    GeneralTHDM* model = 0;
    gm2calc_error error = gm2calc_generalthdm_new_with_physical_basis(&model, basis, sm);
