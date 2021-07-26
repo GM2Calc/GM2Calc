@@ -19,6 +19,13 @@ int main()
    basis.lambda7 = 0;
    basis.tan_beta = 3;
    basis.m122 = 40000;
+   for (int i = 0; i < 3; i++) {
+      for (int k = 0; k < 3; k++) {
+         basis.Xu[i][k] = 0;
+         basis.Xd[i][k] = 0;
+         basis.Xl[i][k] = 0;
+      }
+   }
 
    gm2calc_SM sm;
    gm2calc_sm_set_to_default(&sm);
