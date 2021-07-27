@@ -16,6 +16,40 @@
 #include <utility>
 
 
+void setup_SM(gm2calc::SM& cppsm, SM& csm)
+{
+   cppsm.set_alpha_em_0(1.0/137);
+   cppsm.set_alpha_em_mz(1.0/130);
+   cppsm.set_alpha_s_mz(0.12);
+   cppsm.set_mh(125);
+   cppsm.set_mw(80);
+   cppsm.set_mz(91);
+   cppsm.set_mu(2, 173);
+   cppsm.set_mu(1, 1.3);
+   cppsm.set_md(2, 4.2);
+   cppsm.set_ml(2, 1.8);
+   cppsm.set_ckm_from_wolfenstein(0.8, 0.7, 0.6, 0.5);
+
+   csm.alpha_em_0 = cppsm.get_alpha_em_0();
+   csm.alpha_em_mz = cppsm.get_alpha_em_mz();
+   csm.alpha_s_mz = cppsm.get_alpha_s_mz();
+   csm.mh = cppsm.get_mh();
+   csm.mw = cppsm.get_mw();
+   csm.mz = cppsm.get_mz();
+   for (int i = 0; i < 3; i++) {
+      csm.mu[i] = cppsm.get_mu(i);
+      csm.md[i] = cppsm.get_md(i);
+      csm.ml[i] = cppsm.get_ml(i);
+   }
+   for (int i = 0; i < 3; i++) {
+      for (int k = 0; k < 3; k++) {
+         csm.ckm_real[i][k] = std::real(cppsm.get_ckm(i, k));
+         csm.ckm_imag[i][k] = std::imag(cppsm.get_ckm(i, k));
+      }
+   }
+}
+
+
 std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
 {
    gm2calc::THDM::Mass_basis basis;
@@ -35,19 +69,6 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
    basis.Xu << 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9;
    basis.Xd = 2.0*basis.Xu;
    basis.Xl = 3.0*basis.Xu;
-
-   gm2calc::SM sm;
-   sm.set_alpha_em_0(1.0/137);
-   sm.set_alpha_em_mz(1.0/130);
-   sm.set_alpha_s_mz(0.12);
-   sm.set_mh(125);
-   sm.set_mw(80);
-   sm.set_mz(91);
-   sm.set_mu(2, 173);
-   sm.set_mu(1, 1.3);
-   sm.set_md(2, 4.2);
-   sm.set_ml(2, 1.8);
-   sm.set_ckm_from_wolfenstein(0.8, 0.7, 0.6, 0.5);
 
    THDM_mass_basis cbasis;
    cbasis.yukawa_scheme = THDM_type_2;
@@ -74,29 +95,14 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
       }
    }
 
+   gm2calc::SM cppsm;
    SM csm;
-   csm.alpha_em_0 = sm.get_alpha_em_0();
-   csm.alpha_em_mz = sm.get_alpha_em_mz();
-   csm.alpha_s_mz = sm.get_alpha_s_mz();
-   csm.mh = sm.get_mh();
-   csm.mw = sm.get_mw();
-   csm.mz = sm.get_mz();
-   for (int i = 0; i < 3; i++) {
-      csm.mu[i] = sm.get_mu(i);
-      csm.md[i] = sm.get_md(i);
-      csm.ml[i] = sm.get_ml(i);
-   }
-   for (int i = 0; i < 3; i++) {
-      for (int k = 0; k < 3; k++) {
-         csm.ckm_real[i][k] = std::real(sm.get_ckm(i, k));
-         csm.ckm_imag[i][k] = std::imag(sm.get_ckm(i, k));
-      }
-   }
+   setup_SM(cppsm, csm);
 
    THDM* mc = 0;
    gm2calc_thdm_new_with_mass_basis(&mc, &cbasis, &csm);
 
-   return std::make_pair(gm2calc::THDM(basis, sm), mc);
+   return std::make_pair(gm2calc::THDM(basis, cppsm), mc);
 }
 
 
