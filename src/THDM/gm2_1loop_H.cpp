@@ -64,7 +64,7 @@ double AS(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen:
 
    return
       + (std::norm(y(gen, 1)) + std::norm(y(1, gen)))*F1C(x)/24
-      + std::real(y2)*ml(gen)/ml(1)*F2C(x)/3.0;
+      + std::real(y2)*ml(gen)/ml(1)*F2C(x)/3;
 }
 
 double AA(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen::Matrix<std::complex<double>,3,3>& y) noexcept
@@ -74,7 +74,7 @@ double AA(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen:
 
    return
       + (std::norm(y(gen, 1)) + std::norm(y(1, gen)))*F1C(x)/24
-      - std::real(y2)*ml(gen)/ml(1)*F2C(x)/3.0;
+      - std::real(y2)*ml(gen)/ml(1)*F2C(x)/3;
 }
 
 double AHp(int gen, const Eigen::Matrix<double,3,1>& mv, double mS2, const Eigen::Matrix<std::complex<double>,3,3>& y) noexcept
