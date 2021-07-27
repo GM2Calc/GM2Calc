@@ -174,7 +174,7 @@ extern "C"
  *
  * @return error code
  */
-gm2calc_error gm2calc_thdm_new_with_general_basis(THDM** model, THDM_gauge_basis* basis, ::SM* sm)
+gm2calc_error gm2calc_thdm_new_with_gauge_basis(THDM** model, THDM_gauge_basis* basis, ::SM* sm)
 {
    if (model == 0) {
       return gm2calc_InvalidInput;
@@ -213,7 +213,7 @@ gm2calc_error gm2calc_thdm_new_with_general_basis(THDM** model, THDM_gauge_basis
  *
  * @return error code
  */
-gm2calc_error gm2calc_thdm_new_with_physical_basis(THDM** model, THDM_mass_basis* basis, ::SM* sm)
+gm2calc_error gm2calc_thdm_new_with_mass_basis(THDM** model, THDM_mass_basis* basis, ::SM* sm)
 {
    if (model == 0) {
       return gm2calc_InvalidInput;

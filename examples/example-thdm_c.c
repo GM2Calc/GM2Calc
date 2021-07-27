@@ -36,7 +36,7 @@ int main()
    sm.ml[2] = 1.77684;
 
    THDM* model = 0;
-   gm2calc_error error = gm2calc_thdm_new_with_physical_basis(&model, &basis, &sm);
+   gm2calc_error error = gm2calc_thdm_new_with_mass_basis(&model, &basis, &sm);
 
    if (error == gm2calc_NoError) {
       const double amu = gm2calc_thdm_calculate_amu_1loop(model)
