@@ -21,11 +21,7 @@
 #include "gm2calc/gm2_error.hpp"
 #include "gm2calc/SM.h"
 
-#include "gm2_log.hpp"
-
 #include <complex>
-#include <string>
-#include <iostream>
 
 namespace gm2calc {
 namespace {
