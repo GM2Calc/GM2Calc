@@ -28,7 +28,7 @@ const double sqrt2 = 1.4142135623730950; // Sqrt[2]
 
 } // anonymous namespace
 
-THDM::THDM(const General_basis& basis, const SM& sm_)
+THDM::THDM(const Gauge_basis& basis, const SM& sm_)
    : sm(sm_)
    , yukawa_scheme(basis.yukawa_scheme)
 {
@@ -36,7 +36,7 @@ THDM::THDM(const General_basis& basis, const SM& sm_)
    set_basis(basis);
 }
 
-THDM::THDM(const Physical_basis& basis, const SM& sm_)
+THDM::THDM(const Mass_basis& basis, const SM& sm_)
    : sm(sm_)
    , yukawa_scheme(basis.yukawa_scheme)
 {
@@ -268,7 +268,7 @@ Eigen::Matrix<double,3,3> THDM::get_ylHp() const
    return get_xi_l();
 }
 
-void THDM::set_basis(const THDM::General_basis& basis)
+void THDM::set_basis(const THDM::Gauge_basis& basis)
 {
    set_lambda1(basis.lambda1);
    set_lambda2(basis.lambda2);
@@ -292,7 +292,7 @@ void THDM::set_basis(const THDM::General_basis& basis)
    }
 }
 
-void THDM::set_basis(const THDM::Physical_basis& basis)
+void THDM::set_basis(const THDM::Mass_basis& basis)
 {
    if (basis.mh > basis.mH) {
       throw EInvalidInput("mh must be less than or equal to mH.");

@@ -38,7 +38,7 @@ public:
       type_1, type_2, type_X, type_Y, general
    };
 
-   struct General_basis {
+   struct Gauge_basis {
       Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
       double lambda1{0.0};
       double lambda2{0.0};
@@ -54,7 +54,7 @@ public:
       Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
    };
 
-   struct Physical_basis {
+   struct Mass_basis {
       Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
       double mh{0.0};
       double mH{0.0};
@@ -70,8 +70,8 @@ public:
       Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
    };
 
-   THDM(const General_basis&, const SM& sm_ = SM{});
-   THDM(const Physical_basis&, const SM& sm_ = SM{});
+   THDM(const Gauge_basis&, const SM& sm_ = SM{});
+   THDM(const Mass_basis&, const SM& sm_ = SM{});
 
    double get_zeta_u() const;
    double get_zeta_d() const;
@@ -148,8 +148,8 @@ private:
 
    void init_gauge_couplings();
    void init_yukawas();
-   void set_basis(const General_basis&);
-   void set_basis(const Physical_basis&);
+   void set_basis(const Gauge_basis&);
+   void set_basis(const Mass_basis&);
 };
 
 /// streaming operator

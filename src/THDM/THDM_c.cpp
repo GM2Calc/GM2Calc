@@ -62,9 +62,9 @@ gm2calc::SM convert_to_SM(::SM* sm)
    return s;
 }
 
-gm2calc::THDM::General_basis convert_to_basis(THDM_general_basis* basis)
+gm2calc::THDM::Gauge_basis convert_to_basis(THDM_gauge_basis* basis)
 {
-   gm2calc::THDM::General_basis b;
+   gm2calc::THDM::Gauge_basis b;
 
    if (basis != 0) {
       switch (basis->yukawa_scheme) {
@@ -105,9 +105,9 @@ gm2calc::THDM::General_basis convert_to_basis(THDM_general_basis* basis)
    return b;
 }
 
-gm2calc::THDM::Physical_basis convert_to_basis(THDM_physical_basis* basis)
+gm2calc::THDM::Mass_basis convert_to_basis(THDM_mass_basis* basis)
 {
-   gm2calc::THDM::Physical_basis b;
+   gm2calc::THDM::Mass_basis b;
 
    if (basis != 0) {
       switch (basis->yukawa_scheme) {
@@ -174,7 +174,7 @@ extern "C"
  *
  * @return error code
  */
-gm2calc_error gm2calc_thdm_new_with_general_basis(THDM** model, THDM_general_basis* basis, ::SM* sm)
+gm2calc_error gm2calc_thdm_new_with_general_basis(THDM** model, THDM_gauge_basis* basis, ::SM* sm)
 {
    if (model == 0) {
       return gm2calc_InvalidInput;
@@ -213,7 +213,7 @@ gm2calc_error gm2calc_thdm_new_with_general_basis(THDM** model, THDM_general_bas
  *
  * @return error code
  */
-gm2calc_error gm2calc_thdm_new_with_physical_basis(THDM** model, THDM_physical_basis* basis, ::SM* sm)
+gm2calc_error gm2calc_thdm_new_with_physical_basis(THDM** model, THDM_mass_basis* basis, ::SM* sm)
 {
    if (model == 0) {
       return gm2calc_InvalidInput;

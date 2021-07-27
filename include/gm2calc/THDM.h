@@ -47,7 +47,7 @@ typedef enum {
 } THDM_yukawa_scheme;
 
 /** general THDM general basis input */
-struct THDM_general_basis {
+struct THDM_gauge_basis {
    THDM_yukawa_scheme yukawa_scheme;
    double lambda1;
    double lambda2;
@@ -62,10 +62,10 @@ struct THDM_general_basis {
    double Xd[3][3];
    double Xl[3][3];
 };
-typedef struct THDM_general_basis THDM_general_basis;
+typedef struct THDM_gauge_basis THDM_gauge_basis;
 
 /** general THDM physical basis input */
-struct THDM_physical_basis {
+struct THDM_mass_basis {
    THDM_yukawa_scheme yukawa_scheme;
    double mh;
    double mH;
@@ -80,16 +80,16 @@ struct THDM_physical_basis {
    double Xd[3][3];
    double Xl[3][3];
 };
-typedef struct THDM_physical_basis THDM_physical_basis;
+typedef struct THDM_mass_basis THDM_mass_basis;
 
 struct SM;
 typedef struct SM SM;
 
 /** allocate new general THDM model with general basis input */
-gm2calc_error gm2calc_thdm_new_with_general_basis(THDM**, THDM_general_basis*, SM*);
+gm2calc_error gm2calc_thdm_new_with_general_basis(THDM**, THDM_gauge_basis*, SM*);
 
 /** allocate new general THDM model with physical basis input */
-gm2calc_error gm2calc_thdm_new_with_physical_basis(THDM**, THDM_physical_basis*, SM*);
+gm2calc_error gm2calc_thdm_new_with_physical_basis(THDM**, THDM_mass_basis*, SM*);
 
 /** delete general THDM model */
 void gm2calc_thdm_free(THDM*);

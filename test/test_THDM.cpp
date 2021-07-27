@@ -31,7 +31,7 @@ TEST_CASE("tree-level-spectrum")
    // parameter point where choice of range
    // -pi/2 <= beta - alpha_h <= pi/2
    // matters
-   gm2calc::THDM::General_basis basis;
+   gm2calc::THDM::Gauge_basis basis;
    basis.lambda1 = 0.26249;
    basis.lambda2 = 0.23993;
    basis.lambda3 = 2.09923;
@@ -121,7 +121,7 @@ TEST_CASE("tree-level-spectrum")
 
 TEST_CASE("tree-level-spectrum-with-tachyons")
 {
-   gm2calc::THDM::General_basis basis;
+   gm2calc::THDM::Gauge_basis basis;
    basis.lambda1 = -0.1;
    basis.lambda2 = -0.2;
    basis.lambda3 = 0;
@@ -171,7 +171,7 @@ TEST_CASE("general_basis")
 {
    const double eps = 1e-14;
 
-   gm2calc::THDM::General_basis basis;
+   gm2calc::THDM::Gauge_basis basis;
    basis.lambda1 = 0.7;
    basis.lambda2 = 0.6;
    basis.lambda3 = 0.5;
@@ -210,7 +210,7 @@ TEST_CASE("physical_basis")
 {
    const double eps = 1e-14;
 
-   gm2calc::THDM::Physical_basis basis;
+   gm2calc::THDM::Mass_basis basis;
    basis.mh = 125;
    basis.mH = 400;
    basis.mA = 420;
@@ -256,7 +256,7 @@ TEST_CASE("physical_basis")
 
 TEST_CASE("2HDMC-demo-point")
 {
-   gm2calc::THDM::General_basis basis;
+   gm2calc::THDM::Gauge_basis basis;
    basis.lambda1 = 4.81665;
    basis.lambda2 = 0.23993;
    basis.lambda3 = 2.09923;
@@ -286,7 +286,7 @@ TEST_CASE("2HDMC-demo-point")
 
 TEST_CASE("test-point-GAMBIT")
 {
-   gm2calc::THDM::General_basis basis;
+   gm2calc::THDM::Gauge_basis basis;
    basis.yukawa_scheme = gm2calc::THDM::Yukawa_scheme::general;
    basis.lambda1 =  2.02924518279587396;
    basis.lambda2 =  0.25812066515822629;
@@ -315,7 +315,7 @@ TEST_CASE("test-point-GAMBIT")
 
 TEST_CASE("test-point-GAMBIT-real-CKM")
 {
-   gm2calc::THDM::General_basis basis;
+   gm2calc::THDM::Gauge_basis basis;
    basis.yukawa_scheme = gm2calc::THDM::Yukawa_scheme::general;
    basis.lambda1 =  2.02924518279587396;
    basis.lambda2 =  0.25812066515822629;
@@ -349,7 +349,7 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
 
 TEST_CASE("test-point-GAMBIT-complex-CKM")
 {
-   gm2calc::THDM::General_basis basis;
+   gm2calc::THDM::Gauge_basis basis;
    basis.yukawa_scheme = gm2calc::THDM::Yukawa_scheme::general;
    basis.lambda1 =  2.02924518279587396;
    basis.lambda2 =  0.25812066515822629;
@@ -415,7 +415,7 @@ TEST_CASE("2HDMC-mA-scan")
    for (const auto& p: data) {
       const auto mA = p.at(0);
 
-      gm2calc::THDM::Physical_basis basis;
+      gm2calc::THDM::Mass_basis basis;
       basis.mh = 125;
       basis.mH = 400;
       basis.mA = mA;

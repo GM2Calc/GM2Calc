@@ -144,7 +144,7 @@ gm2calc::THDM random_point_thdm()
    sm.set_md(2, 4.75);
    sm.set_ml(2, 1.77684);
 
-   gm2calc::THDM::Physical_basis basis;
+   gm2calc::THDM::Mass_basis basis;
    basis.mh = 125;
    basis.mH = rMH();
    basis.mA = rMH();
