@@ -93,6 +93,9 @@ gm2calc::THDM::Gauge_basis convert_to_basis(THDM_gauge_basis* basis)
       b.lambda7 = basis->lambda7;
       b.tan_beta = basis->tan_beta;
       b.m122 = basis->m122;
+      b.zeta_u = basis->zeta_u;
+      b.zeta_d = basis->zeta_d;
+      b.zeta_l = basis->zeta_l;
       for (int i = 0; i < 3; i++) {
          for (int k = 0; k < 3; k++) {
             b.Xu(i, k) = basis->Xu[i][k];
@@ -136,6 +139,9 @@ gm2calc::THDM::Mass_basis convert_to_basis(THDM_mass_basis* basis)
       b.lambda7 = basis->lambda7;
       b.tan_beta = basis->tan_beta;
       b.m122 = basis->m122;
+      b.zeta_u = basis->zeta_u;
+      b.zeta_d = basis->zeta_d;
+      b.zeta_l = basis->zeta_l;
       for (int i = 0; i < 3; i++) {
          for (int k = 0; k < 3; k++) {
             b.Xu(i, k) = basis->Xu[i][k];

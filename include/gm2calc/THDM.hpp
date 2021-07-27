@@ -49,6 +49,9 @@ public:
       double lambda7{0.0};
       double tan_beta{0.0};
       double m122{0.0};
+      double zeta_u{0.0};
+      double zeta_d{0.0};
+      double zeta_l{0.0};
       Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
       Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
       Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
@@ -65,6 +68,9 @@ public:
       double lambda7{0.0};
       double tan_beta{0.0};
       double m122{0.0};
+      double zeta_u{0.0};
+      double zeta_d{0.0};
+      double zeta_l{0.0};
       Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
       Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
       Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
