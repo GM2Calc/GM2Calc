@@ -153,11 +153,11 @@ protected:
    void calculate_MAh();
    Eigen::Matrix<double,2,2> get_mass_matrix_Hm() const;
    void calculate_MHm();
-   Eigen::Matrix<double,3,3> get_mass_matrix_Fd() const;
+   Eigen::Matrix<std::complex<double>,3,3> get_mass_matrix_Fd() const;
    void calculate_MFd();
-   Eigen::Matrix<double,3,3> get_mass_matrix_Fu() const;
+   Eigen::Matrix<std::complex<double>,3,3> get_mass_matrix_Fu() const;
    void calculate_MFu();
-   Eigen::Matrix<double,3,3> get_mass_matrix_Fe() const;
+   Eigen::Matrix<std::complex<double>,3,3> get_mass_matrix_Fe() const;
    void calculate_MFe();
 
 private:

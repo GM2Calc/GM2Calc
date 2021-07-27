@@ -286,7 +286,7 @@ void CLASSNAME::calculate_MHm()
    MHm = sqrt(MHm.cwiseAbs());
 }
 
-Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fd() const
+Eigen::Matrix<std::complex<double>,3,3> CLASSNAME::get_mass_matrix_Fd() const
 {
    return sqrt2_inv*(v1*Yd + v2*Xd);
 }
@@ -294,10 +294,10 @@ Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fd() const
 void CLASSNAME::calculate_MFd()
 {
    const auto mass_matrix_Fd(get_mass_matrix_Fd());
-   fs_svd<double,3,3>(mass_matrix_Fd, MFd, Vd, Ud);
+   fs_svd<double,std::complex<double>,3,3>(mass_matrix_Fd, MFd, Vd, Ud);
 }
 
-Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fu() const
+Eigen::Matrix<std::complex<double>,3,3> CLASSNAME::get_mass_matrix_Fu() const
 {
    return sqrt2_inv*(v1*Yu + v2*Xu);
 }
@@ -305,10 +305,10 @@ Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fu() const
 void CLASSNAME::calculate_MFu()
 {
    const auto mass_matrix_Fu(get_mass_matrix_Fu());
-   fs_svd<double,3,3>(mass_matrix_Fu, MFu, Vu, Uu);
+   fs_svd<double,std::complex<double>,3,3>(mass_matrix_Fu, MFu, Vu, Uu);
 }
 
-Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fe() const
+Eigen::Matrix<std::complex<double>,3,3> CLASSNAME::get_mass_matrix_Fe() const
 {
    return sqrt2_inv*(v1*Yl + v2*Xl);
 }
@@ -316,7 +316,7 @@ Eigen::Matrix<double,3,3> CLASSNAME::get_mass_matrix_Fe() const
 void CLASSNAME::calculate_MFe()
 {
    const auto mass_matrix_Fe(get_mass_matrix_Fe());
-   fs_svd<double,3,3>(mass_matrix_Fe, MFe, Ve, Ue);
+   fs_svd<double,std::complex<double>,3,3>(mass_matrix_Fe, MFe, Ve, Ue);
 }
 
 double CLASSNAME::get_mass_matrix_VWm() const

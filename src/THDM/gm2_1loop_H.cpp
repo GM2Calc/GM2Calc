@@ -39,8 +39,6 @@ const double pi2 = 9.8696044010893586; // Pi^2
 
 double sqr(double x) noexcept { return x*x; }
 
-double conj(double x) noexcept { return x; }
-
 /// Eq.(28), arxiv:1607.06292
 double Fh(double x) noexcept
 {
@@ -59,27 +57,27 @@ double FHp(double x) noexcept
    return -F1N(x)/12;
 }
 
-double AS(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen::Matrix<double,3,3>& y) noexcept
+double AS(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen::Matrix<std::complex<double>,3,3>& y) noexcept
 {
    const auto x = sqr(ml(gen))/mS2;
-   const double y2 = conj(y(gen, 1))*conj(y(1, gen));
+   const auto y2 = std::conj(y(gen, 1))*std::conj(y(1, gen));
 
    return
       + (std::norm(y(gen, 1)) + std::norm(y(1, gen)))*F1C(x)/24
-      + y2*ml(gen)/ml(1)*F2C(x)/3;
+      + std::real(y2)*ml(gen)/ml(1)*F2C(x)/3.0;
 }
 
-double AA(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen::Matrix<double,3,3>& y) noexcept
+double AA(int gen, const Eigen::Matrix<double,3,1>& ml, double mS2, const Eigen::Matrix<std::complex<double>,3,3>& y) noexcept
 {
    const auto x = sqr(ml(gen))/mS2;
-   const double y2 = conj(y(gen, 1))*conj(y(1, gen));
+   const auto y2 = std::conj(y(gen, 1))*std::conj(y(1, gen));
 
    return
       + (std::norm(y(gen, 1)) + std::norm(y(1, gen)))*F1C(x)/24
-      - y2*ml(gen)/ml(1)*F2C(x)/3;
+      - std::real(y2)*ml(gen)/ml(1)*F2C(x)/3.0;
 }
 
-double AHp(int gen, const Eigen::Matrix<double,3,1>& mv, double mS2, const Eigen::Matrix<double,3,3>& y) noexcept
+double AHp(int gen, const Eigen::Matrix<double,3,1>& mv, double mS2, const Eigen::Matrix<std::complex<double>,3,3>& y) noexcept
 {
    return -std::norm(y(gen, 1))/48*(
       F1N(sqr(mv(1))/mS2) + F1N(sqr(mv(gen))/mS2));
@@ -114,10 +112,10 @@ double amu1L_approx(const THDM_1L_parameters& pars) noexcept
 
    // Eq.(27), arxiv:1607.06292
    const auto res =
-      + sqr(pars.ylh(1,1)) * mm2/mh2 * Fh(mm2/mh2)
-      + sqr(pars.ylH(1,1)) * mm2/mH2 * Fh(mm2/mH2)
-      + sqr(pars.ylA(1,1)) * mm2/mA2 * FA(mm2/mA2)
-      + 0.5 * sqr(pars.ylHp(1,1)) * mm2/mHp2 * FHp(mm2/mHp2)
+      + std::norm(pars.ylh(1,1)) * mm2/mh2 * Fh(mm2/mh2)
+      + std::norm(pars.ylH(1,1)) * mm2/mH2 * Fh(mm2/mH2)
+      + std::norm(pars.ylA(1,1)) * mm2/mA2 * FA(mm2/mA2)
+      + 0.5 * std::norm(pars.ylHp(1,1)) * mm2/mHp2 * FHp(mm2/mHp2)
       // subtract SM contribution
       - mm2/v2 * mm2/mhSM2 * Fh(mm2/mhSM2);
 

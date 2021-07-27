@@ -37,10 +37,10 @@ struct THDM_1L_parameters {
    Eigen::Matrix<double,3,1> ml{Eigen::Matrix<double,3,1>::Zero()};  ///< down-type lepton masses
    Eigen::Matrix<double,3,1> mv{Eigen::Matrix<double,3,1>::Zero()};  ///< neutrino masses
    Eigen::Matrix<double,2,1> mh{Eigen::Matrix<double,2,1>::Zero()};  ///< CP-even Higgs bosons mass
-   Eigen::Matrix<double,3,3> ylh{Eigen::Matrix<double,3,3>::Zero()}; ///< Y_l^h coefficients with l={e,m,τ}
-   Eigen::Matrix<double,3,3> ylH{Eigen::Matrix<double,3,3>::Zero()}; ///< Y_l^H coefficients with l={e,m,τ}
-   Eigen::Matrix<double,3,3> ylA{Eigen::Matrix<double,3,3>::Zero()}; ///< Y_l^A coefficients with l={e,m,τ}
-   Eigen::Matrix<double,3,3> ylHp{Eigen::Matrix<double,3,3>::Zero()};///< Y_l^{H^\pm} coefficients with l={e,m,τ}
+   Eigen::Matrix<std::complex<double>,3,3> ylh{Eigen::Matrix<std::complex<double>,3,3>::Zero()}; ///< Y_l^h coefficients with l={e,m,τ}
+   Eigen::Matrix<std::complex<double>,3,3> ylH{Eigen::Matrix<std::complex<double>,3,3>::Zero()}; ///< Y_l^H coefficients with l={e,m,τ}
+   Eigen::Matrix<std::complex<double>,3,3> ylA{Eigen::Matrix<std::complex<double>,3,3>::Zero()}; ///< Y_l^A coefficients with l={e,m,τ}
+   Eigen::Matrix<std::complex<double>,3,3> ylHp{Eigen::Matrix<std::complex<double>,3,3>::Zero()};///< Y_l^{H^\pm} coefficients with l={e,m,τ}
 };
 
 // === 1-loop contributions ===
