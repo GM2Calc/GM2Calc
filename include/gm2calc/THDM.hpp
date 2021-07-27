@@ -35,7 +35,7 @@ namespace gm2calc {
 class THDM : private THDM_mass_eigenstates {
 public:
    enum class Yukawa_scheme {
-      type_1, type_2, type_X, type_Y, general
+      type_1, type_2, type_X, type_Y, aligned, general
    };
 
    struct Gauge_basis {
@@ -151,6 +151,9 @@ public:
 private:
    SM sm{};
    Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
+   double zeta_u{0.0}; ///< alignment parameter
+   double zeta_d{0.0}; ///< alignment parameter
+   double zeta_l{0.0}; ///< alignment parameter
 
    void init_gauge_couplings();
    void init_yukawas();

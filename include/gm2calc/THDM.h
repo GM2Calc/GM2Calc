@@ -43,6 +43,7 @@ typedef enum {
    THDM_type_2,
    THDM_type_X,
    THDM_type_Y,
+   THDM_aligned,
    THDM_general
 } THDM_yukawa_scheme;
 

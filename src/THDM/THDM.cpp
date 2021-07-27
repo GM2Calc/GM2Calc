@@ -26,11 +26,20 @@ namespace {
 
 const double sqrt2 = 1.4142135623730950; // Sqrt[2]
 
+/// Eq.(6) arxiv:0908.1554 and arxiv:1001.0293, solved for xi_f
+double calc_xi(double zeta, double tan_beta) noexcept
+{
+   return (tan_beta + zeta)/(1 - tan_beta*zeta);
+}
+
 } // anonymous namespace
 
 THDM::THDM(const Gauge_basis& basis, const SM& sm_)
    : sm(sm_)
    , yukawa_scheme(basis.yukawa_scheme)
+   , zeta_u(basis.zeta_u)
+   , zeta_d(basis.zeta_d)
+   , zeta_l(basis.zeta_l)
 {
    init_gauge_couplings();
    set_basis(basis);
@@ -39,6 +48,9 @@ THDM::THDM(const Gauge_basis& basis, const SM& sm_)
 THDM::THDM(const Mass_basis& basis, const SM& sm_)
    : sm(sm_)
    , yukawa_scheme(basis.yukawa_scheme)
+   , zeta_u(basis.zeta_u)
+   , zeta_d(basis.zeta_d)
+   , zeta_l(basis.zeta_l)
 {
    init_gauge_couplings();
    set_basis(basis);
@@ -91,6 +103,14 @@ void THDM::init_yukawas()
       set_Yd(sqrt2*md/v1);
       set_Xl(sqrt2*ml/v2);
       break;
+   case Yukawa_scheme::aligned:
+      set_Yu(sqrt2*mu/(v1 + v2*calc_xi(get_zeta_u(), get_tan_beta())));
+      set_Yd(sqrt2*md/(v1 + v2*calc_xi(get_zeta_d(), get_tan_beta())));
+      set_Yl(sqrt2*ml/(v1 + v2*calc_xi(get_zeta_l(), get_tan_beta())));
+      set_Xu(calc_xi(get_zeta_u(), get_tan_beta())*Yu);
+      set_Xd(calc_xi(get_zeta_d(), get_tan_beta())*Yd);
+      set_Xl(calc_xi(get_zeta_l(), get_tan_beta())*Yl);
+      break;
    case Yukawa_scheme::general:
       set_Yu(sqrt2*mu/v1 - v2/v1*Xu);
       set_Yd(sqrt2*md/v1 - v2/v1*Xd);
@@ -102,23 +122,30 @@ void THDM::init_yukawas()
 /// Table 1, arxiv:1607.06292
 double THDM::get_zeta_u() const
 {
-   return 1.0/get_tan_beta();
+   switch (yukawa_scheme) {
+   case Yukawa_scheme::aligned:
+      return zeta_u;
+   default:
+      return 1.0/get_tan_beta();
+   }
 }
 
 /// Table 1, arxiv:1607.06292
 double THDM::get_zeta_d() const
 {
    switch (yukawa_scheme) {
-      case Yukawa_scheme::type_1:
-         return 1.0/get_tan_beta();
-      case Yukawa_scheme::type_2:
-         return -get_tan_beta();
-      case Yukawa_scheme::type_X:
-         return 1.0/get_tan_beta();
-      case Yukawa_scheme::type_Y:
-         return -get_tan_beta();
-      case Yukawa_scheme::general:
-         return -get_tan_beta(); // should never arrive here
+   case Yukawa_scheme::type_1:
+      return 1.0/get_tan_beta();
+   case Yukawa_scheme::type_2:
+      return -get_tan_beta();
+   case Yukawa_scheme::type_X:
+      return 1.0/get_tan_beta();
+   case Yukawa_scheme::type_Y:
+      return -get_tan_beta();
+   case Yukawa_scheme::aligned:
+      return zeta_d;
+   case Yukawa_scheme::general:
+      return -get_tan_beta(); // should never arrive here
    }
 }
 
@@ -126,16 +153,18 @@ double THDM::get_zeta_d() const
 double THDM::get_zeta_l() const
 {
    switch (yukawa_scheme) {
-      case Yukawa_scheme::type_1:
-         return 1.0/get_tan_beta();
-      case Yukawa_scheme::type_2:
-         return -get_tan_beta();
-      case Yukawa_scheme::type_X:
-         return -get_tan_beta();
-      case Yukawa_scheme::type_Y:
-         return 1.0/get_tan_beta();
-      case Yukawa_scheme::general:
-         return -get_tan_beta(); // should never arrive here
+   case Yukawa_scheme::type_1:
+      return 1.0/get_tan_beta();
+   case Yukawa_scheme::type_2:
+      return -get_tan_beta();
+   case Yukawa_scheme::type_X:
+      return -get_tan_beta();
+   case Yukawa_scheme::type_Y:
+      return 1.0/get_tan_beta();
+   case Yukawa_scheme::aligned:
+      return zeta_l;
+   case Yukawa_scheme::general:
+      return -get_tan_beta(); // should never arrive here
    }
 }
 
@@ -389,6 +418,9 @@ std::ostream& operator<<(std::ostream& ostr, const THDM& model)
          break;
       case THDM::Yukawa_scheme::type_Y:
          ostr << "Type Y\n";
+         break;
+      case THDM::Yukawa_scheme::aligned:
+         ostr << "Aligned\n";
          break;
       case THDM::Yukawa_scheme::general:
          ostr << "General\n";

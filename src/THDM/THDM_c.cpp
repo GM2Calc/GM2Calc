@@ -80,6 +80,9 @@ gm2calc::THDM::Gauge_basis convert_to_basis(THDM_gauge_basis* basis)
       case THDM_type_Y:
          b.yukawa_scheme = THDM::Yukawa_scheme::type_Y;
          break;
+      case THDM_aligned:
+         b.yukawa_scheme = THDM::Yukawa_scheme::aligned;
+         break;
       case THDM_general:
          b.yukawa_scheme = THDM::Yukawa_scheme::general;
          break;
@@ -125,6 +128,9 @@ gm2calc::THDM::Mass_basis convert_to_basis(THDM_mass_basis* basis)
          break;
       case THDM_type_Y:
          b.yukawa_scheme = THDM::Yukawa_scheme::type_Y;
+         break;
+      case THDM_aligned:
+         b.yukawa_scheme = THDM::Yukawa_scheme::aligned;
          break;
       case THDM_general:
          b.yukawa_scheme = THDM::Yukawa_scheme::general;
