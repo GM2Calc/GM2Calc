@@ -42,12 +42,12 @@ void test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme yukawa_scheme)
    basis.lambda7 = 0.0;
    basis.tan_beta = 3.0;
    basis.m122 = sqr(200.0);
-   basis.zeta_u = 0;
-   basis.zeta_d = 0;
-   basis.zeta_l = 0;
-   basis.Xu << 0, 0, 0, 0, 0, 0, 0, 0, 0;
-   basis.Xd << 0, 0, 0, 0, 0, 0, 0, 0, 0;
-   basis.Xl << 0, 0, 0, 0, 0, 0, 0, 0, 0;
+   basis.zeta_u = 5;
+   basis.zeta_d = 6;
+   basis.zeta_l = 7;
+   basis.Xu = 0.2*decltype(basis.Xu)::Identity();
+   basis.Xd = 0.3*decltype(basis.Xd)::Identity();
+   basis.Xl = 0.4*decltype(basis.Xl)::Identity();
 
    gm2calc::THDM model(basis);
 
