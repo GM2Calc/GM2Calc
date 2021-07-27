@@ -15,15 +15,6 @@
 
 #include <utility>
 
-#define CHECK_CLOSE(a,b,eps)                            \
-   do {                                                 \
-      CHECK((a) == doctest::Approx(b).epsilon(eps));    \
-   } while (0)
-
-
-#define CHECK_EQUAL(a,b)                                \
-   CHECK_CLOSE(a,b,std::numeric_limits<double>::epsilon())
-
 
 std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
 {
@@ -112,11 +103,11 @@ TEST_CASE("mass_basis")
    const auto mcpp = models.first;
    const auto mc   = models.second;
 
-   CHECK_EQUAL(gm2calc_thdm_calculate_amu_1loop(mc), gm2calc::calculate_amu_1loop(mcpp));
-   CHECK_EQUAL(gm2calc_thdm_calculate_amu_2loop(mc), gm2calc::calculate_amu_2loop(mcpp));
-   CHECK_EQUAL(gm2calc_thdm_calculate_uncertainty_amu_0loop(mc), gm2calc::calculate_uncertainty_amu_0loop(mcpp));
-   CHECK_EQUAL(gm2calc_thdm_calculate_uncertainty_amu_1loop(mc), gm2calc::calculate_uncertainty_amu_1loop(mcpp));
-   CHECK_EQUAL(gm2calc_thdm_calculate_uncertainty_amu_2loop(mc), gm2calc::calculate_uncertainty_amu_2loop(mcpp));
+   CHECK(gm2calc_thdm_calculate_amu_1loop(mc) == gm2calc::calculate_amu_1loop(mcpp));
+   CHECK(gm2calc_thdm_calculate_amu_2loop(mc) == gm2calc::calculate_amu_2loop(mcpp));
+   CHECK(gm2calc_thdm_calculate_uncertainty_amu_0loop(mc) == gm2calc::calculate_uncertainty_amu_0loop(mcpp));
+   CHECK(gm2calc_thdm_calculate_uncertainty_amu_1loop(mc) == gm2calc::calculate_uncertainty_amu_1loop(mcpp));
+   CHECK(gm2calc_thdm_calculate_uncertainty_amu_2loop(mc) == gm2calc::calculate_uncertainty_amu_2loop(mcpp));
 
    gm2calc_thdm_free(mc);
 }
