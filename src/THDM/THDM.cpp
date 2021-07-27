@@ -27,7 +27,7 @@ namespace {
 const double sqrt2 = 1.4142135623730950; // Sqrt[2]
 
 /// Eq.(6) arxiv:0908.1554 and arxiv:1001.0293, solved for xi_f
-double calc_xi(double zeta, double tan_beta) noexcept
+double calc_xi_bar(double zeta, double tan_beta) noexcept
 {
    return (tan_beta + zeta)/(1 - tan_beta*zeta);
 }
@@ -104,12 +104,12 @@ void THDM::init_yukawas()
       set_Xl(sqrt2*ml/v2);
       break;
    case Yukawa_scheme::aligned:
-      set_Yu(sqrt2*mu/(v1 + v2*calc_xi(get_zeta_u(), get_tan_beta())));
-      set_Yd(sqrt2*md/(v1 + v2*calc_xi(get_zeta_d(), get_tan_beta())));
-      set_Yl(sqrt2*ml/(v1 + v2*calc_xi(get_zeta_l(), get_tan_beta())));
-      set_Xu(calc_xi(get_zeta_u(), get_tan_beta())*Yu);
-      set_Xd(calc_xi(get_zeta_d(), get_tan_beta())*Yd);
-      set_Xl(calc_xi(get_zeta_l(), get_tan_beta())*Yl);
+      set_Yu(sqrt2*mu/(v1 + v2*calc_xi_bar(get_zeta_u(), get_tan_beta())));
+      set_Yd(sqrt2*md/(v1 + v2*calc_xi_bar(get_zeta_d(), get_tan_beta())));
+      set_Yl(sqrt2*ml/(v1 + v2*calc_xi_bar(get_zeta_l(), get_tan_beta())));
+      set_Xu(calc_xi_bar(get_zeta_u(), get_tan_beta())*Yu);
+      set_Xd(calc_xi_bar(get_zeta_d(), get_tan_beta())*Yd);
+      set_Xl(calc_xi_bar(get_zeta_l(), get_tan_beta())*Yl);
       break;
    case Yukawa_scheme::general:
       set_Yu(sqrt2*mu/v1 - v2/v1*Xu);
