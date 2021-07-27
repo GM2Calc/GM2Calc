@@ -24,7 +24,7 @@ const double pi = 3.1415926535897932;
 } // anonymous namespace
 
 
-TEST_CASE("tree-level-spectrum")
+void test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme yukawa_scheme)
 {
    const double eps = 1e-14;
 
@@ -32,7 +32,7 @@ TEST_CASE("tree-level-spectrum")
    // -pi/2 <= beta - alpha_h <= pi/2
    // matters
    gm2calc::THDM::Gauge_basis basis;
-   basis.yukawa_scheme = gm2calc::THDM::Yukawa_scheme::type_2;
+   basis.yukawa_scheme = yukawa_scheme;
    basis.lambda1 = 0.26249;
    basis.lambda2 = 0.23993;
    basis.lambda3 = 2.09923;
@@ -42,6 +42,12 @@ TEST_CASE("tree-level-spectrum")
    basis.lambda7 = 0.0;
    basis.tan_beta = 3.0;
    basis.m122 = sqr(200.0);
+   basis.zeta_u = 0;
+   basis.zeta_d = 0;
+   basis.zeta_l = 0;
+   basis.Xu << 0, 0, 0, 0, 0, 0, 0, 0, 0;
+   basis.Xd << 0, 0, 0, 0, 0, 0, 0, 0, 0;
+   basis.Xl << 0, 0, 0, 0, 0, 0, 0, 0, 0;
 
    gm2calc::THDM model(basis);
 
@@ -117,6 +123,17 @@ TEST_CASE("tree-level-spectrum")
    CHECK_CLOSE(model.get_MFv(0), 0.0, eps);
    CHECK_CLOSE(model.get_MFv(1), 0.0, eps);
    CHECK_CLOSE(model.get_MFv(2), 0.0, eps);
+}
+
+
+TEST_CASE("tree-level-spectrum")
+{
+   test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme::type_1);
+   test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme::type_2);
+   test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme::type_X);
+   test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme::type_Y);
+   test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme::aligned);
+   test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme::general);
 }
 
 
