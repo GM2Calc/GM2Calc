@@ -99,7 +99,7 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
    SM csm;
    setup_SM(cppsm, csm);
 
-   THDM* mc = 0;
+   THDM* mc = nullptr;
    gm2calc_thdm_new_with_mass_basis(&mc, &cbasis, &csm);
 
    return std::make_pair(gm2calc::THDM(basis, cppsm), mc);
@@ -155,7 +155,7 @@ std::pair<gm2calc::THDM, THDM*> setup_gauge_basis()
    SM csm;
    setup_SM(cppsm, csm);
 
-   THDM* mc = 0;
+   THDM* mc = nullptr;
    gm2calc_thdm_new_with_gauge_basis(&mc, &cbasis, &csm);
 
    return std::make_pair(gm2calc::THDM(basis, cppsm), mc);

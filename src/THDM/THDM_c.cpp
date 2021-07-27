@@ -34,7 +34,7 @@ gm2calc::SM convert_to_SM(::SM* sm)
 {
    gm2calc::SM s;
 
-   if (sm != 0) {
+   if (sm != nullptr) {
       s.set_alpha_em_0(sm->alpha_em_0);
       s.set_alpha_em_mz(sm->alpha_em_mz);
       s.set_alpha_s_mz(sm->alpha_s_mz);
@@ -66,7 +66,7 @@ gm2calc::THDM::Gauge_basis convert_to_basis(THDM_gauge_basis* basis)
 {
    gm2calc::THDM::Gauge_basis b;
 
-   if (basis != 0) {
+   if (basis != nullptr) {
       switch (basis->yukawa_scheme) {
       case THDM_type_1:
          b.yukawa_scheme = THDM::Yukawa_scheme::type_1;
@@ -115,7 +115,7 @@ gm2calc::THDM::Mass_basis convert_to_basis(THDM_mass_basis* basis)
 {
    gm2calc::THDM::Mass_basis b;
 
-   if (basis != 0) {
+   if (basis != nullptr) {
       switch (basis->yukawa_scheme) {
       case THDM_type_1:
          b.yukawa_scheme = THDM::Yukawa_scheme::type_1;
@@ -188,7 +188,7 @@ extern "C"
  */
 gm2calc_error gm2calc_thdm_new_with_gauge_basis(THDM** model, THDM_gauge_basis* basis, ::SM* sm)
 {
-   if (model == 0) {
+   if (model == nullptr) {
       return gm2calc_InvalidInput;
    }
 
@@ -200,13 +200,13 @@ gm2calc_error gm2calc_thdm_new_with_gauge_basis(THDM** model, THDM_gauge_basis* 
       *model = reinterpret_cast<THDM*>(new gm2calc::THDM(b, s));
       error = gm2calc_NoError;
    } catch (const gm2calc::EInvalidInput&) {
-      *model = 0;
+      *model = nullptr;
       error = gm2calc_InvalidInput;
    } catch (const gm2calc::EPhysicalProblem&) {
-      *model = 0;
+      *model = nullptr;
       error = gm2calc_PhysicalProblem;
    } catch (...) {
-      *model = 0;
+      *model = nullptr;
       error = gm2calc_UnknownError;
    }
 
@@ -227,7 +227,7 @@ gm2calc_error gm2calc_thdm_new_with_gauge_basis(THDM** model, THDM_gauge_basis* 
  */
 gm2calc_error gm2calc_thdm_new_with_mass_basis(THDM** model, THDM_mass_basis* basis, ::SM* sm)
 {
-   if (model == 0) {
+   if (model == nullptr) {
       return gm2calc_InvalidInput;
    }
 
@@ -239,13 +239,13 @@ gm2calc_error gm2calc_thdm_new_with_mass_basis(THDM** model, THDM_mass_basis* ba
       *model = reinterpret_cast<THDM*>(new gm2calc::THDM(b, s));
       error = gm2calc_NoError;
    } catch (const gm2calc::EInvalidInput&) {
-      *model = 0;
+      *model = nullptr;
       error = gm2calc_InvalidInput;
    } catch (const gm2calc::EPhysicalProblem&) {
-      *model = 0;
+      *model = nullptr;
       error = gm2calc_PhysicalProblem;
    } catch (...) {
-      *model = 0;
+      *model = nullptr;
       error = gm2calc_UnknownError;
    }
 

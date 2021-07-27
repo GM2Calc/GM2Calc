@@ -28,7 +28,7 @@ extern "C"
  */
 void gm2calc_sm_set_to_default(SM* sm)
 {
-   if (sm == 0) {
+   if (sm == nullptr) {
       return;
    }
 
