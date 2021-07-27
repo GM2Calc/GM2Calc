@@ -32,6 +32,7 @@ TEST_CASE("tree-level-spectrum")
    // -pi/2 <= beta - alpha_h <= pi/2
    // matters
    gm2calc::THDM::Gauge_basis basis;
+   basis.yukawa_scheme = gm2calc::THDM::Yukawa_scheme::type_2;
    basis.lambda1 = 0.26249;
    basis.lambda2 = 0.23993;
    basis.lambda3 = 2.09923;
