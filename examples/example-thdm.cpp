@@ -19,6 +19,12 @@ int main()
    basis.lambda7 = 0;
    basis.tan_beta = 3;
    basis.m122 = 40000;
+   basis.zeta_u = 0;
+   basis.zeta_d = 0;
+   basis.zeta_l = 0;
+   basis.Xu << 0, 0, 0, 0, 0, 0, 0, 0, 0;
+   basis.Xd << 0, 0, 0, 0, 0, 0, 0, 0, 0;
+   basis.Xl << 0, 0, 0, 0, 0, 0, 0, 0, 0;
 
    gm2calc::SM sm;
    sm.set_alpha_em_mz(1.0/128.94579);

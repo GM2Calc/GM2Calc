@@ -98,9 +98,9 @@ gm2calc::THDM::Gauge_basis convert_to_basis(THDM_gauge_basis* basis)
       b.zeta_l = basis->zeta_l;
       for (int i = 0; i < 3; i++) {
          for (int k = 0; k < 3; k++) {
-            b.Xu(i, k) = basis->Xu[i][k];
-            b.Xd(i, k) = basis->Xd[i][k];
-            b.Xl(i, k) = basis->Xl[i][k];
+            b.Xu(i, k) = std::complex<double>(basis->Xu_real[i][k], basis->Xu_imag[i][k]);
+            b.Xd(i, k) = std::complex<double>(basis->Xd_real[i][k], basis->Xd_imag[i][k]);
+            b.Xl(i, k) = std::complex<double>(basis->Xl_real[i][k], basis->Xl_imag[i][k]);
          }
       }
    }
@@ -144,9 +144,9 @@ gm2calc::THDM::Mass_basis convert_to_basis(THDM_mass_basis* basis)
       b.zeta_l = basis->zeta_l;
       for (int i = 0; i < 3; i++) {
          for (int k = 0; k < 3; k++) {
-            b.Xu(i, k) = basis->Xu[i][k];
-            b.Xd(i, k) = basis->Xd[i][k];
-            b.Xl(i, k) = basis->Xl[i][k];
+            b.Xu(i, k) = std::complex<double>(basis->Xu_real[i][k], basis->Xu_imag[i][k]);
+            b.Xd(i, k) = std::complex<double>(basis->Xd_real[i][k], basis->Xd_imag[i][k]);
+            b.Xl(i, k) = std::complex<double>(basis->Xl_real[i][k], basis->Xl_imag[i][k]);
          }
       }
    }

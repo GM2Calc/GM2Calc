@@ -52,9 +52,9 @@ public:
       double zeta_u{0.0};
       double zeta_d{0.0};
       double zeta_l{0.0};
-      Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
-      Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
-      Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
+      Eigen::Matrix<std::complex<double>,3,3> Xu{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+      Eigen::Matrix<std::complex<double>,3,3> Xd{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+      Eigen::Matrix<std::complex<double>,3,3> Xl{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
    };
 
    struct Mass_basis {
@@ -71,9 +71,9 @@ public:
       double zeta_u{0.0};
       double zeta_d{0.0};
       double zeta_l{0.0};
-      Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
-      Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
-      Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
+      Eigen::Matrix<std::complex<double>,3,3> Xu{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+      Eigen::Matrix<std::complex<double>,3,3> Xd{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+      Eigen::Matrix<std::complex<double>,3,3> Xl{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
    };
 
    THDM(const Gauge_basis&, const SM& sm_ = SM{});
