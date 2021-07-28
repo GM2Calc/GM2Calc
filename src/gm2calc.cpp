@@ -723,7 +723,7 @@ MSSMNoFV_setup make_mssmnofv_setup(
    Gm2_cmd_line_options::E_input_type input_type,
    const gm2calc::Config_options& options)
 {
-   const Reader reader = [&] () -> Reader {
+   const auto reader = [&] () -> Reader {
       switch (input_type) {
       case Gm2_cmd_line_options::SLHA:
          return SLHA_reader();
@@ -735,7 +735,7 @@ MSSMNoFV_setup make_mssmnofv_setup(
       throw gm2calc::ESetupError("Unknown input type");
    }();
 
-   const Writer writer = [&] () -> Writer {
+   const auto writer = [&] () -> Writer {
       switch (options.output_format) {
       case gm2calc::Config_options::Minimal:
          return Minimal_writer<gm2calc::MSSMNoFV_onshell>();
@@ -760,7 +760,7 @@ MSSMNoFV_setup make_mssmnofv_setup(
  */
 THDM_setup make_thdm_setup(const gm2calc::Config_options& options)
 {
-   const THDM_writer writer = [&] () -> THDM_writer {
+   const auto writer = [&] () -> THDM_writer {
       switch (options.output_format) {
       case gm2calc::Config_options::Minimal:
          return Minimal_writer<gm2calc::THDM>();
