@@ -22,9 +22,11 @@
 #include "gm2calc/gm2_uncertainty.hpp"
 #include "gm2calc/gm2_version.h"
 #include "gm2calc/MSSMNoFV_onshell.hpp"
+#include "gm2calc/THDM.hpp"
 
 #include "MSSMNoFV/gm2_1loop_helpers.hpp"
 #include "MSSMNoFV/gm2_2loop_helpers.hpp"
+#include "THDM/gm2_2loop_helpers.hpp"
 #include "gm2_config_options.hpp"
 #include "gm2_log.hpp"
 #include "gm2_slha_io.hpp"
@@ -45,6 +47,11 @@ using Reader = std::function<void(gm2calc::MSSMNoFV_onshell&,
 using Writer = std::function<void(const gm2calc::MSSMNoFV_onshell&,
                                   const gm2calc::Config_options& options,
                                   gm2calc::GM2_slha_io& slha_io)>;
+
+/// writer function
+using THDM_writer = std::function<void(const gm2calc::THDM&,
+                                       const gm2calc::Config_options& options,
+                                       gm2calc::GM2_slha_io& slha_io)>;
 
 /**
  * @class Gm2_cmd_line_options
@@ -219,6 +226,30 @@ double calculate_amu(const gm2calc::MSSMNoFV_onshell& model,
 }
 
 /**
+ * Calculates a_mu for a given set of configuration options (loop
+ * order).
+ *
+ * @param model model (must be initialized)
+ * @param options configuration options
+ *
+ * @return a_mu
+ */
+double calculate_amu(const gm2calc::THDM& model,
+                     const gm2calc::Config_options& options)
+{
+   double result = 0.0;
+
+   if (options.loop_order > 0) {
+      result += gm2calc::calculate_amu_1loop(model);
+   }
+   if (options.loop_order > 1) {
+      result += gm2calc::calculate_amu_2loop(model);
+   }
+
+   return result;
+}
+
+/**
  * Calculates uncertainty of a_mu for a given set of configuration
  * options (loop order, tan(beta) resummation).
  *
@@ -227,7 +258,8 @@ double calculate_amu(const gm2calc::MSSMNoFV_onshell& model,
  *
  * @return a_mu
  */
-double calculate_uncertainty(const gm2calc::MSSMNoFV_onshell& model,
+template<class Model>
+double calculate_uncertainty(const Model& model,
                              const gm2calc::Config_options& options)
 {
    double result = std::numeric_limits<double>::signaling_NaN();
@@ -292,10 +324,13 @@ struct GM2Calc_reader {
  */
 
 struct THDM_reader {
-   void operator()(gm2calc::MSSMNoFV_onshell& /* model */,
-                   const gm2calc::GM2_slha_io& /* slha_io */)
+   gm2calc::THDM operator()(const gm2calc::GM2_slha_io& slha_io)
    {
-      throw "THDM_reader not implemented";
+      gm2calc::SM sm;
+      gm2calc::thdm::Mass_basis basis; // @todo(alex): may use other basis
+      slha_io.fill(sm);
+      slha_io.fill(basis);
+      return gm2calc::THDM(basis, sm);
    }
 };
 
@@ -306,8 +341,9 @@ struct THDM_reader {
  * @param options calculation options
  * @param slha_io SLHA i/o object where results are stored
  */
+template<class Model>
 struct Minimal_writer {
-   void operator()(const gm2calc::MSSMNoFV_onshell& model,
+   void operator()(const Model& model,
                    const gm2calc::Config_options& options,
                    gm2calc::GM2_slha_io& /* unused */)
    {
@@ -319,6 +355,9 @@ struct Minimal_writer {
    }
 };
 
+template<class Model>
+struct Detailed_writer;
+
 /**
  * Prints detailed a_mu calculation (1-loop w/ and w/o tan(beta)
  * resummation, 2-loop, and different contributions).
@@ -327,7 +366,8 @@ struct Minimal_writer {
  * @param options calculation options
  * @param slha_io SLHA i/o object where results are stored
  */
-struct Detailed_writer {
+template<>
+struct Detailed_writer<gm2calc::MSSMNoFV_onshell> {
    void operator()(const gm2calc::MSSMNoFV_onshell& model,
                    const gm2calc::Config_options& /* unused */,
                    gm2calc::GM2_slha_io& /* unused */)
@@ -461,6 +501,62 @@ struct Detailed_writer {
          << "%)\n";
 
 #undef FORMAT_AMU
+#undef FORMAT_DEL
+#undef FORMAT_PCT
+   }
+};
+
+/**
+ * Prints detailed a_mu calculation (1-loop, 2-loop, and different
+ * contributions).
+ *
+ * @param model the model (must be initialized)
+ * @param options calculation options
+ * @param slha_io SLHA i/o object where results are stored
+ */
+template<>
+struct Detailed_writer<gm2calc::THDM> {
+   void operator()(const gm2calc::THDM& model,
+                   const gm2calc::Config_options& /* unused */,
+                   gm2calc::GM2_slha_io& /* unused */)
+   {
+#define FORMAT_AMU(amu) boost::format("% 14.8e") % (amu)
+#define FORMAT_DEL(amu) boost::format("%14.8e") % (amu)
+#define FORMAT_PCT(pct) boost::format("%2.1f") % (pct)
+
+      const double amu_1l = gm2calc::calculate_amu_1loop(model);
+      const double amu_2l = gm2calc::calculate_amu_2loop(model);
+      const double amu_2l_B = gm2calc::calculate_amu_2loop_bosonic(model);
+      const double amu_2l_F = gm2calc::calculate_amu_2loop_fermionic(model);
+      const double amu_2l_uncertainty = gm2calc::calculate_uncertainty_amu_2loop(model);
+      const double amu_best = amu_1l + amu_2l;
+
+      std::cout
+         << "====================================================================\n"
+            "   amu (1-loop + 2-loop best) = "
+         << FORMAT_AMU(amu_best) << " +- "
+         << FORMAT_DEL(amu_2l_uncertainty) << '\n'
+         << "====================================================================\n"
+            "\n"
+         << "==============================\n"
+            "   amu (1-loop) corrections\n"
+            "==============================\n"
+            "\n"
+            "full 1L: " << FORMAT_AMU(amu_1l)
+                        << " (" << FORMAT_PCT(100. * amu_1l / amu_best)
+                        << "% of full 1L + 2L result)\n"
+            "\n"
+            "==============================\n"
+            "   amu (2-loop) corrections\n"
+            "==============================\n"
+            "\n"
+            "bosonic   2L: " << FORMAT_AMU(amu_2l_B) << " (" << FORMAT_PCT(100. * amu_2l_B / amu_2l) << "% of 2L result)\n"
+         << "fermionic 2L: " << FORMAT_AMU(amu_2l_F) << " (" << FORMAT_PCT(100. * amu_2l_B / amu_2l) << "% of 2L result)\n"
+         << "sum         : " << FORMAT_AMU(amu_2l) << " (" << FORMAT_PCT(100. * amu_2l / amu_best)
+         << "% of full 1L + 2L result)\n";
+
+#undef FORMAT_AMU
+#undef FORMAT_DEL
 #undef FORMAT_PCT
    }
 };
@@ -473,11 +569,12 @@ struct Detailed_writer {
  * @param options calculation options
  * @param slha_io SLHA i/o object where results are stored
  */
+template<class Model>
 struct SLHA_writer {
    /// SLHA entry (block name, key, value, comment)
    using SLHA_entry = std::tuple<std::string, int, double, std::string>;
 
-   void operator()(const gm2calc::MSSMNoFV_onshell& model,
+   void operator()(const Model& model,
                    const gm2calc::Config_options& options,
                    gm2calc::GM2_slha_io& slha_io)
    {
@@ -506,11 +603,12 @@ struct SLHA_writer {
          set_SLHA_value(slha_io, damu_entry);
       }
 
-      if (model.get_problems().have_warning()) {
-         slha_io.fill_block_entry("SPINFO", 1, "GM2Calc");
-         slha_io.fill_block_entry("SPINFO", 2, GM2CALC_VERSION);
-         slha_io.fill_block_entry("SPINFO", 3, model.get_problems().get_warnings());
-      }
+      // @todo(alex) add again
+      // if (model.get_problems().have_warning()) {
+      //    slha_io.fill_block_entry("SPINFO", 1, "GM2Calc");
+      //    slha_io.fill_block_entry("SPINFO", 2, GM2CALC_VERSION);
+      //    slha_io.fill_block_entry("SPINFO", 3, model.get_problems().get_warnings());
+      // }
 
       slha_io.write_to_stream(std::cout);
    }
@@ -530,7 +628,7 @@ private:
 };
 
 /**
- * Class which handles input/output.
+ * Class which handles input/output for the MSSM.
  */
 class Setup
 {
@@ -578,6 +676,47 @@ private:
 };
 
 /**
+ * Class which handles input/output for the MSSM.
+ */
+class THDMSetup
+{
+public:
+   THDMSetup(const gm2calc::Config_options& options_, const THDM_reader& reader_,
+             const THDM_writer& writer_)
+      : options(options_), reader(reader_), writer(writer_)
+   {
+   }
+
+   /// read from SLHA and write to output
+   int run(gm2calc::GM2_slha_io& slha_io)
+   {
+      if (!writer) {
+         throw gm2calc::ESetupError("No writer set");
+      }
+
+      gm2calc::THDM model = reader(slha_io);
+
+      if (options.verbose_output) {
+         VERBOSE(model);
+      }
+
+      // if (model.get_problems().have_problem() ||
+      //     model.get_problems().have_warning()) {
+      //    std::cerr << model.get_problems() << '\n';
+      // }
+
+      writer(model, options, slha_io);
+
+      return EXIT_SUCCESS;
+   }
+
+private:
+   gm2calc::Config_options options;
+   THDM_reader reader;
+   THDM_writer writer;
+};
+
+/**
  * Returns properly configured (but not initialized) Setup object.
  *
  * @param input_type type of input (SLHA/GM2Calc)
@@ -596,7 +735,7 @@ Setup make_setup(
       case Gm2_cmd_line_options::GM2Calc:
          return GM2Calc_reader();
       case Gm2_cmd_line_options::THDM:
-         return THDM_reader();
+         break;
       }
       throw gm2calc::ESetupError("Unknown input type");
    }();
@@ -604,16 +743,41 @@ Setup make_setup(
    const Writer writer = [&] () -> Writer {
       switch (options.output_format) {
       case gm2calc::Config_options::Minimal:
-         return Minimal_writer();
+         return Minimal_writer<gm2calc::MSSMNoFV_onshell>();
       case gm2calc::Config_options::Detailed:
-         return Detailed_writer();
+         return Detailed_writer<gm2calc::MSSMNoFV_onshell>();
       default:
          break;
       }
-      return SLHA_writer();
+      return SLHA_writer<gm2calc::MSSMNoFV_onshell>();
    }();
 
    return Setup(options, reader, writer);
+}
+
+/**
+ * Returns properly configured (but not initialized) Setup object.
+ *
+ * @param input_type type of input (SLHA/GM2Calc)
+ * @param options configuration options
+ *
+ * @return Setup object
+ */
+THDMSetup make_thdm_setup(const gm2calc::Config_options& options)
+{
+   const THDM_writer writer = [&] () -> THDM_writer {
+      switch (options.output_format) {
+      case gm2calc::Config_options::Minimal:
+         return Minimal_writer<gm2calc::THDM>();
+      case gm2calc::Config_options::Detailed:
+         return Detailed_writer<gm2calc::THDM>();
+      default:
+         break;
+      }
+      return SLHA_writer<gm2calc::THDM>();
+   }();
+
+   return THDMSetup(options, THDM_reader(), writer);
 }
 
 } // anonymous namespace
@@ -640,8 +804,19 @@ int main(int argc, const char* argv[])
       slha_io.read_from_source(options.input_source);
       slha_io.fill(config_options);
 
-      Setup setup = make_setup(options.input_type, config_options);
-      exit_code = setup.run(slha_io);
+      switch (options.input_type) {
+      case Gm2_cmd_line_options::SLHA:
+      case Gm2_cmd_line_options::GM2Calc: {
+         auto setup = make_setup(options.input_type, config_options);
+         exit_code = setup.run(slha_io);
+         }
+         break;
+      case Gm2_cmd_line_options::THDM: {
+         auto setup = make_thdm_setup(config_options);
+         exit_code = setup.run(slha_io);
+         }
+         break;
+      }
    } catch (const gm2calc::Error& error) {
       print_error(error, slha_io, config_options);
       exit_code = EXIT_FAILURE;
