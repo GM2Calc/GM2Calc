@@ -50,6 +50,13 @@ namespace {
       double alpha_thompson{0.0};
    };
 
+   struct CKM_wolfenstein {
+      double lambda{0.0};
+      double A{0.0};
+      double rho{0.0};
+      double eta{0.0};
+   };
+
    void process_gm2calcconfig_tuple(Config_options& /*config_options*/, int /*key*/, double /*value*/);
    void process_gm2calcinput_tuple(GM2CalcInput_data& /*data*/, int /*key*/, double /*value*/);
    void process_gm2calcinput_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
@@ -60,6 +67,7 @@ namespace {
    void process_mass_tuple(MSSMNoFV_onshell_physical& /*physical*/, int /*key*/, double /*value*/);
    void process_mass_tuple(gm2calc::SM& /* sm */, int /* key */, double /* value */);
    void process_msoft_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
+   void process_vckm_tuple(CKM_wolfenstein& /* ckm */, int /* key */, double /* value */);
 
 } // anonymous namespace
 
@@ -422,6 +430,8 @@ void GM2_slha_io::fill_slha(MSSMNoFV_onshell& model) const
  */
 void GM2_slha_io::fill(gm2calc::SM& sm) const
 {
+   CKM_wolfenstein ckm;
+
    GM2_slha_io::Tuple_processor sminputs_processor = [&sm] (int key, double value) {
       return process_sminputs_tuple(sm, key, value);
    };
@@ -431,12 +441,19 @@ void GM2_slha_io::fill(gm2calc::SM& sm) const
    GM2_slha_io::Tuple_processor gm2calcinput_processor = [&sm] (int key, double value) {
       return process_gm2calcinput_tuple(sm, key, value);
    };
+   GM2_slha_io::Tuple_processor vckm_processor = [&ckm] (int key, double value) {
+      return process_vckm_tuple(ckm, key, value);
+   };
 
    read_block("SMINPUTS", sminputs_processor);
    // try to read mW from MASS block
    read_block("MASS"    , mass_processor);
    // try to read mhSM from GM2CalcInput block
    read_block("GM2CalcInput", gm2calcinput_processor);
+   // read CKM matrix
+   read_block("VCKMIN"  , vckm_processor);
+
+   sm.set_ckm_from_wolfenstein(ckm.lambda, ckm.A, ckm.rho, ckm.eta);
 }
 
 /**
@@ -751,6 +768,19 @@ void process_mass_tuple(
 {
    switch (key) {
    case 24: sm.set_mw(value); break;
+   default:
+      break;
+   }
+}
+
+void process_vckm_tuple(
+   CKM_wolfenstein& ckm, int key, double value)
+{
+   switch (key) {
+   case 1: ckm.lambda = value; break;
+   case 2: ckm.A      = value; break;
+   case 3: ckm.rho    = value; break;
+   case 4: ckm.eta    = value; break;
    default:
       break;
    }

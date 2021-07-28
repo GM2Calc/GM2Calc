@@ -27,6 +27,11 @@ Block SMINPUTS
     24     1.27183378E+00   # mc(2 GeV)
 Block GM2CalcInput
     33     125.0            # SM Higgs boson mass
+Block VCKMIN                # CKM matrix in Wolfenstein parametrization
+     1     0.2257           # lambda
+     2     0.814            # A
+     3     0.135            # rho
+     4     0.349            # eta
 )";
 
    gm2calc::SM sm;
@@ -53,6 +58,17 @@ Block GM2CalcInput
    CHECK(sm.get_md(1)         == 1.04230487E-01);
    CHECK(sm.get_mu(1)         == 1.27183378E+00);
    CHECK(sm.get_mh()          == 125.0         );
+
+   gm2calc::SM sm_ckm;
+   sm_ckm.set_ckm_from_wolfenstein(0.2257, 0.814, 0.135, 0.349);
+   const auto ckm_expected = sm_ckm.get_ckm();
+   const auto ckm = sm.get_ckm();
+
+   for (int i = 0; i < 3; i++) {
+      for (int k = 0; k < 3; k++) {
+         CHECK(ckm(i,k) == ckm_expected(i,k));
+      }
+   }
 }
 
 
