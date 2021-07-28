@@ -51,10 +51,10 @@ using Writer = std::function<void(const gm2calc::MSSMNoFV_onshell&,
  * @brief command line options for GM2Calc
  */
 struct Gm2_cmd_line_options {
-   enum E_input_type { SLHA, GM2Calc };
+   enum E_input_type { SLHA, GM2Calc, THDM };
 
    std::string input_source; ///< input source (file name or `-' for stdin)
-   E_input_type input_type{SLHA}; ///< input format (SLHA or GM2Calc)
+   E_input_type input_type{SLHA}; ///< input format (SLHA, GM2Calc or THDM)
 
    static bool starts_with(const std::string& str, const std::string& prefix) {
       return str.compare(0, prefix.size(), prefix) == 0;
@@ -68,6 +68,7 @@ void print_usage(const char* program_name)
       "Options:\n"
       "  --slha-input-file=<source>      SLHA input source (file name or - for stdin)\n"
       "  --gm2calc-input-file=<source>   GM2Calc input source (file name or - for stdin)\n"
+      "  --thdm-input-file=<source>      THDM input source (file name or - for stdin)\n"
       "  --help,-h                       print this help message\n"
       "  --version,-v                    print version number"
       "\n";
@@ -97,6 +98,12 @@ Gm2_cmd_line_options get_cmd_line_options(int argc, const char* argv[])
       if (Gm2_cmd_line_options::starts_with(option, "--gm2calc-input-file=")) {
          options.input_source = option.substr(21);
          options.input_type = Gm2_cmd_line_options::GM2Calc;
+         continue;
+      }
+
+      if (Gm2_cmd_line_options::starts_with(option, "--thdm-input-file=")) {
+         options.input_source = option.substr(18);
+         options.input_type = Gm2_cmd_line_options::THDM;
          continue;
       }
 
@@ -140,6 +147,9 @@ void set_to_default(gm2calc::Config_options& config_options,
       break;
    case Gm2_cmd_line_options::GM2Calc:
       config_options.output_format = gm2calc::Config_options::Detailed;
+      break;
+   case Gm2_cmd_line_options::THDM:
+      config_options.output_format = gm2calc::Config_options::GM2Calc;
       break;
    default:
       throw gm2calc::ESetupError("Unknown input option");
@@ -270,6 +280,22 @@ struct GM2Calc_reader {
    {
       slha_io.fill_gm2calc(model);
       model.calculate_masses();
+   }
+};
+
+/**
+ * Reads THDM parameters from SLHA i/o object and initializes model
+ * accordingly.
+ *
+ * @param model model to initialize
+ * @param slha_io SLHA i/o object to read parameters from
+ */
+
+struct THDM_reader {
+   void operator()(gm2calc::MSSMNoFV_onshell& /* model */,
+                   const gm2calc::GM2_slha_io& /* slha_io */)
+   {
+      throw "THDM_reader not implemented";
    }
 };
 
@@ -574,6 +600,8 @@ Setup make_setup(
          return SLHA_reader();
       case Gm2_cmd_line_options::GM2Calc:
          return GM2Calc_reader();
+      case Gm2_cmd_line_options::THDM:
+         return THDM_reader();
       }
       throw gm2calc::ESetupError("Unknown input type");
    }();
@@ -600,9 +628,11 @@ int main(int argc, const char* argv[])
    Gm2_cmd_line_options options(get_cmd_line_options(argc, argv));
 
    if (options.input_source.empty()) {
-      ERROR("No input source given!\n"
-            "   Please provide an SLHA input via the option --slha-input-file=\n"
-            "   or a GM2Calc input via the option --gm2calc-input-file=");
+      ERROR(std::string("No input source given!\n") +
+            "Examples: \n" +
+            "   " + argv[0] + " --slha-input-file=<file>     # MSSM SLHA input\n"
+            "   " + argv[0] + " --gm2calc-input-file=<file>  # MSSM GM2Calc input\n"
+            "   " + argv[0] + " --thdm-input-file=<file>     # THDM input");
       return EXIT_FAILURE;
    }
 
