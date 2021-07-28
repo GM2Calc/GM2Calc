@@ -700,11 +700,6 @@ public:
          VERBOSE(model);
       }
 
-      // if (model.get_problems().have_problem() ||
-      //     model.get_problems().have_warning()) {
-      //    std::cerr << model.get_problems() << '\n';
-      // }
-
       writer(model, options, slha_io);
 
       return EXIT_SUCCESS;
