@@ -539,8 +539,6 @@ public:
          const Writer& writer_)
       : options(options_), reader(reader_), writer(writer_)
    {
-      model.do_force_output(options_.force_output);
-      model.set_verbose_output(options_.verbose_output);
    }
 
    /// read from SLHA and write to output
@@ -552,6 +550,9 @@ public:
       if (!writer) {
          throw gm2calc::ESetupError("No writer set");
       }
+
+      model.do_force_output(options.force_output);
+      model.set_verbose_output(options.verbose_output);
 
       reader(model, slha_io);
 
