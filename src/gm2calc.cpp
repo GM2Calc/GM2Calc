@@ -630,10 +630,10 @@ private:
 /**
  * Class which handles input/output for the MSSM.
  */
-class MSSM_setup
+class MSSMNoFV_setup
 {
 public:
-   MSSM_setup(const gm2calc::Config_options& options_, const Reader& reader_,
+   MSSMNoFV_setup(const gm2calc::Config_options& options_, const Reader& reader_,
          const Writer& writer_)
       : options(options_), reader(reader_), writer(writer_)
    {
@@ -712,14 +712,14 @@ private:
 };
 
 /**
- * Returns properly configured (but not initialized) MSSM_setup object.
+ * Returns properly configured (but not initialized) MSSMNoFV_setup object.
  *
  * @param input_type type of input (SLHA/GM2Calc)
  * @param options configuration options
  *
- * @return MSSM_setup object
+ * @return MSSMNoFV_setup object
  */
-MSSM_setup make_mssm_setup(
+MSSMNoFV_setup make_mssmnofv_setup(
    Gm2_cmd_line_options::E_input_type input_type,
    const gm2calc::Config_options& options)
 {
@@ -747,16 +747,16 @@ MSSM_setup make_mssm_setup(
       return SLHA_writer<gm2calc::MSSMNoFV_onshell>();
    }();
 
-   return MSSM_setup(options, reader, writer);
+   return MSSMNoFV_setup(options, reader, writer);
 }
 
 /**
- * Returns properly configured (but not initialized) MSSM_setup object.
+ * Returns properly configured (but not initialized) MSSMNoFV_setup object.
  *
  * @param input_type type of input (SLHA/GM2Calc)
  * @param options configuration options
  *
- * @return MSSM_setup object
+ * @return MSSMNoFV_setup object
  */
 THDM_setup make_thdm_setup(const gm2calc::Config_options& options)
 {
@@ -802,7 +802,7 @@ int main(int argc, const char* argv[])
       switch (options.input_type) {
       case Gm2_cmd_line_options::SLHA:
       case Gm2_cmd_line_options::GM2Calc: {
-         auto setup = make_mssm_setup(options.input_type, config_options);
+         auto setup = make_mssmnofv_setup(options.input_type, config_options);
          exit_code = setup.run(slha_io);
          }
          break;
