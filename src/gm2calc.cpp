@@ -551,6 +551,7 @@ public:
          throw gm2calc::ESetupError("No writer set");
       }
 
+      gm2calc::MSSMNoFV_onshell model;
       model.do_force_output(options.force_output);
       model.set_verbose_output(options.verbose_output);
 
@@ -571,7 +572,6 @@ public:
    }
 
 private:
-   gm2calc::MSSMNoFV_onshell model;
    gm2calc::Config_options options;
    Reader reader{nullptr};
    Writer writer{nullptr};
