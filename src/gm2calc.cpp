@@ -39,16 +39,16 @@
 
 namespace {
 
-/// reader function
-using Reader = std::function<void(gm2calc::MSSMNoFV_onshell&,
-                                  const gm2calc::GM2_slha_io& slha_io)>;
+/// MSSMNoFV reader function
+using MSSMNoFV_reader = std::function<void(
+   gm2calc::MSSMNoFV_onshell&, const gm2calc::GM2_slha_io& slha_io)>;
 
-/// writer function
-using Writer = std::function<void(const gm2calc::MSSMNoFV_onshell&,
-                                  const gm2calc::Config_options& options,
-                                  gm2calc::GM2_slha_io& slha_io)>;
+/// MSSMNoFV writer function
+using MSSMNoFV_writer = std::function<void(
+   const gm2calc::MSSMNoFV_onshell&, const gm2calc::Config_options& options,
+   gm2calc::GM2_slha_io& slha_io)>;
 
-/// writer function
+/// THDM writer function
 using THDM_writer = std::function<void(const gm2calc::THDM&,
                                        const gm2calc::Config_options& options,
                                        gm2calc::GM2_slha_io& slha_io)>;
@@ -633,8 +633,9 @@ private:
 class MSSMNoFV_setup
 {
 public:
-   MSSMNoFV_setup(const gm2calc::Config_options& options_, const Reader& reader_,
-         const Writer& writer_)
+   MSSMNoFV_setup(const gm2calc::Config_options& options_,
+                  const MSSMNoFV_reader& reader_,
+                  const MSSMNoFV_writer& writer_)
       : options(options_), reader(reader_), writer(writer_)
    {
    }
@@ -671,8 +672,8 @@ public:
 
 private:
    gm2calc::Config_options options;
-   Reader reader{nullptr};
-   Writer writer{nullptr};
+   MSSMNoFV_reader reader{nullptr};
+   MSSMNoFV_writer writer{nullptr};
 };
 
 /**
@@ -681,8 +682,9 @@ private:
 class THDM_setup
 {
 public:
-   THDM_setup(const gm2calc::Config_options& options_, const THDM_reader& reader_,
-             const THDM_writer& writer_)
+   THDM_setup(const gm2calc::Config_options& options_,
+              const THDM_reader& reader_,
+              const THDM_writer& writer_)
       : options(options_), reader(reader_), writer(writer_)
    {
    }
@@ -723,7 +725,7 @@ MSSMNoFV_setup make_mssmnofv_setup(
    Gm2_cmd_line_options::E_input_type input_type,
    const gm2calc::Config_options& options)
 {
-   const auto reader = [&] () -> Reader {
+   const auto reader = [&] () -> MSSMNoFV_reader {
       switch (input_type) {
       case Gm2_cmd_line_options::SLHA:
          return SLHA_reader();
@@ -735,7 +737,7 @@ MSSMNoFV_setup make_mssmnofv_setup(
       throw gm2calc::ESetupError("Unknown input type");
    }();
 
-   const auto writer = [&] () -> Writer {
+   const auto writer = [&] () -> MSSMNoFV_writer {
       switch (options.output_format) {
       case gm2calc::Config_options::Minimal:
          return Minimal_writer<gm2calc::MSSMNoFV_onshell>();
