@@ -1,19 +1,9 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN 1
 
 #include "doctest.h"
-
 #include "gm2calc/SM.hpp"
-
-#include "gm2_numerics.hpp"
 #include "gm2_slha_io.hpp"
-
 #include <sstream>
-
-#define CHECK_CLOSE(a,b,eps)                            \
-   do {                                                 \
-      CHECK((a) == doctest::Approx(b).epsilon(eps));    \
-   } while (0)
-
 
 TEST_CASE("fill_SM")
 {
@@ -44,19 +34,17 @@ Block SMINPUTS
    slha.read_from_stream(stream);
    slha.fill(sm);
 
-   const double eps = std::numeric_limits<double>::epsilon();
-
-   CHECK_CLOSE(sm.get_alpha_em_mz(), 1.27934000E+02, eps);
-   CHECK_CLOSE(sm.get_alpha_s_mz() , 0.1184        , eps);
-   CHECK_CLOSE(sm.get_mz()         , 9.11876000E+01, eps);
-   CHECK_CLOSE(sm.get_md(2)        , 4.18000000E+00, eps);
-   CHECK_CLOSE(sm.get_mu(2)        , 1.73340000E+02, eps);
-   CHECK_CLOSE(sm.get_ml(2)        , 1.77700000E+00, eps);
-   CHECK_CLOSE(sm.get_mw()         , 8.03773317E+01, eps);
-   CHECK_CLOSE(sm.get_ml(0)        , 0.000510998928, eps);
-   CHECK_CLOSE(sm.get_ml(1)        , 0.1056583715  , eps);
-   CHECK_CLOSE(sm.get_md(0)        , 4.76052706E-03, eps);
-   CHECK_CLOSE(sm.get_mu(0)        , 2.40534062E-03, eps);
-   CHECK_CLOSE(sm.get_md(1)        , 1.04230487E-01, eps);
-   CHECK_CLOSE(sm.get_mu(1)        , 1.27183378E+00, eps);
+   CHECK(sm.get_alpha_em_mz() == 1.27934000E+02);
+   CHECK(sm.get_alpha_s_mz()  == 0.1184        );
+   CHECK(sm.get_mz()          == 9.11876000E+01);
+   CHECK(sm.get_md(2)         == 4.18000000E+00);
+   CHECK(sm.get_mu(2)         == 1.73340000E+02);
+   CHECK(sm.get_ml(2)         == 1.77700000E+00);
+   CHECK(sm.get_mw()          == 8.03773317E+01);
+   CHECK(sm.get_ml(0)         == 0.000510998928);
+   CHECK(sm.get_ml(1)         == 0.1056583715  );
+   CHECK(sm.get_md(0)         == 4.76052706E-03);
+   CHECK(sm.get_mu(0)         == 2.40534062E-03);
+   CHECK(sm.get_md(1)         == 1.04230487E-01);
+   CHECK(sm.get_mu(1)         == 1.27183378E+00);
 }
