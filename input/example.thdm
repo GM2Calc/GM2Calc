@@ -25,7 +25,7 @@ Block SMINPUTS
     23     1.04230487E-01   # ms(2 GeV)             [2L]
     24     1.27183378E+00   # mc(2 GeV)             [2L]
 Block GM2CalcInput
-     3     125.09           # SM Higgs boson mass   [1L]
+    33     125.09           # SM Higgs boson mass   [1L]
 Block VCKMIN                # CKM matrix in Wolfenstein parametrization
      1     0.2257           # lambda
      2     0.814            # A

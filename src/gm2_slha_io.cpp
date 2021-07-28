@@ -53,10 +53,12 @@ namespace {
    void process_gm2calcconfig_tuple(Config_options& /*config_options*/, int /*key*/, double /*value*/);
    void process_gm2calcinput_tuple(GM2CalcInput_data& /*data*/, int /*key*/, double /*value*/);
    void process_gm2calcinput_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
+   void process_gm2calcinput_tuple(gm2calc::SM& /*model*/, int /*key*/, double /*value*/);
    void process_sminputs_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
    void process_sminputs_tuple(gm2calc::SM& /* sm */, int /* key */, double /* value */);
    void process_hmix_tuple(HMIX_data& /*data*/, int /*key*/, double /*value*/);
    void process_mass_tuple(MSSMNoFV_onshell_physical& /*physical*/, int /*key*/, double /*value*/);
+   void process_mass_tuple(gm2calc::SM& /* sm */, int /* key */, double /* value */);
    void process_msoft_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
 
 } // anonymous namespace
@@ -420,11 +422,21 @@ void GM2_slha_io::fill_slha(MSSMNoFV_onshell& model) const
  */
 void GM2_slha_io::fill(gm2calc::SM& sm) const
 {
-   GM2_slha_io::Tuple_processor processor = [&sm] (int key, double value) {
+   GM2_slha_io::Tuple_processor sminputs_processor = [&sm] (int key, double value) {
       return process_sminputs_tuple(sm, key, value);
    };
+   GM2_slha_io::Tuple_processor mass_processor = [&sm] (int key, double value) {
+      return process_mass_tuple(sm, key, value);
+   };
+   GM2_slha_io::Tuple_processor gm2calcinput_processor = [&sm] (int key, double value) {
+      return process_gm2calcinput_tuple(sm, key, value);
+   };
 
-   read_block("SMINPUTS", processor);
+   read_block("SMINPUTS", sminputs_processor);
+   // try to read mW from MASS block
+   read_block("MASS"    , mass_processor);
+   // try to read mhSM from GM2CalcInput block
+   read_block("GM2CalcInput", gm2calcinput_processor);
 }
 
 /**
@@ -581,6 +593,16 @@ void process_gm2calcinput_tuple(
    }
 }
 
+void process_gm2calcinput_tuple(
+   gm2calc::SM& sm, int key, double value)
+{
+   switch (key) {
+   case 33: sm.set_mh(value); break;
+   default:
+      break;
+   }
+}
+
 void process_sminputs_tuple(
    MSSMNoFV_onshell& model, int key, double value)
 {
@@ -719,6 +741,16 @@ void process_mass_tuple(
    case 1000035: physical.MChi(3) = value;  break;
    case 1000024: physical.MCha(0) = value;  break;
    case 1000037: physical.MCha(1) = value;  break;
+   default:
+      break;
+   }
+}
+
+void process_mass_tuple(
+   gm2calc::SM& sm, int key, double value)
+{
+   switch (key) {
+   case 24: sm.set_mw(value); break;
    default:
       break;
    }

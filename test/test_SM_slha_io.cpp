@@ -25,6 +25,8 @@ Block SMINPUTS
     22     2.40534062E-03   # mu(2 GeV)
     23     1.04230487E-01   # ms(2 GeV)
     24     1.27183378E+00   # mc(2 GeV)
+Block GM2CalcInput
+    33     125.0            # SM Higgs boson mass
 )";
 
    gm2calc::SM sm;
@@ -50,4 +52,25 @@ Block SMINPUTS
    CHECK(sm.get_mu(0)         == 2.40534062E-03);
    CHECK(sm.get_md(1)         == 1.04230487E-01);
    CHECK(sm.get_mu(1)         == 1.27183378E+00);
+   CHECK(sm.get_mh()          == 125.0         );
+}
+
+
+TEST_CASE("prefer_mw_from_MASS_block")
+{
+   char const * const slha_input = R"(
+Block SMINPUTS
+     9     8.03773317E+01   # mW(pole)
+Block MASS
+    24     8.00000000E+01   # W boson mass
+)";
+
+   gm2calc::SM sm;
+   std::istringstream stream(slha_input);
+
+   gm2calc::GM2_slha_io slha;
+   slha.read_from_stream(stream);
+   slha.fill(sm);
+
+   CHECK(sm.get_mw() == 8.00000000E+01);
 }
