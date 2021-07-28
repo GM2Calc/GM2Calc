@@ -743,23 +743,23 @@ void process_sminputs_tuple(
    gm2calc::SM& sm, int key, double value)
 {
    switch (key) {
-   case  1: sm.set_alpha_em_mz(value); break;
-   case  2: /* G_F */                  break;
-   case  3: sm.set_alpha_s_mz(value);  break;
-   case  4: sm.set_mz(value);          break;
-   case  5: sm.set_md(2, value);       break;
-   case  6: sm.set_mu(2, value);       break;
-   case  7: sm.set_ml(2, value);       break;
-   case  8: sm.set_mv(2, value);       break;
-   case  9: sm.set_mw(value);          break;
-   case 11: sm.set_ml(0, value);       break;
-   case 12: sm.set_mv(0, value);       break;
-   case 13: sm.set_ml(1, value);       break;
-   case 14: sm.set_mv(1, value);       break;
-   case 21: sm.set_md(0, value);       break;
-   case 22: sm.set_mu(0, value);       break;
-   case 23: sm.set_md(1, value);       break;
-   case 24: sm.set_mu(1, value);       break;
+   case  1: sm.set_alpha_em_mz(1/value); break;
+   case  2: /* G_F */                    break;
+   case  3: sm.set_alpha_s_mz(value);    break;
+   case  4: sm.set_mz(value);            break;
+   case  5: sm.set_md(2, value);         break;
+   case  6: sm.set_mu(2, value);         break;
+   case  7: sm.set_ml(2, value);         break;
+   case  8: sm.set_mv(2, value);         break;
+   case  9: sm.set_mw(value);            break;
+   case 11: sm.set_ml(0, value);         break;
+   case 12: sm.set_mv(0, value);         break;
+   case 13: sm.set_ml(1, value);         break;
+   case 14: sm.set_mv(1, value);         break;
+   case 21: sm.set_md(0, value);         break;
+   case 22: sm.set_mu(0, value);         break;
+   case 23: sm.set_md(1, value);         break;
+   case 24: sm.set_mu(1, value);         break;
    default:
       WARNING("Unrecognized entry in block SMINPUTS: " << key);
       break;
