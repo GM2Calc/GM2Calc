@@ -724,7 +724,7 @@ private:
  *
  * @return MSSM_setup object
  */
-MSSM_setup make_setup(
+MSSM_setup make_mssm_setup(
    Gm2_cmd_line_options::E_input_type input_type,
    const gm2calc::Config_options& options)
 {
@@ -807,7 +807,7 @@ int main(int argc, const char* argv[])
       switch (options.input_type) {
       case Gm2_cmd_line_options::SLHA:
       case Gm2_cmd_line_options::GM2Calc: {
-         auto setup = make_setup(options.input_type, config_options);
+         auto setup = make_mssm_setup(options.input_type, config_options);
          exit_code = setup.run(slha_io);
          }
          break;
