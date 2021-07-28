@@ -19,6 +19,7 @@
 #include "gm2_slha_io.hpp"
 
 #include "gm2calc/MSSMNoFV_onshell.hpp"
+#include "gm2calc/SM.hpp"
 
 #include "gm2_config_options.hpp"
 #include "gm2_log.hpp"
@@ -53,6 +54,7 @@ namespace {
    void process_gm2calcinput_tuple(GM2CalcInput_data& /*data*/, int /*key*/, double /*value*/);
    void process_gm2calcinput_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
    void process_sminputs_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
+   void process_sminputs_tuple(gm2calc::SM& /* sm */, int /* key */, double /* value */);
    void process_hmix_tuple(HMIX_data& /*data*/, int /*key*/, double /*value*/);
    void process_mass_tuple(MSSMNoFV_onshell_physical& /*physical*/, int /*key*/, double /*value*/);
    void process_msoft_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
@@ -412,6 +414,20 @@ void GM2_slha_io::fill_slha(MSSMNoFV_onshell& model) const
 }
 
 /**
+ * Reads SM parameters
+ *
+ * @param sm SM class
+ */
+void GM2_slha_io::fill(gm2calc::SM& sm) const
+{
+   GM2_slha_io::Tuple_processor processor = [&sm] (int key, double value) {
+      return process_sminputs_tuple(sm, key, value);
+   };
+
+   read_block("SMINPUTS", processor);
+}
+
+/**
  * Reads configuration from GM2CalcConfig block
  *
  * @param config_options configuration settings
@@ -589,6 +605,33 @@ void process_sminputs_tuple(
    case 23: physical.MFs = value;   break;
    case 22: physical.MFu = value;   break;
    case 24: physical.MFc = value;   break;
+   default:
+      WARNING("Unrecognized entry in block SMINPUTS: " << key);
+      break;
+   }
+}
+
+void process_sminputs_tuple(
+   gm2calc::SM& sm, int key, double value)
+{
+   switch (key) {
+   case  1: sm.set_alpha_em_mz(value); break;
+   case  2: /* G_F */                  break;
+   case  3: sm.set_alpha_s_mz(value);  break;
+   case  4: sm.set_mz(value);          break;
+   case  5: sm.set_md(2, value);       break;
+   case  6: sm.set_mu(2, value);       break;
+   case  7: sm.set_ml(2, value);       break;
+   // case  8: sm.set_mv(2, value);       break; // @todo(alex)
+   case  9: sm.set_mw(value);          break;
+   case 11: sm.set_ml(0, value);       break;
+   // case 12: sm.set_mv(0, value);       break; // @todo(alex)
+   case 13: sm.set_ml(1, value);       break;
+   // case 14: sm.set_mv(1, value);       break; // @todo(alex)
+   case 21: sm.set_md(0, value);       break;
+   case 22: sm.set_mu(0, value);       break;
+   case 23: sm.set_md(1, value);       break;
+   case 24: sm.set_mu(1, value);       break;
    default:
       WARNING("Unrecognized entry in block SMINPUTS: " << key);
       break;

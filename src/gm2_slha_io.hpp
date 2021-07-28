@@ -33,6 +33,7 @@
 namespace gm2calc {
 
 struct Config_options;
+class SM;
 class MSSMNoFV_onshell;
 struct MSSMNoFV_onshell_physical;
 
@@ -75,6 +76,9 @@ public:
 
    /// read model parameters (SLHA input format)
    void fill_slha(MSSMNoFV_onshell&) const;
+
+   /// read SM parameters
+   void fill(SM&) const;
 
    /// read configuration
    void fill(Config_options&) const;
