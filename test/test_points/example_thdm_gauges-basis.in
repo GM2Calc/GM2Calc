@@ -41,7 +41,6 @@ Block MINPAR                # model parameters
     16     0.2              # lambda_6
     17     0.1              # lambda_7
     18     40000            # m_{12}^2
-    20     0.995            # sin(beta - alpha)
     21     0                # zeta_u
     22     0                # zeta_d
     23     0                # zeta_l
