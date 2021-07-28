@@ -4,7 +4,6 @@
 
 #include "gm2calc/MSSMNoFV_onshell.hpp"
 
-#include "gm2_config_options.hpp"
 #include "gm2_numerics.hpp"
 #include "gm2_slha_io.hpp"
 
