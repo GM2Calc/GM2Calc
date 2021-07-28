@@ -15,12 +15,12 @@ Block SMINPUTS
      5     4.18000000E+00   # mb(mb) SM MS-bar
      6     1.73340000E+02   # mtop(pole)
      7     1.77700000E+00   # mtau(pole)
-     8     0.00000000E+00   # mnu3(pole)
+     8     1.82000000E-02   # mnu3(pole)
      9     8.03773317E+01   # mW(pole)
     11     0.000510998928   # melectron(pole)
-    12     0.00000000E+00   # mnu1(pole)
+    12     1.00000000E-09   # mnu1(pole)
     13     0.1056583715     # mmuon(pole)
-    14     0.00000000E+00   # mnu2(pole)
+    14     1.70000000E-04   # mnu2(pole)
     21     4.76052706E-03   # md(2 GeV)
     22     2.40534062E-03   # mu(2 GeV)
     23     1.04230487E-01   # ms(2 GeV)
@@ -40,9 +40,12 @@ Block SMINPUTS
    CHECK(sm.get_md(2)         == 4.18000000E+00);
    CHECK(sm.get_mu(2)         == 1.73340000E+02);
    CHECK(sm.get_ml(2)         == 1.77700000E+00);
+   CHECK(sm.get_mv(2)         == 1.82000000E-02);
    CHECK(sm.get_mw()          == 8.03773317E+01);
    CHECK(sm.get_ml(0)         == 0.000510998928);
+   CHECK(sm.get_mv(0)         == 1.00000000E-09);
    CHECK(sm.get_ml(1)         == 0.1056583715  );
+   CHECK(sm.get_mv(1)         == 1.70000000E-04);
    CHECK(sm.get_md(0)         == 4.76052706E-03);
    CHECK(sm.get_mu(0)         == 2.40534062E-03);
    CHECK(sm.get_md(1)         == 1.04230487E-01);

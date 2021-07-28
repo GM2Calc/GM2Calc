@@ -44,6 +44,9 @@ gm2calc::SM convert_to_SM(::SM* sm)
          s.set_md(i, sm->md[i]);
       }
       for (int i = 0; i < 3; i++) {
+         s.set_mv(i, sm->mv[i]);
+      }
+      for (int i = 0; i < 3; i++) {
          s.set_ml(i, sm->ml[i]);
       }
       Eigen::Matrix<std::complex<double>,3,3> ckm;

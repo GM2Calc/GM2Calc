@@ -40,6 +40,7 @@ struct SM {
    double mz;
    double mu[3];
    double md[3];
+   double mv[3];
    double ml[3];
    double ckm_real[3][3];
    double ckm_imag[3][3];

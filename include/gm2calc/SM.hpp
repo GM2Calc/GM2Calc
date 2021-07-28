@@ -36,9 +36,11 @@ public:
    void set_mz(double m) noexcept { mz = m; }
    void set_mu(const Eigen::Matrix<double,3,1>& m) noexcept { mu = m; }
    void set_md(const Eigen::Matrix<double,3,1>& m) noexcept { md = m; }
+   void set_mv(const Eigen::Matrix<double,3,1>& m) noexcept { mv = m; }
    void set_ml(const Eigen::Matrix<double,3,1>& m) noexcept { ml = m; }
    void set_mu(int i, double m) noexcept { mu(i) = m; }
    void set_md(int i, double m) noexcept { md(i) = m; }
+   void set_mv(int i, double m) noexcept { mv(i) = m; }
    void set_ml(int i, double m) noexcept { ml(i) = m; }
    void set_ckm(const Eigen::Matrix<std::complex<double>,3,3>& m) { ckm = m; }
    void set_ckm(int i, int j, const std::complex<double>& m) { ckm(i, j) = m; }
@@ -53,9 +55,11 @@ public:
    double get_mz() const { return mz; }
    const Eigen::Matrix<double,3,1>& get_mu() const { return mu; }
    const Eigen::Matrix<double,3,1>& get_md() const { return md; }
+   const Eigen::Matrix<double,3,1>& get_mv() const { return mv; }
    const Eigen::Matrix<double,3,1>& get_ml() const { return ml; }
    double get_mu(int i) const { return mu(i); }
    double get_md(int i) const { return md(i); }
+   double get_mv(int i) const { return mv(i); }
    double get_ml(int i) const { return ml(i); }
    double get_e_0() const;
    double get_e_mz() const;
@@ -77,6 +81,7 @@ private:
    double mz{0.0};          ///< Z boson pole mass
    Eigen::Matrix<double,3,1> mu{Eigen::Matrix<double,3,1>::Zero()}; ///< up-type quark masses
    Eigen::Matrix<double,3,1> md{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type quark masses
+   Eigen::Matrix<double,3,1> mv{Eigen::Matrix<double,3,1>::Zero()}; ///< neutrino masses
    Eigen::Matrix<double,3,1> ml{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type lepton pole masses
    Eigen::Matrix<std::complex<double>,3,3> ckm{Eigen::Matrix<std::complex<double>,3,3>::Identity()}; ///< CKM matrix
 };

@@ -46,6 +46,9 @@ void gm2calc_sm_set_to_default(SM* sm)
       sm->md[i] = def.get_md(i);
    }
    for (int i = 0; i < 3; i++) {
+      sm->mv[i] = def.get_mv(i);
+   }
+   for (int i = 0; i < 3; i++) {
       sm->ml[i] = def.get_ml(i);
    }
    for (int i = 0; i < 3; i++) {

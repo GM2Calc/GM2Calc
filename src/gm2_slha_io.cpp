@@ -622,12 +622,12 @@ void process_sminputs_tuple(
    case  5: sm.set_md(2, value);       break;
    case  6: sm.set_mu(2, value);       break;
    case  7: sm.set_ml(2, value);       break;
-   // case  8: sm.set_mv(2, value);       break; // @todo(alex)
+   case  8: sm.set_mv(2, value);       break;
    case  9: sm.set_mw(value);          break;
    case 11: sm.set_ml(0, value);       break;
-   // case 12: sm.set_mv(0, value);       break; // @todo(alex)
+   case 12: sm.set_mv(0, value);       break;
    case 13: sm.set_ml(1, value);       break;
-   // case 14: sm.set_mv(1, value);       break; // @todo(alex)
+   case 14: sm.set_mv(1, value);       break;
    case 21: sm.set_md(0, value);       break;
    case 22: sm.set_mu(0, value);       break;
    case 23: sm.set_md(1, value);       break;
