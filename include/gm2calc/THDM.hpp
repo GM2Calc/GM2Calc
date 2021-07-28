@@ -150,6 +150,8 @@ public:
    using THDM_mass_eigenstates::get_MVWm;
    using THDM_mass_eigenstates::get_MVZ;
 
+   using THDM_mass_eigenstates::get_problems;
+
    friend std::ostream& operator<<(std::ostream&, const THDM&);
 
 private:
