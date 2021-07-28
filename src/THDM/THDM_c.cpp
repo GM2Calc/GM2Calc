@@ -61,29 +61,29 @@ gm2calc::SM convert_to_SM(::SM* sm)
    return s;
 }
 
-gm2calc::THDM::Gauge_basis convert_to_basis(THDM_gauge_basis* basis)
+gm2calc::thdm::Gauge_basis convert_to_basis(THDM_gauge_basis* basis)
 {
-   gm2calc::THDM::Gauge_basis b;
+   gm2calc::thdm::Gauge_basis b;
 
    if (basis != nullptr) {
       switch (basis->yukawa_scheme) {
       case THDM_type_1:
-         b.yukawa_scheme = THDM::Yukawa_scheme::type_1;
+         b.yukawa_scheme = thdm::Yukawa_scheme::type_1;
          break;
       case THDM_type_2:
-         b.yukawa_scheme = THDM::Yukawa_scheme::type_2;
+         b.yukawa_scheme = thdm::Yukawa_scheme::type_2;
          break;
       case THDM_type_X:
-         b.yukawa_scheme = THDM::Yukawa_scheme::type_X;
+         b.yukawa_scheme = thdm::Yukawa_scheme::type_X;
          break;
       case THDM_type_Y:
-         b.yukawa_scheme = THDM::Yukawa_scheme::type_Y;
+         b.yukawa_scheme = thdm::Yukawa_scheme::type_Y;
          break;
       case THDM_aligned:
-         b.yukawa_scheme = THDM::Yukawa_scheme::aligned;
+         b.yukawa_scheme = thdm::Yukawa_scheme::aligned;
          break;
       case THDM_general:
-         b.yukawa_scheme = THDM::Yukawa_scheme::general;
+         b.yukawa_scheme = thdm::Yukawa_scheme::general;
          break;
       }
       b.lambda1 = basis->lambda1;
@@ -110,29 +110,29 @@ gm2calc::THDM::Gauge_basis convert_to_basis(THDM_gauge_basis* basis)
    return b;
 }
 
-gm2calc::THDM::Mass_basis convert_to_basis(THDM_mass_basis* basis)
+gm2calc::thdm::Mass_basis convert_to_basis(THDM_mass_basis* basis)
 {
-   gm2calc::THDM::Mass_basis b;
+   gm2calc::thdm::Mass_basis b;
 
    if (basis != nullptr) {
       switch (basis->yukawa_scheme) {
       case THDM_type_1:
-         b.yukawa_scheme = THDM::Yukawa_scheme::type_1;
+         b.yukawa_scheme = thdm::Yukawa_scheme::type_1;
          break;
       case THDM_type_2:
-         b.yukawa_scheme = THDM::Yukawa_scheme::type_2;
+         b.yukawa_scheme = thdm::Yukawa_scheme::type_2;
          break;
       case THDM_type_X:
-         b.yukawa_scheme = THDM::Yukawa_scheme::type_X;
+         b.yukawa_scheme = thdm::Yukawa_scheme::type_X;
          break;
       case THDM_type_Y:
-         b.yukawa_scheme = THDM::Yukawa_scheme::type_Y;
+         b.yukawa_scheme = thdm::Yukawa_scheme::type_Y;
          break;
       case THDM_aligned:
-         b.yukawa_scheme = THDM::Yukawa_scheme::aligned;
+         b.yukawa_scheme = thdm::Yukawa_scheme::aligned;
          break;
       case THDM_general:
-         b.yukawa_scheme = THDM::Yukawa_scheme::general;
+         b.yukawa_scheme = thdm::Yukawa_scheme::general;
          break;
       }
       b.mh = basis->mh;

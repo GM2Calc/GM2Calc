@@ -28,56 +28,60 @@
 
 namespace gm2calc {
 
+namespace thdm {
+
+enum class Yukawa_scheme {
+   type_1, type_2, type_X, type_Y, aligned, general
+};
+
+struct Gauge_basis {
+   Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
+   double lambda1{0.0};
+   double lambda2{0.0};
+   double lambda3{0.0};
+   double lambda4{0.0};
+   double lambda5{0.0};
+   double lambda6{0.0};
+   double lambda7{0.0};
+   double tan_beta{0.0};
+   double m122{0.0};
+   double zeta_u{0.0};
+   double zeta_d{0.0};
+   double zeta_l{0.0};
+   Eigen::Matrix<std::complex<double>,3,3> Xu{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+   Eigen::Matrix<std::complex<double>,3,3> Xd{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+   Eigen::Matrix<std::complex<double>,3,3> Xl{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+};
+
+struct Mass_basis {
+   Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
+   double mh{0.0};
+   double mH{0.0};
+   double mA{0.0};
+   double mHp{0.0};
+   double sin_beta_minus_alpha{0.0};
+   double lambda6{0.0};
+   double lambda7{0.0};
+   double tan_beta{0.0};
+   double m122{0.0};
+   double zeta_u{0.0};
+   double zeta_d{0.0};
+   double zeta_l{0.0};
+   Eigen::Matrix<std::complex<double>,3,3> Xu{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+   Eigen::Matrix<std::complex<double>,3,3> Xd{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+   Eigen::Matrix<std::complex<double>,3,3> Xl{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+};
+
+} // namespace thdm
+
 /**
  * @class THDM
  * @brief Contains routines to determine the THDM parameters
  */
 class THDM : private THDM_mass_eigenstates {
 public:
-   enum class Yukawa_scheme {
-      type_1, type_2, type_X, type_Y, aligned, general
-   };
-
-   struct Gauge_basis {
-      Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
-      double lambda1{0.0};
-      double lambda2{0.0};
-      double lambda3{0.0};
-      double lambda4{0.0};
-      double lambda5{0.0};
-      double lambda6{0.0};
-      double lambda7{0.0};
-      double tan_beta{0.0};
-      double m122{0.0};
-      double zeta_u{0.0};
-      double zeta_d{0.0};
-      double zeta_l{0.0};
-      Eigen::Matrix<std::complex<double>,3,3> Xu{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
-      Eigen::Matrix<std::complex<double>,3,3> Xd{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
-      Eigen::Matrix<std::complex<double>,3,3> Xl{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
-   };
-
-   struct Mass_basis {
-      Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
-      double mh{0.0};
-      double mH{0.0};
-      double mA{0.0};
-      double mHp{0.0};
-      double sin_beta_minus_alpha{0.0};
-      double lambda6{0.0};
-      double lambda7{0.0};
-      double tan_beta{0.0};
-      double m122{0.0};
-      double zeta_u{0.0};
-      double zeta_d{0.0};
-      double zeta_l{0.0};
-      Eigen::Matrix<std::complex<double>,3,3> Xu{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
-      Eigen::Matrix<std::complex<double>,3,3> Xd{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
-      Eigen::Matrix<std::complex<double>,3,3> Xl{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
-   };
-
-   THDM(const Gauge_basis&, const SM& sm_ = SM{});
-   THDM(const Mass_basis&, const SM& sm_ = SM{});
+   THDM(const thdm::Gauge_basis&, const SM& sm_ = SM{});
+   THDM(const thdm::Mass_basis&, const SM& sm_ = SM{});
 
    double get_zeta_u() const;
    double get_zeta_d() const;
@@ -102,7 +106,7 @@ public:
    Eigen::Matrix<std::complex<double>,3,3> get_ylA() const;
    Eigen::Matrix<std::complex<double>,3,3> get_ylHp() const;
 
-   Yukawa_scheme get_yukawa_scheme() const { return yukawa_scheme; }
+   thdm::Yukawa_scheme get_yukawa_scheme() const { return yukawa_scheme; }
 
    const SM& get_sm() const { return sm; }
 
@@ -150,15 +154,15 @@ public:
 
 private:
    SM sm{};
-   Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
+   thdm::Yukawa_scheme yukawa_scheme{thdm::Yukawa_scheme::type_2};
    double zeta_u{0.0}; ///< alignment parameter
    double zeta_d{0.0}; ///< alignment parameter
    double zeta_l{0.0}; ///< alignment parameter
 
    void init_gauge_couplings();
    void init_yukawas();
-   void set_basis(const Gauge_basis&);
-   void set_basis(const Mass_basis&);
+   void set_basis(const thdm::Gauge_basis&);
+   void set_basis(const thdm::Mass_basis&);
 };
 
 /// streaming operator

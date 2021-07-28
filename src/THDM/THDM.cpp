@@ -34,7 +34,7 @@ double calc_xi_bar(double zeta, double tan_beta) noexcept
 
 } // anonymous namespace
 
-THDM::THDM(const Gauge_basis& basis, const SM& sm_)
+THDM::THDM(const thdm::Gauge_basis& basis, const SM& sm_)
    : sm(sm_)
    , yukawa_scheme(basis.yukawa_scheme)
    , zeta_u(basis.zeta_u)
@@ -45,7 +45,7 @@ THDM::THDM(const Gauge_basis& basis, const SM& sm_)
    set_basis(basis);
 }
 
-THDM::THDM(const Mass_basis& basis, const SM& sm_)
+THDM::THDM(const thdm::Mass_basis& basis, const SM& sm_)
    : sm(sm_)
    , yukawa_scheme(basis.yukawa_scheme)
    , zeta_u(basis.zeta_u)
@@ -71,7 +71,7 @@ void THDM::init_yukawas()
    const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
 
    switch (yukawa_scheme) {
-   case Yukawa_scheme::type_1:
+   case thdm::Yukawa_scheme::type_1:
       Xu.setZero();
       Xd.setZero();
       Xl.setZero();
@@ -79,7 +79,7 @@ void THDM::init_yukawas()
       set_Yd(sqrt2*md/v1);
       set_Yl(sqrt2*ml/v1);
       break;
-   case Yukawa_scheme::type_2:
+   case thdm::Yukawa_scheme::type_2:
       Yu.setZero();
       Xd.setZero();
       Xl.setZero();
@@ -87,7 +87,7 @@ void THDM::init_yukawas()
       set_Yd(sqrt2*md/v1);
       set_Yl(sqrt2*ml/v1);
       break;
-   case Yukawa_scheme::type_X:
+   case thdm::Yukawa_scheme::type_X:
       Yu.setZero();
       Yd.setZero();
       Xl.setZero();
@@ -95,7 +95,7 @@ void THDM::init_yukawas()
       set_Xd(sqrt2*md/v2);
       set_Yl(sqrt2*ml/v1);
       break;
-   case Yukawa_scheme::type_Y:
+   case thdm::Yukawa_scheme::type_Y:
       Xu.setZero();
       Xd.setZero();
       Yl.setZero();
@@ -103,7 +103,7 @@ void THDM::init_yukawas()
       set_Yd(sqrt2*md/v1);
       set_Xl(sqrt2*ml/v2);
       break;
-   case Yukawa_scheme::aligned:
+   case thdm::Yukawa_scheme::aligned:
       set_Yu(sqrt2*mu/(v1 + v2*calc_xi_bar(get_zeta_u(), get_tan_beta())));
       set_Yd(sqrt2*md/(v1 + v2*calc_xi_bar(get_zeta_d(), get_tan_beta())));
       set_Yl(sqrt2*ml/(v1 + v2*calc_xi_bar(get_zeta_l(), get_tan_beta())));
@@ -111,7 +111,7 @@ void THDM::init_yukawas()
       set_Xd(calc_xi_bar(get_zeta_d(), get_tan_beta())*Yd);
       set_Xl(calc_xi_bar(get_zeta_l(), get_tan_beta())*Yl);
       break;
-   case Yukawa_scheme::general:
+   case thdm::Yukawa_scheme::general:
       set_Yu(sqrt2*mu/v1 - v2/v1*Xu);
       set_Yd(sqrt2*md/v1 - v2/v1*Xd);
       set_Yl(sqrt2*ml/v1 - v2/v1*Xl);
@@ -123,7 +123,7 @@ void THDM::init_yukawas()
 double THDM::get_zeta_u() const
 {
    switch (yukawa_scheme) {
-   case Yukawa_scheme::aligned:
+   case thdm::Yukawa_scheme::aligned:
       return zeta_u;
    default:
       return 1.0/get_tan_beta();
@@ -134,17 +134,17 @@ double THDM::get_zeta_u() const
 double THDM::get_zeta_d() const
 {
    switch (yukawa_scheme) {
-   case Yukawa_scheme::type_1:
+   case thdm::Yukawa_scheme::type_1:
       return 1.0/get_tan_beta();
-   case Yukawa_scheme::type_2:
+   case thdm::Yukawa_scheme::type_2:
       return -get_tan_beta();
-   case Yukawa_scheme::type_X:
+   case thdm::Yukawa_scheme::type_X:
       return 1.0/get_tan_beta();
-   case Yukawa_scheme::type_Y:
+   case thdm::Yukawa_scheme::type_Y:
       return -get_tan_beta();
-   case Yukawa_scheme::aligned:
+   case thdm::Yukawa_scheme::aligned:
       return zeta_d;
-   case Yukawa_scheme::general:
+   case thdm::Yukawa_scheme::general:
       return -get_tan_beta(); // should never arrive here
    }
 }
@@ -153,17 +153,17 @@ double THDM::get_zeta_d() const
 double THDM::get_zeta_l() const
 {
    switch (yukawa_scheme) {
-   case Yukawa_scheme::type_1:
+   case thdm::Yukawa_scheme::type_1:
       return 1.0/get_tan_beta();
-   case Yukawa_scheme::type_2:
+   case thdm::Yukawa_scheme::type_2:
       return -get_tan_beta();
-   case Yukawa_scheme::type_X:
+   case thdm::Yukawa_scheme::type_X:
       return -get_tan_beta();
-   case Yukawa_scheme::type_Y:
+   case thdm::Yukawa_scheme::type_Y:
       return 1.0/get_tan_beta();
-   case Yukawa_scheme::aligned:
+   case thdm::Yukawa_scheme::aligned:
       return zeta_l;
-   case Yukawa_scheme::general:
+   case thdm::Yukawa_scheme::general:
       return -get_tan_beta(); // should never arrive here
    }
 }
@@ -174,7 +174,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_u() const
    const double v = get_v();
    const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
 
-   if (yukawa_scheme != Yukawa_scheme::general) {
+   if (yukawa_scheme != thdm::Yukawa_scheme::general) {
       return sqrt2*mu*get_zeta_u()/v;
    }
 
@@ -187,7 +187,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_d() const
    const double v = get_v();
    const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
 
-   if (yukawa_scheme != Yukawa_scheme::general) {
+   if (yukawa_scheme != thdm::Yukawa_scheme::general) {
       return sqrt2*md*get_zeta_d()/v;
    }
 
@@ -200,7 +200,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_l() const
    const double v = get_v();
    const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
 
-   if (yukawa_scheme != Yukawa_scheme::general) {
+   if (yukawa_scheme != thdm::Yukawa_scheme::general) {
       return sqrt2*ml*get_zeta_l()/v;
    }
 
@@ -297,7 +297,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylHp() const
    return get_xi_l();
 }
 
-void THDM::set_basis(const THDM::Gauge_basis& basis)
+void THDM::set_basis(const thdm::Gauge_basis& basis)
 {
    set_lambda1(basis.lambda1);
    set_lambda2(basis.lambda2);
@@ -321,7 +321,7 @@ void THDM::set_basis(const THDM::Gauge_basis& basis)
    }
 }
 
-void THDM::set_basis(const THDM::Mass_basis& basis)
+void THDM::set_basis(const thdm::Mass_basis& basis)
 {
    if (basis.mh > basis.mH) {
       throw EInvalidInput("mh must be less than or equal to mH.");
@@ -407,22 +407,22 @@ std::ostream& operator<<(std::ostream& ostr, const THDM& model)
    ostr << "Yukawa scheme: ";
 
    switch (model.get_yukawa_scheme()) {
-      case THDM::Yukawa_scheme::type_1:
+      case thdm::Yukawa_scheme::type_1:
          ostr << "Type I\n";
          break;
-      case THDM::Yukawa_scheme::type_2:
+      case thdm::Yukawa_scheme::type_2:
          ostr << "Type II\n";
          break;
-      case THDM::Yukawa_scheme::type_X:
+      case thdm::Yukawa_scheme::type_X:
          ostr << "Type X\n";
          break;
-      case THDM::Yukawa_scheme::type_Y:
+      case thdm::Yukawa_scheme::type_Y:
          ostr << "Type Y\n";
          break;
-      case THDM::Yukawa_scheme::aligned:
+      case thdm::Yukawa_scheme::aligned:
          ostr << "Aligned\n";
          break;
-      case THDM::Yukawa_scheme::general:
+      case thdm::Yukawa_scheme::general:
          ostr << "General\n";
          break;
    }

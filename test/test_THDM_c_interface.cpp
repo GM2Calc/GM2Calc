@@ -52,8 +52,8 @@ void setup_SM(gm2calc::SM& cppsm, SM& csm)
 
 std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
 {
-   gm2calc::THDM::Mass_basis basis;
-   basis.yukawa_scheme = gm2calc::THDM::Yukawa_scheme::type_2;
+   gm2calc::thdm::Mass_basis basis;
+   basis.yukawa_scheme = gm2calc::thdm::Yukawa_scheme::type_2;
    basis.mh = 125;
    basis.mH = 400;
    basis.mA = 420;
@@ -108,8 +108,8 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
 
 std::pair<gm2calc::THDM, THDM*> setup_gauge_basis()
 {
-   gm2calc::THDM::Gauge_basis basis;
-   basis.yukawa_scheme = gm2calc::THDM::Yukawa_scheme::type_2;
+   gm2calc::thdm::Gauge_basis basis;
+   basis.yukawa_scheme = gm2calc::thdm::Yukawa_scheme::type_2;
    basis.lambda1 = 0.7;
    basis.lambda2 = 0.6;
    basis.lambda3 = 0.5;

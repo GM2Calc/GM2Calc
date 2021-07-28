@@ -24,14 +24,14 @@ const double pi = 3.1415926535897932;
 } // anonymous namespace
 
 
-void test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme yukawa_scheme)
+void test_tree_level_spectrum(gm2calc::thdm::Yukawa_scheme yukawa_scheme)
 {
    const double eps = 1e-14;
 
    // parameter point where choice of range
    // -pi/2 <= beta - alpha_h <= pi/2
    // matters
-   gm2calc::THDM::Gauge_basis basis;
+   gm2calc::thdm::Gauge_basis basis;
    basis.yukawa_scheme = yukawa_scheme;
    basis.lambda1 = 0.26249;
    basis.lambda2 = 0.23993;
@@ -128,18 +128,18 @@ void test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme yukawa_scheme)
 
 TEST_CASE("tree-level-spectrum")
 {
-   test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme::type_1);
-   test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme::type_2);
-   test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme::type_X);
-   test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme::type_Y);
-   test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme::aligned);
-   test_tree_level_spectrum(gm2calc::THDM::Yukawa_scheme::general);
+   test_tree_level_spectrum(gm2calc::thdm::Yukawa_scheme::type_1);
+   test_tree_level_spectrum(gm2calc::thdm::Yukawa_scheme::type_2);
+   test_tree_level_spectrum(gm2calc::thdm::Yukawa_scheme::type_X);
+   test_tree_level_spectrum(gm2calc::thdm::Yukawa_scheme::type_Y);
+   test_tree_level_spectrum(gm2calc::thdm::Yukawa_scheme::aligned);
+   test_tree_level_spectrum(gm2calc::thdm::Yukawa_scheme::general);
 }
 
 
 TEST_CASE("tree-level-spectrum-with-tachyons")
 {
-   gm2calc::THDM::Gauge_basis basis;
+   gm2calc::thdm::Gauge_basis basis;
    basis.lambda1 = -0.1;
    basis.lambda2 = -0.2;
    basis.lambda3 = 0;
@@ -189,7 +189,7 @@ TEST_CASE("general_basis")
 {
    const double eps = 1e-14;
 
-   gm2calc::THDM::Gauge_basis basis;
+   gm2calc::thdm::Gauge_basis basis;
    basis.lambda1 = 0.7;
    basis.lambda2 = 0.6;
    basis.lambda3 = 0.5;
@@ -228,7 +228,7 @@ TEST_CASE("physical_basis")
 {
    const double eps = 1e-14;
 
-   gm2calc::THDM::Mass_basis basis;
+   gm2calc::thdm::Mass_basis basis;
    basis.mh = 125;
    basis.mH = 400;
    basis.mA = 420;
@@ -274,7 +274,7 @@ TEST_CASE("physical_basis")
 
 TEST_CASE("2HDMC-demo-point")
 {
-   gm2calc::THDM::Gauge_basis basis;
+   gm2calc::thdm::Gauge_basis basis;
    basis.lambda1 = 4.81665;
    basis.lambda2 = 0.23993;
    basis.lambda3 = 2.09923;
@@ -304,8 +304,8 @@ TEST_CASE("2HDMC-demo-point")
 
 TEST_CASE("test-point-GAMBIT")
 {
-   gm2calc::THDM::Gauge_basis basis;
-   basis.yukawa_scheme = gm2calc::THDM::Yukawa_scheme::general;
+   gm2calc::thdm::Gauge_basis basis;
+   basis.yukawa_scheme = gm2calc::thdm::Yukawa_scheme::general;
    basis.lambda1 =  2.02924518279587396;
    basis.lambda2 =  0.25812066515822629;
    basis.lambda3 =  0.81575007334344507;
@@ -333,8 +333,8 @@ TEST_CASE("test-point-GAMBIT")
 
 TEST_CASE("test-point-GAMBIT-real-CKM")
 {
-   gm2calc::THDM::Gauge_basis basis;
-   basis.yukawa_scheme = gm2calc::THDM::Yukawa_scheme::general;
+   gm2calc::thdm::Gauge_basis basis;
+   basis.yukawa_scheme = gm2calc::thdm::Yukawa_scheme::general;
    basis.lambda1 =  2.02924518279587396;
    basis.lambda2 =  0.25812066515822629;
    basis.lambda3 =  0.81575007334344507;
@@ -367,8 +367,8 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
 
 TEST_CASE("test-point-GAMBIT-complex-CKM")
 {
-   gm2calc::THDM::Gauge_basis basis;
-   basis.yukawa_scheme = gm2calc::THDM::Yukawa_scheme::general;
+   gm2calc::thdm::Gauge_basis basis;
+   basis.yukawa_scheme = gm2calc::thdm::Yukawa_scheme::general;
    basis.lambda1 =  2.02924518279587396;
    basis.lambda2 =  0.25812066515822629;
    basis.lambda3 =  0.81575007334344507;
@@ -433,7 +433,7 @@ TEST_CASE("2HDMC-mA-scan")
    for (const auto& p: data) {
       const auto mA = p.at(0);
 
-      gm2calc::THDM::Mass_basis basis;
+      gm2calc::thdm::Mass_basis basis;
       basis.mh = 125;
       basis.mH = 400;
       basis.mA = mA;

@@ -37,6 +37,11 @@ class SM;
 class MSSMNoFV_onshell;
 struct MSSMNoFV_onshell_physical;
 
+namespace thdm {
+struct Gauge_basis;
+struct Mass_basis;
+}
+
 #define FORMAT_ELEMENT(pdg,value,name)                                  \
    boost::format(" %5d   %16.8E   # %s\n") % (pdg) % (value) % (name)
 #define FORMAT_SCALE(n)                                                 \
@@ -79,6 +84,9 @@ public:
 
    /// read SM parameters
    void fill(SM&) const;
+
+   /// read THDM gauge basis parameters
+   void fill(thdm::Gauge_basis&) const;
 
    /// read configuration
    void fill(Config_options&) const;

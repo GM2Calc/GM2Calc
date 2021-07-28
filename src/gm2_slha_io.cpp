@@ -20,6 +20,7 @@
 
 #include "gm2calc/MSSMNoFV_onshell.hpp"
 #include "gm2calc/SM.hpp"
+#include "gm2calc/THDM.hpp"
 
 #include "gm2_config_options.hpp"
 #include "gm2_log.hpp"
@@ -66,6 +67,7 @@ namespace {
    void process_hmix_tuple(HMIX_data& /*data*/, int /*key*/, double /*value*/);
    void process_mass_tuple(MSSMNoFV_onshell_physical& /*physical*/, int /*key*/, double /*value*/);
    void process_mass_tuple(gm2calc::SM& /* sm */, int /* key */, double /* value */);
+   void process_minpar_tuple(gm2calc::thdm::Gauge_basis& /* sm */, int /* key */, double /* value */);
    void process_msoft_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
    void process_vckm_tuple(CKM_wolfenstein& /* ckm */, int /* key */, double /* value */);
 
@@ -457,6 +459,40 @@ void GM2_slha_io::fill(gm2calc::SM& sm) const
 }
 
 /**
+ * Reads THDM parameters in gauge basis
+ *
+ * @param basis gauge basis
+ */
+void GM2_slha_io::fill(gm2calc::thdm::Gauge_basis& basis) const
+{
+   GM2_slha_io::Tuple_processor minpar_processor = [&basis] (int key, double value) {
+      return process_minpar_tuple(basis, key, value);
+   };
+
+   Eigen::Matrix<double,3,3> Xu_real{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xd_real{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xl_real{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xu_imag{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xd_imag{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xl_imag{Eigen::Matrix<double,3,3>::Zero()};
+
+   read_block("MINPAR", minpar_processor);
+   read_block("GM2CalcTHDMXuInput", Xu_real);
+   read_block("GM2CalcTHDMXdInput", Xd_real);
+   read_block("GM2CalcTHDMXlInput", Xl_real);
+   read_block("GM2CalcTHDMImXuInput", Xu_imag);
+   read_block("GM2CalcTHDMImXdInput", Xd_imag);
+   read_block("GM2CalcTHDMImXlInput", Xl_imag);
+
+   basis.Xu.real() = Xu_real;
+   basis.Xu.imag() = Xu_imag;
+   basis.Xd.real() = Xd_real;
+   basis.Xd.imag() = Xd_imag;
+   basis.Xl.real() = Xl_real;
+   basis.Xl.imag() = Xl_imag;
+}
+
+/**
  * Reads configuration from GM2CalcConfig block
  *
  * @param config_options configuration settings
@@ -500,6 +536,19 @@ void read_integer(double value, T& result, T min, T max, const char* error_msg)
 {
    if (is_integer(value) && value >= min && value <= max) {
       result = static_cast<T>(static_cast<int>(value));
+   } else {
+      throw EInvalidInput(
+         std::string(error_msg) + ": " + gm2calc::to_string(value) +
+         " (allowed integer values: " + gm2calc::to_string(min) + ",...," +
+         gm2calc::to_string(max) + ")");
+   }
+}
+
+template <typename T>
+T read_integer(double value, T min, T max, const char* error_msg)
+{
+   if (is_integer(value) && value >= min && value <= max) {
+      return static_cast<T>(static_cast<int>(value));
    } else {
       throw EInvalidInput(
          std::string(error_msg) + ": " + gm2calc::to_string(value) +
@@ -768,6 +817,37 @@ void process_mass_tuple(
 {
    switch (key) {
    case 24: sm.set_mw(value); break;
+   default:
+      break;
+   }
+}
+
+void process_minpar_tuple(
+   gm2calc::thdm::Gauge_basis& basis, int key, double value)
+{
+   switch (key) {
+   case  3: basis.tan_beta = value; break;
+   case 11: basis.lambda1 = value;  break;
+   case 12: basis.lambda2 = value;  break;
+   case 13: basis.lambda3 = value;  break;
+   case 14: basis.lambda4 = value;  break;
+   case 15: basis.lambda5 = value;  break;
+   case 16: basis.lambda6 = value;  break;
+   case 17: basis.lambda7 = value;  break;
+   case 18: basis.m122 = value;     break;
+   case 21: basis.zeta_u = value;   break;
+   case 22: basis.zeta_d = value;   break;
+   case 23: basis.zeta_l = value;   break;
+   case 24:
+      switch (read_integer(value, 0, 5, "invalid Yukawa type")) {
+      case 0: basis.yukawa_scheme = thdm::Yukawa_scheme::general; break;
+      case 1: basis.yukawa_scheme = thdm::Yukawa_scheme::type_1;  break;
+      case 2: basis.yukawa_scheme = thdm::Yukawa_scheme::type_2;  break;
+      case 3: basis.yukawa_scheme = thdm::Yukawa_scheme::type_X;  break;
+      case 4: basis.yukawa_scheme = thdm::Yukawa_scheme::type_Y;  break;
+      case 5: basis.yukawa_scheme = thdm::Yukawa_scheme::aligned; break;
+      }
+      break;
    default:
       break;
    }
