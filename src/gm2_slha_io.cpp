@@ -67,7 +67,9 @@ namespace {
    void process_hmix_tuple(HMIX_data& /*data*/, int /*key*/, double /*value*/);
    void process_mass_tuple(MSSMNoFV_onshell_physical& /*physical*/, int /*key*/, double /*value*/);
    void process_mass_tuple(gm2calc::SM& /* sm */, int /* key */, double /* value */);
-   void process_minpar_tuple(gm2calc::thdm::Gauge_basis& /* sm */, int /* key */, double /* value */);
+   void process_mass_tuple(gm2calc::thdm::Mass_basis& /* basis */, int /* key */, double /* value */);
+   void process_minpar_tuple(gm2calc::thdm::Gauge_basis& /* basis */, int /* key */, double /* value */);
+   void process_minpar_tuple(gm2calc::thdm::Mass_basis& /* basis */, int /* key */, double /* value */);
    void process_msoft_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
    void process_vckm_tuple(CKM_wolfenstein& /* ckm */, int /* key */, double /* value */);
 
@@ -493,6 +495,44 @@ void GM2_slha_io::fill(gm2calc::thdm::Gauge_basis& basis) const
 }
 
 /**
+ * Reads THDM parameters in mass basis
+ *
+ * @param basis mass basis
+ */
+void GM2_slha_io::fill(gm2calc::thdm::Mass_basis& basis) const
+{
+   GM2_slha_io::Tuple_processor minpar_processor = [&basis] (int key, double value) {
+      return process_minpar_tuple(basis, key, value);
+   };
+   GM2_slha_io::Tuple_processor mass_processor = [&basis] (int key, double value) {
+      return process_mass_tuple(basis, key, value);
+   };
+
+   Eigen::Matrix<double,3,3> Xu_real{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xd_real{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xl_real{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xu_imag{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xd_imag{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xl_imag{Eigen::Matrix<double,3,3>::Zero()};
+
+   read_block("MINPAR", minpar_processor);
+   read_block("MASS", mass_processor);
+   read_block("GM2CalcTHDMXuInput", Xu_real);
+   read_block("GM2CalcTHDMXdInput", Xd_real);
+   read_block("GM2CalcTHDMXlInput", Xl_real);
+   read_block("GM2CalcTHDMImXuInput", Xu_imag);
+   read_block("GM2CalcTHDMImXdInput", Xd_imag);
+   read_block("GM2CalcTHDMImXlInput", Xl_imag);
+
+   basis.Xu.real() = Xu_real;
+   basis.Xu.imag() = Xu_imag;
+   basis.Xd.real() = Xd_real;
+   basis.Xd.imag() = Xd_imag;
+   basis.Xl.real() = Xl_real;
+   basis.Xl.imag() = Xl_imag;
+}
+
+/**
  * Reads configuration from GM2CalcConfig block
  *
  * @param config_options configuration settings
@@ -822,6 +862,19 @@ void process_mass_tuple(
    }
 }
 
+void process_mass_tuple(
+   gm2calc::thdm::Mass_basis& basis, int key, double value)
+{
+   switch (key) {
+   case 25: basis.mh = value;  break;
+   case 35: basis.mH = value;  break;
+   case 36: basis.mA = value;  break;
+   case 37: basis.mHp = value; break;
+   default:
+      break;
+   }
+}
+
 void process_minpar_tuple(
    gm2calc::thdm::Gauge_basis& basis, int key, double value)
 {
@@ -838,6 +891,33 @@ void process_minpar_tuple(
    case 21: basis.zeta_u = value;   break;
    case 22: basis.zeta_d = value;   break;
    case 23: basis.zeta_l = value;   break;
+   case 24:
+      switch (read_integer(value, 0, 5, "invalid Yukawa type")) {
+      case 0: basis.yukawa_scheme = thdm::Yukawa_scheme::general; break;
+      case 1: basis.yukawa_scheme = thdm::Yukawa_scheme::type_1;  break;
+      case 2: basis.yukawa_scheme = thdm::Yukawa_scheme::type_2;  break;
+      case 3: basis.yukawa_scheme = thdm::Yukawa_scheme::type_X;  break;
+      case 4: basis.yukawa_scheme = thdm::Yukawa_scheme::type_Y;  break;
+      case 5: basis.yukawa_scheme = thdm::Yukawa_scheme::aligned; break;
+      }
+      break;
+   default:
+      break;
+   }
+}
+
+void process_minpar_tuple(
+   gm2calc::thdm::Mass_basis& basis, int key, double value)
+{
+   switch (key) {
+   case  3: basis.tan_beta = value;             break;
+   case 16: basis.lambda6 = value;              break;
+   case 17: basis.lambda7 = value;              break;
+   case 18: basis.m122 = value;                 break;
+   case 20: basis.sin_beta_minus_alpha = value; break;
+   case 21: basis.zeta_u = value;               break;
+   case 22: basis.zeta_d = value;               break;
+   case 23: basis.zeta_l = value;               break;
    case 24:
       switch (read_integer(value, 0, 5, "invalid Yukawa type")) {
       case 0: basis.yukawa_scheme = thdm::Yukawa_scheme::general; break;

@@ -88,6 +88,9 @@ public:
    /// read THDM gauge basis parameters
    void fill(thdm::Gauge_basis&) const;
 
+   /// read THDM mass basis parameters
+   void fill(thdm::Mass_basis&) const;
+
    /// read configuration
    void fill(Config_options&) const;
 
