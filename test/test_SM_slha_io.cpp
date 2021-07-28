@@ -41,7 +41,7 @@ Block VCKMIN                # CKM matrix in Wolfenstein parametrization
    slha.read_from_stream(stream);
    slha.fill(sm);
 
-   CHECK(sm.get_alpha_em_mz() == 1.27934000E+02);
+   CHECK(sm.get_alpha_em_mz() == 1/1.27934000E+02);
    CHECK(sm.get_alpha_s_mz()  == 0.1184        );
    CHECK(sm.get_mz()          == 9.11876000E+01);
    CHECK(sm.get_md(2)         == 4.18000000E+00);
