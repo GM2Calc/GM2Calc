@@ -630,10 +630,10 @@ private:
 /**
  * Class which handles input/output for the MSSM.
  */
-class Setup
+class MSSM_setup
 {
 public:
-   Setup(const gm2calc::Config_options& options_, const Reader& reader_,
+   MSSM_setup(const gm2calc::Config_options& options_, const Reader& reader_,
          const Writer& writer_)
       : options(options_), reader(reader_), writer(writer_)
    {
@@ -678,10 +678,10 @@ private:
 /**
  * Class which handles input/output for the MSSM.
  */
-class THDMSetup
+class THDM_setup
 {
 public:
-   THDMSetup(const gm2calc::Config_options& options_, const THDM_reader& reader_,
+   THDM_setup(const gm2calc::Config_options& options_, const THDM_reader& reader_,
              const THDM_writer& writer_)
       : options(options_), reader(reader_), writer(writer_)
    {
@@ -717,14 +717,14 @@ private:
 };
 
 /**
- * Returns properly configured (but not initialized) Setup object.
+ * Returns properly configured (but not initialized) MSSM_setup object.
  *
  * @param input_type type of input (SLHA/GM2Calc)
  * @param options configuration options
  *
- * @return Setup object
+ * @return MSSM_setup object
  */
-Setup make_setup(
+MSSM_setup make_setup(
    Gm2_cmd_line_options::E_input_type input_type,
    const gm2calc::Config_options& options)
 {
@@ -752,18 +752,18 @@ Setup make_setup(
       return SLHA_writer<gm2calc::MSSMNoFV_onshell>();
    }();
 
-   return Setup(options, reader, writer);
+   return MSSM_setup(options, reader, writer);
 }
 
 /**
- * Returns properly configured (but not initialized) Setup object.
+ * Returns properly configured (but not initialized) MSSM_setup object.
  *
  * @param input_type type of input (SLHA/GM2Calc)
  * @param options configuration options
  *
- * @return Setup object
+ * @return MSSM_setup object
  */
-THDMSetup make_thdm_setup(const gm2calc::Config_options& options)
+THDM_setup make_thdm_setup(const gm2calc::Config_options& options)
 {
    const THDM_writer writer = [&] () -> THDM_writer {
       switch (options.output_format) {
@@ -777,7 +777,7 @@ THDMSetup make_thdm_setup(const gm2calc::Config_options& options)
       return SLHA_writer<gm2calc::THDM>();
    }();
 
-   return THDMSetup(options, THDM_reader(), writer);
+   return THDM_setup(options, THDM_reader(), writer);
 }
 
 } // anonymous namespace
