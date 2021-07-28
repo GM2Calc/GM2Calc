@@ -543,14 +543,14 @@ public:
       model.set_verbose_output(options_.verbose_output);
    }
 
-   /// returns whether the model discovered a problem
-   bool have_problem() const { return model.get_problems().have_problem(); }
-
-   /// read from SLHA i/o object and initialize model (via reader)
-   void read(const gm2calc::GM2_slha_io& slha_io)
+   /// read from SLHA and write to output
+   int run(gm2calc::GM2_slha_io& slha_io)
    {
       if (!reader) {
          throw gm2calc::ESetupError("No reader set");
+      }
+      if (!writer) {
+         throw gm2calc::ESetupError("No writer set");
       }
 
       reader(model, slha_io);
@@ -563,16 +563,10 @@ public:
           model.get_problems().have_warning()) {
          std::cerr << model.get_problems() << '\n';
       }
-   }
-
-   /// Output via the writer (potentially to SLHA i/o object)
-   void write(gm2calc::GM2_slha_io& slha_io) const
-   {
-      if (!writer) {
-         throw gm2calc::ESetupError("No writer set");
-      }
 
       writer(model, options, slha_io);
+
+      return model.get_problems().have_problem() ? EXIT_FAILURE : EXIT_SUCCESS;
    }
 
 private:
@@ -646,12 +640,7 @@ int main(int argc, const char* argv[])
       slha_io.fill(config_options);
 
       Setup setup = make_setup(options.input_type, config_options);
-      setup.read(slha_io);
-      setup.write(slha_io);
-
-      if (setup.have_problem()) {
-         exit_code = EXIT_FAILURE;
-      }
+      exit_code = setup.run(slha_io);
    } catch (const gm2calc::Error& error) {
       print_error(error, slha_io, config_options);
       exit_code = EXIT_FAILURE;
