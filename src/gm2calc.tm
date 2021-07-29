@@ -151,7 +151,7 @@
     "CP-even Higgs bosons masses.";
 
 :Evaluate: TB::usage =
-    "tan(beta) = vu/vd.";
+    "tan(beta) = v2/v1 (= vu/vd in the MSSM).";
 
 :Evaluate: Mu::usage =
     "Superpotential mu-parameter.";
