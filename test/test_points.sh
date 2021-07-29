@@ -48,6 +48,7 @@ ${BASEDIR}/test_points/BM5-1504.05500_1L_resummed.in,gm2calc,0,2.88732973E-09
 ${BASEDIR}/test_points/BM5-1504.05500_2L_resummed.in,gm2calc,0,2.98718794E-09
 ${BASEDIR}/test_points/thdm_mass-basis.in,thdm,0,1.6229077345333345E-11
 ${BASEDIR}/test_points/thdm_gauge-basis.in,thdm,0,3.271180487671864E-11
+${BASEDIR}/test_points/thdm_contradictory_input.in,thdm,1,
 "
 
 if test ! -x "${GM2CALC}"; then
