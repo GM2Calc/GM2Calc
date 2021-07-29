@@ -73,8 +73,8 @@ struct THDM_mass_basis {
    double mA;
    double mHp;
    double sin_beta_minus_alpha;
-   double lambda6;
-   double lambda7;
+   double lambda_6;
+   double lambda_7;
    double tan_beta;
    double m122;
    double zeta_u;

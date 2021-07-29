@@ -367,8 +367,8 @@ void THDM::set_basis(const thdm::Mass_basis& basis)
    const double mH = basis.mH;
    const double mA = basis.mA;
    const double mHp = basis.mHp;
-   const double lambda6 = basis.lambda6;
-   const double lambda7 = basis.lambda7;
+   const double lambda6 = basis.lambda_6;
+   const double lambda7 = basis.lambda_7;
    const double m12_2 = basis.m122;
    const double v = sm.get_v();
    const double v2 = sqr(v);
@@ -378,8 +378,8 @@ void THDM::set_basis(const thdm::Mass_basis& basis)
    set_lambda3(((sqr(mH) - sqr(mh))*ca*sa + 2.*mHp*mHp*sb*cb - m12_2)/v2/sb/cb - 0.5*lambda6*ctb - 0.5*lambda7*tb);
    set_lambda4(((sqr(mA) - 2.*mHp*mHp)*cb*sb + m12_2)/v2/sb/cb - 0.5*lambda6*ctb - 0.5*lambda7*tb);
    set_lambda5((m12_2 - sqr(mA)*sb*cb)/v2/sb/cb - 0.5*lambda6*ctb - 0.5*lambda7*tb);
-   set_lambda6(basis.lambda6);
-   set_lambda7(basis.lambda7);
+   set_lambda6(basis.lambda_6);
+   set_lambda7(basis.lambda_7);
    set_tan_beta_and_v(basis.tan_beta, v);
    set_m122(basis.m122);
    set_Xu(basis.Xu);

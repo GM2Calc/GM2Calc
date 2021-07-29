@@ -912,8 +912,8 @@ void process_minpar_tuple(
 {
    switch (key) {
    case  3: basis.tan_beta = value;             break;
-   case 16: basis.lambda6 = value;              break;
-   case 17: basis.lambda7 = value;              break;
+   case 16: basis.lambda_6 = value;             break;
+   case 17: basis.lambda_7 = value;             break;
    case 18: basis.m122 = value;                 break;
    case 20: basis.sin_beta_minus_alpha = value; break;
    case 21: basis.zeta_u = value;               break;

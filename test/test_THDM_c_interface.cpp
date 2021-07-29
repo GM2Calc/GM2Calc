@@ -59,8 +59,8 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
    basis.mA = 420;
    basis.mHp = 440;
    basis.sin_beta_minus_alpha = 0.999;
-   basis.lambda6 = 0;
-   basis.lambda7 = 0;
+   basis.lambda_6 = 0;
+   basis.lambda_7 = 0;
    basis.tan_beta = 3;
    basis.m122 = 40000;
    basis.zeta_u = 0.1;
@@ -77,8 +77,8 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
    cbasis.mA = basis.mA;
    cbasis.mHp = basis.mHp;
    cbasis.sin_beta_minus_alpha = basis.sin_beta_minus_alpha;
-   cbasis.lambda6 = basis.lambda6;
-   cbasis.lambda7 = basis.lambda7;
+   cbasis.lambda_6 = basis.lambda_6;
+   cbasis.lambda_7 = basis.lambda_7;
    cbasis.tan_beta = basis.tan_beta;
    cbasis.m122 = basis.m122;
    cbasis.zeta_u = basis.zeta_u;

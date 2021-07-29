@@ -216,8 +216,8 @@ TEST_CASE("physical_basis")
    basis.mA = 420;
    basis.mHp = 440;
    basis.sin_beta_minus_alpha = 0.999;
-   basis.lambda6 = 0.1;
-   basis.lambda7 = 0.2;
+   basis.lambda_6 = 0.1;
+   basis.lambda_7 = 0.2;
    basis.tan_beta = 3;
    basis.m122 = 4000;
 
@@ -415,8 +415,8 @@ TEST_CASE("2HDMC-mA-scan")
       basis.mA = mA;
       basis.mHp = 440;
       basis.sin_beta_minus_alpha = 0.999;
-      basis.lambda6 = 0;
-      basis.lambda7 = 0;
+      basis.lambda_6 = 0;
+      basis.lambda_7 = 0;
       basis.tan_beta = 3;
       basis.m122 = 40000;
 

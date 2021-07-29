@@ -54,8 +54,8 @@ struct Mass_basis {
    double mA{0.0};
    double mHp{0.0};
    double sin_beta_minus_alpha{0.0};
-   double lambda6{0.0};
-   double lambda7{0.0};
+   double lambda_6{0.0};
+   double lambda_7{0.0};
    double tan_beta{0.0};
    double m122{0.0};
    double zeta_u{0.0};

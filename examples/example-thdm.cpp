@@ -15,8 +15,8 @@ int main()
    basis.mA = 420;
    basis.mHp = 440;
    basis.sin_beta_minus_alpha = 0.999;
-   basis.lambda6 = 0;
-   basis.lambda7 = 0;
+   basis.lambda_6 = 0;
+   basis.lambda_7 = 0;
    basis.tan_beta = 3;
    basis.m122 = 40000;
    basis.zeta_u = 0;

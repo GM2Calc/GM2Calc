@@ -136,8 +136,8 @@ gm2calc::thdm::Mass_basis convert_to_basis(THDM_mass_basis* basis)
       b.mA = basis->mA;
       b.mHp = basis->mHp;
       b.sin_beta_minus_alpha = basis->sin_beta_minus_alpha;
-      b.lambda6 = basis->lambda6;
-      b.lambda7 = basis->lambda7;
+      b.lambda_6 = basis->lambda_6;
+      b.lambda_7 = basis->lambda_7;
       b.tan_beta = basis->tan_beta;
       b.m122 = basis->m122;
       b.zeta_u = basis->zeta_u;

@@ -150,8 +150,8 @@ gm2calc::THDM random_point_thdm()
    basis.mA = rMH();
    basis.mHp = rMH();
    basis.sin_beta_minus_alpha = 0.995;
-   basis.lambda6 = 0.1;
-   basis.lambda7 = 0.2;
+   basis.lambda_6 = 0.1;
+   basis.lambda_7 = 0.2;
    basis.tan_beta = rTB();
    basis.m122 = sqr(rMH());
 

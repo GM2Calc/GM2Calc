@@ -210,8 +210,8 @@ Block GM2CalcTHDMImXlInput
    CHECK(basis.mH == 400.0);
    CHECK(basis.mA == 420.0);
    CHECK(basis.mHp == 440.0);
-   CHECK(basis.lambda6 == 0.2);
-   CHECK(basis.lambda7 == 0.1);
+   CHECK(basis.lambda_6 == 0.2);
+   CHECK(basis.lambda_7 == 0.1);
    CHECK(basis.sin_beta_minus_alpha == 0.995);
    CHECK(basis.m122 == 40000.0);
    CHECK(basis.zeta_u == 0.01);

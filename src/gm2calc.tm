@@ -1790,8 +1790,8 @@ void GM2CalcAmuTHDMMassBasis(
    basis.mA = MAh_;
    basis.mHp = MHp_;
    basis.sin_beta_minus_alpha = sin_beta_minus_alpha_;
-   basis.lambda6 = lambda_6_;
-   basis.lambda7 = lambda_7_;
+   basis.lambda_6 = lambda_6_;
+   basis.lambda_7 = lambda_7_;
    basis.tan_beta = TB_;
    basis.m122 = m122_;
    basis.zeta_u = zeta_u_;
