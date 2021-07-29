@@ -314,12 +314,12 @@
    N @ OptionValue[mbmb],
    N @ OptionValue[ms2GeV],
    N @ OptionValue[md2GeV],
-   N @ OptionValue[ML],
-   N @ OptionValue[MM],
-   N @ OptionValue[ME],
    N @ OptionValue[Mv1],
    N @ OptionValue[Mv2],
    N @ OptionValue[Mv3],
+   N @ OptionValue[ML],
+   N @ OptionValue[MM],
+   N @ OptionValue[ME],
    Re @ N @ OptionValue[CKM][[1,1]],
    Re @ N @ OptionValue[CKM][[1,2]],
    Re @ N @ OptionValue[CKM][[1,3]],
@@ -782,6 +782,19 @@
       }                                                           \
    } while (0)
 
+#define MLPutComplexMatrixTHDM(link,M,dim1,dim2)                  \
+   do {                                                           \
+      MLPutFunction(link, "List", dim1);                          \
+      for (unsigned i = 0; i < dim1; i++) {                       \
+         MLPutFunction(link, "List", dim2);                       \
+         for (unsigned k = 0; k < dim2; k++) {                    \
+            double re = M##_real[i][k];                           \
+            double im = M##_imag[i][k];                           \
+            MLPutComplex(link, re, im);                           \
+         }                                                        \
+      }                                                           \
+   } while (0)
+
 #define MLPutRuleToRealVectorInterface(link,M,name,dim) \
  do {                                                   \
     MLPutFunction(link, "Rule", 2);                     \
@@ -801,6 +814,13 @@
     MLPutFunction(link, "Rule", 2);                                     \
     MLPutSymbol(link, name);                                            \
     MLPutComplexMatrixInterface(link,M,dim1,dim2);                      \
+ } while (0)
+
+#define MLPutRuleToComplexMatrixTHDM(link,M,name,dim1,dim2)             \
+ do {                                                                   \
+    MLPutFunction(link, "Rule", 2);                                     \
+    MLPutSymbol(link, name);                                            \
+    MLPutComplexMatrixTHDM(link,M,dim1,dim2);                           \
  } while (0)
 
 /* global configuration flags */
@@ -1144,12 +1164,12 @@ int GM2CalcSetSMParameters(
    double mbmb_,
    double ms2GeV_,
    double md2GeV_,
-   double ML_,
-   double MM_,
-   double ME_,
    double Mv1_,
    double Mv2_,
    double Mv3_,
+   double ML_,
+   double MM_,
+   double ME_,
    double CKM_real_11_,
    double CKM_real_12_,
    double CKM_real_13_,
@@ -1210,16 +1230,28 @@ int GM2CalcSetSMParameters(
 
 void GM2CalcGetSMParameters(void)
 {
-   MLPutFunction(stdlink, "List", 9);
-   MLPutRuleToReal(stdlink, sm.alpha_em_mz, "alphaMZ");
+   MLPutFunction(stdlink, "List", 19);
+
    MLPutRuleToReal(stdlink, sm.alpha_em_0, "alpha0");
+   MLPutRuleToReal(stdlink, sm.alpha_em_mz, "alphaMZ");
    MLPutRuleToReal(stdlink, sm.alpha_s_mz, "alphaS");
+   MLPutRuleToReal(stdlink, sm.mh, "MhSM");
    MLPutRuleToReal(stdlink, sm.mw, "MW");
    MLPutRuleToReal(stdlink, sm.mz, "MZ");
    MLPutRuleToReal(stdlink, sm.mu[2], "MT");
+   MLPutRuleToReal(stdlink, sm.mu[1], "mcmc");
+   MLPutRuleToReal(stdlink, sm.mu[0], "mu2GeV");
    MLPutRuleToReal(stdlink, sm.md[2], "mbmb");
+   MLPutRuleToReal(stdlink, sm.md[1], "ms2GeV");
+   MLPutRuleToReal(stdlink, sm.md[0], "md2GeV");
+   MLPutRuleToReal(stdlink, sm.mv[2], "Mv1");
+   MLPutRuleToReal(stdlink, sm.mv[1], "Mv2");
+   MLPutRuleToReal(stdlink, sm.mv[0], "Mv3");
    MLPutRuleToReal(stdlink, sm.ml[2], "ML");
    MLPutRuleToReal(stdlink, sm.ml[1], "MM");
+   MLPutRuleToReal(stdlink, sm.ml[0], "ME");
+   MLPutRuleToComplexMatrixTHDM(stdlink, sm.ckm, "CKM", 3, 3);
+
    MLEndPacket(stdlink);
 }
 
