@@ -38,9 +38,9 @@ void THDM_parameters::print(std::ostream& ostr) const
    ostr << "lambda6 = " << lambda6 << '\n';
    ostr << "lambda7 = " << lambda7 << '\n';
    ostr << "Yu =\n" << Yu << '\n';
-   ostr << "Xu =\n" << Xu << '\n';
    ostr << "Yd =\n" << Yd << '\n';
    ostr << "Yl =\n" << Yl << '\n';
+   ostr << "Xu =\n" << Xu << '\n';
    ostr << "Xd =\n" << Xd << '\n';
    ostr << "Xl =\n" << Xl << '\n';
    ostr << "m122 = " << m122 << '\n';
