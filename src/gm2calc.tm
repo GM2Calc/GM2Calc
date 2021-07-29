@@ -468,7 +468,7 @@
    N @ OptionValue[Xl][[3,2]],
    N @ OptionValue[Xl][[3,3]] }
 :ArgumentTypes: {
-   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Integer, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real }
@@ -532,7 +532,7 @@
    N @ OptionValue[Xl][[3,2]],
    N @ OptionValue[Xl][[3,3]] }
 :ArgumentTypes: {
-   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Integer, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real }
@@ -1304,7 +1304,7 @@ void GM2CalcAmuGM2CalcScheme(
 /******************************************************************/
 
 void GM2CalcAmuTHDMGaugeBasis(
-   double yukawa_type,
+   int yukawa_type,
    double lambda_1,
    double lambda_2,
    double lambda_3,
@@ -1356,7 +1356,7 @@ void GM2CalcAmuTHDMGaugeBasis(
 /******************************************************************/
 
 void GM2CalcAmuTHDMMassBasis(
-   double yukawa_type,
+   int yukawa_type,
    double Mhh_1,
    double Mhh_2,
    double MAh,
