@@ -134,6 +134,93 @@ point = {
 
 TestEqual[myAmu, Indeterminate];
 
+(* THDM mass basis point *)
+GM2CalcSetFlags[loopOrder -> 2];
+
+GM2CalcSetSMParameters[
+    alpha0 -> 0.00729735,
+    alphaMZ -> 1/128.94579,
+    alphaS -> 0.1184,
+    MhSM -> 125.09,
+    MW -> 80.385,
+    MZ -> 91.1876,
+    MT -> 173.34,
+    mcmc -> 1.28,
+    mu2GeV -> 0.0022,
+    mbmb -> 4.18,
+    ms2GeV -> 0.096,
+    md2GeV -> 0.0047,
+    ML -> 1.77684,
+    MM -> 0.1056583715,
+    ME -> 0.000510998928,
+    Mv1 -> 0,
+    Mv2 -> 0,
+    Mv3 -> 0,
+    CKM -> IdentityMatrix[3] ];
+
+point = {
+    yukawaType        -> 2,
+    Mhh               -> { 125, 400 },
+    MAh               -> 420,
+    MHp               -> 440,
+    sinBetaMinusAlpha -> 0.999,
+    lambda6           -> 0.2,
+    lambda7           -> 0.1,
+    TB                -> 3,
+    m122              -> 200^2,
+    zetau             -> 0,
+    zetad             -> 0,
+    zetal             -> 0,
+    Xu                -> 0 IdentityMatrix[3],
+    Xd                -> 0 IdentityMatrix[3],
+    Xl                -> {{0,0,0}, {0,0.1,0}, {0,0,0}}
+};
+
+{myAmu, myDamu} = {amu, Damu} /. GM2CalcAmuTHDMMassBasis[point];
+
+TestClose[myAmu, 1.8787546646721519*^-11];
+
+(* THDM gauge basis point *)
+GM2CalcSetFlags[loopOrder -> 2];
+
+GM2CalcSetSMParameters[
+    alpha0 -> 0.00729735,
+    alphaMZ -> 1/128.94579,
+    alphaS -> 0.1184,
+    MhSM -> 125.09,
+    MW -> 80.385,
+    MZ -> 91.1876,
+    MT -> 173.34,
+    mcmc -> 1.28,
+    mu2GeV -> 0.0022,
+    mbmb -> 4.18,
+    ms2GeV -> 0.096,
+    md2GeV -> 0.0047,
+    ML -> 1.77684,
+    MM -> 0.1056583715,
+    ME -> 0.000510998928,
+    Mv1 -> 0,
+    Mv2 -> 0,
+    Mv3 -> 0,
+    CKM -> IdentityMatrix[3] ];
+
+point = {
+    yukawaType        -> 2,
+    lambda            -> { 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1 },
+    TB                -> 3,
+    m122              -> 200^2,
+    zetau             -> 0,
+    zetad             -> 0,
+    zetal             -> 0,
+    Xu                -> 0 IdentityMatrix[3],
+    Xd                -> 0 IdentityMatrix[3],
+    Xl                -> {{0,0,0}, {0,0.1,0}, {0,0,0}}
+};
+
+{myAmu, myDamu} = {amu, Damu} /. GM2CalcAmuTHDMGaugeBasis[point];
+
+TestClose[myAmu, 3.2720909955357482*^-11];
+
 Print[];
 Print["Passed tests: [", passed, "/", passed + errors,"]"];
 
