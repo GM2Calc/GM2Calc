@@ -237,6 +237,9 @@
 :Evaluate: GM2CalcAmuGM2CalcScheme::error = "`1`";
 :Evaluate: GM2CalcAmuGM2CalcScheme::warning = "`1`";
 
+:Evaluate: GM2CalcAmuTHDMMassBasis::error = "`1`";
+:Evaluate: GM2CalcAmuTHDMGaugeBasis::error = "`1`";
+
 :Evaluate: Begin["`Private`"]
 
 :Begin:
@@ -1107,6 +1110,21 @@ void create_error_output(void)
 
 /******************************************************************/
 
+THDM_yukawa_type int_to_yukawa_type(int yukawa_type)
+{
+   switch (yukawa_type) {
+   case 0: return THDM_general; break;
+   case 1: return THDM_type_1;  break;
+   case 2: return THDM_type_2;  break;
+   case 3: return THDM_type_X;  break;
+   case 4: return THDM_type_Y;  break;
+   case 5: return THDM_aligned; break;
+   }
+   return -1;
+}
+
+/******************************************************************/
+
 void GM2CalcAmuSLHAScheme(
    double MSvmL_,
    double MSm_1_,
@@ -1347,8 +1365,15 @@ void GM2CalcAmuTHDMGaugeBasis(
    double Xl_33_
 )
 {
+   if (yukawa_type_ < 0 || yukawa_type_ > 5) {
+      put_error_message("GM2CalcAmuTHDMGaugeBasis", "error",
+                        "yukawaType must be between 0 and 5.");
+      create_error_output();
+      return;
+   }
+
    THDM_gauge_basis basis;
-   basis.yukawa_type = THDM_type_2; /* @todo(alex) check */
+   basis.yukawa_type = int_to_yukawa_type(yukawa_type_);
    basis.lambda1 = lambda_1_;
    basis.lambda2 = lambda_2_;
    basis.lambda3 = lambda_3_;
@@ -1484,8 +1509,15 @@ void GM2CalcAmuTHDMMassBasis(
    double Xl_33_
 )
 {
+   if (yukawa_type_ < 0 || yukawa_type_ > 5) {
+      put_error_message("GM2CalcAmuTHDMMassBasis", "error",
+                        "yukawaType must be between 0 and 5.");
+      create_error_output();
+      return;
+   }
+
    THDM_mass_basis basis;
-   basis.yukawa_type = THDM_type_2;
+   basis.yukawa_type = int_to_yukawa_type(yukawa_type_);
    basis.mh = Mhh_1_;
    basis.mH = Mhh_2_;
    basis.mA = MAh_;
