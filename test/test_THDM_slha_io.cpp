@@ -103,7 +103,7 @@ Block GM2CalcTHDMImXlInput
    CHECK(basis.zeta_u == 0.01);
    CHECK(basis.zeta_d == 0.02);
    CHECK(basis.zeta_l == 0.03);
-   CHECK(basis.yukawa_scheme == gm2calc::thdm::Yukawa_scheme::type_2);
+   CHECK(basis.yukawa_type == gm2calc::thdm::Yukawa_type::type_2);
 
    for (int i = 0, count = 1; i < 3; i++) {
       for (int k = 0; k < 3; k++, count++) {
@@ -217,7 +217,7 @@ Block GM2CalcTHDMImXlInput
    CHECK(basis.zeta_u == 0.01);
    CHECK(basis.zeta_d == 0.02);
    CHECK(basis.zeta_l == 0.03);
-   CHECK(basis.yukawa_scheme == gm2calc::thdm::Yukawa_scheme::type_2);
+   CHECK(basis.yukawa_type == gm2calc::thdm::Yukawa_type::type_2);
 
    for (int i = 0, count = 1; i < 3; i++) {
       for (int k = 0; k < 3; k++, count++) {

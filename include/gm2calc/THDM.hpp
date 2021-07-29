@@ -30,12 +30,12 @@ namespace gm2calc {
 
 namespace thdm {
 
-enum class Yukawa_scheme {
+enum class Yukawa_type {
    type_1, type_2, type_X, type_Y, aligned, general
 };
 
 struct Gauge_basis {
-   Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
+   Yukawa_type yukawa_type{Yukawa_type::type_2};
    double lambda1{0.0};
    double lambda2{0.0};
    double lambda3{0.0};
@@ -54,7 +54,7 @@ struct Gauge_basis {
 };
 
 struct Mass_basis {
-   Yukawa_scheme yukawa_scheme{Yukawa_scheme::type_2};
+   Yukawa_type yukawa_type{Yukawa_type::type_2};
    double mh{0.0};
    double mH{0.0};
    double mA{0.0};
@@ -106,7 +106,7 @@ public:
    Eigen::Matrix<std::complex<double>,3,3> get_ylA() const;
    Eigen::Matrix<std::complex<double>,3,3> get_ylHp() const;
 
-   thdm::Yukawa_scheme get_yukawa_scheme() const { return yukawa_scheme; }
+   thdm::Yukawa_type get_yukawa_type() const { return yukawa_type; }
 
    const SM& get_sm() const { return sm; }
 
@@ -156,7 +156,7 @@ public:
 
 private:
    SM sm{};
-   thdm::Yukawa_scheme yukawa_scheme{thdm::Yukawa_scheme::type_2};
+   thdm::Yukawa_type yukawa_type{thdm::Yukawa_type::type_2};
    double zeta_u{0.0}; ///< alignment parameter
    double zeta_d{0.0}; ///< alignment parameter
    double zeta_l{0.0}; ///< alignment parameter

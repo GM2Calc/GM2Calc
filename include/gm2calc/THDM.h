@@ -45,11 +45,11 @@ typedef enum {
    THDM_type_Y,
    THDM_aligned,
    THDM_general
-} THDM_yukawa_scheme;
+} THDM_yukawa_type;
 
 /** general THDM general basis input */
 struct THDM_gauge_basis {
-   THDM_yukawa_scheme yukawa_scheme;
+   THDM_yukawa_type yukawa_type;
    double lambda1;
    double lambda2;
    double lambda3;
@@ -73,7 +73,7 @@ typedef struct THDM_gauge_basis THDM_gauge_basis;
 
 /** general THDM physical basis input */
 struct THDM_mass_basis {
-   THDM_yukawa_scheme yukawa_scheme;
+   THDM_yukawa_type yukawa_type;
    double mh;
    double mH;
    double mA;

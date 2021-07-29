@@ -53,7 +53,7 @@ void setup_SM(gm2calc::SM& cppsm, SM& csm)
 std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
 {
    gm2calc::thdm::Mass_basis basis;
-   basis.yukawa_scheme = gm2calc::thdm::Yukawa_scheme::type_2;
+   basis.yukawa_type = gm2calc::thdm::Yukawa_type::type_2;
    basis.mh = 125;
    basis.mH = 400;
    basis.mA = 420;
@@ -71,7 +71,7 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
    basis.Xl = 3.0*basis.Xu;
 
    THDM_mass_basis cbasis;
-   cbasis.yukawa_scheme = THDM_type_2;
+   cbasis.yukawa_type = THDM_type_2;
    cbasis.mh = basis.mh;
    cbasis.mH = basis.mH;
    cbasis.mA = basis.mA;
@@ -109,7 +109,7 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
 std::pair<gm2calc::THDM, THDM*> setup_gauge_basis()
 {
    gm2calc::thdm::Gauge_basis basis;
-   basis.yukawa_scheme = gm2calc::thdm::Yukawa_scheme::type_2;
+   basis.yukawa_type = gm2calc::thdm::Yukawa_type::type_2;
    basis.lambda1 = 0.7;
    basis.lambda2 = 0.6;
    basis.lambda3 = 0.5;
@@ -127,7 +127,7 @@ std::pair<gm2calc::THDM, THDM*> setup_gauge_basis()
    basis.Xl = 3.0*basis.Xu;
 
    THDM_gauge_basis cbasis;
-   cbasis.yukawa_scheme = THDM_type_2;
+   cbasis.yukawa_type = THDM_type_2;
    cbasis.lambda1 = basis.lambda1;
    cbasis.lambda2 = basis.lambda2;
    cbasis.lambda3 = basis.lambda3;
