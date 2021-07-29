@@ -1,5 +1,3 @@
-Block MODSEL     # select model
-     0     10    # 10 = THDM
 Block GM2CalcConfig
      0     4     # output format (0 = minimal, 1 = detailed,
                  #  2 = NMSSMTools, 3 = SPheno, 4 = GM2Calc)
