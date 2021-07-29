@@ -1011,6 +1011,7 @@ int GM2CalcSetSMParameters(
    double ML_,
    double MM_)
 {
+   /* @todo(alex) fill also other SM parameters */
    sm.alpha_em_mz = alphaMZ_;
    sm.alpha_em_0 = alpha0_;
    sm.alpha_s_mz = alphaS_;
