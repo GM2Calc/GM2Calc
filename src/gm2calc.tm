@@ -220,10 +220,16 @@
     "GM2CalcGetSMParameters returns the Standard Model parameters."
 
 :Evaluate: GM2CalcAmuSLHAScheme::usage =
-    "GM2CalcAmuSLHAScheme calculates amu and its uncertainty using the given SLHA parameters (SLHA interface).  Unset SLHA parameters are set to zero.  See Options[GM2CalcAmuSLHAScheme] for all SLHA parameters and their default values."
+    "GM2CalcAmuSLHAScheme calculates amu and its uncertainty in the MSSM using the given SLHA parameters (SLHA interface).  Unset SLHA parameters are set to zero.  See Options[GM2CalcAmuSLHAScheme] for all SLHA parameters and their default values."
 
 :Evaluate: GM2CalcAmuGM2CalcScheme::usage =
-    "GM2CalcAmuGM2CalcScheme calculates amu and its uncertainty using the given parameters in the GM2Calc-specific renormalization scheme (GM2Calc interface).  Unset parameters are set to zero.  See Options[GM2CalcAmuGM2CalcScheme] for all input parameters in the GM2Calc scheme and their default values."
+    "GM2CalcAmuGM2CalcScheme calculates amu and its uncertainty in the MSSM using the given parameters in the GM2Calc-specific renormalization scheme (GM2Calc interface).  Unset parameters are set to zero.  See Options[GM2CalcAmuGM2CalcScheme] for all input parameters in the GM2Calc scheme and their default values."
+
+:Evaluate: GM2CalcAmuTHDMGaugeBasis::usage =
+    "GM2CalcAmuTHDMGaugeBasis calculates amu and its uncertainty in the Two-Higgs Doublet Model using the given input parameters in the gauge bassis.  Unset input parameters are set to zero.  See Options[GM2CalcAmuTHDMGaugeBasis] for all parameters and their default values."
+
+:Evaluate: GM2CalcAmuTHDMMassBasis::usage =
+    "GM2CalcAmuTHDMMassBasis calculates amu and its uncertainty in the Two-Higgs Doublet Model using the given input parameters.  Unset input parameters are set to zero.  See Options[GM2CalcAmuTHDMMassBasis] for all parameters and their default values."
 
 :Evaluate: GM2CalcAmuSLHAScheme::error = "`1`";
 :Evaluate: GM2CalcAmuSLHAScheme::warning = "`1`";
@@ -416,6 +422,139 @@
     Ad     -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
     Ae     -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
     Q      -> 0 }
+
+:Begin:
+:Function: GM2CalcAmuTHDMGaugeBasis
+:Pattern: GM2CalcAmuTHDMGaugeBasis[OptionsPattern[]]
+:Arguments: {
+   N @ OptionValue[yukawaType],
+   N @ OptionValue[lambda][[1]],
+   N @ OptionValue[lambda][[2]],
+   N @ OptionValue[lambda][[3]],
+   N @ OptionValue[lambda][[4]],
+   N @ OptionValue[lambda][[5]],
+   N @ OptionValue[lambda][[6]],
+   N @ OptionValue[lambda][[7]],
+   N @ OptionValue[TB],
+   N @ OptionValue[m122],
+   N @ OptionValue[zetau],
+   N @ OptionValue[zetad],
+   N @ OptionValue[zetal],
+   N @ OptionValue[Xu][[1,1]],
+   N @ OptionValue[Xu][[1,2]],
+   N @ OptionValue[Xu][[1,3]],
+   N @ OptionValue[Xu][[2,1]],
+   N @ OptionValue[Xu][[2,2]],
+   N @ OptionValue[Xu][[2,3]],
+   N @ OptionValue[Xu][[3,1]],
+   N @ OptionValue[Xu][[3,2]],
+   N @ OptionValue[Xu][[3,3]],
+   N @ OptionValue[Xd][[1,1]],
+   N @ OptionValue[Xd][[1,2]],
+   N @ OptionValue[Xd][[1,3]],
+   N @ OptionValue[Xd][[2,1]],
+   N @ OptionValue[Xd][[2,2]],
+   N @ OptionValue[Xd][[2,3]],
+   N @ OptionValue[Xd][[3,1]],
+   N @ OptionValue[Xd][[3,2]],
+   N @ OptionValue[Xd][[3,3]],
+   N @ OptionValue[Xl][[1,1]],
+   N @ OptionValue[Xl][[1,2]],
+   N @ OptionValue[Xl][[1,3]],
+   N @ OptionValue[Xl][[2,1]],
+   N @ OptionValue[Xl][[2,2]],
+   N @ OptionValue[Xl][[2,3]],
+   N @ OptionValue[Xl][[3,1]],
+   N @ OptionValue[Xl][[3,2]],
+   N @ OptionValue[Xl][[3,3]] }
+:ArgumentTypes: {
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real }
+:ReturnType: Manual
+:End:
+
+:Evaluate: Options[GM2CalcAmuTHDMGaugeBasis] = {
+    yukawaType -> 0,
+    lambda     -> { 0, 0, 0, 0, 0, 0, 0 },
+    TB         -> 0,
+    m122       -> 0,
+    zetau      -> 0,
+    zetad      -> 0,
+    zetal      -> 0,
+    Xu         -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Xd         -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Xl         -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} }
+
+:Begin:
+:Function: GM2CalcAmuTHDMMassBasis
+:Pattern: GM2CalcAmuTHDMMassBasis[OptionsPattern[]]
+:Arguments: {
+   N @ OptionValue[yukawaType],
+   N @ OptionValue[Mhh][[1]],
+   N @ OptionValue[Mhh][[2]],
+   N @ OptionValue[MAh],
+   N @ OptionValue[MHp],
+   N @ OptionValue[sinBetaMinusAlpha],
+   N @ OptionValue[lambda6],
+   N @ OptionValue[lambda7],
+   N @ OptionValue[TB],
+   N @ OptionValue[m122],
+   N @ OptionValue[zetau],
+   N @ OptionValue[zetad],
+   N @ OptionValue[zetal],
+   N @ OptionValue[Xu][[1,1]],
+   N @ OptionValue[Xu][[1,2]],
+   N @ OptionValue[Xu][[1,3]],
+   N @ OptionValue[Xu][[2,1]],
+   N @ OptionValue[Xu][[2,2]],
+   N @ OptionValue[Xu][[2,3]],
+   N @ OptionValue[Xu][[3,1]],
+   N @ OptionValue[Xu][[3,2]],
+   N @ OptionValue[Xu][[3,3]],
+   N @ OptionValue[Xd][[1,1]],
+   N @ OptionValue[Xd][[1,2]],
+   N @ OptionValue[Xd][[1,3]],
+   N @ OptionValue[Xd][[2,1]],
+   N @ OptionValue[Xd][[2,2]],
+   N @ OptionValue[Xd][[2,3]],
+   N @ OptionValue[Xd][[3,1]],
+   N @ OptionValue[Xd][[3,2]],
+   N @ OptionValue[Xd][[3,3]],
+   N @ OptionValue[Xl][[1,1]],
+   N @ OptionValue[Xl][[1,2]],
+   N @ OptionValue[Xl][[1,3]],
+   N @ OptionValue[Xl][[2,1]],
+   N @ OptionValue[Xl][[2,2]],
+   N @ OptionValue[Xl][[2,3]],
+   N @ OptionValue[Xl][[3,1]],
+   N @ OptionValue[Xl][[3,2]],
+   N @ OptionValue[Xl][[3,3]] }
+:ArgumentTypes: {
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real }
+:ReturnType: Manual
+:End:
+
+:Evaluate: Options[GM2CalcAmuTHDMMassBasis] = {
+    yukawaType        -> 0,
+    Mhh               -> { 0, 0 },
+    MAh               -> 0,
+    MHp               -> 0,
+    sinBetaMinusAlpha -> 0,
+    lambda6           -> 0,
+    lambda7           -> 0,
+    TB                -> 0,
+    m122              -> 0,
+    zetau             -> 0,
+    zetad             -> 0,
+    zetal             -> 0,
+    Xu                -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Xd                -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Xl                -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} }
 
 :Evaluate: End[]
 
@@ -1160,6 +1299,110 @@ void GM2CalcAmuGM2CalcScheme(
    }
 
    gm2calc_mssmnofv_free(model);
+}
+
+/******************************************************************/
+
+void GM2CalcAmuTHDMGaugeBasis(
+   double yukawa_type,
+   double lambda_1,
+   double lambda_2,
+   double lambda_3,
+   double lambda_4,
+   double lambda_5,
+   double lambda_6,
+   double lambda_7,
+   double TB,
+   double m122,
+   double zeta_u,
+   double zeta_d,
+   double zeta_l,
+   double Xu_11,
+   double Xu_12,
+   double Xu_13,
+   double Xu_21,
+   double Xu_22,
+   double Xu_23,
+   double Xu_31,
+   double Xu_32,
+   double Xu_33,
+   double Xd_11,
+   double Xd_12,
+   double Xd_13,
+   double Xd_21,
+   double Xd_22,
+   double Xd_23,
+   double Xd_31,
+   double Xd_32,
+   double Xd_33,
+   double Xl_11,
+   double Xl_12,
+   double Xl_13,
+   double Xl_21,
+   double Xl_22,
+   double Xl_23,
+   double Xl_31,
+   double Xl_32,
+   double Xl_33
+)
+{
+   MLPutFunction(stdlink, "List", 2);
+   /* amu [2] */
+   MLPutRuleToReal(stdlink, 0, "amu");
+   MLPutRuleToReal(stdlink, 0, "Damu");
+   MLEndPacket(stdlink);
+}
+
+/******************************************************************/
+
+void GM2CalcAmuTHDMMassBasis(
+   double yukawa_type,
+   double Mhh_1,
+   double Mhh_2,
+   double MAh,
+   double MHp,
+   double sin_beta_minus_alpha,
+   double lambda_6,
+   double lambda_7,
+   double TB,
+   double m122,
+   double zeta_u,
+   double zeta_d,
+   double zeta_l,
+   double Xu_11,
+   double Xu_12,
+   double Xu_13,
+   double Xu_21,
+   double Xu_22,
+   double Xu_23,
+   double Xu_31,
+   double Xu_32,
+   double Xu_33,
+   double Xd_11,
+   double Xd_12,
+   double Xd_13,
+   double Xd_21,
+   double Xd_22,
+   double Xd_23,
+   double Xd_31,
+   double Xd_32,
+   double Xd_33,
+   double Xl_11,
+   double Xl_12,
+   double Xl_13,
+   double Xl_21,
+   double Xl_22,
+   double Xl_23,
+   double Xl_31,
+   double Xl_32,
+   double Xl_33
+)
+{
+   MLPutFunction(stdlink, "List", 2);
+   /* amu [2] */
+   MLPutRuleToReal(stdlink, 0, "amu");
+   MLPutRuleToReal(stdlink, 0, "Damu");
+   MLEndPacket(stdlink);
 }
 
 /******************************************************************/
