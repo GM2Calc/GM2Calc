@@ -22,6 +22,7 @@
 #include "gm2_constants.h"
 #include <cmath>
 #include <complex>
+#include <iostream>
 
 namespace gm2calc {
 
@@ -164,6 +165,9 @@ std::ostream& operator<<(std::ostream& ostr, const SM& sm)
         << "md = {" << sm.get_md(0) << ", " << sm.get_md(1) << ", " << sm.get_md(2) << "} GeV\n"
         << "mv = {" << sm.get_mv(0) << ", " << sm.get_mv(1) << ", " << sm.get_mv(2) << "} GeV\n"
         << "ml = {" << sm.get_ml(0) << ", " << sm.get_ml(1) << ", " << sm.get_ml(2) << "} GeV\n"
+        << "CKM = {{" << sm.get_ckm(0,0) << ", " << sm.get_ckm(0,1) << ", " << sm.get_ckm(0,2) << "},"
+                  "{" << sm.get_ckm(1,0) << ", " << sm.get_ckm(1,1) << ", " << sm.get_ckm(1,2) << "},"
+                  "{" << sm.get_ckm(2,0) << ", " << sm.get_ckm(2,1) << ", " << sm.get_ckm(2,2) << "}}\n"
         ;
    return ostr;
 }
