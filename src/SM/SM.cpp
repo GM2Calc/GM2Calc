@@ -89,6 +89,7 @@ Eigen::Matrix<std::complex<double>,3,3> get_ckm_from_wolfenstein(
 SM::SM()
    : alpha_em_0(GM2CALC_ALPHA_EM_THOMPSON)
    , alpha_em_mz(GM2CALC_ALPHA_EM_MZ)
+   , alpha_s_mz(GM2CALC_ALPHA_S_MZ)
    , mh(GM2CALC_MH)
    , mw(GM2CALC_MW)
    , mz(GM2CALC_MZ)
