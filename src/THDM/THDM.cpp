@@ -299,13 +299,13 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylHp() const
 
 void THDM::set_basis(const thdm::Gauge_basis& basis)
 {
-   set_lambda1(basis.lambda1);
-   set_lambda2(basis.lambda2);
-   set_lambda3(basis.lambda3);
-   set_lambda4(basis.lambda4);
-   set_lambda5(basis.lambda5);
-   set_lambda6(basis.lambda6);
-   set_lambda7(basis.lambda7);
+   set_lambda1(basis.lambda(0));
+   set_lambda2(basis.lambda(1));
+   set_lambda3(basis.lambda(2));
+   set_lambda4(basis.lambda(3));
+   set_lambda5(basis.lambda(4));
+   set_lambda6(basis.lambda(5));
+   set_lambda7(basis.lambda(6));
    set_tan_beta_and_v(basis.tan_beta, sm.get_v());
    set_m122(basis.m122);
    set_Xu(basis.Xu);

@@ -92,13 +92,13 @@ Block GM2CalcTHDMImXlInput
    slha.fill(basis);
 
    CHECK(basis.tan_beta == 3.0);
-   CHECK(basis.lambda1 == 0.7);
-   CHECK(basis.lambda2 == 0.6);
-   CHECK(basis.lambda3 == 0.5);
-   CHECK(basis.lambda4 == 0.4);
-   CHECK(basis.lambda5 == 0.3);
-   CHECK(basis.lambda6 == 0.2);
-   CHECK(basis.lambda7 == 0.1);
+   CHECK(basis.lambda(0) == 0.7);
+   CHECK(basis.lambda(1) == 0.6);
+   CHECK(basis.lambda(2) == 0.5);
+   CHECK(basis.lambda(3) == 0.4);
+   CHECK(basis.lambda(4) == 0.3);
+   CHECK(basis.lambda(5) == 0.2);
+   CHECK(basis.lambda(6) == 0.1);
    CHECK(basis.m122 == 40000.0);
    CHECK(basis.zeta_u == 0.01);
    CHECK(basis.zeta_d == 0.02);

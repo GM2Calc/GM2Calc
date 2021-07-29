@@ -336,16 +336,16 @@ struct THDM_reader {
       if ((mass_basis.mh != 0 || mass_basis.mH != 0 ||
            mass_basis.mA != 0 || mass_basis.mHp !=0 ||
            mass_basis.sin_beta_minus_alpha != 0) &&
-          (gauge_basis.lambda1 == 0 && gauge_basis.lambda2 == 0 &&
-           gauge_basis.lambda3 == 0 && gauge_basis.lambda4 == 0 &&
-           gauge_basis.lambda5 == 0)) {
+          (gauge_basis.lambda(0) == 0 && gauge_basis.lambda(1) == 0 &&
+           gauge_basis.lambda(2) == 0 && gauge_basis.lambda(3) == 0 &&
+           gauge_basis.lambda(4) == 0)) {
          return gm2calc::THDM(mass_basis, sm);
       } else if ((mass_basis.mh == 0 || mass_basis.mH == 0 ||
                   mass_basis.mA == 0 || mass_basis.mHp ==0 ||
                   mass_basis.sin_beta_minus_alpha == 0) &&
-                 (gauge_basis.lambda1 != 0 && gauge_basis.lambda2 != 0 &&
-                  gauge_basis.lambda3 != 0 && gauge_basis.lambda4 != 0 &&
-                  gauge_basis.lambda5 != 0)) {
+                 (gauge_basis.lambda(0) != 0 && gauge_basis.lambda(1) != 0 &&
+                  gauge_basis.lambda(2) != 0 && gauge_basis.lambda(3) != 0 &&
+                  gauge_basis.lambda(4) != 0)) {
          return gm2calc::THDM(gauge_basis, sm);
       } else {
          throw gm2calc::EInvalidInput("Contradictory input: mass and gauge basis parameters are set.");

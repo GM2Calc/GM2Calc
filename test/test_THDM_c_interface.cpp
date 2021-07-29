@@ -110,13 +110,7 @@ std::pair<gm2calc::THDM, THDM*> setup_gauge_basis()
 {
    gm2calc::thdm::Gauge_basis basis;
    basis.yukawa_type = gm2calc::thdm::Yukawa_type::type_2;
-   basis.lambda1 = 0.7;
-   basis.lambda2 = 0.6;
-   basis.lambda3 = 0.5;
-   basis.lambda4 = 0.4;
-   basis.lambda5 = 0.3;
-   basis.lambda6 = 0.2;
-   basis.lambda7 = 0.1;
+   basis.lambda << 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1;
    basis.tan_beta = 3;
    basis.m122 = 40000;
    basis.zeta_u = 0.1;
@@ -128,13 +122,9 @@ std::pair<gm2calc::THDM, THDM*> setup_gauge_basis()
 
    THDM_gauge_basis cbasis;
    cbasis.yukawa_type = THDM_type_2;
-   cbasis.lambda1 = basis.lambda1;
-   cbasis.lambda2 = basis.lambda2;
-   cbasis.lambda3 = basis.lambda3;
-   cbasis.lambda4 = basis.lambda4;
-   cbasis.lambda5 = basis.lambda5;
-   cbasis.lambda6 = basis.lambda6;
-   cbasis.lambda7 = basis.lambda7;
+   for (int i = 0; i < 7; i++) {
+      cbasis.lambda[i] = basis.lambda(i);
+   }
    cbasis.tan_beta = basis.tan_beta;
    cbasis.m122 = basis.m122;
    cbasis.zeta_u = basis.zeta_u;

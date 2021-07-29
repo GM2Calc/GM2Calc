@@ -1615,13 +1615,13 @@ void GM2CalcAmuTHDMGaugeBasis(
 
    THDM_gauge_basis basis;
    basis.yukawa_type = int_to_yukawa_type(yukawa_type_);
-   basis.lambda1 = lambda_1_;
-   basis.lambda2 = lambda_2_;
-   basis.lambda3 = lambda_3_;
-   basis.lambda4 = lambda_4_;
-   basis.lambda5 = lambda_5_;
-   basis.lambda6 = lambda_6_;
-   basis.lambda7 = lambda_7_;
+   basis.lambda[0] = lambda_1_;
+   basis.lambda[1] = lambda_2_;
+   basis.lambda[2] = lambda_3_;
+   basis.lambda[3] = lambda_4_;
+   basis.lambda[4] = lambda_5_;
+   basis.lambda[5] = lambda_6_;
+   basis.lambda[6] = lambda_7_;
    basis.tan_beta = TB_;
    basis.m122 = m122_;
    basis.zeta_u = zeta_u_;

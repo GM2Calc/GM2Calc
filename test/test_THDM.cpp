@@ -33,13 +33,7 @@ void test_tree_level_spectrum(gm2calc::thdm::Yukawa_type yukawa_type)
    // matters
    gm2calc::thdm::Gauge_basis basis;
    basis.yukawa_type = yukawa_type;
-   basis.lambda1 = 0.26249;
-   basis.lambda2 = 0.23993;
-   basis.lambda3 = 2.09923;
-   basis.lambda4 = -1.27781;
-   basis.lambda5 = -0.71038;
-   basis.lambda6 = 0.0;
-   basis.lambda7 = 0.0;
+   basis.lambda << 0.26249, 0.23993, 2.09923, -1.27781, -0.71038, 0.0, 0.0;
    basis.tan_beta = 3.0;
    basis.m122 = sqr(200.0);
    basis.zeta_u = 5;
@@ -140,13 +134,7 @@ TEST_CASE("tree-level-spectrum")
 TEST_CASE("tree-level-spectrum-with-tachyons")
 {
    gm2calc::thdm::Gauge_basis basis;
-   basis.lambda1 = -0.1;
-   basis.lambda2 = -0.2;
-   basis.lambda3 = 0;
-   basis.lambda4 = 0;
-   basis.lambda5 = 0;
-   basis.lambda6 = 0;
-   basis.lambda7 = 0;
+   basis.lambda << -0.1, -0.2, 0, 0, 0, 0, 0;
    basis.tan_beta = 20;
    basis.m122 = sqr(200);
 
@@ -190,13 +178,7 @@ TEST_CASE("general_basis")
    const double eps = 1e-14;
 
    gm2calc::thdm::Gauge_basis basis;
-   basis.lambda1 = 0.7;
-   basis.lambda2 = 0.6;
-   basis.lambda3 = 0.5;
-   basis.lambda4 = 0.4;
-   basis.lambda5 = 0.3;
-   basis.lambda6 = 0.2;
-   basis.lambda7 = 0.1;
+   basis.lambda << 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1;
    basis.tan_beta = 20;
    basis.m122 = sqr(200);
 
@@ -207,13 +189,13 @@ TEST_CASE("general_basis")
    gm2calc::THDM_mass_eigenstates model1;
    model1.set_tan_beta_and_v(basis.tan_beta, model2.get_sm().get_v());
    model1.set_alpha_em_and_cw(model2.get_sm().get_alpha_em_mz(), model2.get_sm().get_mw()/model2.get_sm().get_mz());
-   model1.set_lambda1(basis.lambda1);
-   model1.set_lambda2(basis.lambda2);
-   model1.set_lambda3(basis.lambda3);
-   model1.set_lambda4(basis.lambda4);
-   model1.set_lambda5(basis.lambda5);
-   model1.set_lambda6(basis.lambda6);
-   model1.set_lambda7(basis.lambda7);
+   model1.set_lambda1(basis.lambda(0));
+   model1.set_lambda2(basis.lambda(1));
+   model1.set_lambda3(basis.lambda(2));
+   model1.set_lambda4(basis.lambda(3));
+   model1.set_lambda5(basis.lambda(4));
+   model1.set_lambda6(basis.lambda(5));
+   model1.set_lambda7(basis.lambda(6));
    model1.set_m122(basis.m122);
    model1.calculate_MSbar_masses();
 
@@ -275,13 +257,7 @@ TEST_CASE("physical_basis")
 TEST_CASE("2HDMC-demo-point")
 {
    gm2calc::thdm::Gauge_basis basis;
-   basis.lambda1 = 4.81665;
-   basis.lambda2 = 0.23993;
-   basis.lambda3 = 2.09923;
-   basis.lambda4 = -1.27781;
-   basis.lambda5 = -0.71038;
-   basis.lambda6 = 0.0;
-   basis.lambda7 = 0.0;
+   basis.lambda << 4.81665, 0.23993, 2.09923, -1.27781, -0.71038, 0.0, 0.0;
    basis.tan_beta = 3.0;
    basis.m122 = sqr(200.0);
 
@@ -306,13 +282,13 @@ TEST_CASE("test-point-GAMBIT")
 {
    gm2calc::thdm::Gauge_basis basis;
    basis.yukawa_type = gm2calc::thdm::Yukawa_type::general;
-   basis.lambda1 =  2.02924518279587396;
-   basis.lambda2 =  0.25812066515822629;
-   basis.lambda3 =  0.81575007334344507;
-   basis.lambda4 =  0.43433870128700558;
-   basis.lambda5 = -0.55866546170766029;
-   basis.lambda6 =  0.0;
-   basis.lambda7 =  0.0;
+   basis.lambda <<  2.02924518279587396,
+                    0.25812066515822629,
+                    0.81575007334344507,
+                    0.43433870128700558,
+                   -0.55866546170766029,
+                    0.0,
+                    0.0;
    basis.tan_beta = 20.0;
    basis.m122 = 1428;
    basis.Xl(1,1) = 0.1;
@@ -335,13 +311,13 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
 {
    gm2calc::thdm::Gauge_basis basis;
    basis.yukawa_type = gm2calc::thdm::Yukawa_type::general;
-   basis.lambda1 =  2.02924518279587396;
-   basis.lambda2 =  0.25812066515822629;
-   basis.lambda3 =  0.81575007334344507;
-   basis.lambda4 =  0.43433870128700558;
-   basis.lambda5 = -0.55866546170766029;
-   basis.lambda6 =  0.0;
-   basis.lambda7 =  0.0;
+   basis.lambda <<  2.02924518279587396,
+                    0.25812066515822629,
+                    0.81575007334344507,
+                    0.43433870128700558,
+                   -0.55866546170766029,
+                    0.0,
+                    0.0;
    basis.tan_beta = 20.0;
    basis.m122 = 1428;
    basis.Xl(1,1) = 0.1;
@@ -369,13 +345,13 @@ TEST_CASE("test-point-GAMBIT-complex-CKM")
 {
    gm2calc::thdm::Gauge_basis basis;
    basis.yukawa_type = gm2calc::thdm::Yukawa_type::general;
-   basis.lambda1 =  2.02924518279587396;
-   basis.lambda2 =  0.25812066515822629;
-   basis.lambda3 =  0.81575007334344507;
-   basis.lambda4 =  0.43433870128700558;
-   basis.lambda5 = -0.55866546170766029;
-   basis.lambda6 =  0.0;
-   basis.lambda7 =  0.0;
+   basis.lambda <<  2.02924518279587396,
+                    0.25812066515822629,
+                    0.81575007334344507,
+                    0.43433870128700558,
+                   -0.55866546170766029,
+                    0.0,
+                    0.0;
    basis.tan_beta = 20.0;
    basis.m122 = 1428;
    basis.Xu << 0.0, 0.0, 0.0, 0.0, 0.3, 0.05, 0.0, 0.05, 0.3;

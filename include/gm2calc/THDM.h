@@ -50,13 +50,7 @@ typedef enum {
 /** general THDM general basis input */
 struct THDM_gauge_basis {
    THDM_yukawa_type yukawa_type;
-   double lambda1;
-   double lambda2;
-   double lambda3;
-   double lambda4;
-   double lambda5;
-   double lambda6;
-   double lambda7;
+   double lambda[7];
    double tan_beta;
    double m122;
    double zeta_u;

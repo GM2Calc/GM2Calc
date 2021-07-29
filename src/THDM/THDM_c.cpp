@@ -86,13 +86,9 @@ gm2calc::thdm::Gauge_basis convert_to_basis(THDM_gauge_basis* basis)
          b.yukawa_type = thdm::Yukawa_type::general;
          break;
       }
-      b.lambda1 = basis->lambda1;
-      b.lambda2 = basis->lambda2;
-      b.lambda3 = basis->lambda3;
-      b.lambda4 = basis->lambda4;
-      b.lambda5 = basis->lambda5;
-      b.lambda6 = basis->lambda6;
-      b.lambda7 = basis->lambda7;
+      for (int i = 0; i < 7; i++) {
+         b.lambda(i) = basis->lambda[i];
+      }
       b.tan_beta = basis->tan_beta;
       b.m122 = basis->m122;
       b.zeta_u = basis->zeta_u;

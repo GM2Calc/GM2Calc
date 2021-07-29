@@ -880,18 +880,18 @@ void process_minpar_tuple(
    gm2calc::thdm::Gauge_basis& basis, int key, double value)
 {
    switch (key) {
-   case  3: basis.tan_beta = value; break;
-   case 11: basis.lambda1 = value;  break;
-   case 12: basis.lambda2 = value;  break;
-   case 13: basis.lambda3 = value;  break;
-   case 14: basis.lambda4 = value;  break;
-   case 15: basis.lambda5 = value;  break;
-   case 16: basis.lambda6 = value;  break;
-   case 17: basis.lambda7 = value;  break;
-   case 18: basis.m122 = value;     break;
-   case 21: basis.zeta_u = value;   break;
-   case 22: basis.zeta_d = value;   break;
-   case 23: basis.zeta_l = value;   break;
+   case  3: basis.tan_beta = value;  break;
+   case 11: basis.lambda(0) = value; break;
+   case 12: basis.lambda(1) = value; break;
+   case 13: basis.lambda(2) = value; break;
+   case 14: basis.lambda(3) = value; break;
+   case 15: basis.lambda(4) = value; break;
+   case 16: basis.lambda(5) = value; break;
+   case 17: basis.lambda(6) = value; break;
+   case 18: basis.m122 = value;      break;
+   case 21: basis.zeta_u = value;    break;
+   case 22: basis.zeta_d = value;    break;
+   case 23: basis.zeta_l = value;    break;
    case 24:
       switch (read_integer(value, 0, 5, "invalid Yukawa type")) {
       case 0: basis.yukawa_type = thdm::Yukawa_type::general; break;

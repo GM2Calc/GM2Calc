@@ -36,13 +36,7 @@ enum class Yukawa_type : int {
 
 struct Gauge_basis {
    Yukawa_type yukawa_type{Yukawa_type::type_2};
-   double lambda1{0.0};
-   double lambda2{0.0};
-   double lambda3{0.0};
-   double lambda4{0.0};
-   double lambda5{0.0};
-   double lambda6{0.0};
-   double lambda7{0.0};
+   Eigen::Matrix<double,7,1> lambda{Eigen::Matrix<double,7,1>::Zero()};
    double tan_beta{0.0};
    double m122{0.0};
    double zeta_u{0.0};
