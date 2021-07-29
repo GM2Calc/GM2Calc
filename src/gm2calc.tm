@@ -1305,53 +1305,138 @@ void GM2CalcAmuGM2CalcScheme(
 /******************************************************************/
 
 void GM2CalcAmuTHDMGaugeBasis(
-   int yukawa_type,
-   double lambda_1,
-   double lambda_2,
-   double lambda_3,
-   double lambda_4,
-   double lambda_5,
-   double lambda_6,
-   double lambda_7,
-   double TB,
-   double m122,
-   double zeta_u,
-   double zeta_d,
-   double zeta_l,
-   double Xu_11,
-   double Xu_12,
-   double Xu_13,
-   double Xu_21,
-   double Xu_22,
-   double Xu_23,
-   double Xu_31,
-   double Xu_32,
-   double Xu_33,
-   double Xd_11,
-   double Xd_12,
-   double Xd_13,
-   double Xd_21,
-   double Xd_22,
-   double Xd_23,
-   double Xd_31,
-   double Xd_32,
-   double Xd_33,
-   double Xl_11,
-   double Xl_12,
-   double Xl_13,
-   double Xl_21,
-   double Xl_22,
-   double Xl_23,
-   double Xl_31,
-   double Xl_32,
-   double Xl_33
+   int yukawa_type_,
+   double lambda_1_,
+   double lambda_2_,
+   double lambda_3_,
+   double lambda_4_,
+   double lambda_5_,
+   double lambda_6_,
+   double lambda_7_,
+   double TB_,
+   double m122_,
+   double zeta_u_,
+   double zeta_d_,
+   double zeta_l_,
+   double Xu_11_,
+   double Xu_12_,
+   double Xu_13_,
+   double Xu_21_,
+   double Xu_22_,
+   double Xu_23_,
+   double Xu_31_,
+   double Xu_32_,
+   double Xu_33_,
+   double Xd_11_,
+   double Xd_12_,
+   double Xd_13_,
+   double Xd_21_,
+   double Xd_22_,
+   double Xd_23_,
+   double Xd_31_,
+   double Xd_32_,
+   double Xd_33_,
+   double Xl_11_,
+   double Xl_12_,
+   double Xl_13_,
+   double Xl_21_,
+   double Xl_22_,
+   double Xl_23_,
+   double Xl_31_,
+   double Xl_32_,
+   double Xl_33_
 )
 {
-   MLPutFunction(stdlink, "List", 2);
-   /* amu [2] */
-   MLPutRuleToReal(stdlink, 0, "amu");
-   MLPutRuleToReal(stdlink, 0, "Damu");
-   MLEndPacket(stdlink);
+   THDM_gauge_basis basis;
+   basis.yukawa_type = THDM_type_2; /* @todo(alex) check */
+   basis.lambda1 = lambda_1_;
+   basis.lambda2 = lambda_2_;
+   basis.lambda3 = lambda_3_;
+   basis.lambda4 = lambda_4_;
+   basis.lambda5 = lambda_5_;
+   basis.lambda6 = lambda_6_;
+   basis.lambda7 = lambda_7_;
+   basis.tan_beta = TB_;
+   basis.m122 = m122_;
+   basis.zeta_u = zeta_u_;
+   basis.zeta_d = zeta_d_;
+   basis.zeta_l = zeta_l_;
+   /* @todo(alex) allow for complex Xu, Xd, Xl */
+   basis.Xu_real[0][0] = Xu_11_;
+   basis.Xu_imag[0][0] = 0;
+   basis.Xu_real[0][1] = Xu_12_;
+   basis.Xu_imag[0][1] = 0;
+   basis.Xu_real[0][2] = Xu_13_;
+   basis.Xu_imag[0][2] = 0;
+   basis.Xu_real[1][0] = Xu_21_;
+   basis.Xu_imag[1][0] = 0;
+   basis.Xu_real[1][1] = Xu_22_;
+   basis.Xu_imag[1][1] = 0;
+   basis.Xu_real[1][2] = Xu_23_;
+   basis.Xu_imag[1][2] = 0;
+   basis.Xu_real[2][0] = Xu_31_;
+   basis.Xu_imag[2][0] = 0;
+   basis.Xu_real[2][1] = Xu_32_;
+   basis.Xu_imag[2][1] = 0;
+   basis.Xu_real[2][2] = Xu_33_;
+   basis.Xu_imag[2][2] = 0;
+   basis.Xd_real[0][0] = Xd_11_;
+   basis.Xd_imag[0][0] = 0;
+   basis.Xd_real[0][1] = Xd_12_;
+   basis.Xd_imag[0][1] = 0;
+   basis.Xd_real[0][2] = Xd_13_;
+   basis.Xd_imag[0][2] = 0;
+   basis.Xd_real[1][0] = Xd_21_;
+   basis.Xd_imag[1][0] = 0;
+   basis.Xd_real[1][1] = Xd_22_;
+   basis.Xd_imag[1][1] = 0;
+   basis.Xd_real[1][2] = Xd_23_;
+   basis.Xd_imag[1][2] = 0;
+   basis.Xd_real[2][0] = Xd_31_;
+   basis.Xd_imag[2][0] = 0;
+   basis.Xd_real[2][1] = Xd_32_;
+   basis.Xd_imag[2][1] = 0;
+   basis.Xd_real[2][2] = Xd_33_;
+   basis.Xd_imag[2][2] = 0;
+   basis.Xl_real[0][0] = Xl_11_;
+   basis.Xl_imag[0][0] = 0;
+   basis.Xl_real[0][1] = Xl_12_;
+   basis.Xl_imag[0][1] = 0;
+   basis.Xl_real[0][2] = Xl_13_;
+   basis.Xl_imag[0][2] = 0;
+   basis.Xl_real[1][0] = Xl_21_;
+   basis.Xl_imag[1][0] = 0;
+   basis.Xl_real[1][1] = Xl_22_;
+   basis.Xl_imag[1][1] = 0;
+   basis.Xl_real[1][2] = Xl_23_;
+   basis.Xl_imag[1][2] = 0;
+   basis.Xl_real[2][0] = Xl_31_;
+   basis.Xl_imag[2][0] = 0;
+   basis.Xl_real[2][1] = Xl_32_;
+   basis.Xl_imag[2][1] = 0;
+   basis.Xl_real[2][2] = Xl_33_;
+   basis.Xl_imag[2][2] = 0;
+
+   THDM* model = 0;
+   gm2calc_error error = gm2calc_thdm_new_with_gauge_basis(&model, &basis, &sm);
+
+   if (error == gm2calc_NoError) {
+      const double amu = gm2calc_thdm_calculate_amu_1loop(model)
+                       + gm2calc_thdm_calculate_amu_2loop(model);
+
+      const double delta_amu =
+         gm2calc_thdm_calculate_uncertainty_amu_2loop(model);
+
+      MLPutFunction(stdlink, "List", 2);
+      /* amu [2] */
+      MLPutRuleToReal(stdlink, amu, "amu");
+      MLPutRuleToReal(stdlink, delta_amu, "Damu");
+      MLEndPacket(stdlink);
+   } else {
+      create_error_output();
+   }
+
+   gm2calc_thdm_free(model);
 }
 
 /******************************************************************/
