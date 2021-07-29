@@ -327,10 +327,29 @@ struct THDM_reader {
    gm2calc::THDM operator()(const gm2calc::GM2_slha_io& slha_io)
    {
       gm2calc::SM sm;
-      gm2calc::thdm::Mass_basis basis; // @todo(alex): may use other basis
+      gm2calc::thdm::Mass_basis mass_basis;
+      gm2calc::thdm::Gauge_basis gauge_basis;
       slha_io.fill(sm);
-      slha_io.fill(basis);
-      return gm2calc::THDM(basis, sm);
+      slha_io.fill(mass_basis);
+      slha_io.fill(gauge_basis);
+
+      if ((mass_basis.mh != 0 || mass_basis.mH != 0 ||
+           mass_basis.mA != 0 || mass_basis.mHp !=0 ||
+           mass_basis.sin_beta_minus_alpha != 0) &&
+          (gauge_basis.lambda1 == 0 && gauge_basis.lambda2 == 0 &&
+           gauge_basis.lambda3 == 0 && gauge_basis.lambda4 == 0 &&
+           gauge_basis.lambda5 == 0)) {
+         return gm2calc::THDM(mass_basis, sm);
+      } else if ((mass_basis.mh == 0 || mass_basis.mH == 0 ||
+                  mass_basis.mA == 0 || mass_basis.mHp ==0 ||
+                  mass_basis.sin_beta_minus_alpha == 0) &&
+                 (gauge_basis.lambda1 != 0 && gauge_basis.lambda2 != 0 &&
+                  gauge_basis.lambda3 != 0 && gauge_basis.lambda4 != 0 &&
+                  gauge_basis.lambda5 != 0)) {
+         return gm2calc::THDM(gauge_basis, sm);
+      } else {
+         throw gm2calc::EInvalidInput("Contradictory input: mass and gauge basis parameters are set.");
+      }
    }
 };
 

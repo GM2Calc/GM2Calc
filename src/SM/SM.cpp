@@ -150,4 +150,22 @@ void SM::set_ckm_from_angles(
    ckm = get_ckm_from_angles(theta_12, theta_13, theta_23, delta);
 }
 
+std::ostream& operator<<(std::ostream& ostr, const SM& sm)
+{
+   ostr << "SM\n"
+        << "==\n"
+        << "alpha_em(MZ) = " << sm.get_alpha_em_mz() << '\n'
+        << "alpha_em(0) = " << sm.get_alpha_em_0() << '\n'
+        << "alpha_s(MZ) = " << sm.get_alpha_s_mz() << '\n'
+        << "mw = " << sm.get_mw() << " GeV\n"
+        << "mz = " << sm.get_mz() << " GeV\n"
+        << "mh = " << sm.get_mh() << " GeV\n"
+        << "mu = {" << sm.get_mu(0) << ", " << sm.get_mu(1) << ", " << sm.get_mu(2) << "} GeV\n"
+        << "md = {" << sm.get_md(0) << ", " << sm.get_md(1) << ", " << sm.get_md(2) << "} GeV\n"
+        << "mv = {" << sm.get_mv(0) << ", " << sm.get_mv(1) << ", " << sm.get_mv(2) << "} GeV\n"
+        << "ml = {" << sm.get_ml(0) << ", " << sm.get_ml(1) << ", " << sm.get_ml(2) << "} GeV\n"
+        ;
+   return ostr;
+}
+
 } // namespace gm2calc

@@ -6,24 +6,24 @@ Block GM2CalcConfig
      1     2     # loop order (0, 1 or 2)
      3     0     # force output (0 or 1)
      4     0     # verbose output (0 or 1)
-     5     1     # calculate uncertainty (0 or 1)
+     5     0     # calculate uncertainty (0 or 1)
 Block SMINPUTS
-     1     1.27934000E+02   # alpha_em(MZ)^(-1) SM MS-bar
+     1     1.28945790E+02   # alpha_em(MZ)^(-1) SM MS-bar
      3     0.1184           # alpha_s(MZ) SM MS-bar [2L]
      4     9.11876000E+01   # MZ(pole)              [1L]
      5     4.18000000E+00   # mb(mb) SM MS-bar      [2L]
      6     1.73340000E+02   # mtop(pole)            [2L]
-     7     1.77700000E+00   # mtau(pole)            [2L]
+     7     1.77684000E+00   # mtau(pole)            [2L]
      8     0.00000000E+00   # mnu3(pole)            [irrelevant]
-     9     8.03773317E+01   # mW(pole)              [1L]
+     9     8.03850000E+01   # mW(pole)              [1L]
     11     0.000510998928   # melectron(pole)       [2L]
     12     0.00000000E+00   # mnu1(pole)            [irrelevant]
     13     0.1056583715     # mmuon(pole)           [1L]
     14     0.00000000E+00   # mnu2(pole)            [irrelevant]
-    21     4.76052706E-03   # md(2 GeV)             [2L]
-    22     2.40534062E-03   # mu(2 GeV)             [2L]
+    21     4.70000000E-03   # md(2 GeV)             [2L]
+    22     2.20000000E-03   # mu(2 GeV)             [2L]
     23     1.04230487E-01   # ms(2 GeV)             [2L]
-    24     1.27183378E+00   # mc(2 GeV)             [2L]
+    24     1.28000000E+00   # mc(2 GeV)             [2L]
 Block GM2CalcInput
      3     125.09           # SM Higgs boson mass   [1L]
 Block VCKMIN                # CKM matrix in Wolfenstein parametrization

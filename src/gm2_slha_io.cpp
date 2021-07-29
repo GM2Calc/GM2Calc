@@ -681,6 +681,7 @@ void process_gm2calcinput_tuple(
    case 30: model.set_Au( 0, 0, value); break;
    case 31: model.set_Au( 1, 1, value); break;
    case 32: model.set_Au( 2, 2, value); break;
+   case 33: /* mhSM */ break;
    default:
       WARNING("Unrecognized entry in block GM2CalcInput: " << key);
       break;

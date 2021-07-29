@@ -21,6 +21,7 @@
 
 #include <Eigen/Core>
 #include <complex>
+#include <iosfwd>
 
 namespace gm2calc {
 
@@ -85,6 +86,9 @@ private:
    Eigen::Matrix<double,3,1> ml{Eigen::Matrix<double,3,1>::Zero()}; ///< down-type lepton pole masses
    Eigen::Matrix<std::complex<double>,3,3> ckm{Eigen::Matrix<std::complex<double>,3,3>::Identity()}; ///< CKM matrix
 };
+
+/// streaming operator
+std::ostream& operator<<(std::ostream&, const SM&);
 
 } // namespace gm2calc
 
