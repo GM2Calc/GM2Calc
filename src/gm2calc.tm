@@ -443,38 +443,68 @@
    N @ OptionValue[zetau],
    N @ OptionValue[zetad],
    N @ OptionValue[zetal],
-   N @ OptionValue[Xu][[1,1]],
-   N @ OptionValue[Xu][[1,2]],
-   N @ OptionValue[Xu][[1,3]],
-   N @ OptionValue[Xu][[2,1]],
-   N @ OptionValue[Xu][[2,2]],
-   N @ OptionValue[Xu][[2,3]],
-   N @ OptionValue[Xu][[3,1]],
-   N @ OptionValue[Xu][[3,2]],
-   N @ OptionValue[Xu][[3,3]],
-   N @ OptionValue[Xd][[1,1]],
-   N @ OptionValue[Xd][[1,2]],
-   N @ OptionValue[Xd][[1,3]],
-   N @ OptionValue[Xd][[2,1]],
-   N @ OptionValue[Xd][[2,2]],
-   N @ OptionValue[Xd][[2,3]],
-   N @ OptionValue[Xd][[3,1]],
-   N @ OptionValue[Xd][[3,2]],
-   N @ OptionValue[Xd][[3,3]],
-   N @ OptionValue[Xl][[1,1]],
-   N @ OptionValue[Xl][[1,2]],
-   N @ OptionValue[Xl][[1,3]],
-   N @ OptionValue[Xl][[2,1]],
-   N @ OptionValue[Xl][[2,2]],
-   N @ OptionValue[Xl][[2,3]],
-   N @ OptionValue[Xl][[3,1]],
-   N @ OptionValue[Xl][[3,2]],
-   N @ OptionValue[Xl][[3,3]] }
+   Re @ N @ OptionValue[Xu][[1,1]],
+   Re @ N @ OptionValue[Xu][[1,2]],
+   Re @ N @ OptionValue[Xu][[1,3]],
+   Re @ N @ OptionValue[Xu][[2,1]],
+   Re @ N @ OptionValue[Xu][[2,2]],
+   Re @ N @ OptionValue[Xu][[2,3]],
+   Re @ N @ OptionValue[Xu][[3,1]],
+   Re @ N @ OptionValue[Xu][[3,2]],
+   Re @ N @ OptionValue[Xu][[3,3]],
+   Re @ N @ OptionValue[Xd][[1,1]],
+   Re @ N @ OptionValue[Xd][[1,2]],
+   Re @ N @ OptionValue[Xd][[1,3]],
+   Re @ N @ OptionValue[Xd][[2,1]],
+   Re @ N @ OptionValue[Xd][[2,2]],
+   Re @ N @ OptionValue[Xd][[2,3]],
+   Re @ N @ OptionValue[Xd][[3,1]],
+   Re @ N @ OptionValue[Xd][[3,2]],
+   Re @ N @ OptionValue[Xd][[3,3]],
+   Re @ N @ OptionValue[Xl][[1,1]],
+   Re @ N @ OptionValue[Xl][[1,2]],
+   Re @ N @ OptionValue[Xl][[1,3]],
+   Re @ N @ OptionValue[Xl][[2,1]],
+   Re @ N @ OptionValue[Xl][[2,2]],
+   Re @ N @ OptionValue[Xl][[2,3]],
+   Re @ N @ OptionValue[Xl][[3,1]],
+   Re @ N @ OptionValue[Xl][[3,2]],
+   Re @ N @ OptionValue[Xl][[3,3]],
+   Im @ N @ OptionValue[Xu][[1,1]],
+   Im @ N @ OptionValue[Xu][[1,2]],
+   Im @ N @ OptionValue[Xu][[1,3]],
+   Im @ N @ OptionValue[Xu][[2,1]],
+   Im @ N @ OptionValue[Xu][[2,2]],
+   Im @ N @ OptionValue[Xu][[2,3]],
+   Im @ N @ OptionValue[Xu][[3,1]],
+   Im @ N @ OptionValue[Xu][[3,2]],
+   Im @ N @ OptionValue[Xu][[3,3]],
+   Im @ N @ OptionValue[Xd][[1,1]],
+   Im @ N @ OptionValue[Xd][[1,2]],
+   Im @ N @ OptionValue[Xd][[1,3]],
+   Im @ N @ OptionValue[Xd][[2,1]],
+   Im @ N @ OptionValue[Xd][[2,2]],
+   Im @ N @ OptionValue[Xd][[2,3]],
+   Im @ N @ OptionValue[Xd][[3,1]],
+   Im @ N @ OptionValue[Xd][[3,2]],
+   Im @ N @ OptionValue[Xd][[3,3]],
+   Im @ N @ OptionValue[Xl][[1,1]],
+   Im @ N @ OptionValue[Xl][[1,2]],
+   Im @ N @ OptionValue[Xl][[1,3]],
+   Im @ N @ OptionValue[Xl][[2,1]],
+   Im @ N @ OptionValue[Xl][[2,2]],
+   Im @ N @ OptionValue[Xl][[2,3]],
+   Im @ N @ OptionValue[Xl][[3,1]],
+   Im @ N @ OptionValue[Xl][[3,2]],
+   Im @ N @ OptionValue[Xl][[3,3]] }
 :ArgumentTypes: {
    Integer, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
-   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real }
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real }
 :ReturnType: Manual
 :End:
 
@@ -507,38 +537,68 @@
    N @ OptionValue[zetau],
    N @ OptionValue[zetad],
    N @ OptionValue[zetal],
-   N @ OptionValue[Xu][[1,1]],
-   N @ OptionValue[Xu][[1,2]],
-   N @ OptionValue[Xu][[1,3]],
-   N @ OptionValue[Xu][[2,1]],
-   N @ OptionValue[Xu][[2,2]],
-   N @ OptionValue[Xu][[2,3]],
-   N @ OptionValue[Xu][[3,1]],
-   N @ OptionValue[Xu][[3,2]],
-   N @ OptionValue[Xu][[3,3]],
-   N @ OptionValue[Xd][[1,1]],
-   N @ OptionValue[Xd][[1,2]],
-   N @ OptionValue[Xd][[1,3]],
-   N @ OptionValue[Xd][[2,1]],
-   N @ OptionValue[Xd][[2,2]],
-   N @ OptionValue[Xd][[2,3]],
-   N @ OptionValue[Xd][[3,1]],
-   N @ OptionValue[Xd][[3,2]],
-   N @ OptionValue[Xd][[3,3]],
-   N @ OptionValue[Xl][[1,1]],
-   N @ OptionValue[Xl][[1,2]],
-   N @ OptionValue[Xl][[1,3]],
-   N @ OptionValue[Xl][[2,1]],
-   N @ OptionValue[Xl][[2,2]],
-   N @ OptionValue[Xl][[2,3]],
-   N @ OptionValue[Xl][[3,1]],
-   N @ OptionValue[Xl][[3,2]],
-   N @ OptionValue[Xl][[3,3]] }
+   Re @ N @ OptionValue[Xu][[1,1]],
+   Re @ N @ OptionValue[Xu][[1,2]],
+   Re @ N @ OptionValue[Xu][[1,3]],
+   Re @ N @ OptionValue[Xu][[2,1]],
+   Re @ N @ OptionValue[Xu][[2,2]],
+   Re @ N @ OptionValue[Xu][[2,3]],
+   Re @ N @ OptionValue[Xu][[3,1]],
+   Re @ N @ OptionValue[Xu][[3,2]],
+   Re @ N @ OptionValue[Xu][[3,3]],
+   Re @ N @ OptionValue[Xd][[1,1]],
+   Re @ N @ OptionValue[Xd][[1,2]],
+   Re @ N @ OptionValue[Xd][[1,3]],
+   Re @ N @ OptionValue[Xd][[2,1]],
+   Re @ N @ OptionValue[Xd][[2,2]],
+   Re @ N @ OptionValue[Xd][[2,3]],
+   Re @ N @ OptionValue[Xd][[3,1]],
+   Re @ N @ OptionValue[Xd][[3,2]],
+   Re @ N @ OptionValue[Xd][[3,3]],
+   Re @ N @ OptionValue[Xl][[1,1]],
+   Re @ N @ OptionValue[Xl][[1,2]],
+   Re @ N @ OptionValue[Xl][[1,3]],
+   Re @ N @ OptionValue[Xl][[2,1]],
+   Re @ N @ OptionValue[Xl][[2,2]],
+   Re @ N @ OptionValue[Xl][[2,3]],
+   Re @ N @ OptionValue[Xl][[3,1]],
+   Re @ N @ OptionValue[Xl][[3,2]],
+   Re @ N @ OptionValue[Xl][[3,3]],
+   Im @ N @ OptionValue[Xu][[1,1]],
+   Im @ N @ OptionValue[Xu][[1,2]],
+   Im @ N @ OptionValue[Xu][[1,3]],
+   Im @ N @ OptionValue[Xu][[2,1]],
+   Im @ N @ OptionValue[Xu][[2,2]],
+   Im @ N @ OptionValue[Xu][[2,3]],
+   Im @ N @ OptionValue[Xu][[3,1]],
+   Im @ N @ OptionValue[Xu][[3,2]],
+   Im @ N @ OptionValue[Xu][[3,3]],
+   Im @ N @ OptionValue[Xd][[1,1]],
+   Im @ N @ OptionValue[Xd][[1,2]],
+   Im @ N @ OptionValue[Xd][[1,3]],
+   Im @ N @ OptionValue[Xd][[2,1]],
+   Im @ N @ OptionValue[Xd][[2,2]],
+   Im @ N @ OptionValue[Xd][[2,3]],
+   Im @ N @ OptionValue[Xd][[3,1]],
+   Im @ N @ OptionValue[Xd][[3,2]],
+   Im @ N @ OptionValue[Xd][[3,3]],
+   Im @ N @ OptionValue[Xl][[1,1]],
+   Im @ N @ OptionValue[Xl][[1,2]],
+   Im @ N @ OptionValue[Xl][[1,3]],
+   Im @ N @ OptionValue[Xl][[2,1]],
+   Im @ N @ OptionValue[Xl][[2,2]],
+   Im @ N @ OptionValue[Xl][[2,3]],
+   Im @ N @ OptionValue[Xl][[3,1]],
+   Im @ N @ OptionValue[Xl][[3,2]],
+   Im @ N @ OptionValue[Xl][[3,3]] }
 :ArgumentTypes: {
    Integer, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
-   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real }
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real }
 :ReturnType: Manual
 :End:
 
@@ -1337,33 +1397,60 @@ void GM2CalcAmuTHDMGaugeBasis(
    double zeta_u_,
    double zeta_d_,
    double zeta_l_,
-   double Xu_11_,
-   double Xu_12_,
-   double Xu_13_,
-   double Xu_21_,
-   double Xu_22_,
-   double Xu_23_,
-   double Xu_31_,
-   double Xu_32_,
-   double Xu_33_,
-   double Xd_11_,
-   double Xd_12_,
-   double Xd_13_,
-   double Xd_21_,
-   double Xd_22_,
-   double Xd_23_,
-   double Xd_31_,
-   double Xd_32_,
-   double Xd_33_,
-   double Xl_11_,
-   double Xl_12_,
-   double Xl_13_,
-   double Xl_21_,
-   double Xl_22_,
-   double Xl_23_,
-   double Xl_31_,
-   double Xl_32_,
-   double Xl_33_
+   double Xu_real_11_,
+   double Xu_real_12_,
+   double Xu_real_13_,
+   double Xu_real_21_,
+   double Xu_real_22_,
+   double Xu_real_23_,
+   double Xu_real_31_,
+   double Xu_real_32_,
+   double Xu_real_33_,
+   double Xd_real_11_,
+   double Xd_real_12_,
+   double Xd_real_13_,
+   double Xd_real_21_,
+   double Xd_real_22_,
+   double Xd_real_23_,
+   double Xd_real_31_,
+   double Xd_real_32_,
+   double Xd_real_33_,
+   double Xl_real_11_,
+   double Xl_real_12_,
+   double Xl_real_13_,
+   double Xl_real_21_,
+   double Xl_real_22_,
+   double Xl_real_23_,
+   double Xl_real_31_,
+   double Xl_real_32_,
+   double Xl_real_33_,
+   double Xu_imag_11_,
+   double Xu_imag_12_,
+   double Xu_imag_13_,
+   double Xu_imag_21_,
+   double Xu_imag_22_,
+   double Xu_imag_23_,
+   double Xu_imag_31_,
+   double Xu_imag_32_,
+   double Xu_imag_33_,
+   double Xd_imag_11_,
+   double Xd_imag_12_,
+   double Xd_imag_13_,
+   double Xd_imag_21_,
+   double Xd_imag_22_,
+   double Xd_imag_23_,
+   double Xd_imag_31_,
+   double Xd_imag_32_,
+   double Xd_imag_33_,
+   double Xl_imag_11_,
+   double Xl_imag_12_,
+   double Xl_imag_13_,
+   double Xl_imag_21_,
+   double Xl_imag_22_,
+   double Xl_imag_23_,
+   double Xl_imag_31_,
+   double Xl_imag_32_,
+   double Xl_imag_33_
 )
 {
    if (yukawa_type_ < 0 || yukawa_type_ > 5) {
@@ -1387,61 +1474,60 @@ void GM2CalcAmuTHDMGaugeBasis(
    basis.zeta_u = zeta_u_;
    basis.zeta_d = zeta_d_;
    basis.zeta_l = zeta_l_;
-   /* @todo(alex) allow for complex Xu, Xd, Xl */
-   basis.Xu_real[0][0] = Xu_11_;
-   basis.Xu_imag[0][0] = 0;
-   basis.Xu_real[0][1] = Xu_12_;
-   basis.Xu_imag[0][1] = 0;
-   basis.Xu_real[0][2] = Xu_13_;
-   basis.Xu_imag[0][2] = 0;
-   basis.Xu_real[1][0] = Xu_21_;
-   basis.Xu_imag[1][0] = 0;
-   basis.Xu_real[1][1] = Xu_22_;
-   basis.Xu_imag[1][1] = 0;
-   basis.Xu_real[1][2] = Xu_23_;
-   basis.Xu_imag[1][2] = 0;
-   basis.Xu_real[2][0] = Xu_31_;
-   basis.Xu_imag[2][0] = 0;
-   basis.Xu_real[2][1] = Xu_32_;
-   basis.Xu_imag[2][1] = 0;
-   basis.Xu_real[2][2] = Xu_33_;
-   basis.Xu_imag[2][2] = 0;
-   basis.Xd_real[0][0] = Xd_11_;
-   basis.Xd_imag[0][0] = 0;
-   basis.Xd_real[0][1] = Xd_12_;
-   basis.Xd_imag[0][1] = 0;
-   basis.Xd_real[0][2] = Xd_13_;
-   basis.Xd_imag[0][2] = 0;
-   basis.Xd_real[1][0] = Xd_21_;
-   basis.Xd_imag[1][0] = 0;
-   basis.Xd_real[1][1] = Xd_22_;
-   basis.Xd_imag[1][1] = 0;
-   basis.Xd_real[1][2] = Xd_23_;
-   basis.Xd_imag[1][2] = 0;
-   basis.Xd_real[2][0] = Xd_31_;
-   basis.Xd_imag[2][0] = 0;
-   basis.Xd_real[2][1] = Xd_32_;
-   basis.Xd_imag[2][1] = 0;
-   basis.Xd_real[2][2] = Xd_33_;
-   basis.Xd_imag[2][2] = 0;
-   basis.Xl_real[0][0] = Xl_11_;
-   basis.Xl_imag[0][0] = 0;
-   basis.Xl_real[0][1] = Xl_12_;
-   basis.Xl_imag[0][1] = 0;
-   basis.Xl_real[0][2] = Xl_13_;
-   basis.Xl_imag[0][2] = 0;
-   basis.Xl_real[1][0] = Xl_21_;
-   basis.Xl_imag[1][0] = 0;
-   basis.Xl_real[1][1] = Xl_22_;
-   basis.Xl_imag[1][1] = 0;
-   basis.Xl_real[1][2] = Xl_23_;
-   basis.Xl_imag[1][2] = 0;
-   basis.Xl_real[2][0] = Xl_31_;
-   basis.Xl_imag[2][0] = 0;
-   basis.Xl_real[2][1] = Xl_32_;
-   basis.Xl_imag[2][1] = 0;
-   basis.Xl_real[2][2] = Xl_33_;
-   basis.Xl_imag[2][2] = 0;
+   basis.Xu_real[0][0] = Xu_real_11_;
+   basis.Xu_real[0][1] = Xu_real_12_;
+   basis.Xu_real[0][2] = Xu_real_13_;
+   basis.Xu_real[1][0] = Xu_real_21_;
+   basis.Xu_real[1][1] = Xu_real_22_;
+   basis.Xu_real[1][2] = Xu_real_23_;
+   basis.Xu_real[2][0] = Xu_real_31_;
+   basis.Xu_real[2][1] = Xu_real_32_;
+   basis.Xu_real[2][2] = Xu_real_33_;
+   basis.Xd_real[0][0] = Xd_real_11_;
+   basis.Xd_real[0][1] = Xd_real_12_;
+   basis.Xd_real[0][2] = Xd_real_13_;
+   basis.Xd_real[1][0] = Xd_real_21_;
+   basis.Xd_real[1][1] = Xd_real_22_;
+   basis.Xd_real[1][2] = Xd_real_23_;
+   basis.Xd_real[2][0] = Xd_real_31_;
+   basis.Xd_real[2][1] = Xd_real_32_;
+   basis.Xd_real[2][2] = Xd_real_33_;
+   basis.Xl_real[0][0] = Xl_real_11_;
+   basis.Xl_real[0][1] = Xl_real_12_;
+   basis.Xl_real[0][2] = Xl_real_13_;
+   basis.Xl_real[1][0] = Xl_real_21_;
+   basis.Xl_real[1][1] = Xl_real_22_;
+   basis.Xl_real[1][2] = Xl_real_23_;
+   basis.Xl_real[2][0] = Xl_real_31_;
+   basis.Xl_real[2][1] = Xl_real_32_;
+   basis.Xl_real[2][2] = Xl_real_33_;
+   basis.Xu_imag[0][0] = Xu_imag_11_;
+   basis.Xu_imag[0][1] = Xu_imag_12_;
+   basis.Xu_imag[0][2] = Xu_imag_13_;
+   basis.Xu_imag[1][0] = Xu_imag_21_;
+   basis.Xu_imag[1][1] = Xu_imag_22_;
+   basis.Xu_imag[1][2] = Xu_imag_23_;
+   basis.Xu_imag[2][0] = Xu_imag_31_;
+   basis.Xu_imag[2][1] = Xu_imag_32_;
+   basis.Xu_imag[2][2] = Xu_imag_33_;
+   basis.Xd_imag[0][0] = Xd_imag_11_;
+   basis.Xd_imag[0][1] = Xd_imag_12_;
+   basis.Xd_imag[0][2] = Xd_imag_13_;
+   basis.Xd_imag[1][0] = Xd_imag_21_;
+   basis.Xd_imag[1][1] = Xd_imag_22_;
+   basis.Xd_imag[1][2] = Xd_imag_23_;
+   basis.Xd_imag[2][0] = Xd_imag_31_;
+   basis.Xd_imag[2][1] = Xd_imag_32_;
+   basis.Xd_imag[2][2] = Xd_imag_33_;
+   basis.Xl_imag[0][0] = Xl_imag_11_;
+   basis.Xl_imag[0][1] = Xl_imag_12_;
+   basis.Xl_imag[0][2] = Xl_imag_13_;
+   basis.Xl_imag[1][0] = Xl_imag_21_;
+   basis.Xl_imag[1][1] = Xl_imag_22_;
+   basis.Xl_imag[1][2] = Xl_imag_23_;
+   basis.Xl_imag[2][0] = Xl_imag_31_;
+   basis.Xl_imag[2][1] = Xl_imag_32_;
+   basis.Xl_imag[2][2] = Xl_imag_33_;
 
    THDM* model = 0;
    gm2calc_error error = gm2calc_thdm_new_with_gauge_basis(&model, &basis, &sm);
@@ -1481,33 +1567,60 @@ void GM2CalcAmuTHDMMassBasis(
    double zeta_u_,
    double zeta_d_,
    double zeta_l_,
-   double Xu_11_,
-   double Xu_12_,
-   double Xu_13_,
-   double Xu_21_,
-   double Xu_22_,
-   double Xu_23_,
-   double Xu_31_,
-   double Xu_32_,
-   double Xu_33_,
-   double Xd_11_,
-   double Xd_12_,
-   double Xd_13_,
-   double Xd_21_,
-   double Xd_22_,
-   double Xd_23_,
-   double Xd_31_,
-   double Xd_32_,
-   double Xd_33_,
-   double Xl_11_,
-   double Xl_12_,
-   double Xl_13_,
-   double Xl_21_,
-   double Xl_22_,
-   double Xl_23_,
-   double Xl_31_,
-   double Xl_32_,
-   double Xl_33_
+   double Xu_real_11_,
+   double Xu_real_12_,
+   double Xu_real_13_,
+   double Xu_real_21_,
+   double Xu_real_22_,
+   double Xu_real_23_,
+   double Xu_real_31_,
+   double Xu_real_32_,
+   double Xu_real_33_,
+   double Xd_real_11_,
+   double Xd_real_12_,
+   double Xd_real_13_,
+   double Xd_real_21_,
+   double Xd_real_22_,
+   double Xd_real_23_,
+   double Xd_real_31_,
+   double Xd_real_32_,
+   double Xd_real_33_,
+   double Xl_real_11_,
+   double Xl_real_12_,
+   double Xl_real_13_,
+   double Xl_real_21_,
+   double Xl_real_22_,
+   double Xl_real_23_,
+   double Xl_real_31_,
+   double Xl_real_32_,
+   double Xl_real_33_,
+   double Xu_imag_11_,
+   double Xu_imag_12_,
+   double Xu_imag_13_,
+   double Xu_imag_21_,
+   double Xu_imag_22_,
+   double Xu_imag_23_,
+   double Xu_imag_31_,
+   double Xu_imag_32_,
+   double Xu_imag_33_,
+   double Xd_imag_11_,
+   double Xd_imag_12_,
+   double Xd_imag_13_,
+   double Xd_imag_21_,
+   double Xd_imag_22_,
+   double Xd_imag_23_,
+   double Xd_imag_31_,
+   double Xd_imag_32_,
+   double Xd_imag_33_,
+   double Xl_imag_11_,
+   double Xl_imag_12_,
+   double Xl_imag_13_,
+   double Xl_imag_21_,
+   double Xl_imag_22_,
+   double Xl_imag_23_,
+   double Xl_imag_31_,
+   double Xl_imag_32_,
+   double Xl_imag_33_
 )
 {
    if (yukawa_type_ < 0 || yukawa_type_ > 5) {
@@ -1531,61 +1644,60 @@ void GM2CalcAmuTHDMMassBasis(
    basis.zeta_u = zeta_u_;
    basis.zeta_d = zeta_d_;
    basis.zeta_l = zeta_l_;
-   /* @todo(alex) allow for complex Xu, Xd, Xl */
-   basis.Xu_real[0][0] = Xu_11_;
-   basis.Xu_imag[0][0] = 0;
-   basis.Xu_real[0][1] = Xu_12_;
-   basis.Xu_imag[0][1] = 0;
-   basis.Xu_real[0][2] = Xu_13_;
-   basis.Xu_imag[0][2] = 0;
-   basis.Xu_real[1][0] = Xu_21_;
-   basis.Xu_imag[1][0] = 0;
-   basis.Xu_real[1][1] = Xu_22_;
-   basis.Xu_imag[1][1] = 0;
-   basis.Xu_real[1][2] = Xu_23_;
-   basis.Xu_imag[1][2] = 0;
-   basis.Xu_real[2][0] = Xu_31_;
-   basis.Xu_imag[2][0] = 0;
-   basis.Xu_real[2][1] = Xu_32_;
-   basis.Xu_imag[2][1] = 0;
-   basis.Xu_real[2][2] = Xu_33_;
-   basis.Xu_imag[2][2] = 0;
-   basis.Xd_real[0][0] = Xd_11_;
-   basis.Xd_imag[0][0] = 0;
-   basis.Xd_real[0][1] = Xd_12_;
-   basis.Xd_imag[0][1] = 0;
-   basis.Xd_real[0][2] = Xd_13_;
-   basis.Xd_imag[0][2] = 0;
-   basis.Xd_real[1][0] = Xd_21_;
-   basis.Xd_imag[1][0] = 0;
-   basis.Xd_real[1][1] = Xd_22_;
-   basis.Xd_imag[1][1] = 0;
-   basis.Xd_real[1][2] = Xd_23_;
-   basis.Xd_imag[1][2] = 0;
-   basis.Xd_real[2][0] = Xd_31_;
-   basis.Xd_imag[2][0] = 0;
-   basis.Xd_real[2][1] = Xd_32_;
-   basis.Xd_imag[2][1] = 0;
-   basis.Xd_real[2][2] = Xd_33_;
-   basis.Xd_imag[2][2] = 0;
-   basis.Xl_real[0][0] = Xl_11_;
-   basis.Xl_imag[0][0] = 0;
-   basis.Xl_real[0][1] = Xl_12_;
-   basis.Xl_imag[0][1] = 0;
-   basis.Xl_real[0][2] = Xl_13_;
-   basis.Xl_imag[0][2] = 0;
-   basis.Xl_real[1][0] = Xl_21_;
-   basis.Xl_imag[1][0] = 0;
-   basis.Xl_real[1][1] = Xl_22_;
-   basis.Xl_imag[1][1] = 0;
-   basis.Xl_real[1][2] = Xl_23_;
-   basis.Xl_imag[1][2] = 0;
-   basis.Xl_real[2][0] = Xl_31_;
-   basis.Xl_imag[2][0] = 0;
-   basis.Xl_real[2][1] = Xl_32_;
-   basis.Xl_imag[2][1] = 0;
-   basis.Xl_real[2][2] = Xl_33_;
-   basis.Xl_imag[2][2] = 0;
+   basis.Xu_real[0][0] = Xu_real_11_;
+   basis.Xu_real[0][1] = Xu_real_12_;
+   basis.Xu_real[0][2] = Xu_real_13_;
+   basis.Xu_real[1][0] = Xu_real_21_;
+   basis.Xu_real[1][1] = Xu_real_22_;
+   basis.Xu_real[1][2] = Xu_real_23_;
+   basis.Xu_real[2][0] = Xu_real_31_;
+   basis.Xu_real[2][1] = Xu_real_32_;
+   basis.Xu_real[2][2] = Xu_real_33_;
+   basis.Xd_real[0][0] = Xd_real_11_;
+   basis.Xd_real[0][1] = Xd_real_12_;
+   basis.Xd_real[0][2] = Xd_real_13_;
+   basis.Xd_real[1][0] = Xd_real_21_;
+   basis.Xd_real[1][1] = Xd_real_22_;
+   basis.Xd_real[1][2] = Xd_real_23_;
+   basis.Xd_real[2][0] = Xd_real_31_;
+   basis.Xd_real[2][1] = Xd_real_32_;
+   basis.Xd_real[2][2] = Xd_real_33_;
+   basis.Xl_real[0][0] = Xl_real_11_;
+   basis.Xl_real[0][1] = Xl_real_12_;
+   basis.Xl_real[0][2] = Xl_real_13_;
+   basis.Xl_real[1][0] = Xl_real_21_;
+   basis.Xl_real[1][1] = Xl_real_22_;
+   basis.Xl_real[1][2] = Xl_real_23_;
+   basis.Xl_real[2][0] = Xl_real_31_;
+   basis.Xl_real[2][1] = Xl_real_32_;
+   basis.Xl_real[2][2] = Xl_real_33_;
+   basis.Xu_imag[0][0] = Xu_imag_11_;
+   basis.Xu_imag[0][1] = Xu_imag_12_;
+   basis.Xu_imag[0][2] = Xu_imag_13_;
+   basis.Xu_imag[1][0] = Xu_imag_21_;
+   basis.Xu_imag[1][1] = Xu_imag_22_;
+   basis.Xu_imag[1][2] = Xu_imag_23_;
+   basis.Xu_imag[2][0] = Xu_imag_31_;
+   basis.Xu_imag[2][1] = Xu_imag_32_;
+   basis.Xu_imag[2][2] = Xu_imag_33_;
+   basis.Xd_imag[0][0] = Xd_imag_11_;
+   basis.Xd_imag[0][1] = Xd_imag_12_;
+   basis.Xd_imag[0][2] = Xd_imag_13_;
+   basis.Xd_imag[1][0] = Xd_imag_21_;
+   basis.Xd_imag[1][1] = Xd_imag_22_;
+   basis.Xd_imag[1][2] = Xd_imag_23_;
+   basis.Xd_imag[2][0] = Xd_imag_31_;
+   basis.Xd_imag[2][1] = Xd_imag_32_;
+   basis.Xd_imag[2][2] = Xd_imag_33_;
+   basis.Xl_imag[0][0] = Xl_imag_11_;
+   basis.Xl_imag[0][1] = Xl_imag_12_;
+   basis.Xl_imag[0][2] = Xl_imag_13_;
+   basis.Xl_imag[1][0] = Xl_imag_21_;
+   basis.Xl_imag[1][1] = Xl_imag_22_;
+   basis.Xl_imag[1][2] = Xl_imag_23_;
+   basis.Xl_imag[2][0] = Xl_imag_31_;
+   basis.Xl_imag[2][1] = Xl_imag_32_;
+   basis.Xl_imag[2][2] = Xl_imag_33_;
 
    THDM* model = 0;
    gm2calc_error error = gm2calc_thdm_new_with_mass_basis(&model, &basis, &sm);
