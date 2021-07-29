@@ -27,8 +27,20 @@
 :Evaluate: MT::usage =
     "Top quark pole mass."
 
+:Evaluate: mcmc::usage =
+    "Charm quark MS-bar mass mc at the scale mc."
+
+:Evaluate: mu2GeV::usage =
+    "Up quark MS-bar mass mu at the scale 2 GeV."
+
 :Evaluate: mbmb::usage =
     "Bottom quark MS-bar mass mb at the scale mb."
+
+:Evaluate: ms2GeV::usage =
+    "Strange quark MS-bar mass ms at the scale 2 GeV."
+
+:Evaluate: md2GeV::usage =
+    "Down quark MS-bar mass ms at the scale 2 GeV."
 
 :Evaluate: mbMZ::usage =
     "Bottom quark DR-bar mass at the scale MZ."
@@ -38,6 +50,21 @@
 
 :Evaluate: MM::usage =
     "Muon pole mass."
+
+:Evaluate: ME::usage =
+    "Electron pole mass."
+
+:Evaluate: Mv1::usage =
+    "Lightest neutrino pole mass."
+
+:Evaluate: Mv2::usage =
+    "2nd lightest neutrino pole mass."
+
+:Evaluate: Mv3::usage =
+    "Heaviest neutrino pole mass."
+
+:Evaluate: CKM::usage =
+    "CKM matrix."
 
 :Evaluate: amu::usage =
     "Calculated value of the anomalous magnetic moment of the muon, amu = (g-2)/2.";
@@ -107,6 +134,9 @@
 
 :Evaluate: MCha::usage =
     "Chargino masses.";
+
+:Evaluate: MhSM::usage =
+    "Standard Model Higgs boson mass.";
 
 :Evaluate: Mhh::usage =
     "CP-even Higgs boson masses.";
@@ -214,7 +244,7 @@
     "GM2CalcGetFlags returns the current configuration flags for GM2Calc."
 
 :Evaluate: GM2CalcSetSMParameters::usage =
-    "GM2CalcSetSMParameters sets the Standard Model parameters input parameters.  Available Standard Model parameters are: {alphaMZ, alpha0, alphaS, MW, MZ, MT, mbmb, mbMZ, ML, MM}.  Unset parameters are set to their default values, see Options[GM2CalcSetSMParameters].  Use GM2CalcGetSMParameters[] to retrieve the current values of the Standard Model parameters."
+    "GM2CalcSetSMParameters sets the Standard Model parameters input parameters. Unset parameters are set to their default values, see Options[GM2CalcSetSMParameters].  Use GM2CalcGetSMParameters[] to retrieve the current values of the Standard Model parameters."
 
 :Evaluate: GM2CalcGetSMParameters::usage =
     "GM2CalcGetSMParameters returns the Standard Model parameters."
@@ -272,29 +302,70 @@
 :Function: GM2CalcSetSMParameters
 :Pattern: GM2CalcSetSMParameters[OptionsPattern[]]
 :Arguments: {
-   N @ OptionValue[alphaMZ],
    N @ OptionValue[alpha0],
+   N @ OptionValue[alphaMZ],
    N @ OptionValue[alphaS],
+   N @ OptionValue[MhSM],
    N @ OptionValue[MW],
    N @ OptionValue[MZ],
    N @ OptionValue[MT],
+   N @ OptionValue[mcmc],
+   N @ OptionValue[mu2GeV],
    N @ OptionValue[mbmb],
+   N @ OptionValue[ms2GeV],
+   N @ OptionValue[md2GeV],
    N @ OptionValue[ML],
-   N @ OptionValue[MM] }
-:ArgumentTypes: { Real, Real, Real, Real, Real, Real, Real, Real, Real }
+   N @ OptionValue[MM],
+   N @ OptionValue[ME],
+   N @ OptionValue[Mv1],
+   N @ OptionValue[Mv2],
+   N @ OptionValue[Mv3],
+   Re @ N @ OptionValue[CKM][[1,1]],
+   Re @ N @ OptionValue[CKM][[1,2]],
+   Re @ N @ OptionValue[CKM][[1,3]],
+   Re @ N @ OptionValue[CKM][[2,1]],
+   Re @ N @ OptionValue[CKM][[2,2]],
+   Re @ N @ OptionValue[CKM][[2,3]],
+   Re @ N @ OptionValue[CKM][[3,1]],
+   Re @ N @ OptionValue[CKM][[3,2]],
+   Re @ N @ OptionValue[CKM][[3,3]],
+   Im @ N @ OptionValue[CKM][[1,1]],
+   Im @ N @ OptionValue[CKM][[1,2]],
+   Im @ N @ OptionValue[CKM][[1,3]],
+   Im @ N @ OptionValue[CKM][[2,1]],
+   Im @ N @ OptionValue[CKM][[2,2]],
+   Im @ N @ OptionValue[CKM][[2,3]],
+   Im @ N @ OptionValue[CKM][[3,1]],
+   Im @ N @ OptionValue[CKM][[3,2]],
+   Im @ N @ OptionValue[CKM][[3,3]] }
+:ArgumentTypes: {
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real }
 :ReturnType: Integer
 :End:
 
 :Evaluate: Options[GM2CalcSetSMParameters] = {
-    alphaMZ -> 0.0077552,
     alpha0 -> 0.00729735,
+    alphaMZ -> 0.0077552,
     alphaS -> 0.1184,
+    MhSM -> 125.09,
     MW -> 80.385,
     MZ -> 91.1876,
     MT -> 173.34,
+    mcmc -> 1.28,
+    mu2GeV -> 0.0022,
     mbmb -> 4.18,
+    ms2GeV -> 0.096,
+    md2GeV -> 0.0047,
     ML -> 1.777,
-    MM -> 0.1056583715 }
+    MM -> 0.1056583715,
+    ME -> 0.000510998928,
+    Mv1 -> 0,
+    Mv2 -> 0,
+    Mv3 -> 0,
+    CKM -> {{1,0,0}, {0,1,0}, {0,0,1}} }
 
 :Begin:
 :Function: GM2CalcGetSMParameters
@@ -1061,26 +1132,76 @@ void GM2CalcGetFlags(void)
 /******************************************************************/
 
 int GM2CalcSetSMParameters(
-   double alphaMZ_,
    double alpha0_,
+   double alphaMZ_,
    double alphaS_,
+   double MhSM_,
    double MW_,
    double MZ_,
    double MT_,
+   double mcmc_,
+   double mu2GeV_,
    double mbmb_,
+   double ms2GeV_,
+   double md2GeV_,
    double ML_,
-   double MM_)
+   double MM_,
+   double ME_,
+   double Mv1_,
+   double Mv2_,
+   double Mv3_,
+   double CKM_real_11_,
+   double CKM_real_12_,
+   double CKM_real_13_,
+   double CKM_real_21_,
+   double CKM_real_22_,
+   double CKM_real_23_,
+   double CKM_real_31_,
+   double CKM_real_32_,
+   double CKM_real_33_,
+   double CKM_imag_11_,
+   double CKM_imag_12_,
+   double CKM_imag_13_,
+   double CKM_imag_21_,
+   double CKM_imag_22_,
+   double CKM_imag_23_,
+   double CKM_imag_31_,
+   double CKM_imag_32_,
+   double CKM_imag_33_)
 {
-   /* @todo(alex) fill also other SM parameters */
-   sm.alpha_em_mz = alphaMZ_;
    sm.alpha_em_0 = alpha0_;
+   sm.alpha_em_mz = alphaMZ_;
    sm.alpha_s_mz = alphaS_;
+   sm.mh = MhSM_;
    sm.mw = MW_;
    sm.mz = MZ_;
    sm.mu[2] = MT_;
+   sm.mu[1] = mcmc_;
+   sm.mu[0] = mu2GeV_;
    sm.md[2] = mbmb_;
+   sm.md[1] = ms2GeV_;
+   sm.md[0] = md2GeV_;
    sm.ml[2] = ML_;
    sm.ml[1] = MM_;
+   sm.ml[0] = ME_;
+   sm.ckm_real[0][0] = CKM_real_11_;
+   sm.ckm_real[0][1] = CKM_real_12_;
+   sm.ckm_real[0][2] = CKM_real_13_;
+   sm.ckm_real[1][0] = CKM_real_21_;
+   sm.ckm_real[1][1] = CKM_real_22_;
+   sm.ckm_real[1][2] = CKM_real_23_;
+   sm.ckm_real[2][0] = CKM_real_31_;
+   sm.ckm_real[2][1] = CKM_real_32_;
+   sm.ckm_real[2][2] = CKM_real_33_;
+   sm.ckm_imag[0][0] = CKM_imag_11_;
+   sm.ckm_imag[0][1] = CKM_imag_12_;
+   sm.ckm_imag[0][2] = CKM_imag_13_;
+   sm.ckm_imag[1][0] = CKM_imag_21_;
+   sm.ckm_imag[1][1] = CKM_imag_22_;
+   sm.ckm_imag[1][2] = CKM_imag_23_;
+   sm.ckm_imag[2][0] = CKM_imag_31_;
+   sm.ckm_imag[2][1] = CKM_imag_32_;
+   sm.ckm_imag[2][2] = CKM_imag_33_;
 
    return 0;
 }
