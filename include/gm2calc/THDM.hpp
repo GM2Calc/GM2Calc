@@ -30,8 +30,8 @@ namespace gm2calc {
 
 namespace thdm {
 
-enum class Yukawa_type {
-   type_1, type_2, type_X, type_Y, aligned, general
+enum class Yukawa_type : int {
+   general = 0, type_1, type_2, type_X, type_Y, aligned
 };
 
 struct Gauge_basis {
