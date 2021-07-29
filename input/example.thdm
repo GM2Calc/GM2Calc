@@ -27,8 +27,8 @@ Block GM2CalcInput
 Block VCKMIN                # CKM matrix in Wolfenstein parametrization
      1     0.2257           # lambda
      2     0.814            # A
-     3     0.135            # rho
-     4     0.349            # eta
+     3     0.135            # rho-bar
+     4     0.349            # eta-bar
 Block MINPAR                # model parameters
      3     3                # tan(beta)
     16     0.2              # lambda_6
