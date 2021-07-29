@@ -108,8 +108,14 @@
 :Evaluate: MCha::usage =
     "Chargino masses.";
 
+:Evaluate: Mhh::usage =
+    "CP-even Higgs boson masses.";
+
 :Evaluate: MAh::usage =
     "CP-odd Higgs boson mass.";
+
+:Evaluate: MHp::usage =
+    "charged Higgs boson mass.";
 
 :Evaluate: Mhh::usage =
     "CP-even Higgs bosons masses.";
@@ -164,6 +170,42 @@
 
 :Evaluate: Ye::usage =
     "Yukawa couplings of down-type leptons.";
+
+:Evaluate: yukawaType::usage =
+    "Yukawa type of the Two-Higgs Doublet Model.";
+
+:Evaluate: sinBetaMinusAlpha::usage =
+    "Mixing angle sin(beta - alpha) of the Higgs sector in the Two-Higgs Doublet Model.";
+
+:Evaluate: lambda::usage =
+    "Lagrangian parameters { lambda_1, ... , lambda_7 } in the Two-Higgs Doublet Model.";
+
+:Evaluate: lambda6::usage =
+    "Lagrangian parameter lambda_6 in the Two-Higgs Doublet Model.";
+
+:Evaluate: lambda7::usage =
+    "Lagrangian parameter lambda_7 in the Two-Higgs Doublet Model.";
+
+:Evaluate: m122::usage =
+    "Lagrangian parameter m_{12}^2 in the Two-Higgs Doublet Model.";
+
+:Evaluate: zetau::usage =
+    "Alignment parameter zeta_u in the Two-Higgs Doublet Model.";
+
+:Evaluate: zetad::usage =
+    "Alignment parameter zeta_d in the Two-Higgs Doublet Model.";
+
+:Evaluate: zetal::usage =
+    "Alignment parameter zeta_l in the Two-Higgs Doublet Model.";
+
+:Evaluate: Xu::usage =
+    "Yukawa coupling X_u in the general Two-Higgs Doublet Model.";
+
+:Evaluate: Xd::usage =
+    "Yukawa coupling X_d in the general Two-Higgs Doublet Model.";
+
+:Evaluate: Xl::usage =
+    "Yukawa coupling X_l in the general Two-Higgs Doublet Model.";
 
 :Evaluate: GM2CalcSetFlags::usage =
     "GM2CalcSetFlags sets the configuration flags for GM2Calc.  Available flags are: {loopOrder, tanBetaResummation, forceOutput}.  Unset flags are set to their default values, see Options[GM2CalcSetFlags].  Use GM2CalcGetFlags[] to retrieve the flags currently set."
