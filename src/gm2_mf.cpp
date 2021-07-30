@@ -155,14 +155,14 @@ double conversion_mb_MSbar_to_DRbar(double alpha) {
  * @note Taken from SOFTSUSY
  *
  * @param mt_pole top quark pole mass
- * @param alpha_s_at_mz strong coupling at Q = mz
+ * @param alpha_s_mz strong coupling at Q = mz
  * @param mz Z boson pole mass
  *
  * @return alpha_s(mt_pole)
  */
-double calculate_alpha_s_SM6_MSbar_at_mt(double mt_pole, double alpha_s_at_mz, double mz) noexcept
+double calculate_alpha_s_SM6_MSbar_at_mt(double mt_pole, double alpha_s_mz, double mz) noexcept
 {
-   return alpha_s_at_mz /(1 - 23*alpha_s_at_mz/(6*Pi)*std::log(mz/mt_pole));
+   return alpha_s_mz /(1 - 23*alpha_s_mz/(6*Pi)*std::log(mz/mt_pole));
 }
 
 /**
@@ -189,17 +189,17 @@ double calculate_mt_SM6_MSbar_at(double mt_pole, double as) noexcept
  * @note Taken from SOFTSUSY
  *
  * @param mt_pole top quark pole mass
- * @param alpha_s_at_mz strong coupling at Q = mz
+ * @param alpha_s_mz strong coupling at Q = mz
  * @param mz Z boson pole mass
  *
  * @return mt(MS-bar,Q=mt_pole)
  */
-double calculate_mt_SM6_MSbar_at(double mt_pole, double alpha_s_at_mz, double mz) noexcept
+double calculate_mt_SM6_MSbar_at(double mt_pole, double alpha_s_mz, double mz) noexcept
 {
    // alpha_s(SM(6), MS-bar, Q = mt_pole)
-   const double alpha_s_at_mt = mf::calculate_alpha_s_SM6_MSbar_at_mt(mt_pole, alpha_s_at_mz, mz);
+   const double alpha_s_mt = mf::calculate_alpha_s_SM6_MSbar_at_mt(mt_pole, alpha_s_mz, mz);
 
-   return mf::calculate_mt_SM6_MSbar_at(mt_pole, alpha_s_at_mt);
+   return mf::calculate_mt_SM6_MSbar_at(mt_pole, alpha_s_mt);
 }
 
 } // namespace mf
@@ -244,25 +244,25 @@ double calculate_mb_SM5_DRbar(
  *
  * @return mt(SM(6),Q)
  */
-double calculate_mt_SM6_MSbar(double mt_pole, double alpha_s_at_mz, double mz, double scale) noexcept
+double calculate_mt_SM6_MSbar(double mt_pole, double alpha_s_mz, double mz, double scale) noexcept
 {
    // alpha_s(SM(6), MS-bar, Q = mt_pole)
-   const double alpha_s_at_mt = mf::calculate_alpha_s_SM6_MSbar_at_mt(mt_pole, alpha_s_at_mz, mz);
+   const double alpha_s_mt = mf::calculate_alpha_s_SM6_MSbar_at_mt(mt_pole, alpha_s_mz, mz);
 
    // mt(SM(6), MS-bar, Q = mt_pole)
-   const double mt_at_mt = mf::calculate_mt_SM6_MSbar_at(mt_pole, alpha_s_at_mt);
+   const double mt_mt = mf::calculate_mt_SM6_MSbar_at(mt_pole, alpha_s_mt);
 
    // run from Q = mt_pole to Q = scale
-   const double mt_at_Q = mt_at_mt * std::pow(scale/mt_pole, -2*alpha_s_at_mt/Pi);
+   const double mt_scale = mt_mt * std::pow(scale/mt_pole, -2*alpha_s_mt/Pi);
 
-   return mt_at_Q;
+   return mt_scale;
 }
 
 /// calculates mb(Q) MS-bar in the SM(6)
-double calculate_mb_SM6_MSbar(double mb_mb, double mt_pole, double alpha_s_at_mz, double mz, double scale) noexcept
+double calculate_mb_SM6_MSbar(double mb_mb, double mt_pole, double alpha_s_mz, double mz, double scale) noexcept
 {
    // determine Lambda_QCD
-   const double lambda_qcd = mf::calculate_lambda_qcd(alpha_s_at_mz, mz);
+   const double lambda_qcd = mf::calculate_lambda_qcd(alpha_s_mz, mz);
 
    // calculate alpha_s(mb)
    const double alpha_s_mb = mf::calculate_alpha_s_SM5_at(mb_mb, lambda_qcd);
@@ -280,7 +280,7 @@ double calculate_mb_SM6_MSbar(double mb_mb, double mt_pole, double alpha_s_at_mz
 }
 
 /// calculates mtau(Q) MS-bar in the SM(6)
-double calculate_mtau_SM6_MSbar(double mtau_pole, double alpha_em_at_mz, double mz, double scale) noexcept
+double calculate_mtau_SM6_MSbar(double mtau_pole, double alpha_em_mz, double mz, double scale) noexcept
 {
    // @todo(alex)
    return mtau_pole;
