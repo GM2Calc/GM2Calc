@@ -16,7 +16,7 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#include "gm2_mb.hpp"
+#include "gm2_mf.hpp"
 #include "gm2_log.hpp"
 #include "gm2_numerics.hpp"
 

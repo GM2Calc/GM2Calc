@@ -3,7 +3,7 @@ add_library(gm2calc
   gm2_dilog.cpp
   gm2_error_c.cpp
   gm2_ffunctions.cpp
-  gm2_mb.cpp
+  gm2_mf.cpp
   gm2_numerics.cpp
   gm2_slha_io.cpp
   MSSMNoFV/gm2_1loop_c.cpp
