@@ -259,10 +259,24 @@ double calculate_mt_SM6_MSbar(double mt_pole, double alpha_s_at_mz, double mz, d
 }
 
 /// calculates mb(Q) MS-bar in the SM(6)
-double calculate_mb_SM6_MSbar(double mb_mb, double alpha_s_at_mz, double mz, double scale) noexcept
+double calculate_mb_SM6_MSbar(double mb_mb, double mt_pole, double alpha_s_at_mz, double mz, double scale) noexcept
 {
-   // @todo(alex)
-   return mb_mb;
+   // determine Lambda_QCD
+   const double lambda_qcd = mf::calculate_lambda_qcd(alpha_s_at_mz, mz);
+
+   // calculate alpha_s(mb)
+   const double alpha_s_mb = mf::calculate_alpha_s_SM5_at(mb_mb, lambda_qcd);
+
+   // calculate alpha_s(mt)
+   const double alpha_s_mt = mf::calculate_alpha_s_SM5_at(mt_pole, lambda_qcd);
+
+   // run mb(mb) to Q = mt_pole
+   const double mb_mt = mb_mb * mf::Fb(alpha_s_mt) / mf::Fb(alpha_s_mb);
+
+   // run mb(mt) to Q = scale
+   const double mb_scale = mb_mt; // @todo(alex)
+
+   return mb_scale;
 }
 
 /// calculates mtau(Q) MS-bar in the SM(6)

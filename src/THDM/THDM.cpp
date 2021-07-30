@@ -89,9 +89,10 @@ Eigen::Matrix<double,3,1> THDM::get_md() const
 
    if (running_couplings) {
       const double mb_mb = md(2);
+      const double mt_pole = sm.get_mu(2);
       const double scale = higgs_scale();
       // replace mb_mb by mb(SM(6), MS-bar, Q = scale)
-      md(2) = calculate_mb_SM6_MSbar(mb_mb, sm.get_alpha_s_mz(), sm.get_mz(), scale);
+      md(2) = calculate_mb_SM6_MSbar(mb_mb, mt_pole, sm.get_alpha_s_mz(), sm.get_mz(), scale);
    }
 
    return md;
