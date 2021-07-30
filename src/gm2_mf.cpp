@@ -258,4 +258,18 @@ double calculate_mt_SM6_MSbar(double mt_pole, double alpha_s_at_mz, double mz, d
    return mt_at_Q;
 }
 
+/// calculates mb(Q) MS-bar in the SM(6)
+double calculate_mb_SM6_MSbar(double mb_mb, double alpha_s_at_mz, double mz, double scale) noexcept
+{
+   // @todo(alex)
+   return mb_mb;
+}
+
+/// calculates mtau(Q) MS-bar in the SM(6)
+double calculate_mtau_SM6_MSbar(double mtau_pole, double alpha_em_at_mz, double mz, double scale) noexcept
+{
+   // @todo(alex)
+   return mtau_pole;
+}
+
 } // namespace gm2calc

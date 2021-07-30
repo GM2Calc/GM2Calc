@@ -59,6 +59,14 @@ THDM::THDM(const thdm::Mass_basis& basis, const SM& sm_)
    set_basis(basis);
 }
 
+double THDM::higgs_scale() const
+{
+   const double mH = get_Mhh(1);
+   const double mA = get_MAh(1);
+   const double mHp = get_MHm(1);
+   return std::cbrt(mH*mA*mHp);
+}
+
 /// returns the up-type quark masses
 Eigen::Matrix<double,3,1> THDM::get_mu() const
 {
@@ -66,11 +74,7 @@ Eigen::Matrix<double,3,1> THDM::get_mu() const
 
    if (running_couplings) {
       const double mt_pole = mu(2);
-      const double mH = get_Mhh(1);
-      const double mA = get_MAh(1);
-      const double mHp = get_MHm(1);
-      const double scale = std::cbrt(mH*mA*mHp);
-
+      const double scale = higgs_scale();
       // replace mt_pole by mt(SM(6), MS-bar, Q = scale)
       mu(2) = calculate_mt_SM6_MSbar(mt_pole, sm.get_alpha_s_mz(), sm.get_mz(), scale);
    }
@@ -81,13 +85,31 @@ Eigen::Matrix<double,3,1> THDM::get_mu() const
 /// returns the down-type quark masses
 Eigen::Matrix<double,3,1> THDM::get_md() const
 {
-   return sm.get_md();
+   Eigen::Matrix<double,3,1> md = sm.get_md();
+
+   if (running_couplings) {
+      const double mb_mb = md(2);
+      const double scale = higgs_scale();
+      // replace mb_mb by mb(SM(6), MS-bar, Q = scale)
+      md(2) = calculate_mb_SM6_MSbar(mb_mb, sm.get_alpha_s_mz(), sm.get_mz(), scale);
+   }
+
+   return md;
 }
 
 /// returns the charged lepton masses
 Eigen::Matrix<double,3,1> THDM::get_ml() const
 {
-   return sm.get_ml();
+   Eigen::Matrix<double,3,1> ml = sm.get_ml();
+
+   if (running_couplings) {
+      const double mtau_pole = ml(2);
+      const double scale = higgs_scale();
+      // replace mtau_pole by mtau(SM(6), MS-bar, Q = scale)
+      ml(2) = calculate_mtau_SM6_MSbar(mtau_pole, sm.get_alpha_em_mz(), sm.get_mz(), scale);
+   }
+
+   return ml;
 }
 
 void THDM::init_gauge_couplings()

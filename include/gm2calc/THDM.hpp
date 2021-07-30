@@ -156,6 +156,7 @@ private:
    double zeta_l{0.0}; ///< alignment parameter
    bool running_couplings{false}; ///< use running couplings
 
+   double higgs_scale() const;
    Eigen::Matrix<double,3,1> get_mu() const;
    Eigen::Matrix<double,3,1> get_md() const;
    Eigen::Matrix<double,3,1> get_ml() const;
