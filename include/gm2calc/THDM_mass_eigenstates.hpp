@@ -141,6 +141,9 @@ public:
    void set_alpha_em_and_cw(double, double);
 
 protected:
+   void calculate_boson_masses();
+   void calculate_fermion_masses();
+
    double get_mass_matrix_VZ() const;
    void calculate_MVZ();
    double get_mass_matrix_VWm() const;

@@ -145,6 +145,15 @@ void CLASSNAME::print(std::ostream& ostr) const
  */
 void CLASSNAME::calculate_MSbar_masses()
 {
+   calculate_boson_masses();
+   calculate_fermion_masses();
+}
+
+/**
+ * routine which finds the boson mass eigenstates and mixings.
+ */
+void CLASSNAME::calculate_boson_masses()
+{
    const auto save_m112_raii = make_raii_save(m112);
    const auto save_m222_raii = make_raii_save(m222);
 
@@ -152,15 +161,22 @@ void CLASSNAME::calculate_MSbar_masses()
 
    calculate_MVZ();
    calculate_MVWm();
-   calculate_MFe();
-   calculate_MFu();
-   calculate_MFd();
    calculate_MHm();
    calculate_MAh();
    calculate_Mhh();
-   calculate_MFv();
 
    reorder_MSbar_masses();
+}
+
+/**
+ * routine which finds the fermion mass eigenstates and mixings.
+ */
+void CLASSNAME::calculate_fermion_masses()
+{
+   calculate_MFu();
+   calculate_MFd();
+   calculate_MFv();
+   calculate_MFe();
 }
 
 /**
