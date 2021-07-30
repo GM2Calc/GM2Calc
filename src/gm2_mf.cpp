@@ -258,7 +258,18 @@ double calculate_mt_SM6_MSbar(double mt_pole, double alpha_s_mz, double mz, doub
    return mt_scale;
 }
 
-/// calculates mb(Q) MS-bar in the SM(6)
+/**
+ * Calculates the running bottom quark MS-bar mass mb(SM(6),Q) in the
+ * SM(6) at the scale Q.
+ *
+ * @param mb_mb bottom quark MS-bar mass mb(mb) in the SM(5)
+ * @param mt_pole top quark pole mass
+ * @param alpha_s_mz strong coupling at the scale mz
+ * @param mz Z boson pole mass
+ * @param scale renormalization scale
+ *
+ * @return mb(MS-bar,SM(6),Q)
+ */
 double calculate_mb_SM6_MSbar(double mb_mb, double mt_pole, double alpha_s_mz, double mz, double scale) noexcept
 {
    // determine Lambda_QCD
@@ -279,11 +290,29 @@ double calculate_mb_SM6_MSbar(double mb_mb, double mt_pole, double alpha_s_mz, d
    return mb_scale;
 }
 
-/// calculates mtau(Q) MS-bar in the SM(6)
-double calculate_mtau_SM6_MSbar(double mtau_pole, double alpha_em_mz, double mz, double scale) noexcept
+/**
+ * Calculates the running tau lepton MS-bar mass mtau(SM(6),Q) in the
+ * SM(6) at the scale Q.
+ *
+ * @param mtau_pole tau lepton pole mass
+ * @param alpha_em_mz electromagnetic coupling at the scale Q = MZ
+ * @param mz Z boson pole mass
+ * @param scale renormalization scale
+ *
+ * @return mtau(MS-bar,SM(6),Q)
+ */
+double calculate_mtau_SM6_MSbar(double mtau_pole, double alpha_em_mz, double /* mz */, double scale) noexcept
 {
-   // @todo(alex)
-   return mtau_pole;
+   // calculate mtau(mtau)
+   const double mtau_mtau = mtau_pole; // neglecting loop corrections
+
+   // Note: QED beta function of the lepton mass parameter:
+   // dm/d(log(Q)) = -3*alpha_em*m/(2*Pi)
+
+   // run mtau(mtau) to Q = scale
+   const double mtau_scale = mtau_mtau * std::pow(scale/mtau_mtau, -3*alpha_em_mz/(2*Pi));
+
+   return mtau_scale;
 }
 
 } // namespace gm2calc
