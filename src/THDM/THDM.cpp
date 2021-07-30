@@ -24,62 +24,12 @@ namespace gm2calc {
 
 namespace {
 
-const double pi = 3.1415926535897932;
 const double sqrt2 = 1.4142135623730950; // Sqrt[2]
 
 /// Eq.(6) arxiv:0908.1554 and arxiv:1001.0293, solved for xi_f
 double calc_xi_bar(double zeta, double tan_beta) noexcept
 {
    return (tan_beta + zeta)/(1 - tan_beta*zeta);
-}
-
-/**
- * Calculates the MS-bar strong coupling alpha_s(Q=mt_pole) from
- * alpha_s(Q=mz) using the 1-loop QCD beta function (nf = 5).
- *
- * @note Taken from SOFTSUSY
- *
- * @param mt_pole top quark pole mass
- * @param alpha_s_at_mz strong coupling at Q = mz
- * @param mz Z boson pole mass
- *
- * @return alpha_s(mt_pole)
- */
-double calc_alpha_s_at_mt(double mt_pole, double alpha_s_at_mz, double mz) noexcept
-{
-   return alpha_s_at_mz /(1 - 23*alpha_s_at_mz/(6*pi)*std::log(mz/mt_pole));
-}
-
-/**
- * Calculates top quark MS-bar mass in the SM mt(MS-bar,Q=mt_pole)
- * from the top quark pole mass, using the 1-loop QCD contribution.
- *
- * @note Taken from SOFTSUSY
- *
- * @param mt_pole top quark pole mass
- * @param alpha_s_at_mt strong coupling at Q = mt_pole
- *
- * @return mt(MS-bar,Q=mt_pole)
- */
-double calc_mt_msbar(double mt_pole, double alpha_s_at_mt) noexcept
-{
-   return mt_pole/(1 + 4/(3*pi)*alpha_s_at_mt);
-}
-
-/**
- * Calculates top quark MS-bar mass in the SM mt(MS-bar,Q=mt_pole) at 1-loop
- *
- * @note Taken from SOFTSUSY
- *
- * @param mt_pole top quark pole mass
- * @param alpha_s_at_mz strong coupling at Q = mz
- * @param mz Z boson pole mass
- *
- * @return mt(MS-bar,Q=mt_pole)
- */
-double calc_mt_msbar(double mt_pole, double alpha_s_at_mz, double mz) noexcept
-{
-  return calc_mt_msbar(mt_pole, calc_alpha_s_at_mt(mt_pole, alpha_s_at_mz, mz));
 }
 
 } // anonymous namespace

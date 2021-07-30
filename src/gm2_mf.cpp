@@ -33,7 +33,7 @@
 
 namespace gm2calc {
 
-namespace mb {
+namespace mf {
 
 namespace {
    const double Pi = 3.14159265358979323846;
@@ -148,7 +148,40 @@ double conversion_mb_MSbar_to_DRbar(double alpha) {
    return 1. + as*(-1./3. - 29./72.*as);
 }
 
-} // namespace mb
+/**
+ * Calculates the MS-bar strong coupling alpha_s(Q=mt_pole) from
+ * alpha_s(Q=mz) using the 1-loop QCD beta function (nf = 5).
+ *
+ * @note Taken from SOFTSUSY
+ *
+ * @param mt_pole top quark pole mass
+ * @param alpha_s_at_mz strong coupling at Q = mz
+ * @param mz Z boson pole mass
+ *
+ * @return alpha_s(mt_pole)
+ */
+double calculate_alpha_s_SM_MSbar_at_mt(double mt_pole, double alpha_s_at_mz, double mz) noexcept
+{
+   return alpha_s_at_mz /(1 - 23*alpha_s_at_mz/(6*Pi)*std::log(mz/mt_pole));
+}
+
+/**
+ * Calculates top quark MS-bar mass in the SM mt(MS-bar,Q=mt_pole)
+ * from the top quark pole mass, using the 1-loop QCD contribution.
+ *
+ * @note Taken from SOFTSUSY
+ *
+ * @param mt_pole top quark pole mass
+ * @param alpha_s_at_mt strong coupling at Q = mt_pole
+ *
+ * @return mt(MS-bar,Q=mt_pole)
+ */
+double calculate_mt_SM6_MSbar(double mt_pole, double alpha_s_at_mt) noexcept
+{
+   return mt_pole/(1 + 4/(3*Pi)*alpha_s_at_mt);
+}
+
+} // namespace mf
 
 /**
  * Calculates mb(Q) in the DR-bar scheme in the SM w/ 5 active quark
@@ -164,19 +197,39 @@ double calculate_mb_SM5_DRbar(
    double mb_mb, double alpha_s, double scale)
 {
    // determine Lambda_QCD
-   const double lambda_qcd = mb::calculate_lambda_qcd(alpha_s, scale);
+   const double lambda_qcd = mf::calculate_lambda_qcd(alpha_s, scale);
 
    // calculate alpha_s(mb)
-   const double alpha_s_mb = mb::calculate_alpha_s_SM5_at(mb_mb, lambda_qcd);
+   const double alpha_s_mb = mf::calculate_alpha_s_SM5_at(mb_mb, lambda_qcd);
 
    // run mb to destination scale
    // Here alpha_s must be given at the destination scale `scale'.
-   const double mb = mb_mb * mb::Fb(alpha_s) / mb::Fb(alpha_s_mb);
+   const double mb = mb_mb * mf::Fb(alpha_s) / mf::Fb(alpha_s_mb);
 
    // DR-bar conversion
-   const double mb_DRbar = mb * mb::conversion_mb_MSbar_to_DRbar(alpha_s);
+   const double mb_DRbar = mb * mf::conversion_mb_MSbar_to_DRbar(alpha_s);
 
    return mb_DRbar;
+}
+
+/**
+ * Calculates top quark MS-bar mass in the SM with 6 flavours
+ * mt(MS-bar,Q=mt_pole) at 1-loop level, taking only QCD corrections
+ * into account.
+ *
+ * @note Taken from SOFTSUSY
+ *
+ * @param mt_pole top quark pole mass
+ * @param alpha_s_at_mz strong coupling at Q = mz
+ * @param mz Z boson pole mass
+ *
+ * @return mt(MS-bar,Q=mt_pole)
+ */
+double calculate_mt_SM6_MSbar(double mt_pole, double alpha_s_at_mz, double mz) noexcept
+{
+  return mf::calculate_mt_SM6_MSbar(
+     mt_pole,
+     mf::calculate_alpha_s_SM_MSbar_at_mt(mt_pole, alpha_s_at_mz, mz));
 }
 
 } // namespace gm2calc
