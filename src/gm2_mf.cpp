@@ -33,11 +33,11 @@
 
 namespace gm2calc {
 
-namespace mf {
-
 namespace {
    const double Pi = 3.14159265358979323846;
 } // anonymous namespace
+
+namespace mf {
 
 /**
  * Calculates the strong coupling constant \f$\alpha_s(Q)\f$ in the
@@ -172,13 +172,34 @@ double calculate_alpha_s_SM6_MSbar_at_mt(double mt_pole, double alpha_s_at_mz, d
  * @note Taken from SOFTSUSY
  *
  * @param mt_pole top quark pole mass
- * @param alpha_s_at_mt strong coupling at Q = mt_pole
+ * @param as strong coupling at Q = mt_pole
  *
  * @return mt(MS-bar,Q=mt_pole)
  */
-double calculate_mt_SM6_MSbar(double mt_pole, double alpha_s_at_mt) noexcept
+double calculate_mt_SM6_MSbar_at(double mt_pole, double as) noexcept
 {
-   return mt_pole/(1 + 4/(3*Pi)*alpha_s_at_mt);
+   return mt_pole/(1 + 4/(3*Pi)*as);
+}
+
+/**
+ * Calculates top quark MS-bar mass in the SM with 6 flavours
+ * mt(MS-bar,Q=mt_pole) at 1-loop level, taking only QCD corrections
+ * into account.
+ *
+ * @note Taken from SOFTSUSY
+ *
+ * @param mt_pole top quark pole mass
+ * @param alpha_s_at_mz strong coupling at Q = mz
+ * @param mz Z boson pole mass
+ *
+ * @return mt(MS-bar,Q=mt_pole)
+ */
+double calculate_mt_SM6_MSbar_at(double mt_pole, double alpha_s_at_mz, double mz) noexcept
+{
+   // alpha_s(SM(6), MS-bar, Q = mt_pole)
+   const double alpha_s_at_mt = mf::calculate_alpha_s_SM6_MSbar_at_mt(mt_pole, alpha_s_at_mz, mz);
+
+   return mf::calculate_mt_SM6_MSbar_at(mt_pole, alpha_s_at_mt);
 }
 
 } // namespace mf
@@ -213,24 +234,28 @@ double calculate_mb_SM5_DRbar(
 }
 
 /**
- * Calculates top quark MS-bar mass in the SM with 6 flavours
- * mt(MS-bar,Q=mt_pole) at 1-loop level, taking only QCD corrections
- * into account.
- *
- * @note Taken from SOFTSUSY
+ * Calculates the running top quark MS-bar mass mt(SM(6),Q) at the
+ * scale Q.
  *
  * @param mt_pole top quark pole mass
- * @param alpha_s_at_mz strong coupling at Q = mz
+ * @param alpha_s_at_mz strong coupling at the scale Q = mz
  * @param mz Z boson pole mass
+ * @param scale renormalization scale
  *
- * @return mt(MS-bar,Q=mt_pole)
+ * @return mt(SM(6),Q)
  */
-double calculate_mt_SM6_MSbar(double mt_pole, double alpha_s_at_mz, double mz) noexcept
+double calculate_mt_SM6_MSbar(double mt_pole, double alpha_s_at_mz, double mz, double scale) noexcept
 {
    // alpha_s(SM(6), MS-bar, Q = mt_pole)
    const double alpha_s_at_mt = mf::calculate_alpha_s_SM6_MSbar_at_mt(mt_pole, alpha_s_at_mz, mz);
 
-   return mf::calculate_mt_SM6_MSbar(mt_pole, alpha_s_at_mt);
+   // mt(SM(6), MS-bar, Q = mt_pole)
+   const double mt_at_mt = mf::calculate_mt_SM6_MSbar_at(mt_pole, alpha_s_at_mt);
+
+   // run from Q = mt_pole to Q = scale
+   const double mt_at_Q = mt_at_mt * std::pow(scale/mt_pole, -2*alpha_s_at_mt/Pi);
+
+   return mt_at_Q;
 }
 
 } // namespace gm2calc
