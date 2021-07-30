@@ -299,6 +299,10 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylHp() const
 
 void THDM::set_basis(const thdm::Gauge_basis& basis)
 {
+   if (basis.tan_beta <= 0) {
+      throw EInvalidInput("tan(beta) must be greater than zero.");
+   }
+
    set_lambda1(basis.lambda(0));
    set_lambda2(basis.lambda(1));
    set_lambda3(basis.lambda(2));
