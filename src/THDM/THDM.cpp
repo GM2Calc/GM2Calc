@@ -18,7 +18,10 @@
 
 #include "gm2calc/THDM.hpp"
 #include "gm2calc/gm2_error.hpp"
+#include "gm2_mf.hpp"
 #include "gm2_numerics.hpp"
+
+#include <cmath>
 
 namespace gm2calc {
 
@@ -59,7 +62,20 @@ THDM::THDM(const thdm::Mass_basis& basis, const SM& sm_)
 /// returns the up-type quark masses
 Eigen::Matrix<double,3,1> THDM::get_mu() const
 {
-   return sm.get_mu();
+   Eigen::Matrix<double,3,1> mu = sm.get_mu();
+
+   if (running_couplings) {
+      const double mt_pole = mu(2);
+      const double mH = get_Mhh(1);
+      const double mA = get_MAh(1);
+      const double mHp = get_MHm(1);
+      const double scale = std::cbrt(mH*mA*mHp);
+
+      // replace mt_pole by mt(SM(6), MS-bar, Q = scale)
+      mu(2) = calculate_mt_SM6_MSbar(mt_pole, sm.get_alpha_s_mz(), sm.get_mz(), scale);
+   }
+
+   return mu;
 }
 
 /// returns the down-type quark masses

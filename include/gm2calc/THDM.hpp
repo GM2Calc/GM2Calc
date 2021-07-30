@@ -154,6 +154,7 @@ private:
    double zeta_u{0.0}; ///< alignment parameter
    double zeta_d{0.0}; ///< alignment parameter
    double zeta_l{0.0}; ///< alignment parameter
+   bool running_couplings{false}; ///< use running couplings
 
    Eigen::Matrix<double,3,1> get_mu() const;
    Eigen::Matrix<double,3,1> get_md() const;
