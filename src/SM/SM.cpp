@@ -19,7 +19,7 @@
 #include "gm2calc/SM.hpp"
 #include "gm2calc/gm2_error.hpp"
 #include "gm2_numerics.hpp"
-#include "gm2_constants.h"
+#include "gm2_constants.hpp"
 #include <cmath>
 #include <complex>
 #include <iostream>
@@ -87,16 +87,16 @@ Eigen::Matrix<std::complex<double>,3,3> get_ckm_from_wolfenstein(
 } // anonymous namespace
 
 SM::SM()
-   : alpha_em_0(GM2CALC_ALPHA_EM_THOMPSON)
-   , alpha_em_mz(GM2CALC_ALPHA_EM_MZ)
-   , alpha_s_mz(GM2CALC_ALPHA_S_MZ)
-   , mh(GM2CALC_MH)
-   , mw(GM2CALC_MW)
-   , mz(GM2CALC_MZ)
-   , mu((Eigen::Matrix<double,3,1>() << GM2CALC_MU, GM2CALC_MC, GM2CALC_MT).finished())
-   , md((Eigen::Matrix<double,3,1>() << GM2CALC_MD, GM2CALC_MS, GM2CALC_MBMB).finished())
-   , ml((Eigen::Matrix<double,3,1>() << GM2CALC_ME, GM2CALC_MM, GM2CALC_ML).finished())
-   , ckm(get_ckm_from_angles(GM2CALC_CKM_THETA12, GM2CALC_CKM_THETA13, GM2CALC_CKM_THETA23, GM2CALC_CKM_DELTA))
+   : alpha_em_0(ALPHA_EM_THOMPSON)
+   , alpha_em_mz(ALPHA_EM_MZ)
+   , alpha_s_mz(ALPHA_S_MZ)
+   , mh(MH)
+   , mw(MW)
+   , mz(MZ)
+   , mu((Eigen::Matrix<double,3,1>() << MU, MC, MT).finished())
+   , md((Eigen::Matrix<double,3,1>() << MD, MS, MBMB).finished())
+   , ml((Eigen::Matrix<double,3,1>() << ME, MM, ML).finished())
+   , ckm(get_ckm_from_angles(CKM_THETA12, CKM_THETA13, CKM_THETA23, CKM_DELTA))
 {
 }
 

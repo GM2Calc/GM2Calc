@@ -20,7 +20,7 @@
 #include "gm2calc/gm2_error.hpp"
 
 #include "MSSMNoFV/gm2_1loop_helpers.hpp"
-#include "gm2_constants.h"
+#include "gm2_constants.hpp"
 #include "gm2_eigen_utils.hpp"
 #include "gm2_log.hpp"
 #include "gm2_mb.hpp"
@@ -42,12 +42,6 @@ namespace {
    const double Pi = 3.141592653589793;
    const double eps = std::numeric_limits<double>::epsilon();
    const double root2 = 1.414213562373095; // Sqrt[2]
-
-   /// fine-structure constant in the Thompson limit (Q = 0) from PDG (2019)
-   const double ALPHA_EM_THOMPSON = GM2CALC_ALPHA_EM_THOMPSON;
-
-   /// fine-structure constant at Q = MZ
-   const double ALPHA_EM_MZ = GM2CALC_ALPHA_EM_MZ;
 
    /// calculates gauge coupling from alpha
    double calculate_e(double alpha) {
@@ -133,14 +127,14 @@ MSSMNoFV_onshell::MSSMNoFV_onshell()
    : EL(calculate_e(ALPHA_EM_MZ))
    , EL0(calculate_e(ALPHA_EM_THOMPSON))
 {
-   set_g3(calculate_e(GM2CALC_ALPHA_S_MZ));
-   get_physical().MFt = GM2CALC_MT;
-   get_physical().MFb = GM2CALC_MBMB;
-   get_physical().MFe = GM2CALC_ME;
-   get_physical().MFm  = GM2CALC_MM;
-   get_physical().MFtau = GM2CALC_ML;
-   get_physical().MVWm = GM2CALC_MW;
-   get_physical().MVZ  = GM2CALC_MZ;
+   set_g3(calculate_e(ALPHA_S_MZ));
+   get_physical().MFt = MT;
+   get_physical().MFb = MBMB;
+   get_physical().MFe = ME;
+   get_physical().MFm  = MM;
+   get_physical().MFtau = ML;
+   get_physical().MVWm = MW;
+   get_physical().MVZ  = MZ;
    set_scale(get_physical().MVZ);
 }
 
