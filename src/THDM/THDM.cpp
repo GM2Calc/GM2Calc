@@ -34,7 +34,8 @@ double calc_xi_bar(double zeta, double tan_beta) noexcept
 }
 
 /**
- * Calculates strong coupling alpha_s(mt_pole) using 1-loop QCD corrections
+ * Calculates the MS-bar strong coupling alpha_s(Q=mt_pole) from
+ * alpha_s(Q=mz) using the 1-loop QCD beta function (nf = 5).
  *
  * @note Taken from SOFTSUSY
  *
@@ -50,7 +51,8 @@ double calc_alpha_s_at_mt(double mt_pole, double alpha_s_at_mz, double mz) noexc
 }
 
 /**
- * Calculates top quark MS-bar mass in the SM mt(MS-bar,Q=mt_pole) at 1-loop
+ * Calculates top quark MS-bar mass in the SM mt(MS-bar,Q=mt_pole)
+ * from the top quark pole mass, using the 1-loop QCD contribution.
  *
  * @note Taken from SOFTSUSY
  *
