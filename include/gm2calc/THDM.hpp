@@ -155,6 +155,9 @@ private:
    double zeta_d{0.0}; ///< alignment parameter
    double zeta_l{0.0}; ///< alignment parameter
 
+   Eigen::Matrix<double,3,1> get_mu() const;
+   Eigen::Matrix<double,3,1> get_md() const;
+   Eigen::Matrix<double,3,1> get_ml() const;
    void init_gauge_couplings();
    void init_yukawas();
    void set_basis(const thdm::Gauge_basis&);

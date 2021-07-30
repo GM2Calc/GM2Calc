@@ -56,6 +56,24 @@ THDM::THDM(const thdm::Mass_basis& basis, const SM& sm_)
    set_basis(basis);
 }
 
+/// returns the up-type quark masses
+Eigen::Matrix<double,3,1> THDM::get_mu() const
+{
+   return sm.get_mu();
+}
+
+/// returns the down-type quark masses
+Eigen::Matrix<double,3,1> THDM::get_md() const
+{
+   return sm.get_md();
+}
+
+/// returns the charged lepton masses
+Eigen::Matrix<double,3,1> THDM::get_ml() const
+{
+   return sm.get_ml();
+}
+
 void THDM::init_gauge_couplings()
 {
    set_alpha_em_and_cw(sm.get_alpha_em_mz(), sm.get_cw());
@@ -66,9 +84,9 @@ void THDM::init_gauge_couplings()
  */
 void THDM::init_yukawas()
 {
-   const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
-   const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
-   const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
+   const Eigen::Matrix<double,3,3> mu = get_mu().asDiagonal();
+   const Eigen::Matrix<double,3,3> md = get_md().asDiagonal();
+   const Eigen::Matrix<double,3,3> ml = get_ml().asDiagonal();
 
    switch (yukawa_type) {
    case thdm::Yukawa_type::type_1:
@@ -172,7 +190,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_u() const
 {
    const double cb = get_cos_beta();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
+   const Eigen::Matrix<double,3,3> mu = get_mu().asDiagonal();
 
    if (yukawa_type != thdm::Yukawa_type::general) {
       return sqrt2*mu*get_zeta_u()/v;
@@ -185,7 +203,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_d() const
 {
    const double cb = get_cos_beta();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
+   const Eigen::Matrix<double,3,3> md = get_md().asDiagonal();
 
    if (yukawa_type != thdm::Yukawa_type::general) {
       return sqrt2*md*get_zeta_d()/v;
@@ -198,7 +216,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_l() const
 {
    const double cb = get_cos_beta();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
+   const Eigen::Matrix<double,3,3> ml = get_ml().asDiagonal();
 
    if (yukawa_type != thdm::Yukawa_type::general) {
       return sqrt2*ml*get_zeta_l()/v;
@@ -212,7 +230,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuh() const
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
+   const Eigen::Matrix<double,3,3> mu = get_mu().asDiagonal();
 
    return sba*mu/v + cba*get_xi_u()/sqrt2;
 }
@@ -222,7 +240,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuH() const
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
+   const Eigen::Matrix<double,3,3> mu = get_mu().asDiagonal();
 
    return cba*mu/v - sba*get_xi_u()/sqrt2;
 }
@@ -242,7 +260,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ydh() const
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
+   const Eigen::Matrix<double,3,3> md = get_md().asDiagonal();
 
    return sba*md/v + cba*get_xi_d()/sqrt2;
 }
@@ -252,7 +270,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ydH() const
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
+   const Eigen::Matrix<double,3,3> md = get_md().asDiagonal();
 
    return cba*md/v - sba*get_xi_d()/sqrt2;
 }
@@ -272,7 +290,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylh() const
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
+   const Eigen::Matrix<double,3,3> ml = get_ml().asDiagonal();
 
    return sba*ml/v + cba*get_xi_l()/sqrt2;
 }
@@ -282,7 +300,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylH() const
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
+   const Eigen::Matrix<double,3,3> ml = get_ml().asDiagonal();
 
    return cba*ml/v - sba*get_xi_l()/sqrt2;
 }
