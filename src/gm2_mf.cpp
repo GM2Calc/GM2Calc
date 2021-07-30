@@ -274,7 +274,7 @@ double calculate_mb_SM6_MSbar(double mb_mb, double mt_pole, double alpha_s_at_mz
    const double mb_mt = mb_mb * mf::Fb(alpha_s_mt) / mf::Fb(alpha_s_mb);
 
    // run mb(mt) to Q = scale
-   const double mb_scale = mb_mt; // @todo(alex)
+   const double mb_scale = mb_mt * std::pow(scale/mb_mt, -2*alpha_s_mt/Pi);
 
    return mb_scale;
 }
