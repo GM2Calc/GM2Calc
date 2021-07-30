@@ -160,7 +160,7 @@ double conversion_mb_MSbar_to_DRbar(double alpha) {
  *
  * @return alpha_s(mt_pole)
  */
-double calculate_alpha_s_SM_MSbar_at_mt(double mt_pole, double alpha_s_at_mz, double mz) noexcept
+double calculate_alpha_s_SM6_MSbar_at_mt(double mt_pole, double alpha_s_at_mz, double mz) noexcept
 {
    return alpha_s_at_mz /(1 - 23*alpha_s_at_mz/(6*Pi)*std::log(mz/mt_pole));
 }
@@ -227,9 +227,10 @@ double calculate_mb_SM5_DRbar(
  */
 double calculate_mt_SM6_MSbar(double mt_pole, double alpha_s_at_mz, double mz) noexcept
 {
-  return mf::calculate_mt_SM6_MSbar(
-     mt_pole,
-     mf::calculate_alpha_s_SM_MSbar_at_mt(mt_pole, alpha_s_at_mz, mz));
+   // alpha_s(SM(6), MS-bar, Q = mt_pole)
+   const double alpha_s_at_mt = mf::calculate_alpha_s_SM6_MSbar_at_mt(mt_pole, alpha_s_at_mz, mz);
+
+   return mf::calculate_mt_SM6_MSbar(mt_pole, alpha_s_at_mt);
 }
 
 } // namespace gm2calc
