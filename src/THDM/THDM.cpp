@@ -496,6 +496,23 @@ std::ostream& operator<<(std::ostream& ostr, const THDM& model)
    ostr << "zeta_d = " << model.get_zeta_d() << '\n';
    ostr << "zeta_l = " << model.get_zeta_l() << '\n';
 
+   ostr << "xi_u = " << model.get_xi_u() << '\n';
+   ostr << "xi_d = " << model.get_xi_d() << '\n';
+   ostr << "xi_l = " << model.get_xi_l() << '\n';
+
+   ostr << "yuh =\n"  << model.get_yuh()  << '\n';
+   ostr << "yuH =\n"  << model.get_yuH()  << '\n';
+   ostr << "yuA =\n"  << model.get_yuA()  << '\n';
+   ostr << "yuHp =\n" << model.get_yuHp() << '\n';
+   ostr << "ydh =\n"  << model.get_ydh()  << '\n';
+   ostr << "ydH =\n"  << model.get_ydH()  << '\n';
+   ostr << "ydA =\n"  << model.get_ydA()  << '\n';
+   ostr << "ydHp =\n" << model.get_ydHp() << '\n';
+   ostr << "ylh =\n"  << model.get_ylh()  << '\n';
+   ostr << "ylH =\n"  << model.get_ylH()  << '\n';
+   ostr << "ylA =\n"  << model.get_ylA()  << '\n';
+   ostr << "ylHp =\n" << model.get_ylHp() << '\n';
+
    ostr << model.get_sm();
 
    return ostr;
