@@ -255,6 +255,9 @@ double calculate_mt_SM6_MSbar(double mt_pole, double alpha_s_mz, double mz, doub
    // run from Q = mt_pole to Q = scale
    const double mt_scale = mt_mt * std::pow(scale/mt_pole, -2*alpha_s_mt/Pi);
 
+   // Note: QCD beta function of the quark mass parameter:
+   // dm/d(log(Q)) = -2*alpha_s*m/Pi
+
    return mt_scale;
 }
 
