@@ -43,11 +43,11 @@ void THDM_parameters::print(std::ostream& ostr) const
    ostr << "Xu =\n" << Xu << '\n';
    ostr << "Xd =\n" << Xd << '\n';
    ostr << "Xl =\n" << Xl << '\n';
-   ostr << "m122 = " << m122 << '\n';
-   ostr << "m112 = " << m112 << '\n';
-   ostr << "m222 = " << m222 << '\n';
-   ostr << "v1 = " << v1 << '\n';
-   ostr << "v2 = " << v2 << '\n';
+   ostr << "m122 = " << m122 << " GeV^2\n";
+   ostr << "m112 = " << m112 << " GeV^2\n";
+   ostr << "m222 = " << m222 << " GeV^2\n";
+   ostr << "v1 = " << v1 << " GeV\n";
+   ostr << "v2 = " << v2 << " GeV\n";
 }
 
 std::ostream& operator<<(std::ostream& ostr, const THDM_parameters& pars)

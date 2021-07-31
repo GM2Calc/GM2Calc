@@ -496,6 +496,8 @@ std::ostream& operator<<(std::ostream& ostr, const THDM& model)
    ostr << "zeta_d = " << model.get_zeta_d() << '\n';
    ostr << "zeta_l = " << model.get_zeta_l() << '\n';
 
+   ostr << model.get_sm();
+
    return ostr;
 }
 

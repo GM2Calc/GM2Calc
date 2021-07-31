@@ -154,8 +154,9 @@ void SM::set_ckm_from_angles(
 
 std::ostream& operator<<(std::ostream& ostr, const SM& sm)
 {
-   ostr << "SM\n"
-        << "==\n"
+   ostr << "========================================\n"
+           " SM\n"
+           "========================================\n"
         << "alpha_em(MZ) = " << sm.get_alpha_em_mz() << '\n'
         << "alpha_em(0) = " << sm.get_alpha_em_0() << '\n'
         << "alpha_s(MZ) = " << sm.get_alpha_s_mz() << '\n'
@@ -166,9 +167,9 @@ std::ostream& operator<<(std::ostream& ostr, const SM& sm)
         << "md = {" << sm.get_md(0) << ", " << sm.get_md(1) << ", " << sm.get_md(2) << "} GeV\n"
         << "mv = {" << sm.get_mv(0) << ", " << sm.get_mv(1) << ", " << sm.get_mv(2) << "} GeV\n"
         << "ml = {" << sm.get_ml(0) << ", " << sm.get_ml(1) << ", " << sm.get_ml(2) << "} GeV\n"
-        << "CKM = {{" << sm.get_ckm(0,0) << ", " << sm.get_ckm(0,1) << ", " << sm.get_ckm(0,2) << "},"
-                  "{" << sm.get_ckm(1,0) << ", " << sm.get_ckm(1,1) << ", " << sm.get_ckm(1,2) << "},"
-                  "{" << sm.get_ckm(2,0) << ", " << sm.get_ckm(2,1) << ", " << sm.get_ckm(2,2) << "}}\n"
+        << "CKM = {{" << sm.get_ckm(0,0) << ", " << sm.get_ckm(0,1) << ", " << sm.get_ckm(0,2) << "},\n"
+           "       {" << sm.get_ckm(1,0) << ", " << sm.get_ckm(1,1) << ", " << sm.get_ckm(1,2) << "},\n"
+           "       {" << sm.get_ckm(2,0) << ", " << sm.get_ckm(2,1) << ", " << sm.get_ckm(2,2) << "}}\n"
         ;
    return ostr;
 }

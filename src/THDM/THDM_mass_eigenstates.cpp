@@ -105,15 +105,15 @@ void CLASSNAME::print(std::ostream& ostr) const
    ostr << "----------------------------------------\n"
            "Masses:\n"
            "----------------------------------------\n";
-   ostr << "Mhh = " << Mhh.transpose() << '\n';
-   ostr << "MAh = " << MAh.transpose() << '\n';
-   ostr << "MHm = " << MHm.transpose() << '\n';
-   ostr << "MFu = " << MFu.transpose() << '\n';
-   ostr << "MFd = " << MFd.transpose() << '\n';
-   ostr << "MFv = " << MFv.transpose() << '\n';
-   ostr << "MFe = " << MFe.transpose() << '\n';
-   ostr << "MVWm = " << MVWm << '\n';
-   ostr << "MVZ = " << MVZ << '\n';
+   ostr << "Mhh = {" << Mhh(0) << ", " << Mhh(1) << "} GeV\n";
+   ostr << "MAh = {" << MAh(0) << ", " << MAh(1) << "} GeV\n";
+   ostr << "MHm = {" << MHm(0) << ", " << MHm(1) << "} GeV\n";
+   ostr << "MFu = {" << MFu(0) << ", " << MFu(1) << ", " << MFu(2) << "} GeV\n";
+   ostr << "MFd = {" << MFd(0) << ", " << MFd(1) << ", " << MFd(2) << "} GeV\n";
+   ostr << "MFv = {" << MFv(0) << ", " << MFv(1) << ", " << MFv(2) << "} GeV\n";
+   ostr << "MFe = {" << MFe(0) << ", " << MFe(1) << ", " << MFe(2) << "} GeV\n";
+   ostr << "MVWm = " << MVWm << " GeV\n";
+   ostr << "MVZ = " << MVZ << " GeV\n";
 
    ostr << "----------------------------------------\n"
            "Mixing matrices:\n"
@@ -131,7 +131,7 @@ void CLASSNAME::print(std::ostream& ostr) const
    ostr << "----------------------------------------\n"
            "Derived parameters:\n"
            "----------------------------------------\n";
-   ostr << "v = " << get_v() << '\n';
+   ostr << "v = " << get_v() << " GeV\n";
    ostr << "theta_w = " << ThetaW() << '\n';
    ostr << "alpha_h = " << get_alpha_h() << '\n';
    ostr << "beta = " << get_beta() << '\n';
