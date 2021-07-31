@@ -61,3 +61,54 @@ TEST_CASE("mb_beta_function")
 
    CHECK_CLOSE(beta, -2*alpha_s_mz/pi, 1e-4);
 }
+
+
+// This test checks the calculation of mt(MS-bar,Q=mt)
+TEST_CASE("mt_MSbar_at_mt")
+{
+   const double alpha_s_mz = 0.1184;
+   const double mz = 91.1876;
+   const double mt_pole = 173.34;
+   const double scale = mt_pole; // run only to mt_pole
+
+   const auto mt_mt = gm2calc::calculate_mt_SM6_MSbar(mt_pole, alpha_s_mz, mz, scale);
+
+   // obtained with FlexibleSUSY 2.6, using 1-loop running
+   const auto mt_mt_expected = 1.64464650E+02;
+
+   CHECK_CLOSE(mt_mt, mt_mt_expected, 0.01);
+}
+
+
+// This test checks the calculation of mt(MS-bar,Q=mt)
+TEST_CASE("mt_MSbar_at_1TeV")
+{
+   const double alpha_s_mz = 0.1184;
+   const double mz = 91.1876;
+   const double mt_pole = 173.34;
+   const double scale = 1000;
+
+   const auto mt = gm2calc::calculate_mt_SM6_MSbar(mt_pole, alpha_s_mz, mz, scale);
+
+   // obtained with FlexibleSUSY 2.6, using 1-loop running
+   const auto mt_expected = 1.49828567E+02;
+
+   CHECK_CLOSE(mt, mt_expected, 0.02);
+}
+
+
+// This test checks the calculation of mt(MS-bar,Q=mt)
+TEST_CASE("mtau_MSbar_at_1TeV")
+{
+   const double alpha_em_mz = 1/127.934;
+   const double mz = 91.1876;
+   const double mtau_pole = 1.777;
+   const double scale = 1000;
+
+   const auto mtau = gm2calc::calculate_mtau_SM6_MSbar(mtau_pole, alpha_em_mz, mz, scale);
+
+   // obtained with FlexibleSUSY 2.6, using 1-loop running
+   const auto mtau_expected = 1.75137065E+00;
+
+   CHECK_CLOSE(mtau, mtau_expected, 0.01);
+}
