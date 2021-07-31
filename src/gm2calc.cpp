@@ -324,7 +324,8 @@ struct GM2Calc_reader {
  */
 
 struct THDM_reader {
-   gm2calc::THDM operator()(const gm2calc::GM2_slha_io& slha_io)
+   gm2calc::THDM operator()(const gm2calc::GM2_slha_io& slha_io,
+                            const gm2calc::Config_options& options)
    {
       gm2calc::SM sm;
       gm2calc::thdm::Mass_basis mass_basis;
@@ -333,20 +334,23 @@ struct THDM_reader {
       slha_io.fill(mass_basis);
       slha_io.fill(gauge_basis);
 
+      gm2calc::thdm::Config thdm_config;
+      thdm_config.running_couplings = options.running_couplings;
+
       if ((mass_basis.mh != 0 || mass_basis.mH != 0 ||
            mass_basis.mA != 0 || mass_basis.mHp !=0 ||
            mass_basis.sin_beta_minus_alpha != 0) &&
           (gauge_basis.lambda(0) == 0 && gauge_basis.lambda(1) == 0 &&
            gauge_basis.lambda(2) == 0 && gauge_basis.lambda(3) == 0 &&
            gauge_basis.lambda(4) == 0)) {
-         return gm2calc::THDM(mass_basis, sm);
+         return gm2calc::THDM(mass_basis, sm, thdm_config);
       } else if ((mass_basis.mh == 0 || mass_basis.mH == 0 ||
                   mass_basis.mA == 0 || mass_basis.mHp ==0 ||
                   mass_basis.sin_beta_minus_alpha == 0) &&
                  (gauge_basis.lambda(0) != 0 && gauge_basis.lambda(1) != 0 &&
                   gauge_basis.lambda(2) != 0 && gauge_basis.lambda(3) != 0 &&
                   gauge_basis.lambda(4) != 0)) {
-         return gm2calc::THDM(gauge_basis, sm);
+         return gm2calc::THDM(gauge_basis, sm, thdm_config);
       } else {
          throw gm2calc::EInvalidInput("Contradictory input: mass and gauge basis parameters are set.");
       }
@@ -714,7 +718,7 @@ public:
          throw gm2calc::ESetupError("No writer set");
       }
 
-      gm2calc::THDM model = reader(slha_io);
+      gm2calc::THDM model = reader(slha_io, options);
 
       if (options.verbose_output) {
          VERBOSE(model);
