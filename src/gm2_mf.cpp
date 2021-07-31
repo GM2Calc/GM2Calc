@@ -21,23 +21,20 @@
 #include "gm2_numerics.hpp"
 
 #include <cmath>
-#include <iostream>
 #include <boost/math/tools/roots.hpp>
 
 /**
- * \file gm2_mb.cpp
+ * \file gm2_mf.cpp
  *
- * Contains functions necessary to calculate the mb(Q) in the DR-bar
- * scheme.
+ * Contains functions necessary to calculate the running fermion masse
+ * in the MS-bar and DR-bar scheme.
  */
 
 namespace gm2calc {
 
 namespace {
-   const double Pi = 3.14159265358979323846;
-} // anonymous namespace
 
-namespace mf {
+const double pi = 3.14159265358979323846;
 
 /**
  * Calculates the strong coupling constant \f$\alpha_s(Q)\f$ in the
@@ -49,13 +46,14 @@ namespace mf {
  *
  * @return \f$\alpha_s(Q)\f$ MS-bar in the SM w/ 5 active flavours
  */
-double calculate_alpha_s_SM5_at(double scale, double lambda_qcd) {
+double calculate_alpha_s_SM5_at(double scale, double lambda_qcd) noexcept
+{
    const double t = std::log(sqr(scale/lambda_qcd));
    const double logt = std::log(t);
 
-   return 12.*Pi/(23.*t) * (
-      1. - 348./529. * logt/t
-      + sqr(348./529.)/sqr(t) * (sqr(logt - 0.5) - 78073./242208.)
+   return 12.*pi/(23*t) * (
+      1 - 348./529 * logt/t
+      + sqr(348./529)/sqr(t) * (sqr(logt - 0.5) - 78073./242208)
       );
 }
 
@@ -79,7 +77,7 @@ double calculate_lambda_qcd(double alpha, double scale,
                             double lambda_qcd_min = 0.001,
                             double lambda_qcd_max = 10.,
                             double precision_goal = 1e-10,
-                            unsigned max_iterations = 1000)
+                            unsigned max_iterations = 1000) noexcept
 {
    boost::uintmax_t it = max_iterations;
 
@@ -131,8 +129,9 @@ double calculate_lambda_qcd(double alpha, double scale,
  *
  * @return \f$F_b(\mu)\f$, Eq (5) of arxiv:hep-ph/0207126
  */
-double Fb(double alpha) {
-   const double as = alpha / Pi;
+double Fb(double alpha) noexcept
+{
+   const double as = alpha / pi;
 
    return std::pow(23.*as/6, 12./23) * (
       1 + as*(3731./3174 + 1.500706*as)
@@ -146,10 +145,11 @@ double Fb(double alpha) {
  *
  * @return MS-bar to DR-bar conversion factor Eq (11)
  */
-double conversion_mb_MSbar_to_DRbar(double alpha) {
-   const double as = alpha / Pi;
+double conversion_mb_MSbar_to_DRbar(double alpha) noexcept
+{
+   const double as = alpha / pi;
 
-   return 1. + as*(-1./3. - 29./72.*as);
+   return 1 + as*(-1./3 - 29./72*as);
 }
 
 /**
@@ -164,9 +164,10 @@ double conversion_mb_MSbar_to_DRbar(double alpha) {
  *
  * @return alpha_s(mt_pole)
  */
-double calculate_alpha_s_SM6_MSbar_at_mt(double mt_pole, double alpha_s_mz, double mz) noexcept
+double calculate_alpha_s_SM6_MSbar_at_mt(
+   double mt_pole, double alpha_s_mz, double mz) noexcept
 {
-   return alpha_s_mz /(1 - 23*alpha_s_mz/(6*Pi)*std::log(mz/mt_pole));
+   return alpha_s_mz /(1 - 23*alpha_s_mz/(6*pi)*std::log(mz/mt_pole));
 }
 
 /**
@@ -182,31 +183,10 @@ double calculate_alpha_s_SM6_MSbar_at_mt(double mt_pole, double alpha_s_mz, doub
  */
 double calculate_mt_SM6_MSbar_at(double mt_pole, double as) noexcept
 {
-   return mt_pole/(1 + 4/(3*Pi)*as);
+   return mt_pole/(1 + 4/(3*pi)*as);
 }
 
-/**
- * Calculates top quark MS-bar mass in the SM with 6 flavours
- * mt(MS-bar,Q=mt_pole) at 1-loop level, taking only QCD corrections
- * into account.
- *
- * @note Taken from SOFTSUSY
- *
- * @param mt_pole top quark pole mass
- * @param alpha_s_mz strong coupling at Q = mz
- * @param mz Z boson pole mass
- *
- * @return mt(MS-bar,Q=mt_pole)
- */
-double calculate_mt_SM6_MSbar_at(double mt_pole, double alpha_s_mz, double mz) noexcept
-{
-   // alpha_s(SM(6), MS-bar, Q = mt_pole)
-   const double alpha_s_mt = mf::calculate_alpha_s_SM6_MSbar_at_mt(mt_pole, alpha_s_mz, mz);
-
-   return mf::calculate_mt_SM6_MSbar_at(mt_pole, alpha_s_mt);
-}
-
-} // namespace mf
+} // anonymous namespace
 
 /**
  * Calculates mb(Q) in the DR-bar scheme in the SM w/ 5 active quark
@@ -222,17 +202,17 @@ double calculate_mb_SM5_DRbar(
    double mb_mb, double alpha_s, double scale)
 {
    // determine Lambda_QCD
-   const double lambda_qcd = mf::calculate_lambda_qcd(alpha_s, scale);
+   const double lambda_qcd = calculate_lambda_qcd(alpha_s, scale);
 
    // calculate alpha_s(mb)
-   const double alpha_s_mb = mf::calculate_alpha_s_SM5_at(mb_mb, lambda_qcd);
+   const double alpha_s_mb = calculate_alpha_s_SM5_at(mb_mb, lambda_qcd);
 
    // run mb to destination scale
    // Here alpha_s must be given at the destination scale `scale'.
-   const double mb = mb_mb * mf::Fb(alpha_s) / mf::Fb(alpha_s_mb);
+   const double mb = mb_mb * Fb(alpha_s) / Fb(alpha_s_mb);
 
    // DR-bar conversion
-   const double mb_DRbar = mb * mf::conversion_mb_MSbar_to_DRbar(alpha_s);
+   const double mb_DRbar = mb * conversion_mb_MSbar_to_DRbar(alpha_s);
 
    return mb_DRbar;
 }
@@ -246,21 +226,22 @@ double calculate_mb_SM5_DRbar(
  * @param mz Z boson pole mass
  * @param scale renormalization scale
  *
- * @return mt(SM(6),Q)
+ * @return mt(SM(6),MS-bar,Q)
  */
-double calculate_mt_SM6_MSbar(double mt_pole, double alpha_s_mz, double mz, double scale) noexcept
+double calculate_mt_SM6_MSbar(
+   double mt_pole, double alpha_s_mz, double mz, double scale) noexcept
 {
    // alpha_s(SM(6), MS-bar, Q = mt_pole)
-   const double alpha_s_mt = mf::calculate_alpha_s_SM6_MSbar_at_mt(mt_pole, alpha_s_mz, mz);
+   const double alpha_s_mt = calculate_alpha_s_SM6_MSbar_at_mt(mt_pole, alpha_s_mz, mz);
 
    // mt(SM(6), MS-bar, Q = mt_pole)
-   const double mt_mt = mf::calculate_mt_SM6_MSbar_at(mt_pole, alpha_s_mt);
+   const double mt_mt = calculate_mt_SM6_MSbar_at(mt_pole, alpha_s_mt);
 
    // run from Q = mt_pole to Q = scale
-   const double mt_scale = mt_mt * std::pow(scale/mt_pole, -2*alpha_s_mt/Pi);
+   const double mt_scale = mt_mt * std::pow(scale/mt_pole, -2*alpha_s_mt/pi);
 
    // Note: QCD beta function of the quark mass parameter:
-   // dm/d(log(Q)) = -2*alpha_s*m/Pi
+   // dm/d(log(Q)) = -2*alpha_s*m/pi
 
    return mt_scale;
 }
@@ -277,22 +258,23 @@ double calculate_mt_SM6_MSbar(double mt_pole, double alpha_s_mz, double mz, doub
  *
  * @return mb(MS-bar,SM(6),Q)
  */
-double calculate_mb_SM6_MSbar(double mb_mb, double mt_pole, double alpha_s_mz, double mz, double scale) noexcept
+double calculate_mb_SM6_MSbar(
+   double mb_mb, double mt_pole, double alpha_s_mz, double mz, double scale) noexcept
 {
    // determine Lambda_QCD
-   const double lambda_qcd = mf::calculate_lambda_qcd(alpha_s_mz, mz);
+   const double lambda_qcd = calculate_lambda_qcd(alpha_s_mz, mz);
 
    // calculate alpha_s(mb)
-   const double alpha_s_mb = mf::calculate_alpha_s_SM5_at(mb_mb, lambda_qcd);
+   const double alpha_s_mb = calculate_alpha_s_SM5_at(mb_mb, lambda_qcd);
 
    // calculate alpha_s(mt)
-   const double alpha_s_mt = mf::calculate_alpha_s_SM5_at(mt_pole, lambda_qcd);
+   const double alpha_s_mt = calculate_alpha_s_SM5_at(mt_pole, lambda_qcd);
 
    // run mb(mb) to Q = mt_pole
-   const double mb_mt = mb_mb * mf::Fb(alpha_s_mt) / mf::Fb(alpha_s_mb);
+   const double mb_mt = mb_mb * Fb(alpha_s_mt) / Fb(alpha_s_mb);
 
    // run mb(mt) to Q = scale
-   const double mb_scale = mb_mt * std::pow(scale/mt_pole, -2*alpha_s_mt/Pi);
+   const double mb_scale = mb_mt * std::pow(scale/mt_pole, -2*alpha_s_mt/pi);
 
    return mb_scale;
 }
@@ -308,16 +290,17 @@ double calculate_mb_SM6_MSbar(double mb_mb, double mt_pole, double alpha_s_mz, d
  *
  * @return mtau(MS-bar,SM(6),Q)
  */
-double calculate_mtau_SM6_MSbar(double mtau_pole, double alpha_em_mz, double /* mz */, double scale) noexcept
+double calculate_mtau_SM6_MSbar(
+   double mtau_pole, double alpha_em_mz, double /* mz */, double scale) noexcept
 {
    // calculate mtau(mtau)
    const double mtau_mtau = mtau_pole; // neglecting loop corrections
 
    // Note: QED beta function of the lepton mass parameter:
-   // dm/d(log(Q)) = -3*alpha_em*m/(2*Pi)
+   // dm/d(log(Q)) = -3*alpha_em*m/(2*pi)
 
    // run mtau(mtau) to Q = scale
-   const double mtau_scale = mtau_mtau * std::pow(scale/mtau_mtau, -3*alpha_em_mz/(2*Pi));
+   const double mtau_scale = mtau_mtau * std::pow(scale/mtau_mtau, -3*alpha_em_mz/(2*pi));
 
    return mtau_scale;
 }
