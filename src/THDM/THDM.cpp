@@ -37,23 +37,25 @@ double calc_xi_bar(double zeta, double tan_beta) noexcept
 
 } // anonymous namespace
 
-THDM::THDM(const thdm::Gauge_basis& basis, const SM& sm_)
+THDM::THDM(const thdm::Gauge_basis& basis, const SM& sm_, const thdm::Config& cfg)
    : sm(sm_)
    , yukawa_type(basis.yukawa_type)
    , zeta_u(basis.zeta_u)
    , zeta_d(basis.zeta_d)
    , zeta_l(basis.zeta_l)
+   , config(cfg)
 {
    init_gauge_couplings();
    set_basis(basis);
 }
 
-THDM::THDM(const thdm::Mass_basis& basis, const SM& sm_)
+THDM::THDM(const thdm::Mass_basis& basis, const SM& sm_, const thdm::Config& cfg)
    : sm(sm_)
    , yukawa_type(basis.yukawa_type)
    , zeta_u(basis.zeta_u)
    , zeta_d(basis.zeta_d)
    , zeta_l(basis.zeta_l)
+   , config(cfg)
 {
    init_gauge_couplings();
    set_basis(basis);
@@ -72,7 +74,7 @@ Eigen::Matrix<double,3,1> THDM::get_mu() const
 {
    Eigen::Matrix<double,3,1> mu = sm.get_mu();
 
-   if (running_couplings) {
+   if (config.running_couplings) {
       const double mt_pole = mu(2);
       const double scale = higgs_scale();
       // replace mt_pole by mt(SM(6), MS-bar, Q = scale)
@@ -87,7 +89,7 @@ Eigen::Matrix<double,3,1> THDM::get_md() const
 {
    Eigen::Matrix<double,3,1> md = sm.get_md();
 
-   if (running_couplings) {
+   if (config.running_couplings) {
       const double mb_mb = md(2);
       const double mt_pole = sm.get_mu(2);
       const double scale = higgs_scale();
@@ -103,7 +105,7 @@ Eigen::Matrix<double,3,1> THDM::get_ml() const
 {
    Eigen::Matrix<double,3,1> ml = sm.get_ml();
 
-   if (running_couplings) {
+   if (config.running_couplings) {
       const double mtau_pole = ml(2);
       const double scale = higgs_scale();
       // replace mtau_pole by mtau(SM(6), MS-bar, Q = scale)

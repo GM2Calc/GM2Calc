@@ -30,6 +30,14 @@ namespace gm2calc {
 
 namespace thdm {
 
+/**
+ * @class Config
+ * @brief Configuration options for the THDM
+ */
+struct Config {
+   bool running_couplings{false}; ///< use running couplings
+};
+
 enum class Yukawa_type : int {
    general = 0, type_1, type_2, type_X, type_Y, aligned
 };
@@ -74,8 +82,8 @@ struct Mass_basis {
  */
 class THDM : private THDM_mass_eigenstates {
 public:
-   THDM(const thdm::Gauge_basis&, const SM& sm_ = SM{});
-   THDM(const thdm::Mass_basis&, const SM& sm_ = SM{});
+   THDM(const thdm::Gauge_basis&, const SM& sm_ = SM{}, const thdm::Config& cfg = thdm::Config{});
+   THDM(const thdm::Mass_basis&, const SM& sm_ = SM{}, const thdm::Config& cfg = thdm::Config{});
 
    double get_zeta_u() const;
    double get_zeta_d() const;
@@ -154,7 +162,7 @@ private:
    double zeta_u{0.0}; ///< alignment parameter
    double zeta_d{0.0}; ///< alignment parameter
    double zeta_l{0.0}; ///< alignment parameter
-   bool running_couplings{false}; ///< use running couplings
+   thdm::Config config{}; ///< configuration options
 
    double higgs_scale() const;
    Eigen::Matrix<double,3,1> get_mu() const;
