@@ -134,8 +134,8 @@ double calculate_lambda_qcd(double alpha, double scale,
 double Fb(double alpha) {
    const double as = alpha / Pi;
 
-   return std::pow(23.*as/6., 12./23.) * (
-      1. + as*(3731./3174. + 1.500706*as)
+   return std::pow(23.*as/6, 12./23) * (
+      1 + as*(3731./3174 + 1.500706*as)
       );
 }
 
