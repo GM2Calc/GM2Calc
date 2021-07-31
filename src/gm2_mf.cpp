@@ -125,6 +125,10 @@ double calculate_lambda_qcd(double alpha, double scale,
  *
  * @param alpha strong coupling constant at the scale \f$\mu\f$
  *
+ * @note Eq (5) of arxiv:hep-ph/0207126 assumes 5 active quark
+ * flavours (nf = 5).  For this reason this function can only be used
+ * for renormalization group running between Q = mb and Q = mt.
+ *
  * @return \f$F_b(\mu)\f$, Eq (5) of arxiv:hep-ph/0207126
  */
 double Fb(double alpha) {
