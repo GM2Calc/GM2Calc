@@ -37,7 +37,7 @@ int main()
    config.running_couplings = false;
 
    try {
-      gm2calc::THDM model(basis, sm, config);
+      const gm2calc::THDM model(basis, sm, config);
 
       const double amu = gm2calc::calculate_amu_1loop(model)
                        + gm2calc::calculate_amu_2loop(model);
