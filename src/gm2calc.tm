@@ -1692,8 +1692,11 @@ void GM2CalcAmuTHDMGaugeBasis(
    basis.Xl_imag[2][1] = Xl_imag_32_;
    basis.Xl_imag[2][2] = Xl_imag_33_;
 
+   THDM_config config;
+   config.running_couplings = config_flags.runningCouplings;
+
    THDM* model = 0;
-   gm2calc_error error = gm2calc_thdm_new_with_gauge_basis(&model, &basis, &sm);
+   gm2calc_error error = gm2calc_thdm_new_with_gauge_basis(&model, &basis, &sm, &config);
 
    if (error == gm2calc_NoError) {
       const double amu = gm2calc_thdm_calculate_amu_1loop(model)
@@ -1862,8 +1865,11 @@ void GM2CalcAmuTHDMMassBasis(
    basis.Xl_imag[2][1] = Xl_imag_32_;
    basis.Xl_imag[2][2] = Xl_imag_33_;
 
+   THDM_config config;
+   config.running_couplings = config_flags.runningCouplings;
+
    THDM* model = 0;
-   gm2calc_error error = gm2calc_thdm_new_with_mass_basis(&model, &basis, &sm);
+   gm2calc_error error = gm2calc_thdm_new_with_mass_basis(&model, &basis, &sm, &config);
 
    if (error == gm2calc_NoError) {
       const double amu = gm2calc_thdm_calculate_amu_1loop(model)

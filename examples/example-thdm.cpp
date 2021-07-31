@@ -33,8 +33,11 @@ int main()
    sm.set_md(2, 4.18);
    sm.set_ml(2, 1.77684);
 
+   gm2calc::thdm::Config config;
+   config.running_couplings = false;
+
    try {
-      gm2calc::THDM model(basis, sm);
+      gm2calc::THDM model(basis, sm, config);
 
       const double amu = gm2calc::calculate_amu_1loop(model)
                        + gm2calc::calculate_amu_2loop(model);

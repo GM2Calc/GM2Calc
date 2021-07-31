@@ -26,6 +26,17 @@
 namespace gm2calc {
 namespace {
 
+gm2calc::thdm::Config convert_to_config(THDM_config* config)
+{
+   gm2calc::thdm::Config c;
+
+   if (config != nullptr) {
+      c.running_couplings = config->running_couplings;
+   }
+
+   return c;
+}
+
 gm2calc::SM convert_to_SM(::SM* sm)
 {
    gm2calc::SM s;
@@ -181,7 +192,7 @@ extern "C"
  *
  * @return error code
  */
-gm2calc_error gm2calc_thdm_new_with_gauge_basis(THDM** model, THDM_gauge_basis* basis, ::SM* sm)
+gm2calc_error gm2calc_thdm_new_with_gauge_basis(THDM** model, THDM_gauge_basis* basis, ::SM* sm, THDM_config* config)
 {
    if (model == nullptr) {
       return gm2calc_InvalidInput;
@@ -190,9 +201,10 @@ gm2calc_error gm2calc_thdm_new_with_gauge_basis(THDM** model, THDM_gauge_basis* 
    gm2calc_error error;
 
    try {
+      const auto c(gm2calc::convert_to_config(config));
       const auto b(gm2calc::convert_to_basis(basis));
       const auto s(gm2calc::convert_to_SM(sm));
-      *model = reinterpret_cast<THDM*>(new gm2calc::THDM(b, s));
+      *model = reinterpret_cast<THDM*>(new gm2calc::THDM(b, s, c));
       error = gm2calc_NoError;
    } catch (const gm2calc::EInvalidInput&) {
       *model = nullptr;
@@ -220,7 +232,7 @@ gm2calc_error gm2calc_thdm_new_with_gauge_basis(THDM** model, THDM_gauge_basis* 
  *
  * @return error code
  */
-gm2calc_error gm2calc_thdm_new_with_mass_basis(THDM** model, THDM_mass_basis* basis, ::SM* sm)
+gm2calc_error gm2calc_thdm_new_with_mass_basis(THDM** model, THDM_mass_basis* basis, ::SM* sm, THDM_config* config)
 {
    if (model == nullptr) {
       return gm2calc_InvalidInput;
@@ -229,9 +241,10 @@ gm2calc_error gm2calc_thdm_new_with_mass_basis(THDM** model, THDM_mass_basis* ba
    gm2calc_error error;
 
    try {
+      const auto c(gm2calc::convert_to_config(config));
       const auto b(gm2calc::convert_to_basis(basis));
       const auto s(gm2calc::convert_to_SM(sm));
-      *model = reinterpret_cast<THDM*>(new gm2calc::THDM(b, s));
+      *model = reinterpret_cast<THDM*>(new gm2calc::THDM(b, s, c));
       error = gm2calc_NoError;
    } catch (const gm2calc::EInvalidInput&) {
       *model = nullptr;

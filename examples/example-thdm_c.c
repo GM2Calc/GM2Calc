@@ -41,8 +41,11 @@ int main()
    sm.md[2] = 4.18;
    sm.ml[2] = 1.77684;
 
+   THDM_config config;
+   config.running_couplings = 0;
+
    THDM* model = 0;
-   gm2calc_error error = gm2calc_thdm_new_with_mass_basis(&model, &basis, &sm);
+   gm2calc_error error = gm2calc_thdm_new_with_mass_basis(&model, &basis, &sm, &config);
 
    if (error == gm2calc_NoError) {
       const double amu = gm2calc_thdm_calculate_amu_1loop(model)

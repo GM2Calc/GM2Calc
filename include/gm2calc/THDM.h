@@ -33,6 +33,12 @@
 extern "C" {
 #endif
 
+/** THDM configuration options */
+struct THDM_config {
+   int running_couplings;
+};
+typedef struct THDM_config THDM_config;
+
 /** general THDM handle */
 struct THDM;
 typedef struct THDM THDM;
@@ -93,10 +99,10 @@ struct SM;
 typedef struct SM SM;
 
 /** allocate new general THDM model with general basis input */
-gm2calc_error gm2calc_thdm_new_with_gauge_basis(THDM**, THDM_gauge_basis*, SM*);
+gm2calc_error gm2calc_thdm_new_with_gauge_basis(THDM**, THDM_gauge_basis*, SM*, THDM_config*);
 
 /** allocate new general THDM model with physical basis input */
-gm2calc_error gm2calc_thdm_new_with_mass_basis(THDM**, THDM_mass_basis*, SM*);
+gm2calc_error gm2calc_thdm_new_with_mass_basis(THDM**, THDM_mass_basis*, SM*, THDM_config*);
 
 /** delete general THDM model */
 void gm2calc_thdm_free(THDM*);
