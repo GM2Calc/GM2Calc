@@ -638,6 +638,10 @@ void process_gm2calcconfig_tuple(
       read_bool(value, config_options.calculate_uncertainty,
                 "unsupported uncertainty flag value in GM2CalcConfig[5]");
       break;
+   case 6:
+      read_bool(value, config_options.running_couplings,
+                "unsupported running couplings flag value in GM2CalcConfig[6]");
+      break;
    default:
       WARNING("Unrecognized entry in block GM2CalcConfig: " << key);
       break;

@@ -5,6 +5,7 @@ Block GM2CalcConfig
      3     0     # force output (0 or 1)
      4     0     # verbose output (0 or 1)
      5     1     # calculate uncertainty (0 or 1)
+     6     0     # running couplings in the THDM
 Block SMINPUTS
      1     1.27934000E+02   # alpha_em(MZ)^(-1) SM MS-bar
      3     0.1184           # alpha_s(MZ) SM MS-bar [2L]

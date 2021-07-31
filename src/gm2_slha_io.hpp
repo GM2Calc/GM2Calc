@@ -38,6 +38,7 @@ class MSSMNoFV_onshell;
 struct MSSMNoFV_onshell_physical;
 
 namespace thdm {
+struct Config;
 struct Gauge_basis;
 struct Mass_basis;
 }
