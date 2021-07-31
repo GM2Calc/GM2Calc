@@ -9,6 +9,9 @@
 :Evaluate: forceOutput::usage =
     "Enforce output, even in case an error has occurred.";
 
+:Evaluate: runningCouplings::usage =
+    "Use running couplings in the THDM.";
+
 :Evaluate: alphaMZ::usage =
     "Electromagnetic coupling in the MS-bar scheme at the scale MZ."
 
@@ -238,7 +241,7 @@
     "Yukawa coupling X_l in the general Two-Higgs Doublet Model.";
 
 :Evaluate: GM2CalcSetFlags::usage =
-    "GM2CalcSetFlags sets the configuration flags for GM2Calc.  Available flags are: {loopOrder, tanBetaResummation, forceOutput}.  Unset flags are set to their default values, see Options[GM2CalcSetFlags].  Use GM2CalcGetFlags[] to retrieve the flags currently set."
+    "GM2CalcSetFlags sets the configuration flags for GM2Calc.  Available flags are: {loopOrder, tanBetaResummation, forceOutput, runningCouplings}.  Unset flags are set to their default values, see Options[GM2CalcSetFlags].  Use GM2CalcGetFlags[] to retrieve the flags currently set."
 
 :Evaluate: GM2CalcGetFlags::usage =
     "GM2CalcGetFlags returns the current configuration flags for GM2Calc."
@@ -278,15 +281,17 @@
 :Arguments: {
    OptionValue[loopOrder],
    Boole[OptionValue[tanBetaResummation]],
-   Boole[OptionValue[forceOutput]] }
-:ArgumentTypes: {Integer, Integer, Integer}
+   Boole[OptionValue[forceOutput]],
+   Boole[OptionValue[runningCouplings]] }
+:ArgumentTypes: {Integer, Integer, Integer, Integer}
 :ReturnType: Integer
 :End:
 
 :Evaluate: Options[GM2CalcSetFlags] = {
    loopOrder -> 2,
    tanBetaResummation -> True,
-   forceOutput -> False }
+   forceOutput -> False,
+   runningCouplings -> False }
 
 :Evaluate: GM2CalcSetFlags::wronglooporder = "Unsupported loop order: `1`";
 
@@ -828,10 +833,12 @@ struct Config_flags {
    int loopOrder;
    int tanBetaResummation;
    int forceOutput;
+   int runningCouplings;
 } config_flags = {
    .loopOrder = 2,
    .tanBetaResummation = 1,
-   .forceOutput = 0
+   .forceOutput = 0,
+   .runningCouplings = 0
 };
 
 /* Standard Model parameters */
@@ -1120,7 +1127,8 @@ static void print_package()
 
 /******************************************************************/
 
-int GM2CalcSetFlags(int loopOrder_, int tanBetaResummation_, int forceOutput_)
+int GM2CalcSetFlags(int loopOrder_, int tanBetaResummation_, int forceOutput_,
+                    int runningCouplings_)
 {
    char loop_order_str[12];
 
@@ -1134,6 +1142,7 @@ int GM2CalcSetFlags(int loopOrder_, int tanBetaResummation_, int forceOutput_)
    config_flags.loopOrder = loopOrder_;
    config_flags.tanBetaResummation = tanBetaResummation_;
    config_flags.forceOutput = forceOutput_;
+   config_flags.runningCouplings = runningCouplings_;
 
    return 0;
 }
@@ -1142,10 +1151,11 @@ int GM2CalcSetFlags(int loopOrder_, int tanBetaResummation_, int forceOutput_)
 
 void GM2CalcGetFlags(void)
 {
-   MLPutFunction(stdlink, "List", 3);
+   MLPutFunction(stdlink, "List", 4);
    MLPutRuleToInteger(stdlink, config_flags.loopOrder, "loopOrder");
    MLPutRuleToString(stdlink, config_flags.tanBetaResummation ? "True" : "False", "tanBetaResummation");
    MLPutRuleToString(stdlink, config_flags.forceOutput ? "True" : "False", "forceOutput");
+   MLPutRuleToString(stdlink, config_flags.runningCouplings ? "True" : "False", "runningCouplings");
    MLEndPacket(stdlink);
 }
 

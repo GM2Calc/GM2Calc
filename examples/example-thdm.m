@@ -3,7 +3,8 @@ Install["bin/gm2calc.mx"];
 GM2CalcSetFlags[
     loopOrder -> 2,
     tanBetaResummation -> True,
-    forceOutput -> False];
+    forceOutput -> False,
+    runningCouplings -> False];
 
 GM2CalcSetSMParameters[
     alpha0 -> 0.00729735,
