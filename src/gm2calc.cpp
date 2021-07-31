@@ -556,7 +556,7 @@ struct Detailed_writer<gm2calc::THDM> {
 
       std::cout
          << "====================================================================\n"
-            "   amu (1-loop + 2-loop best) = "
+            "   amu (1-loop + 2-loop) = "
          << FORMAT_AMU(amu_best) << " +- "
          << FORMAT_DEL(amu_2l_uncertainty) << '\n'
          << "====================================================================\n"
