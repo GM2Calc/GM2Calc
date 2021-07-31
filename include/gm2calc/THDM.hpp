@@ -89,10 +89,6 @@ public:
    double get_zeta_d() const;
    double get_zeta_l() const;
 
-   Eigen::Matrix<std::complex<double>,3,3> get_xi_u() const;
-   Eigen::Matrix<std::complex<double>,3,3> get_xi_d() const;
-   Eigen::Matrix<std::complex<double>,3,3> get_xi_l() const;
-
    Eigen::Matrix<std::complex<double>,3,3> get_yuh() const;
    Eigen::Matrix<std::complex<double>,3,3> get_yuH() const;
    Eigen::Matrix<std::complex<double>,3,3> get_yuA() const;
@@ -168,6 +164,9 @@ private:
    Eigen::Matrix<double,3,1> get_mu() const;
    Eigen::Matrix<double,3,1> get_md() const;
    Eigen::Matrix<double,3,1> get_ml() const;
+   Eigen::Matrix<std::complex<double>,3,3> get_xi_u() const;
+   Eigen::Matrix<std::complex<double>,3,3> get_xi_d() const;
+   Eigen::Matrix<std::complex<double>,3,3> get_xi_l() const;
    void init_gauge_couplings();
    void init_yukawas();
    void set_basis(const thdm::Gauge_basis&);
