@@ -104,8 +104,6 @@ public:
    Eigen::Matrix<std::complex<double>,3,3> get_ylA() const;
    Eigen::Matrix<std::complex<double>,3,3> get_ylHp() const;
 
-   thdm::Yukawa_type get_yukawa_type() const { return yukawa_type; }
-
    const SM& get_sm() const { return sm; }
 
    void set_tan_beta(double);
@@ -167,6 +165,7 @@ private:
    Eigen::Matrix<std::complex<double>,3,3> get_xi_u() const;
    Eigen::Matrix<std::complex<double>,3,3> get_xi_d() const;
    Eigen::Matrix<std::complex<double>,3,3> get_xi_l() const;
+   thdm::Yukawa_type get_yukawa_type() const { return yukawa_type; }
    void init_gauge_couplings();
    void init_yukawas();
    void set_basis(const thdm::Gauge_basis&);
