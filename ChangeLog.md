@@ -76,8 +76,11 @@ Fixed bugs
  * Bugfix (commit c06f713): The function `find_right_like_smuon()` has
    been corrected, which finds the most right-like smuon.  This bugfix
    affects only the SLHA input (the GM2Calc-specific input is not
-   affected).  On tested parameter points that are affected, the value
-   of amu changes by around 0.01%.
+   affected).  On parameter points that are affected, a change of the
+   value of amu by up to 90% has been found.
+
+   We kindly thank Ipsita Saha and Sven Heinemeyer for a detailed
+   analysis of this bugfix.
 
  * Bugfix (commit 5e020ee): In case of SLHA input, the neutralino
    mixing matrix is now read from the NMIX block and used to determine
