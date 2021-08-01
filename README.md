@@ -5,8 +5,8 @@ GM2Calc
 [![Build Status](https://github.com/GM2Calc/GM2Calc/workflows/test/badge.svg)](https://github.com/GM2Calc/GM2Calc/actions)
 
 GM2Calc calculates the SUSY contributions to the anomalous magnetic
-moment of the muon a_mu = (g-2)/2 in the real MSSM at the 1- and
-leading 2-loop level.
+moment of the muon a_mu = (g-2)/2 in the real MSSM and in the THDM at
+the 1- and leading 2-loop level.
 
  * Homepage:                https://gm2calc.hepforge.org
  * Source code repository:  https://github.com/gm2calc
@@ -28,6 +28,7 @@ Run GM2Calc with input files at the command line:
 
     bin/gm2calc.x --gm2calc-input-file=../input/example.gm2
     bin/gm2calc.x --slha-input-file=../input/example.slha
+    bin/gm2calc.x --thdm-input-file=../input/example.thdm
 
 
 Contents
@@ -53,7 +54,8 @@ Contents
 Requirements
 ============
 
- * C++ compiler (g++ >= 4.6.3 or clang++ >= 3.4 or icpc >= 14.0.3)
+ * C++11 compatible compiler (g++ >= 4.6.3 or clang++ >= 3.4 or icpc >= 14.0.3)
+ * C11 compatible compiler (gcc >= 4.6 or clang)
  * Boost (version 1.37.0 or higher) [http://www.boost.org]
  * Eigen 3 (version 3.1 or higher) [http://eigen.tuxfamily.org]
 
