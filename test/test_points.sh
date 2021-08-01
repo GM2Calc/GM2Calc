@@ -24,6 +24,7 @@ ${BASEDIR}/test_points/problems_negative_soft_mass.in,slha,1,
 ${BASEDIR}/test_points/problems_infinite_TB.in,slha,1,
 ${BASEDIR}/test_points/problems_zero_TB.in,slha,1,
 ${BASEDIR}/test_points/problems_bug_smuon_mixing.in,slha,0,2.33255248e-10
+${BASEDIR}/test_points/problems_bug_smuon_mixing-2.in,slha,0,3.17520811E-10
 ${BASEDIR}/test_points/problems_bino_reordering.in,slha,0,1.67607964E-10
 ${BASEDIR}/test_points/problems_bino_reordering_pole_running.in,slha,0,1.20357378e-10
 ${BASEDIR}/test_points/P1a_1L_resummed_diploma_thesis_Markus_Bach.in,gm2calc,1,2.80707344E-09
