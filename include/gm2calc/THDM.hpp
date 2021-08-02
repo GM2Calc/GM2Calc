@@ -168,6 +168,8 @@ private:
    void init_yukawas();
    void set_basis(const thdm::Gauge_basis&);
    void set_basis(const thdm::Mass_basis&);
+   void validate() const;
+   const char* yukawa_type_to_string() const;
 };
 
 /// streaming operator

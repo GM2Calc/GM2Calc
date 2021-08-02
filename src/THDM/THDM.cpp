@@ -18,6 +18,7 @@
 
 #include "gm2calc/THDM.hpp"
 #include "gm2calc/gm2_error.hpp"
+#include "gm2_log.hpp"
 #include "gm2_mf.hpp"
 #include "gm2_numerics.hpp"
 
@@ -369,6 +370,8 @@ void THDM::set_basis(const thdm::Gauge_basis& basis)
    set_Xd(basis.Xd);
    set_Xl(basis.Xl);
 
+   validate();
+
    solve_ewsb();
    calculate_boson_masses();
    init_yukawas();
@@ -444,6 +447,8 @@ void THDM::set_basis(const thdm::Mass_basis& basis)
    set_Xd(basis.Xd);
    set_Xl(basis.Xl);
 
+   validate();
+
    solve_ewsb();
    calculate_boson_masses();
    init_yukawas();
@@ -463,28 +468,7 @@ void THDM::print(std::ostream& ostr) const
 {
    THDM_mass_eigenstates::print(ostr);
 
-   ostr << "Yukawa scheme: ";
-
-   switch (yukawa_type) {
-      case thdm::Yukawa_type::type_1:
-         ostr << "Type I\n";
-         break;
-      case thdm::Yukawa_type::type_2:
-         ostr << "Type II\n";
-         break;
-      case thdm::Yukawa_type::type_X:
-         ostr << "Type X\n";
-         break;
-      case thdm::Yukawa_type::type_Y:
-         ostr << "Type Y\n";
-         break;
-      case thdm::Yukawa_type::aligned:
-         ostr << "Aligned\n";
-         break;
-      case thdm::Yukawa_type::general:
-         ostr << "General\n";
-         break;
-   }
+   ostr << "Yukawa scheme: " << yukawa_type_to_string() << '\n';
 
    ostr << "zeta_u = " << get_zeta_u() << '\n';
    ostr << "zeta_d = " << get_zeta_d() << '\n';
@@ -504,6 +488,66 @@ void THDM::print(std::ostream& ostr) const
    ostr << "ylHp =\n" << get_ylHp() << '\n';
 
    ostr << get_sm();
+}
+
+const char* THDM::yukawa_type_to_string() const
+{
+   switch (yukawa_type) {
+      case thdm::Yukawa_type::type_1:
+         return "Type I";
+         break;
+      case thdm::Yukawa_type::type_2:
+         return "Type II";
+         break;
+      case thdm::Yukawa_type::type_X:
+         return "Type X";
+         break;
+      case thdm::Yukawa_type::type_Y:
+         return "Type Y";
+         break;
+      case thdm::Yukawa_type::aligned:
+         return "Aligned";
+         break;
+      case thdm::Yukawa_type::general:
+         return "General";
+         break;
+   }
+}
+
+void THDM::validate() const
+{
+   // check zeta_f
+   if (yukawa_type == thdm::Yukawa_type::type_1 ||
+       yukawa_type == thdm::Yukawa_type::type_2 ||
+       yukawa_type == thdm::Yukawa_type::type_X ||
+       yukawa_type == thdm::Yukawa_type::type_Y) {
+      if (zeta_u != 0) {
+         WARNING("Value of zeta_u = " << zeta_u << " ignored, because Yukawa type is " << yukawa_type_to_string());
+      }
+      if (zeta_d != 0) {
+         WARNING("Value of zeta_d = " << zeta_d << " ignored, because Yukawa type is " << yukawa_type_to_string());
+      }
+      if (zeta_l != 0) {
+         WARNING("Value of zeta_l = " << zeta_l << " ignored, because Yukawa type is " << yukawa_type_to_string());
+      }
+   }
+
+   // check X_f
+   if (yukawa_type == thdm::Yukawa_type::type_1 ||
+       yukawa_type == thdm::Yukawa_type::type_2 ||
+       yukawa_type == thdm::Yukawa_type::type_X ||
+       yukawa_type == thdm::Yukawa_type::type_Y ||
+       yukawa_type == thdm::Yukawa_type::aligned) {
+      if (get_Xu().cwiseAbs().maxCoeff() != 0) {
+         WARNING("Value of Xu ignored, because Yukawa type is " << yukawa_type_to_string());
+      }
+      if (get_Xd().cwiseAbs().maxCoeff() != 0) {
+         WARNING("Value of Xd ignored, because Yukawa type is " << yukawa_type_to_string());
+      }
+      if (get_Xl().cwiseAbs().maxCoeff() != 0) {
+         WARNING("Value of Xl ignored, because Yukawa type is " << yukawa_type_to_string());
+      }
+   }
 }
 
 std::ostream& operator<<(std::ostream& ostr, const THDM& model)
