@@ -23,10 +23,6 @@
 
 namespace gm2calc {
 
-class THDM;
-double calculate_amu_2loop_bosonic(const THDM&);
-double calculate_amu_2loop_fermionic(const THDM&);
-
 namespace general_thdm {
 
 /// parameters to be passed to the bosonic contribution functions

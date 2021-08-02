@@ -35,6 +35,12 @@ double calculate_amu_2loop_non_tan_beta_resummed(const MSSMNoFV_onshell&);
 
 // === routines for individual 2-loop contributions ===
 
+/// calculates bosonic 2-loop contributions to a_mu in the general THDM
+double calculate_amu_2loop_bosonic(const THDM&);
+
+/// calculates fermionic 2-loop contributions to a_mu in the general THDM
+double calculate_amu_2loop_fermionic(const THDM&);
+
 /// 2-loop fermion/sfermion contribution (approximation)
 double amu2LFSfapprox(const MSSMNoFV_onshell&);
 
