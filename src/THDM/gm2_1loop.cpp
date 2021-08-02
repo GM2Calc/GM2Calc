@@ -38,7 +38,7 @@ namespace gm2calc {
  */
 double calculate_amu_1loop(const THDM& model)
 {
-   general_thdm::THDM_1L_parameters pars;
+   thdm::THDM_1L_parameters pars;
    pars.alpha_em = model.get_alpha_em();
    pars.mm = model.get_MFe(1);
    pars.mw = model.get_MVWm();
@@ -54,7 +54,7 @@ double calculate_amu_1loop(const THDM& model)
    pars.ylA = model.get_ylA();
    pars.ylHp = model.get_ylHp();
 
-   return general_thdm::amu1L(pars);
+   return thdm::amu1L(pars);
 }
 
 } // namespace gm2calc

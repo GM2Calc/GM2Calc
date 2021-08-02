@@ -30,7 +30,7 @@
 
 namespace gm2calc {
 
-namespace general_thdm {
+namespace thdm {
 
 namespace {
 
@@ -176,6 +176,6 @@ double delta_alpha(double alpha, double mHp, double q) noexcept
    return -alpha/(6*pi)*std::log(std::abs(mHp/q));
 }
 
-} // namespace general_thdm
+} // namespace thdm
 
 } // namespace gm2calc

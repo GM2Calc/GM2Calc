@@ -30,7 +30,7 @@ namespace gm2calc {
  */
 double calculate_amu_2loop_bosonic(const THDM& model)
 {
-   general_thdm::THDM_B_parameters pars_b;
+   thdm::THDM_B_parameters pars_b;
    pars_b.alpha_em = model.get_alpha_em();
    pars_b.mm = model.get_MFe(1);
    pars_b.mw = model.get_MVWm();
@@ -55,7 +55,7 @@ double calculate_amu_2loop_bosonic(const THDM& model)
  */
 double calculate_amu_2loop_fermionic(const THDM& model)
 {
-   general_thdm::THDM_F_parameters pars_f;
+   thdm::THDM_F_parameters pars_f;
    pars_f.alpha_em = model.get_alpha_em();
    pars_f.mm = model.get_MFe(1);
    pars_f.mw = model.get_MVWm();

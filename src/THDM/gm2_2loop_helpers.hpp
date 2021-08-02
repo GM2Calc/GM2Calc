@@ -23,7 +23,7 @@
 
 namespace gm2calc {
 
-namespace general_thdm {
+namespace thdm {
 
 /// parameters to be passed to the bosonic contribution functions
 struct THDM_B_parameters {
@@ -106,7 +106,7 @@ double fdHp(double ms2, double md2, double mu2, double mw2, double mz2) noexcept
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = l
 double flHp(double ms2, double ml2, double mw2, double mz2) noexcept;
 
-} // namespace general_thdm
+} // namespace thdm
 
 } // namespace gm2calc
 

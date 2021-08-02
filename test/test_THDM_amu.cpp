@@ -23,7 +23,7 @@ const double sqrt2 = 1.4142135623730950; // Sqrt[2]
 
 double sqr(double x) noexcept { return x*x; }
 
-double calc_v(const gm2calc::general_thdm::THDM_F_parameters& pars)
+double calc_v(const gm2calc::thdm::THDM_F_parameters& pars)
 {
    const double mw2 = sqr(pars.mw);
    const double mz2 = sqr(pars.mz);
@@ -41,7 +41,7 @@ TEST_CASE("1-loop")
    const double zetal = 0.1;
    const double eta = 0.001; // terms of O(eta) are neglected
 
-   gm2calc::general_thdm::THDM_1L_parameters pars;
+   gm2calc::thdm::THDM_1L_parameters pars;
    pars.alpha_em = 1./137.036;
    pars.mm = 0.10565837;
    pars.ml << 510.999e-6, pars.mm, 1.7768;
@@ -56,8 +56,8 @@ TEST_CASE("1-loop")
    pars.ylA(1,1) = -zetal;
    pars.ylHp(1,1) = sqrt2*pars.ylA(1,1);
 
-   const auto a1L = gm2calc::general_thdm::amu1L(pars);
-   const auto a1L_approx = gm2calc::general_thdm::amu1L_approx(pars);
+   const auto a1L = gm2calc::thdm::amu1L(pars);
+   const auto a1L_approx = gm2calc::thdm::amu1L_approx(pars);
 
    CHECK_CLOSE(a1L*1e16, a1L_approx*1e16, 1e-9);
 }
@@ -68,7 +68,7 @@ TEST_CASE("1-loop_approximation")
    const double zetal = 0.1;
    const double eta = 0.001; // terms of O(eta) are neglected
 
-   gm2calc::general_thdm::THDM_1L_parameters pars;
+   gm2calc::thdm::THDM_1L_parameters pars;
    pars.alpha_em = 1./137.036;
    pars.mm = 0.10565837;
    pars.mw = 80.379;
@@ -88,7 +88,7 @@ TEST_CASE("1-loop_approximation")
    pars.ylA(1,1)  = pars.mm/v*(-zetal);
    pars.ylHp(1,1) = pars.mm/v*(sqrt2*pars.ylA(1,1));
 
-   const auto a1L = gm2calc::general_thdm::amu1L_approx(pars);
+   const auto a1L = gm2calc::thdm::amu1L_approx(pars);
 
    const double xH = pars.mh(1)/100.0;
    const double xA = pars.mA/100.0;
@@ -139,7 +139,7 @@ Print["amuC 10^10 = ", N[10^10 amuC, 17]]
 
 TEST_CASE("2-loop_fermionic_charged")
 {
-   gm2calc::general_thdm::THDM_F_parameters pars;
+   gm2calc::thdm::THDM_F_parameters pars;
    pars.alpha_em = 1./137;
    pars.mm = 1.0;
    pars.mw = 80.0;
@@ -177,7 +177,7 @@ TEST_CASE("2-loop_fermionic_charged")
    pars.ydHp.diagonal() = sqrt2*yd;
    pars.ylHp.diagonal() = sqrt2*yl;
 
-   const auto amu = gm2calc::general_thdm::amu2L_F_charged(pars);
+   const auto amu = gm2calc::thdm::amu2L_F_charged(pars);
 
    CHECK_CLOSE(1e10*amu, 320.98648556040420, 1e-12);
 }
@@ -231,7 +231,7 @@ Print["amuN 10^10 = ", N[10^10 amuN, 17]]
 
 TEST_CASE("2-loop_fermionic_neutral")
 {
-   gm2calc::general_thdm::THDM_F_parameters pars;
+   gm2calc::thdm::THDM_F_parameters pars;
    pars.alpha_em = 1./137;
    pars.mm = 1.0;
    pars.mw = 80.0;
@@ -278,7 +278,7 @@ TEST_CASE("2-loop_fermionic_neutral")
    pars.ylH.diagonal() = yl;
    pars.ylA.diagonal() = yl;
 
-   const auto amu = gm2calc::general_thdm::amu2L_F_neutral(pars);
+   const auto amu = gm2calc::thdm::amu2L_F_neutral(pars);
 
    CHECK_CLOSE(1e10*amu, -683.88944303928634, 1e-12);
 }
@@ -307,96 +307,96 @@ TEST_CASE("2-loop_fermionic_figure_8")
    // Eq.(64), first line, first term for f = u, h = H
    const auto amu_H_u = [&](double mS) {
       return pref_neut*(
-         + gm2calc::general_thdm::fuS(sqr(mS), mu2(0), mw2, mz2)
-         + gm2calc::general_thdm::fuS(sqr(mS), mu2(1), mw2, mz2)
-         + gm2calc::general_thdm::fuS(sqr(mS), mu2(2), mw2, mz2));
+         + gm2calc::thdm::fuS(sqr(mS), mu2(0), mw2, mz2)
+         + gm2calc::thdm::fuS(sqr(mS), mu2(1), mw2, mz2)
+         + gm2calc::thdm::fuS(sqr(mS), mu2(2), mw2, mz2));
    };
 
    // Eq.(64), first line, first term for f = d, h = H
    const auto amu_H_d = [&](double mS) {
       return pref_neut*(
-         + gm2calc::general_thdm::fdS(sqr(mS), md2(0), mw2, mz2)
-         + gm2calc::general_thdm::fdS(sqr(mS), md2(1), mw2, mz2)
-         + gm2calc::general_thdm::fdS(sqr(mS), md2(2), mw2, mz2));
+         + gm2calc::thdm::fdS(sqr(mS), md2(0), mw2, mz2)
+         + gm2calc::thdm::fdS(sqr(mS), md2(1), mw2, mz2)
+         + gm2calc::thdm::fdS(sqr(mS), md2(2), mw2, mz2));
    };
 
    // Eq.(64), first line, first term for f = l, h = H
    const auto amu_H_l = [&](double mS) {
       return pref_neut*(
-         + gm2calc::general_thdm::flS(sqr(mS), ml2(0), mw2, mz2)
-         + gm2calc::general_thdm::flS(sqr(mS), ml2(1), mw2, mz2)
-         + gm2calc::general_thdm::flS(sqr(mS), ml2(2), mw2, mz2));
+         + gm2calc::thdm::flS(sqr(mS), ml2(0), mw2, mz2)
+         + gm2calc::thdm::flS(sqr(mS), ml2(1), mw2, mz2)
+         + gm2calc::thdm::flS(sqr(mS), ml2(2), mw2, mz2));
    };
 
    // Eq.(64), first line, first term for f = u, h = A
    const auto amu_A_u = [&](double mS) {
       return -pref_neut*(
-         + gm2calc::general_thdm::fuA(sqr(mS), mu2(0), mw2, mz2)
-         + gm2calc::general_thdm::fuA(sqr(mS), mu2(1), mw2, mz2)
-         + gm2calc::general_thdm::fuA(sqr(mS), mu2(2), mw2, mz2));
+         + gm2calc::thdm::fuA(sqr(mS), mu2(0), mw2, mz2)
+         + gm2calc::thdm::fuA(sqr(mS), mu2(1), mw2, mz2)
+         + gm2calc::thdm::fuA(sqr(mS), mu2(2), mw2, mz2));
    };
 
    // Eq.(64), first line, first term for f = d, h = A
    const auto amu_A_d = [&](double mS) {
       return pref_neut*(
-         + gm2calc::general_thdm::fdA(sqr(mS), md2(0), mw2, mz2)
-         + gm2calc::general_thdm::fdA(sqr(mS), md2(1), mw2, mz2)
-         + gm2calc::general_thdm::fdA(sqr(mS), md2(2), mw2, mz2));
+         + gm2calc::thdm::fdA(sqr(mS), md2(0), mw2, mz2)
+         + gm2calc::thdm::fdA(sqr(mS), md2(1), mw2, mz2)
+         + gm2calc::thdm::fdA(sqr(mS), md2(2), mw2, mz2));
    };
 
    // Eq.(64), first line, first term for f = l, h = A
    const auto amu_A_l = [&](double mS) {
       return pref_neut*(
-         + gm2calc::general_thdm::flA(sqr(mS), ml2(0), mw2, mz2)
-         + gm2calc::general_thdm::flA(sqr(mS), ml2(1), mw2, mz2)
-         + gm2calc::general_thdm::flA(sqr(mS), ml2(2), mw2, mz2));
+         + gm2calc::thdm::flA(sqr(mS), ml2(0), mw2, mz2)
+         + gm2calc::thdm::flA(sqr(mS), ml2(1), mw2, mz2)
+         + gm2calc::thdm::flA(sqr(mS), ml2(2), mw2, mz2));
    };
 
    // Eq.(64), first line, second term
    const auto amu_Hp_u = [&](double mS) {
       return -pref_char*(
-         + gm2calc::general_thdm::fuHp(sqr(mS), md2(0), mu2(0), mw2, mz2)
-         + gm2calc::general_thdm::fuHp(sqr(mS), md2(1), mu2(1), mw2, mz2)
-         + gm2calc::general_thdm::fuHp(sqr(mS), md2(2), mu2(2), mw2, mz2));
+         + gm2calc::thdm::fuHp(sqr(mS), md2(0), mu2(0), mw2, mz2)
+         + gm2calc::thdm::fuHp(sqr(mS), md2(1), mu2(1), mw2, mz2)
+         + gm2calc::thdm::fuHp(sqr(mS), md2(2), mu2(2), mw2, mz2));
    };
 
    // Eq.(64), first line, second term
    const auto amu_Hp_d = [&](double mS) {
       return pref_char*(
-         + gm2calc::general_thdm::fdHp(sqr(mS), md2(0), mu2(0), mw2, mz2)
-         + gm2calc::general_thdm::fdHp(sqr(mS), md2(1), mu2(1), mw2, mz2)
-         + gm2calc::general_thdm::fdHp(sqr(mS), md2(2), mu2(2), mw2, mz2));
+         + gm2calc::thdm::fdHp(sqr(mS), md2(0), mu2(0), mw2, mz2)
+         + gm2calc::thdm::fdHp(sqr(mS), md2(1), mu2(1), mw2, mz2)
+         + gm2calc::thdm::fdHp(sqr(mS), md2(2), mu2(2), mw2, mz2));
    };
 
    // Eq.(64), first line, second term
    const auto amu_Hp_l = [&](double mS) {
       return pref_char*(
-         + gm2calc::general_thdm::flHp(sqr(mS), ml2(0), mw2, mz2)
-         + gm2calc::general_thdm::flHp(sqr(mS), ml2(1), mw2, mz2)
-         + gm2calc::general_thdm::flHp(sqr(mS), ml2(2), mw2, mz2));
+         + gm2calc::thdm::flHp(sqr(mS), ml2(0), mw2, mz2)
+         + gm2calc::thdm::flHp(sqr(mS), ml2(1), mw2, mz2)
+         + gm2calc::thdm::flHp(sqr(mS), ml2(2), mw2, mz2));
    };
 
    // Eq.(64), second line for f = u
    const auto amu_hH_u = [&](double mS) {
       return pref_neut*(
-         + gm2calc::general_thdm::fuS(mh2    , mu2(0), mw2, mz2)
-         - gm2calc::general_thdm::fuS(sqr(mS), mu2(0), mw2, mz2)
-         + gm2calc::general_thdm::fuS(mh2    , mu2(1), mw2, mz2)
-         - gm2calc::general_thdm::fuS(sqr(mS), mu2(1), mw2, mz2)
-         + gm2calc::general_thdm::fuS(mh2    , mu2(2), mw2, mz2)
-         - gm2calc::general_thdm::fuS(sqr(mS), mu2(2), mw2, mz2)
+         + gm2calc::thdm::fuS(mh2    , mu2(0), mw2, mz2)
+         - gm2calc::thdm::fuS(sqr(mS), mu2(0), mw2, mz2)
+         + gm2calc::thdm::fuS(mh2    , mu2(1), mw2, mz2)
+         - gm2calc::thdm::fuS(sqr(mS), mu2(1), mw2, mz2)
+         + gm2calc::thdm::fuS(mh2    , mu2(2), mw2, mz2)
+         - gm2calc::thdm::fuS(sqr(mS), mu2(2), mw2, mz2)
          );
    };
 
    // Eq.(64), second line for f = d
    const auto amu_hH_d = [&](double mS) {
       return pref_neut*(
-         + gm2calc::general_thdm::fdS(mh2    , md2(0), mw2, mz2)
-         - gm2calc::general_thdm::fdS(sqr(mS), md2(0), mw2, mz2)
-         + gm2calc::general_thdm::fdS(mh2    , md2(1), mw2, mz2)
-         - gm2calc::general_thdm::fdS(sqr(mS), md2(1), mw2, mz2)
-         + gm2calc::general_thdm::fdS(mh2    , md2(2), mw2, mz2)
-         - gm2calc::general_thdm::fdS(sqr(mS), md2(2), mw2, mz2)
+         + gm2calc::thdm::fdS(mh2    , md2(0), mw2, mz2)
+         - gm2calc::thdm::fdS(sqr(mS), md2(0), mw2, mz2)
+         + gm2calc::thdm::fdS(mh2    , md2(1), mw2, mz2)
+         - gm2calc::thdm::fdS(sqr(mS), md2(1), mw2, mz2)
+         + gm2calc::thdm::fdS(mh2    , md2(2), mw2, mz2)
+         - gm2calc::thdm::fdS(sqr(mS), md2(2), mw2, mz2)
          );
    };
 
@@ -404,12 +404,12 @@ TEST_CASE("2-loop_fermionic_figure_8")
    const auto amu_hH_l = [&](double mS) {
       double res = 0.0;
       for (int g = 0; g < 3; ++g) {
-         res += 2 * (gm2calc::general_thdm::flS(mh2, ml2(g), mw2, mz2) -
-                     gm2calc::general_thdm::flS(sqr(mS), ml2(g), mw2, mz2)) +
-                gm2calc::general_thdm::fuS(mh2    , mu2(g), mw2, mz2) -
-                gm2calc::general_thdm::fuS(sqr(mS), mu2(g), mw2, mz2) +
-                gm2calc::general_thdm::fdS(mh2    , md2(g), mw2, mz2) -
-                gm2calc::general_thdm::fdS(sqr(mS), md2(g), mw2, mz2);
+         res += 2 * (gm2calc::thdm::flS(mh2, ml2(g), mw2, mz2) -
+                     gm2calc::thdm::flS(sqr(mS), ml2(g), mw2, mz2)) +
+                gm2calc::thdm::fuS(mh2    , mu2(g), mw2, mz2) -
+                gm2calc::thdm::fuS(sqr(mS), mu2(g), mw2, mz2) +
+                gm2calc::thdm::fdS(mh2    , md2(g), mw2, mz2) -
+                gm2calc::thdm::fdS(sqr(mS), md2(g), mw2, mz2);
       }
       return pref_neut * res;
    };
@@ -479,7 +479,7 @@ TEST_CASE("2-loop_fermionic_figure_8")
 
 TEST_CASE("2-loop_bosonic_EWadd")
 {
-   gm2calc::general_thdm::THDM_B_parameters pars;
+   gm2calc::thdm::THDM_B_parameters pars;
    pars.alpha_em = 1/137.036;
    pars.mm = 0.10565837;
    pars.mw = 80.379;
@@ -489,7 +489,7 @@ TEST_CASE("2-loop_bosonic_EWadd")
    pars.zetal = 2;
    pars.eta = 3;
 
-   const auto amu = gm2calc::general_thdm::amu2L_B_EWadd(pars);
+   const auto amu = gm2calc::thdm::amu2L_B_EWadd(pars);
 
    // Eq.(49), arxiv:1607.06292
    CHECK_CLOSE(1e10*amu, 2.3e-1*pars.eta*pars.zetal, 0.01);
@@ -501,7 +501,7 @@ TEST_CASE("2-loop_bosonic_EWadd-divergence")
 {
    // test non-divergence for mh = mhSM = mz
    {
-      gm2calc::general_thdm::THDM_B_parameters pars;
+      gm2calc::thdm::THDM_B_parameters pars;
       pars.alpha_em = 1/137.036;
       pars.mm = 0.10565837;
       pars.mw = 80.379;
@@ -511,14 +511,14 @@ TEST_CASE("2-loop_bosonic_EWadd-divergence")
       pars.zetal = 2;
       pars.eta = 3;
 
-      CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_EWadd(pars)));
+      CHECK(std::isfinite(gm2calc::thdm::amu2L_B_EWadd(pars)));
    }
 }
 
 
 TEST_CASE("2-loop_bosonic_nonYuk")
 {
-   gm2calc::general_thdm::THDM_B_parameters pars;
+   gm2calc::thdm::THDM_B_parameters pars;
    // parameter point from Fig.4a, arxiv:1607.06292
    pars.alpha_em = 1./137.036;
    pars.mm = 0.10565837;
@@ -528,7 +528,7 @@ TEST_CASE("2-loop_bosonic_nonYuk")
    pars.mA = 10.0;
    pars.mHp = 500.0;
 
-   const auto amu = gm2calc::general_thdm::amu2L_B_nonYuk(pars);
+   const auto amu = gm2calc::thdm::amu2L_B_nonYuk(pars);
 
    CHECK_CLOSE(1e10*amu, -0.9831098470297721, 1e-9);
 }
@@ -538,7 +538,7 @@ TEST_CASE("2-loop_bosonic_nonYuk-divergence")
 {
    // test non-divergence for mH = mA
    {
-      gm2calc::general_thdm::THDM_B_parameters pars;
+      gm2calc::thdm::THDM_B_parameters pars;
       pars.alpha_em = 1./137.036;
       pars.mm = 0.10565837;
       pars.mw = 80.379;
@@ -547,12 +547,12 @@ TEST_CASE("2-loop_bosonic_nonYuk-divergence")
       pars.mA = 300.0;
       pars.mHp = 500.0;
 
-      CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_nonYuk(pars)));
+      CHECK(std::isfinite(gm2calc::thdm::amu2L_B_nonYuk(pars)));
    }
 
    // test non-divergence for mH = mHp
    {
-      gm2calc::general_thdm::THDM_B_parameters pars;
+      gm2calc::thdm::THDM_B_parameters pars;
       pars.alpha_em = 1./137.036;
       pars.mm = 0.10565837;
       pars.mw = 80.379;
@@ -561,12 +561,12 @@ TEST_CASE("2-loop_bosonic_nonYuk-divergence")
       pars.mA = 500.0;
       pars.mHp = 300.0;
 
-      CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_nonYuk(pars)));
+      CHECK(std::isfinite(gm2calc::thdm::amu2L_B_nonYuk(pars)));
    }
 
    // test non-divergence for mA = mHp
    {
-      gm2calc::general_thdm::THDM_B_parameters pars;
+      gm2calc::thdm::THDM_B_parameters pars;
       pars.alpha_em = 1./137.036;
       pars.mm = 0.10565837;
       pars.mw = 80.379;
@@ -575,12 +575,12 @@ TEST_CASE("2-loop_bosonic_nonYuk-divergence")
       pars.mA = 300.0;
       pars.mHp = 300.0;
 
-      CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_nonYuk(pars)));
+      CHECK(std::isfinite(gm2calc::thdm::amu2L_B_nonYuk(pars)));
    }
 
    // test non-divergence for mH = mA = mHp
    {
-      gm2calc::general_thdm::THDM_B_parameters pars;
+      gm2calc::thdm::THDM_B_parameters pars;
       pars.alpha_em = 1./137.036;
       pars.mm = 0.10565837;
       pars.mw = 80.379;
@@ -589,7 +589,7 @@ TEST_CASE("2-loop_bosonic_nonYuk-divergence")
       pars.mA = 300.0;
       pars.mHp = 300.0;
 
-      CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_nonYuk(pars)));
+      CHECK(std::isfinite(gm2calc::thdm::amu2L_B_nonYuk(pars)));
    }
 }
 
@@ -616,7 +616,7 @@ TEST_CASE("2-loop_bosonic_nonYuk_figure_4")
          if (p.size() < 3) { continue; }
          if (!std::isfinite(p.at(2))) { continue; }
 
-         gm2calc::general_thdm::THDM_B_parameters pars;
+         gm2calc::thdm::THDM_B_parameters pars;
          pars.alpha_em = 1./137.036;
          pars.mm = 0.10565837;
          pars.mw = 80.379;
@@ -625,7 +625,7 @@ TEST_CASE("2-loop_bosonic_nonYuk_figure_4")
          pars.mA = fig.mA;
          pars.mHp = p.at(0);
 
-         const double amu = gm2calc::general_thdm::amu2L_B_nonYuk(pars);
+         const double amu = gm2calc::thdm::amu2L_B_nonYuk(pars);
          const double amu_nonYuk = p.at(2);
 
          CHECK_CLOSE(1e10*amu_nonYuk, 1e10*amu, 1e-10);
@@ -649,7 +649,7 @@ TEST_CASE("2-loop_bosonic_nonYuk_figure_4")
          for (int k = 0; k < N_steps; ++k) {
             const double mH  = mH_min  + (k + 1.0)*(mH_max  - mH_min )/N_steps;
 
-            gm2calc::general_thdm::THDM_B_parameters pars;
+            gm2calc::thdm::THDM_B_parameters pars;
             pars.alpha_em = 1./137.036;
             pars.mm = 0.10565837;
             pars.mw = 80.379;
@@ -658,7 +658,7 @@ TEST_CASE("2-loop_bosonic_nonYuk_figure_4")
             pars.mA = mA;
             pars.mHp = mHp;
 
-            const auto amu = gm2calc::general_thdm::amu2L_B_nonYuk(pars);
+            const auto amu = gm2calc::thdm::amu2L_B_nonYuk(pars);
 
             ostr << std::setprecision(std::numeric_limits<double>::digits10 + 1)
                  << mHp << '\t' << mH << '\t' << amu << '\n';
@@ -671,7 +671,7 @@ TEST_CASE("2-loop_bosonic_nonYuk_figure_4")
 
 TEST_CASE("2-loop_bosonic_Yuk")
 {
-   gm2calc::general_thdm::THDM_B_parameters pars;
+   gm2calc::thdm::THDM_B_parameters pars;
    pars.alpha_em = 1./137.036;
    pars.mm = 0.10565837;
    pars.mw = 80.379;
@@ -684,7 +684,7 @@ TEST_CASE("2-loop_bosonic_Yuk")
    pars.eta = 2.0;
    pars.lambda5 = 3.0;
 
-   const auto amu = gm2calc::general_thdm::amu2L_B_Yuk(pars);
+   const auto amu = gm2calc::thdm::amu2L_B_Yuk(pars);
 
    /* number to compare to has been generated with:
 
@@ -715,7 +715,7 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
 {
    // test non-divergence for mH = mHp
    {
-      gm2calc::general_thdm::THDM_B_parameters pars;
+      gm2calc::thdm::THDM_B_parameters pars;
       pars.alpha_em = 1./137.036;
       pars.mm = 0.10565837;
       pars.mw = 80.379;
@@ -728,12 +728,12 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.eta = 2.0;
       pars.lambda5 = 3.0;
 
-      CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_Yuk(pars)));
+      CHECK(std::isfinite(gm2calc::thdm::amu2L_B_Yuk(pars)));
    }
 
    // test non-divergence for mH = mw
    {
-      gm2calc::general_thdm::THDM_B_parameters pars;
+      gm2calc::thdm::THDM_B_parameters pars;
       pars.alpha_em = 1./137.036;
       pars.mm = 0.10565837;
       pars.mw = 80.379;
@@ -746,12 +746,12 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.eta = 2.0;
       pars.lambda5 = 3.0;
 
-      CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_Yuk(pars)));
+      CHECK(std::isfinite(gm2calc::thdm::amu2L_B_Yuk(pars)));
    }
 
    // test non-divergence for mH = 2 mw
    {
-      gm2calc::general_thdm::THDM_B_parameters pars;
+      gm2calc::thdm::THDM_B_parameters pars;
       pars.alpha_em = 1./137.036;
       pars.mm = 0.10565837;
       pars.mw = 80.379;
@@ -764,12 +764,12 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.eta = 2.0;
       pars.lambda5 = 3.0;
 
-      CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_Yuk(pars)));
+      CHECK(std::isfinite(gm2calc::thdm::amu2L_B_Yuk(pars)));
    }
 
    // test non-divergence for mH = 2 mHp
    {
-      gm2calc::general_thdm::THDM_B_parameters pars;
+      gm2calc::thdm::THDM_B_parameters pars;
       pars.alpha_em = 1./137.036;
       pars.mm = 0.10565837;
       pars.mw = 80.379;
@@ -782,12 +782,12 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.eta = 2.0;
       pars.lambda5 = 3.0;
 
-      CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_Yuk(pars)));
+      CHECK(std::isfinite(gm2calc::thdm::amu2L_B_Yuk(pars)));
    }
 
    // test non-divergence for mHp = mw
    {
-      gm2calc::general_thdm::THDM_B_parameters pars;
+      gm2calc::thdm::THDM_B_parameters pars;
       pars.alpha_em = 1./137.036;
       pars.mm = 0.10565837;
       pars.mw = 80.379;
@@ -800,12 +800,12 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.eta = 2.0;
       pars.lambda5 = 3.0;
 
-      CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_Yuk(pars)));
+      CHECK(std::isfinite(gm2calc::thdm::amu2L_B_Yuk(pars)));
    }
 
    // test non-divergence for mhSM = mz
    {
-      gm2calc::general_thdm::THDM_B_parameters pars;
+      gm2calc::thdm::THDM_B_parameters pars;
       pars.alpha_em = 1./137.036;
       pars.mm = 0.10565837;
       pars.mw = 80.379;
@@ -818,12 +818,12 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.eta = 2.0;
       pars.lambda5 = 3.0;
 
-      CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_Yuk(pars)));
+      CHECK(std::isfinite(gm2calc::thdm::amu2L_B_Yuk(pars)));
    }
 
    // test non-divergence for mHp = mz/2
    {
-      gm2calc::general_thdm::THDM_B_parameters pars;
+      gm2calc::thdm::THDM_B_parameters pars;
       pars.alpha_em = 1./137.036;
       pars.mm = 0.10565837;
       pars.mw = 80.379;
@@ -836,6 +836,6 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.eta = 2.0;
       pars.lambda5 = 3.0;
 
-      CHECK(std::isfinite(gm2calc::general_thdm::amu2L_B_Yuk(pars)));
+      CHECK(std::isfinite(gm2calc::thdm::amu2L_B_Yuk(pars)));
    }
 }

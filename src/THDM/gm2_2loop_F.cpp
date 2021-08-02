@@ -32,7 +32,7 @@
 
 namespace gm2calc {
 
-namespace general_thdm {
+namespace thdm {
 
 namespace {
 
@@ -387,6 +387,6 @@ double amu2L_F(const THDM_F_parameters& thdm) noexcept
    return amu2L_F_neutral(thdm) + amu2L_F_charged(thdm);
 }
 
-} // namespace general_thdm
+} // namespace thdm
 
 } // namespace gm2calc

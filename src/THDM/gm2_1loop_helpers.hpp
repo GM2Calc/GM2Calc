@@ -23,7 +23,7 @@
 
 namespace gm2calc {
 
-namespace general_thdm {
+namespace thdm {
 
 /// parameters to be passed to the 1-loop contribution functions
 struct THDM_1L_parameters {
@@ -56,7 +56,7 @@ double amu1L_approx(const THDM_1L_parameters&) noexcept;
 /// 1-loop THDM contribution to \f$\Delta\alpha\f$
 double delta_alpha(double alpha, double mHp, double q) noexcept;
 
-} // namespace general_thdm
+} // namespace thdm
 
 } // namespace gm2calc
 

@@ -30,7 +30,7 @@
 
 namespace gm2calc {
 
-namespace general_thdm {
+namespace thdm {
 
 namespace {
 
@@ -688,6 +688,6 @@ double amu2L_B(const THDM_B_parameters& thdm) noexcept
    return amu2L_B_EWadd(thdm) + amu2L_B_nonYuk(thdm) + amu2L_B_Yuk(thdm);
 }
 
-} // namespace general_thdm
+} // namespace thdm
 
 } // namespace gm2calc
