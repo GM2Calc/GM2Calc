@@ -376,15 +376,91 @@ example as
 
     bin/gm2calc.x --thdm-input-file=../input/example.thdm
 
-then the input parameters are read from the following blocks.
+then the input parameters are read from different blocks, depending on
+the input basis.
 
 ### Gauge basis
 
-[TODO]
+The THDM-specific input parameters in the gauge basis are read from
+the following blocks:
+
+ * `MINPAR`: tan(β), λ\_{1,...,7}, m\_{12}^2, ζ\_{u,d,l} and the
+   Yukawa type (0 = general, 1 = type I, 2 = type II, 3 = type X, 4 =
+   type Y, 5 = aligned THDM)
+
+   Note: The parameters ζ\_{u,d,l} are only used if the Yukawa type is
+   set to the aligned THDM (Yukawa type = 5).
+
+   *Example:*
+
+       Block MINPAR                  # model parameters in gauge basis
+           3        3                # tan(beta)
+          11        0.7              # lambda_1
+          12        0.6              # lambda_2
+          13        0.5              # lambda_3
+          14        0.4              # lambda_4
+          15        0.3              # lambda_5
+          16        0.2              # lambda_6
+          17        0.1              # lambda_7
+          18        40000            # m_{12}^2
+          21        0                # zeta_u
+          22        0                # zeta_d
+          23        0                # zeta_l
+          24        2                # Yukawa type (0 = general, 1, 2, 3, 4, 5 = aligned)
+
+ * `GM2CalcTHDMXuInput`, `GM2CalcTHDMXdInput`, `GM2CalcTHDMXlInput`:
+   The real parts of the matrices X_u, X_d and X_l
+
+ * `GM2CalcTHDMImXuInput`, `GM2CalcTHDMImXdInput`, `GM2CalcTHDMImXlInput`:
+   The imaginary parts of the matrices X_u, X_d and X_l
+
+Note: The parameters X\_{u,d,l} are only used if the Yukawa type is
+set to the general THDM (Yukawa type = 0).
 
 ### Mass basis
 
-[TODO]
+The THDM-specific input parameters in the mass basis are read from the
+following blocks:
+
+ * `MINPAR`: tan(β), λ\_{6,7}, m\_{12}^2, sin(β-α), ζ\_{u,d,l} and the
+   Yukawa type (0 = general, 1 = type I, 2 = type II, 3 = type X, 4 =
+   type Y, 5 = aligned THDM)
+
+   Note: The parameters ζ\_{u,d,l} are only used if the Yukawa type is
+   set to the aligned THDM (Yukawa type = 5).
+
+   *Example:*
+
+       Block MINPAR                  # model parameters
+           3        3                # tan(beta)
+          16        0.2              # lambda_6
+          17        0.1              # lambda_7
+          18        40000            # m_{12}^2
+          20        0.999            # sin(beta - alpha)
+          21        0                # zeta_u
+          22        0                # zeta_d
+          23        0                # zeta_l
+          24        2                # Yukawa type (0 = general, 1, 2, 3, 4, 5 = aligned)
+
+ * `MASS`: CP-even Higgs boson masses m_h, m_H, the CP-odd Higgs boson
+   mass m_A and the charged Higgs boson mass m_{H^+}
+
+   *Example:*
+
+       Block MASS                    # Higgs masses
+          25        100              # mh, lightest CP-even Higgs
+          35        400              # mH, heaviest CP-even Higgs
+          36        420              # mA, CP-odd Higgs
+          37        440              # mH+, charged Higgs
+
+ * `GM2CalcTHDMXuInput`, `GM2CalcTHDMXdInput`, `GM2CalcTHDMXlInput`:
+   The real parts of the matrices X_u, X_d and X_l
+
+ * `GM2CalcTHDMImXuInput`, `GM2CalcTHDMImXdInput`, `GM2CalcTHDMImXlInput`:
+   The imaginary parts of the matrices X_u, X_d and X_l
+
+Note: The parameters X\_{u,d,l} are only used if the Yukawa type is
+set to the general THDM (Yukawa type = 0).
 
 See `input/example.thdm` for an example input file.
 
