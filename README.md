@@ -181,12 +181,12 @@ different input parameters.
 Input parameters
 ================
 
-SLHA input parameters
----------------------
+MSSM: SLHA input parameters
+---------------------------
 
 When GM2Calc is called with an
-[SLHA-1](https://arxiv.org/abs/hep-ph/0311123) input file, for example
-as
+[SLHA-1](https://arxiv.org/abs/hep-ph/0311123) input file for the
+MSSM, for example as
 
     bin/gm2calc.x --slha-input-file=../input/example.slha
 
@@ -298,8 +298,8 @@ flavour violation.
 
 ---
 
-GM2Calc input parameters
-------------------------
+MSSM: GM2Calc input parameters
+------------------------------
 
 When GM2Calc is called with an input file in the custom GM2Calc
 format (in a mixed DR-bar/on-shell scheme), for example as
@@ -368,15 +368,31 @@ then the input parameters are read from the following blocks:
 See `input/example.gm2` for an example input file with custom GM2Calc
 input parameters.
 
+THDM: SLHA-like input parameters
+--------------------------------
+
+When GM2Calc is called with an SLHA-like input file for the THDM, for
+example as
+
+    bin/gm2calc.x --thdm-input-file=../input/example.thdm
+
+then the input parameters are read from the following blocks.
+
+### Gauge basis
+
+### Mass basis
+
+See `input/example.thdm` for an example input file.
+
 
 Block `GM2CalcConfig`
 ---------------------
 
-When running GM2Calc from the command line with an (SLHA or custom
-GM2Calc) input file, the input file may contain the `GM2CalcConfig`
-configuration block to customize the calculation and the output.  The
-`GM2CalcConfig` block entries are summarized in the following table
-and are described below:
+When running GM2Calc from the command line with SLHA or SLHA-like
+input, the input may contain the `GM2CalcConfig` configuration block
+to customize the calculation and the output.  The `GM2CalcConfig`
+block entries are summarized in the following table and are described
+below:
 
 | Entry    | Description           | Possible values | Defaul value                              |
 |----------|-----------------------|-----------------|-------------------------------------------|
@@ -386,6 +402,7 @@ and are described below:
 | 3        | force output          | `0`, `1`        | `0`                                       |
 | 4        | verboe output         | `0`, `1`        | `0`                                       |
 | 5        | estimate uncertainty  | `0`, `1`        | `0`                                       |
+| 6        | running parameters    | `0`, `1`        | `0`                                       |
 
 Description:
 
@@ -418,6 +435,9 @@ Description:
    * to the first line              in case of detailed output,
    * to `GM2CalcOutput[1]`          otherwise.
 
+ * `GM2CalcConfig[6]`: disable/enable use of running parameters (`0` or `1`)
+   in the fermionic 2-loop contributions in the THDM.
+
 We recommend to use the following configuration block in an SLHA input
 file:
 
@@ -428,7 +448,8 @@ file:
          2     1     # disable/enable tan(beta) resummation (0 or 1)
          3     0     # force output (0 or 1)
          4     0     # verbose output (0 or 1)
-         5     1     # calculate uncertainty
+         5     1     # calculate uncertainty (0 or 1)
+         6     0     # running parameters (0 or 1)
 
 
 C/C++ interface
