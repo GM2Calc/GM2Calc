@@ -285,13 +285,12 @@ double calculate_mb_SM6_MSbar(
  *
  * @param mtau_pole tau lepton pole mass
  * @param alpha_em_mz electromagnetic coupling at the scale Q = MZ
- * @param mz Z boson pole mass
  * @param scale renormalization scale
  *
  * @return mtau(MS-bar,SM(6),Q)
  */
 double calculate_mtau_SM6_MSbar(
-   double mtau_pole, double alpha_em_mz, double /* mz */, double scale) noexcept
+   double mtau_pole, double alpha_em_mz, double scale) noexcept
 {
    // calculate mtau(mtau)
    const double mtau_mtau = mtau_pole; // neglecting loop corrections

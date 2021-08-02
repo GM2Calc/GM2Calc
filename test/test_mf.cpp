@@ -101,11 +101,10 @@ TEST_CASE("mt_MSbar_at_1TeV")
 TEST_CASE("mtau_MSbar_at_1TeV")
 {
    const double alpha_em_mz = 1/127.934;
-   const double mz = 91.1876;
    const double mtau_pole = 1.777;
    const double scale = 1000;
 
-   const auto mtau = gm2calc::calculate_mtau_SM6_MSbar(mtau_pole, alpha_em_mz, mz, scale);
+   const auto mtau = gm2calc::calculate_mtau_SM6_MSbar(mtau_pole, alpha_em_mz, scale);
 
    // obtained with FlexibleSUSY 2.6, using 1-loop running
    const auto mtau_expected = 1.75137065E+00;

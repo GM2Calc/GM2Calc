@@ -98,7 +98,7 @@ Eigen::Matrix<double,3,1> THDM::get_ml(double scale) const
    if (config.running_couplings && scale > 0) {
       const double mtau_pole = ml(2);
       // replace mtau_pole by mtau(SM(6), MS-bar, Q = scale)
-      ml(2) = calculate_mtau_SM6_MSbar(mtau_pole, sm.get_alpha_em_mz(), sm.get_mz(), scale);
+      ml(2) = calculate_mtau_SM6_MSbar(mtau_pole, sm.get_alpha_em_mz(), scale);
    }
 
    return ml;

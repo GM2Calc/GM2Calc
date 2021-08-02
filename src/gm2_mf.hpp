@@ -31,7 +31,7 @@ double calculate_mt_SM6_MSbar(double mt_pole, double alpha_s_mz, double mz, doub
 double calculate_mb_SM6_MSbar(double mb_mb, double mt_pole, double alpha_s_mz, double mz, double scale) noexcept;
 
 /// calculates mtau(Q) MS-bar in the SM(6)
-double calculate_mtau_SM6_MSbar(double mtau_pole, double alpha_em_mz, double mz, double scale) noexcept;
+double calculate_mtau_SM6_MSbar(double mtau_pole, double alpha_em_mz, double scale) noexcept;
 
 } // namespace gm2calc
 
