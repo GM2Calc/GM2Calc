@@ -468,7 +468,7 @@ void THDM::print(std::ostream& ostr) const
 {
    THDM_mass_eigenstates::print(ostr);
 
-   ostr << "Yukawa scheme: " << yukawa_type_to_string() << '\n';
+   ostr << "Yukawa type: " << yukawa_type_to_string() << '\n';
 
    ostr << "zeta_u = " << get_zeta_u() << '\n';
    ostr << "zeta_d = " << get_zeta_d() << '\n';
