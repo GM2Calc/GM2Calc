@@ -112,12 +112,14 @@ Running GM2Calc
 From the command line
 ---------------------
 
-GM2Calc can be run from the command line using an SLHA input file or a
-custom GM2Calc input file (similar to SLHA, but different definition
-of input parameters in a mixed DR-bar/on-shell scheme).  See
-`bin/gm2calc.x --help` for all options.
+GM2Calc can be run from the command line using an SLHA or SLHA-like
+input. For the MSSM the input can be given in the SLHA format or in a
+custom GM2Calc input format (similar to SLHA, but different definition
+of input parameters in a mixed DR-bar/on-shell scheme). For the THDM
+the input can be given in an SLHA-like format (compatible with
+2HDMC). See `bin/gm2calc.x --help` for all options.
 
-**Example:** Running GM2Calc with an SLHA input file:
+**Examples:** Running GM2Calc with an SLHA input file for the MSSM:
 
     bin/gm2calc.x --slha-input-file=../input/example.slha
 
@@ -125,8 +127,8 @@ or
 
     cat ../input/example.slha | bin/gm2calc.x --slha-input-file=-
 
-**Example:** Running GM2Calc with a custom GM2Calc input file (mixed
-DR-bar/on-shell scheme):
+**Example:** Running GM2Calc with a custom GM2Calc input file for the
+MSSM (mixed DR-bar/on-shell scheme):
 
     bin/gm2calc.x --gm2calc-input-file=../input/example.gm2
 
@@ -145,6 +147,14 @@ or
     bin/SPheno input/LesHouches.in.mSUGRA
     bin/gm2calc.x --slha-input-file=SPheno.spc
 
+**Example:** Running GM2Calc with an input file for the THDM:
+
+    bin/gm2calc.x --thdminput-file=../input/example.thdm
+
+or
+
+    cat ../input/example.thdm | bin/gm2calc.x --thdm input-file=-
+
 
 From within Mathematica
 -----------------------
@@ -157,13 +167,15 @@ can be installed in Mathematica by calling
     Install["bin/gm2calc.mx"]
 
 Afterwards, the GM2Calc Mathematica interface functions can be used.
-See `examples/example-slha.m` and `examples/example-gm2calc.m` for
-examples with SLHA and GM2Calc input parameters, respectively.
+See `examples/example-slha.m` (MSSM), `examples/example-gm2calc.m`
+(MSSM) and `examples/example-thdm.m` (THDM) for examples with
+different input parameters.
 
 **Example:**
 
     math -run "<< ../examples/example-slha.m"
     math -run "<< ../examples/example-gm2calc.m"
+    math -run "<< ../examples/example-thdm.m"
 
 
 Input parameters
