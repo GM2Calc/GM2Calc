@@ -13,7 +13,7 @@
 
   The Y^f are related to the Yukawa part of the Lagrangian:
 
-     L = Y^u_1 Q.H_1 u + Y^u_2 Q.H_2 u + Y^d_1 Q.H_1 d + Y^d_2 Q.H_2 d + Y^e_1 L.H_1 e + Y^e_2 L.H_d e 
+     -L = Y^u_1 Q.H_1 u + Y^u_2 Q.H_2 u + Y^d_1 Q.H_1 d + Y^d_2 Q.H_2 d + Y^e_1 L.H_1 e + Y^e_2 L.H_d e
 
  *)
 
