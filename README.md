@@ -380,7 +380,11 @@ then the input parameters are read from the following blocks.
 
 ### Gauge basis
 
+[TODO]
+
 ### Mass basis
+
+[TODO]
 
 See `input/example.thdm` for an example input file.
 
@@ -456,21 +460,40 @@ C/C++ interface
 ===============
 
 GM2Calc provides a C and a C++ interface.  To use the routines of
-GM2Calc in a C++ program, the following C++ header files have to be
-included:
+GM2Calc in a C++ program and perform an MSSM calculation, the
+following C++ header files have to be included:
 
     include/gm2calc/gm2_1loop.hpp
     include/gm2calc/gm2_2loop.hpp
     include/gm2calc/gm2_uncertainty.hpp
+    include/gm2calc/gm2_error.hpp
     include/gm2calc/MSSMNoFV_onshell.hpp
 
-To use the routines of GM2Calc in a C program, the following C header
-files have to be included:
+For the calculation in the THDM, the following C++ header files have
+to be included:
+
+    include/gm2calc/gm2_1loop.hpp
+    include/gm2calc/gm2_2loop.hpp
+    include/gm2calc/gm2_uncertainty.hpp
+    include/gm2calc/gm2_error.hpp
+    include/gm2calc/THDM.hpp
+
+To use the routines of GM2Calc in a C program to perform an MSSM
+calculation, the following C header files have to be included:
 
     include/gm2calc/gm2_1loop.h
     include/gm2calc/gm2_2loop.h
     include/gm2calc/gm2_uncertainty.h
     include/gm2calc/MSSMNoFV_onshell.h
+
+For the calculation in the THDM, the following C header files must be
+included:
+
+    include/gm2calc/gm2_1loop.h
+    include/gm2calc/gm2_2loop.h
+    include/gm2calc/gm2_uncertainty.h
+    include/gm2calc/THDM.h
+    include/gm2calc/SM.h
 
 Please refer to the content of these header files for a precise
 definition of all interface functions.  The C/C++ example programs in
@@ -485,17 +508,19 @@ After the GM2Calc MathLink executable has been loaded by
 e.g. `Install["bin/gm2calc.mx"]`, the following functions are
 available:
 
-| Function                | Description                                                |
-| ----------------------- | ---------------------------------------------------------- |
-| GM2CalcSetFlags         | Sets configuration flags for the calculation               |
-| GM2CalcGetFlags         | Returns currently set configuration flags                  |
-| GM2CalcSetSMParameters  | Sets Standard Model parameters                             |
-| GM2CalcGetSMParameters  | Returns currently set Standard Model parameters            |
-| GM2CalcAmuSLHAScheme    | Calculates `a_mu`, given SLHA input parameters             |
-| GM2CalcAmuGM2CalcScheme | Calculates `a_mu`, given GM2Calc-specific input parameters |
+| Function                | Description                                                           |
+| ----------------------- | --------------------------------------------------------------------- |
+| GM2CalcSetFlags         | Sets configuration flags for the calculation                          |
+| GM2CalcGetFlags         | Returns currently set configuration flags                             |
+| GM2CalcSetSMParameters  | Sets Standard Model parameters                                        |
+| GM2CalcGetSMParameters  | Returns currently set Standard Model parameters                       |
+| GM2CalcAmuSLHAScheme    | Calculates `a_mu`, in the MSSM with SLHA input parameters             |
+| GM2CalcAmuGM2CalcScheme | Calculates `a_mu`, in the MSSM with GM2Calc-specific input parameters |
+| GM2CalcAmuTHDMGaugeBasis| Calculates `a_mu`, in the THDM with gauge basis input parameters      |
+| GM2CalcAmuTHDMMassBasis | Calculates `a_mu`, in the THDM with mass basis input parameters       |
 
-See the example Mathematica scripts `examples/example-slha.m` and
-`examples/example-gm2calc.m`.
+See the example Mathematica scripts `examples/example-slha.m`,
+`examples/example-gm2calc.m` and `examples/example-thdm.m`.
 
 
 Source code documentation
@@ -524,8 +549,15 @@ GM2Calc has been published in [`Athron:2015rva`]
   href="http://arxiv.org/abs/1510.08071">Eur.Phys.J. C76 (2016) no.2,
   62</a>]
 
-The expressions implemented in GM2Calc have been taken from
+- Peter Athron, Csaba Balazs, Adriano Cherchiglia, Douglas Jacob,
+  Dominik Stöckinger, Hyejung Stöckinger-Kim, Alexander Voigt:
+  *[TODO]*
+
+The expressions implemented in GM2Calc for the MSSM have been taken from
 [<a href="http://arxiv.org/abs/1003.5820">Phys.Rev. D81 (2010) 093004</a>,
  <a href="http://arxiv.org/abs/1309.0980">Phys.Lett. B726 (2013) 717-724</a>,
  <a href="http://arxiv.org/abs/1311.1775">JHEP 1402 (2014) 070</a>,
  <a href="http://arxiv.org/abs/1504.05500">JHEP 1510 (2015) 026</a>]
+
+The expressions implemented in GM2Calc for the THDM have been taken from
+[<a href="http://arxiv.org/abs/1607.06292">JHEP 01 (2017) 007</a>]
