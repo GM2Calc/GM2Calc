@@ -195,6 +195,7 @@ double THDM::get_zeta_d() const
    case thdm::Yukawa_type::general:
       return -get_tan_beta(); // should never arrive here
    }
+   throw ESetupError("Bug: unhandled case in get_zeta_d.");
 }
 
 /// Table 1, arxiv:1607.06292
@@ -214,6 +215,7 @@ double THDM::get_zeta_l() const
    case thdm::Yukawa_type::general:
       return -get_tan_beta(); // should never arrive here
    }
+   throw ESetupError("Bug: unhandled case in get_zeta_l.");
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_u(const Eigen::Matrix<double,3,3>& mu) const
