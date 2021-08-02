@@ -16,8 +16,8 @@
 // <http://www.gnu.org/licenses/>.
 // ====================================================================
 
-#ifndef GM2_GENERALTHDM_1LOOP_HELPERS_HPP
-#define GM2_GENERALTHDM_1LOOP_HELPERS_HPP
+#ifndef GM2_THDM_1LOOP_HELPERS_HPP
+#define GM2_THDM_1LOOP_HELPERS_HPP
 
 #include <Eigen/Core>
 
