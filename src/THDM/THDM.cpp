@@ -61,22 +61,13 @@ THDM::THDM(const thdm::Mass_basis& basis, const SM& sm_, const thdm::Config& cfg
    set_basis(basis);
 }
 
-double THDM::higgs_scale() const
-{
-   const double mH = get_Mhh(1);
-   const double mA = get_MAh(1);
-   const double mHp = get_MHm(1);
-   return std::cbrt(mH*mA*mHp);
-}
-
 /// returns the up-type quark masses
-Eigen::Matrix<double,3,1> THDM::get_mu() const
+Eigen::Matrix<double,3,1> THDM::get_mu(double scale) const
 {
    Eigen::Matrix<double,3,1> mu = sm.get_mu();
 
-   if (config.running_couplings) {
+   if (config.running_couplings && scale > 0) {
       const double mt_pole = mu(2);
-      const double scale = higgs_scale();
       // replace mt_pole by mt(SM(6), MS-bar, Q = scale)
       mu(2) = calculate_mt_SM6_MSbar(mt_pole, sm.get_alpha_s_mz(), sm.get_mz(), scale);
    }
@@ -85,14 +76,13 @@ Eigen::Matrix<double,3,1> THDM::get_mu() const
 }
 
 /// returns the down-type quark masses
-Eigen::Matrix<double,3,1> THDM::get_md() const
+Eigen::Matrix<double,3,1> THDM::get_md(double scale) const
 {
    Eigen::Matrix<double,3,1> md = sm.get_md();
 
-   if (config.running_couplings) {
+   if (config.running_couplings && scale > 0) {
       const double mb_mb = md(2);
       const double mt_pole = sm.get_mu(2);
-      const double scale = higgs_scale();
       // replace mb_mb by mb(SM(6), MS-bar, Q = scale)
       md(2) = calculate_mb_SM6_MSbar(mb_mb, mt_pole, sm.get_alpha_s_mz(), sm.get_mz(), scale);
    }
@@ -101,13 +91,12 @@ Eigen::Matrix<double,3,1> THDM::get_md() const
 }
 
 /// returns the charged lepton masses
-Eigen::Matrix<double,3,1> THDM::get_ml() const
+Eigen::Matrix<double,3,1> THDM::get_ml(double scale) const
 {
    Eigen::Matrix<double,3,1> ml = sm.get_ml();
 
-   if (config.running_couplings) {
+   if (config.running_couplings && scale > 0) {
       const double mtau_pole = ml(2);
-      const double scale = higgs_scale();
       // replace mtau_pole by mtau(SM(6), MS-bar, Q = scale)
       ml(2) = calculate_mtau_SM6_MSbar(mtau_pole, sm.get_alpha_em_mz(), sm.get_mz(), scale);
    }
@@ -125,9 +114,9 @@ void THDM::init_gauge_couplings()
  */
 void THDM::init_yukawas()
 {
-   const Eigen::Matrix<double,3,3> mu = get_mu().asDiagonal();
-   const Eigen::Matrix<double,3,3> md = get_md().asDiagonal();
-   const Eigen::Matrix<double,3,3> ml = get_ml().asDiagonal();
+   const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
+   const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
+   const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
 
    switch (yukawa_type) {
    case thdm::Yukawa_type::type_1:
@@ -227,11 +216,10 @@ double THDM::get_zeta_l() const
    }
 }
 
-Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_u() const
+Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_u(const Eigen::Matrix<double,3,3>& mu) const
 {
    const double cb = get_cos_beta();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> mu = get_mu().asDiagonal();
 
    if (yukawa_type != thdm::Yukawa_type::general) {
       return sqrt2*mu*get_zeta_u()/v;
@@ -240,11 +228,10 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_u() const
    return get_Xu().real()/cb - sqrt2*mu*get_tan_beta()/v;
 }
 
-Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_d() const
+Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_d(const Eigen::Matrix<double,3,3>& md) const
 {
    const double cb = get_cos_beta();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> md = get_md().asDiagonal();
 
    if (yukawa_type != thdm::Yukawa_type::general) {
       return sqrt2*md*get_zeta_d()/v;
@@ -253,11 +240,10 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_d() const
    return get_Xd()/cb - sqrt2*md*get_tan_beta()/v;
 }
 
-Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_l() const
+Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_l(const Eigen::Matrix<double,3,3>& ml) const
 {
    const double cb = get_cos_beta();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> ml = get_ml().asDiagonal();
 
    if (yukawa_type != thdm::Yukawa_type::general) {
       return sqrt2*ml*get_zeta_l()/v;
@@ -271,9 +257,9 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuh() const
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> mu = get_mu().asDiagonal();
+   const Eigen::Matrix<double,3,3> mu = get_mu(get_Mhh(0)).asDiagonal();
 
-   return sba*mu/v + cba*get_xi_u()/sqrt2;
+   return sba*mu/v + cba*get_xi_u(mu)/sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuH() const
@@ -281,19 +267,21 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuH() const
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> mu = get_mu().asDiagonal();
+   const Eigen::Matrix<double,3,3> mu = get_mu(get_Mhh(1)).asDiagonal();
 
-   return cba*mu/v - sba*get_xi_u()/sqrt2;
+   return cba*mu/v - sba*get_xi_u(mu)/sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuA() const
 {
-   return get_xi_u()/sqrt2;
+   const Eigen::Matrix<double,3,3> mu = get_mu(get_MAh(1)).asDiagonal();
+   return get_xi_u(mu)/sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuHp() const
 {
-   return -(sm.get_ckm().adjoint()*get_xi_u()).transpose();
+   const Eigen::Matrix<double,3,3> mu = get_mu(get_MHm(1)).asDiagonal();
+   return -(sm.get_ckm().adjoint()*get_xi_u(mu)).transpose();
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_ydh() const
@@ -301,9 +289,9 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ydh() const
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> md = get_md().asDiagonal();
+   const Eigen::Matrix<double,3,3> md = get_md(get_Mhh(0)).asDiagonal();
 
-   return sba*md/v + cba*get_xi_d()/sqrt2;
+   return sba*md/v + cba*get_xi_d(md)/sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_ydH() const
@@ -311,19 +299,21 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ydH() const
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> md = get_md().asDiagonal();
+   const Eigen::Matrix<double,3,3> md = get_md(get_Mhh(1)).asDiagonal();
 
-   return cba*md/v - sba*get_xi_d()/sqrt2;
+   return cba*md/v - sba*get_xi_d(md)/sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_ydA() const
 {
-   return -get_xi_d()/sqrt2;
+   const Eigen::Matrix<double,3,3> md = get_md(get_MAh(1)).asDiagonal();
+   return -get_xi_d(md)/sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_ydHp() const
 {
-   return sm.get_ckm()*get_xi_d();
+   const Eigen::Matrix<double,3,3> md = get_md(get_MHm(1)).asDiagonal();
+   return sm.get_ckm()*get_xi_d(md);
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylh() const
@@ -331,9 +321,9 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylh() const
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> ml = get_ml().asDiagonal();
+   const Eigen::Matrix<double,3,3> ml = get_ml(get_Mhh(0)).asDiagonal();
 
-   return sba*ml/v + cba*get_xi_l()/sqrt2;
+   return sba*ml/v + cba*get_xi_l(ml)/sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylH() const
@@ -341,19 +331,21 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylH() const
    const double cba = get_cos_beta_minus_alpha();
    const double sba = get_sin_beta_minus_alpha();
    const double v = get_v();
-   const Eigen::Matrix<double,3,3> ml = get_ml().asDiagonal();
+   const Eigen::Matrix<double,3,3> ml = get_ml(get_Mhh(1)).asDiagonal();
 
-   return cba*ml/v - sba*get_xi_l()/sqrt2;
+   return cba*ml/v - sba*get_xi_l(ml)/sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylA() const
 {
-   return -get_xi_l()/sqrt2;
+   const Eigen::Matrix<double,3,3> ml = get_ml(get_MAh(1)).asDiagonal();
+   return -get_xi_l(ml)/sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylHp() const
 {
-   return get_xi_l();
+   const Eigen::Matrix<double,3,3> ml = get_ml(get_MHm(1)).asDiagonal();
+   return get_xi_l(ml);
 }
 
 void THDM::set_basis(const thdm::Gauge_basis& basis)
@@ -465,13 +457,13 @@ void THDM::set_tan_beta(double tb)
    set_tan_beta_and_v(tb, sm.get_v());
 }
 
-std::ostream& operator<<(std::ostream& ostr, const THDM& model)
+void THDM::print(std::ostream& ostr) const
 {
-   model.print(ostr);
+   THDM_mass_eigenstates::print(ostr);
 
    ostr << "Yukawa scheme: ";
 
-   switch (model.get_yukawa_type()) {
+   switch (yukawa_type) {
       case thdm::Yukawa_type::type_1:
          ostr << "Type I\n";
          break;
@@ -492,29 +484,29 @@ std::ostream& operator<<(std::ostream& ostr, const THDM& model)
          break;
    }
 
-   ostr << "zeta_u = " << model.get_zeta_u() << '\n';
-   ostr << "zeta_d = " << model.get_zeta_d() << '\n';
-   ostr << "zeta_l = " << model.get_zeta_l() << '\n';
+   ostr << "zeta_u = " << get_zeta_u() << '\n';
+   ostr << "zeta_d = " << get_zeta_d() << '\n';
+   ostr << "zeta_l = " << get_zeta_l() << '\n';
 
-   ostr << "xi_u = " << model.get_xi_u() << '\n';
-   ostr << "xi_d = " << model.get_xi_d() << '\n';
-   ostr << "xi_l = " << model.get_xi_l() << '\n';
+   ostr << "yuh =\n"  << get_yuh()  << '\n';
+   ostr << "yuH =\n"  << get_yuH()  << '\n';
+   ostr << "yuA =\n"  << get_yuA()  << '\n';
+   ostr << "yuHp =\n" << get_yuHp() << '\n';
+   ostr << "ydh =\n"  << get_ydh()  << '\n';
+   ostr << "ydH =\n"  << get_ydH()  << '\n';
+   ostr << "ydA =\n"  << get_ydA()  << '\n';
+   ostr << "ydHp =\n" << get_ydHp() << '\n';
+   ostr << "ylh =\n"  << get_ylh()  << '\n';
+   ostr << "ylH =\n"  << get_ylH()  << '\n';
+   ostr << "ylA =\n"  << get_ylA()  << '\n';
+   ostr << "ylHp =\n" << get_ylHp() << '\n';
 
-   ostr << "yuh =\n"  << model.get_yuh()  << '\n';
-   ostr << "yuH =\n"  << model.get_yuH()  << '\n';
-   ostr << "yuA =\n"  << model.get_yuA()  << '\n';
-   ostr << "yuHp =\n" << model.get_yuHp() << '\n';
-   ostr << "ydh =\n"  << model.get_ydh()  << '\n';
-   ostr << "ydH =\n"  << model.get_ydH()  << '\n';
-   ostr << "ydA =\n"  << model.get_ydA()  << '\n';
-   ostr << "ydHp =\n" << model.get_ydHp() << '\n';
-   ostr << "ylh =\n"  << model.get_ylh()  << '\n';
-   ostr << "ylH =\n"  << model.get_ylH()  << '\n';
-   ostr << "ylA =\n"  << model.get_ylA()  << '\n';
-   ostr << "ylHp =\n" << model.get_ylHp() << '\n';
+   ostr << get_sm();
+}
 
-   ostr << model.get_sm();
-
+std::ostream& operator<<(std::ostream& ostr, const THDM& model)
+{
+   model.print(ostr);
    return ostr;
 }
 

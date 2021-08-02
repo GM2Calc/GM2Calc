@@ -85,6 +85,8 @@ public:
    THDM(const thdm::Gauge_basis&, const SM& sm_ = SM{}, const thdm::Config& cfg = thdm::Config{});
    THDM(const thdm::Mass_basis&, const SM& sm_ = SM{}, const thdm::Config& cfg = thdm::Config{});
 
+   void print(std::ostream&) const;
+
    double get_zeta_u() const;
    double get_zeta_d() const;
    double get_zeta_l() const;
@@ -148,8 +150,6 @@ public:
 
    using THDM_mass_eigenstates::get_problems;
 
-   friend std::ostream& operator<<(std::ostream&, const THDM&);
-
 private:
    SM sm{};
    thdm::Yukawa_type yukawa_type{thdm::Yukawa_type::type_2};
@@ -158,14 +158,12 @@ private:
    double zeta_l{0.0}; ///< alignment parameter
    thdm::Config config{}; ///< configuration options
 
-   double higgs_scale() const;
-   Eigen::Matrix<double,3,1> get_mu() const;
-   Eigen::Matrix<double,3,1> get_md() const;
-   Eigen::Matrix<double,3,1> get_ml() const;
-   Eigen::Matrix<std::complex<double>,3,3> get_xi_u() const;
-   Eigen::Matrix<std::complex<double>,3,3> get_xi_d() const;
-   Eigen::Matrix<std::complex<double>,3,3> get_xi_l() const;
-   thdm::Yukawa_type get_yukawa_type() const { return yukawa_type; }
+   Eigen::Matrix<double,3,1> get_mu(double) const;
+   Eigen::Matrix<double,3,1> get_md(double) const;
+   Eigen::Matrix<double,3,1> get_ml(double) const;
+   Eigen::Matrix<std::complex<double>,3,3> get_xi_u(const Eigen::Matrix<double,3,3>&) const;
+   Eigen::Matrix<std::complex<double>,3,3> get_xi_d(const Eigen::Matrix<double,3,3>&) const;
+   Eigen::Matrix<std::complex<double>,3,3> get_xi_l(const Eigen::Matrix<double,3,3>&) const;
    void init_gauge_couplings();
    void init_yukawas();
    void set_basis(const thdm::Gauge_basis&);
