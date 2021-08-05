@@ -34,6 +34,7 @@ int main()
    sm.set_ml(2, 1.77684);
 
    gm2calc::thdm::Config config;
+   config.force_output = false;
    config.running_couplings = false;
 
    try {

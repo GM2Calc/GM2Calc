@@ -35,6 +35,7 @@ namespace thdm {
  * @brief Configuration options for the THDM
  */
 struct Config {
+   bool force_output{false};      ///< force output
    bool running_couplings{false}; ///< use running couplings
 };
 

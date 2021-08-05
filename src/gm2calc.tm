@@ -1693,6 +1693,7 @@ void GM2CalcAmuTHDMGaugeBasis(
    basis.Xl_imag[2][2] = Xl_imag_33_;
 
    THDM_config config;
+   config.force_output = config_flags.forceOutput;
    config.running_couplings = config_flags.runningCouplings;
 
    THDM* model = 0;
@@ -1866,6 +1867,7 @@ void GM2CalcAmuTHDMMassBasis(
    basis.Xl_imag[2][2] = Xl_imag_33_;
 
    THDM_config config;
+   config.force_output = config_flags.forceOutput;
    config.running_couplings = config_flags.runningCouplings;
 
    THDM* model = 0;

@@ -35,9 +35,13 @@ extern "C" {
 
 /** THDM configuration options */
 struct THDM_config {
+   int force_output;
    int running_couplings;
 };
 typedef struct THDM_config THDM_config;
+
+/** create a new config */
+THDM_config gm2calc_thdm_config_new();
 
 /** general THDM handle */
 struct THDM;

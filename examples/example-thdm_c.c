@@ -41,8 +41,7 @@ int main()
    sm.md[2] = 4.18;
    sm.ml[2] = 1.77684;
 
-   THDM_config config;
-   config.running_couplings = 0;
+   THDM_config config = gm2calc_thdm_config_new();
 
    THDM* model = 0;
    gm2calc_error error = gm2calc_thdm_new_with_mass_basis(&model, &basis, &sm, &config);

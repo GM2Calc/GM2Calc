@@ -31,6 +31,7 @@ gm2calc::thdm::Config convert_to_config(THDM_config* config)
    gm2calc::thdm::Config c;
 
    if (config != nullptr) {
+      c.force_output = config->force_output;
       c.running_couplings = config->running_couplings;
    }
 
@@ -179,6 +180,21 @@ gm2calc::thdm::Mass_basis convert_to_basis(THDM_mass_basis* basis)
 
 extern "C"
 {
+
+/**
+ * Create a new THDM_config
+ * @return new struct with configuration options
+ */
+THDM_config gm2calc_thdm_config_new()
+{
+   gm2calc::thdm::Config cpp;
+
+   THDM_config config;
+   config.force_output = cpp.force_output;
+   config.running_couplings = cpp.running_couplings;
+
+   return config;
+}
 
 /**
  * @brief Allocate a new general THDM model with general basis input.
