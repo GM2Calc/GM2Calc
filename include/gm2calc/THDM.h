@@ -103,10 +103,10 @@ struct SM;
 typedef struct SM SM;
 
 /** allocate new general THDM model with general basis input */
-gm2calc_error gm2calc_thdm_new_with_gauge_basis(THDM**, THDM_gauge_basis*, SM*, THDM_config*);
+gm2calc_error gm2calc_thdm_new_with_gauge_basis(THDM**, const THDM_gauge_basis*, const SM*, const THDM_config*);
 
 /** allocate new general THDM model with physical basis input */
-gm2calc_error gm2calc_thdm_new_with_mass_basis(THDM**, THDM_mass_basis*, SM*, THDM_config*);
+gm2calc_error gm2calc_thdm_new_with_mass_basis(THDM**, const THDM_mass_basis*, const SM*, const THDM_config*);
 
 /** delete general THDM model */
 void gm2calc_thdm_free(THDM*);
