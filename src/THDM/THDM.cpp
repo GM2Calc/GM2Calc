@@ -354,7 +354,12 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylHp() const
 void THDM::set_basis(const thdm::Gauge_basis& basis)
 {
    if (basis.tan_beta <= 0) {
-      throw EInvalidInput("tan(beta) must be greater than zero.");
+      const char* err = "tan(beta) must be greater than zero.";
+      if (config.force_output) {
+         WARNING(err);
+      } else {
+         throw EInvalidInput(err);
+      }
    }
 
    set_lambda1(basis.lambda(0));
@@ -377,38 +382,77 @@ void THDM::set_basis(const thdm::Gauge_basis& basis)
    calculate_MSbar_masses();
 
    if (get_problems().have_problem()) {
-      throw EPhysicalProblem(get_problems().get_problems());
+      if (config.force_output) {
+         WARNING(get_problems().get_problems());
+      } else {
+         throw EPhysicalProblem(get_problems().get_problems());
+      }
    }
 }
 
 void THDM::set_basis(const thdm::Mass_basis& basis)
 {
    if (basis.mh > basis.mH) {
-      throw EInvalidInput("mh must be less than or equal to mH.");
+      const char* err = "mh must be less than or equal to mH.";
+      if (config.force_output) {
+         WARNING(err);
+      } else {
+         throw EInvalidInput(err);
+      }
    }
 
    if (basis.tan_beta <= 0) {
-      throw EInvalidInput("tan(beta) must be greater than zero.");
+      const char* err = "tan(beta) must be greater than zero.";
+      if (config.force_output) {
+         WARNING(err);
+      } else {
+         throw EInvalidInput(err);
+      }
    }
 
    if (std::abs(basis.sin_beta_minus_alpha) > 1) {
-      throw EInvalidInput("|sin(beta - alpha_h)| must be less than or equal to 1.");
+      const char* err = "|sin(beta - alpha_h)| must be less than or equal to 1.";
+      if (config.force_output) {
+         WARNING(err);
+      } else {
+         throw EInvalidInput(err);
+      }
    }
 
-   if (std::abs(basis.mh) < 0) {
-      throw EInvalidInput("mh must be greater than or equal to zero.");
+   if (basis.mh < 0) {
+      const char* err = "mh must be greater than or equal to zero.";
+      if (config.force_output) {
+         WARNING(err);
+      } else {
+         throw EInvalidInput(err);
+      }
    }
 
-   if (std::abs(basis.mH) < 0) {
-      throw EInvalidInput("mH must be greater than or equal to zero.");
+   if (basis.mH < 0) {
+      const char* err = "mH must be greater than or equal to zero.";
+      if (config.force_output) {
+         WARNING(err);
+      } else {
+         throw EInvalidInput(err);
+      }
    }
 
-   if (std::abs(basis.mA) < 0) {
-      throw EInvalidInput("mA must be greater than or equal to zero.");
+   if (basis.mA < 0) {
+      const char* err = "mA must be greater than or equal to zero.";
+      if (config.force_output) {
+         WARNING(err);
+      } else {
+         throw EInvalidInput(err);
+      }
    }
 
-   if (std::abs(basis.mHp) < 0) {
-      throw EInvalidInput("mHp must be greater than or equal to zero.");
+   if (basis.mHp < 0) {
+      const char* err = "mHp must be greater than or equal to zero.";
+      if (config.force_output) {
+         WARNING(err);
+      } else {
+         throw EInvalidInput(err);
+      }
    }
 
    const double sba = basis.sin_beta_minus_alpha;
@@ -453,7 +497,11 @@ void THDM::set_basis(const thdm::Mass_basis& basis)
    calculate_MSbar_masses();
 
    if (get_problems().have_problem()) {
-      throw EPhysicalProblem(get_problems().get_problems());
+      if (config.force_output) {
+         WARNING(get_problems().get_problems());
+      } else {
+         throw EPhysicalProblem(get_problems().get_problems());
+      }
    }
 }
 

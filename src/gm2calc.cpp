@@ -335,6 +335,7 @@ struct THDM_reader {
       slha_io.fill(gauge_basis);
 
       gm2calc::thdm::Config thdm_config;
+      thdm_config.force_output = options.force_output;
       thdm_config.running_couplings = options.running_couplings;
 
       if ((mass_basis.mh != 0 || mass_basis.mH != 0 ||
