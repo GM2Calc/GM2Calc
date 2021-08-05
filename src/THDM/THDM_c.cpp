@@ -182,18 +182,16 @@ extern "C"
 {
 
 /**
- * Create a new THDM_config
- * @return new struct with configuration options
+ * Sets configuration options to default values.
+ * @param config pointer to configuration options
  */
-THDM_config gm2calc_thdm_config_new()
+void gm2calc_thdm_config_set_to_default(THDM_config* config)
 {
-   gm2calc::thdm::Config cpp;
-
-   THDM_config config;
-   config.force_output = cpp.force_output;
-   config.running_couplings = cpp.running_couplings;
-
-   return config;
+   if (config != nullptr) {
+      gm2calc::thdm::Config cpp;
+      config->force_output = cpp.force_output;
+      config->running_couplings = cpp.running_couplings;
+   }
 }
 
 /**

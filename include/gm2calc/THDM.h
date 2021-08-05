@@ -41,7 +41,7 @@ struct THDM_config {
 typedef struct THDM_config THDM_config;
 
 /** create a new config */
-THDM_config gm2calc_thdm_config_new();
+void gm2calc_thdm_config_set_to_default(THDM_config*);
 
 /** general THDM handle */
 struct THDM;
