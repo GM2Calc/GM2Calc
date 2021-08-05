@@ -41,7 +41,7 @@ struct Config_options {
    bool force_output{false};               ///< print output even if error occured
    bool verbose_output{false};             ///< print additional information
    bool calculate_uncertainty{false};      ///< calculate uncertainty
-   bool running_couplings{false};          ///< use running couplings
+   bool running_couplings{true};           ///< use running couplings
 };
 
 } // namespace gm2calc

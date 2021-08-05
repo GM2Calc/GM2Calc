@@ -838,7 +838,7 @@ struct Config_flags {
    .loopOrder = 2,
    .tanBetaResummation = 1,
    .forceOutput = 0,
-   .runningCouplings = 0
+   .runningCouplings = 1
 };
 
 /* Standard Model parameters */

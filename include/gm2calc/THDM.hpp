@@ -35,8 +35,8 @@ namespace thdm {
  * @brief Configuration options for the THDM
  */
 struct Config {
-   bool force_output{false};      ///< force output
-   bool running_couplings{false}; ///< use running couplings
+   bool force_output{false};     ///< force output
+   bool running_couplings{true}; ///< use running couplings
 };
 
 enum class Yukawa_type : int {

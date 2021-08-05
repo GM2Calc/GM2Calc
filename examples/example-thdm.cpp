@@ -35,7 +35,7 @@ int main()
 
    gm2calc::thdm::Config config;
    config.force_output = false;
-   config.running_couplings = false;
+   config.running_couplings = true;
 
    try {
       const gm2calc::THDM model(basis, sm, config);

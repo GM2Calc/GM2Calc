@@ -4,7 +4,7 @@ GM2CalcSetFlags[
     loopOrder -> 2,
     tanBetaResummation -> True,
     forceOutput -> False,
-    runningCouplings -> False];
+    runningCouplings -> True];
 
 GM2CalcSetSMParameters[
     alpha0 -> 0.00729735,

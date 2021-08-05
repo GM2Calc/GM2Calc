@@ -293,11 +293,14 @@ TEST_CASE("test-point-GAMBIT")
    basis.m122 = 1428;
    basis.Xl(1,1) = 0.1;
 
+   gm2calc::thdm::Config config;
+   config.running_couplings = false;
+
    gm2calc::SM sm;
    sm.set_alpha_em_mz(1.0/132.23323);
    sm.set_ckm_from_wolfenstein(0, 0, 0, 0);
 
-   gm2calc::THDM model(basis, sm);
+   gm2calc::THDM model(basis, sm, config);
 
    const auto amu1L = gm2calc::calculate_amu_1loop(model);
    const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
@@ -327,11 +330,14 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
          -2.25369999999999987e-01, 1.00000000000000000e+00, 4.13443924365999860e-02,
           8.22760479379446540e-03, -4.13443924365999860e-02, 1.00000000000000000e+00;
 
+   gm2calc::thdm::Config config;
+   config.running_couplings = false;
+
    gm2calc::SM sm;
    sm.set_alpha_em_mz(1.0/132.23323);
    sm.set_ckm(ckm);
 
-   gm2calc::THDM model(basis, sm);
+   gm2calc::THDM model(basis, sm, config);
 
    const auto amu1L = gm2calc::calculate_amu_1loop(model);
    const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
@@ -363,11 +369,14 @@ TEST_CASE("test-point-GAMBIT-complex-CKM")
          -0.22537, 1.0, 0.041344392,
          std::complex<double>(0.0082276048,-0.0032891784), -0.041344392, 1.0;
 
+   gm2calc::thdm::Config config;
+   config.running_couplings = false;
+
    gm2calc::SM sm;
    sm.set_alpha_em_mz(1.0/132.23323);
    sm.set_ckm(ckm);
 
-   gm2calc::THDM model(basis, sm);
+   gm2calc::THDM model(basis, sm, config);
 
    // const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
 
@@ -395,6 +404,9 @@ TEST_CASE("2HDMC-mA-scan")
       std::string(TEST_DATA_DIR) + PATH_SEPARATOR + "2HDMC" +
       PATH_SEPARATOR + "2HDMC-scan-mA.txt");
 
+   gm2calc::thdm::Config config;
+   config.running_couplings = false;
+
    gm2calc::SM sm;
    sm.set_alpha_em_mz(1.0/127.934);
    sm.set_mu(2, 172.5);
@@ -420,7 +432,7 @@ TEST_CASE("2HDMC-mA-scan")
       basis.tan_beta = 3;
       basis.m122 = 40000;
 
-      gm2calc::THDM model(basis, sm);
+      gm2calc::THDM model(basis, sm, config);
 
       INFO("mA = " << mA);
 
