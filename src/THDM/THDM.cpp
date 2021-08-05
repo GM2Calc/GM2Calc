@@ -373,9 +373,8 @@ void THDM::set_basis(const thdm::Gauge_basis& basis)
    validate();
 
    solve_ewsb();
-   calculate_boson_masses();
    init_yukawas();
-   calculate_fermion_masses();
+   calculate_MSbar_masses();
 
    if (get_problems().have_problem()) {
       throw EPhysicalProblem(get_problems().get_problems());
@@ -450,9 +449,8 @@ void THDM::set_basis(const thdm::Mass_basis& basis)
    validate();
 
    solve_ewsb();
-   calculate_boson_masses();
    init_yukawas();
-   calculate_fermion_masses();
+   calculate_MSbar_masses();
 
    if (get_problems().have_problem()) {
       throw EPhysicalProblem(get_problems().get_problems());
