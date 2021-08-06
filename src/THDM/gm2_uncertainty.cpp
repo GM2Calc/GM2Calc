@@ -91,6 +91,7 @@ double calculate_uncertainty_amu_2loop(const THDM& model)
    const double mA = std::abs(model.get_MAh(1));
    const double mHp = std::abs(model.get_MHm(1));
    const double mNP = std::fmin(mH,std::fmin(mA,mHp)); // new physics scale
+
    // universal 2-loop QED logarithmic correction from Eq.(51) hep-ph/9803384
    const double delta_alpha_em = -4*alpha_em/pi*std::log(std::abs(mNP/mm));
 
@@ -101,9 +102,9 @@ double calculate_uncertainty_amu_2loop(const THDM& model)
    const double delta_amu_2L_mm4 = std::abs(calculate_amu_1loop(model)*delta_alpha_em);
 
    // estimate of 3-loop corrections O(mm^2)
-   const double delta_amu_3L_alpha_em = std::abs(calculate_amu_2loop(model)*delta_alpha_em);
+   const double delta_amu_3L = std::abs(calculate_amu_2loop(model)*delta_alpha_em);
 
-   return delta_amu_2L_delta_r + delta_amu_2L_mm4 + delta_amu_3L_alpha_em;
+   return delta_amu_2L_delta_r + delta_amu_2L_mm4 + delta_amu_3L;
 }
 
 } // namespace gm2calc
