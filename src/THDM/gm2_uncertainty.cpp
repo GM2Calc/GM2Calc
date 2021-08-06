@@ -74,7 +74,9 @@ double calculate_uncertainty_amu_1loop(const THDM& model)
  * Calculates uncertainty associated with amu(2-loop)
  *
  * Takes into account the neglected two-loop contribution
- * \f$a_\mu^{\Delta r\text{-shift}}\f$, Eq.(34) arxiv:1607.06292.
+ * \f$a_\mu^{\Delta r\text{-shift}}\f$, Eq.(34) arxiv:1607.06292,
+ * two-loop contributions of \f$O(m_\mu^4)\f$ and three-loop
+ * contributions of \f$O(m_\mu^2)\f$
  *
  * @param model model parameters
  *
@@ -83,8 +85,6 @@ double calculate_uncertainty_amu_1loop(const THDM& model)
 double calculate_uncertainty_amu_2loop(const THDM& model)
 {
    const double pi = 3.1415926535897932;
-   const double delta_r_shift_max = 2e-12;
-
    const double alpha_em = model.get_alpha_em();
    const double mm = model.get_MFe(1);
    const double mH = std::abs(model.get_Mhh(1));
@@ -93,9 +93,17 @@ double calculate_uncertainty_amu_2loop(const THDM& model)
    const double mNP = std::fmin(mH,std::fmin(mA,mHp)); // new physics scale
    // universal 2-loop QED logarithmic correction from Eq.(51) hep-ph/9803384
    const double delta_alpha_em = -4*alpha_em/pi*std::log(std::abs(mNP/mm));
-   const double delta_alpha_em_shift = std::abs(calculate_amu_2loop(model)*delta_alpha_em);
 
-   return delta_r_shift_max + delta_alpha_em_shift;
+   // upper bound on neglected 2-loop contribution from \Delta r
+   const double delta_amu_2L_delta_r = 2e-12;
+
+   // estimate of 2-loop corrections O(mm^4)
+   const double delta_amu_2L_mm4 = std::abs(calculate_amu_1loop(model)*delta_alpha_em);
+
+   // estimate of 3-loop corrections O(mm^2)
+   const double delta_amu_3L_alpha_em = std::abs(calculate_amu_2loop(model)*delta_alpha_em);
+
+   return delta_amu_2L_delta_r + delta_amu_2L_mm4 + delta_amu_3L_alpha_em;
 }
 
 } // namespace gm2calc
