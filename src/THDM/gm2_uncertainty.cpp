@@ -87,10 +87,10 @@ double calculate_uncertainty_amu_2loop(const THDM& model)
 
    const double alpha_em = model.get_alpha_em();
    const double mm = model.get_MFe(1);
-   const double mH = model.get_Mhh(1);
-   const double mA = model.get_MAh(1);
-   const double mHp = model.get_MHm(1);
-   const double mNP = std::cbrt(mH*mA*mHp); // new physics scale
+   const double mH = std::abs(model.get_Mhh(1));
+   const double mA = std::abs(model.get_MAh(1));
+   const double mHp = std::abs(model.get_MHm(1));
+   const double mNP = std::fmin(mH,std::fmin(mA,mHp)); // new physics scale
    // universal 2-loop QED logarithmic correction from Eq.(51) hep-ph/9803384
    const double delta_alpha_em = -4*alpha_em/pi*std::log(std::abs(mNP/mm));
    const double delta_alpha_em_shift = std::abs(calculate_amu_2loop(model)*delta_alpha_em);
