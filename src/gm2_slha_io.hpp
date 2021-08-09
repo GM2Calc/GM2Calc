@@ -24,8 +24,8 @@
 #include "slhaea.h"
 
 #include <cmath>
+#include <iosfwd>
 #include <string>
-#include <iostream>
 
 #include <Eigen/Core>
 
