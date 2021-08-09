@@ -31,11 +31,16 @@
 #include "gm2_log.hpp"
 #include "gm2_slha_io.hpp"
 
+#include <iomanip>
 #include <iostream>
 #include <limits>
 #include <string>
 #include <tuple>
 #include <utility>
+
+#define FORMAT_AMU(amu) std::scientific << std::setprecision(8) << std::setw(15) << (amu)
+#define FORMAT_DEL(amu) std::scientific << std::setprecision(8) << std::setw(14) << (amu)
+#define FORMAT_PCT(pct) std::fixed << std::setprecision(1) << std::setw(2) << (pct)
 
 namespace {
 
@@ -375,7 +380,7 @@ struct Minimal_writer {
                             ? calculate_uncertainty(model, options)
                             : calculate_amu(model, options);
 
-      std::cout << boost::format("%.8e") % value << '\n';
+      std::cout << std::scientific << std::setprecision(8) << value << '\n';
    }
 };
 
@@ -396,10 +401,6 @@ struct Detailed_writer<gm2calc::MSSMNoFV_onshell> {
                    const gm2calc::Config_options& /* unused */,
                    gm2calc::GM2_slha_io& /* unused */)
    {
-#define FORMAT_AMU(amu) boost::format("% 14.8e") % (amu)
-#define FORMAT_DEL(amu) boost::format("%14.8e") % (amu)
-#define FORMAT_PCT(pct) boost::format("%2.1f") % (pct)
-
       const std::string error_str = model.get_problems().have_problem()
                                        ? model.get_problems().get_problems() +
                                             " (with tan(beta) resummation)\n\n"
@@ -523,10 +524,6 @@ struct Detailed_writer<gm2calc::MSSMNoFV_onshell> {
             "   amu(1L) * (1 / (1 + Delta_mu) - 1) = " << FORMAT_AMU(amu_2l_tanb_approx)
                             << " (" << FORMAT_PCT(100. * amu_2l_tanb_approx / amu_1l_non_tan_beta_resummed)
          << "%)\n";
-
-#undef FORMAT_AMU
-#undef FORMAT_DEL
-#undef FORMAT_PCT
    }
 };
 
@@ -544,10 +541,6 @@ struct Detailed_writer<gm2calc::THDM> {
                    const gm2calc::Config_options& /* unused */,
                    gm2calc::GM2_slha_io& /* unused */)
    {
-#define FORMAT_AMU(amu) boost::format("% 14.8e") % (amu)
-#define FORMAT_DEL(amu) boost::format("%14.8e") % (amu)
-#define FORMAT_PCT(pct) boost::format("%2.1f") % (pct)
-
       const double amu_1l = gm2calc::calculate_amu_1loop(model);
       const double amu_2l = gm2calc::calculate_amu_2loop(model);
       const double amu_2l_B = gm2calc::calculate_amu_2loop_bosonic(model);
@@ -578,10 +571,6 @@ struct Detailed_writer<gm2calc::THDM> {
          << "fermionic 2L: " << FORMAT_AMU(amu_2l_F) << " (" << FORMAT_PCT(100. * amu_2l_B / amu_2l) << "% of 2L result)\n"
          << "sum         : " << FORMAT_AMU(amu_2l) << " (" << FORMAT_PCT(100. * amu_2l / amu_best)
          << "% of full 1L + 2L result)\n";
-
-#undef FORMAT_AMU
-#undef FORMAT_DEL
-#undef FORMAT_PCT
    }
 };
 
