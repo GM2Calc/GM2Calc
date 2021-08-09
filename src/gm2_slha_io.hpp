@@ -124,9 +124,9 @@ Scalar GM2_slha_io::convert_to(const std::string& str)
    try {
       value = SLHAea::to<Scalar>(str);
       if (!std::isfinite(static_cast<double>(value))) {
-         throw boost::bad_lexical_cast();
+         throw 1;
       }
-   }  catch (const boost::bad_lexical_cast&) {
+   }  catch (...) {
       throw EReadError("non-numeric input");
    }
    return value;
