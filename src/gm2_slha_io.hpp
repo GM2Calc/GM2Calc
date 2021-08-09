@@ -28,7 +28,6 @@
 #include <iostream>
 
 #include <Eigen/Core>
-#include <boost/format.hpp>
 
 namespace gm2calc {
 
@@ -42,11 +41,6 @@ struct Config;
 struct Gauge_basis;
 struct Mass_basis;
 }
-
-#define FORMAT_ELEMENT(pdg,value,name)                                  \
-   boost::format(" %5d   %16.8E   # %s\n") % (pdg) % (value) % (name)
-#define FORMAT_SPINFO(n,str)                                            \
-   boost::format(" %5d   %s\n") % (n) % (str)
 
 /**
  * @class GM2_slha_io

@@ -32,8 +32,14 @@
 #include <limits>
 #include <string>
 
+#include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
 #include <Eigen/Core>
+
+#define FORMAT_ELEMENT(pdg,value,name)                                  \
+   boost::format(" %5d   %16.8E   # %s\n") % (pdg) % (value) % (name)
+#define FORMAT_SPINFO(n,str)                                            \
+   boost::format(" %5d   %s\n") % (n) % (str)
 
 namespace gm2calc {
 
