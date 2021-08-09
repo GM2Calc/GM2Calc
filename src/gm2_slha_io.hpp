@@ -45,10 +45,6 @@ struct Mass_basis;
 
 #define FORMAT_ELEMENT(pdg,value,name)                                  \
    boost::format(" %5d   %16.8E   # %s\n") % (pdg) % (value) % (name)
-#define FORMAT_SCALE(n)                                                 \
-   boost::format("%9.8E") % (n)
-#define FORMAT_NUMBER(n,str)                                            \
-   boost::format("         %16.8E   # %s\n") % (n) % (str)
 #define FORMAT_SPINFO(n,str)                                            \
    boost::format(" %5d   %s\n") % (n) % (str)
 
