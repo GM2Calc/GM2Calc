@@ -362,21 +362,17 @@ struct THDM_reader {
 
       // test for unset parameters to decide which basis to use
       if ((mass_basis.mh != 0 || mass_basis.mH != 0 ||
-           mass_basis.mA != 0 || mass_basis.mHp !=0 ||
+           mass_basis.mA != 0 || mass_basis.mHp != 0 ||
            mass_basis.sin_beta_minus_alpha != 0) &&
-          (gauge_basis.lambda(0) == 0 && gauge_basis.lambda(1) == 0 &&
-           gauge_basis.lambda(2) == 0 && gauge_basis.lambda(3) == 0 &&
-           gauge_basis.lambda(4) == 0)) {
+          gauge_basis.lambda.head<5>().cwiseAbs().maxCoeff() == 0) {
          return gm2calc::THDM(mass_basis, sm, thdm_config);
-      } else if ((mass_basis.mh == 0 || mass_basis.mH == 0 ||
-                  mass_basis.mA == 0 || mass_basis.mHp ==0 ||
-                  mass_basis.sin_beta_minus_alpha == 0) &&
-                 (gauge_basis.lambda(0) != 0 && gauge_basis.lambda(1) != 0 &&
-                  gauge_basis.lambda(2) != 0 && gauge_basis.lambda(3) != 0 &&
-                  gauge_basis.lambda(4) != 0)) {
+      } else if (mass_basis.mh == 0 && mass_basis.mH == 0 &&
+                 mass_basis.mA == 0 && mass_basis.mHp == 0 &&
+                 mass_basis.sin_beta_minus_alpha == 0 &&
+                 gauge_basis.lambda.head<5>().cwiseAbs().maxCoeff() != 0) {
          return gm2calc::THDM(gauge_basis, sm, thdm_config);
       } else {
-         throw gm2calc::EInvalidInput("Contradictory input: mass and gauge basis parameters are set.");
+         throw gm2calc::EInvalidInput("Cannot distinguish between mass and gauge basis.");
       }
    }
 };
