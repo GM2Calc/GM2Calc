@@ -86,6 +86,28 @@ void print_usage(const char* program_name)
       "\n";
 }
 
+bool process_input_type(const std::string& str, Gm2_cmd_line_options& options)
+{
+   static const struct Input_file_options {
+      std::string input_source;
+      Gm2_cmd_line_options::E_input_type input_type;
+   } input_file_options[] = {
+      { "--slha-input-file="   , Gm2_cmd_line_options::SLHA    },
+      { "--gm2calc-input-file=", Gm2_cmd_line_options::GM2Calc },
+      { "--thdm-input-file="   , Gm2_cmd_line_options::THDM    }
+   };
+
+   for (const auto& ifo: input_file_options) {
+      if (Gm2_cmd_line_options::starts_with(str, ifo.input_source)) {
+         options.input_source = str.substr(ifo.input_source.length());
+         options.input_type = ifo.input_type;
+         return true; // option has been processed
+      }
+   }
+
+   return false; // option has not been processed
+}
+
 /**
  * Parses command line options
  *
@@ -99,37 +121,23 @@ Gm2_cmd_line_options get_cmd_line_options(int argc, const char* argv[])
    Gm2_cmd_line_options options;
 
    for (int i = 1; i < argc; ++i) {
-      const std::string option(argv[i]);
+      const std::string option_string(argv[i]);
 
-      if (Gm2_cmd_line_options::starts_with(option, "--slha-input-file=")) {
-         options.input_source = option.substr(18);
-         options.input_type = Gm2_cmd_line_options::SLHA;
+      if (process_input_type(option_string, options)) {
          continue;
       }
 
-      if (Gm2_cmd_line_options::starts_with(option, "--gm2calc-input-file=")) {
-         options.input_source = option.substr(21);
-         options.input_type = Gm2_cmd_line_options::GM2Calc;
-         continue;
-      }
-
-      if (Gm2_cmd_line_options::starts_with(option, "--thdm-input-file=")) {
-         options.input_source = option.substr(18);
-         options.input_type = Gm2_cmd_line_options::THDM;
-         continue;
-      }
-
-      if (option == "--help" || option == "-h") {
+      if (option_string == "--help" || option_string == "-h") {
          print_usage(argv[0]);
          exit(EXIT_SUCCESS);
       }
 
-      if (option == "--version" || option == "-v") {
+      if (option_string == "--version" || option_string == "-v") {
          std::cout << GM2CALC_VERSION << '\n';
          exit(EXIT_SUCCESS);
       }
 
-      ERROR("Unrecognized command line option: " << option);
+      ERROR("Unrecognized command line option: " << option_string);
       exit(EXIT_FAILURE);
    }
 
