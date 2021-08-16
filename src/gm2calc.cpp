@@ -360,6 +360,7 @@ struct THDM_reader {
       thdm_config.force_output = options.force_output;
       thdm_config.running_couplings = options.running_couplings;
 
+      // test for unset parameters to decide which basis to use
       if ((mass_basis.mh != 0 || mass_basis.mH != 0 ||
            mass_basis.mA != 0 || mass_basis.mHp !=0 ||
            mass_basis.sin_beta_minus_alpha != 0) &&
