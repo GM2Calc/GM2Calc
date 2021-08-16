@@ -559,6 +559,7 @@ const char* THDM::yukawa_type_to_string() const
          return "General";
          break;
    }
+   throw ESetupError("Bug: unhandled case in yukawa_type_to_string.");
 }
 
 void THDM::validate() const
