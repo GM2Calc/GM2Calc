@@ -86,6 +86,15 @@ void print_usage(const char* program_name)
       "\n";
 }
 
+/**
+ * Checks whether the given string is a specification of an input file
+ * and processes it, if so.
+ *
+ * @param str option string
+ * @param options option struct to modify
+ *
+ * @return true if option string has been processed, false otherwise
+ */
 bool process_input_type(const std::string& str, Gm2_cmd_line_options& options)
 {
    static const struct Input_file_options {
