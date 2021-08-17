@@ -485,7 +485,7 @@ below:
 | 3        | force output          | `0`, `1`        | `0`                                       |
 | 4        | verboe output         | `0`, `1`        | `0`                                       |
 | 5        | estimate uncertainty  | `0`, `1`        | `0`                                       |
-| 6        | running parameters    | `0`, `1`        | `0`                                       |
+| 6        | running parameters    | `0`, `1`        | `1`                                       |
 
 Description:
 
@@ -532,7 +532,7 @@ file:
          3     0     # force output (0 or 1)
          4     0     # verbose output (0 or 1)
          5     1     # calculate uncertainty (0 or 1)
-         6     0     # running parameters (0 or 1)
+         6     1     # running parameters (0 or 1)
 
 
 C/C++ interface
