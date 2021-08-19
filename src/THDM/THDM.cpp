@@ -118,13 +118,14 @@ void THDM::init_yukawas()
    const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
    const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
    const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
+   const Eigen::Matrix<std::complex<double>,3,3> vckm_adj = sm.get_ckm().adjoint();
 
    switch (yukawa_type) {
    case thdm::Yukawa_type::type_1:
       Xu.setZero();
       Xd.setZero();
       Xl.setZero();
-      set_Yu(sqrt2*mu/v1);
+      set_Yu(sqrt2*vckm_adj*mu/v1);
       set_Yd(sqrt2*md/v1);
       set_Yl(sqrt2*ml/v1);
       break;
@@ -132,7 +133,7 @@ void THDM::init_yukawas()
       Yu.setZero();
       Xd.setZero();
       Xl.setZero();
-      set_Xu(sqrt2*mu/v2);
+      set_Xu(sqrt2*vckm_adj*mu/v2);
       set_Yd(sqrt2*md/v1);
       set_Yl(sqrt2*ml/v1);
       break;
@@ -140,7 +141,7 @@ void THDM::init_yukawas()
       Yu.setZero();
       Yd.setZero();
       Xl.setZero();
-      set_Xu(sqrt2*mu/v2);
+      set_Xu(sqrt2*vckm_adj*mu/v2);
       set_Xd(sqrt2*md/v2);
       set_Yl(sqrt2*ml/v1);
       break;
@@ -148,12 +149,12 @@ void THDM::init_yukawas()
       Xu.setZero();
       Xd.setZero();
       Yl.setZero();
-      set_Yu(sqrt2*mu/v1);
+      set_Yu(sqrt2*vckm_adj*mu/v1);
       set_Yd(sqrt2*md/v1);
       set_Xl(sqrt2*ml/v2);
       break;
    case thdm::Yukawa_type::aligned:
-      set_Yu(sqrt2*mu/(v1 + v2*calc_xi_bar(get_zeta_u(), get_tan_beta())));
+      set_Yu(sqrt2*vckm_adj*mu/(v1 + v2*calc_xi_bar(get_zeta_u(), get_tan_beta())));
       set_Yd(sqrt2*md/(v1 + v2*calc_xi_bar(get_zeta_d(), get_tan_beta())));
       set_Yl(sqrt2*ml/(v1 + v2*calc_xi_bar(get_zeta_l(), get_tan_beta())));
       set_Xu(calc_xi_bar(get_zeta_u(), get_tan_beta())*Yu);
@@ -161,7 +162,7 @@ void THDM::init_yukawas()
       set_Xl(calc_xi_bar(get_zeta_l(), get_tan_beta())*Yl);
       break;
    case thdm::Yukawa_type::general:
-      set_Yu(sqrt2*mu/v1 - v2/v1*Xu);
+      set_Yu(sqrt2*vckm_adj*mu/v1 - v2/v1*Xu);
       set_Yd(sqrt2*md/v1 - v2/v1*Xd);
       set_Yl(sqrt2*ml/v1 - v2/v1*Xl);
       break;
