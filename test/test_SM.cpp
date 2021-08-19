@@ -14,5 +14,8 @@ TEST_CASE("test-CKM-unitarity")
    const Eigen::Matrix<std::complex<double>,3,3> cca = ckm * ckm.adjoint();
    const double max_diff = (cca - unit).cwiseAbs().maxCoeff();
 
-   CHECK(max_diff < eps);
+   INFO("max diff: " << max_diff);
+   INFO("eps: " << eps);
+
+   CHECK(max_diff <= eps);
 }
