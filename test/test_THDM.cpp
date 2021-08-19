@@ -8,6 +8,7 @@
 #include "read_data.hpp"
 
 #include <cmath>
+#include <limits>
 
 #define CHECK_CLOSE(a,b,eps)                            \
    do {                                                 \
@@ -332,10 +333,11 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
 
    // check unitarity of CKM matrix
    {
+      const double eps = 10*std::numeric_limits<double>::epsilon();
       const Eigen::Matrix<std::complex<double>,3,3> unit = Eigen::Matrix<std::complex<double>,3,3>::Identity();
       const Eigen::Matrix<std::complex<double>,3,3> cca = ckm * ckm.adjoint();
       const double max_diff = (cca - unit).cwiseAbs().maxCoeff();
-      CHECK(max_diff < 1e-16);
+      CHECK(max_diff <= eps);
    }
 
    gm2calc::thdm::Config config;
