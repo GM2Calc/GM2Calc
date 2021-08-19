@@ -330,6 +330,14 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
          -2.25369999999999987e-01, 1.00000000000000000e+00, 4.13443924365999860e-02,
           8.22760479379446540e-03, -4.13443924365999860e-02, 1.00000000000000000e+00;
 
+   // check unitarity of CKM matrix
+   {
+      const Eigen::Matrix<std::complex<double>,3,3> unit = Eigen::Matrix<std::complex<double>,3,3>::Identity();
+      const Eigen::Matrix<std::complex<double>,3,3> cca = ckm * ckm.adjoint();
+      const double max_diff = (cca - unit).cwiseAbs().maxCoeff();
+      CHECK(max_diff < 1e-16);
+   }
+
    gm2calc::thdm::Config config;
    config.running_couplings = false;
 
