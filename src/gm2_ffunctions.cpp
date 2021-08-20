@@ -21,7 +21,6 @@
 #include "gm2_log.hpp"
 
 #include <algorithm>
-#include <array>
 #include <cmath>
 #include <complex>
 #include <limits>
