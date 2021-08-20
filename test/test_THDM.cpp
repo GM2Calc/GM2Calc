@@ -353,7 +353,7 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
    const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
 
    CHECK_CLOSE(amu1L*1e8, 6.9952544, 1e-7);
-   CHECK_CLOSE(amu2L*1e8, 283.30175, 1e-7);
+   CHECK_CLOSE(amu2L*1e8, 265.24618, 1e-7);
 }
 
 
