@@ -49,6 +49,15 @@ double bench_1_in_ms(double start, double stop, unsigned N, F f)
 
 } // anonymous namespace
 
+TEST_CASE("benchmark f_PS")
+{
+   const auto time_in_ms = bench_1_in_ms(
+      0.1, 1000.0, 1000000,
+      [] (double x) { return gm2calc::f_PS(x); });
+
+   std::cout << "f_PS(x): average time per point: " << time_in_ms*1000 << " ns\n";
+}
+
 TEST_CASE("benchmark F1")
 {
    const auto time_in_ms = bench_1_in_ms(

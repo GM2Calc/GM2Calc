@@ -565,15 +565,16 @@ double f_PS(double z) noexcept {
    } else if (z == 0.0) {
       return 0.0;
    } else if (z < 0.25) {
-      const double y = std::sqrt(1. - 4. * z);
-      return 2.0*z/y*(dilog(1.0 - 0.5*(1.0 - y)/z) - dilog(1.0 - 0.5*(1.0 + y)/z));
+      const double y = std::sqrt(1 - 4*z);
+      return 2*z/y*(dilog(1 - 0.5*(1 - y)/z) - dilog(1 - 0.5*(1 + y)/z));
    } else if (z == 0.25) {
       return 1.3862943611198906; // Log[4]
    }
 
    // z > 0.25
-   const std::complex<double> y = std::sqrt(std::complex<double>(1.0 - 4.0*z, 0.0));
-   return std::real(2.0*z/y*(dilog(1.0 - 0.5*(1.0 - y)/z) - dilog(1.0 - 0.5*(1.0 + y)/z)));
+   const double y = std::sqrt(-1 + 4*z);
+   const double theta = std::atan2(y/(2*z), 1 - 1/(2*z));
+   return 4*z/y*clausen_2(theta);
 }
 
 /**
