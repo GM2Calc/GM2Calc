@@ -93,7 +93,7 @@ namespace {
    /// lambda^2(u,v) < 0, u = 1
    double phi_neg_1v(double v, double lambda) noexcept
    {
-      return 2*(+ clausen_2(2*std::acos((2 - v)/2))
+      return 2*(+ clausen_2(2*std::acos(1 - 0.5*v))
                 + 2*clausen_2(2*std::acos(0.5*std::sqrt(v))))/lambda;
    }
 
