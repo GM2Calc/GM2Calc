@@ -117,8 +117,8 @@ namespace {
       }
 
       if (is_equal(u, v, eps)) {
-         return 2*(2*clausen_2(2*std::acos(1/(2.*std::sqrt(u))))
-                   + clausen_2(2*std::acos((-1 + 2*u)/(2.*std::abs(u)))))/lambda;
+         return 2*(2*clausen_2(2*std::acos(0.5/std::sqrt(u)))
+                   + clausen_2(2*std::acos(0.5*(-1 + 2*u)/std::abs(u))))/lambda;
       }
 
       const auto sqrtu = std::sqrt(u);
