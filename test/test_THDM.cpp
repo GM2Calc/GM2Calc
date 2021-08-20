@@ -412,7 +412,7 @@ TEST_CASE("2HDMC-mA-scan")
 {
    const auto data = gm2calc::test::read_from_file<double>(
       std::string(TEST_DATA_DIR) + PATH_SEPARATOR + "2HDMC" +
-      PATH_SEPARATOR + "2HDMC-scan-mA.txt");
+      PATH_SEPARATOR + "2HDMC-scan-mA-no-running.txt");
 
    gm2calc::thdm::Config config;
    config.running_couplings = false;
