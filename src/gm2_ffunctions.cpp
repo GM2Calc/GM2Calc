@@ -77,16 +77,16 @@ namespace {
       const auto lambda = std::sqrt(lambda_2(u,v));
 
       if (is_equal(u, v, eps)) {
-         return (-(sqr(std::log(u)))
-                 + 2*sqr(std::log((1 - lambda)/2.))
-                 - 4*dilog((1 - lambda)/2.)
+         return (- sqr(std::log(u))
+                 + 2*sqr(std::log(0.5*(1 - lambda)))
+                 - 4*dilog(0.5*(1 - lambda))
                  + pi23)/lambda;
       }
 
-      return (-(std::log(u)*std::log(v))
-              + 2*std::log((1 - lambda + u - v)/2.)*std::log((1 - lambda - u + v)/2.)
-              - 2*dilog((1 - lambda + u - v)/2.)
-              - 2*dilog((1 - lambda - u + v)/2.)
+      return (- std::log(u)*std::log(v)
+              + 2*std::log(0.5*(1 - lambda + u - v))*std::log(0.5*(1 - lambda - u + v))
+              - 2*dilog(0.5*(1 - lambda + u - v))
+              - 2*dilog(0.5*(1 - lambda - u + v))
               + pi23)/lambda;
    }
 
