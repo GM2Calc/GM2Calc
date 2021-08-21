@@ -43,7 +43,7 @@ const double eps_shift = 1e-8; // shift to avoid spurious divergence for u = 4w
 void shift(double& val, double limit, double eps) noexcept
 {
    if (is_equal_rel(val, limit, eps)) {
-      val = (1 + eps_shift)*limit;
+      val = (1 + eps)*limit;
    }
 }
 
