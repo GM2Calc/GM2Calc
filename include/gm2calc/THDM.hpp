@@ -148,6 +148,15 @@ public:
    using THDM_mass_eigenstates::get_MVP;
    using THDM_mass_eigenstates::get_MVWm;
    using THDM_mass_eigenstates::get_MVZ;
+   using THDM_mass_eigenstates::get_ZH;
+   using THDM_mass_eigenstates::get_ZA;
+   using THDM_mass_eigenstates::get_ZP;
+   using THDM_mass_eigenstates::get_Vu;
+   using THDM_mass_eigenstates::get_Uu;
+   using THDM_mass_eigenstates::get_Vd;
+   using THDM_mass_eigenstates::get_Ud;
+   using THDM_mass_eigenstates::get_Ve;
+   using THDM_mass_eigenstates::get_Ue;
 
    using THDM_mass_eigenstates::get_problems;
 
