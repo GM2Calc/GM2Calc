@@ -118,6 +118,12 @@ void test_tree_level_spectrum(gm2calc::thdm::Yukawa_type yukawa_type)
    CHECK_CLOSE(model.get_MFv(0), 0.0, eps);
    CHECK_CLOSE(model.get_MFv(1), 0.0, eps);
    CHECK_CLOSE(model.get_MFv(2), 0.0, eps);
+
+   // CKM matrix
+   const Eigen::Matrix<std::complex<double>,3,3> ckm_input = model.get_sm().get_ckm();
+   const Eigen::Matrix<std::complex<double>,3,3> ckm_output = model.get_Vu() * model.get_Vd().adjoint();
+
+   CHECK( (ckm_input - ckm_output).cwiseAbs().maxCoeff() < eps );
 }
 
 
