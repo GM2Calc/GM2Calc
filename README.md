@@ -414,9 +414,6 @@ the following blocks:
  * `GM2CalcTHDMXuInput`, `GM2CalcTHDMXdInput`, `GM2CalcTHDMXlInput`:
    The real parts of the matrices X_u, X_d and X_l
 
- * `GM2CalcTHDMImXuInput`, `GM2CalcTHDMImXdInput`, `GM2CalcTHDMImXlInput`:
-   The imaginary parts of the matrices X_u, X_d and X_l
-
 Note: The parameters X\_{u,d,l} are only used if the Yukawa type is
 set to the general THDM (Yukawa type = 0).
 
@@ -459,8 +456,6 @@ following blocks:
  * `GM2CalcTHDMXuInput`, `GM2CalcTHDMXdInput`, `GM2CalcTHDMXlInput`:
    The real parts of the matrices X_u, X_d and X_l
 
- * `GM2CalcTHDMImXuInput`, `GM2CalcTHDMImXdInput`, `GM2CalcTHDMImXlInput`:
-   The imaginary parts of the matrices X_u, X_d and X_l
 
 Note: The parameters X\_{u,d,l} are only used if the Yukawa type is
 set to the general THDM (Yukawa type = 0).

@@ -477,27 +477,18 @@ void GM2_slha_io::fill(gm2calc::thdm::Gauge_basis& basis) const
       return process_minpar_tuple(basis, key, value);
    };
 
-   Eigen::Matrix<double,3,3> Xu_real{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xd_real{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xl_real{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xu_imag{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xd_imag{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xl_imag{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
 
    read_block("MINPAR", minpar_processor);
-   read_block("GM2CalcTHDMXuInput", Xu_real);
-   read_block("GM2CalcTHDMXdInput", Xd_real);
-   read_block("GM2CalcTHDMXlInput", Xl_real);
-   read_block("GM2CalcTHDMImXuInput", Xu_imag);
-   read_block("GM2CalcTHDMImXdInput", Xd_imag);
-   read_block("GM2CalcTHDMImXlInput", Xl_imag);
+   read_block("GM2CalcTHDMXuInput", Xu);
+   read_block("GM2CalcTHDMXdInput", Xd);
+   read_block("GM2CalcTHDMXlInput", Xl);
 
-   basis.Xu.real() = Xu_real;
-   basis.Xu.imag() = Xu_imag;
-   basis.Xd.real() = Xd_real;
-   basis.Xd.imag() = Xd_imag;
-   basis.Xl.real() = Xl_real;
-   basis.Xl.imag() = Xl_imag;
+   basis.Xu = Xu;
+   basis.Xd = Xd;
+   basis.Xl = Xl;
 }
 
 /**
@@ -514,28 +505,19 @@ void GM2_slha_io::fill(gm2calc::thdm::Mass_basis& basis) const
       return process_mass_tuple(basis, key, value);
    };
 
-   Eigen::Matrix<double,3,3> Xu_real{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xd_real{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xl_real{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xu_imag{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xd_imag{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xl_imag{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
 
    read_block("MINPAR", minpar_processor);
    read_block("MASS", mass_processor);
-   read_block("GM2CalcTHDMXuInput", Xu_real);
-   read_block("GM2CalcTHDMXdInput", Xd_real);
-   read_block("GM2CalcTHDMXlInput", Xl_real);
-   read_block("GM2CalcTHDMImXuInput", Xu_imag);
-   read_block("GM2CalcTHDMImXdInput", Xd_imag);
-   read_block("GM2CalcTHDMImXlInput", Xl_imag);
+   read_block("GM2CalcTHDMXuInput", Xu);
+   read_block("GM2CalcTHDMXdInput", Xd);
+   read_block("GM2CalcTHDMXlInput", Xl);
 
-   basis.Xu.real() = Xu_real;
-   basis.Xu.imag() = Xu_imag;
-   basis.Xd.real() = Xd_real;
-   basis.Xd.imag() = Xd_imag;
-   basis.Xl.real() = Xl_real;
-   basis.Xl.imag() = Xl_imag;
+   basis.Xu = Xu;
+   basis.Xd = Xd;
+   basis.Xl = Xl;
 }
 
 /**
