@@ -31,7 +31,7 @@ sourcepath = gm2calcpath + "/src"
 cppyy.add_include_path(includepath)
 cppyy.add_include_path(sourcepath)
 for modelname in models:
-	cppyy.add_include_path(sourcepath"/"+modelname)
+	cppyy.add_include_path(sourcepath+"/"+modelname)
 
 # Add Eigen3/Core directory to path
 eigen3path = "@EIGEN3_INCLUDE_DIR@"
