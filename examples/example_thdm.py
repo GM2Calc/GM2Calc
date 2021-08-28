@@ -24,6 +24,7 @@ cppyy.include("gm2calc/gm2_error.hpp")
 cppyy.include("gm2calc/THDM.hpp")
 
 # Load library containing gm2calc definitions
+librarypath = "@CMAKE_LIBRARY_OUTPUT_DIRECTORY@"
 cppyy.add_library_path(gm2calcpath+"build/lib/")
 cppyy.load_library("libgm2calc")
 
