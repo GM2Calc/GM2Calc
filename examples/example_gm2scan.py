@@ -123,5 +123,5 @@ for n in range(0,nsteps):
         amu = std.numeric_limits['double'].signaling_NaN()
         delta_amu = std.numeric_limits['double'].signaling_NaN()
 
-    print(f"{tanb:>16.8e} {amu:>16.8e} {delta_amu:>16.8e}"+error.c_str())
+    print("{0:>16.8e} {1:>16.8e} {2:>16.8e}".format(tanb,amu,delta_amu)+error.c_str())
 
