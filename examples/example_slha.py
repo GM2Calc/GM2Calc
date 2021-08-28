@@ -8,8 +8,8 @@ models = ["MSSMNoFV","THDM","SM"]
 
 gm2calcpath = "@PROJECT_SOURCE_DIR@"
 # Add gm2calc headers to path
-includepath = gm2calcpath + "include/"
-sourcepath = gm2calcpath + "src/"
+includepath = gm2calcpath + "/include"
+sourcepath = gm2calcpath + "/src"
 cppyy.add_include_path(includepath)
 cppyy.add_include_path(sourcepath)
 for modelname in models:
