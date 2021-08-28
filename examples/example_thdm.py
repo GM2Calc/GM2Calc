@@ -74,7 +74,7 @@ try:
     model = gm2calc.THDM(basis,sm,config)
     amu = gm2calc.calculate_amu_1loop(model) + gm2calc.calculate_amu_2loop(model)
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
-    print("amu=",amu,"+-",delta_amu)
+    print("amu =",amu,"+-",delta_amu)
 except gm2calc.Error as e:
     print(e.what)
 
