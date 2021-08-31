@@ -8,6 +8,7 @@
 #include "read_data.hpp"
 
 #include <cmath>
+#include <limits>
 
 #define CHECK_CLOSE(a,b,eps)                            \
    do {                                                 \
@@ -117,6 +118,12 @@ void test_tree_level_spectrum(gm2calc::thdm::Yukawa_type yukawa_type)
    CHECK_CLOSE(model.get_MFv(0), 0.0, eps);
    CHECK_CLOSE(model.get_MFv(1), 0.0, eps);
    CHECK_CLOSE(model.get_MFv(2), 0.0, eps);
+
+   // CKM matrix
+   const Eigen::Matrix<std::complex<double>,3,3> ckm_input = model.get_sm().get_ckm();
+   const Eigen::Matrix<std::complex<double>,3,3> ckm_output = model.get_Vu() * model.get_Vd().adjoint();
+
+   CHECK( (ckm_input - ckm_output).cwiseAbs().maxCoeff() < eps );
 }
 
 
@@ -326,9 +333,18 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
    basis.Xl(1,1) = 0.1;
 
    Eigen::Matrix<std::complex<double>,3,3> ckm;
-   ckm << 1.00000000000000000e+00, 2.25369999999999987e-01, 1.09018092964207518e-03,
-         -2.25369999999999987e-01, 1.00000000000000000e+00, 4.13443924365999860e-02,
-          8.22760479379446540e-03, -4.13443924365999860e-02, 1.00000000000000000e+00;
+   ckm << 0.97383946649250375, 0.22720257917454678, 0.003959989650152115,
+         -0.22716464426353369, 0.97294117488820131, 0.042210124422804286,
+          0.0057374121533755448, -0.04200545468865001, 0.99910090775565907;
+
+   // check unitarity of CKM matrix
+   {
+      const double eps = 10*std::numeric_limits<double>::epsilon();
+      const Eigen::Matrix<std::complex<double>,3,3> unit = Eigen::Matrix<std::complex<double>,3,3>::Identity();
+      const Eigen::Matrix<std::complex<double>,3,3> cca = ckm * ckm.adjoint();
+      const double max_diff = (cca - unit).cwiseAbs().maxCoeff();
+      CHECK(max_diff <= eps);
+   }
 
    gm2calc::thdm::Config config;
    config.running_couplings = false;
@@ -343,7 +359,7 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
    const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
 
    CHECK_CLOSE(amu1L*1e8, 6.9952544, 1e-7);
-   CHECK_CLOSE(amu2L*1e8, 265.56157, 1e-7);
+   CHECK_CLOSE(amu2L*1e8, 265.24618, 1e-7);
 }
 
 
@@ -398,11 +414,11 @@ TEST_CASE("test-point-GAMBIT-complex-CKM")
 //
 // To generate the 2HDMC, the running of the Yukawa couplings has been
 // disabled in the function THBM::get_coupling_huu() in 2HDMC.
-TEST_CASE("2HDMC-mA-scan")
+TEST_CASE("2HDMC-mA-scan-no-running")
 {
    const auto data = gm2calc::test::read_from_file<double>(
       std::string(TEST_DATA_DIR) + PATH_SEPARATOR + "2HDMC" +
-      PATH_SEPARATOR + "2HDMC-scan-mA.txt");
+      PATH_SEPARATOR + "2HDMC-scan-mA-no-running.txt");
 
    gm2calc::thdm::Config config;
    config.running_couplings = false;
@@ -451,6 +467,73 @@ TEST_CASE("2HDMC-mA-scan")
       // to mA < 450.
       if (mA > 200 && mA < 450) {
          CHECK_CLOSE(amu2LF*1e12, (amu2L2HDMC + amu2LCharged - amu2LSM)*1e12, 0.05);
+      }
+   }
+}
+
+
+// This test compares the 2-loop fermionic contributions to 2HDMC.
+// 2HDMC includes the following contributions: 2-loop fermionic
+// Barr-Zee diagrams with only a photon and neutral Higgs bosons
+// connecting to the muon line.  I.e. the following contributions are
+// missing in 2HDMC:
+//
+// * 2-loop bosonic contributions
+// * 2-loop fermionic contributions with a Z connecting to the muon line
+// * 2-loop fermionic contributions with a charged Higgs connecting to the muon line
+//
+// Furhermore, 2HDMC does not subtract the SM Higgs contribution.
+TEST_CASE("2HDMC-mA-scan-with-running")
+{
+   const auto data = gm2calc::test::read_from_file<double>(
+      std::string(TEST_DATA_DIR) + PATH_SEPARATOR + "2HDMC" +
+      PATH_SEPARATOR + "2HDMC-scan-mA-with-running.txt");
+
+   gm2calc::thdm::Config config;
+   config.running_couplings = true;
+
+   gm2calc::SM sm;
+   sm.set_alpha_em_mz(1.0/127.934);
+   sm.set_mu(2, 172.5);
+   sm.set_mu(1, 1.42);
+   sm.set_md(2, 4.75);
+   sm.set_ml(2, 1.77684);
+
+   const double amu1LSM = 2.2334814296705501e-14;
+   const double amu2LSM = -1.6644614586036608e-11;
+   const double amu2LCharged = 8.1484174579402084e-12;
+
+   for (const auto& p: data) {
+      const auto mA = p.at(0);
+
+      gm2calc::thdm::Mass_basis basis;
+      basis.mh = 125;
+      basis.mH = 400;
+      basis.mA = mA;
+      basis.mHp = 440;
+      basis.sin_beta_minus_alpha = 0.999;
+      basis.lambda_6 = 0;
+      basis.lambda_7 = 0;
+      basis.tan_beta = 3;
+      basis.m122 = 40000;
+
+      gm2calc::THDM model(basis, sm, config);
+
+      INFO("mA = " << mA);
+
+      const auto amuGM2Calc = gm2calc::calculate_amu_1loop(model)
+                            + gm2calc::calculate_amu_2loop_fermionic(model);
+      const auto amu2HDMC = p.at(1) + amu2LCharged - amu1LSM - amu2LSM;
+
+      // For larger mA the fact that proper RG running for the fermion
+      // masses is used in 2HDMC becomes more relevant.  So the test
+      // is less precise for larger mA
+      if (mA < 200) {
+         CHECK_CLOSE(amuGM2Calc*1e13, amu2HDMC*1e13, 0.02);
+      } else if (mA < 430) {
+         CHECK_CLOSE(amuGM2Calc*1e13, amu2HDMC*1e13, 0.03);
+      } else {
+         CHECK_CLOSE(amuGM2Calc*1e13, amu2HDMC*1e13, 0.04);
       }
    }
 }

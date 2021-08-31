@@ -80,7 +80,7 @@ double calc_v2(const THDM_F_parameters& thdm)
 /// Eq (56), arxiv:1607.06292, S = h or H
 double FS(double ms2, double mf2)
 {
-   if (std::abs(ms2 - 4*mf2) < std::numeric_limits<double>::epsilon()) {
+   if (std::abs(ms2 - 4*mf2) <= 2*std::numeric_limits<double>::epsilon()) {
       return -2.0;
    }
 
@@ -91,7 +91,7 @@ double FS(double ms2, double mf2)
 /// Eq (57), arxiv:1607.06292, S = A
 double FA(double ms2, double mf2)
 {
-   if (std::abs(ms2 - 4*mf2) < std::numeric_limits<double>::epsilon()) {
+   if (std::abs(ms2 - 4*mf2) <= 2*std::numeric_limits<double>::epsilon()) {
       return 2.7725887222397812; // Log[16]
    }
 

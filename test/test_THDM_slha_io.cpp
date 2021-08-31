@@ -52,36 +52,6 @@ Block GM2CalcTHDMXlInput
     3 1   27                   # Re(Xl(3,1))
     3 2   28                   # Re(Xl(3,2))
     3 3   29                   # Re(Xl(3,3))
-Block GM2CalcTHDMImXuInput
-    1 1   31                    # Im(Xu(1,1))
-    1 2   32                    # Im(Xu(1,2))
-    1 3   33                    # Im(Xu(1,3))
-    2 1   34                    # Im(Xu(2,1))
-    2 2   35                    # Im(Xu(2,2))
-    2 3   36                    # Im(Xu(2,3))
-    3 1   37                    # Im(Xu(3,1))
-    3 2   38                    # Im(Xu(3,2))
-    3 3   39                    # Im(Xu(3,3))
-Block GM2CalcTHDMImXdInput
-    1 1   41                    # Im(Xd(1,1))
-    1 2   42                    # Im(Xd(1,2))
-    1 3   43                    # Im(Xd(1,3))
-    2 1   44                    # Im(Xd(2,1))
-    2 2   45                    # Im(Xd(2,2))
-    2 3   46                    # Im(Xd(2,3))
-    3 1   47                    # Im(Xd(3,1))
-    3 2   48                    # Im(Xd(3,2))
-    3 3   49                    # Im(Xd(3,3))
-Block GM2CalcTHDMImXlInput
-    1 1   51                    # Im(Xl(1,1))
-    1 2   52                    # Im(Xl(1,2))
-    1 3   53                    # Im(Xl(1,3))
-    2 1   54                    # Im(Xl(2,1))
-    2 2   55                    # Im(Xl(2,2))
-    2 3   56                    # Im(Xl(2,3))
-    3 1   57                    # Im(Xl(3,1))
-    3 2   58                    # Im(Xl(3,2))
-    3 3   59                    # Im(Xl(3,3))
 )";
 
    gm2calc::thdm::Gauge_basis basis;
@@ -107,12 +77,9 @@ Block GM2CalcTHDMImXlInput
 
    for (int i = 0, count = 1; i < 3; i++) {
       for (int k = 0; k < 3; k++, count++) {
-         CHECK(std::real(basis.Xu(i,k)) == count);
-         CHECK(std::real(basis.Xd(i,k)) == (count + 10));
-         CHECK(std::real(basis.Xl(i,k)) == (count + 20));
-         CHECK(std::imag(basis.Xu(i,k)) == (count + 30));
-         CHECK(std::imag(basis.Xd(i,k)) == (count + 40));
-         CHECK(std::imag(basis.Xl(i,k)) == (count + 50));
+         CHECK(basis.Xu(i,k) == count);
+         CHECK(basis.Xd(i,k) == (count + 10));
+         CHECK(basis.Xl(i,k) == (count + 20));
       }
    }
 }
@@ -166,36 +133,6 @@ Block GM2CalcTHDMXlInput
     3 1   27                   # Re(Xl(3,1))
     3 2   28                   # Re(Xl(3,2))
     3 3   29                   # Re(Xl(3,3))
-Block GM2CalcTHDMImXuInput
-    1 1   31                    # Im(Xu(1,1))
-    1 2   32                    # Im(Xu(1,2))
-    1 3   33                    # Im(Xu(1,3))
-    2 1   34                    # Im(Xu(2,1))
-    2 2   35                    # Im(Xu(2,2))
-    2 3   36                    # Im(Xu(2,3))
-    3 1   37                    # Im(Xu(3,1))
-    3 2   38                    # Im(Xu(3,2))
-    3 3   39                    # Im(Xu(3,3))
-Block GM2CalcTHDMImXdInput
-    1 1   41                    # Im(Xd(1,1))
-    1 2   42                    # Im(Xd(1,2))
-    1 3   43                    # Im(Xd(1,3))
-    2 1   44                    # Im(Xd(2,1))
-    2 2   45                    # Im(Xd(2,2))
-    2 3   46                    # Im(Xd(2,3))
-    3 1   47                    # Im(Xd(3,1))
-    3 2   48                    # Im(Xd(3,2))
-    3 3   49                    # Im(Xd(3,3))
-Block GM2CalcTHDMImXlInput
-    1 1   51                    # Im(Xl(1,1))
-    1 2   52                    # Im(Xl(1,2))
-    1 3   53                    # Im(Xl(1,3))
-    2 1   54                    # Im(Xl(2,1))
-    2 2   55                    # Im(Xl(2,2))
-    2 3   56                    # Im(Xl(2,3))
-    3 1   57                    # Im(Xl(3,1))
-    3 2   58                    # Im(Xl(3,2))
-    3 3   59                    # Im(Xl(3,3))
 )";
 
    gm2calc::thdm::Mass_basis basis;
@@ -221,12 +158,9 @@ Block GM2CalcTHDMImXlInput
 
    for (int i = 0, count = 1; i < 3; i++) {
       for (int k = 0; k < 3; k++, count++) {
-         CHECK(std::real(basis.Xu(i,k)) == count);
-         CHECK(std::real(basis.Xd(i,k)) == (count + 10));
-         CHECK(std::real(basis.Xl(i,k)) == (count + 20));
-         CHECK(std::imag(basis.Xu(i,k)) == (count + 30));
-         CHECK(std::imag(basis.Xd(i,k)) == (count + 40));
-         CHECK(std::imag(basis.Xl(i,k)) == (count + 50));
+         CHECK(basis.Xu(i,k) == count);
+         CHECK(basis.Xd(i,k) == (count + 10));
+         CHECK(basis.Xl(i,k) == (count + 20));
       }
    }
 }

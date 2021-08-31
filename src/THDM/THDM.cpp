@@ -118,13 +118,14 @@ void THDM::init_yukawas()
    const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
    const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
    const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
+   const Eigen::Matrix<std::complex<double>,3,3> vckm_adj = sm.get_ckm().adjoint();
 
    switch (yukawa_type) {
    case thdm::Yukawa_type::type_1:
       Xu.setZero();
       Xd.setZero();
       Xl.setZero();
-      set_Yu(sqrt2*mu/v1);
+      set_Yu(sqrt2*vckm_adj*mu/v1);
       set_Yd(sqrt2*md/v1);
       set_Yl(sqrt2*ml/v1);
       break;
@@ -132,7 +133,7 @@ void THDM::init_yukawas()
       Yu.setZero();
       Xd.setZero();
       Xl.setZero();
-      set_Xu(sqrt2*mu/v2);
+      set_Xu(sqrt2*vckm_adj*mu/v2);
       set_Yd(sqrt2*md/v1);
       set_Yl(sqrt2*ml/v1);
       break;
@@ -140,7 +141,7 @@ void THDM::init_yukawas()
       Yu.setZero();
       Yd.setZero();
       Xl.setZero();
-      set_Xu(sqrt2*mu/v2);
+      set_Xu(sqrt2*vckm_adj*mu/v2);
       set_Xd(sqrt2*md/v2);
       set_Yl(sqrt2*ml/v1);
       break;
@@ -148,12 +149,12 @@ void THDM::init_yukawas()
       Xu.setZero();
       Xd.setZero();
       Yl.setZero();
-      set_Yu(sqrt2*mu/v1);
+      set_Yu(sqrt2*vckm_adj*mu/v1);
       set_Yd(sqrt2*md/v1);
       set_Xl(sqrt2*ml/v2);
       break;
    case thdm::Yukawa_type::aligned:
-      set_Yu(sqrt2*mu/(v1 + v2*calc_xi_bar(get_zeta_u(), get_tan_beta())));
+      set_Yu(sqrt2*vckm_adj*mu/(v1 + v2*calc_xi_bar(get_zeta_u(), get_tan_beta())));
       set_Yd(sqrt2*md/(v1 + v2*calc_xi_bar(get_zeta_d(), get_tan_beta())));
       set_Yl(sqrt2*ml/(v1 + v2*calc_xi_bar(get_zeta_l(), get_tan_beta())));
       set_Xu(calc_xi_bar(get_zeta_u(), get_tan_beta())*Yu);
@@ -161,7 +162,7 @@ void THDM::init_yukawas()
       set_Xl(calc_xi_bar(get_zeta_l(), get_tan_beta())*Yl);
       break;
    case thdm::Yukawa_type::general:
-      set_Yu(sqrt2*mu/v1 - v2/v1*Xu);
+      set_Yu(sqrt2*vckm_adj*mu/v1 - v2/v1*Xu);
       set_Yd(sqrt2*md/v1 - v2/v1*Xd);
       set_Yl(sqrt2*ml/v1 - v2/v1*Xl);
       break;
@@ -172,11 +173,17 @@ void THDM::init_yukawas()
 double THDM::get_zeta_u() const
 {
    switch (yukawa_type) {
+   case thdm::Yukawa_type::type_1:
+   case thdm::Yukawa_type::type_2:
+   case thdm::Yukawa_type::type_X:
+   case thdm::Yukawa_type::type_Y:
+      return 1.0/get_tan_beta();
    case thdm::Yukawa_type::aligned:
       return zeta_u;
-   default:
-      return 1.0/get_tan_beta();
+   case thdm::Yukawa_type::general:
+      return 0; // never used in the general THDM
    }
+   throw ESetupError("Bug: unhandled case in get_zeta_u.");
 }
 
 /// Table 1, arxiv:1607.06292
@@ -194,7 +201,7 @@ double THDM::get_zeta_d() const
    case thdm::Yukawa_type::aligned:
       return zeta_d;
    case thdm::Yukawa_type::general:
-      return -get_tan_beta(); // should never arrive here
+      return 0; // never used in the general THDM
    }
    throw ESetupError("Bug: unhandled case in get_zeta_d.");
 }
@@ -214,7 +221,7 @@ double THDM::get_zeta_l() const
    case thdm::Yukawa_type::aligned:
       return zeta_l;
    case thdm::Yukawa_type::general:
-      return -get_tan_beta(); // should never arrive here
+      return 0; // never used in the general THDM
    }
    throw ESetupError("Bug: unhandled case in get_zeta_l.");
 }
@@ -559,6 +566,7 @@ const char* THDM::yukawa_type_to_string() const
          return "General";
          break;
    }
+   throw ESetupError("Bug: unhandled case in yukawa_type_to_string.");
 }
 
 void THDM::validate() const

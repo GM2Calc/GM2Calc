@@ -24,11 +24,10 @@
 #include "slhaea.h"
 
 #include <cmath>
+#include <iosfwd>
 #include <string>
-#include <iostream>
 
 #include <Eigen/Core>
-#include <boost/format.hpp>
 
 namespace gm2calc {
 
@@ -42,15 +41,6 @@ struct Config;
 struct Gauge_basis;
 struct Mass_basis;
 }
-
-#define FORMAT_ELEMENT(pdg,value,name)                                  \
-   boost::format(" %5d   %16.8E   # %s\n") % (pdg) % (value) % (name)
-#define FORMAT_SCALE(n)                                                 \
-   boost::format("%9.8E") % (n)
-#define FORMAT_NUMBER(n,str)                                            \
-   boost::format("         %16.8E   # %s\n") % (n) % (str)
-#define FORMAT_SPINFO(n,str)                                            \
-   boost::format(" %5d   %s\n") % (n) % (str)
 
 /**
  * @class GM2_slha_io
@@ -134,9 +124,9 @@ Scalar GM2_slha_io::convert_to(const std::string& str)
    try {
       value = SLHAea::to<Scalar>(str);
       if (!std::isfinite(static_cast<double>(value))) {
-         throw boost::bad_lexical_cast();
+         throw 1;
       }
-   }  catch (const boost::bad_lexical_cast&) {
+   }  catch (...) {
       throw EReadError("non-numeric input");
    }
    return value;

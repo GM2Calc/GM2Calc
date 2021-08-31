@@ -37,13 +37,13 @@ namespace {
 const double pi = 3.1415926535897932;
 const double pi2 = 9.8696044010893586; // Pi^2
 
-const double eps_shift = 1e-8; // shift to avoid spurious divergence for u = 4w
+const double eps_shift = 1e-8; // parameter shift to avoid spurious divergences
 
 /// shift value away from limit, if it is close to the limit
 void shift(double& val, double limit, double eps) noexcept
 {
    if (is_equal_rel(val, limit, eps)) {
-      val = (1 + eps_shift)*limit;
+      val = (1 + eps)*limit;
    }
 }
 

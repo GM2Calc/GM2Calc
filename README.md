@@ -414,9 +414,6 @@ the following blocks:
  * `GM2CalcTHDMXuInput`, `GM2CalcTHDMXdInput`, `GM2CalcTHDMXlInput`:
    The real parts of the matrices X_u, X_d and X_l
 
- * `GM2CalcTHDMImXuInput`, `GM2CalcTHDMImXdInput`, `GM2CalcTHDMImXlInput`:
-   The imaginary parts of the matrices X_u, X_d and X_l
-
 Note: The parameters X\_{u,d,l} are only used if the Yukawa type is
 set to the general THDM (Yukawa type = 0).
 
@@ -459,8 +456,6 @@ following blocks:
  * `GM2CalcTHDMXuInput`, `GM2CalcTHDMXdInput`, `GM2CalcTHDMXlInput`:
    The real parts of the matrices X_u, X_d and X_l
 
- * `GM2CalcTHDMImXuInput`, `GM2CalcTHDMImXdInput`, `GM2CalcTHDMImXlInput`:
-   The imaginary parts of the matrices X_u, X_d and X_l
 
 Note: The parameters X\_{u,d,l} are only used if the Yukawa type is
 set to the general THDM (Yukawa type = 0).
@@ -485,7 +480,7 @@ below:
 | 3        | force output          | `0`, `1`        | `0`                                       |
 | 4        | verboe output         | `0`, `1`        | `0`                                       |
 | 5        | estimate uncertainty  | `0`, `1`        | `0`                                       |
-| 6        | running parameters    | `0`, `1`        | `0`                                       |
+| 6        | running parameters    | `0`, `1`        | `1`                                       |
 
 Description:
 
@@ -532,7 +527,7 @@ file:
          3     0     # force output (0 or 1)
          4     0     # verbose output (0 or 1)
          5     1     # calculate uncertainty (0 or 1)
-         6     0     # running parameters (0 or 1)
+         6     1     # running parameters (0 or 1)
 
 
 C/C++ interface

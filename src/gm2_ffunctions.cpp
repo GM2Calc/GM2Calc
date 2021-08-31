@@ -21,7 +21,6 @@
 #include "gm2_log.hpp"
 
 #include <algorithm>
-#include <array>
 #include <cmath>
 #include <complex>
 #include <limits>
@@ -64,6 +63,11 @@ namespace {
       return sqr(1 - u - v) - 4*u*v;
    }
 
+   /// clausen_2(2*acos(x))
+   double cl2acos(double x) noexcept {
+      return clausen_2(2*std::acos(x));
+   }
+
    /// u < 1 && v < 1, lambda^2(u,v) > 0; note: phi_pos(u,v) = phi_pos(v,u)
    double phi_pos(double u, double v) noexcept
    {
@@ -77,24 +81,23 @@ namespace {
       const auto lambda = std::sqrt(lambda_2(u,v));
 
       if (is_equal(u, v, eps)) {
-         return (-(sqr(std::log(u)))
-                 + 2*sqr(std::log((1 - lambda)/2.))
-                 - 4*dilog((1 - lambda)/2.)
+         return (- sqr(std::log(u))
+                 + 2*sqr(std::log(0.5*(1 - lambda)))
+                 - 4*dilog(0.5*(1 - lambda))
                  + pi23)/lambda;
       }
 
-      return (-(std::log(u)*std::log(v))
-              + 2*std::log((1 - lambda + u - v)/2.)*std::log((1 - lambda - u + v)/2.)
-              - 2*dilog((1 - lambda + u - v)/2.)
-              - 2*dilog((1 - lambda - u + v)/2.)
+      return (- std::log(u)*std::log(v)
+              + 2*std::log(0.5*(1 - lambda + u - v))*std::log(0.5*(1 - lambda - u + v))
+              - 2*dilog(0.5*(1 - lambda + u - v))
+              - 2*dilog(0.5*(1 - lambda - u + v))
               + pi23)/lambda;
    }
 
    /// lambda^2(u,v) < 0, u = 1
    double phi_neg_1v(double v, double lambda) noexcept
    {
-      return 2*(+ clausen_2(2*std::acos((2 - v)/2))
-                + 2*clausen_2(2*std::acos(0.5*std::sqrt(v))))/lambda;
+      return 2*(cl2acos(1 - 0.5*v) + 2*cl2acos(0.5*std::sqrt(v)))/lambda;
    }
 
    /// lambda^2(u,v) < 0; note: phi_neg(u,v) = phi_neg(v,u)
@@ -117,16 +120,16 @@ namespace {
       }
 
       if (is_equal(u, v, eps)) {
-         return 2*(2*clausen_2(2*std::acos(1/(2.*std::sqrt(u))))
-                   + clausen_2(2*std::acos((-1 + 2*u)/(2.*std::abs(u)))))/lambda;
+         return 2*(2*cl2acos(0.5/std::sqrt(u))
+                   + cl2acos(0.5*(-1 + 2*u)/std::abs(u)))/lambda;
       }
 
       const auto sqrtu = std::sqrt(u);
       const auto sqrtv = std::sqrt(v);
 
-      return 2*(+ clausen_2(2*std::acos(0.5*(1 + u - v)/sqrtu))
-                + clausen_2(2*std::acos(0.5*(1 - u + v)/sqrtv))
-                + clausen_2(2*std::acos(0.5*(-1 + u + v)/(sqrtu*sqrtv))))/lambda;
+      return 2*(+ cl2acos(0.5*(1 + u - v)/sqrtu)
+                + cl2acos(0.5*(1 - u + v)/sqrtv)
+                + cl2acos(0.5*(-1 + u + v)/(sqrtu*sqrtv)))/lambda;
    }
 
    /**
@@ -565,15 +568,16 @@ double f_PS(double z) noexcept {
    } else if (z == 0.0) {
       return 0.0;
    } else if (z < 0.25) {
-      const double y = std::sqrt(1. - 4. * z);
-      return 2.0*z/y*(dilog(1.0 - 0.5*(1.0 - y)/z) - dilog(1.0 - 0.5*(1.0 + y)/z));
+      const double y = std::sqrt(1 - 4*z);
+      return 2*z/y*(dilog(1 - 0.5*(1 - y)/z) - dilog(1 - 0.5*(1 + y)/z));
    } else if (z == 0.25) {
       return 1.3862943611198906; // Log[4]
    }
 
    // z > 0.25
-   const std::complex<double> y = std::sqrt(std::complex<double>(1.0 - 4.0*z, 0.0));
-   return std::real(2.0*z/y*(dilog(1.0 - 0.5*(1.0 - y)/z) - dilog(1.0 - 0.5*(1.0 + y)/z)));
+   const double y = std::sqrt(-1 + 4*z);
+   const double theta = std::atan2(y/(2*z), 1 - 1/(2*z));
+   return 4*z/y*clausen_2(theta);
 }
 
 /**

@@ -86,12 +86,9 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
    cbasis.zeta_l = basis.zeta_l;
    for (int i = 0; i < 3; i++) {
       for (int k = 0; k < 3; k++) {
-         cbasis.Xu_real[i][k] = std::real(basis.Xu(i, k));
-         cbasis.Xu_imag[i][k] = std::imag(basis.Xu(i, k));
-         cbasis.Xd_real[i][k] = std::real(basis.Xd(i, k));
-         cbasis.Xd_imag[i][k] = std::imag(basis.Xd(i, k));
-         cbasis.Xl_real[i][k] = std::real(basis.Xl(i, k));
-         cbasis.Xl_imag[i][k] = std::imag(basis.Xl(i, k));
+         cbasis.Xu[i][k] = basis.Xu(i, k);
+         cbasis.Xd[i][k] = basis.Xd(i, k);
+         cbasis.Xl[i][k] = basis.Xl(i, k);
       }
    }
 
@@ -136,12 +133,9 @@ std::pair<gm2calc::THDM, THDM*> setup_gauge_basis()
    cbasis.zeta_l = basis.zeta_l;
    for (int i = 0; i < 3; i++) {
       for (int k = 0; k < 3; k++) {
-         cbasis.Xu_real[i][k] = std::real(basis.Xu(i, k));
-         cbasis.Xu_imag[i][k] = std::imag(basis.Xu(i, k));
-         cbasis.Xd_real[i][k] = std::real(basis.Xd(i, k));
-         cbasis.Xd_imag[i][k] = std::imag(basis.Xd(i, k));
-         cbasis.Xl_real[i][k] = std::real(basis.Xl(i, k));
-         cbasis.Xl_imag[i][k] = std::imag(basis.Xl(i, k));
+         cbasis.Xu[i][k] = basis.Xu(i, k);
+         cbasis.Xd[i][k] = basis.Xd(i, k);
+         cbasis.Xl[i][k] = basis.Xl(i, k);
       }
    }
 
