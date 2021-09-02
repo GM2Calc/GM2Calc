@@ -5,16 +5,10 @@ import os
 
 import cppyy
 
-models = ["MSSMNoFV","THDM","SM"]
-
 gm2calcpath = "@PROJECT_SOURCE_DIR@"
 # Add gm2calc headers to path
 includepath = os.path.join(gm2calcpath,"include")
-sourcepath = os.path.join(gm2calcpath,"src")
 cppyy.add_include_path(includepath)
-cppyy.add_include_path(sourcepath)
-for modelname in models:
-	cppyy.add_include_path(os.path.join(sourcepath,modelname))
     
 # Add Eigen3/Core directory to path
 eigen3path = "@EIGEN3_INCLUDE_DIR@"
