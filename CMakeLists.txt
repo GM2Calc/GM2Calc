@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.12)
 
 project(GM2Calc
   DESCRIPTION "Calculation of the anomalous magnetic moment of the muon in the MSSM"
@@ -96,16 +96,16 @@ install(
 
 if(${Python_INTERFACE})
   message("-- Copying python examples")
-  configure_file(${PROJECT_SOURCE_DIR}/examples/example_thdm.py 
+  configure_file(${PROJECT_SOURCE_DIR}/examples/example_thdm.py.in 
                  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/example_thdm.py 
                  @ONLY)
-  configure_file(${PROJECT_SOURCE_DIR}/examples/example_slha.py 
+  configure_file(${PROJECT_SOURCE_DIR}/examples/example_slha.py.in
                  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/example_slha.py 
                  @ONLY)
-  configure_file(${PROJECT_SOURCE_DIR}/examples/example_gm2calc.py 
+  configure_file(${PROJECT_SOURCE_DIR}/examples/example_gm2calc.py.in 
                  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/example_gm2calc.py 
                  @ONLY)
-  configure_file(${PROJECT_SOURCE_DIR}/examples/example_gm2scan.py 
+  configure_file(${PROJECT_SOURCE_DIR}/examples/example_gm2scan.py.in
                  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/example_gm2scan.py 
                  @ONLY)
 endif()
