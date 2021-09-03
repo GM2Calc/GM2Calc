@@ -388,8 +388,8 @@ The THDM-specific input parameters in the gauge basis are read from
 the following blocks:
 
  * `MINPAR`: tan(β), λ\_{1,...,7}, m\_{12}^2, ζ\_{u,d,l} and the
-   Yukawa type (0 = general, 1 = type I, 2 = type II, 3 = type X, 4 =
-   type Y, 5 = aligned THDM)
+   Yukawa type (1 = type I, 2 = type II, 3 = type X, 4 = type Y, 5 =
+   aligned THDM, 6 = general)
 
    Note: The parameters ζ\_{u,d,l} are only used if the Yukawa type is
    set to the aligned THDM (Yukawa type = 5).
@@ -409,13 +409,13 @@ the following blocks:
           21        0                # zeta_u
           22        0                # zeta_d
           23        0                # zeta_l
-          24        2                # Yukawa type (0 = general, 1, 2, 3, 4, 5 = aligned)
+          24        2                # Yukawa type (1, 2, 3, 4, 5 = aligned, 6 = general)
 
  * `GM2CalcTHDMPiuInput`, `GM2CalcTHDMPidInput`, `GM2CalcTHDMPilInput`:
    The real parts of the matrices Pi_u, Pi_d and Pi_l
 
 Note: The parameters Pi\_{u,d,l} are only used if the Yukawa type is
-set to the general THDM (Yukawa type = 0).
+set to the general THDM (Yukawa type = 6).
 
 ### Mass basis
 
@@ -423,8 +423,8 @@ The THDM-specific input parameters in the mass basis are read from the
 following blocks:
 
  * `MINPAR`: tan(β), λ\_{6,7}, m\_{12}^2, sin(β-α), ζ\_{u,d,l} and the
-   Yukawa type (0 = general, 1 = type I, 2 = type II, 3 = type X, 4 =
-   type Y, 5 = aligned THDM)
+   Yukawa type (1 = type I, 2 = type II, 3 = type X, 4 = type Y, 5 =
+   aligned THDM, 6 = general)
 
    Note: The parameters ζ\_{u,d,l} are only used if the Yukawa type is
    set to the aligned THDM (Yukawa type = 5).
@@ -440,7 +440,7 @@ following blocks:
           21        0                # zeta_u
           22        0                # zeta_d
           23        0                # zeta_l
-          24        2                # Yukawa type (0 = general, 1, 2, 3, 4, 5 = aligned)
+          24        2                # Yukawa type (1, 2, 3, 4, 5 = aligned, 6 = general)
 
  * `MASS`: CP-even Higgs boson masses m_h, m_H, the CP-odd Higgs boson
    mass m_A and the charged Higgs boson mass m_{H^+}
@@ -458,7 +458,7 @@ following blocks:
 
 
 Note: The parameters Pi\_{u,d,l} are only used if the Yukawa type is
-set to the general THDM (Yukawa type = 0).
+set to the general THDM (Yukawa type = 6).
 
 See `input/example.thdm` for an example input file.
 

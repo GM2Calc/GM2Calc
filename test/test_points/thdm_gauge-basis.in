@@ -45,7 +45,7 @@ Block MINPAR                # model parameters
     21     0                # zeta_u
     22     0                # zeta_d
     23     0                # zeta_l
-    24     2                # Yukawa type (0 = general, 1, 2, 3, 4, 5 = aligned)
+    24     2                # Yukawa type
 Block GM2CalcTHDMXuInput
     1 1   0                    # Re(Xu(1,1))
     1 2   0                    # Re(Xu(1,2))
