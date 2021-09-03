@@ -123,7 +123,7 @@ Block GM2CalcTHDMPidInput
     3 1   17                   # Re(Pi_d(3,1))
     3 2   18                   # Re(Pi_d(3,2))
     3 3   19                   # Re(Pi_d(3,3))
-Block GM2CalcTHDMXlInput
+Block GM2CalcTHDMPilInput
     1 1   21                   # Re(Pi_l(1,1))
     1 2   22                   # Re(Pi_l(1,2))
     1 3   23                   # Re(Pi_l(1,3))
