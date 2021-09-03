@@ -1277,12 +1277,12 @@ void create_error_output(void)
 THDM_yukawa_type int_to_yukawa_type(int yukawa_type)
 {
    switch (yukawa_type) {
-   case 0: return THDM_general; break;
    case 1: return THDM_type_1;  break;
    case 2: return THDM_type_2;  break;
    case 3: return THDM_type_X;  break;
    case 4: return THDM_type_Y;  break;
    case 5: return THDM_aligned; break;
+   case 6: return THDM_general; break;
    }
    return -1;
 }
