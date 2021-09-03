@@ -66,9 +66,9 @@ struct THDM_gauge_basis {
    double zeta_u;
    double zeta_d;
    double zeta_l;
-   double Xu[3][3];
-   double Xd[3][3];
-   double Xl[3][3];
+   double Pi_u[3][3];
+   double Pi_d[3][3];
+   double Pi_l[3][3];
 };
 typedef struct THDM_gauge_basis THDM_gauge_basis;
 
@@ -87,9 +87,9 @@ struct THDM_mass_basis {
    double zeta_u;
    double zeta_d;
    double zeta_l;
-   double Xu[3][3];
-   double Xd[3][3];
-   double Xl[3][3];
+   double Pi_u[3][3];
+   double Pi_d[3][3];
+   double Pi_l[3][3];
 };
 typedef struct THDM_mass_basis THDM_mass_basis;
 

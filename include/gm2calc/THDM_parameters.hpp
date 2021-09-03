@@ -48,18 +48,18 @@ public:
    void set_m222(double m222_) { m222 = m222_; }
    void set_v1(double v1_) { v1 = v1_; }
    void set_v2(double v2_) { v2 = v2_; }
-   void set_Yu(const Eigen::Matrix<std::complex<double>,3,3>& Yu_) { Yu = Yu_; }
-   void set_Yu(int i, int k, const std::complex<double>& value) { Yu(i,k) = value; }
-   void set_Xu(const Eigen::Matrix<std::complex<double>,3,3>& Xu_) { Xu = Xu_; }
-   void set_Xu(int i, int k, const std::complex<double>& value) { Xu(i,k) = value; }
-   void set_Yd(const Eigen::Matrix<std::complex<double>,3,3>& Yd_) { Yd = Yd_; }
-   void set_Yd(int i, int k, const std::complex<double>& value) { Yd(i,k) = value; }
-   void set_Yl(const Eigen::Matrix<std::complex<double>,3,3>& Yl_) { Yl = Yl_; }
-   void set_Yl(int i, int k, const std::complex<double>& value) { Yl(i,k) = value; }
-   void set_Xd(const Eigen::Matrix<std::complex<double>,3,3>& Xd_) { Xd = Xd_; }
-   void set_Xd(int i, int k, const std::complex<double>& value) { Xd(i,k) = value; }
-   void set_Xl(const Eigen::Matrix<std::complex<double>,3,3>& Xl_) { Xl = Xl_; }
-   void set_Xl(int i, int k, const std::complex<double>& value) { Xl(i,k) = value; }
+   void set_Gamma_u(const Eigen::Matrix<std::complex<double>,3,3>& Gamma_u_) { Gamma_u = Gamma_u_; }
+   void set_Gamma_u(int i, int k, const std::complex<double>& value) { Gamma_u(i,k) = value; }
+   void set_Pi_u(const Eigen::Matrix<std::complex<double>,3,3>& Pi_u_) { Pi_u = Pi_u_; }
+   void set_Pi_u(int i, int k, const std::complex<double>& value) { Pi_u(i,k) = value; }
+   void set_Gamma_d(const Eigen::Matrix<std::complex<double>,3,3>& Gamma_d_) { Gamma_d = Gamma_d_; }
+   void set_Gamma_d(int i, int k, const std::complex<double>& value) { Gamma_d(i,k) = value; }
+   void set_Gamma_l(const Eigen::Matrix<std::complex<double>,3,3>& Gamma_l_) { Gamma_l = Gamma_l_; }
+   void set_Gamma_l(int i, int k, const std::complex<double>& value) { Gamma_l(i,k) = value; }
+   void set_Pi_d(const Eigen::Matrix<std::complex<double>,3,3>& Pi_d_) { Pi_d = Pi_d_; }
+   void set_Pi_d(int i, int k, const std::complex<double>& value) { Pi_d(i,k) = value; }
+   void set_Pi_l(const Eigen::Matrix<std::complex<double>,3,3>& Pi_l_) { Pi_l = Pi_l_; }
+   void set_Pi_l(int i, int k, const std::complex<double>& value) { Pi_l(i,k) = value; }
 
    double get_m122() const { return m122; }
    double get_m112() const { return m112; }
@@ -76,18 +76,18 @@ public:
    double get_lambda5() const { return lambda5; }
    double get_lambda6() const { return lambda6; }
    double get_lambda7() const { return lambda7; }
-   const Eigen::Matrix<std::complex<double>,3,3>& get_Yu() const { return Yu; }
-   std::complex<double> get_Yu(int i, int k) const { return Yu(i,k); }
-   const Eigen::Matrix<std::complex<double>,3,3>& get_Xu() const { return Xu; }
-   std::complex<double> get_Xu(int i, int k) const { return Xu(i,k); }
-   const Eigen::Matrix<std::complex<double>,3,3>& get_Yd() const { return Yd; }
-   std::complex<double> get_Yd(int i, int k) const { return Yd(i,k); }
-   const Eigen::Matrix<std::complex<double>,3,3>& get_Yl() const { return Yl; }
-   std::complex<double> get_Yl(int i, int k) const { return Yl(i,k); }
-   const Eigen::Matrix<std::complex<double>,3,3>& get_Xd() const { return Xd; }
-   std::complex<double> get_Xd(int i, int k) const { return Xd(i,k); }
-   const Eigen::Matrix<std::complex<double>,3,3>& get_Xl() const { return Xl; }
-   std::complex<double> get_Xl(int i, int k) const { return Xl(i,k); }
+   const Eigen::Matrix<std::complex<double>,3,3>& get_Gamma_u() const { return Gamma_u; }
+   std::complex<double> get_Gamma_u(int i, int k) const { return Gamma_u(i,k); }
+   const Eigen::Matrix<std::complex<double>,3,3>& get_Pi_u() const { return Pi_u; }
+   std::complex<double> get_Pi_u(int i, int k) const { return Pi_u(i,k); }
+   const Eigen::Matrix<std::complex<double>,3,3>& get_Gamma_d() const { return Gamma_d; }
+   std::complex<double> get_Gamma_d(int i, int k) const { return Gamma_d(i,k); }
+   const Eigen::Matrix<std::complex<double>,3,3>& get_Gamma_l() const { return Gamma_l; }
+   std::complex<double> get_Gamma_l(int i, int k) const { return Gamma_l(i,k); }
+   const Eigen::Matrix<std::complex<double>,3,3>& get_Pi_d() const { return Pi_d; }
+   std::complex<double> get_Pi_d(int i, int k) const { return Pi_d(i,k); }
+   const Eigen::Matrix<std::complex<double>,3,3>& get_Pi_l() const { return Pi_l; }
+   std::complex<double> get_Pi_l(int i, int k) const { return Pi_l(i,k); }
 
 protected:
    double g1{0.0};
@@ -105,12 +105,12 @@ protected:
    double m222{0.0};
    double v1{0.0};
    double v2{0.0};
-   Eigen::Matrix<std::complex<double>,3,3> Yu{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
-   Eigen::Matrix<std::complex<double>,3,3> Xu{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
-   Eigen::Matrix<std::complex<double>,3,3> Yd{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
-   Eigen::Matrix<std::complex<double>,3,3> Yl{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
-   Eigen::Matrix<std::complex<double>,3,3> Xd{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
-   Eigen::Matrix<std::complex<double>,3,3> Xl{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+   Eigen::Matrix<std::complex<double>,3,3> Gamma_u{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+   Eigen::Matrix<std::complex<double>,3,3> Pi_u{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+   Eigen::Matrix<std::complex<double>,3,3> Gamma_d{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+   Eigen::Matrix<std::complex<double>,3,3> Gamma_l{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+   Eigen::Matrix<std::complex<double>,3,3> Pi_d{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
+   Eigen::Matrix<std::complex<double>,3,3> Pi_l{Eigen::Matrix<std::complex<double>,3,3>::Zero()};
 };
 
 std::ostream& operator<<(std::ostream&, const THDM_parameters&);

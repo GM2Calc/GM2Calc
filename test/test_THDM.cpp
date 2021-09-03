@@ -40,9 +40,9 @@ void test_tree_level_spectrum(gm2calc::thdm::Yukawa_type yukawa_type)
    basis.zeta_u = 5;
    basis.zeta_d = 6;
    basis.zeta_l = 7;
-   basis.Xu = 0.2*decltype(basis.Xu)::Identity();
-   basis.Xd = 0.3*decltype(basis.Xd)::Identity();
-   basis.Xl = 0.4*decltype(basis.Xl)::Identity();
+   basis.Pi_u = 0.2*decltype(basis.Pi_u)::Identity();
+   basis.Pi_d = 0.3*decltype(basis.Pi_d)::Identity();
+   basis.Pi_l = 0.4*decltype(basis.Pi_l)::Identity();
 
    gm2calc::THDM model(basis);
 
@@ -298,7 +298,7 @@ TEST_CASE("test-point-GAMBIT")
                     0.0;
    basis.tan_beta = 20.0;
    basis.m122 = 1428;
-   basis.Xl(1,1) = 0.1;
+   basis.Pi_l(1,1) = 0.1;
 
    gm2calc::thdm::Config config;
    config.running_couplings = false;
@@ -330,7 +330,7 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
                     0.0;
    basis.tan_beta = 20.0;
    basis.m122 = 1428;
-   basis.Xl(1,1) = 0.1;
+   basis.Pi_l(1,1) = 0.1;
 
    Eigen::Matrix<std::complex<double>,3,3> ckm;
    ckm << 0.97383946649250375, 0.22720257917454678, 0.003959989650152115,
@@ -376,9 +376,9 @@ TEST_CASE("test-point-GAMBIT-complex-CKM")
                     0.0;
    basis.tan_beta = 20.0;
    basis.m122 = 1428;
-   basis.Xu << 0.0, 0.0, 0.0, 0.0, 0.3, 0.05, 0.0, 0.05, 0.3;
-   basis.Xd << 0.0, 0.0, 0.0, 0.0, 0.2, 0.03, 0.0, 0.03, 0.2;
-   basis.Xl << 0.0, 0.0, 0.0, 0.0, 0.1, 0.01, 0.0, 0.01, 0.1;
+   basis.Pi_u << 0.0, 0.0, 0.0, 0.0, 0.3, 0.05, 0.0, 0.05, 0.3;
+   basis.Pi_d << 0.0, 0.0, 0.0, 0.0, 0.2, 0.03, 0.0, 0.03, 0.2;
+   basis.Pi_l << 0.0, 0.0, 0.0, 0.0, 0.1, 0.01, 0.0, 0.01, 0.1;
 
    Eigen::Matrix<std::complex<double>,3,3> ckm;
    ckm << 1.0, 0.22537, std::complex<double>(0.0010901809,-0.0032891784),

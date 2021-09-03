@@ -66,9 +66,9 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
    basis.zeta_u = 0.1;
    basis.zeta_d = 0.2;
    basis.zeta_l = 0.3;
-   basis.Xu << 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9;
-   basis.Xd = 2.0*basis.Xu;
-   basis.Xl = 3.0*basis.Xu;
+   basis.Pi_u << 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9;
+   basis.Pi_d = 2.0*basis.Pi_u;
+   basis.Pi_l = 3.0*basis.Pi_u;
 
    THDM_mass_basis cbasis;
    cbasis.yukawa_type = THDM_type_2;
@@ -86,9 +86,9 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
    cbasis.zeta_l = basis.zeta_l;
    for (int i = 0; i < 3; i++) {
       for (int k = 0; k < 3; k++) {
-         cbasis.Xu[i][k] = basis.Xu(i, k);
-         cbasis.Xd[i][k] = basis.Xd(i, k);
-         cbasis.Xl[i][k] = basis.Xl(i, k);
+         cbasis.Pi_u[i][k] = basis.Pi_u(i, k);
+         cbasis.Pi_d[i][k] = basis.Pi_d(i, k);
+         cbasis.Pi_l[i][k] = basis.Pi_l(i, k);
       }
    }
 
@@ -117,9 +117,9 @@ std::pair<gm2calc::THDM, THDM*> setup_gauge_basis()
    basis.zeta_u = 0.1;
    basis.zeta_d = 0.2;
    basis.zeta_l = 0.3;
-   basis.Xu << 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9;
-   basis.Xd = 2.0*basis.Xu;
-   basis.Xl = 3.0*basis.Xu;
+   basis.Pi_u << 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9;
+   basis.Pi_d = 2.0*basis.Pi_u;
+   basis.Pi_l = 3.0*basis.Pi_u;
 
    THDM_gauge_basis cbasis;
    cbasis.yukawa_type = THDM_type_2;
@@ -133,9 +133,9 @@ std::pair<gm2calc::THDM, THDM*> setup_gauge_basis()
    cbasis.zeta_l = basis.zeta_l;
    for (int i = 0; i < 3; i++) {
       for (int k = 0; k < 3; k++) {
-         cbasis.Xu[i][k] = basis.Xu(i, k);
-         cbasis.Xd[i][k] = basis.Xd(i, k);
-         cbasis.Xl[i][k] = basis.Xl(i, k);
+         cbasis.Pi_u[i][k] = basis.Pi_u(i, k);
+         cbasis.Pi_d[i][k] = basis.Pi_d(i, k);
+         cbasis.Pi_l[i][k] = basis.Pi_l(i, k);
       }
    }
 

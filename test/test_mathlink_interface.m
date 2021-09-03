@@ -171,9 +171,9 @@ point = {
     zetau             -> 0,
     zetad             -> 0,
     zetal             -> 0,
-    Xu                -> 0 IdentityMatrix[3],
-    Xd                -> 0 IdentityMatrix[3],
-    Xl                -> {{0,0,0}, {0,0.1,0}, {0,0,0}}
+    Piu                -> 0 IdentityMatrix[3],
+    Pid                -> 0 IdentityMatrix[3],
+    Pil                -> {{0,0,0}, {0,0.1,0}, {0,0,0}}
 };
 
 {myAmu, myDamu} = {amu, Damu} /. GM2CalcAmuTHDMMassBasis[point];
@@ -212,9 +212,9 @@ point = {
     zetau             -> 0,
     zetad             -> 0,
     zetal             -> 0,
-    Xu                -> 0 IdentityMatrix[3],
-    Xd                -> 0 IdentityMatrix[3],
-    Xl                -> {{0,0,0}, {0,0.1,0}, {0,0,0}}
+    Piu                -> 0 IdentityMatrix[3],
+    Pid                -> 0 IdentityMatrix[3],
+    Pil                -> {{0,0,0}, {0,0.1,0}, {0,0,0}}
 };
 
 {myAmu, myDamu} = {amu, Damu} /. GM2CalcAmuTHDMGaugeBasis[point];
