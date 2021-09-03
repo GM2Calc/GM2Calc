@@ -122,49 +122,49 @@ void THDM::init_yukawas()
 
    switch (yukawa_type) {
    case thdm::Yukawa_type::type_1:
-      Xu.setZero();
-      Xd.setZero();
-      Xl.setZero();
-      set_Yu(sqrt2*vckm_adj*mu/v1);
-      set_Yd(sqrt2*md/v1);
-      set_Yl(sqrt2*ml/v1);
+      Pi_u.setZero();
+      Pi_d.setZero();
+      Pi_l.setZero();
+      set_Gamma_u(sqrt2*vckm_adj*mu/v1);
+      set_Gamma_d(sqrt2*md/v1);
+      set_Gamma_l(sqrt2*ml/v1);
       break;
    case thdm::Yukawa_type::type_2:
-      Yu.setZero();
-      Xd.setZero();
-      Xl.setZero();
-      set_Xu(sqrt2*vckm_adj*mu/v2);
-      set_Yd(sqrt2*md/v1);
-      set_Yl(sqrt2*ml/v1);
+      Gamma_u.setZero();
+      Pi_d.setZero();
+      Pi_l.setZero();
+      set_Pi_u(sqrt2*vckm_adj*mu/v2);
+      set_Gamma_d(sqrt2*md/v1);
+      set_Gamma_l(sqrt2*ml/v1);
       break;
    case thdm::Yukawa_type::type_X:
-      Yu.setZero();
-      Yd.setZero();
-      Xl.setZero();
-      set_Xu(sqrt2*vckm_adj*mu/v2);
-      set_Xd(sqrt2*md/v2);
-      set_Yl(sqrt2*ml/v1);
+      Gamma_u.setZero();
+      Gamma_d.setZero();
+      Pi_l.setZero();
+      set_Pi_u(sqrt2*vckm_adj*mu/v2);
+      set_Pi_d(sqrt2*md/v2);
+      set_Gamma_l(sqrt2*ml/v1);
       break;
    case thdm::Yukawa_type::type_Y:
-      Xu.setZero();
-      Xd.setZero();
-      Yl.setZero();
-      set_Yu(sqrt2*vckm_adj*mu/v1);
-      set_Yd(sqrt2*md/v1);
-      set_Xl(sqrt2*ml/v2);
+      Pi_u.setZero();
+      Pi_d.setZero();
+      Gamma_l.setZero();
+      set_Gamma_u(sqrt2*vckm_adj*mu/v1);
+      set_Gamma_d(sqrt2*md/v1);
+      set_Pi_l(sqrt2*ml/v2);
       break;
    case thdm::Yukawa_type::aligned:
-      set_Yu(sqrt2*vckm_adj*mu/(v1 + v2*calc_xi_bar(get_zeta_u(), get_tan_beta())));
-      set_Yd(sqrt2*md/(v1 + v2*calc_xi_bar(get_zeta_d(), get_tan_beta())));
-      set_Yl(sqrt2*ml/(v1 + v2*calc_xi_bar(get_zeta_l(), get_tan_beta())));
-      set_Xu(calc_xi_bar(get_zeta_u(), get_tan_beta())*Yu);
-      set_Xd(calc_xi_bar(get_zeta_d(), get_tan_beta())*Yd);
-      set_Xl(calc_xi_bar(get_zeta_l(), get_tan_beta())*Yl);
+      set_Gamma_u(sqrt2*vckm_adj*mu/(v1 + v2*calc_xi_bar(get_zeta_u(), get_tan_beta())));
+      set_Gamma_d(sqrt2*md/(v1 + v2*calc_xi_bar(get_zeta_d(), get_tan_beta())));
+      set_Gamma_l(sqrt2*ml/(v1 + v2*calc_xi_bar(get_zeta_l(), get_tan_beta())));
+      set_Pi_u(calc_xi_bar(get_zeta_u(), get_tan_beta())*Gamma_u);
+      set_Pi_d(calc_xi_bar(get_zeta_d(), get_tan_beta())*Gamma_d);
+      set_Pi_l(calc_xi_bar(get_zeta_l(), get_tan_beta())*Gamma_l);
       break;
    case thdm::Yukawa_type::general:
-      set_Yu(sqrt2*vckm_adj*mu/v1 - v2/v1*Xu);
-      set_Yd(sqrt2*md/v1 - v2/v1*Xd);
-      set_Yl(sqrt2*ml/v1 - v2/v1*Xl);
+      set_Gamma_u(sqrt2*vckm_adj*mu/v1 - v2/v1*Pi_u);
+      set_Gamma_d(sqrt2*md/v1 - v2/v1*Pi_d);
+      set_Gamma_l(sqrt2*ml/v1 - v2/v1*Pi_l);
       break;
    }
 }
@@ -235,7 +235,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_u(const Eigen::Matrix<doubl
       return sqrt2*mu*get_zeta_u()/v;
    }
 
-   return get_Xu().real()/cb - sqrt2*mu*get_tan_beta()/v;
+   return get_Pi_u().real()/cb - sqrt2*mu*get_tan_beta()/v;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_d(const Eigen::Matrix<double,3,3>& md) const
@@ -247,7 +247,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_d(const Eigen::Matrix<doubl
       return sqrt2*md*get_zeta_d()/v;
    }
 
-   return get_Xd()/cb - sqrt2*md*get_tan_beta()/v;
+   return get_Pi_d()/cb - sqrt2*md*get_tan_beta()/v;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_l(const Eigen::Matrix<double,3,3>& ml) const
@@ -259,7 +259,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_xi_l(const Eigen::Matrix<doubl
       return sqrt2*ml*get_zeta_l()/v;
    }
 
-   return get_Xl()/cb - sqrt2*ml*get_tan_beta()/v;
+   return get_Pi_l()/cb - sqrt2*ml*get_tan_beta()/v;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuh() const
@@ -378,9 +378,9 @@ void THDM::set_basis(const thdm::Gauge_basis& basis)
    set_lambda7(basis.lambda(6));
    set_tan_beta_and_v(basis.tan_beta, sm.get_v());
    set_m122(basis.m122);
-   set_Xu(basis.Xu);
-   set_Xd(basis.Xd);
-   set_Xl(basis.Xl);
+   set_Pi_u(basis.Pi_u);
+   set_Pi_d(basis.Pi_d);
+   set_Pi_l(basis.Pi_l);
 
    validate();
 
@@ -493,9 +493,9 @@ void THDM::set_basis(const thdm::Mass_basis& basis)
    set_lambda7(basis.lambda_7);
    set_tan_beta_and_v(basis.tan_beta, v);
    set_m122(basis.m122);
-   set_Xu(basis.Xu);
-   set_Xd(basis.Xd);
-   set_Xl(basis.Xl);
+   set_Pi_u(basis.Pi_u);
+   set_Pi_d(basis.Pi_d);
+   set_Pi_l(basis.Pi_l);
 
    validate();
 
@@ -593,14 +593,14 @@ void THDM::validate() const
        yukawa_type == thdm::Yukawa_type::type_X ||
        yukawa_type == thdm::Yukawa_type::type_Y ||
        yukawa_type == thdm::Yukawa_type::aligned) {
-      if (get_Xu().cwiseAbs().maxCoeff() != 0) {
-         WARNING("Value of Xu ignored, because Yukawa type is " << yukawa_type_to_string());
+      if (get_Pi_u().cwiseAbs().maxCoeff() != 0) {
+         WARNING("Value of Pi_u ignored, because Yukawa type is " << yukawa_type_to_string());
       }
-      if (get_Xd().cwiseAbs().maxCoeff() != 0) {
-         WARNING("Value of Xd ignored, because Yukawa type is " << yukawa_type_to_string());
+      if (get_Pi_d().cwiseAbs().maxCoeff() != 0) {
+         WARNING("Value of Pi_d ignored, because Yukawa type is " << yukawa_type_to_string());
       }
-      if (get_Xl().cwiseAbs().maxCoeff() != 0) {
-         WARNING("Value of Xl ignored, because Yukawa type is " << yukawa_type_to_string());
+      if (get_Pi_l().cwiseAbs().maxCoeff() != 0) {
+         WARNING("Value of Pi_l ignored, because Yukawa type is " << yukawa_type_to_string());
       }
    }
 }
