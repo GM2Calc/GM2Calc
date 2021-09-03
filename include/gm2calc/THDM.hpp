@@ -40,7 +40,7 @@ struct Config {
 };
 
 enum class Yukawa_type : int {
-   general = 0, type_1, type_2, type_X, type_Y, aligned
+   type_1 = 1, type_2, type_X, type_Y, aligned, general
 };
 
 struct Gauge_basis {

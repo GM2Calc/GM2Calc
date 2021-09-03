@@ -39,7 +39,7 @@ Block MINPAR                # model parameters
     21     0                # zeta_u
     22     0                # zeta_d
     23     0                # zeta_l
-    24     2                # Yukawa type (0 = general, 1, 2, 3, 4, 5)
+    24     2                # Yukawa type (1, 2, 3, 4, 5, 6 = general)
 Block MASS                  # Higgs masses
     25     100              # mh, lightest CP-even Higgs
     35     400              # mH, heaviest CP-even Higgs
