@@ -411,10 +411,10 @@ the following blocks:
           23        0                # zeta_l
           24        2                # Yukawa type (0 = general, 1, 2, 3, 4, 5 = aligned)
 
- * `GM2CalcTHDMXuInput`, `GM2CalcTHDMXdInput`, `GM2CalcTHDMXlInput`:
-   The real parts of the matrices X_u, X_d and X_l
+ * `GM2CalcTHDMPiuInput`, `GM2CalcTHDMPidInput`, `GM2CalcTHDMPilInput`:
+   The real parts of the matrices Pi_u, Pi_d and Pi_l
 
-Note: The parameters X\_{u,d,l} are only used if the Yukawa type is
+Note: The parameters Pi\_{u,d,l} are only used if the Yukawa type is
 set to the general THDM (Yukawa type = 0).
 
 ### Mass basis
@@ -453,11 +453,11 @@ following blocks:
           36        420              # mA, CP-odd Higgs
           37        440              # mH+, charged Higgs
 
- * `GM2CalcTHDMXuInput`, `GM2CalcTHDMXdInput`, `GM2CalcTHDMXlInput`:
-   The real parts of the matrices X_u, X_d and X_l
+ * `GM2CalcTHDMPiuInput`, `GM2CalcTHDMPidInput`, `GM2CalcTHDMPilInput`:
+   The real parts of the matrices Pi_u, Pi_d and Pi_l
 
 
-Note: The parameters X\_{u,d,l} are only used if the Yukawa type is
+Note: The parameters Pi\_{u,d,l} are only used if the Yukawa type is
 set to the general THDM (Yukawa type = 0).
 
 See `input/example.thdm` for an example input file.

@@ -36,9 +36,9 @@ Print[{amu, Damu} /. GM2CalcAmuTHDMGaugeBasis[
     zetau             -> 0,
     zetad             -> 0,
     zetal             -> 0,
-    Xu                -> 0 IdentityMatrix[3],
-    Xd                -> 0 IdentityMatrix[3],
-    Xl                -> 0 IdentityMatrix[3]]
+    Piu                -> 0 IdentityMatrix[3],
+    Pid                -> 0 IdentityMatrix[3],
+    Pil                -> 0 IdentityMatrix[3]]
 ];
 
 (* calculate amu using the mass basis input parameters *)
@@ -55,7 +55,7 @@ Print[{amu, Damu} /. GM2CalcAmuTHDMMassBasis[
     zetau             -> 0,
     zetad             -> 0,
     zetal             -> 0,
-    Xu                -> 0 IdentityMatrix[3],
-    Xd                -> 0 IdentityMatrix[3],
-    Xl                -> 0 IdentityMatrix[3]]
+    Piu                -> 0 IdentityMatrix[3],
+    Pid                -> 0 IdentityMatrix[3],
+    Pil                -> 0 IdentityMatrix[3]]
 ];

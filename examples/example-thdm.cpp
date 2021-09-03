@@ -22,9 +22,9 @@ int main()
    basis.zeta_u = 0;
    basis.zeta_d = 0;
    basis.zeta_l = 0;
-   basis.Xu << 0, 0, 0, 0, 0, 0, 0, 0, 0;
-   basis.Xd << 0, 0, 0, 0, 0, 0, 0, 0, 0;
-   basis.Xl << 0, 0, 0, 0, 0, 0, 0, 0, 0;
+   basis.Pi_u << 0, 0, 0, 0, 0, 0, 0, 0, 0;
+   basis.Pi_d << 0, 0, 0, 0, 0, 0, 0, 0, 0;
+   basis.Pi_l << 0, 0, 0, 0, 0, 0, 0, 0, 0;
 
    gm2calc::SM sm;
    sm.set_alpha_em_mz(1.0/128.94579);
