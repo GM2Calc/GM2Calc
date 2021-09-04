@@ -171,9 +171,9 @@ private:
    Eigen::Matrix<double,3,1> get_mu(double) const;
    Eigen::Matrix<double,3,1> get_md(double) const;
    Eigen::Matrix<double,3,1> get_ml(double) const;
-   Eigen::Matrix<std::complex<double>,3,3> get_xi_u(const Eigen::Matrix<double,3,3>&) const;
-   Eigen::Matrix<std::complex<double>,3,3> get_xi_d(const Eigen::Matrix<double,3,3>&) const;
-   Eigen::Matrix<std::complex<double>,3,3> get_xi_l(const Eigen::Matrix<double,3,3>&) const;
+   Eigen::Matrix<std::complex<double>,3,3> get_rho_u(const Eigen::Matrix<double,3,3>&) const;
+   Eigen::Matrix<std::complex<double>,3,3> get_rho_d(const Eigen::Matrix<double,3,3>&) const;
+   Eigen::Matrix<std::complex<double>,3,3> get_rho_l(const Eigen::Matrix<double,3,3>&) const;
    void init_gauge_couplings();
    void init_yukawas();
    void set_basis(const thdm::Gauge_basis&);
