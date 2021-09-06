@@ -25,6 +25,21 @@ const double pi = 3.1415926535897932;
 } // anonymous namespace
 
 
+TEST_CASE("int_to_yukawa_type")
+{
+   CHECK_THROWS(gm2calc::thdm::int_to_cpp_yukawa_type(0));
+
+   CHECK(gm2calc::thdm::int_to_cpp_yukawa_type(1) == gm2calc::thdm::Yukawa_type::type_1);
+   CHECK(gm2calc::thdm::int_to_cpp_yukawa_type(2) == gm2calc::thdm::Yukawa_type::type_2);
+   CHECK(gm2calc::thdm::int_to_cpp_yukawa_type(3) == gm2calc::thdm::Yukawa_type::type_X);
+   CHECK(gm2calc::thdm::int_to_cpp_yukawa_type(4) == gm2calc::thdm::Yukawa_type::type_Y);
+   CHECK(gm2calc::thdm::int_to_cpp_yukawa_type(5) == gm2calc::thdm::Yukawa_type::aligned);
+   CHECK(gm2calc::thdm::int_to_cpp_yukawa_type(6) == gm2calc::thdm::Yukawa_type::general);
+
+   CHECK_THROWS(gm2calc::thdm::int_to_cpp_yukawa_type(7));
+}
+
+
 void test_tree_level_spectrum(gm2calc::thdm::Yukawa_type yukawa_type)
 {
    const double eps = 1e-14;
