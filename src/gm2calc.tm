@@ -231,6 +231,15 @@
 :Evaluate: zetal::usage =
     "Alignment parameter zeta_l in the Two-Higgs Doublet Model.";
 
+:Evaluate: Deltau::usage =
+    "Yukawa coupling Delta_u in the general Two-Higgs Doublet Model.";
+
+:Evaluate: Deltad::usage =
+    "Yukawa coupling Delta_d in the general Two-Higgs Doublet Model.";
+
+:Evaluate: Deltal::usage =
+    "Yukawa coupling Delta_l in the general Two-Higgs Doublet Model.";
+
 :Evaluate: Piu::usage =
     "Yukawa coupling Pi_u in the general Two-Higgs Doublet Model.";
 
@@ -519,6 +528,33 @@
    N @ OptionValue[zetau],
    N @ OptionValue[zetad],
    N @ OptionValue[zetal],
+   Re @ N @ OptionValue[Deltau][[1,1]],
+   Re @ N @ OptionValue[Deltau][[1,2]],
+   Re @ N @ OptionValue[Deltau][[1,3]],
+   Re @ N @ OptionValue[Deltau][[2,1]],
+   Re @ N @ OptionValue[Deltau][[2,2]],
+   Re @ N @ OptionValue[Deltau][[2,3]],
+   Re @ N @ OptionValue[Deltau][[3,1]],
+   Re @ N @ OptionValue[Deltau][[3,2]],
+   Re @ N @ OptionValue[Deltau][[3,3]],
+   Re @ N @ OptionValue[Deltad][[1,1]],
+   Re @ N @ OptionValue[Deltad][[1,2]],
+   Re @ N @ OptionValue[Deltad][[1,3]],
+   Re @ N @ OptionValue[Deltad][[2,1]],
+   Re @ N @ OptionValue[Deltad][[2,2]],
+   Re @ N @ OptionValue[Deltad][[2,3]],
+   Re @ N @ OptionValue[Deltad][[3,1]],
+   Re @ N @ OptionValue[Deltad][[3,2]],
+   Re @ N @ OptionValue[Deltad][[3,3]],
+   Re @ N @ OptionValue[Deltal][[1,1]],
+   Re @ N @ OptionValue[Deltal][[1,2]],
+   Re @ N @ OptionValue[Deltal][[1,3]],
+   Re @ N @ OptionValue[Deltal][[2,1]],
+   Re @ N @ OptionValue[Deltal][[2,2]],
+   Re @ N @ OptionValue[Deltal][[2,3]],
+   Re @ N @ OptionValue[Deltal][[3,1]],
+   Re @ N @ OptionValue[Deltal][[3,2]],
+   Re @ N @ OptionValue[Deltal][[3,3]],
    Re @ N @ OptionValue[Piu][[1,1]],
    Re @ N @ OptionValue[Piu][[1,2]],
    Re @ N @ OptionValue[Piu][[1,3]],
@@ -550,7 +586,10 @@
    Integer, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
-   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real }
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real }
 :ReturnType: Manual
 :End:
 
@@ -562,9 +601,12 @@
     zetau      -> 0,
     zetad      -> 0,
     zetal      -> 0,
-    Piu         -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
-    Pid         -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
-    Pil         -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} }
+    Deltau     -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Deltad     -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Deltal     -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Piu        -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Pid        -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Pil        -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} }
 
 :Begin:
 :Function: GM2CalcAmuTHDMMassBasis
@@ -583,6 +625,33 @@
    N @ OptionValue[zetau],
    N @ OptionValue[zetad],
    N @ OptionValue[zetal],
+   Re @ N @ OptionValue[Deltau][[1,1]],
+   Re @ N @ OptionValue[Deltau][[1,2]],
+   Re @ N @ OptionValue[Deltau][[1,3]],
+   Re @ N @ OptionValue[Deltau][[2,1]],
+   Re @ N @ OptionValue[Deltau][[2,2]],
+   Re @ N @ OptionValue[Deltau][[2,3]],
+   Re @ N @ OptionValue[Deltau][[3,1]],
+   Re @ N @ OptionValue[Deltau][[3,2]],
+   Re @ N @ OptionValue[Deltau][[3,3]],
+   Re @ N @ OptionValue[Deltad][[1,1]],
+   Re @ N @ OptionValue[Deltad][[1,2]],
+   Re @ N @ OptionValue[Deltad][[1,3]],
+   Re @ N @ OptionValue[Deltad][[2,1]],
+   Re @ N @ OptionValue[Deltad][[2,2]],
+   Re @ N @ OptionValue[Deltad][[2,3]],
+   Re @ N @ OptionValue[Deltad][[3,1]],
+   Re @ N @ OptionValue[Deltad][[3,2]],
+   Re @ N @ OptionValue[Deltad][[3,3]],
+   Re @ N @ OptionValue[Deltal][[1,1]],
+   Re @ N @ OptionValue[Deltal][[1,2]],
+   Re @ N @ OptionValue[Deltal][[1,3]],
+   Re @ N @ OptionValue[Deltal][[2,1]],
+   Re @ N @ OptionValue[Deltal][[2,2]],
+   Re @ N @ OptionValue[Deltal][[2,3]],
+   Re @ N @ OptionValue[Deltal][[3,1]],
+   Re @ N @ OptionValue[Deltal][[3,2]],
+   Re @ N @ OptionValue[Deltal][[3,3]],
    Re @ N @ OptionValue[Piu][[1,1]],
    Re @ N @ OptionValue[Piu][[1,2]],
    Re @ N @ OptionValue[Piu][[1,3]],
@@ -614,7 +683,10 @@
    Integer, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
-   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real }
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real }
 :ReturnType: Manual
 :End:
 
@@ -631,9 +703,12 @@
     zetau             -> 0,
     zetad             -> 0,
     zetal             -> 0,
-    Piu                -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
-    Pid                -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
-    Pil                -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} }
+    Deltau            -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Deltad            -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Deltal            -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Piu               -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Pid               -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Pil               -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} }
 
 :Evaluate: End[]
 
@@ -1274,21 +1349,6 @@ void create_error_output(void)
 
 /******************************************************************/
 
-THDM_yukawa_type int_to_yukawa_type(int yukawa_type)
-{
-   switch (yukawa_type) {
-   case 1: return THDM_type_1;  break;
-   case 2: return THDM_type_2;  break;
-   case 3: return THDM_type_X;  break;
-   case 4: return THDM_type_Y;  break;
-   case 5: return THDM_aligned; break;
-   case 6: return THDM_general; break;
-   }
-   return -1;
-}
-
-/******************************************************************/
-
 void GM2CalcAmuSLHAScheme(
    double MSvmL_,
    double MSm_1_,
@@ -1500,6 +1560,33 @@ void GM2CalcAmuTHDMGaugeBasis(
    double zeta_u_,
    double zeta_d_,
    double zeta_l_,
+   double Deltau_11_,
+   double Deltau_12_,
+   double Deltau_13_,
+   double Deltau_21_,
+   double Deltau_22_,
+   double Deltau_23_,
+   double Deltau_31_,
+   double Deltau_32_,
+   double Deltau_33_,
+   double Deltad_11_,
+   double Deltad_12_,
+   double Deltad_13_,
+   double Deltad_21_,
+   double Deltad_22_,
+   double Deltad_23_,
+   double Deltad_31_,
+   double Deltad_32_,
+   double Deltad_33_,
+   double Deltal_11_,
+   double Deltal_12_,
+   double Deltal_13_,
+   double Deltal_21_,
+   double Deltal_22_,
+   double Deltal_23_,
+   double Deltal_31_,
+   double Deltal_32_,
+   double Deltal_33_,
    double Piu_11_,
    double Piu_12_,
    double Piu_13_,
@@ -1549,6 +1636,33 @@ void GM2CalcAmuTHDMGaugeBasis(
    basis.zeta_u = zeta_u_;
    basis.zeta_d = zeta_d_;
    basis.zeta_l = zeta_l_;
+   basis.Delta_u[0][0] = Deltau_11_;
+   basis.Delta_u[0][1] = Deltau_12_;
+   basis.Delta_u[0][2] = Deltau_13_;
+   basis.Delta_u[1][0] = Deltau_21_;
+   basis.Delta_u[1][1] = Deltau_22_;
+   basis.Delta_u[1][2] = Deltau_23_;
+   basis.Delta_u[2][0] = Deltau_31_;
+   basis.Delta_u[2][1] = Deltau_32_;
+   basis.Delta_u[2][2] = Deltau_33_;
+   basis.Delta_d[0][0] = Deltad_11_;
+   basis.Delta_d[0][1] = Deltad_12_;
+   basis.Delta_d[0][2] = Deltad_13_;
+   basis.Delta_d[1][0] = Deltad_21_;
+   basis.Delta_d[1][1] = Deltad_22_;
+   basis.Delta_d[1][2] = Deltad_23_;
+   basis.Delta_d[2][0] = Deltad_31_;
+   basis.Delta_d[2][1] = Deltad_32_;
+   basis.Delta_d[2][2] = Deltad_33_;
+   basis.Delta_l[0][0] = Deltal_11_;
+   basis.Delta_l[0][1] = Deltal_12_;
+   basis.Delta_l[0][2] = Deltal_13_;
+   basis.Delta_l[1][0] = Deltal_21_;
+   basis.Delta_l[1][1] = Deltal_22_;
+   basis.Delta_l[1][2] = Deltal_23_;
+   basis.Delta_l[2][0] = Deltal_31_;
+   basis.Delta_l[2][1] = Deltal_32_;
+   basis.Delta_l[2][2] = Deltal_33_;
    basis.Pi_u[0][0] = Piu_11_;
    basis.Pi_u[0][1] = Piu_12_;
    basis.Pi_u[0][2] = Piu_13_;
@@ -1619,6 +1733,33 @@ void GM2CalcAmuTHDMMassBasis(
    double zeta_u_,
    double zeta_d_,
    double zeta_l_,
+   double Deltau_11_,
+   double Deltau_12_,
+   double Deltau_13_,
+   double Deltau_21_,
+   double Deltau_22_,
+   double Deltau_23_,
+   double Deltau_31_,
+   double Deltau_32_,
+   double Deltau_33_,
+   double Deltad_11_,
+   double Deltad_12_,
+   double Deltad_13_,
+   double Deltad_21_,
+   double Deltad_22_,
+   double Deltad_23_,
+   double Deltad_31_,
+   double Deltad_32_,
+   double Deltad_33_,
+   double Deltal_11_,
+   double Deltal_12_,
+   double Deltal_13_,
+   double Deltal_21_,
+   double Deltal_22_,
+   double Deltal_23_,
+   double Deltal_31_,
+   double Deltal_32_,
+   double Deltal_33_,
    double Piu_11_,
    double Piu_12_,
    double Piu_13_,
@@ -1668,6 +1809,33 @@ void GM2CalcAmuTHDMMassBasis(
    basis.zeta_u = zeta_u_;
    basis.zeta_d = zeta_d_;
    basis.zeta_l = zeta_l_;
+   basis.Delta_u[0][0] = Deltau_11_;
+   basis.Delta_u[0][1] = Deltau_12_;
+   basis.Delta_u[0][2] = Deltau_13_;
+   basis.Delta_u[1][0] = Deltau_21_;
+   basis.Delta_u[1][1] = Deltau_22_;
+   basis.Delta_u[1][2] = Deltau_23_;
+   basis.Delta_u[2][0] = Deltau_31_;
+   basis.Delta_u[2][1] = Deltau_32_;
+   basis.Delta_u[2][2] = Deltau_33_;
+   basis.Delta_d[0][0] = Deltad_11_;
+   basis.Delta_d[0][1] = Deltad_12_;
+   basis.Delta_d[0][2] = Deltad_13_;
+   basis.Delta_d[1][0] = Deltad_21_;
+   basis.Delta_d[1][1] = Deltad_22_;
+   basis.Delta_d[1][2] = Deltad_23_;
+   basis.Delta_d[2][0] = Deltad_31_;
+   basis.Delta_d[2][1] = Deltad_32_;
+   basis.Delta_d[2][2] = Deltad_33_;
+   basis.Delta_l[0][0] = Deltal_11_;
+   basis.Delta_l[0][1] = Deltal_12_;
+   basis.Delta_l[0][2] = Deltal_13_;
+   basis.Delta_l[1][0] = Deltal_21_;
+   basis.Delta_l[1][1] = Deltal_22_;
+   basis.Delta_l[1][2] = Deltal_23_;
+   basis.Delta_l[2][0] = Deltal_31_;
+   basis.Delta_l[2][1] = Deltal_32_;
+   basis.Delta_l[2][2] = Deltal_33_;
    basis.Pi_u[0][0] = Piu_11_;
    basis.Pi_u[0][1] = Piu_12_;
    basis.Pi_u[0][2] = Piu_13_;

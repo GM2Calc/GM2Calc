@@ -44,6 +44,9 @@ THDM::THDM(const thdm::Gauge_basis& basis, const SM& sm_, const thdm::Config& cf
    , zeta_u(basis.zeta_u)
    , zeta_d(basis.zeta_d)
    , zeta_l(basis.zeta_l)
+   , Delta_u(basis.Delta_u)
+   , Delta_d(basis.Delta_d)
+   , Delta_l(basis.Delta_l)
    , config(cfg)
 {
    init_gauge_couplings();
@@ -56,6 +59,9 @@ THDM::THDM(const thdm::Mass_basis& basis, const SM& sm_, const thdm::Config& cfg
    , zeta_u(basis.zeta_u)
    , zeta_d(basis.zeta_d)
    , zeta_l(basis.zeta_l)
+   , Delta_u(basis.Delta_u)
+   , Delta_d(basis.Delta_d)
+   , Delta_l(basis.Delta_l)
    , config(cfg)
 {
    init_gauge_couplings();
@@ -232,7 +238,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_rho_u(const Eigen::Matrix<doub
    const double v = get_v();
 
    if (yukawa_type != thdm::Yukawa_type::general) {
-      return sqrt2*mu*get_zeta_u()/v;
+      return sqrt2*mu*get_zeta_u()/v + Delta_u;
    }
 
    return get_Pi_u().real()/cb - sqrt2*mu*get_tan_beta()/v;
@@ -244,7 +250,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_rho_d(const Eigen::Matrix<doub
    const double v = get_v();
 
    if (yukawa_type != thdm::Yukawa_type::general) {
-      return sqrt2*md*get_zeta_d()/v;
+      return sqrt2*md*get_zeta_d()/v + Delta_d;
    }
 
    return get_Pi_d()/cb - sqrt2*md*get_tan_beta()/v;
@@ -256,7 +262,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_rho_l(const Eigen::Matrix<doub
    const double v = get_v();
 
    if (yukawa_type != thdm::Yukawa_type::general) {
-      return sqrt2*ml*get_zeta_l()/v;
+      return sqrt2*ml*get_zeta_l()/v + Delta_l;
    }
 
    return get_Pi_l()/cb - sqrt2*ml*get_tan_beta()/v;

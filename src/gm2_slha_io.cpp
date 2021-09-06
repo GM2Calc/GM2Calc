@@ -477,15 +477,24 @@ void GM2_slha_io::fill(gm2calc::thdm::Gauge_basis& basis) const
       return process_minpar_tuple(basis, key, value);
    };
 
+   Eigen::Matrix<double,3,3> Delta_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_l{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Pi_u{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Pi_d{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Pi_l{Eigen::Matrix<double,3,3>::Zero()};
 
    read_block("MINPAR", minpar_processor);
+   read_block("GM2CalcTHDMDeltauInput", Delta_u);
+   read_block("GM2CalcTHDMDeltadInput", Delta_d);
+   read_block("GM2CalcTHDMDeltalInput", Delta_l);
    read_block("GM2CalcTHDMPiuInput", Pi_u);
    read_block("GM2CalcTHDMPidInput", Pi_d);
    read_block("GM2CalcTHDMPilInput", Pi_l);
 
+   basis.Delta_u = Delta_u;
+   basis.Delta_d = Delta_d;
+   basis.Delta_l = Delta_l;
    basis.Pi_u = Pi_u;
    basis.Pi_d = Pi_d;
    basis.Pi_l = Pi_l;
@@ -505,16 +514,25 @@ void GM2_slha_io::fill(gm2calc::thdm::Mass_basis& basis) const
       return process_mass_tuple(basis, key, value);
    };
 
+   Eigen::Matrix<double,3,3> Delta_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_l{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Pi_u{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Pi_d{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Pi_l{Eigen::Matrix<double,3,3>::Zero()};
 
    read_block("MINPAR", minpar_processor);
    read_block("MASS", mass_processor);
+   read_block("GM2CalcTHDMDeltauInput", Delta_u);
+   read_block("GM2CalcTHDMDeltadInput", Delta_d);
+   read_block("GM2CalcTHDMDeltalInput", Delta_l);
    read_block("GM2CalcTHDMPiuInput", Pi_u);
    read_block("GM2CalcTHDMPidInput", Pi_d);
    read_block("GM2CalcTHDMPilInput", Pi_l);
 
+   basis.Delta_u = Delta_u;
+   basis.Delta_d = Delta_d;
+   basis.Delta_l = Delta_l;
    basis.Pi_u = Pi_u;
    basis.Pi_d = Pi_d;
    basis.Pi_l = Pi_l;

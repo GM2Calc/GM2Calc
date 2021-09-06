@@ -22,6 +22,9 @@ int main()
    basis.zeta_u = 0;
    basis.zeta_d = 0;
    basis.zeta_l = 0;
+   basis.Delta_u << 0, 0, 0, 0, 0, 0, 0, 0, 0;
+   basis.Delta_d << 0, 0, 0, 0, 0, 0, 0, 0, 0;
+   basis.Delta_l << 0, 0, 0, 0, 0, 0, 0, 0, 0;
    basis.Pi_u << 0, 0, 0, 0, 0, 0, 0, 0, 0;
    basis.Pi_d << 0, 0, 0, 0, 0, 0, 0, 0, 0;
    basis.Pi_l << 0, 0, 0, 0, 0, 0, 0, 0, 0;

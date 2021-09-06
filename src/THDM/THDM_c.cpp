@@ -20,6 +20,7 @@
 #include "gm2calc/THDM.hpp"
 #include "gm2calc/gm2_error.hpp"
 #include "gm2calc/SM.h"
+#include "gm2_log.hpp"
 
 #include <complex>
 
@@ -108,6 +109,9 @@ gm2calc::thdm::Gauge_basis convert_to_basis(const THDM_gauge_basis* basis)
       b.zeta_l = basis->zeta_l;
       for (int i = 0; i < 3; i++) {
          for (int k = 0; k < 3; k++) {
+            b.Delta_u(i, k) = basis->Delta_u[i][k];
+            b.Delta_d(i, k) = basis->Delta_d[i][k];
+            b.Delta_l(i, k) = basis->Delta_l[i][k];
             b.Pi_u(i, k) = basis->Pi_u[i][k];
             b.Pi_d(i, k) = basis->Pi_d[i][k];
             b.Pi_l(i, k) = basis->Pi_l[i][k];
@@ -157,6 +161,9 @@ gm2calc::thdm::Mass_basis convert_to_basis(const THDM_mass_basis* basis)
       b.zeta_l = basis->zeta_l;
       for (int i = 0; i < 3; i++) {
          for (int k = 0; k < 3; k++) {
+            b.Delta_u(i, k) = basis->Delta_u[i][k];
+            b.Delta_d(i, k) = basis->Delta_d[i][k];
+            b.Delta_l(i, k) = basis->Delta_l[i][k];
             b.Pi_u(i, k) = basis->Pi_u[i][k];
             b.Pi_d(i, k) = basis->Pi_d[i][k];
             b.Pi_l(i, k) = basis->Pi_l[i][k];
@@ -180,6 +187,20 @@ gm2calc::thdm::Mass_basis convert_to_basis(const THDM_mass_basis* basis)
 
 extern "C"
 {
+
+THDM_yukawa_type int_to_yukawa_type(int yukawa_type)
+{
+   switch (yukawa_type) {
+   case 1: return THDM_type_1;  break;
+   case 2: return THDM_type_2;  break;
+   case 3: return THDM_type_X;  break;
+   case 4: return THDM_type_Y;  break;
+   case 5: return THDM_aligned; break;
+   case 6: return THDM_general; break;
+   }
+   ERROR("invalid integer to define Yukawa type: " << yukawa_type);
+   return THDM_general;
+}
 
 /**
  * Sets configuration options to default values.

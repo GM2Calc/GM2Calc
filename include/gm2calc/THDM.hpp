@@ -51,6 +51,9 @@ struct Gauge_basis {
    double zeta_u{0.0};
    double zeta_d{0.0};
    double zeta_l{0.0};
+   Eigen::Matrix<double,3,3> Delta_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_l{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Pi_u{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Pi_d{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Pi_l{Eigen::Matrix<double,3,3>::Zero()};
@@ -70,6 +73,9 @@ struct Mass_basis {
    double zeta_u{0.0};
    double zeta_d{0.0};
    double zeta_l{0.0};
+   Eigen::Matrix<double,3,3> Delta_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_l{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Pi_u{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Pi_d{Eigen::Matrix<double,3,3>::Zero()};
    Eigen::Matrix<double,3,3> Pi_l{Eigen::Matrix<double,3,3>::Zero()};
@@ -166,6 +172,9 @@ private:
    double zeta_u{0.0}; ///< alignment parameter
    double zeta_d{0.0}; ///< alignment parameter
    double zeta_l{0.0}; ///< alignment parameter
+   Eigen::Matrix<double,3,3> Delta_u{Eigen::Matrix<double,3,3>::Zero()}; ///< deviation from alignment
+   Eigen::Matrix<double,3,3> Delta_d{Eigen::Matrix<double,3,3>::Zero()}; ///< deviation from alignment
+   Eigen::Matrix<double,3,3> Delta_l{Eigen::Matrix<double,3,3>::Zero()}; ///< deviation from alignment
    thdm::Config config{}; ///< configuration options
 
    Eigen::Matrix<double,3,1> get_mu(double) const;
