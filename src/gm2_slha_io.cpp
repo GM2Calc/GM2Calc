@@ -590,16 +590,12 @@ void read_integer(double value, T& result, T min, T max, const char* error_msg)
    }
 }
 
-template <typename T>
-T read_integer(double value, T min, T max, const char* error_msg)
+int read_integer(double value)
 {
-   if (is_integer(value) && value >= min && value <= max) {
-      return static_cast<T>(static_cast<int>(value));
+   if (is_integer(value)) {
+      return static_cast<int>(value);
    } else {
-      throw EInvalidInput(
-         std::string(error_msg) + ": " + gm2calc::to_string(value) +
-         " (allowed integer values: " + gm2calc::to_string(min) + ",...," +
-         gm2calc::to_string(max) + ")");
+      throw EInvalidInput(gm2calc::to_string(value) + " is not an integer");
    }
 }
 
@@ -902,7 +898,7 @@ void process_minpar_tuple(
    case 21: basis.zeta_u = value;    break;
    case 22: basis.zeta_d = value;    break;
    case 23: basis.zeta_l = value;    break;
-   case 24: basis.yukawa_type = thdm::int_to_cpp_yukawa_type(read_integer(value, 1, 6, "invalid Yukawa type"));
+   case 24: basis.yukawa_type = thdm::int_to_cpp_yukawa_type(read_integer(value));
       break;
    default:
       break;
@@ -921,7 +917,7 @@ void process_minpar_tuple(
    case 21: basis.zeta_u = value;               break;
    case 22: basis.zeta_d = value;               break;
    case 23: basis.zeta_l = value;               break;
-   case 24: basis.yukawa_type = thdm::int_to_cpp_yukawa_type(read_integer(value, 1, 6, "invalid Yukawa type"));
+   case 24: basis.yukawa_type = thdm::int_to_cpp_yukawa_type(read_integer(value));
       break;
    default:
       break;
