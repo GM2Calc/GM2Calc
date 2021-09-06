@@ -23,6 +23,7 @@
 #include "gm2_numerics.hpp"
 
 #include <cmath>
+#include <string>
 
 namespace gm2calc {
 
@@ -50,7 +51,9 @@ Yukawa_type int_to_cpp_yukawa_type(int yukawa_type)
    case 5: return thdm::Yukawa_type::aligned;
    case 6: return thdm::Yukawa_type::general;
    }
-   throw ESetupError("invalid integer to define Yukawa type");
+   throw ESetupError(std::string("invalid Yukawa type: ")
+                     + std::to_string(yukawa_type)
+                     + " (allowed values: 1,...,6)");
 }
 
 } // namespace thdm
