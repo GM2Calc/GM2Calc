@@ -27,6 +27,25 @@
 namespace gm2calc {
 namespace {
 
+gm2calc::thdm::Yukawa_type c_yukawa_type_to_cpptype(THDM_yukawa_type yukawa_type)
+{
+   switch (yukawa_type) {
+   case THDM_type_1:
+      return thdm::Yukawa_type::type_1;
+   case THDM_type_2:
+      return thdm::Yukawa_type::type_2;
+   case THDM_type_X:
+      return thdm::Yukawa_type::type_X;
+   case THDM_type_Y:
+      return thdm::Yukawa_type::type_Y;
+   case THDM_aligned:
+      return thdm::Yukawa_type::aligned;
+   case THDM_general:
+      return thdm::Yukawa_type::general;
+   }
+   throw gm2calc::ESetupError("unhandled C Yukawa type in function c_yukawa_type_to_cpptype");
+}
+
 gm2calc::thdm::Config convert_to_config(const THDM_config* config)
 {
    gm2calc::thdm::Config c;
@@ -79,26 +98,7 @@ gm2calc::thdm::Gauge_basis convert_to_basis(const THDM_gauge_basis* basis)
    gm2calc::thdm::Gauge_basis b;
 
    if (basis != nullptr) {
-      switch (basis->yukawa_type) {
-      case THDM_type_1:
-         b.yukawa_type = thdm::Yukawa_type::type_1;
-         break;
-      case THDM_type_2:
-         b.yukawa_type = thdm::Yukawa_type::type_2;
-         break;
-      case THDM_type_X:
-         b.yukawa_type = thdm::Yukawa_type::type_X;
-         break;
-      case THDM_type_Y:
-         b.yukawa_type = thdm::Yukawa_type::type_Y;
-         break;
-      case THDM_aligned:
-         b.yukawa_type = thdm::Yukawa_type::aligned;
-         break;
-      case THDM_general:
-         b.yukawa_type = thdm::Yukawa_type::general;
-         break;
-      }
+      b.yukawa_type = c_yukawa_type_to_cpptype(basis->yukawa_type);
       for (int i = 0; i < 7; i++) {
          b.lambda(i) = basis->lambda[i];
       }
@@ -127,26 +127,7 @@ gm2calc::thdm::Mass_basis convert_to_basis(const THDM_mass_basis* basis)
    gm2calc::thdm::Mass_basis b;
 
    if (basis != nullptr) {
-      switch (basis->yukawa_type) {
-      case THDM_type_1:
-         b.yukawa_type = thdm::Yukawa_type::type_1;
-         break;
-      case THDM_type_2:
-         b.yukawa_type = thdm::Yukawa_type::type_2;
-         break;
-      case THDM_type_X:
-         b.yukawa_type = thdm::Yukawa_type::type_X;
-         break;
-      case THDM_type_Y:
-         b.yukawa_type = thdm::Yukawa_type::type_Y;
-         break;
-      case THDM_aligned:
-         b.yukawa_type = thdm::Yukawa_type::aligned;
-         break;
-      case THDM_general:
-         b.yukawa_type = thdm::Yukawa_type::general;
-         break;
-      }
+      b.yukawa_type = c_yukawa_type_to_cpptype(basis->yukawa_type);
       b.mh = basis->mh;
       b.mH = basis->mH;
       b.mA = basis->mA;
