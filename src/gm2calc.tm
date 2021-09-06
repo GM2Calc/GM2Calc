@@ -1615,9 +1615,9 @@ void GM2CalcAmuTHDMGaugeBasis(
    double Pil_32_,
    double Pil_33_)
 {
-   if (yukawa_type_ < 0 || yukawa_type_ > 5) {
+   if (yukawa_type_ < 1 || yukawa_type_ > 6) {
       put_error_message("GM2CalcAmuTHDMGaugeBasis", "error",
-                        "yukawaType must be between 0 and 5.");
+                        "yukawaType must be between 1 and 6.");
       create_error_output();
       return;
    }
@@ -1788,9 +1788,9 @@ void GM2CalcAmuTHDMMassBasis(
    double Pil_32_,
    double Pil_33_)
 {
-   if (yukawa_type_ < 0 || yukawa_type_ > 5) {
+   if (yukawa_type_ < 1 || yukawa_type_ > 6) {
       put_error_message("GM2CalcAmuTHDMMassBasis", "error",
-                        "yukawaType must be between 0 and 5.");
+                        "yukawaType must be between 1 and 6.");
       create_error_output();
       return;
    }
