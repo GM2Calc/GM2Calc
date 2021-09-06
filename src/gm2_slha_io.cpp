@@ -902,15 +902,7 @@ void process_minpar_tuple(
    case 21: basis.zeta_u = value;    break;
    case 22: basis.zeta_d = value;    break;
    case 23: basis.zeta_l = value;    break;
-   case 24:
-      switch (read_integer(value, 0, 5, "invalid Yukawa type")) {
-      case 1: basis.yukawa_type = thdm::Yukawa_type::type_1;  break;
-      case 2: basis.yukawa_type = thdm::Yukawa_type::type_2;  break;
-      case 3: basis.yukawa_type = thdm::Yukawa_type::type_X;  break;
-      case 4: basis.yukawa_type = thdm::Yukawa_type::type_Y;  break;
-      case 5: basis.yukawa_type = thdm::Yukawa_type::aligned; break;
-      case 6: basis.yukawa_type = thdm::Yukawa_type::general; break;
-      }
+   case 24: basis.yukawa_type = thdm::int_to_cpp_yukawa_type(read_integer(value, 1, 6, "invalid Yukawa type"));
       break;
    default:
       break;
@@ -929,15 +921,7 @@ void process_minpar_tuple(
    case 21: basis.zeta_u = value;               break;
    case 22: basis.zeta_d = value;               break;
    case 23: basis.zeta_l = value;               break;
-   case 24:
-      switch (read_integer(value, 0, 5, "invalid Yukawa type")) {
-      case 1: basis.yukawa_type = thdm::Yukawa_type::type_1;  break;
-      case 2: basis.yukawa_type = thdm::Yukawa_type::type_2;  break;
-      case 3: basis.yukawa_type = thdm::Yukawa_type::type_X;  break;
-      case 4: basis.yukawa_type = thdm::Yukawa_type::type_Y;  break;
-      case 5: basis.yukawa_type = thdm::Yukawa_type::aligned; break;
-      case 6: basis.yukawa_type = thdm::Yukawa_type::general; break;
-      }
+   case 24: basis.yukawa_type = thdm::int_to_cpp_yukawa_type(read_integer(value, 1, 6, "invalid Yukawa type"));
       break;
    default:
       break;

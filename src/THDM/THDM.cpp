@@ -38,6 +38,23 @@ double calc_xi(double zeta, double tan_beta) noexcept
 
 } // anonymous namespace
 
+namespace thdm {
+
+Yukawa_type int_to_cpp_yukawa_type(int yukawa_type)
+{
+   switch (yukawa_type) {
+   case 1: return thdm::Yukawa_type::type_1;
+   case 2: return thdm::Yukawa_type::type_2;
+   case 3: return thdm::Yukawa_type::type_X;
+   case 4: return thdm::Yukawa_type::type_Y;
+   case 5: return thdm::Yukawa_type::aligned;
+   case 6: return thdm::Yukawa_type::general;
+   }
+   throw ESetupError("invalid integer to define Yukawa type");
+}
+
+} // namespace thdm
+
 THDM::THDM(const thdm::Gauge_basis& basis, const SM& sm_, const thdm::Config& cfg)
    : sm(sm_)
    , yukawa_type(basis.yukawa_type)

@@ -169,7 +169,7 @@ gm2calc::thdm::Mass_basis convert_to_basis(const THDM_mass_basis* basis)
 extern "C"
 {
 
-THDM_yukawa_type int_to_yukawa_type(int yukawa_type)
+THDM_yukawa_type int_to_c_yukawa_type(int yukawa_type)
 {
    switch (yukawa_type) {
    case 1: return THDM_type_1;  break;

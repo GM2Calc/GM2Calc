@@ -40,8 +40,16 @@ struct Config {
 };
 
 enum class Yukawa_type : int {
-   type_1 = 1, type_2, type_X, type_Y, aligned, general
+   type_1 = 1,
+   type_2,
+   type_X,
+   type_Y,
+   aligned,
+   general
 };
+
+/** convert int to thdm::Yukawa_type */
+Yukawa_type int_to_cpp_yukawa_type(int);
 
 struct Gauge_basis {
    Yukawa_type yukawa_type{Yukawa_type::type_2};

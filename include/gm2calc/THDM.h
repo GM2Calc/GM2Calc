@@ -58,7 +58,7 @@ typedef enum {
 } THDM_yukawa_type;
 
 /** convert int to THDM_yukawa_type */
-THDM_yukawa_type int_to_yukawa_type(int);
+THDM_yukawa_type int_to_c_yukawa_type(int);
 
 /** general THDM general basis input */
 struct THDM_gauge_basis {
