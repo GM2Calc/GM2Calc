@@ -29,21 +29,7 @@ namespace {
 
 gm2calc::thdm::Yukawa_type c_yukawa_type_to_cpptype(THDM_yukawa_type yukawa_type)
 {
-   switch (yukawa_type) {
-   case THDM_type_1:
-      return thdm::Yukawa_type::type_1;
-   case THDM_type_2:
-      return thdm::Yukawa_type::type_2;
-   case THDM_type_X:
-      return thdm::Yukawa_type::type_X;
-   case THDM_type_Y:
-      return thdm::Yukawa_type::type_Y;
-   case THDM_aligned:
-      return thdm::Yukawa_type::aligned;
-   case THDM_general:
-      return thdm::Yukawa_type::general;
-   }
-   throw gm2calc::ESetupError("unhandled C Yukawa type in function c_yukawa_type_to_cpptype");
+   return static_cast<gm2calc::thdm::Yukawa_type>(yukawa_type);
 }
 
 gm2calc::thdm::Config convert_to_config(const THDM_config* config)
