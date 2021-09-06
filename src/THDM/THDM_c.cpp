@@ -169,18 +169,18 @@ gm2calc::thdm::Mass_basis convert_to_basis(const THDM_mass_basis* basis)
 extern "C"
 {
 
-THDM_yukawa_type int_to_c_yukawa_type(int yukawa_type)
+THDM_yukawa_type int_to_c_yukawa_type(int i)
 {
-   switch (yukawa_type) {
-   case 1: return THDM_type_1;  break;
-   case 2: return THDM_type_2;  break;
-   case 3: return THDM_type_X;  break;
-   case 4: return THDM_type_Y;  break;
-   case 5: return THDM_aligned; break;
-   case 6: return THDM_general; break;
+   THDM_yukawa_type yukawa_type = THDM_general;
+
+   try {
+      const auto yukawa_type_cpp = gm2calc::thdm::int_to_cpp_yukawa_type(i);
+      yukawa_type = static_cast<THDM_yukawa_type>(yukawa_type_cpp);
+   } catch (const gm2calc::Error& e) {
+      ERROR(e.what());
    }
-   ERROR("invalid integer to define Yukawa type: " << yukawa_type);
-   return THDM_general;
+
+   return yukawa_type;
 }
 
 /**
