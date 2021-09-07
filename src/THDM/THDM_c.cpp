@@ -79,7 +79,7 @@ gm2calc::SM convert_to_SM(const ::gm2calc_SM* sm)
    return s;
 }
 
-gm2calc::thdm::Gauge_basis convert_to_basis(const THDM_gauge_basis* basis)
+gm2calc::thdm::Gauge_basis convert_to_basis(const gm2calc_THDM_gauge_basis* basis)
 {
    gm2calc::thdm::Gauge_basis b;
 
@@ -108,7 +108,7 @@ gm2calc::thdm::Gauge_basis convert_to_basis(const THDM_gauge_basis* basis)
    return b;
 }
 
-gm2calc::thdm::Mass_basis convert_to_basis(const THDM_mass_basis* basis)
+gm2calc::thdm::Mass_basis convert_to_basis(const gm2calc_THDM_mass_basis* basis)
 {
    gm2calc::thdm::Mass_basis b;
 
@@ -195,7 +195,7 @@ void gm2calc_thdm_config_set_to_default(gm2calc_THDM_config* config)
  * @return error code
  */
 gm2calc_error gm2calc_thdm_new_with_gauge_basis(
-   THDM** model, const THDM_gauge_basis* basis, const ::gm2calc_SM* sm, const gm2calc_THDM_config* config)
+   THDM** model, const gm2calc_THDM_gauge_basis* basis, const ::gm2calc_SM* sm, const gm2calc_THDM_config* config)
 {
    if (model == nullptr) {
       return gm2calc_InvalidInput;
@@ -236,7 +236,7 @@ gm2calc_error gm2calc_thdm_new_with_gauge_basis(
  * @return error code
  */
 gm2calc_error gm2calc_thdm_new_with_mass_basis(
-   THDM** model, const THDM_mass_basis* basis, const ::gm2calc_SM* sm, const gm2calc_THDM_config* config)
+   THDM** model, const gm2calc_THDM_mass_basis* basis, const ::gm2calc_SM* sm, const gm2calc_THDM_config* config)
 {
    if (model == nullptr) {
       return gm2calc_InvalidInput;

@@ -1622,7 +1622,7 @@ void GM2CalcAmuTHDMGaugeBasis(
       return;
    }
 
-   THDM_gauge_basis basis;
+   gm2calc_THDM_gauge_basis basis;
    basis.yukawa_type = int_to_c_yukawa_type(yukawa_type_);
    basis.lambda[0] = lambda_1_;
    basis.lambda[1] = lambda_2_;
@@ -1795,7 +1795,7 @@ void GM2CalcAmuTHDMMassBasis(
       return;
    }
 
-   THDM_mass_basis basis;
+   gm2calc_THDM_mass_basis basis;
    basis.yukawa_type = int_to_c_yukawa_type(yukawa_type_);
    basis.mh = Mhh_1_;
    basis.mH = Mhh_2_;

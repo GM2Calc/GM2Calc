@@ -8,7 +8,7 @@
 
 int main()
 {
-   THDM_mass_basis basis;
+   gm2calc_THDM_mass_basis basis;
    basis.yukawa_type = gm2calc_THDM_type_2;
    basis.mh = 125;
    basis.mH = 400;

@@ -73,7 +73,7 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis(gm2calc::thdm::Yukawa_type yuka
    basis.Pi_d = 2.0*basis.Pi_u;
    basis.Pi_l = 3.0*basis.Pi_u;
 
-   THDM_mass_basis cbasis;
+   gm2calc_THDM_mass_basis cbasis;
    cbasis.yukawa_type = static_cast<gm2calc_THDM_yukawa_type>(yukawa_type);
    cbasis.mh = basis.mh;
    cbasis.mH = basis.mH;
@@ -130,7 +130,7 @@ std::pair<gm2calc::THDM, THDM*> setup_gauge_basis(gm2calc::thdm::Yukawa_type yuk
    basis.Pi_d = 2.0*basis.Pi_u;
    basis.Pi_l = 3.0*basis.Pi_u;
 
-   THDM_gauge_basis cbasis;
+   gm2calc_THDM_gauge_basis cbasis;
    cbasis.yukawa_type = static_cast<gm2calc_THDM_yukawa_type>(yukawa_type);
    for (int i = 0; i < 7; i++) {
       cbasis.lambda[i] = basis.lambda(i);
