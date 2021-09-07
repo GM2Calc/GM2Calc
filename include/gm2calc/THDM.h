@@ -49,13 +49,16 @@ typedef struct THDM THDM;
 
 /** Yukawa schemes */
 typedef enum {
-   THDM_general = 0,
-   THDM_type_1,
+   THDM_type_1 = 1,
    THDM_type_2,
    THDM_type_X,
    THDM_type_Y,
-   THDM_aligned
+   THDM_aligned,
+   THDM_general,
 } THDM_yukawa_type;
+
+/** convert int to THDM_yukawa_type */
+THDM_yukawa_type int_to_c_yukawa_type(int);
 
 /** general THDM general basis input */
 struct THDM_gauge_basis {
@@ -66,9 +69,12 @@ struct THDM_gauge_basis {
    double zeta_u;
    double zeta_d;
    double zeta_l;
-   double Xu[3][3];
-   double Xd[3][3];
-   double Xl[3][3];
+   double Delta_u[3][3];
+   double Delta_d[3][3];
+   double Delta_l[3][3];
+   double Pi_u[3][3];
+   double Pi_d[3][3];
+   double Pi_l[3][3];
 };
 typedef struct THDM_gauge_basis THDM_gauge_basis;
 
@@ -87,9 +93,12 @@ struct THDM_mass_basis {
    double zeta_u;
    double zeta_d;
    double zeta_l;
-   double Xu[3][3];
-   double Xd[3][3];
-   double Xl[3][3];
+   double Delta_u[3][3];
+   double Delta_d[3][3];
+   double Delta_l[3][3];
+   double Pi_u[3][3];
+   double Pi_d[3][3];
+   double Pi_l[3][3];
 };
 typedef struct THDM_mass_basis THDM_mass_basis;
 

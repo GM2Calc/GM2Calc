@@ -24,9 +24,12 @@ int main()
    basis.zeta_l = 0;
    for (int i = 0; i < 3; i++) {
       for (int k = 0; k < 3; k++) {
-         basis.Xu[i][k] = 0;
-         basis.Xd[i][k] = 0;
-         basis.Xl[i][k] = 0;
+         basis.Delta_u[i][k] = 0;
+         basis.Delta_d[i][k] = 0;
+         basis.Delta_l[i][k] = 0;
+         basis.Pi_u[i][k] = 0;
+         basis.Pi_d[i][k] = 0;
+         basis.Pi_l[i][k] = 0;
       }
    }
 

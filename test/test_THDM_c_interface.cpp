@@ -50,10 +50,10 @@ void setup_SM(gm2calc::SM& cppsm, SM& csm)
 }
 
 
-std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
+std::pair<gm2calc::THDM, THDM*> setup_mass_basis(gm2calc::thdm::Yukawa_type yukawa_type)
 {
    gm2calc::thdm::Mass_basis basis;
-   basis.yukawa_type = gm2calc::thdm::Yukawa_type::type_2;
+   basis.yukawa_type = yukawa_type;
    basis.mh = 125;
    basis.mH = 400;
    basis.mA = 420;
@@ -66,12 +66,15 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
    basis.zeta_u = 0.1;
    basis.zeta_d = 0.2;
    basis.zeta_l = 0.3;
-   basis.Xu << 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9;
-   basis.Xd = 2.0*basis.Xu;
-   basis.Xl = 3.0*basis.Xu;
+   basis.Delta_u << 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9;
+   basis.Delta_d = 2.0*basis.Delta_u;
+   basis.Delta_l = 3.0*basis.Delta_u;
+   basis.Pi_u << 4.0*basis.Delta_u;
+   basis.Pi_d = 2.0*basis.Pi_u;
+   basis.Pi_l = 3.0*basis.Pi_u;
 
    THDM_mass_basis cbasis;
-   cbasis.yukawa_type = THDM_type_2;
+   cbasis.yukawa_type = static_cast<THDM_yukawa_type>(yukawa_type);
    cbasis.mh = basis.mh;
    cbasis.mH = basis.mH;
    cbasis.mA = basis.mA;
@@ -86,9 +89,12 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
    cbasis.zeta_l = basis.zeta_l;
    for (int i = 0; i < 3; i++) {
       for (int k = 0; k < 3; k++) {
-         cbasis.Xu[i][k] = basis.Xu(i, k);
-         cbasis.Xd[i][k] = basis.Xd(i, k);
-         cbasis.Xl[i][k] = basis.Xl(i, k);
+         cbasis.Delta_u[i][k] = basis.Delta_u(i, k);
+         cbasis.Delta_d[i][k] = basis.Delta_d(i, k);
+         cbasis.Delta_l[i][k] = basis.Delta_l(i, k);
+         cbasis.Pi_u[i][k] = basis.Pi_u(i, k);
+         cbasis.Pi_d[i][k] = basis.Pi_d(i, k);
+         cbasis.Pi_l[i][k] = basis.Pi_l(i, k);
       }
    }
 
@@ -107,22 +113,25 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis()
 }
 
 
-std::pair<gm2calc::THDM, THDM*> setup_gauge_basis()
+std::pair<gm2calc::THDM, THDM*> setup_gauge_basis(gm2calc::thdm::Yukawa_type yukawa_type)
 {
    gm2calc::thdm::Gauge_basis basis;
-   basis.yukawa_type = gm2calc::thdm::Yukawa_type::type_2;
+   basis.yukawa_type = yukawa_type;
    basis.lambda << 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1;
    basis.tan_beta = 3;
    basis.m122 = 40000;
    basis.zeta_u = 0.1;
    basis.zeta_d = 0.2;
    basis.zeta_l = 0.3;
-   basis.Xu << 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9;
-   basis.Xd = 2.0*basis.Xu;
-   basis.Xl = 3.0*basis.Xu;
+   basis.Delta_u << 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9;
+   basis.Delta_d = 2.0*basis.Delta_u;
+   basis.Delta_l = 3.0*basis.Delta_u;
+   basis.Pi_u << 4.0*basis.Delta_u;
+   basis.Pi_d = 2.0*basis.Pi_u;
+   basis.Pi_l = 3.0*basis.Pi_u;
 
    THDM_gauge_basis cbasis;
-   cbasis.yukawa_type = THDM_type_2;
+   cbasis.yukawa_type = static_cast<THDM_yukawa_type>(yukawa_type);
    for (int i = 0; i < 7; i++) {
       cbasis.lambda[i] = basis.lambda(i);
    }
@@ -133,9 +142,12 @@ std::pair<gm2calc::THDM, THDM*> setup_gauge_basis()
    cbasis.zeta_l = basis.zeta_l;
    for (int i = 0; i < 3; i++) {
       for (int k = 0; k < 3; k++) {
-         cbasis.Xu[i][k] = basis.Xu(i, k);
-         cbasis.Xd[i][k] = basis.Xd(i, k);
-         cbasis.Xl[i][k] = basis.Xl(i, k);
+         cbasis.Delta_u[i][k] = basis.Delta_u(i, k);
+         cbasis.Delta_d[i][k] = basis.Delta_d(i, k);
+         cbasis.Delta_l[i][k] = basis.Delta_l(i, k);
+         cbasis.Pi_u[i][k] = basis.Pi_u(i, k);
+         cbasis.Pi_d[i][k] = basis.Pi_d(i, k);
+         cbasis.Pi_l[i][k] = basis.Pi_l(i, k);
       }
    }
 
@@ -154,9 +166,9 @@ std::pair<gm2calc::THDM, THDM*> setup_gauge_basis()
 }
 
 
-TEST_CASE("mass_basis")
+void test_mass_basis(gm2calc::thdm::Yukawa_type yukawa_type)
 {
-   const auto models = setup_mass_basis();
+   const auto models = setup_mass_basis(yukawa_type);
    const auto mcpp = models.first;
    const auto mc   = models.second;
 
@@ -170,9 +182,9 @@ TEST_CASE("mass_basis")
 }
 
 
-TEST_CASE("gauge_basis")
+void test_gauge_basis(gm2calc::thdm::Yukawa_type yukawa_type)
 {
-   const auto models = setup_gauge_basis();
+   const auto models = setup_gauge_basis(yukawa_type);
    const auto mcpp = models.first;
    const auto mc   = models.second;
 
@@ -183,4 +195,26 @@ TEST_CASE("gauge_basis")
    CHECK(gm2calc_thdm_calculate_uncertainty_amu_2loop(mc) == gm2calc::calculate_uncertainty_amu_2loop(mcpp));
 
    gm2calc_thdm_free(mc);
+}
+
+
+TEST_CASE("mass_basis")
+{
+   test_mass_basis(gm2calc::thdm::Yukawa_type::type_1);
+   test_mass_basis(gm2calc::thdm::Yukawa_type::type_2);
+   test_mass_basis(gm2calc::thdm::Yukawa_type::type_X);
+   test_mass_basis(gm2calc::thdm::Yukawa_type::type_Y);
+   test_mass_basis(gm2calc::thdm::Yukawa_type::aligned);
+   test_mass_basis(gm2calc::thdm::Yukawa_type::general);
+}
+
+
+TEST_CASE("gauge_basis")
+{
+   test_gauge_basis(gm2calc::thdm::Yukawa_type::type_1);
+   test_gauge_basis(gm2calc::thdm::Yukawa_type::type_2);
+   test_gauge_basis(gm2calc::thdm::Yukawa_type::type_X);
+   test_gauge_basis(gm2calc::thdm::Yukawa_type::type_Y);
+   test_gauge_basis(gm2calc::thdm::Yukawa_type::aligned);
+   test_gauge_basis(gm2calc::thdm::Yukawa_type::general);
 }

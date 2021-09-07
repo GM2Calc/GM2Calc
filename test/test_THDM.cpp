@@ -25,6 +25,21 @@ const double pi = 3.1415926535897932;
 } // anonymous namespace
 
 
+TEST_CASE("int_to_yukawa_type")
+{
+   CHECK_THROWS(gm2calc::thdm::int_to_cpp_yukawa_type(0));
+
+   CHECK(gm2calc::thdm::int_to_cpp_yukawa_type(1) == gm2calc::thdm::Yukawa_type::type_1);
+   CHECK(gm2calc::thdm::int_to_cpp_yukawa_type(2) == gm2calc::thdm::Yukawa_type::type_2);
+   CHECK(gm2calc::thdm::int_to_cpp_yukawa_type(3) == gm2calc::thdm::Yukawa_type::type_X);
+   CHECK(gm2calc::thdm::int_to_cpp_yukawa_type(4) == gm2calc::thdm::Yukawa_type::type_Y);
+   CHECK(gm2calc::thdm::int_to_cpp_yukawa_type(5) == gm2calc::thdm::Yukawa_type::aligned);
+   CHECK(gm2calc::thdm::int_to_cpp_yukawa_type(6) == gm2calc::thdm::Yukawa_type::general);
+
+   CHECK_THROWS(gm2calc::thdm::int_to_cpp_yukawa_type(7));
+}
+
+
 void test_tree_level_spectrum(gm2calc::thdm::Yukawa_type yukawa_type)
 {
    const double eps = 1e-14;
@@ -40,9 +55,9 @@ void test_tree_level_spectrum(gm2calc::thdm::Yukawa_type yukawa_type)
    basis.zeta_u = 5;
    basis.zeta_d = 6;
    basis.zeta_l = 7;
-   basis.Xu = 0.2*decltype(basis.Xu)::Identity();
-   basis.Xd = 0.3*decltype(basis.Xd)::Identity();
-   basis.Xl = 0.4*decltype(basis.Xl)::Identity();
+   basis.Pi_u = 0.2*decltype(basis.Pi_u)::Identity();
+   basis.Pi_d = 0.3*decltype(basis.Pi_d)::Identity();
+   basis.Pi_l = 0.4*decltype(basis.Pi_l)::Identity();
 
    gm2calc::THDM model(basis);
 
@@ -298,7 +313,7 @@ TEST_CASE("test-point-GAMBIT")
                     0.0;
    basis.tan_beta = 20.0;
    basis.m122 = 1428;
-   basis.Xl(1,1) = 0.1;
+   basis.Pi_l(1,1) = 0.1;
 
    gm2calc::thdm::Config config;
    config.running_couplings = false;
@@ -330,7 +345,7 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
                     0.0;
    basis.tan_beta = 20.0;
    basis.m122 = 1428;
-   basis.Xl(1,1) = 0.1;
+   basis.Pi_l(1,1) = 0.1;
 
    Eigen::Matrix<std::complex<double>,3,3> ckm;
    ckm << 0.97383946649250375, 0.22720257917454678, 0.003959989650152115,
@@ -359,7 +374,7 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
    const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
 
    CHECK_CLOSE(amu1L*1e8, 6.9952544, 1e-7);
-   CHECK_CLOSE(amu2L*1e8, 265.24618, 1e-7);
+   CHECK_CLOSE(amu2L*1e8, 265.47676, 1e-8);
 }
 
 
@@ -376,9 +391,9 @@ TEST_CASE("test-point-GAMBIT-complex-CKM")
                     0.0;
    basis.tan_beta = 20.0;
    basis.m122 = 1428;
-   basis.Xu << 0.0, 0.0, 0.0, 0.0, 0.3, 0.05, 0.0, 0.05, 0.3;
-   basis.Xd << 0.0, 0.0, 0.0, 0.0, 0.2, 0.03, 0.0, 0.03, 0.2;
-   basis.Xl << 0.0, 0.0, 0.0, 0.0, 0.1, 0.01, 0.0, 0.01, 0.1;
+   basis.Pi_u << 0.0, 0.0, 0.0, 0.0, 0.3, 0.05, 0.0, 0.05, 0.3;
+   basis.Pi_d << 0.0, 0.0, 0.0, 0.0, 0.2, 0.03, 0.0, 0.03, 0.2;
+   basis.Pi_l << 0.0, 0.0, 0.0, 0.0, 0.1, 0.01, 0.0, 0.01, 0.1;
 
    Eigen::Matrix<std::complex<double>,3,3> ckm;
    ckm << 1.0, 0.22537, std::complex<double>(0.0010901809,-0.0032891784),
@@ -536,4 +551,83 @@ TEST_CASE("2HDMC-mA-scan-with-running")
          CHECK_CLOSE(amuGM2Calc*1e13, amu2HDMC*1e13, 0.04);
       }
    }
+}
+
+
+// This test checks that the input parametrization with Pi_f is
+// equivalent the input parametrization with Delta_f.
+TEST_CASE("parametrizations")
+{
+   gm2calc::SM sm;
+
+   const double v = sm.get_v();
+   const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();
+   const Eigen::Matrix<double,3,3> md = sm.get_md().asDiagonal();
+   const Eigen::Matrix<double,3,3> ml = sm.get_ml().asDiagonal();
+   const double mh = 125;
+   const double mH = 400;
+   const double mA = 420;
+   const double mHp = 440;
+   const double sin_beta_minus_alpha = 0.995;
+   const double lambda_6 = 0.1;
+   const double lambda_7 = 0.2;
+   const double tan_beta = 3;
+   const double cos_beta = 1/std::sqrt(1 + tan_beta*tan_beta);
+   const double m122 = 40000;
+   const double zeta_u = 10;
+   const double zeta_d = 20;
+   const double zeta_l = 30;
+   const Eigen::Matrix<double,3,3> Delta_u((Eigen::Matrix<double,3,3>() << 1, 2, 3, 4, 5, 6, 7, 8, 9).finished());
+   const Eigen::Matrix<double,3,3> Delta_d(2.0*Delta_u);
+   const Eigen::Matrix<double,3,3> Delta_l(3.0*Delta_u);
+
+   gm2calc::thdm::Config config;
+   config.running_couplings = false;
+
+   gm2calc::thdm::Mass_basis aligned_basis;
+   aligned_basis.yukawa_type = gm2calc::thdm::Yukawa_type::aligned;
+   aligned_basis.mh = mh;
+   aligned_basis.mH = mH;
+   aligned_basis.mA = mA;
+   aligned_basis.mHp = mHp;
+   aligned_basis.sin_beta_minus_alpha = sin_beta_minus_alpha;
+   aligned_basis.lambda_6 = lambda_6;
+   aligned_basis.lambda_7 = lambda_7;
+   aligned_basis.tan_beta = tan_beta;
+   aligned_basis.m122 = m122;
+   aligned_basis.zeta_u = zeta_u;
+   aligned_basis.zeta_d = zeta_d;
+   aligned_basis.zeta_l = zeta_l;
+   aligned_basis.Delta_u = Delta_u;
+   aligned_basis.Delta_d = Delta_d;
+   aligned_basis.Delta_l = Delta_l;
+
+   gm2calc::thdm::Mass_basis general_basis;
+   general_basis.yukawa_type = gm2calc::thdm::Yukawa_type::general;
+   general_basis.mh = mh;
+   general_basis.mH = mH;
+   general_basis.mA = mA;
+   general_basis.mHp = mHp;
+   general_basis.sin_beta_minus_alpha = sin_beta_minus_alpha;
+   general_basis.lambda_6 = lambda_6;
+   general_basis.lambda_7 = lambda_7;
+   general_basis.tan_beta = tan_beta;
+   general_basis.m122 = m122;
+   general_basis.zeta_u = zeta_u;
+   general_basis.zeta_d = zeta_d;
+   general_basis.zeta_l = zeta_l;
+   // change parametrization: Input Pi_f instead of Delta_f
+   general_basis.Pi_u = cos_beta*(std::sqrt(2.0)*mu/v*(zeta_u + tan_beta) + Delta_u);
+   general_basis.Pi_d = cos_beta*(std::sqrt(2.0)*md/v*(zeta_d + tan_beta) + Delta_d);
+   general_basis.Pi_l = cos_beta*(std::sqrt(2.0)*ml/v*(zeta_l + tan_beta) + Delta_l);
+
+   gm2calc::THDM aligned_thdm(aligned_basis, sm, config);
+   gm2calc::THDM general_thdm(general_basis, sm, config);
+
+   const double aligned_amu = gm2calc::calculate_amu_1loop(aligned_thdm)
+                            + gm2calc::calculate_amu_2loop_fermionic(aligned_thdm);
+   const double general_amu = gm2calc::calculate_amu_1loop(general_thdm)
+                            + gm2calc::calculate_amu_2loop_fermionic(general_thdm);
+
+   CHECK_CLOSE(aligned_amu*1e10, general_amu*1e10, 1e-10);
 }

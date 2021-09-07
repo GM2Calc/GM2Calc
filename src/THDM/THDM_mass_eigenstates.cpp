@@ -304,7 +304,7 @@ void CLASSNAME::calculate_MHm()
 
 Eigen::Matrix<std::complex<double>,3,3> CLASSNAME::get_mass_matrix_Fd() const
 {
-   return sqrt2_inv*(v1*Yd + v2*Xd);
+   return sqrt2_inv*(v1*Gamma_d + v2*Pi_d);
 }
 
 void CLASSNAME::calculate_MFd()
@@ -315,7 +315,7 @@ void CLASSNAME::calculate_MFd()
 
 Eigen::Matrix<std::complex<double>,3,3> CLASSNAME::get_mass_matrix_Fu() const
 {
-   return sqrt2_inv*(v1*Yu + v2*Xu);
+   return sqrt2_inv*(v1*Gamma_u + v2*Pi_u);
 }
 
 void CLASSNAME::calculate_MFu()
@@ -326,7 +326,7 @@ void CLASSNAME::calculate_MFu()
 
 Eigen::Matrix<std::complex<double>,3,3> CLASSNAME::get_mass_matrix_Fe() const
 {
-   return sqrt2_inv*(v1*Yl + v2*Xl);
+   return sqrt2_inv*(v1*Gamma_l + v2*Pi_l);
 }
 
 void CLASSNAME::calculate_MFe()

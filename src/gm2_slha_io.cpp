@@ -477,18 +477,27 @@ void GM2_slha_io::fill(gm2calc::thdm::Gauge_basis& basis) const
       return process_minpar_tuple(basis, key, value);
    };
 
-   Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_l{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_l{Eigen::Matrix<double,3,3>::Zero()};
 
    read_block("MINPAR", minpar_processor);
-   read_block("GM2CalcTHDMXuInput", Xu);
-   read_block("GM2CalcTHDMXdInput", Xd);
-   read_block("GM2CalcTHDMXlInput", Xl);
+   read_block("GM2CalcTHDMDeltauInput", Delta_u);
+   read_block("GM2CalcTHDMDeltadInput", Delta_d);
+   read_block("GM2CalcTHDMDeltalInput", Delta_l);
+   read_block("GM2CalcTHDMPiuInput", Pi_u);
+   read_block("GM2CalcTHDMPidInput", Pi_d);
+   read_block("GM2CalcTHDMPilInput", Pi_l);
 
-   basis.Xu = Xu;
-   basis.Xd = Xd;
-   basis.Xl = Xl;
+   basis.Delta_u = Delta_u;
+   basis.Delta_d = Delta_d;
+   basis.Delta_l = Delta_l;
+   basis.Pi_u = Pi_u;
+   basis.Pi_d = Pi_d;
+   basis.Pi_l = Pi_l;
 }
 
 /**
@@ -505,19 +514,28 @@ void GM2_slha_io::fill(gm2calc::thdm::Mass_basis& basis) const
       return process_mass_tuple(basis, key, value);
    };
 
-   Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_l{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_l{Eigen::Matrix<double,3,3>::Zero()};
 
    read_block("MINPAR", minpar_processor);
    read_block("MASS", mass_processor);
-   read_block("GM2CalcTHDMXuInput", Xu);
-   read_block("GM2CalcTHDMXdInput", Xd);
-   read_block("GM2CalcTHDMXlInput", Xl);
+   read_block("GM2CalcTHDMDeltauInput", Delta_u);
+   read_block("GM2CalcTHDMDeltadInput", Delta_d);
+   read_block("GM2CalcTHDMDeltalInput", Delta_l);
+   read_block("GM2CalcTHDMPiuInput", Pi_u);
+   read_block("GM2CalcTHDMPidInput", Pi_d);
+   read_block("GM2CalcTHDMPilInput", Pi_l);
 
-   basis.Xu = Xu;
-   basis.Xd = Xd;
-   basis.Xl = Xl;
+   basis.Delta_u = Delta_u;
+   basis.Delta_d = Delta_d;
+   basis.Delta_l = Delta_l;
+   basis.Pi_u = Pi_u;
+   basis.Pi_d = Pi_d;
+   basis.Pi_l = Pi_l;
 }
 
 /**
@@ -572,16 +590,12 @@ void read_integer(double value, T& result, T min, T max, const char* error_msg)
    }
 }
 
-template <typename T>
-T read_integer(double value, T min, T max, const char* error_msg)
+int read_integer(double value)
 {
-   if (is_integer(value) && value >= min && value <= max) {
-      return static_cast<T>(static_cast<int>(value));
+   if (is_integer(value)) {
+      return static_cast<int>(value);
    } else {
-      throw EInvalidInput(
-         std::string(error_msg) + ": " + gm2calc::to_string(value) +
-         " (allowed integer values: " + gm2calc::to_string(min) + ",...," +
-         gm2calc::to_string(max) + ")");
+      throw EInvalidInput(gm2calc::to_string(value) + " is not an integer");
    }
 }
 
@@ -884,15 +898,7 @@ void process_minpar_tuple(
    case 21: basis.zeta_u = value;    break;
    case 22: basis.zeta_d = value;    break;
    case 23: basis.zeta_l = value;    break;
-   case 24:
-      switch (read_integer(value, 0, 5, "invalid Yukawa type")) {
-      case 0: basis.yukawa_type = thdm::Yukawa_type::general; break;
-      case 1: basis.yukawa_type = thdm::Yukawa_type::type_1;  break;
-      case 2: basis.yukawa_type = thdm::Yukawa_type::type_2;  break;
-      case 3: basis.yukawa_type = thdm::Yukawa_type::type_X;  break;
-      case 4: basis.yukawa_type = thdm::Yukawa_type::type_Y;  break;
-      case 5: basis.yukawa_type = thdm::Yukawa_type::aligned; break;
-      }
+   case 24: basis.yukawa_type = thdm::int_to_cpp_yukawa_type(read_integer(value));
       break;
    default:
       break;
@@ -911,15 +917,7 @@ void process_minpar_tuple(
    case 21: basis.zeta_u = value;               break;
    case 22: basis.zeta_d = value;               break;
    case 23: basis.zeta_l = value;               break;
-   case 24:
-      switch (read_integer(value, 0, 5, "invalid Yukawa type")) {
-      case 0: basis.yukawa_type = thdm::Yukawa_type::general; break;
-      case 1: basis.yukawa_type = thdm::Yukawa_type::type_1;  break;
-      case 2: basis.yukawa_type = thdm::Yukawa_type::type_2;  break;
-      case 3: basis.yukawa_type = thdm::Yukawa_type::type_X;  break;
-      case 4: basis.yukawa_type = thdm::Yukawa_type::type_Y;  break;
-      case 5: basis.yukawa_type = thdm::Yukawa_type::aligned; break;
-      }
+   case 24: basis.yukawa_type = thdm::int_to_cpp_yukawa_type(read_integer(value));
       break;
    default:
       break;

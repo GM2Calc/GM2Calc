@@ -40,8 +40,16 @@ struct Config {
 };
 
 enum class Yukawa_type : int {
-   general = 0, type_1, type_2, type_X, type_Y, aligned
+   type_1 = 1,
+   type_2,
+   type_X,
+   type_Y,
+   aligned,
+   general
 };
+
+/** convert int to thdm::Yukawa_type */
+Yukawa_type int_to_cpp_yukawa_type(int);
 
 struct Gauge_basis {
    Yukawa_type yukawa_type{Yukawa_type::type_2};
@@ -51,9 +59,12 @@ struct Gauge_basis {
    double zeta_u{0.0};
    double zeta_d{0.0};
    double zeta_l{0.0};
-   Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_l{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_l{Eigen::Matrix<double,3,3>::Zero()};
 };
 
 struct Mass_basis {
@@ -70,9 +81,12 @@ struct Mass_basis {
    double zeta_u{0.0};
    double zeta_d{0.0};
    double zeta_l{0.0};
-   Eigen::Matrix<double,3,3> Xu{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xd{Eigen::Matrix<double,3,3>::Zero()};
-   Eigen::Matrix<double,3,3> Xl{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_l{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_l{Eigen::Matrix<double,3,3>::Zero()};
 };
 
 } // namespace thdm
@@ -129,12 +143,12 @@ public:
    using THDM_mass_eigenstates::get_m122;
    using THDM_mass_eigenstates::get_g1;
    using THDM_mass_eigenstates::get_g2;
-   using THDM_mass_eigenstates::get_Yu;
-   using THDM_mass_eigenstates::get_Yd;
-   using THDM_mass_eigenstates::get_Yl;
-   using THDM_mass_eigenstates::get_Xu;
-   using THDM_mass_eigenstates::get_Xd;
-   using THDM_mass_eigenstates::get_Xl;
+   using THDM_mass_eigenstates::get_Gamma_u;
+   using THDM_mass_eigenstates::get_Gamma_d;
+   using THDM_mass_eigenstates::get_Gamma_l;
+   using THDM_mass_eigenstates::get_Pi_u;
+   using THDM_mass_eigenstates::get_Pi_d;
+   using THDM_mass_eigenstates::get_Pi_l;
    using THDM_mass_eigenstates::get_v1;
    using THDM_mass_eigenstates::get_v2;
    using THDM_mass_eigenstates::get_Mhh;
@@ -166,14 +180,17 @@ private:
    double zeta_u{0.0}; ///< alignment parameter
    double zeta_d{0.0}; ///< alignment parameter
    double zeta_l{0.0}; ///< alignment parameter
+   Eigen::Matrix<double,3,3> Delta_u{Eigen::Matrix<double,3,3>::Zero()}; ///< deviation from alignment
+   Eigen::Matrix<double,3,3> Delta_d{Eigen::Matrix<double,3,3>::Zero()}; ///< deviation from alignment
+   Eigen::Matrix<double,3,3> Delta_l{Eigen::Matrix<double,3,3>::Zero()}; ///< deviation from alignment
    thdm::Config config{}; ///< configuration options
 
    Eigen::Matrix<double,3,1> get_mu(double) const;
    Eigen::Matrix<double,3,1> get_md(double) const;
    Eigen::Matrix<double,3,1> get_ml(double) const;
-   Eigen::Matrix<std::complex<double>,3,3> get_xi_u(const Eigen::Matrix<double,3,3>&) const;
-   Eigen::Matrix<std::complex<double>,3,3> get_xi_d(const Eigen::Matrix<double,3,3>&) const;
-   Eigen::Matrix<std::complex<double>,3,3> get_xi_l(const Eigen::Matrix<double,3,3>&) const;
+   Eigen::Matrix<std::complex<double>,3,3> get_rho_u(const Eigen::Matrix<double,3,3>&) const;
+   Eigen::Matrix<std::complex<double>,3,3> get_rho_d(const Eigen::Matrix<double,3,3>&) const;
+   Eigen::Matrix<std::complex<double>,3,3> get_rho_l(const Eigen::Matrix<double,3,3>&) const;
    void init_gauge_couplings();
    void init_yukawas();
    void set_basis(const thdm::Gauge_basis&);

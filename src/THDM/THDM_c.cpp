@@ -20,11 +20,17 @@
 #include "gm2calc/THDM.hpp"
 #include "gm2calc/gm2_error.hpp"
 #include "gm2calc/SM.h"
+#include "gm2_log.hpp"
 
 #include <complex>
 
 namespace gm2calc {
 namespace {
+
+gm2calc::thdm::Yukawa_type c_yukawa_type_to_cpptype(THDM_yukawa_type yukawa_type)
+{
+   return static_cast<gm2calc::thdm::Yukawa_type>(yukawa_type);
+}
 
 gm2calc::thdm::Config convert_to_config(const THDM_config* config)
 {
@@ -78,26 +84,7 @@ gm2calc::thdm::Gauge_basis convert_to_basis(const THDM_gauge_basis* basis)
    gm2calc::thdm::Gauge_basis b;
 
    if (basis != nullptr) {
-      switch (basis->yukawa_type) {
-      case THDM_type_1:
-         b.yukawa_type = thdm::Yukawa_type::type_1;
-         break;
-      case THDM_type_2:
-         b.yukawa_type = thdm::Yukawa_type::type_2;
-         break;
-      case THDM_type_X:
-         b.yukawa_type = thdm::Yukawa_type::type_X;
-         break;
-      case THDM_type_Y:
-         b.yukawa_type = thdm::Yukawa_type::type_Y;
-         break;
-      case THDM_aligned:
-         b.yukawa_type = thdm::Yukawa_type::aligned;
-         break;
-      case THDM_general:
-         b.yukawa_type = thdm::Yukawa_type::general;
-         break;
-      }
+      b.yukawa_type = c_yukawa_type_to_cpptype(basis->yukawa_type);
       for (int i = 0; i < 7; i++) {
          b.lambda(i) = basis->lambda[i];
       }
@@ -108,9 +95,12 @@ gm2calc::thdm::Gauge_basis convert_to_basis(const THDM_gauge_basis* basis)
       b.zeta_l = basis->zeta_l;
       for (int i = 0; i < 3; i++) {
          for (int k = 0; k < 3; k++) {
-            b.Xu(i, k) = basis->Xu[i][k];
-            b.Xd(i, k) = basis->Xd[i][k];
-            b.Xl(i, k) = basis->Xl[i][k];
+            b.Delta_u(i, k) = basis->Delta_u[i][k];
+            b.Delta_d(i, k) = basis->Delta_d[i][k];
+            b.Delta_l(i, k) = basis->Delta_l[i][k];
+            b.Pi_u(i, k) = basis->Pi_u[i][k];
+            b.Pi_d(i, k) = basis->Pi_d[i][k];
+            b.Pi_l(i, k) = basis->Pi_l[i][k];
          }
       }
    }
@@ -123,26 +113,7 @@ gm2calc::thdm::Mass_basis convert_to_basis(const THDM_mass_basis* basis)
    gm2calc::thdm::Mass_basis b;
 
    if (basis != nullptr) {
-      switch (basis->yukawa_type) {
-      case THDM_type_1:
-         b.yukawa_type = thdm::Yukawa_type::type_1;
-         break;
-      case THDM_type_2:
-         b.yukawa_type = thdm::Yukawa_type::type_2;
-         break;
-      case THDM_type_X:
-         b.yukawa_type = thdm::Yukawa_type::type_X;
-         break;
-      case THDM_type_Y:
-         b.yukawa_type = thdm::Yukawa_type::type_Y;
-         break;
-      case THDM_aligned:
-         b.yukawa_type = thdm::Yukawa_type::aligned;
-         break;
-      case THDM_general:
-         b.yukawa_type = thdm::Yukawa_type::general;
-         break;
-      }
+      b.yukawa_type = c_yukawa_type_to_cpptype(basis->yukawa_type);
       b.mh = basis->mh;
       b.mH = basis->mH;
       b.mA = basis->mA;
@@ -157,9 +128,12 @@ gm2calc::thdm::Mass_basis convert_to_basis(const THDM_mass_basis* basis)
       b.zeta_l = basis->zeta_l;
       for (int i = 0; i < 3; i++) {
          for (int k = 0; k < 3; k++) {
-            b.Xu(i, k) = basis->Xu[i][k];
-            b.Xd(i, k) = basis->Xd[i][k];
-            b.Xl(i, k) = basis->Xl[i][k];
+            b.Delta_u(i, k) = basis->Delta_u[i][k];
+            b.Delta_d(i, k) = basis->Delta_d[i][k];
+            b.Delta_l(i, k) = basis->Delta_l[i][k];
+            b.Pi_u(i, k) = basis->Pi_u[i][k];
+            b.Pi_d(i, k) = basis->Pi_d[i][k];
+            b.Pi_l(i, k) = basis->Pi_l[i][k];
          }
       }
    }
@@ -180,6 +154,20 @@ gm2calc::thdm::Mass_basis convert_to_basis(const THDM_mass_basis* basis)
 
 extern "C"
 {
+
+THDM_yukawa_type int_to_c_yukawa_type(int i)
+{
+   THDM_yukawa_type yukawa_type = THDM_general;
+
+   try {
+      const auto yukawa_type_cpp = gm2calc::thdm::int_to_cpp_yukawa_type(i);
+      yukawa_type = static_cast<THDM_yukawa_type>(yukawa_type_cpp);
+   } catch (const gm2calc::Error& e) {
+      ERROR(e.what());
+   }
+
+   return yukawa_type;
+}
 
 /**
  * Sets configuration options to default values.

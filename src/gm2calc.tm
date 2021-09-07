@@ -231,14 +231,23 @@
 :Evaluate: zetal::usage =
     "Alignment parameter zeta_l in the Two-Higgs Doublet Model.";
 
-:Evaluate: Xu::usage =
-    "Yukawa coupling X_u in the general Two-Higgs Doublet Model.";
+:Evaluate: Deltau::usage =
+    "Yukawa coupling Delta_u in the general Two-Higgs Doublet Model.";
 
-:Evaluate: Xd::usage =
-    "Yukawa coupling X_d in the general Two-Higgs Doublet Model.";
+:Evaluate: Deltad::usage =
+    "Yukawa coupling Delta_d in the general Two-Higgs Doublet Model.";
 
-:Evaluate: Xl::usage =
-    "Yukawa coupling X_l in the general Two-Higgs Doublet Model.";
+:Evaluate: Deltal::usage =
+    "Yukawa coupling Delta_l in the general Two-Higgs Doublet Model.";
+
+:Evaluate: Piu::usage =
+    "Yukawa coupling Pi_u in the general Two-Higgs Doublet Model.";
+
+:Evaluate: Pid::usage =
+    "Yukawa coupling Pi_d in the general Two-Higgs Doublet Model.";
+
+:Evaluate: Pil::usage =
+    "Yukawa coupling Pi_l in the general Two-Higgs Doublet Model.";
 
 :Evaluate: GM2CalcSetFlags::usage =
     "GM2CalcSetFlags sets the configuration flags for GM2Calc.  Available flags are: {loopOrder, tanBetaResummation, forceOutput, runningCouplings}.  Unset flags are set to their default values, see Options[GM2CalcSetFlags].  Use GM2CalcGetFlags[] to retrieve the flags currently set."
@@ -519,38 +528,68 @@
    N @ OptionValue[zetau],
    N @ OptionValue[zetad],
    N @ OptionValue[zetal],
-   Re @ N @ OptionValue[Xu][[1,1]],
-   Re @ N @ OptionValue[Xu][[1,2]],
-   Re @ N @ OptionValue[Xu][[1,3]],
-   Re @ N @ OptionValue[Xu][[2,1]],
-   Re @ N @ OptionValue[Xu][[2,2]],
-   Re @ N @ OptionValue[Xu][[2,3]],
-   Re @ N @ OptionValue[Xu][[3,1]],
-   Re @ N @ OptionValue[Xu][[3,2]],
-   Re @ N @ OptionValue[Xu][[3,3]],
-   Re @ N @ OptionValue[Xd][[1,1]],
-   Re @ N @ OptionValue[Xd][[1,2]],
-   Re @ N @ OptionValue[Xd][[1,3]],
-   Re @ N @ OptionValue[Xd][[2,1]],
-   Re @ N @ OptionValue[Xd][[2,2]],
-   Re @ N @ OptionValue[Xd][[2,3]],
-   Re @ N @ OptionValue[Xd][[3,1]],
-   Re @ N @ OptionValue[Xd][[3,2]],
-   Re @ N @ OptionValue[Xd][[3,3]],
-   Re @ N @ OptionValue[Xl][[1,1]],
-   Re @ N @ OptionValue[Xl][[1,2]],
-   Re @ N @ OptionValue[Xl][[1,3]],
-   Re @ N @ OptionValue[Xl][[2,1]],
-   Re @ N @ OptionValue[Xl][[2,2]],
-   Re @ N @ OptionValue[Xl][[2,3]],
-   Re @ N @ OptionValue[Xl][[3,1]],
-   Re @ N @ OptionValue[Xl][[3,2]],
-   Re @ N @ OptionValue[Xl][[3,3]] }
+   Re @ N @ OptionValue[Deltau][[1,1]],
+   Re @ N @ OptionValue[Deltau][[1,2]],
+   Re @ N @ OptionValue[Deltau][[1,3]],
+   Re @ N @ OptionValue[Deltau][[2,1]],
+   Re @ N @ OptionValue[Deltau][[2,2]],
+   Re @ N @ OptionValue[Deltau][[2,3]],
+   Re @ N @ OptionValue[Deltau][[3,1]],
+   Re @ N @ OptionValue[Deltau][[3,2]],
+   Re @ N @ OptionValue[Deltau][[3,3]],
+   Re @ N @ OptionValue[Deltad][[1,1]],
+   Re @ N @ OptionValue[Deltad][[1,2]],
+   Re @ N @ OptionValue[Deltad][[1,3]],
+   Re @ N @ OptionValue[Deltad][[2,1]],
+   Re @ N @ OptionValue[Deltad][[2,2]],
+   Re @ N @ OptionValue[Deltad][[2,3]],
+   Re @ N @ OptionValue[Deltad][[3,1]],
+   Re @ N @ OptionValue[Deltad][[3,2]],
+   Re @ N @ OptionValue[Deltad][[3,3]],
+   Re @ N @ OptionValue[Deltal][[1,1]],
+   Re @ N @ OptionValue[Deltal][[1,2]],
+   Re @ N @ OptionValue[Deltal][[1,3]],
+   Re @ N @ OptionValue[Deltal][[2,1]],
+   Re @ N @ OptionValue[Deltal][[2,2]],
+   Re @ N @ OptionValue[Deltal][[2,3]],
+   Re @ N @ OptionValue[Deltal][[3,1]],
+   Re @ N @ OptionValue[Deltal][[3,2]],
+   Re @ N @ OptionValue[Deltal][[3,3]],
+   Re @ N @ OptionValue[Piu][[1,1]],
+   Re @ N @ OptionValue[Piu][[1,2]],
+   Re @ N @ OptionValue[Piu][[1,3]],
+   Re @ N @ OptionValue[Piu][[2,1]],
+   Re @ N @ OptionValue[Piu][[2,2]],
+   Re @ N @ OptionValue[Piu][[2,3]],
+   Re @ N @ OptionValue[Piu][[3,1]],
+   Re @ N @ OptionValue[Piu][[3,2]],
+   Re @ N @ OptionValue[Piu][[3,3]],
+   Re @ N @ OptionValue[Pid][[1,1]],
+   Re @ N @ OptionValue[Pid][[1,2]],
+   Re @ N @ OptionValue[Pid][[1,3]],
+   Re @ N @ OptionValue[Pid][[2,1]],
+   Re @ N @ OptionValue[Pid][[2,2]],
+   Re @ N @ OptionValue[Pid][[2,3]],
+   Re @ N @ OptionValue[Pid][[3,1]],
+   Re @ N @ OptionValue[Pid][[3,2]],
+   Re @ N @ OptionValue[Pid][[3,3]],
+   Re @ N @ OptionValue[Pil][[1,1]],
+   Re @ N @ OptionValue[Pil][[1,2]],
+   Re @ N @ OptionValue[Pil][[1,3]],
+   Re @ N @ OptionValue[Pil][[2,1]],
+   Re @ N @ OptionValue[Pil][[2,2]],
+   Re @ N @ OptionValue[Pil][[2,3]],
+   Re @ N @ OptionValue[Pil][[3,1]],
+   Re @ N @ OptionValue[Pil][[3,2]],
+   Re @ N @ OptionValue[Pil][[3,3]] }
 :ArgumentTypes: {
    Integer, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
-   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real }
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real }
 :ReturnType: Manual
 :End:
 
@@ -562,9 +601,12 @@
     zetau      -> 0,
     zetad      -> 0,
     zetal      -> 0,
-    Xu         -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
-    Xd         -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
-    Xl         -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} }
+    Deltau     -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Deltad     -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Deltal     -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Piu        -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Pid        -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Pil        -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} }
 
 :Begin:
 :Function: GM2CalcAmuTHDMMassBasis
@@ -583,38 +625,68 @@
    N @ OptionValue[zetau],
    N @ OptionValue[zetad],
    N @ OptionValue[zetal],
-   Re @ N @ OptionValue[Xu][[1,1]],
-   Re @ N @ OptionValue[Xu][[1,2]],
-   Re @ N @ OptionValue[Xu][[1,3]],
-   Re @ N @ OptionValue[Xu][[2,1]],
-   Re @ N @ OptionValue[Xu][[2,2]],
-   Re @ N @ OptionValue[Xu][[2,3]],
-   Re @ N @ OptionValue[Xu][[3,1]],
-   Re @ N @ OptionValue[Xu][[3,2]],
-   Re @ N @ OptionValue[Xu][[3,3]],
-   Re @ N @ OptionValue[Xd][[1,1]],
-   Re @ N @ OptionValue[Xd][[1,2]],
-   Re @ N @ OptionValue[Xd][[1,3]],
-   Re @ N @ OptionValue[Xd][[2,1]],
-   Re @ N @ OptionValue[Xd][[2,2]],
-   Re @ N @ OptionValue[Xd][[2,3]],
-   Re @ N @ OptionValue[Xd][[3,1]],
-   Re @ N @ OptionValue[Xd][[3,2]],
-   Re @ N @ OptionValue[Xd][[3,3]],
-   Re @ N @ OptionValue[Xl][[1,1]],
-   Re @ N @ OptionValue[Xl][[1,2]],
-   Re @ N @ OptionValue[Xl][[1,3]],
-   Re @ N @ OptionValue[Xl][[2,1]],
-   Re @ N @ OptionValue[Xl][[2,2]],
-   Re @ N @ OptionValue[Xl][[2,3]],
-   Re @ N @ OptionValue[Xl][[3,1]],
-   Re @ N @ OptionValue[Xl][[3,2]],
-   Re @ N @ OptionValue[Xl][[3,3]] }
+   Re @ N @ OptionValue[Deltau][[1,1]],
+   Re @ N @ OptionValue[Deltau][[1,2]],
+   Re @ N @ OptionValue[Deltau][[1,3]],
+   Re @ N @ OptionValue[Deltau][[2,1]],
+   Re @ N @ OptionValue[Deltau][[2,2]],
+   Re @ N @ OptionValue[Deltau][[2,3]],
+   Re @ N @ OptionValue[Deltau][[3,1]],
+   Re @ N @ OptionValue[Deltau][[3,2]],
+   Re @ N @ OptionValue[Deltau][[3,3]],
+   Re @ N @ OptionValue[Deltad][[1,1]],
+   Re @ N @ OptionValue[Deltad][[1,2]],
+   Re @ N @ OptionValue[Deltad][[1,3]],
+   Re @ N @ OptionValue[Deltad][[2,1]],
+   Re @ N @ OptionValue[Deltad][[2,2]],
+   Re @ N @ OptionValue[Deltad][[2,3]],
+   Re @ N @ OptionValue[Deltad][[3,1]],
+   Re @ N @ OptionValue[Deltad][[3,2]],
+   Re @ N @ OptionValue[Deltad][[3,3]],
+   Re @ N @ OptionValue[Deltal][[1,1]],
+   Re @ N @ OptionValue[Deltal][[1,2]],
+   Re @ N @ OptionValue[Deltal][[1,3]],
+   Re @ N @ OptionValue[Deltal][[2,1]],
+   Re @ N @ OptionValue[Deltal][[2,2]],
+   Re @ N @ OptionValue[Deltal][[2,3]],
+   Re @ N @ OptionValue[Deltal][[3,1]],
+   Re @ N @ OptionValue[Deltal][[3,2]],
+   Re @ N @ OptionValue[Deltal][[3,3]],
+   Re @ N @ OptionValue[Piu][[1,1]],
+   Re @ N @ OptionValue[Piu][[1,2]],
+   Re @ N @ OptionValue[Piu][[1,3]],
+   Re @ N @ OptionValue[Piu][[2,1]],
+   Re @ N @ OptionValue[Piu][[2,2]],
+   Re @ N @ OptionValue[Piu][[2,3]],
+   Re @ N @ OptionValue[Piu][[3,1]],
+   Re @ N @ OptionValue[Piu][[3,2]],
+   Re @ N @ OptionValue[Piu][[3,3]],
+   Re @ N @ OptionValue[Pid][[1,1]],
+   Re @ N @ OptionValue[Pid][[1,2]],
+   Re @ N @ OptionValue[Pid][[1,3]],
+   Re @ N @ OptionValue[Pid][[2,1]],
+   Re @ N @ OptionValue[Pid][[2,2]],
+   Re @ N @ OptionValue[Pid][[2,3]],
+   Re @ N @ OptionValue[Pid][[3,1]],
+   Re @ N @ OptionValue[Pid][[3,2]],
+   Re @ N @ OptionValue[Pid][[3,3]],
+   Re @ N @ OptionValue[Pil][[1,1]],
+   Re @ N @ OptionValue[Pil][[1,2]],
+   Re @ N @ OptionValue[Pil][[1,3]],
+   Re @ N @ OptionValue[Pil][[2,1]],
+   Re @ N @ OptionValue[Pil][[2,2]],
+   Re @ N @ OptionValue[Pil][[2,3]],
+   Re @ N @ OptionValue[Pil][[3,1]],
+   Re @ N @ OptionValue[Pil][[3,2]],
+   Re @ N @ OptionValue[Pil][[3,3]] }
 :ArgumentTypes: {
    Integer, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
    Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
-   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real }
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real }
 :ReturnType: Manual
 :End:
 
@@ -631,9 +703,12 @@
     zetau             -> 0,
     zetad             -> 0,
     zetal             -> 0,
-    Xu                -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
-    Xd                -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
-    Xl                -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} }
+    Deltau            -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Deltad            -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Deltal            -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Piu               -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Pid               -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Pil               -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} }
 
 :Evaluate: End[]
 
@@ -1274,21 +1349,6 @@ void create_error_output(void)
 
 /******************************************************************/
 
-THDM_yukawa_type int_to_yukawa_type(int yukawa_type)
-{
-   switch (yukawa_type) {
-   case 0: return THDM_general; break;
-   case 1: return THDM_type_1;  break;
-   case 2: return THDM_type_2;  break;
-   case 3: return THDM_type_X;  break;
-   case 4: return THDM_type_Y;  break;
-   case 5: return THDM_aligned; break;
-   }
-   return -1;
-}
-
-/******************************************************************/
-
 void GM2CalcAmuSLHAScheme(
    double MSvmL_,
    double MSm_1_,
@@ -1500,43 +1560,70 @@ void GM2CalcAmuTHDMGaugeBasis(
    double zeta_u_,
    double zeta_d_,
    double zeta_l_,
-   double Xu_11_,
-   double Xu_12_,
-   double Xu_13_,
-   double Xu_21_,
-   double Xu_22_,
-   double Xu_23_,
-   double Xu_31_,
-   double Xu_32_,
-   double Xu_33_,
-   double Xd_11_,
-   double Xd_12_,
-   double Xd_13_,
-   double Xd_21_,
-   double Xd_22_,
-   double Xd_23_,
-   double Xd_31_,
-   double Xd_32_,
-   double Xd_33_,
-   double Xl_11_,
-   double Xl_12_,
-   double Xl_13_,
-   double Xl_21_,
-   double Xl_22_,
-   double Xl_23_,
-   double Xl_31_,
-   double Xl_32_,
-   double Xl_33_)
+   double Deltau_11_,
+   double Deltau_12_,
+   double Deltau_13_,
+   double Deltau_21_,
+   double Deltau_22_,
+   double Deltau_23_,
+   double Deltau_31_,
+   double Deltau_32_,
+   double Deltau_33_,
+   double Deltad_11_,
+   double Deltad_12_,
+   double Deltad_13_,
+   double Deltad_21_,
+   double Deltad_22_,
+   double Deltad_23_,
+   double Deltad_31_,
+   double Deltad_32_,
+   double Deltad_33_,
+   double Deltal_11_,
+   double Deltal_12_,
+   double Deltal_13_,
+   double Deltal_21_,
+   double Deltal_22_,
+   double Deltal_23_,
+   double Deltal_31_,
+   double Deltal_32_,
+   double Deltal_33_,
+   double Piu_11_,
+   double Piu_12_,
+   double Piu_13_,
+   double Piu_21_,
+   double Piu_22_,
+   double Piu_23_,
+   double Piu_31_,
+   double Piu_32_,
+   double Piu_33_,
+   double Pid_11_,
+   double Pid_12_,
+   double Pid_13_,
+   double Pid_21_,
+   double Pid_22_,
+   double Pid_23_,
+   double Pid_31_,
+   double Pid_32_,
+   double Pid_33_,
+   double Pil_11_,
+   double Pil_12_,
+   double Pil_13_,
+   double Pil_21_,
+   double Pil_22_,
+   double Pil_23_,
+   double Pil_31_,
+   double Pil_32_,
+   double Pil_33_)
 {
-   if (yukawa_type_ < 0 || yukawa_type_ > 5) {
+   if (yukawa_type_ < 1 || yukawa_type_ > 6) {
       put_error_message("GM2CalcAmuTHDMGaugeBasis", "error",
-                        "yukawaType must be between 0 and 5.");
+                        "yukawaType must be between 1 and 6.");
       create_error_output();
       return;
    }
 
    THDM_gauge_basis basis;
-   basis.yukawa_type = int_to_yukawa_type(yukawa_type_);
+   basis.yukawa_type = int_to_c_yukawa_type(yukawa_type_);
    basis.lambda[0] = lambda_1_;
    basis.lambda[1] = lambda_2_;
    basis.lambda[2] = lambda_3_;
@@ -1549,33 +1636,60 @@ void GM2CalcAmuTHDMGaugeBasis(
    basis.zeta_u = zeta_u_;
    basis.zeta_d = zeta_d_;
    basis.zeta_l = zeta_l_;
-   basis.Xu[0][0] = Xu_11_;
-   basis.Xu[0][1] = Xu_12_;
-   basis.Xu[0][2] = Xu_13_;
-   basis.Xu[1][0] = Xu_21_;
-   basis.Xu[1][1] = Xu_22_;
-   basis.Xu[1][2] = Xu_23_;
-   basis.Xu[2][0] = Xu_31_;
-   basis.Xu[2][1] = Xu_32_;
-   basis.Xu[2][2] = Xu_33_;
-   basis.Xd[0][0] = Xd_11_;
-   basis.Xd[0][1] = Xd_12_;
-   basis.Xd[0][2] = Xd_13_;
-   basis.Xd[1][0] = Xd_21_;
-   basis.Xd[1][1] = Xd_22_;
-   basis.Xd[1][2] = Xd_23_;
-   basis.Xd[2][0] = Xd_31_;
-   basis.Xd[2][1] = Xd_32_;
-   basis.Xd[2][2] = Xd_33_;
-   basis.Xl[0][0] = Xl_11_;
-   basis.Xl[0][1] = Xl_12_;
-   basis.Xl[0][2] = Xl_13_;
-   basis.Xl[1][0] = Xl_21_;
-   basis.Xl[1][1] = Xl_22_;
-   basis.Xl[1][2] = Xl_23_;
-   basis.Xl[2][0] = Xl_31_;
-   basis.Xl[2][1] = Xl_32_;
-   basis.Xl[2][2] = Xl_33_;
+   basis.Delta_u[0][0] = Deltau_11_;
+   basis.Delta_u[0][1] = Deltau_12_;
+   basis.Delta_u[0][2] = Deltau_13_;
+   basis.Delta_u[1][0] = Deltau_21_;
+   basis.Delta_u[1][1] = Deltau_22_;
+   basis.Delta_u[1][2] = Deltau_23_;
+   basis.Delta_u[2][0] = Deltau_31_;
+   basis.Delta_u[2][1] = Deltau_32_;
+   basis.Delta_u[2][2] = Deltau_33_;
+   basis.Delta_d[0][0] = Deltad_11_;
+   basis.Delta_d[0][1] = Deltad_12_;
+   basis.Delta_d[0][2] = Deltad_13_;
+   basis.Delta_d[1][0] = Deltad_21_;
+   basis.Delta_d[1][1] = Deltad_22_;
+   basis.Delta_d[1][2] = Deltad_23_;
+   basis.Delta_d[2][0] = Deltad_31_;
+   basis.Delta_d[2][1] = Deltad_32_;
+   basis.Delta_d[2][2] = Deltad_33_;
+   basis.Delta_l[0][0] = Deltal_11_;
+   basis.Delta_l[0][1] = Deltal_12_;
+   basis.Delta_l[0][2] = Deltal_13_;
+   basis.Delta_l[1][0] = Deltal_21_;
+   basis.Delta_l[1][1] = Deltal_22_;
+   basis.Delta_l[1][2] = Deltal_23_;
+   basis.Delta_l[2][0] = Deltal_31_;
+   basis.Delta_l[2][1] = Deltal_32_;
+   basis.Delta_l[2][2] = Deltal_33_;
+   basis.Pi_u[0][0] = Piu_11_;
+   basis.Pi_u[0][1] = Piu_12_;
+   basis.Pi_u[0][2] = Piu_13_;
+   basis.Pi_u[1][0] = Piu_21_;
+   basis.Pi_u[1][1] = Piu_22_;
+   basis.Pi_u[1][2] = Piu_23_;
+   basis.Pi_u[2][0] = Piu_31_;
+   basis.Pi_u[2][1] = Piu_32_;
+   basis.Pi_u[2][2] = Piu_33_;
+   basis.Pi_d[0][0] = Pid_11_;
+   basis.Pi_d[0][1] = Pid_12_;
+   basis.Pi_d[0][2] = Pid_13_;
+   basis.Pi_d[1][0] = Pid_21_;
+   basis.Pi_d[1][1] = Pid_22_;
+   basis.Pi_d[1][2] = Pid_23_;
+   basis.Pi_d[2][0] = Pid_31_;
+   basis.Pi_d[2][1] = Pid_32_;
+   basis.Pi_d[2][2] = Pid_33_;
+   basis.Pi_l[0][0] = Pil_11_;
+   basis.Pi_l[0][1] = Pil_12_;
+   basis.Pi_l[0][2] = Pil_13_;
+   basis.Pi_l[1][0] = Pil_21_;
+   basis.Pi_l[1][1] = Pil_22_;
+   basis.Pi_l[1][2] = Pil_23_;
+   basis.Pi_l[2][0] = Pil_31_;
+   basis.Pi_l[2][1] = Pil_32_;
+   basis.Pi_l[2][2] = Pil_33_;
 
    THDM_config config;
    config.force_output = config_flags.forceOutput;
@@ -1619,43 +1733,70 @@ void GM2CalcAmuTHDMMassBasis(
    double zeta_u_,
    double zeta_d_,
    double zeta_l_,
-   double Xu_11_,
-   double Xu_12_,
-   double Xu_13_,
-   double Xu_21_,
-   double Xu_22_,
-   double Xu_23_,
-   double Xu_31_,
-   double Xu_32_,
-   double Xu_33_,
-   double Xd_11_,
-   double Xd_12_,
-   double Xd_13_,
-   double Xd_21_,
-   double Xd_22_,
-   double Xd_23_,
-   double Xd_31_,
-   double Xd_32_,
-   double Xd_33_,
-   double Xl_11_,
-   double Xl_12_,
-   double Xl_13_,
-   double Xl_21_,
-   double Xl_22_,
-   double Xl_23_,
-   double Xl_31_,
-   double Xl_32_,
-   double Xl_33_)
+   double Deltau_11_,
+   double Deltau_12_,
+   double Deltau_13_,
+   double Deltau_21_,
+   double Deltau_22_,
+   double Deltau_23_,
+   double Deltau_31_,
+   double Deltau_32_,
+   double Deltau_33_,
+   double Deltad_11_,
+   double Deltad_12_,
+   double Deltad_13_,
+   double Deltad_21_,
+   double Deltad_22_,
+   double Deltad_23_,
+   double Deltad_31_,
+   double Deltad_32_,
+   double Deltad_33_,
+   double Deltal_11_,
+   double Deltal_12_,
+   double Deltal_13_,
+   double Deltal_21_,
+   double Deltal_22_,
+   double Deltal_23_,
+   double Deltal_31_,
+   double Deltal_32_,
+   double Deltal_33_,
+   double Piu_11_,
+   double Piu_12_,
+   double Piu_13_,
+   double Piu_21_,
+   double Piu_22_,
+   double Piu_23_,
+   double Piu_31_,
+   double Piu_32_,
+   double Piu_33_,
+   double Pid_11_,
+   double Pid_12_,
+   double Pid_13_,
+   double Pid_21_,
+   double Pid_22_,
+   double Pid_23_,
+   double Pid_31_,
+   double Pid_32_,
+   double Pid_33_,
+   double Pil_11_,
+   double Pil_12_,
+   double Pil_13_,
+   double Pil_21_,
+   double Pil_22_,
+   double Pil_23_,
+   double Pil_31_,
+   double Pil_32_,
+   double Pil_33_)
 {
-   if (yukawa_type_ < 0 || yukawa_type_ > 5) {
+   if (yukawa_type_ < 1 || yukawa_type_ > 6) {
       put_error_message("GM2CalcAmuTHDMMassBasis", "error",
-                        "yukawaType must be between 0 and 5.");
+                        "yukawaType must be between 1 and 6.");
       create_error_output();
       return;
    }
 
    THDM_mass_basis basis;
-   basis.yukawa_type = int_to_yukawa_type(yukawa_type_);
+   basis.yukawa_type = int_to_c_yukawa_type(yukawa_type_);
    basis.mh = Mhh_1_;
    basis.mH = Mhh_2_;
    basis.mA = MAh_;
@@ -1668,33 +1809,60 @@ void GM2CalcAmuTHDMMassBasis(
    basis.zeta_u = zeta_u_;
    basis.zeta_d = zeta_d_;
    basis.zeta_l = zeta_l_;
-   basis.Xu[0][0] = Xu_11_;
-   basis.Xu[0][1] = Xu_12_;
-   basis.Xu[0][2] = Xu_13_;
-   basis.Xu[1][0] = Xu_21_;
-   basis.Xu[1][1] = Xu_22_;
-   basis.Xu[1][2] = Xu_23_;
-   basis.Xu[2][0] = Xu_31_;
-   basis.Xu[2][1] = Xu_32_;
-   basis.Xu[2][2] = Xu_33_;
-   basis.Xd[0][0] = Xd_11_;
-   basis.Xd[0][1] = Xd_12_;
-   basis.Xd[0][2] = Xd_13_;
-   basis.Xd[1][0] = Xd_21_;
-   basis.Xd[1][1] = Xd_22_;
-   basis.Xd[1][2] = Xd_23_;
-   basis.Xd[2][0] = Xd_31_;
-   basis.Xd[2][1] = Xd_32_;
-   basis.Xd[2][2] = Xd_33_;
-   basis.Xl[0][0] = Xl_11_;
-   basis.Xl[0][1] = Xl_12_;
-   basis.Xl[0][2] = Xl_13_;
-   basis.Xl[1][0] = Xl_21_;
-   basis.Xl[1][1] = Xl_22_;
-   basis.Xl[1][2] = Xl_23_;
-   basis.Xl[2][0] = Xl_31_;
-   basis.Xl[2][1] = Xl_32_;
-   basis.Xl[2][2] = Xl_33_;
+   basis.Delta_u[0][0] = Deltau_11_;
+   basis.Delta_u[0][1] = Deltau_12_;
+   basis.Delta_u[0][2] = Deltau_13_;
+   basis.Delta_u[1][0] = Deltau_21_;
+   basis.Delta_u[1][1] = Deltau_22_;
+   basis.Delta_u[1][2] = Deltau_23_;
+   basis.Delta_u[2][0] = Deltau_31_;
+   basis.Delta_u[2][1] = Deltau_32_;
+   basis.Delta_u[2][2] = Deltau_33_;
+   basis.Delta_d[0][0] = Deltad_11_;
+   basis.Delta_d[0][1] = Deltad_12_;
+   basis.Delta_d[0][2] = Deltad_13_;
+   basis.Delta_d[1][0] = Deltad_21_;
+   basis.Delta_d[1][1] = Deltad_22_;
+   basis.Delta_d[1][2] = Deltad_23_;
+   basis.Delta_d[2][0] = Deltad_31_;
+   basis.Delta_d[2][1] = Deltad_32_;
+   basis.Delta_d[2][2] = Deltad_33_;
+   basis.Delta_l[0][0] = Deltal_11_;
+   basis.Delta_l[0][1] = Deltal_12_;
+   basis.Delta_l[0][2] = Deltal_13_;
+   basis.Delta_l[1][0] = Deltal_21_;
+   basis.Delta_l[1][1] = Deltal_22_;
+   basis.Delta_l[1][2] = Deltal_23_;
+   basis.Delta_l[2][0] = Deltal_31_;
+   basis.Delta_l[2][1] = Deltal_32_;
+   basis.Delta_l[2][2] = Deltal_33_;
+   basis.Pi_u[0][0] = Piu_11_;
+   basis.Pi_u[0][1] = Piu_12_;
+   basis.Pi_u[0][2] = Piu_13_;
+   basis.Pi_u[1][0] = Piu_21_;
+   basis.Pi_u[1][1] = Piu_22_;
+   basis.Pi_u[1][2] = Piu_23_;
+   basis.Pi_u[2][0] = Piu_31_;
+   basis.Pi_u[2][1] = Piu_32_;
+   basis.Pi_u[2][2] = Piu_33_;
+   basis.Pi_d[0][0] = Pid_11_;
+   basis.Pi_d[0][1] = Pid_12_;
+   basis.Pi_d[0][2] = Pid_13_;
+   basis.Pi_d[1][0] = Pid_21_;
+   basis.Pi_d[1][1] = Pid_22_;
+   basis.Pi_d[1][2] = Pid_23_;
+   basis.Pi_d[2][0] = Pid_31_;
+   basis.Pi_d[2][1] = Pid_32_;
+   basis.Pi_d[2][2] = Pid_33_;
+   basis.Pi_l[0][0] = Pil_11_;
+   basis.Pi_l[0][1] = Pil_12_;
+   basis.Pi_l[0][2] = Pil_13_;
+   basis.Pi_l[1][0] = Pil_21_;
+   basis.Pi_l[1][1] = Pil_22_;
+   basis.Pi_l[1][2] = Pil_23_;
+   basis.Pi_l[2][0] = Pil_31_;
+   basis.Pi_l[2][1] = Pil_32_;
+   basis.Pi_l[2][2] = Pil_33_;
 
    THDM_config config;
    config.force_output = config_flags.forceOutput;
