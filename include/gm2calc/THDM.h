@@ -34,14 +34,14 @@ extern "C" {
 #endif
 
 /** THDM configuration options */
-struct THDM_config {
+struct gm2calc_THDM_config {
    int force_output;
    int running_couplings;
 };
-typedef struct THDM_config THDM_config;
+typedef struct gm2calc_THDM_config gm2calc_THDM_config;
 
 /** create a new config */
-void gm2calc_thdm_config_set_to_default(THDM_config*);
+void gm2calc_thdm_config_set_to_default(gm2calc_THDM_config*);
 
 /** general THDM handle */
 struct THDM;
@@ -106,10 +106,10 @@ struct gm2calc_SM;
 typedef struct gm2calc_SM gm2calc_SM;
 
 /** allocate new general THDM model with general basis input */
-gm2calc_error gm2calc_thdm_new_with_gauge_basis(THDM**, const THDM_gauge_basis*, const gm2calc_SM*, const THDM_config*);
+gm2calc_error gm2calc_thdm_new_with_gauge_basis(THDM**, const THDM_gauge_basis*, const gm2calc_SM*, const gm2calc_THDM_config*);
 
 /** allocate new general THDM model with physical basis input */
-gm2calc_error gm2calc_thdm_new_with_mass_basis(THDM**, const THDM_mass_basis*, const gm2calc_SM*, const THDM_config*);
+gm2calc_error gm2calc_thdm_new_with_mass_basis(THDM**, const THDM_mass_basis*, const gm2calc_SM*, const gm2calc_THDM_config*);
 
 /** delete general THDM model */
 void gm2calc_thdm_free(THDM*);

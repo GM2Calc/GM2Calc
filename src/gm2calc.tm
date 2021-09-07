@@ -1691,7 +1691,7 @@ void GM2CalcAmuTHDMGaugeBasis(
    basis.Pi_l[2][1] = Pil_32_;
    basis.Pi_l[2][2] = Pil_33_;
 
-   THDM_config config;
+   gm2calc_THDM_config config;
    config.force_output = config_flags.forceOutput;
    config.running_couplings = config_flags.runningCouplings;
 
@@ -1864,7 +1864,7 @@ void GM2CalcAmuTHDMMassBasis(
    basis.Pi_l[2][1] = Pil_32_;
    basis.Pi_l[2][2] = Pil_33_;
 
-   THDM_config config;
+   gm2calc_THDM_config config;
    config.force_output = config_flags.forceOutput;
    config.running_couplings = config_flags.runningCouplings;
 

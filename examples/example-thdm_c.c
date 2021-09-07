@@ -41,7 +41,7 @@ int main()
    sm.md[2] = 4.18;
    sm.ml[2] = 1.77684;
 
-   THDM_config config;
+   gm2calc_THDM_config config;
    gm2calc_thdm_config_set_to_default(&config);
 
    THDM* model = 0;

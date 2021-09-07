@@ -103,7 +103,7 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis(gm2calc::thdm::Yukawa_type yuka
    setup_SM(cppsm, csm);
 
    gm2calc::thdm::Config cppconfig;
-   THDM_config cconfig;
+   gm2calc_THDM_config cconfig;
    gm2calc_thdm_config_set_to_default(&cconfig);
 
    THDM* mc = nullptr;
@@ -156,7 +156,7 @@ std::pair<gm2calc::THDM, THDM*> setup_gauge_basis(gm2calc::thdm::Yukawa_type yuk
    setup_SM(cppsm, csm);
 
    gm2calc::thdm::Config cppconfig;
-   THDM_config cconfig;
+   gm2calc_THDM_config cconfig;
    gm2calc_thdm_config_set_to_default(&cconfig);
 
    THDM* mc = nullptr;
