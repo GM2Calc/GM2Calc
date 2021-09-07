@@ -27,7 +27,7 @@
 namespace gm2calc {
 namespace {
 
-gm2calc::thdm::Yukawa_type c_yukawa_type_to_cpptype(THDM_yukawa_type yukawa_type)
+gm2calc::thdm::Yukawa_type c_yukawa_type_to_cpptype(gm2calc_THDM_yukawa_type yukawa_type)
 {
    return static_cast<gm2calc::thdm::Yukawa_type>(yukawa_type);
 }
@@ -155,13 +155,13 @@ gm2calc::thdm::Mass_basis convert_to_basis(const THDM_mass_basis* basis)
 extern "C"
 {
 
-THDM_yukawa_type int_to_c_yukawa_type(int i)
+gm2calc_THDM_yukawa_type int_to_c_yukawa_type(int i)
 {
-   THDM_yukawa_type yukawa_type = THDM_general;
+   gm2calc_THDM_yukawa_type yukawa_type = THDM_general;
 
    try {
       const auto yukawa_type_cpp = gm2calc::thdm::int_to_cpp_yukawa_type(i);
-      yukawa_type = static_cast<THDM_yukawa_type>(yukawa_type_cpp);
+      yukawa_type = static_cast<gm2calc_THDM_yukawa_type>(yukawa_type_cpp);
    } catch (const gm2calc::Error& e) {
       ERROR(e.what());
    }
