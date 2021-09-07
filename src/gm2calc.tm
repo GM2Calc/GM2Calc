@@ -857,7 +857,7 @@ struct Config_flags {
 };
 
 /* Standard Model parameters */
-SM sm;
+gm2calc_SM sm;
 
 /* SUSY parameters for SLHA interface */
 struct SLHA_parameters {

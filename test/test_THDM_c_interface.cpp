@@ -16,7 +16,7 @@
 #include <utility>
 
 
-void setup_SM(gm2calc::SM& cppsm, SM& csm)
+void setup_SM(gm2calc::SM& cppsm, gm2calc_SM& csm)
 {
    cppsm.set_alpha_em_0(1.0/137);
    cppsm.set_alpha_em_mz(1.0/130);
@@ -99,7 +99,7 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis(gm2calc::thdm::Yukawa_type yuka
    }
 
    gm2calc::SM cppsm;
-   SM csm;
+   gm2calc_SM csm;
    setup_SM(cppsm, csm);
 
    gm2calc::thdm::Config cppconfig;
@@ -152,7 +152,7 @@ std::pair<gm2calc::THDM, THDM*> setup_gauge_basis(gm2calc::thdm::Yukawa_type yuk
    }
 
    gm2calc::SM cppsm;
-   SM csm;
+   gm2calc_SM csm;
    setup_SM(cppsm, csm);
 
    gm2calc::thdm::Config cppconfig;
