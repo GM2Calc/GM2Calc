@@ -49,12 +49,12 @@ typedef struct THDM THDM;
 
 /** Yukawa schemes */
 typedef enum {
-   THDM_type_1 = 1,
-   THDM_type_2,
-   THDM_type_X,
-   THDM_type_Y,
-   THDM_aligned,
-   THDM_general,
+   gm2calc_THDM_type_1 = 1,
+   gm2calc_THDM_type_2,
+   gm2calc_THDM_type_X,
+   gm2calc_THDM_type_Y,
+   gm2calc_THDM_aligned,
+   gm2calc_THDM_general,
 } gm2calc_THDM_yukawa_type;
 
 /** convert int to gm2calc_THDM_yukawa_type */

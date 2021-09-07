@@ -157,7 +157,7 @@ extern "C"
 
 gm2calc_THDM_yukawa_type int_to_c_yukawa_type(int i)
 {
-   gm2calc_THDM_yukawa_type yukawa_type = THDM_general;
+   gm2calc_THDM_yukawa_type yukawa_type = gm2calc_THDM_general;
 
    try {
       const auto yukawa_type_cpp = gm2calc::thdm::int_to_cpp_yukawa_type(i);
