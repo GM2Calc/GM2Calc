@@ -44,7 +44,7 @@ int main()
    gm2calc_THDM_config config;
    gm2calc_thdm_config_set_to_default(&config);
 
-   THDM* model = 0;
+   gm2calc_THDM* model = 0;
    gm2calc_error error = gm2calc_thdm_new_with_mass_basis(&model, &basis, &sm, &config);
 
    if (error == gm2calc_NoError) {

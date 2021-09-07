@@ -32,7 +32,7 @@
 extern "C" {
 
 /** calculates 2-loop contributions to a_mu in the general THDM */
-double gm2calc_thdm_calculate_amu_2loop(const THDM* model)
+double gm2calc_thdm_calculate_amu_2loop(const gm2calc_THDM* model)
 {
    double amu = std::numeric_limits<double>::quiet_NaN();
 

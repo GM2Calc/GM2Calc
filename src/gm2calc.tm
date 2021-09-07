@@ -1695,7 +1695,7 @@ void GM2CalcAmuTHDMGaugeBasis(
    config.force_output = config_flags.forceOutput;
    config.running_couplings = config_flags.runningCouplings;
 
-   THDM* model = 0;
+   gm2calc_THDM* model = 0;
    gm2calc_error error = gm2calc_thdm_new_with_gauge_basis(&model, &basis, &sm, &config);
 
    if (error == gm2calc_NoError) {
@@ -1868,7 +1868,7 @@ void GM2CalcAmuTHDMMassBasis(
    config.force_output = config_flags.forceOutput;
    config.running_couplings = config_flags.runningCouplings;
 
-   THDM* model = 0;
+   gm2calc_THDM* model = 0;
    gm2calc_error error = gm2calc_thdm_new_with_mass_basis(&model, &basis, &sm, &config);
 
    if (error == gm2calc_NoError) {

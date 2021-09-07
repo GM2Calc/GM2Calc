@@ -195,7 +195,8 @@ void gm2calc_thdm_config_set_to_default(gm2calc_THDM_config* config)
  * @return error code
  */
 gm2calc_error gm2calc_thdm_new_with_gauge_basis(
-   THDM** model, const gm2calc_THDM_gauge_basis* basis, const ::gm2calc_SM* sm, const gm2calc_THDM_config* config)
+   gm2calc_THDM** model, const gm2calc_THDM_gauge_basis* basis,
+   const ::gm2calc_SM* sm, const gm2calc_THDM_config* config)
 {
    if (model == nullptr) {
       return gm2calc_InvalidInput;
@@ -207,7 +208,7 @@ gm2calc_error gm2calc_thdm_new_with_gauge_basis(
       const auto c(gm2calc::convert_to_config(config));
       const auto b(gm2calc::convert_to_basis(basis));
       const auto s(gm2calc::convert_to_SM(sm));
-      *model = reinterpret_cast<THDM*>(new gm2calc::THDM(b, s, c));
+      *model = reinterpret_cast<gm2calc_THDM*>(new gm2calc::THDM(b, s, c));
       error = gm2calc_NoError;
    } catch (const gm2calc::EInvalidInput&) {
       *model = nullptr;
@@ -236,7 +237,8 @@ gm2calc_error gm2calc_thdm_new_with_gauge_basis(
  * @return error code
  */
 gm2calc_error gm2calc_thdm_new_with_mass_basis(
-   THDM** model, const gm2calc_THDM_mass_basis* basis, const ::gm2calc_SM* sm, const gm2calc_THDM_config* config)
+   gm2calc_THDM** model, const gm2calc_THDM_mass_basis* basis,
+   const ::gm2calc_SM* sm, const gm2calc_THDM_config* config)
 {
    if (model == nullptr) {
       return gm2calc_InvalidInput;
@@ -248,7 +250,7 @@ gm2calc_error gm2calc_thdm_new_with_mass_basis(
       const auto c(gm2calc::convert_to_config(config));
       const auto b(gm2calc::convert_to_basis(basis));
       const auto s(gm2calc::convert_to_SM(sm));
-      *model = reinterpret_cast<THDM*>(new gm2calc::THDM(b, s, c));
+      *model = reinterpret_cast<gm2calc_THDM*>(new gm2calc::THDM(b, s, c));
       error = gm2calc_NoError;
    } catch (const gm2calc::EInvalidInput&) {
       *model = nullptr;
@@ -272,7 +274,7 @@ gm2calc_error gm2calc_thdm_new_with_mass_basis(
  *
  * @param model pointer to model object
  */
-void gm2calc_thdm_free(THDM* model)
+void gm2calc_thdm_free(gm2calc_THDM* model)
 {
    delete reinterpret_cast<gm2calc::THDM*>(model);
 }

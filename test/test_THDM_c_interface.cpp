@@ -50,7 +50,7 @@ void setup_SM(gm2calc::SM& cppsm, gm2calc_SM& csm)
 }
 
 
-std::pair<gm2calc::THDM, THDM*> setup_mass_basis(gm2calc::thdm::Yukawa_type yukawa_type)
+std::pair<gm2calc::THDM, gm2calc_THDM*> setup_mass_basis(gm2calc::thdm::Yukawa_type yukawa_type)
 {
    gm2calc::thdm::Mass_basis basis;
    basis.yukawa_type = yukawa_type;
@@ -106,14 +106,14 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis(gm2calc::thdm::Yukawa_type yuka
    gm2calc_THDM_config cconfig;
    gm2calc_thdm_config_set_to_default(&cconfig);
 
-   THDM* mc = nullptr;
+   gm2calc_THDM* mc = nullptr;
    gm2calc_thdm_new_with_mass_basis(&mc, &cbasis, &csm, &cconfig);
 
    return std::make_pair(gm2calc::THDM(basis, cppsm, cppconfig), mc);
 }
 
 
-std::pair<gm2calc::THDM, THDM*> setup_gauge_basis(gm2calc::thdm::Yukawa_type yukawa_type)
+std::pair<gm2calc::THDM, gm2calc_THDM*> setup_gauge_basis(gm2calc::thdm::Yukawa_type yukawa_type)
 {
    gm2calc::thdm::Gauge_basis basis;
    basis.yukawa_type = yukawa_type;
@@ -159,7 +159,7 @@ std::pair<gm2calc::THDM, THDM*> setup_gauge_basis(gm2calc::thdm::Yukawa_type yuk
    gm2calc_THDM_config cconfig;
    gm2calc_thdm_config_set_to_default(&cconfig);
 
-   THDM* mc = nullptr;
+   gm2calc_THDM* mc = nullptr;
    gm2calc_thdm_new_with_gauge_basis(&mc, &cbasis, &csm, &cconfig);
 
    return std::make_pair(gm2calc::THDM(basis, cppsm, cppconfig), mc);
