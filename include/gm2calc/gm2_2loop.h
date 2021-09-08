@@ -34,8 +34,14 @@ extern "C" {
 typedef struct gm2calc_THDM gm2calc_THDM;
 typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
 
-/** calculates full 1-loop contributions to a_mu in the general THDM */
+/** calculates full 2-loop contributions to a_mu in the general THDM */
 double gm2calc_thdm_calculate_amu_2loop(const gm2calc_THDM*);
+
+/** calculates fermionic 2-loop contributions to a_mu in the general THDM */
+double gm2calc_thdm_calculate_amu_2loop_fermionic(const gm2calc_THDM*);
+
+/** calculates bosonic 2-loop contributions to a_mu in the general THDM */
+double gm2calc_thdm_calculate_amu_2loop_bosonic(const gm2calc_THDM*);
 
 /** calculates best 2-loop SUSY contributions to a_mu in the MSSMNoFV (with tan(beta) resummation) */
 double gm2calc_mssmnofv_calculate_amu_2loop(const MSSMNoFV_onshell*);

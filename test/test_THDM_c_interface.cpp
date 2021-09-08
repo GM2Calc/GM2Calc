@@ -174,6 +174,8 @@ void test_mass_basis(gm2calc::thdm::Yukawa_type yukawa_type)
 
    CHECK(gm2calc_thdm_calculate_amu_1loop(mc) == gm2calc::calculate_amu_1loop(mcpp));
    CHECK(gm2calc_thdm_calculate_amu_2loop(mc) == gm2calc::calculate_amu_2loop(mcpp));
+   CHECK(gm2calc_thdm_calculate_amu_2loop_fermionic(mc) == gm2calc::calculate_amu_2loop_fermionic(mcpp));
+   CHECK(gm2calc_thdm_calculate_amu_2loop_bosonic(mc) == gm2calc::calculate_amu_2loop_bosonic(mcpp));
    CHECK(gm2calc_thdm_calculate_uncertainty_amu_0loop(mc) == gm2calc::calculate_uncertainty_amu_0loop(mcpp));
    CHECK(gm2calc_thdm_calculate_uncertainty_amu_1loop(mc) == gm2calc::calculate_uncertainty_amu_1loop(mcpp));
    CHECK(gm2calc_thdm_calculate_uncertainty_amu_2loop(mc) == gm2calc::calculate_uncertainty_amu_2loop(mcpp));
@@ -190,6 +192,8 @@ void test_gauge_basis(gm2calc::thdm::Yukawa_type yukawa_type)
 
    CHECK(gm2calc_thdm_calculate_amu_1loop(mc) == gm2calc::calculate_amu_1loop(mcpp));
    CHECK(gm2calc_thdm_calculate_amu_2loop(mc) == gm2calc::calculate_amu_2loop(mcpp));
+   CHECK(gm2calc_thdm_calculate_amu_2loop_fermionic(mc) == gm2calc::calculate_amu_2loop_fermionic(mcpp));
+   CHECK(gm2calc_thdm_calculate_amu_2loop_bosonic(mc) == gm2calc::calculate_amu_2loop_bosonic(mcpp));
    CHECK(gm2calc_thdm_calculate_uncertainty_amu_0loop(mc) == gm2calc::calculate_uncertainty_amu_0loop(mcpp));
    CHECK(gm2calc_thdm_calculate_uncertainty_amu_1loop(mc) == gm2calc::calculate_uncertainty_amu_1loop(mcpp));
    CHECK(gm2calc_thdm_calculate_uncertainty_amu_2loop(mc) == gm2calc::calculate_uncertainty_amu_2loop(mcpp));

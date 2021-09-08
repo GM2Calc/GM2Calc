@@ -44,4 +44,30 @@ double gm2calc_thdm_calculate_amu_2loop(const gm2calc_THDM* model)
    return amu;
 }
 
+/** calculates fermionic 2-loop contributions to a_mu in the general THDM */
+double gm2calc_thdm_calculate_amu_2loop_fermionic(const gm2calc_THDM* model)
+{
+   double amu = std::numeric_limits<double>::quiet_NaN();
+
+   try {
+      amu = gm2calc::calculate_amu_2loop_fermionic(
+         *reinterpret_cast<const gm2calc::THDM*>(model));
+   } catch (...) {}
+
+   return amu;
+}
+
+/** calculates bosonic 2-loop contributions to a_mu in the general THDM */
+double gm2calc_thdm_calculate_amu_2loop_bosonic(const gm2calc_THDM* model)
+{
+   double amu = std::numeric_limits<double>::quiet_NaN();
+
+   try {
+      amu = gm2calc::calculate_amu_2loop_bosonic(
+         *reinterpret_cast<const gm2calc::THDM*>(model));
+   } catch (...) {}
+
+   return amu;
+}
+
 } /* extern "C" */
