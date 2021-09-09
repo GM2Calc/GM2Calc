@@ -650,7 +650,7 @@ double F2(double w) noexcept {
  */
 double F3(double w) noexcept {
    if (w < 0.0) {
-      ERROR("F2: w must not be negative!");
+      ERROR("F3: w must not be negative!");
       return std::numeric_limits<double>::quiet_NaN();
    } else if (w == 0.25) {
       return 19.0/4.0;
