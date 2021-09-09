@@ -274,9 +274,12 @@ point = {
     Pil               -> {{0,0,0}, {0,0,0}, {0,0,0}}
 };
 
-{myAmu, myDamu} = {amu, Damu} /. GM2CalcAmuTHDMMassBasis[point];
+{myAmu, myAmu1L, myAmu2LF, myAmu2LB, myDamu} = {amu, amu1L, amu2LF, amu2LB, Damu} /. GM2CalcAmuTHDMMassBasis[point];
 
 TestClose[myAmu, 1.8762630021293123*^-11];
+TestClose[myAmu1L, -2.21199808*^-15];
+TestClose[myAmu, myAmu1L + myAmu2LF + myAmu2LB];
+TestClose[myDamu, 3.52677143*^-12];
 
 (* THDM mass basis point for type Y *)
 GM2CalcSetFlags[loopOrder -> 2, runningCouplings -> False];
