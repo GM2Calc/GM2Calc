@@ -5,15 +5,15 @@ If[Install["../bin/gm2calc.mx"] === $Failed,
 errors = 0;
 passed = 0;
 
-TestClose[val1_?NumericQ, val2_?NumericQ, eps_:10^-10] :=
-    If[val1 - val2 > eps,
+TestClose[val1_?NumericQ, val2_?NumericQ, eps_:$MachineEpsilon] :=
+    If[Abs[val1 - val2] > eps,
        Print["Error: expressions are not equal: ",
              InputForm[val1], " =!= ", InputForm[val2]];
        errors++,
        passed++
       ];
 
-TestClose[val1_, val2_, eps_:10^-10] := (
+TestClose[val1_, val2_, eps_:$MachineEpsilon] := (
     Print["Non-numeric value found: val1 = ", val1, ", val2 = ", val2, ", eps = ", eps];
     errors++
     );
@@ -135,7 +135,7 @@ point = {
 TestEqual[myAmu, Indeterminate];
 
 (* THDM mass basis point *)
-GM2CalcSetFlags[loopOrder -> 2];
+GM2CalcSetFlags[loopOrder -> 2, runningCouplings -> False];
 
 GM2CalcSetSMParameters[
     alpha0 -> 0.00729735,
@@ -173,7 +173,7 @@ point = {
     zetal             -> 0,
     Piu                -> 0 IdentityMatrix[3],
     Pid                -> 0 IdentityMatrix[3],
-    Pil                -> {{0,0,0}, {0,0.1,0}, {0,0,0}}
+    Pil                -> {{0,0,0}, {0,0,0}, {0,0,0}}
 };
 
 {myAmu, myDamu} = {amu, Damu} /. GM2CalcAmuTHDMMassBasis[point];
@@ -181,7 +181,7 @@ point = {
 TestClose[myAmu, 1.8787546646721519*^-11];
 
 (* THDM gauge basis point *)
-GM2CalcSetFlags[loopOrder -> 2];
+GM2CalcSetFlags[loopOrder -> 2, runningCouplings -> False];
 
 GM2CalcSetSMParameters[
     alpha0 -> 0.00729735,
@@ -214,7 +214,7 @@ point = {
     zetal             -> 0,
     Piu                -> 0 IdentityMatrix[3],
     Pid                -> 0 IdentityMatrix[3],
-    Pil                -> {{0,0,0}, {0,0.1,0}, {0,0,0}}
+    Pil                -> {{0,0,0}, {0,0,0}, {0,0,0}}
 };
 
 {myAmu, myDamu} = {amu, Damu} /. GM2CalcAmuTHDMGaugeBasis[point];
