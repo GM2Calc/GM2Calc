@@ -1744,6 +1744,8 @@ void GM2CalcAmuTHDMGaugeBasis(
       MLPutRuleToReal(stdlink, damu, "Damu");
       MLEndPacket(stdlink);
    } else {
+      put_error_message("GM2CalcAmuTHDMMassBasis", "error",
+                        gm2calc_error_str(error));
       create_error_output();
    }
 
@@ -1916,6 +1918,8 @@ void GM2CalcAmuTHDMMassBasis(
       MLPutRuleToReal(stdlink, damu, "Damu");
       MLEndPacket(stdlink);
    } else {
+      put_error_message("GM2CalcAmuTHDMMassBasis", "error",
+                        gm2calc_error_str(error));
       create_error_output();
    }
 
