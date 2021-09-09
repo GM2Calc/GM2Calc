@@ -134,7 +134,53 @@ point = {
 
 TestEqual[myAmu, Indeterminate];
 
-(* THDM mass basis point *)
+(* THDM mass basis point for type I *)
+GM2CalcSetFlags[loopOrder -> 2, runningCouplings -> False];
+
+GM2CalcSetSMParameters[
+    alpha0 -> 0.00729735,
+    alphaMZ -> 1/128.94579,
+    alphaS -> 0.1184,
+    MhSM -> 125.09,
+    MW -> 80.385,
+    MZ -> 91.1876,
+    MT -> 173.34,
+    mcmc -> 1.28,
+    mu2GeV -> 0.0022,
+    mbmb -> 4.18,
+    ms2GeV -> 0.096,
+    md2GeV -> 0.0047,
+    ML -> 1.77684,
+    MM -> 0.1056583715,
+    ME -> 0.000510998928,
+    Mv1 -> 0,
+    Mv2 -> 0,
+    Mv3 -> 0,
+    CKM -> IdentityMatrix[3] ];
+
+point = {
+    yukawaType        -> 1,
+    Mhh               -> { 125, 400 },
+    MAh               -> 420,
+    MHp               -> 440,
+    sinBetaMinusAlpha -> 0.999,
+    lambda6           -> 0.2,
+    lambda7           -> 0.1,
+    TB                -> 3,
+    m122              -> 200^2,
+    zetau             -> 0,
+    zetad             -> 0,
+    zetal             -> 0,
+    Piu               -> 0 IdentityMatrix[3],
+    Pid               -> 0 IdentityMatrix[3],
+    Pil               -> {{0,0,0}, {0,0,0}, {0,0,0}}
+};
+
+{myAmu, myDamu} = {amu, Damu} /. GM2CalcAmuTHDMMassBasis[point];
+
+TestClose[myAmu, -5.867433445099365*^-12];
+
+(* THDM mass basis point for type II *)
 GM2CalcSetFlags[loopOrder -> 2, runningCouplings -> False];
 
 GM2CalcSetSMParameters[
@@ -171,14 +217,106 @@ point = {
     zetau             -> 0,
     zetad             -> 0,
     zetal             -> 0,
-    Piu                -> 0 IdentityMatrix[3],
-    Pid                -> 0 IdentityMatrix[3],
-    Pil                -> {{0,0,0}, {0,0,0}, {0,0,0}}
+    Piu               -> 0 IdentityMatrix[3],
+    Pid               -> 0 IdentityMatrix[3],
+    Pil               -> {{0,0,0}, {0,0,0}, {0,0,0}}
 };
 
 {myAmu, myDamu} = {amu, Damu} /. GM2CalcAmuTHDMMassBasis[point];
 
 TestClose[myAmu, 1.8787546646721519*^-11];
+
+(* THDM mass basis point for type X *)
+GM2CalcSetFlags[loopOrder -> 2, runningCouplings -> False];
+
+GM2CalcSetSMParameters[
+    alpha0 -> 0.00729735,
+    alphaMZ -> 1/128.94579,
+    alphaS -> 0.1184,
+    MhSM -> 125.09,
+    MW -> 80.385,
+    MZ -> 91.1876,
+    MT -> 173.34,
+    mcmc -> 1.28,
+    mu2GeV -> 0.0022,
+    mbmb -> 4.18,
+    ms2GeV -> 0.096,
+    md2GeV -> 0.0047,
+    ML -> 1.77684,
+    MM -> 0.1056583715,
+    ME -> 0.000510998928,
+    Mv1 -> 0,
+    Mv2 -> 0,
+    Mv3 -> 0,
+    CKM -> IdentityMatrix[3] ];
+
+point = {
+    yukawaType        -> 3,
+    Mhh               -> { 125, 400 },
+    MAh               -> 420,
+    MHp               -> 440,
+    sinBetaMinusAlpha -> 0.999,
+    lambda6           -> 0.2,
+    lambda7           -> 0.1,
+    TB                -> 3,
+    m122              -> 200^2,
+    zetau             -> 0,
+    zetad             -> 0,
+    zetal             -> 0,
+    Piu               -> 0 IdentityMatrix[3],
+    Pid               -> 0 IdentityMatrix[3],
+    Pil               -> {{0,0,0}, {0,0,0}, {0,0,0}}
+};
+
+{myAmu, myDamu} = {amu, Damu} /. GM2CalcAmuTHDMMassBasis[point];
+
+TestClose[myAmu, 1.8762630021293123*^-11];
+
+(* THDM mass basis point for type Y *)
+GM2CalcSetFlags[loopOrder -> 2, runningCouplings -> False];
+
+GM2CalcSetSMParameters[
+    alpha0 -> 0.00729735,
+    alphaMZ -> 1/128.94579,
+    alphaS -> 0.1184,
+    MhSM -> 125.09,
+    MW -> 80.385,
+    MZ -> 91.1876,
+    MT -> 173.34,
+    mcmc -> 1.28,
+    mu2GeV -> 0.0022,
+    mbmb -> 4.18,
+    ms2GeV -> 0.096,
+    md2GeV -> 0.0047,
+    ML -> 1.77684,
+    MM -> 0.1056583715,
+    ME -> 0.000510998928,
+    Mv1 -> 0,
+    Mv2 -> 0,
+    Mv3 -> 0,
+    CKM -> IdentityMatrix[3] ];
+
+point = {
+    yukawaType        -> 4,
+    Mhh               -> { 125, 400 },
+    MAh               -> 420,
+    MHp               -> 440,
+    sinBetaMinusAlpha -> 0.999,
+    lambda6           -> 0.2,
+    lambda7           -> 0.1,
+    TB                -> 3,
+    m122              -> 200^2,
+    zetau             -> 0,
+    zetad             -> 0,
+    zetal             -> 0,
+    Piu               -> 0 IdentityMatrix[3],
+    Pid               -> 0 IdentityMatrix[3],
+    Pil               -> {{0,0,0}, {0,0,0}, {0,0,0}}
+};
+
+{myAmu, myDamu} = {amu, Damu} /. GM2CalcAmuTHDMMassBasis[point];
+
+TestClose[myAmu, -5.857908763806516*^-12];
 
 (* THDM gauge basis point *)
 GM2CalcSetFlags[loopOrder -> 2, runningCouplings -> False];
