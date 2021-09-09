@@ -1182,7 +1182,7 @@ int GM2CalcSetFlags(int loopOrder_, int tanBetaResummation_, int forceOutput_,
    print_package();
 
    if (loopOrder_ < 0 || loopOrder_ > 2) {
-      snprintf(loop_order_str, 12, "%d", loopOrder_);
+      snprintf(loop_order_str, sizeof(loop_order_str), "%d", loopOrder_);
       put_error_message("GM2CalcSetFlags", "wronglooporder", loop_order_str);
    }
 
