@@ -8,30 +8,27 @@
 
 int main()
 {
-   gm2calc_THDM_mass_basis basis;
-   basis.yukawa_type = gm2calc_THDM_type_2;
-   basis.mh = 125;
-   basis.mH = 400;
-   basis.mA = 420;
-   basis.mHp = 440;
-   basis.sin_beta_minus_alpha = 0.999;
-   basis.lambda_6 = 0;
-   basis.lambda_7 = 0;
-   basis.tan_beta = 3;
-   basis.m122 = 40000;
-   basis.zeta_u = 0;
-   basis.zeta_d = 0;
-   basis.zeta_l = 0;
-   for (int i = 0; i < 3; i++) {
-      for (int k = 0; k < 3; k++) {
-         basis.Delta_u[i][k] = 0;
-         basis.Delta_d[i][k] = 0;
-         basis.Delta_l[i][k] = 0;
-         basis.Pi_u[i][k] = 0;
-         basis.Pi_d[i][k] = 0;
-         basis.Pi_l[i][k] = 0;
-      }
-   }
+   const gm2calc_THDM_mass_basis basis = {
+      .yukawa_type = gm2calc_THDM_type_2,
+      .mh = 125,
+      .mH = 400,
+      .mA = 420,
+      .mHp = 440,
+      .sin_beta_minus_alpha = 0.999,
+      .lambda_6 = 0,
+      .lambda_7 = 0,
+      .tan_beta = 3,
+      .m122 = 40000,
+      .zeta_u = 0,
+      .zeta_d = 0,
+      .zeta_l = 0,
+      .Delta_u = { {0,0,0}, {0,0,0}, {0,0,0} },
+      .Delta_d = { {0,0,0}, {0,0,0}, {0,0,0} },
+      .Delta_l = { {0,0,0}, {0,0,0}, {0,0,0} },
+      .Pi_u = { {0,0,0}, {0,0,0}, {0,0,0} },
+      .Pi_d = { {0,0,0}, {0,0,0}, {0,0,0} },
+      .Pi_l = { {0,0,0}, {0,0,0}, {0,0,0} }
+   };
 
    gm2calc_SM sm;
    gm2calc_sm_set_to_default(&sm);
