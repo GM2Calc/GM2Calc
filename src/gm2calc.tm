@@ -1257,6 +1257,9 @@ int GM2CalcSetSMParameters(
    sm.md[2] = mbmb_;
    sm.md[1] = ms2GeV_;
    sm.md[0] = md2GeV_;
+   sm.mv[2] = Mv3_;
+   sm.mv[1] = Mv2_;
+   sm.mv[0] = Mv1_;
    sm.ml[2] = ML_;
    sm.ml[1] = MM_;
    sm.ml[0] = ME_;
