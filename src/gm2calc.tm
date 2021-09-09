@@ -1159,13 +1159,14 @@ static void print_package()
    static int do_print = 1;
 
    if (do_print) {
-      printf("=======================================================\n");
+      printf("========================================================\n");
       printf("GM2Calc " GM2CALC_VERSION "\n");
-      printf("P. Athron, M. Bach, H. G. Fargnoli, C. Gnendiger,\n");
-      printf("R. Greifenhagen, J.-h. Park, S. Paßehr, D. Stöckinger,\n");
-      printf("H. Stöckinger-Kim, A. Voigt\n");
+      printf("P. Athron, C. Balazs, M. Bach, A. Cherchiglia,\n");
+      printf("H. G. Fargnoli, C. Gnendiger, R. Greifenhagen, D. Jacob,\n");
+      printf("J.-h. Park, S. Paßehr, D. Stöckinger, H. Stöckinger-Kim,\n");
+      printf("A. Voigt\n");
       printf("http://gm2calc.hepforge.org\n");
-      printf("=======================================================\n");
+      printf("========================================================\n");
 
       do_print = 0;
    }
