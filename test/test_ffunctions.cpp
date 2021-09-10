@@ -91,24 +91,26 @@ void test_1(const char* func_name, T func, double eps)
 
 TEST_CASE("test_F")
 {
-   test_1("F1C", [] (double x) { return gm2calc::F1C(x); }, 1e-9);
-   test_1("F2C", [] (double x) { return gm2calc::F2C(x); }, 1e-9);
-   test_1("F3C", [] (double x) { return gm2calc::F3C(x); }, 1e-9);
-   test_1("F4C", [] (double x) { return gm2calc::F4C(x); }, 1e-9);
+   const double eps = 1e-9;
 
-   test_1("F1N", [] (double x) { return gm2calc::F1N(x); }, 1e-9);
-   test_1("F2N", [] (double x) { return gm2calc::F2N(x); }, 1e-9);
-   test_1("F3N", [] (double x) { return gm2calc::F3N(x); }, 1e-9);
-   test_1("F4N", [] (double x) { return gm2calc::F4N(x); }, 1e-9);
+   test_1("F1C", [] (double x) { return gm2calc::F1C(x); }, eps);
+   test_1("F2C", [] (double x) { return gm2calc::F2C(x); }, eps);
+   test_1("F3C", [] (double x) { return gm2calc::F3C(x); }, eps);
+   test_1("F4C", [] (double x) { return gm2calc::F4C(x); }, eps);
 
-   test_1("F1" , [] (double x) { return gm2calc::F1(x);  }, 1e-9);
-   test_1("F1t", [] (double x) { return gm2calc::F1t(x); }, 1e-9);
-   test_1("F2" , [] (double x) { return gm2calc::F2(x);  }, 1e-9);
-   test_1("F3" , [] (double x) { return gm2calc::F3(x);  }, 1e-7);
+   test_1("F1N", [] (double x) { return gm2calc::F1N(x); }, eps);
+   test_1("F2N", [] (double x) { return gm2calc::F2N(x); }, eps);
+   test_1("F3N", [] (double x) { return gm2calc::F3N(x); }, eps);
+   test_1("F4N", [] (double x) { return gm2calc::F4N(x); }, eps);
 
-   test_1("fPS", [] (double x) { return gm2calc::f_PS(x);}, 1e-9);
-   test_1("fS" , [] (double x) { return gm2calc::f_S(x); }, 1e-9);
-   test_1("fsferm", [] (double x) { return gm2calc::f_sferm(x); }, 1e-9);
+   test_1("F1" , [] (double x) { return gm2calc::F1(x);  }, eps);
+   test_1("F1t", [] (double x) { return gm2calc::F1t(x); }, eps);
+   test_1("F2" , [] (double x) { return gm2calc::F2(x);  }, eps);
+   test_1("F3" , [] (double x) { return gm2calc::F3(x);  }, eps);
+
+   test_1("fPS", [] (double x) { return gm2calc::f_PS(x);}, eps);
+   test_1("fS" , [] (double x) { return gm2calc::f_S(x); }, eps);
+   test_1("fsferm", [] (double x) { return gm2calc::f_sferm(x); }, eps);
 }
 
 TEST_CASE("test_G")
