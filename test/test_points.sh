@@ -53,6 +53,7 @@ ${BASEDIR}/test_points/thdm_mass-basis_test_point_2.in,thdm,0,1.87875466E-11
 ${BASEDIR}/test_points/thdm_mass-basis_test_point_3.in,thdm,0,1.87626300E-11
 ${BASEDIR}/test_points/thdm_mass-basis_test_point_4.in,thdm,0,-5.85790876E-12
 ${BASEDIR}/test_points/thdm_mass-basis_test_point_5.in,thdm,0,-1.23943792e-08
+${BASEDIR}/test_points/thdm_mass-basis_test_point_6.in,thdm,0,1.12347648e-07
 ${BASEDIR}/test_points/thdm_gauge-basis.in,thdm,0,3.27209495E-11
 ${BASEDIR}/test_points/thdm_contradictory_input.in,thdm,1,
 "
