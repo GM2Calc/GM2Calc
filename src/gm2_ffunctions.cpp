@@ -560,6 +560,7 @@ double Iabc(double a, double b, double c) noexcept {
 
 /**
  * Calculates \f$f_{PS}(z)\f$, Eq (70) arXiv:hep-ph/0609168
+ * @author Alexander Voigt
  */
 double f_PS(double z) noexcept {
    if (z < 0.0) {
@@ -647,6 +648,7 @@ double F2(double w) noexcept {
 
 /**
  * \f$\mathcal{F}_3(\omega)\f$, Eq (28) arxiv:1502.04199
+ * @author Alexander Voigt
  */
 double F3(double w) noexcept {
    if (w < 0.0) {
@@ -659,7 +661,7 @@ double F3(double w) noexcept {
       const double lw = std::log(w);
       const double l1py = std::log(1 + y);
       const double l1my = std::log(1 - y);
-      return 1 + 15*w + (1 + 15*w)*lw/2
+      return (1 + 15*w)*(1 + lw/2)
          + (-17 + 30*w)*w/y*(
             + std::atanh(y)*(2*l2 + lw) + dilog((1 + y)/(-1 + y))
             + zeta2/2 + (l1my - l1py)*(3*l1my + l1py)/4);
@@ -667,41 +669,18 @@ double F3(double w) noexcept {
       return 19.0/4.0;
    }
 
-   const auto y = std::sqrt(std::complex<double>(1 - 4*w));
-   const auto lm1my = std::log(-1.0 - y);
-   const auto l1my = std::log(1.0 - y);
-   const auto l1py = std::log(1.0 + y);
-   const auto lm1py = std::log(-1.0 + y);
-   const auto l2o1py = std::log(2.0/(1.0 + y));
-   const auto lw = std::log(w);
-   const auto l2 = 0.69314718055994531; // Log[2]
-   const auto l8 = 3*l2; // 3 Log[2]
-   const auto l12 = 12*l2; // 12 Log[2]
+   // w > 0.25
+   const double pi = 3.1415926535897932;
+   const double l2 = 0.69314718055994531; // Log[2]
+   const double y = std::sqrt(-1 + 4*w);
+   const double lw = std::log(w);
+   const double y2 = y*y;
+   const double theta = std::atan2(-2*y, y2 - 1);
+   const double l1y2 = std::log(1 + y2);
 
-   const auto res =
-      + l1my*l1my*(-45.0 - 57.0*y + 36.0*w*(4.0 + y))
-      + lw*(6.0*(15.0 + 1.0/w)*y + 3.0*(-19.0 + 12.0*w)*(-1.0 + y)*lm1py)
-      + 6.0*(
-         + 30.0*y + (2.0*y)/w + 19.0*l2*lm1py - 12.0*w*l2*lm1py
-         - 19.0*y*l2*lm1py + 12.0*w*y*l2*lm1py
-         + (17.0 - 30.0*w)*(dilog((-1.0 + y)/(1.0 + y)) - dilog((1.0 + y)/(-1.0 + y)))
-         )
-      + lm1my*(
-         - 45.0*l2 + (-19.0 + 12.0*w)*y*l8 + 12.0*w*l12
-         + (-45.0 - 57.0*y + 36.0*w*(4.0 + y))*lw
-         + 3.0*(-15.0 - 19.0*y + 12.0*w*(4.0 + y))*l2o1py
-         )
-      + l1my*(
-         + (lm1my + lw)*(45.0 + 57.0*y - 36.0*w*(4.0 + y))
-         + l1py*(63.0 - 57.0*y + 18.0*w*(1.0 + 2.0*y))
-         + 39.0*l2 - 198.0*w*l2 + 19.0*y*l8 - 12.0*w*y*l8
-         - 3.0*(-19.0 + 12.0*w)*(-1.0 + y)*lm1py
-         + (51.0 + 57.0*y - 18.0*w*(5.0 + 2.0*y))*l2o1py
-         )
-      + l1py*(19.0 - 12.0*w)*(-1.0 + y)*(3.0*lw + l8 + 3.0*lm1py + 3.0*l2o1py)
-      ;
-
-   return std::real(w/(12.0*y)*res);
+   return (1 + 15*w)*(1 + lw/2)
+      + (-17 + 30*w)*w/y*(
+         (std::atan(y) - pi/2)*(2*l2 + lw - l1y2) + clausen_2(theta));
 }
 
 /**
