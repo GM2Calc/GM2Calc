@@ -577,7 +577,7 @@ double f_PS(double z) noexcept {
 
    // z > 0.25
    const double y = std::sqrt(-1 + 4*z);
-   const double theta = std::atan2(y/(2*z), 1 - 1/(2*z));
+   const double theta = std::atan2(y, 2*z - 1);
    return 4*z/y*clausen_2(theta);
 }
 
