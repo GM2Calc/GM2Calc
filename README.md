@@ -643,13 +643,13 @@ folders and C++ header files have to be included:
     include/gm2calc/gm2_uncertainty.hpp
     include/gm2calc/gm2_error.hpp
 
-To perform an MSSM calculation, the following C++ header files have to be 
-included:
+To perform an MSSM calculation, the following C++ header files 
+have to be included:
 
     include/gm2calc/MSSMNoFV_onshell.hpp
 
-For the calculation in the THDM, the following C++ header files have
-to be included:
+For the calculation in the THDM, the following C++ header files 
+have to be included:
 
     include/gm2calc/THDM.hpp
 
@@ -657,6 +657,19 @@ And finally for any GM2Calc model the following library must be
 loaded:
 
     cppyy.load_library("libgm2calc")
+
+Then one can import the C++ functions into python using the command
+`from cppy.gbl import gm2calc`.  Then the following functions are 
+available:
+
+| Function                | Description                                                           |
+| ----------------------- | --------------------------------------------------------------------- |
+| gm2calc.SM              | Constructs an SM model                                                |
+| gm2calc.MSSM_onshell    | Constructs an MSSM model                                              |
+| gm2calc.THDM            | Constructs a THDM model                                               |
+| gm2calc.calculate_uncertainty_amu_0loop | Calculates the uncertainty in contributions to `a_mu` if working at tree-level |
+| gm2calc.calculate_uncertainty_amu_1loop | Calculates the uncertainty in contributions to `a_mu` if working at 1 level    |
+| gm2calc.calculate_uncertainty_amu_2loop | Calculates the uncertainty in contributions to `a_mu` if working at 2 level    |
 
 See the example Python scripts `examples/example_slha.py`,
 `examples/example_gm2calc.py` and `examples/example_thdm.py`.
