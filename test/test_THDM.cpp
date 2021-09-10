@@ -373,8 +373,11 @@ TEST_CASE("test-point-GAMBIT-real-CKM")
    const auto amu1L = gm2calc::calculate_amu_1loop(model);
    const auto amu2L = gm2calc::calculate_amu_2loop_fermionic(model);
 
+   // effect of CKM mixing in 2-loop fermionic Barr-Zee charged Higgs contribution
+   const auto ckm_mixing_charged_higgs = 0.084792223;
+
    CHECK_CLOSE(amu1L*1e8, 6.9952544, 1e-7);
-   CHECK_CLOSE(amu2L*1e8, 265.47676, 1e-8);
+   CHECK_CLOSE(amu2L*1e8, 265.47676 + ckm_mixing_charged_higgs, 1e-8);
 }
 
 
@@ -559,6 +562,7 @@ TEST_CASE("2HDMC-mA-scan-with-running")
 TEST_CASE("parametrizations")
 {
    gm2calc::SM sm;
+   sm.set_ckm(Eigen::Matrix<double,3,3>::Identity());
 
    const double v = sm.get_v();
    const Eigen::Matrix<double,3,3> mu = sm.get_mu().asDiagonal();

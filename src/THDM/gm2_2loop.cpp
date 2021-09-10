@@ -79,6 +79,7 @@ double calculate_amu_2loop_fermionic(const THDM& model)
    pars_f.ylH = model.get_ylH();
    pars_f.ylA = model.get_ylA();
    pars_f.ylHp = model.get_ylHp();
+   pars_f.vckm = model.get_sm().get_ckm();
 
    return amu2L_F(pars_f);
 }

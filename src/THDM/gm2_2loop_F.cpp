@@ -321,13 +321,20 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
 
    // loop over generations
    for (int i = 0; i < 3; ++i) {
-      // H^\pm
-      res += fuHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*std::real(std::conj(thdm.yuHp(i,i))*thdm.ylHp(1,1))*v2/(thdm.mu(i)*thdm.ml(1));
-      res += fdHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*std::real(std::conj(thdm.ydHp(i,i))*thdm.ylHp(1,1))*v2/(thdm.md(i)*thdm.ml(1));
-      res += flHp(mHp2, sqr(thdm.ml(i)), mw2, mz2)                 *std::real(std::conj(thdm.ylHp(i,i))*thdm.ylHp(1,1))*v2/(thdm.ml(i)*thdm.ml(1));
+      for (int j = 0; j < 3; ++j) {
+         // u
+         res += fuHp(mHp2, sqr(thdm.md(j)), sqr(thdm.mu(i)), mw2, mz2)
+                *std::real(std::conj(thdm.yuHp(i,j))*thdm.vckm(i,j)*thdm.ylHp(1,1))*v2/(2*thdm.mu(i)*thdm.ml(1));
+         // d
+         res += fdHp(mHp2, sqr(thdm.md(j)), sqr(thdm.mu(i)), mw2, mz2)
+                *std::real(std::conj(thdm.ydHp(i,j))*thdm.vckm(i,j)*thdm.ylHp(1,1))*v2/(2*thdm.md(j)*thdm.ml(1));
+      }
+      // l
+      res += flHp(mHp2, sqr(thdm.ml(i)), mw2, mz2)
+             *std::real(std::conj(thdm.ylHp(i,i))*thdm.ylHp(1,1))*v2/(2*thdm.ml(i)*thdm.ml(1));
    }
 
-   return pref/2*res;
+   return pref*res;
 }
 
 /**

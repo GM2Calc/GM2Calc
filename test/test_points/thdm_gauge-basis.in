@@ -28,10 +28,10 @@ Block SMINPUTS
 Block GM2CalcInput
      3     125.09           # SM Higgs boson mass   [1L]
 Block VCKMIN                # CKM matrix in Wolfenstein parametrization
-     1     0.2257           # lambda
-     2     0.814            # A
-     3     0.135            # rho
-     4     0.349            # eta
+     1     0                # lambda
+     2     0                # A
+     3     0                # rho
+     4     0                # eta
 Block MINPAR                # model parameters
      3     3                # tan(beta)
     11     0.7              # lambda_1
