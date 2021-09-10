@@ -180,6 +180,24 @@ different input parameters.
     math -run "<< ../examples/example-gm2calc.m"
     math -run "<< ../examples/example-thdm.m"
 
+From within Python
+------------------
+
+When a valid python installation is detected, GM2Calc, will
+attempt to create `example_*.py` files in `build/bin/`.  Either
+Python2 or 3 can be used, and the python package `cppyy` is required.  
+`cppyy` installation instructions can be found at:
+[](https://cppyy.readthedocs.io/en/latest/installation.html)
+See `examples/example_slha.py` (MSSM), `examples/example_gm2calc.py`
+(MSSM) and `examples/example_thdm.py` (THDM) for examples with
+different input parameters.
+
+**Example:**
+
+    python bin/example_slha.py
+    python bin/example_gm2calc.py
+    python bin/example_thdm.py
+
 
 Input parameters
 ================
