@@ -324,17 +324,17 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
       for (int j = 0; j < 3; ++j) {
          // u
          res += fuHp(mHp2, sqr(thdm.md(j)), sqr(thdm.mu(i)), mw2, mz2)
-                *std::real(std::conj(thdm.yuHp(i,j))*thdm.vckm(i,j)*thdm.ylHp(1,1))*v2/(2*thdm.mu(i)*thdm.ml(1));
+                *std::real(std::conj(thdm.yuHp(i,j))*thdm.vckm(i,j)*thdm.ylHp(1,1))/(thdm.mu(i)*thdm.ml(1));
          // d
          res += fdHp(mHp2, sqr(thdm.md(j)), sqr(thdm.mu(i)), mw2, mz2)
-                *std::real(std::conj(thdm.ydHp(i,j))*thdm.vckm(i,j)*thdm.ylHp(1,1))*v2/(2*thdm.md(j)*thdm.ml(1));
+                *std::real(std::conj(thdm.ydHp(i,j))*thdm.vckm(i,j)*thdm.ylHp(1,1))/(thdm.md(j)*thdm.ml(1));
       }
       // l
       res += flHp(mHp2, sqr(thdm.ml(i)), mw2, mz2)
-             *std::real(std::conj(thdm.ylHp(i,i))*thdm.ylHp(1,1))*v2/(2*thdm.ml(i)*thdm.ml(1));
+             *std::real(std::conj(thdm.ylHp(i,i))*thdm.ylHp(1,1))/(thdm.ml(i)*thdm.ml(1));
    }
 
-   return pref*res;
+   return pref*v2/2*res;
 }
 
 /**
