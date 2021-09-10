@@ -626,6 +626,42 @@ See the example Mathematica scripts `examples/example-slha.m`,
 `examples/example-gm2calc.m` and `examples/example-thdm.m`.
 
 
+Python interface
+================
+
+After building GM2Calc with shared libraries, it is possible to
+load gm2calc functions into python using the C-Python interface
+provided by cppyy.  
+
+To use the routines of GM2Calc in a python script, the following 
+folders and C++ header files have to be included:
+
+    `GM2Calc include folder`
+    `Eigen3 include folder`
+    include/gm2calc/gm2_1loop.hpp
+    include/gm2calc/gm2_2loop.hpp
+    include/gm2calc/gm2_uncertainty.hpp
+    include/gm2calc/gm2_error.hpp
+
+To perform an MSSM calculation, the following C++ header files have to be 
+included:
+
+    include/gm2calc/MSSMNoFV_onshell.hpp
+
+For the calculation in the THDM, the following C++ header files have
+to be included:
+
+    include/gm2calc/THDM.hpp
+
+And finally for any GM2Calc model the following library must be
+loaded:
+
+    cppyy.load_library("libgm2calc")
+
+See the example Python scripts `examples/example_slha.py`,
+`examples/example_gm2calc.py` and `examples/example_thdm.py`.
+
+
 Source code documentation
 =========================
 
