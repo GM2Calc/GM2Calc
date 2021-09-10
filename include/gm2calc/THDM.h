@@ -34,35 +34,35 @@ extern "C" {
 #endif
 
 /** THDM configuration options */
-struct THDM_config {
+struct gm2calc_THDM_config {
    int force_output;
    int running_couplings;
 };
-typedef struct THDM_config THDM_config;
+typedef struct gm2calc_THDM_config gm2calc_THDM_config;
 
 /** create a new config */
-void gm2calc_thdm_config_set_to_default(THDM_config*);
+void gm2calc_thdm_config_set_to_default(gm2calc_THDM_config*);
 
 /** general THDM handle */
-struct THDM;
-typedef struct THDM THDM;
+struct gm2calc_THDM;
+typedef struct gm2calc_THDM gm2calc_THDM;
 
 /** Yukawa schemes */
 typedef enum {
-   THDM_type_1 = 1,
-   THDM_type_2,
-   THDM_type_X,
-   THDM_type_Y,
-   THDM_aligned,
-   THDM_general,
-} THDM_yukawa_type;
+   gm2calc_THDM_type_1 = 1,
+   gm2calc_THDM_type_2,
+   gm2calc_THDM_type_X,
+   gm2calc_THDM_type_Y,
+   gm2calc_THDM_aligned,
+   gm2calc_THDM_general,
+} gm2calc_THDM_yukawa_type;
 
-/** convert int to THDM_yukawa_type */
-THDM_yukawa_type int_to_c_yukawa_type(int);
+/** convert int to gm2calc_THDM_yukawa_type */
+gm2calc_THDM_yukawa_type int_to_c_yukawa_type(int);
 
 /** general THDM general basis input */
-struct THDM_gauge_basis {
-   THDM_yukawa_type yukawa_type;
+struct gm2calc_THDM_gauge_basis {
+   gm2calc_THDM_yukawa_type yukawa_type;
    double lambda[7];
    double tan_beta;
    double m122;
@@ -76,11 +76,11 @@ struct THDM_gauge_basis {
    double Pi_d[3][3];
    double Pi_l[3][3];
 };
-typedef struct THDM_gauge_basis THDM_gauge_basis;
+typedef struct gm2calc_THDM_gauge_basis gm2calc_THDM_gauge_basis;
 
 /** general THDM physical basis input */
-struct THDM_mass_basis {
-   THDM_yukawa_type yukawa_type;
+struct gm2calc_THDM_mass_basis {
+   gm2calc_THDM_yukawa_type yukawa_type;
    double mh;
    double mH;
    double mA;
@@ -100,19 +100,19 @@ struct THDM_mass_basis {
    double Pi_d[3][3];
    double Pi_l[3][3];
 };
-typedef struct THDM_mass_basis THDM_mass_basis;
+typedef struct gm2calc_THDM_mass_basis gm2calc_THDM_mass_basis;
 
-struct SM;
-typedef struct SM SM;
+struct gm2calc_SM;
+typedef struct gm2calc_SM gm2calc_SM;
 
 /** allocate new general THDM model with general basis input */
-gm2calc_error gm2calc_thdm_new_with_gauge_basis(THDM**, const THDM_gauge_basis*, const SM*, const THDM_config*);
+gm2calc_error gm2calc_thdm_new_with_gauge_basis(gm2calc_THDM**, const gm2calc_THDM_gauge_basis*, const gm2calc_SM*, const gm2calc_THDM_config*);
 
 /** allocate new general THDM model with physical basis input */
-gm2calc_error gm2calc_thdm_new_with_mass_basis(THDM**, const THDM_mass_basis*, const SM*, const THDM_config*);
+gm2calc_error gm2calc_thdm_new_with_mass_basis(gm2calc_THDM**, const gm2calc_THDM_mass_basis*, const gm2calc_SM*, const gm2calc_THDM_config*);
 
 /** delete general THDM model */
-void gm2calc_thdm_free(THDM*);
+void gm2calc_thdm_free(gm2calc_THDM*);
 
 #ifdef __cplusplus
 } /* extern "C" */

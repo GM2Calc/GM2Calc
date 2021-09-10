@@ -1,0 +1,47 @@
+Block GM2CalcConfig
+     0     0     # output format (0 = minimal, 1 = detailed,
+                 #  2 = NMSSMTools, 3 = SPheno, 4 = GM2Calc)
+     1     2     # loop order (0, 1 or 2)
+     3     0     # force output (0 or 1)
+     4     0     # verbose output (0 or 1)
+     5     0     # calculate uncertainty (0 or 1)
+     6     0     # running couplings in the THDM
+Block SMINPUTS
+     1     128.94579        # alpha_em(MZ)^(-1) SM MS-bar
+     3     0.1184           # alpha_s(MZ) SM MS-bar
+     4     91.1876          # MZ(pole)
+     5     4.18             # mb(mb) SM MS-bar
+     6     173.34           # mtop(pole)
+     7     1.77684          # mtau(pole)
+     8     0                # mnu3(pole)
+     9     80.385           # mW(pole)
+    11     0.000510998928   # melectron(pole)
+    12     0                # mnu1(pole)
+    13     0.1056583715     # mmuon(pole)
+    14     0                # mnu2(pole)
+    21     0.0047           # md(2 GeV)
+    22     0.0022           # mu(2 GeV)
+    23     0.096            # ms(2 GeV)
+    24     1.28             # mc(2 GeV)
+Block GM2CalcInput
+    33     125.09           # SM Higgs boson mass   [1L]
+Block VCKMIN                # CKM matrix in Wolfenstein parametrization
+     1     0                # lambda
+     2     0                # A
+     3     0                # rho-bar
+     4     0                # eta-bar
+Block MINPAR                # model parameters
+     3     3                # tan(beta)
+    16     0.2              # lambda_6
+    17     0.1              # lambda_7
+    18     40000            # m_{12}^2
+    20     0.999            # sin(beta - alpha)
+    21     0                # zeta_u
+    22     0                # zeta_d
+    23     0                # zeta_l
+    24     1                # Yukawa type (1, 2, 3, 4, 5, 6 = general)
+Block MASS                  # Higgs masses
+    25     125              # mh, lightest CP-even Higgs
+    35     400              # mH, heaviest CP-even Higgs
+    36     420              # mA, CP-odd Higgs
+    37     440              # mH+, charged Higgs

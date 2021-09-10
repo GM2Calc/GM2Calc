@@ -72,6 +72,15 @@
 :Evaluate: amu::usage =
     "Calculated value of the anomalous magnetic moment of the muon, amu = (g-2)/2.";
 
+:Evaluate: amu1L::usage =
+    "Calculated value of the anomalous magnetic moment of the muon, amu = (g-2)/2 (1-loop contribution only).";
+
+:Evaluate: amu2LF::usage =
+    "Calculated value of the anomalous magnetic moment of the muon, amu = (g-2)/2 (2-loop fermionic contribution only).";
+
+:Evaluate: amu2LB::usage =
+    "Calculated value of the anomalous magnetic moment of the muon, amu = (g-2)/2 (2-loop bosonic contribution only).";
+
 :Evaluate: Damu::usage =
     "Uncertainty of the calculated value of the anomalous magnetic moment of the muon.";
 
@@ -857,7 +866,7 @@ struct Config_flags {
 };
 
 /* Standard Model parameters */
-SM sm;
+gm2calc_SM sm;
 
 /* SUSY parameters for SLHA interface */
 struct SLHA_parameters {
@@ -1106,6 +1115,28 @@ double calculate_amu(MSSMNoFV_onshell* model)
 
 /******************************************************************/
 
+void calculate_amu_thdm(gm2calc_THDM* model, double* amu1L, double* amu2LF, double* amu2LB, double* damu)
+{
+   /* calculate amu contributions */
+   if (config_flags.loopOrder > 0) {
+      *amu1L = gm2calc_thdm_calculate_amu_1loop(model);
+   }
+   if (config_flags.loopOrder > 1) {
+      *amu2LF = gm2calc_thdm_calculate_amu_2loop_fermionic(model);
+      *amu2LB = gm2calc_thdm_calculate_amu_2loop_bosonic(model);
+   }
+   /* calculate uncertainty */
+   if (config_flags.loopOrder == 0) {
+      *damu = gm2calc_thdm_calculate_uncertainty_amu_0loop(model);
+   } else if (config_flags.loopOrder == 1) {
+      *damu = gm2calc_thdm_calculate_uncertainty_amu_1loop(model);
+   } else if (config_flags.loopOrder == 2) {
+      *damu = gm2calc_thdm_calculate_uncertainty_amu_2loop(model);
+   }
+}
+
+/******************************************************************/
+
 double calculate_uncertainty(MSSMNoFV_onshell* model)
 {
    double delta_amu = 0.;
@@ -1128,13 +1159,14 @@ static void print_package()
    static int do_print = 1;
 
    if (do_print) {
-      printf("=======================================================\n");
+      printf("========================================================\n");
       printf("GM2Calc " GM2CALC_VERSION "\n");
-      printf("P. Athron, M. Bach, H. G. Fargnoli, C. Gnendiger,\n");
-      printf("R. Greifenhagen, J.-h. Park, S. Paßehr, D. Stöckinger,\n");
-      printf("H. Stöckinger-Kim, A. Voigt\n");
+      printf("P. Athron, C. Balazs, M. Bach, A. Cherchiglia,\n");
+      printf("H. G. Fargnoli, C. Gnendiger, R. Greifenhagen, D. Jacob,\n");
+      printf("J.-h. Park, S. Paßehr, D. Stöckinger, H. Stöckinger-Kim,\n");
+      printf("A. Voigt\n");
       printf("http://gm2calc.hepforge.org\n");
-      printf("=======================================================\n");
+      printf("========================================================\n");
 
       do_print = 0;
    }
@@ -1150,7 +1182,7 @@ int GM2CalcSetFlags(int loopOrder_, int tanBetaResummation_, int forceOutput_,
    print_package();
 
    if (loopOrder_ < 0 || loopOrder_ > 2) {
-      snprintf(loop_order_str, 12, "%d", loopOrder_);
+      snprintf(loop_order_str, sizeof(loop_order_str), "%d", loopOrder_);
       put_error_message("GM2CalcSetFlags", "wronglooporder", loop_order_str);
    }
 
@@ -1226,6 +1258,9 @@ int GM2CalcSetSMParameters(
    sm.md[2] = mbmb_;
    sm.md[1] = ms2GeV_;
    sm.md[0] = md2GeV_;
+   sm.mv[2] = Mv3_;
+   sm.mv[1] = Mv2_;
+   sm.mv[0] = Mv1_;
    sm.ml[2] = ML_;
    sm.ml[1] = MM_;
    sm.ml[0] = ME_;
@@ -1622,7 +1657,7 @@ void GM2CalcAmuTHDMGaugeBasis(
       return;
    }
 
-   THDM_gauge_basis basis;
+   gm2calc_THDM_gauge_basis basis;
    basis.yukawa_type = int_to_c_yukawa_type(yukawa_type_);
    basis.lambda[0] = lambda_1_;
    basis.lambda[1] = lambda_2_;
@@ -1691,26 +1726,27 @@ void GM2CalcAmuTHDMGaugeBasis(
    basis.Pi_l[2][1] = Pil_32_;
    basis.Pi_l[2][2] = Pil_33_;
 
-   THDM_config config;
+   gm2calc_THDM_config config;
    config.force_output = config_flags.forceOutput;
    config.running_couplings = config_flags.runningCouplings;
 
-   THDM* model = 0;
+   gm2calc_THDM* model = 0;
    gm2calc_error error = gm2calc_thdm_new_with_gauge_basis(&model, &basis, &sm, &config);
 
    if (error == gm2calc_NoError) {
-      const double amu = gm2calc_thdm_calculate_amu_1loop(model)
-                       + gm2calc_thdm_calculate_amu_2loop(model);
+      double amu1L = 0, amu2LF = 0, amu2LB = 0, damu = 0;
+      calculate_amu_thdm(model, &amu1L, &amu2LF, &amu2LB, &damu);
 
-      const double delta_amu =
-         gm2calc_thdm_calculate_uncertainty_amu_2loop(model);
-
-      MLPutFunction(stdlink, "List", 2);
-      /* amu [2] */
-      MLPutRuleToReal(stdlink, amu, "amu");
-      MLPutRuleToReal(stdlink, delta_amu, "Damu");
+      MLPutFunction(stdlink, "List", 5);
+      MLPutRuleToReal(stdlink, amu1L + amu2LF + amu2LB, "amu");
+      MLPutRuleToReal(stdlink, amu1L, "amu1L");
+      MLPutRuleToReal(stdlink, amu2LF, "amu2LF");
+      MLPutRuleToReal(stdlink, amu2LB, "amu2LB");
+      MLPutRuleToReal(stdlink, damu, "Damu");
       MLEndPacket(stdlink);
    } else {
+      put_error_message("GM2CalcAmuTHDMMassBasis", "error",
+                        gm2calc_error_str(error));
       create_error_output();
    }
 
@@ -1795,7 +1831,7 @@ void GM2CalcAmuTHDMMassBasis(
       return;
    }
 
-   THDM_mass_basis basis;
+   gm2calc_THDM_mass_basis basis;
    basis.yukawa_type = int_to_c_yukawa_type(yukawa_type_);
    basis.mh = Mhh_1_;
    basis.mH = Mhh_2_;
@@ -1864,26 +1900,27 @@ void GM2CalcAmuTHDMMassBasis(
    basis.Pi_l[2][1] = Pil_32_;
    basis.Pi_l[2][2] = Pil_33_;
 
-   THDM_config config;
+   gm2calc_THDM_config config;
    config.force_output = config_flags.forceOutput;
    config.running_couplings = config_flags.runningCouplings;
 
-   THDM* model = 0;
+   gm2calc_THDM* model = 0;
    gm2calc_error error = gm2calc_thdm_new_with_mass_basis(&model, &basis, &sm, &config);
 
    if (error == gm2calc_NoError) {
-      const double amu = gm2calc_thdm_calculate_amu_1loop(model)
-                       + gm2calc_thdm_calculate_amu_2loop(model);
+      double amu1L = 0, amu2LF = 0, amu2LB = 0, damu = 0;
+      calculate_amu_thdm(model, &amu1L, &amu2LF, &amu2LB, &damu);
 
-      const double delta_amu =
-         gm2calc_thdm_calculate_uncertainty_amu_2loop(model);
-
-      MLPutFunction(stdlink, "List", 2);
-      /* amu [2] */
-      MLPutRuleToReal(stdlink, amu, "amu");
-      MLPutRuleToReal(stdlink, delta_amu, "Damu");
+      MLPutFunction(stdlink, "List", 5);
+      MLPutRuleToReal(stdlink, amu1L + amu2LF + amu2LB, "amu");
+      MLPutRuleToReal(stdlink, amu1L, "amu1L");
+      MLPutRuleToReal(stdlink, amu2LF, "amu2LF");
+      MLPutRuleToReal(stdlink, amu2LB, "amu2LB");
+      MLPutRuleToReal(stdlink, damu, "Damu");
       MLEndPacket(stdlink);
    } else {
+      put_error_message("GM2CalcAmuTHDMMassBasis", "error",
+                        gm2calc_error_str(error));
       create_error_output();
    }
 

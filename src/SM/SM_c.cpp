@@ -26,7 +26,7 @@ extern "C"
 /**
  * @brief Set SM prameters to default values
  */
-void gm2calc_sm_set_to_default(SM* sm)
+void gm2calc_sm_set_to_default(gm2calc_SM* sm)
 {
    if (sm == nullptr) {
       return;

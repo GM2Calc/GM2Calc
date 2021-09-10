@@ -21,19 +21,19 @@
 
 extern "C" {
 
-double gm2calc_thdm_calculate_uncertainty_amu_0loop(const THDM* model)
+double gm2calc_thdm_calculate_uncertainty_amu_0loop(const gm2calc_THDM* model)
 {
    return gm2calc::calculate_uncertainty_amu_0loop(
       *reinterpret_cast<const gm2calc::THDM*>(model));
 }
 
-double gm2calc_thdm_calculate_uncertainty_amu_1loop(const THDM* model)
+double gm2calc_thdm_calculate_uncertainty_amu_1loop(const gm2calc_THDM* model)
 {
    return gm2calc::calculate_uncertainty_amu_1loop(
       *reinterpret_cast<const gm2calc::THDM*>(model));
 }
 
-double gm2calc_thdm_calculate_uncertainty_amu_2loop(const THDM* model)
+double gm2calc_thdm_calculate_uncertainty_amu_2loop(const gm2calc_THDM* model)
 {
    return gm2calc::calculate_uncertainty_amu_2loop(
       *reinterpret_cast<const gm2calc::THDM*>(model));

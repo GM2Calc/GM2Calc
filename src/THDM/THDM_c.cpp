@@ -27,12 +27,12 @@
 namespace gm2calc {
 namespace {
 
-gm2calc::thdm::Yukawa_type c_yukawa_type_to_cpptype(THDM_yukawa_type yukawa_type)
+gm2calc::thdm::Yukawa_type c_yukawa_type_to_cpptype(gm2calc_THDM_yukawa_type yukawa_type)
 {
    return static_cast<gm2calc::thdm::Yukawa_type>(yukawa_type);
 }
 
-gm2calc::thdm::Config convert_to_config(const THDM_config* config)
+gm2calc::thdm::Config convert_to_config(const gm2calc_THDM_config* config)
 {
    gm2calc::thdm::Config c;
 
@@ -44,7 +44,7 @@ gm2calc::thdm::Config convert_to_config(const THDM_config* config)
    return c;
 }
 
-gm2calc::SM convert_to_SM(const ::SM* sm)
+gm2calc::SM convert_to_SM(const ::gm2calc_SM* sm)
 {
    gm2calc::SM s;
 
@@ -79,7 +79,7 @@ gm2calc::SM convert_to_SM(const ::SM* sm)
    return s;
 }
 
-gm2calc::thdm::Gauge_basis convert_to_basis(const THDM_gauge_basis* basis)
+gm2calc::thdm::Gauge_basis convert_to_basis(const gm2calc_THDM_gauge_basis* basis)
 {
    gm2calc::thdm::Gauge_basis b;
 
@@ -108,7 +108,7 @@ gm2calc::thdm::Gauge_basis convert_to_basis(const THDM_gauge_basis* basis)
    return b;
 }
 
-gm2calc::thdm::Mass_basis convert_to_basis(const THDM_mass_basis* basis)
+gm2calc::thdm::Mass_basis convert_to_basis(const gm2calc_THDM_mass_basis* basis)
 {
    gm2calc::thdm::Mass_basis b;
 
@@ -155,13 +155,13 @@ gm2calc::thdm::Mass_basis convert_to_basis(const THDM_mass_basis* basis)
 extern "C"
 {
 
-THDM_yukawa_type int_to_c_yukawa_type(int i)
+gm2calc_THDM_yukawa_type int_to_c_yukawa_type(int i)
 {
-   THDM_yukawa_type yukawa_type = THDM_general;
+   gm2calc_THDM_yukawa_type yukawa_type = gm2calc_THDM_general;
 
    try {
       const auto yukawa_type_cpp = gm2calc::thdm::int_to_cpp_yukawa_type(i);
-      yukawa_type = static_cast<THDM_yukawa_type>(yukawa_type_cpp);
+      yukawa_type = static_cast<gm2calc_THDM_yukawa_type>(yukawa_type_cpp);
    } catch (const gm2calc::Error& e) {
       ERROR(e.what());
    }
@@ -173,7 +173,7 @@ THDM_yukawa_type int_to_c_yukawa_type(int i)
  * Sets configuration options to default values.
  * @param config pointer to configuration options
  */
-void gm2calc_thdm_config_set_to_default(THDM_config* config)
+void gm2calc_thdm_config_set_to_default(gm2calc_THDM_config* config)
 {
    if (config != nullptr) {
       gm2calc::thdm::Config cpp;
@@ -195,7 +195,8 @@ void gm2calc_thdm_config_set_to_default(THDM_config* config)
  * @return error code
  */
 gm2calc_error gm2calc_thdm_new_with_gauge_basis(
-   THDM** model, const THDM_gauge_basis* basis, const ::SM* sm, const THDM_config* config)
+   gm2calc_THDM** model, const gm2calc_THDM_gauge_basis* basis,
+   const ::gm2calc_SM* sm, const gm2calc_THDM_config* config)
 {
    if (model == nullptr) {
       return gm2calc_InvalidInput;
@@ -207,7 +208,7 @@ gm2calc_error gm2calc_thdm_new_with_gauge_basis(
       const auto c(gm2calc::convert_to_config(config));
       const auto b(gm2calc::convert_to_basis(basis));
       const auto s(gm2calc::convert_to_SM(sm));
-      *model = reinterpret_cast<THDM*>(new gm2calc::THDM(b, s, c));
+      *model = reinterpret_cast<gm2calc_THDM*>(new gm2calc::THDM(b, s, c));
       error = gm2calc_NoError;
    } catch (const gm2calc::EInvalidInput&) {
       *model = nullptr;
@@ -236,7 +237,8 @@ gm2calc_error gm2calc_thdm_new_with_gauge_basis(
  * @return error code
  */
 gm2calc_error gm2calc_thdm_new_with_mass_basis(
-   THDM** model, const THDM_mass_basis* basis, const ::SM* sm, const THDM_config* config)
+   gm2calc_THDM** model, const gm2calc_THDM_mass_basis* basis,
+   const ::gm2calc_SM* sm, const gm2calc_THDM_config* config)
 {
    if (model == nullptr) {
       return gm2calc_InvalidInput;
@@ -248,7 +250,7 @@ gm2calc_error gm2calc_thdm_new_with_mass_basis(
       const auto c(gm2calc::convert_to_config(config));
       const auto b(gm2calc::convert_to_basis(basis));
       const auto s(gm2calc::convert_to_SM(sm));
-      *model = reinterpret_cast<THDM*>(new gm2calc::THDM(b, s, c));
+      *model = reinterpret_cast<gm2calc_THDM*>(new gm2calc::THDM(b, s, c));
       error = gm2calc_NoError;
    } catch (const gm2calc::EInvalidInput&) {
       *model = nullptr;
@@ -272,7 +274,7 @@ gm2calc_error gm2calc_thdm_new_with_mass_basis(
  *
  * @param model pointer to model object
  */
-void gm2calc_thdm_free(THDM* model)
+void gm2calc_thdm_free(gm2calc_THDM* model)
 {
    delete reinterpret_cast<gm2calc::THDM*>(model);
 }

@@ -317,7 +317,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuA() const
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuHp() const
 {
    const Eigen::Matrix<double,3,3> mu = get_mu(get_MHm(1)).asDiagonal();
-   return -(sm.get_ckm().adjoint()*get_rho_u(mu)).transpose();
+   return -get_rho_u(mu).adjoint()*sm.get_ckm();
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_ydh() const

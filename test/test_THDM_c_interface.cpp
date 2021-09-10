@@ -16,7 +16,7 @@
 #include <utility>
 
 
-void setup_SM(gm2calc::SM& cppsm, SM& csm)
+void setup_SM(gm2calc::SM& cppsm, gm2calc_SM& csm)
 {
    cppsm.set_alpha_em_0(1.0/137);
    cppsm.set_alpha_em_mz(1.0/130);
@@ -50,7 +50,7 @@ void setup_SM(gm2calc::SM& cppsm, SM& csm)
 }
 
 
-std::pair<gm2calc::THDM, THDM*> setup_mass_basis(gm2calc::thdm::Yukawa_type yukawa_type)
+std::pair<gm2calc::THDM, gm2calc_THDM*> setup_mass_basis(gm2calc::thdm::Yukawa_type yukawa_type)
 {
    gm2calc::thdm::Mass_basis basis;
    basis.yukawa_type = yukawa_type;
@@ -73,8 +73,8 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis(gm2calc::thdm::Yukawa_type yuka
    basis.Pi_d = 2.0*basis.Pi_u;
    basis.Pi_l = 3.0*basis.Pi_u;
 
-   THDM_mass_basis cbasis;
-   cbasis.yukawa_type = static_cast<THDM_yukawa_type>(yukawa_type);
+   gm2calc_THDM_mass_basis cbasis;
+   cbasis.yukawa_type = static_cast<gm2calc_THDM_yukawa_type>(yukawa_type);
    cbasis.mh = basis.mh;
    cbasis.mH = basis.mH;
    cbasis.mA = basis.mA;
@@ -99,21 +99,21 @@ std::pair<gm2calc::THDM, THDM*> setup_mass_basis(gm2calc::thdm::Yukawa_type yuka
    }
 
    gm2calc::SM cppsm;
-   SM csm;
+   gm2calc_SM csm;
    setup_SM(cppsm, csm);
 
    gm2calc::thdm::Config cppconfig;
-   THDM_config cconfig;
+   gm2calc_THDM_config cconfig;
    gm2calc_thdm_config_set_to_default(&cconfig);
 
-   THDM* mc = nullptr;
+   gm2calc_THDM* mc = nullptr;
    gm2calc_thdm_new_with_mass_basis(&mc, &cbasis, &csm, &cconfig);
 
    return std::make_pair(gm2calc::THDM(basis, cppsm, cppconfig), mc);
 }
 
 
-std::pair<gm2calc::THDM, THDM*> setup_gauge_basis(gm2calc::thdm::Yukawa_type yukawa_type)
+std::pair<gm2calc::THDM, gm2calc_THDM*> setup_gauge_basis(gm2calc::thdm::Yukawa_type yukawa_type)
 {
    gm2calc::thdm::Gauge_basis basis;
    basis.yukawa_type = yukawa_type;
@@ -130,8 +130,8 @@ std::pair<gm2calc::THDM, THDM*> setup_gauge_basis(gm2calc::thdm::Yukawa_type yuk
    basis.Pi_d = 2.0*basis.Pi_u;
    basis.Pi_l = 3.0*basis.Pi_u;
 
-   THDM_gauge_basis cbasis;
-   cbasis.yukawa_type = static_cast<THDM_yukawa_type>(yukawa_type);
+   gm2calc_THDM_gauge_basis cbasis;
+   cbasis.yukawa_type = static_cast<gm2calc_THDM_yukawa_type>(yukawa_type);
    for (int i = 0; i < 7; i++) {
       cbasis.lambda[i] = basis.lambda(i);
    }
@@ -152,14 +152,14 @@ std::pair<gm2calc::THDM, THDM*> setup_gauge_basis(gm2calc::thdm::Yukawa_type yuk
    }
 
    gm2calc::SM cppsm;
-   SM csm;
+   gm2calc_SM csm;
    setup_SM(cppsm, csm);
 
    gm2calc::thdm::Config cppconfig;
-   THDM_config cconfig;
+   gm2calc_THDM_config cconfig;
    gm2calc_thdm_config_set_to_default(&cconfig);
 
-   THDM* mc = nullptr;
+   gm2calc_THDM* mc = nullptr;
    gm2calc_thdm_new_with_gauge_basis(&mc, &cbasis, &csm, &cconfig);
 
    return std::make_pair(gm2calc::THDM(basis, cppsm, cppconfig), mc);
@@ -174,6 +174,8 @@ void test_mass_basis(gm2calc::thdm::Yukawa_type yukawa_type)
 
    CHECK(gm2calc_thdm_calculate_amu_1loop(mc) == gm2calc::calculate_amu_1loop(mcpp));
    CHECK(gm2calc_thdm_calculate_amu_2loop(mc) == gm2calc::calculate_amu_2loop(mcpp));
+   CHECK(gm2calc_thdm_calculate_amu_2loop_fermionic(mc) == gm2calc::calculate_amu_2loop_fermionic(mcpp));
+   CHECK(gm2calc_thdm_calculate_amu_2loop_bosonic(mc) == gm2calc::calculate_amu_2loop_bosonic(mcpp));
    CHECK(gm2calc_thdm_calculate_uncertainty_amu_0loop(mc) == gm2calc::calculate_uncertainty_amu_0loop(mcpp));
    CHECK(gm2calc_thdm_calculate_uncertainty_amu_1loop(mc) == gm2calc::calculate_uncertainty_amu_1loop(mcpp));
    CHECK(gm2calc_thdm_calculate_uncertainty_amu_2loop(mc) == gm2calc::calculate_uncertainty_amu_2loop(mcpp));
@@ -190,6 +192,8 @@ void test_gauge_basis(gm2calc::thdm::Yukawa_type yukawa_type)
 
    CHECK(gm2calc_thdm_calculate_amu_1loop(mc) == gm2calc::calculate_amu_1loop(mcpp));
    CHECK(gm2calc_thdm_calculate_amu_2loop(mc) == gm2calc::calculate_amu_2loop(mcpp));
+   CHECK(gm2calc_thdm_calculate_amu_2loop_fermionic(mc) == gm2calc::calculate_amu_2loop_fermionic(mcpp));
+   CHECK(gm2calc_thdm_calculate_amu_2loop_bosonic(mc) == gm2calc::calculate_amu_2loop_bosonic(mcpp));
    CHECK(gm2calc_thdm_calculate_uncertainty_amu_0loop(mc) == gm2calc::calculate_uncertainty_amu_0loop(mcpp));
    CHECK(gm2calc_thdm_calculate_uncertainty_amu_1loop(mc) == gm2calc::calculate_uncertainty_amu_1loop(mcpp));
    CHECK(gm2calc_thdm_calculate_uncertainty_amu_2loop(mc) == gm2calc::calculate_uncertainty_amu_2loop(mcpp));

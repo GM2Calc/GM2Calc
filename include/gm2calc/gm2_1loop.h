@@ -31,11 +31,11 @@
 extern "C" {
 #endif
 
-typedef struct THDM THDM;
+typedef struct gm2calc_THDM gm2calc_THDM;
 typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
 
 /** calculates full 1-loop contributions to a_mu in the general THDM */
-double gm2calc_thdm_calculate_amu_1loop(const THDM*);
+double gm2calc_thdm_calculate_amu_1loop(const gm2calc_THDM*);
 
 /** calculates full 1-loop SUSY contributions to (g-2) in the MSSMNoFV (w/ tan(beta) resummation) */
 double gm2calc_mssmnofv_calculate_amu_1loop(const MSSMNoFV_onshell*);
