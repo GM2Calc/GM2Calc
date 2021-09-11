@@ -41,6 +41,7 @@ Contents
 - [Running GM2Calc](#running-gm2calc)
   * [From the command line](#from-the-command-line)
   * [From within Mathematica](#from-within-mathematica)
+  * [From within Python](#from-within-python)
 - [Input parameters](#input-parameters)
   * [MSSM: SLHA input parameters](#mssm-slha-input-parameters)
   * [MSSM: GM2Calc input parameters](#mssm-gm2calc-input-parameters)
