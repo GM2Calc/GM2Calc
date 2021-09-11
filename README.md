@@ -50,6 +50,7 @@ Contents
   * [Block `GM2CalcConfig`](#block-gm2calcconfig)
 - [C/C++ interface](#cc-interface)
 - [Mathematica interface](#mathematica-interface)
+- [Python interface](#python-interface)
 - [Source code documentation](#source-code-documentation)
 - [References](#references)
 
@@ -630,14 +631,14 @@ Python interface
 ================
 
 After building GM2Calc with shared libraries, it is possible to
-load gm2calc functions into python using the C-Python interface
-provided by cppyy.  
+load GM2Calc functions into python using the C-Python interface
+provided by cppyy.
 
 To use the routines of GM2Calc in a python script, the following 
 folders and C++ header files have to be included:
 
-    `GM2Calc include folder`
-    `Eigen3 include folder`
+    `Eigen3 include folder`, may be /usr/include/eigen3/ or similar
+    include/                            # GM2Calc's include folder
     include/gm2calc/gm2_1loop.hpp
     include/gm2calc/gm2_2loop.hpp
     include/gm2calc/gm2_uncertainty.hpp
@@ -662,14 +663,17 @@ Then one can import the C++ functions into python using the command
 `from cppy.gbl import gm2calc`.  Then the following functions are 
 available:
 
-| Function                | Description                                                           |
-| ----------------------- | --------------------------------------------------------------------- |
-| gm2calc.SM              | Constructs an SM model                                                |
-| gm2calc.MSSM_onshell    | Constructs an MSSM model                                              |
-| gm2calc.THDM            | Constructs a THDM model                                               |
-| gm2calc.calculate_uncertainty_amu_0loop | Calculates the uncertainty in contributions to `a_mu` if working at tree-level |
-| gm2calc.calculate_uncertainty_amu_1loop | Calculates the uncertainty in contributions to `a_mu` if working at 1 level    |
-| gm2calc.calculate_uncertainty_amu_2loop | Calculates the uncertainty in contributions to `a_mu` if working at 2 level    |
+| Function                                | Description                                                   |
+| --------------------------------------- | ------------------------------------------------------------- |
+| gm2calc.SM                              | Constructs an SM model                                        |
+| gm2calc.MSSMNoFV_onshell                | Constructs an MSSMNoFV model                                  |
+| gm2calc.THDM                            | Constructs a THDM model                                       |
+| gm2calc.calculate_amu_0loop             | Calculates the tree-level contributions to `a_mu`             |
+| gm2calc.calculate_amu_1loop             | Calculates the 1-loop contributions to `a_mu`                 |
+| gm2calc.calculate_amu_2loop             | Calculates the 2-loop contributions to `a_mu`                 |
+| gm2calc.calculate_uncertainty_amu_0loop | Calculates the uncertainty of `a_mu` if working at tree-level |
+| gm2calc.calculate_uncertainty_amu_1loop | Calculates the uncertainty of `a_mu` if working at 1 level    |
+| gm2calc.calculate_uncertainty_amu_2loop | Calculates the uncertainty of `a_mu` if working at 2 level    |
 
 See the example Python scripts `examples/example_slha.py`,
 `examples/example_gm2calc.py` and `examples/example_thdm.py`.
