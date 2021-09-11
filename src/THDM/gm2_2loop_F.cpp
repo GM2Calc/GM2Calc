@@ -314,20 +314,27 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
    const double mw2 = sqr(thdm.mw);
    const double mz2 = sqr(thdm.mz);
    const double v2 = calc_v2(thdm);
-   const double sw2 = 1.0 - mw2/mz2;
+   const double sw2 = 1 - mw2/mz2;
    const double pref = sqr(thdm.alpha_em*thdm.mm/(4*pi*thdm.mw*sw2))/2;
 
-   double res = 0.0;
+   double res = 0;
 
    // loop over generations
    for (int i = 0; i < 3; ++i) {
-      // H^\pm
-      res += 0.5*fuHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*std::real(thdm.yuHp(i,i)*thdm.ylHp(1,1))*v2/(thdm.mu(i)*thdm.ml(1));
-      res += 0.5*fdHp(mHp2, sqr(thdm.md(i)), sqr(thdm.mu(i)), mw2, mz2)*std::real(thdm.ydHp(i,i)*thdm.ylHp(1,1))*v2/(thdm.md(i)*thdm.ml(1));
-      res += 0.5*flHp(mHp2, sqr(thdm.ml(i)), mw2, mz2)                 *std::real(thdm.ylHp(i,i)*thdm.ylHp(1,1))*v2/(thdm.ml(i)*thdm.ml(1));
+      for (int j = 0; j < 3; ++j) {
+         // u
+         res += fuHp(mHp2, sqr(thdm.md(j)), sqr(thdm.mu(i)), mw2, mz2)
+                *std::real(std::conj(thdm.yuHp(i,j))*thdm.vckm(i,j)*thdm.ylHp(1,1))/(thdm.mu(i)*thdm.ml(1));
+         // d
+         res += fdHp(mHp2, sqr(thdm.md(j)), sqr(thdm.mu(i)), mw2, mz2)
+                *std::real(std::conj(thdm.ydHp(i,j))*thdm.vckm(i,j)*thdm.ylHp(1,1))/(thdm.md(j)*thdm.ml(1));
+      }
+      // l
+      res += flHp(mHp2, sqr(thdm.ml(i)), mw2, mz2)
+             *std::real(std::conj(thdm.ylHp(i,i))*thdm.ylHp(1,1))/(thdm.ml(i)*thdm.ml(1));
    }
 
-   return pref*res;
+   return pref*v2/2*res;
 }
 
 /**
@@ -345,27 +352,27 @@ double amu2L_F_neutral(const THDM_F_parameters& thdm) noexcept
    const double mw2 = sqr(thdm.mw);
    const double mz2 = sqr(thdm.mz);
    const double v2 = calc_v2(thdm);
-   const double sw2 = 1.0 - mw2/mz2;
+   const double sw2 = 1 - mw2/mz2;
    const auto pref = sqr(thdm.alpha_em*thdm.mm/(2*pi*thdm.mw))/sw2;
 
-   double res = 0.0;
+   double res = 0;
 
    // loop over generations
    for (int i = 0; i < 3; ++i) {
       // h
-      res += fuS(mh2, sqr(thdm.mu(i)), mw2, mz2)*std::real(thdm.yuh(i,i)*thdm.ylh(1,1))*v2/(thdm.mu(i)*thdm.ml(1));
-      res += fdS(mh2, sqr(thdm.md(i)), mw2, mz2)*std::real(thdm.ydh(i,i)*thdm.ylh(1,1))*v2/(thdm.md(i)*thdm.ml(1));
-      res += flS(mh2, sqr(thdm.ml(i)), mw2, mz2)*std::real(thdm.ylh(i,i)*thdm.ylh(1,1))*v2/(thdm.ml(i)*thdm.ml(1));
+      res += fuS(mh2, sqr(thdm.mu(i)), mw2, mz2)*std::real(std::conj(thdm.yuh(i,i))*thdm.ylh(1,1))*v2/(thdm.mu(i)*thdm.ml(1));
+      res += fdS(mh2, sqr(thdm.md(i)), mw2, mz2)*std::real(std::conj(thdm.ydh(i,i))*thdm.ylh(1,1))*v2/(thdm.md(i)*thdm.ml(1));
+      res += flS(mh2, sqr(thdm.ml(i)), mw2, mz2)*std::real(std::conj(thdm.ylh(i,i))*thdm.ylh(1,1))*v2/(thdm.ml(i)*thdm.ml(1));
 
       // H
-      res += fuS(mH2, sqr(thdm.mu(i)), mw2, mz2)*std::real(thdm.yuH(i,i)*thdm.ylH(1,1))*v2/(thdm.mu(i)*thdm.ml(1));
-      res += fdS(mH2, sqr(thdm.md(i)), mw2, mz2)*std::real(thdm.ydH(i,i)*thdm.ylH(1,1))*v2/(thdm.md(i)*thdm.ml(1));
-      res += flS(mH2, sqr(thdm.ml(i)), mw2, mz2)*std::real(thdm.ylH(i,i)*thdm.ylH(1,1))*v2/(thdm.ml(i)*thdm.ml(1));
+      res += fuS(mH2, sqr(thdm.mu(i)), mw2, mz2)*std::real(std::conj(thdm.yuH(i,i))*thdm.ylH(1,1))*v2/(thdm.mu(i)*thdm.ml(1));
+      res += fdS(mH2, sqr(thdm.md(i)), mw2, mz2)*std::real(std::conj(thdm.ydH(i,i))*thdm.ylH(1,1))*v2/(thdm.md(i)*thdm.ml(1));
+      res += flS(mH2, sqr(thdm.ml(i)), mw2, mz2)*std::real(std::conj(thdm.ylH(i,i))*thdm.ylH(1,1))*v2/(thdm.ml(i)*thdm.ml(1));
 
       // A
-      res += fuA(mA2, sqr(thdm.mu(i)), mw2, mz2)*std::real(thdm.yuA(i,i)*thdm.ylA(1,1))*v2/(thdm.mu(i)*thdm.ml(1));
-      res += fdA(mA2, sqr(thdm.md(i)), mw2, mz2)*std::real(thdm.ydA(i,i)*thdm.ylA(1,1))*v2/(thdm.md(i)*thdm.ml(1));
-      res += flA(mA2, sqr(thdm.ml(i)), mw2, mz2)*std::real(thdm.ylA(i,i)*thdm.ylA(1,1))*v2/(thdm.ml(i)*thdm.ml(1));
+      res += fuA(mA2, sqr(thdm.mu(i)), mw2, mz2)*std::real(std::conj(thdm.yuA(i,i))*thdm.ylA(1,1))*v2/(thdm.mu(i)*thdm.ml(1));
+      res += fdA(mA2, sqr(thdm.md(i)), mw2, mz2)*std::real(std::conj(thdm.ydA(i,i))*thdm.ylA(1,1))*v2/(thdm.md(i)*thdm.ml(1));
+      res += flA(mA2, sqr(thdm.ml(i)), mw2, mz2)*std::real(std::conj(thdm.ylA(i,i))*thdm.ylA(1,1))*v2/(thdm.ml(i)*thdm.ml(1));
 
       // subtract hSM
       res -= fuS(mhSM2, sqr(thdm.mu(i)), mw2, mz2);

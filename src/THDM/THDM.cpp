@@ -597,11 +597,12 @@ const char* THDM::yukawa_type_to_string() const
 
 void THDM::validate() const
 {
-   // check zeta_f
+   // check zeta_f: only used in the flavour-aligned THDM
    if (yukawa_type == thdm::Yukawa_type::type_1 ||
        yukawa_type == thdm::Yukawa_type::type_2 ||
        yukawa_type == thdm::Yukawa_type::type_X ||
-       yukawa_type == thdm::Yukawa_type::type_Y) {
+       yukawa_type == thdm::Yukawa_type::type_Y ||
+       yukawa_type == thdm::Yukawa_type::general) {
       if (zeta_u != 0) {
          WARNING("Value of zeta_u = " << zeta_u << " ignored, because Yukawa type is " << yukawa_type_to_string());
       }
@@ -613,7 +614,20 @@ void THDM::validate() const
       }
    }
 
-   // check X_f
+   // check Delta_f: not used in the general THDM
+   if (yukawa_type == thdm::Yukawa_type::general) {
+      if (Delta_u.cwiseAbs().maxCoeff() != 0) {
+         WARNING("Value of Delta_u ignored, because Yukawa type is " << yukawa_type_to_string());
+      }
+      if (Delta_d.cwiseAbs().maxCoeff() != 0) {
+         WARNING("Value of Delta_d ignored, because Yukawa type is " << yukawa_type_to_string());
+      }
+      if (Delta_l.cwiseAbs().maxCoeff() != 0) {
+         WARNING("Value of Delta_l ignored, because Yukawa type is " << yukawa_type_to_string());
+      }
+   }
+
+   // check Pi_f: only used in the general THDM
    if (yukawa_type == thdm::Yukawa_type::type_1 ||
        yukawa_type == thdm::Yukawa_type::type_2 ||
        yukawa_type == thdm::Yukawa_type::type_X ||

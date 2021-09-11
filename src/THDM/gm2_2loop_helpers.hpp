@@ -66,6 +66,7 @@ struct THDM_F_parameters {
    Eigen::Matrix<std::complex<double>,3,3> ylH{Eigen::Matrix<std::complex<double>,3,3>::Zero()}; ///< y_f^S coefficients with f={e,m,τ} and S=H
    Eigen::Matrix<std::complex<double>,3,3> ylA{Eigen::Matrix<std::complex<double>,3,3>::Zero()}; ///< y_f^S coefficients with f={e,m,τ} and S=A
    Eigen::Matrix<std::complex<double>,3,3> ylHp{Eigen::Matrix<std::complex<double>,3,3>::Zero()};///< y_f^S coefficients with f={e,m,τ} and S=H^+
+   Eigen::Matrix<std::complex<double>,3,3> vckm{Eigen::Matrix<std::complex<double>,3,3>::Identity()};///< CKM matrix
 };
 
 // === 2-loop bosonic contributions ===
