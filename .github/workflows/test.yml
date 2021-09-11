@@ -10,6 +10,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
+        build_shared_libs: [ON, OFF]
 
     steps:
     - uses: actions/checkout@v1
@@ -22,7 +23,9 @@ jobs:
     - name: install dependencies
       run: conan install . --build=missing
     - name: cmake
-      run: cmake .
+      run: cmake -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} .
+      env:
+        BUILD_SHARED_LIBS: ${{ matrix.build_shared_libs }}
     - name: cmake build
       run: cmake --build .
     - name: ctest
