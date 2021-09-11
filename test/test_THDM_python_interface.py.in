@@ -51,12 +51,12 @@ def testclose(val1,val2):
     global passed, errors
     try:
         if (abs(Decimal(val1) - Decimal(val2)) == Decimal(0.)):
-            print("Error: expressions are not equal:",str(val1),"=!=",str(val2))
+            print("Error: values are not equal:",str(val1),"=!=",str(val2))
             errors += 1
         else:
             passed += 1
-    except ValueError:
-        print("Non-numeric value found: val1 =",str(val1),"val2 =",str(val2),"eps =",str(eps))
+    except decimal.InvalidOperation:
+        print("Non-numeric value found: val1 =",str(val1),"val2 =",str(val2))
         errors += 1
 
 def testequal(expr1,expr2):
