@@ -4,6 +4,8 @@ project(GM2Calc
   DESCRIPTION "Calculation of BSM contributions to the anomalous magnetic moment of the muon"
   LANGUAGES C CXX)
 
+cmake_policy(SET CMP0068 NEW)
+
 include(GNUInstallDirs)
 
 if(NOT CMAKE_BUILD_TYPE)
