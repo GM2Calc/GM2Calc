@@ -12,7 +12,7 @@ includepath = os.path.join(gm2calcpath,"include")
 testpath = os.path.join(gm2calcpath,"test")
 cppyy.add_include_path(includepath)
 cppyy.add_include_path(testpath)
-    
+
 # Add Eigen3/Core directory to path
 eigen3path = "@EIGEN3_INCLUDE_DIR@"
 cppyy.add_include_path(eigen3path)
@@ -114,7 +114,7 @@ config.running_couplings = False
 
 try:
     model = gm2calc.THDM(basis,sm,config)
-    amu1L = gm2calc.calculate_amu_1loop(model) 
+    amu1L = gm2calc.calculate_amu_1loop(model)
     amu2Lf = gm2calc.calculate_amu_2loop_fermionic(model)
     amu2Lb = gm2calc.calculate_amu_2loop_bosonic(model)
     amu = amu1L + amu2Lf + amu2Lb
@@ -176,7 +176,7 @@ config.running_couplings = False
 
 try:
     model = gm2calc.THDM(basis,sm,config)
-    amu1L = gm2calc.calculate_amu_1loop(model) 
+    amu1L = gm2calc.calculate_amu_1loop(model)
     amu2Lf = gm2calc.calculate_amu_2loop_fermionic(model)
     amu2Lb = gm2calc.calculate_amu_2loop_bosonic(model)
     amu = amu1L + amu2Lf + amu2Lb
@@ -238,7 +238,7 @@ config.running_couplings = False
 
 try:
     model = gm2calc.THDM(basis,sm,config)
-    amu1L = gm2calc.calculate_amu_1loop(model) 
+    amu1L = gm2calc.calculate_amu_1loop(model)
     amu2Lf = gm2calc.calculate_amu_2loop_fermionic(model)
     amu2Lb = gm2calc.calculate_amu_2loop_bosonic(model)
     amu = amu1L + amu2Lf + amu2Lb
@@ -300,7 +300,7 @@ config.running_couplings = False
 
 try:
     model = gm2calc.THDM(basis,sm,config)
-    amu1L = gm2calc.calculate_amu_1loop(model) 
+    amu1L = gm2calc.calculate_amu_1loop(model)
     amu2Lf = gm2calc.calculate_amu_2loop_fermionic(model)
     amu2Lb = gm2calc.calculate_amu_2loop_bosonic(model)
     amu = amu1L + amu2Lf + amu2Lb
@@ -365,7 +365,7 @@ config.running_couplings = False
 
 try:
     model = gm2calc.THDM(basis,sm,config)
-    amu1L = gm2calc.calculate_amu_1loop(model) 
+    amu1L = gm2calc.calculate_amu_1loop(model)
     amu2Lf = gm2calc.calculate_amu_2loop_fermionic(model)
     amu2Lb = gm2calc.calculate_amu_2loop_bosonic(model)
     amu = amu1L + amu2Lf + amu2Lb
@@ -427,7 +427,7 @@ config.running_couplings = False
 
 try:
     model = gm2calc.THDM(basis,sm,config)
-    amu1L = gm2calc.calculate_amu_1loop(model) 
+    amu1L = gm2calc.calculate_amu_1loop(model)
     amu2Lf = gm2calc.calculate_amu_2loop_fermionic(model)
     amu2Lb = gm2calc.calculate_amu_2loop_bosonic(model)
     amu = amu1L + amu2Lf + amu2Lb
@@ -490,7 +490,7 @@ config.running_couplings = False
 
 try:
     model = gm2calc.THDM(basis,sm,config)
-    amu1L = gm2calc.calculate_amu_1loop(model) 
+    amu1L = gm2calc.calculate_amu_1loop(model)
     amu2Lf = gm2calc.calculate_amu_2loop_fermionic(model)
     amu2Lb = gm2calc.calculate_amu_2loop_bosonic(model)
     amu = amu1L + amu2Lf + amu2Lb
@@ -506,5 +506,3 @@ print("Passed tests: ["+str(passed)+"/"+str(passed+errors)+"]")
 
 # Return an exit code
 exit(errors)
-
-
