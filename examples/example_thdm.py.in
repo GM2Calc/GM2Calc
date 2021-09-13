@@ -28,8 +28,6 @@ cppyy.load_library("libgm2calc")
 # Load data types
 from cppyy.gbl import std
 from cppyy.gbl import Eigen
-# Shorten class call name
-Matrix3cd = Eigen.Matrix[std.complex['double'],3,3]
 
 from cppyy.gbl import gm2calc
 from cppyy.gbl.gm2calc import SM
@@ -50,9 +48,9 @@ basis.m122 = 40000.
 basis.zeta_u = 0.
 basis.zeta_d = 0.
 basis.zeta_l = 0.
-basis.Pi_u = Matrix3cd().setZero()
-basis.Pi_d = Matrix3cd().setZero()
-basis.Pi_l = Matrix3cd().setZero()
+basis.Pi_u = Eigen.Matrix3d().setZero()
+basis.Pi_d = Eigen.Matrix3d().setZero()
+basis.Pi_l = Eigen.Matrix3d().setZero()
 
 sm = gm2calc.SM()
 sm.set_alpha_em_mz(1.0/128.94579)

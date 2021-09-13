@@ -36,8 +36,6 @@ cppyy.include("doctest.h")
 # Load data types
 from cppyy.gbl import std
 from cppyy.gbl import Eigen
-# Shorten class call name
-Matrix3cd = Eigen.Matrix[std.complex['double'],3,3]
 
 from cppyy.gbl import gm2calc
 from cppyy.gbl.gm2calc import SM
@@ -89,7 +87,7 @@ sm.set_ml(1,0.000510998928)
 sm.set_mv(2,0.)
 sm.set_mv(1,0.)
 sm.set_mv(0,0.)
-sm.set_ckm(Matrix3cd().Identity())
+sm.set_ckm(Eigen.Matrix3d().Identity())
 
 # Setup the point information
 basis = gm2calc.thdm.Mass_basis()
@@ -106,9 +104,9 @@ basis.m122 = 40000.
 basis.zeta_u = 0.
 basis.zeta_d = 0.
 basis.zeta_l = 0.
-basis.Pi_u = Matrix3cd().setZero()
-basis.Pi_d = Matrix3cd().setZero()
-basis.Pi_l = Matrix3cd().setZero()
+basis.Pi_u = Eigen.Matrix3d().setZero()
+basis.Pi_d = Eigen.Matrix3d().setZero()
+basis.Pi_l = Eigen.Matrix3d().setZero()
 
 config = gm2calc.thdm.Config()
 config.force_output = False;
@@ -151,7 +149,7 @@ sm.set_ml(1,0.000510998928)
 sm.set_mv(2,0.)
 sm.set_mv(1,0.)
 sm.set_mv(0,0.)
-sm.set_ckm(Matrix3cd().Identity())
+sm.set_ckm(Eigen.Matrix3d().Identity())
 
 # Setup the point information
 basis = gm2calc.thdm.Mass_basis()
@@ -168,9 +166,9 @@ basis.m122 = 40000.
 basis.zeta_u = 0.
 basis.zeta_d = 0.
 basis.zeta_l = 0.
-basis.Pi_u = Matrix3cd().setZero()
-basis.Pi_d = Matrix3cd().setZero()
-basis.Pi_l = Matrix3cd().setZero()
+basis.Pi_u = Eigen.Matrix3d().setZero()
+basis.Pi_d = Eigen.Matrix3d().setZero()
+basis.Pi_l = Eigen.Matrix3d().setZero()
 
 config = gm2calc.thdm.Config()
 config.force_output = False;
@@ -213,7 +211,7 @@ sm.set_ml(1,0.000510998928)
 sm.set_mv(2,0.)
 sm.set_mv(1,0.)
 sm.set_mv(0,0.)
-sm.set_ckm(Matrix3cd().Identity())
+sm.set_ckm(Eigen.Matrix3d().Identity())
 
 # Setup the point information
 basis = gm2calc.thdm.Mass_basis()
@@ -230,9 +228,9 @@ basis.m122 = 40000.
 basis.zeta_u = 1.
 basis.zeta_d = 2.
 basis.zeta_l = 3.
-basis.Delta_u = Matrix3cd().setZero()
-basis.Delta_d = Matrix3cd().setZero()
-basis.Delta_l = Matrix3cd().setZero()
+basis.Delta_u = Eigen.Matrix3d().setZero()
+basis.Delta_d = Eigen.Matrix3d().setZero()
+basis.Delta_l = Eigen.Matrix3d().setZero()
 
 config = gm2calc.thdm.Config()
 config.force_output = False;
@@ -275,7 +273,7 @@ sm.set_ml(1,0.000510998928)
 sm.set_mv(2,0.)
 sm.set_mv(1,0.)
 sm.set_mv(0,0.)
-sm.set_ckm(Matrix3cd().Identity())
+sm.set_ckm(Eigen.Matrix3d().Identity())
 
 # Setup the point information
 basis = gm2calc.thdm.Mass_basis()
@@ -289,9 +287,9 @@ basis.lambda_6 = 0.2
 basis.lambda_7 = 0.1
 basis.tan_beta = 3.
 basis.m122 = 40000.
-basis.Pi_u = Matrix3cd().setZero()
-basis.Pi_d = Matrix3cd().setZero()
-basis.Pi_l = Matrix3cd().setZero()
+basis.Pi_u = Eigen.Matrix3d().setZero()
+basis.Pi_d = Eigen.Matrix3d().setZero()
+basis.Pi_l = Eigen.Matrix3d().setZero()
 basis.Pi_u[4] = 0.1
 basis.Pi_d[4] = 0.2
 basis.Pi_l[4] = 0.3
@@ -337,7 +335,7 @@ sm.set_ml(1,0.000510998928)
 sm.set_mv(2,0.)
 sm.set_mv(1,0.)
 sm.set_mv(0,0.)
-sm.set_ckm(Matrix3cd().Identity())
+sm.set_ckm(Eigen.Matrix3d().Identity())
 
 # Setup the point information
 basis = gm2calc.thdm.Gauge_basis()
@@ -351,9 +349,9 @@ basis.lambda_6 = 0.2
 basis.lambda_7 = 0.1
 basis.tan_beta = 3.
 basis.m122 = 40000.
-basis.Pi_u = Matrix3cd().setZero()
-basis.Pi_d = Matrix3cd().setZero()
-basis.Pi_l = Matrix3cd().setZero()
+basis.Pi_u = Eigen.Matrix3d().setZero()
+basis.Pi_d = Eigen.Matrix3d().setZero()
+basis.Pi_l = Eigen.Matrix3d().setZero()
 
 config = gm2calc.thdm.Config()
 config.force_output = False;
