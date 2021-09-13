@@ -343,13 +343,17 @@ sm.set_ckm(Eigen.Matrix3d().Identity())
 # Setup the point information
 basis = gm2calc.thdm.Gauge_basis()
 basis.yukawa_type = gm2calc.thdm.Yukawa_type.type_2
-basis.lambda_1 = 0.7
-basis.lambda_2 = 0.6
-basis.lambda_3 = 0.5
-basis.lambda_4 = 0.4
-basis.lambda_5 = 0.3
-basis.lambda_6 = 0.2
-basis.lambda_7 = 0.1
+# lambda is a reserved keyword, so we have to get creative
+Matrix7d = Eigen.Matrix('double',7,1)
+lam = Matrix7d().setZero()
+lam[0] = 0.7
+lam[1] = 0.6
+lam[2] = 0.5
+lam[3] = 0.4
+lam[4] = 0.3
+lam[5] = 0.2
+lam[6] = 0.1
+basis.__setattr__('lambda',lam)
 basis.tan_beta = 3.
 basis.m122 = 40000.
 basis.Pi_u = Eigen.Matrix3d().setZero()
