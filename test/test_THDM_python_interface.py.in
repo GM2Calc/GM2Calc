@@ -2,7 +2,7 @@
 
 from __future__ import print_function
 import os
-from decimal import Decimal
+from math import isclose
 
 import cppyy
 
@@ -47,17 +47,15 @@ from cppyy.gbl.gm2calc import Error
 passed = 0
 errors = 0
 
-def testclose(val1,val2,verbose=False):
+def testclose(val1,val2,precision=10**(-9)):
     global passed, errors
-    if verbose:
-        print("val1: ",val1,"  val2: ",val2)
     try:
-        if (abs(Decimal(val1) - Decimal(val2)) == Decimal(0.)):
+        if not(isclose(val1,val2,precision)):
             print("Error: values are not equal:",str(val1),"=!=",str(val2))
             errors += 1
         else:
             passed += 1
-    except decimal.InvalidOperation:
+    except TypeError:
         print("Non-numeric value found: val1 =",str(val1),"val2 =",str(val2))
         errors += 1
 
