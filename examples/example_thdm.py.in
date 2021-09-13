@@ -2,7 +2,6 @@
 
 from __future__ import print_function
 import os
-
 import cppyy
 
 gm2calcpath = "@PROJECT_SOURCE_DIR@"
@@ -28,13 +27,12 @@ cppyy.load_library("libgm2calc")
 # Load data types
 from cppyy.gbl import std
 from cppyy.gbl import Eigen
-
 from cppyy.gbl import gm2calc
 from cppyy.gbl.gm2calc import SM
 from cppyy.gbl.gm2calc import THDM
 from cppyy.gbl.gm2calc import Error
-basis = gm2calc.thdm.Mass_basis()
 
+basis = gm2calc.thdm.Mass_basis()
 basis.yukawa_type = gm2calc.thdm.Yukawa_type.type_2
 basis.mh = 125.
 basis.mH = 400.
