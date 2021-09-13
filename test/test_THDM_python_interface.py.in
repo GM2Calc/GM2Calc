@@ -47,8 +47,10 @@ from cppyy.gbl.gm2calc import Error
 passed = 0
 errors = 0
 
-def testclose(val1,val2):
+def testclose(val1,val2,verbose=False):
     global passed, errors
+    if verbose:
+        print("val1: ",val1,"  val2: ",val2)
     try:
         if (abs(Decimal(val1) - Decimal(val2)) == Decimal(0.)):
             print("Error: values are not equal:",str(val1),"=!=",str(val2))
