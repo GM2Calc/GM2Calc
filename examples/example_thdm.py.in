@@ -50,9 +50,9 @@ basis.m122 = 40000.
 basis.zeta_u = 0.
 basis.zeta_d = 0.
 basis.zeta_l = 0.
-basis.Piu = Matrix3cd().setZero()
-basis.Pid = Matrix3cd().setZero()
-basis.Pil = Matrix3cd().setZero()
+basis.Pi_u = Matrix3cd().setZero()
+basis.Pi_d = Matrix3cd().setZero()
+basis.Pi_l = Matrix3cd().setZero()
 
 sm = gm2calc.SM()
 sm.set_alpha_em_mz(1.0/128.94579)
