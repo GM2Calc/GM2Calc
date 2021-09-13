@@ -231,6 +231,9 @@ basis.zeta_l = 3.
 basis.Delta_u = Eigen.Matrix3d().setZero()
 basis.Delta_d = Eigen.Matrix3d().setZero()
 basis.Delta_l = Eigen.Matrix3d().setZero()
+basis.Delta_u[4] = 0.1
+basis.Delta_d[4] = 0.2
+basis.Delta_l[4] = 0.3
 
 config = gm2calc.thdm.Config()
 config.force_output = False;
