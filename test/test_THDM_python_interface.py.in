@@ -375,4 +375,7 @@ testclose(amu,3.2720909955357482*10.**(-11))
 print()
 print("Passed tests: ["+str(passed)+"/"+str(passed+errors)+"]")
 
+# Return an exit code
+exit(errors)
+
 
