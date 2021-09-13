@@ -123,7 +123,7 @@ except gm2calc.Error as e:
     print(e.what)
 
 testclose(amu,1.8762630021293123*10.**(-11))
-testclose(amu1L,-2.21199808*10.**(-15))
+testclose(amu1L,-2.21199808*10.**(-15),10**(-7))
 testclose(delta_amu,3.52677143*10.**(-12))
 
 
