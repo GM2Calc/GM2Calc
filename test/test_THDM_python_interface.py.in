@@ -45,10 +45,10 @@ from cppyy.gbl.gm2calc import Error
 passed = 0
 errors = 0
 
-def testclose(val1,val2,precision=10**(-9)):
+def testclose(val1,val2,rel_tol=10**(-9)):
     global passed, errors
     try:
-        if not(isclose(val1,val2,precision)):
+        if not(isclose(val1,val2,rel_tol=rel_tol)):
             print("Error: values are not equal:",str(val1),"=!=",str(val2))
             errors += 1
         else:
