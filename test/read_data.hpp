@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iterator>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -30,6 +31,10 @@ read_from_file(const std::string& filename)
    std::vector<std::vector<T>> data;
    std::string line;
    std::ifstream fstr(filename);
+
+   if (!fstr.is_open()) {
+      throw std::runtime_error("Cannot open file: " + filename);
+   }
 
    while (std::getline(fstr, line)) {
       std::istringstream iss(line);
