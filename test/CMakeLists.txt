@@ -58,4 +58,11 @@ if(Python_INTERFACE)
     NAME test_THDM_python_interface
     COMMAND ${Python3_EXECUTABLE} test_THDM_python_interface.py 
     WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+  configure_file(${PROJECT_SOURCE_DIR}/test/test_MSSM_python_interface.py.in 
+                 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test_MSSM_python_interface.py 
+                 @ONLY)
+  add_test(
+    NAME test_MSSM_python_interface
+    COMMAND ${Python3_EXECUTABLE} test_MSSM_python_interface.py 
+    WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 endif()
