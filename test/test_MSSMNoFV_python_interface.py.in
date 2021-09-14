@@ -115,11 +115,18 @@ point.set_Ad(Eigen.Matrix3d().setZero())
 point.set_Ae(Eigen.Matrix3d().setZero())
 point.set_scale(1000.)
 
+# convert DR-bar parameters to on-shell
 point.convert_to_onshell()
 
+# check for warnings
+if point.get_problems().have_warning():
+    print(point.get_problems().get_warnings())
+    
+# check for problems
+if point.get_problems().have_problem():
+    print(point.get_problems().get_problems())
+
 try:
-    # calculate mass spectrum
-    point.calculate_masses()
     model = gm2calc.MSSMNoFV_onshell(point)
     amu1L = gm2calc.calculate_amu_1loop(model) 
     amu2L = gm2calc.calculate_amu_2loop(model)
@@ -173,6 +180,14 @@ point.set_Au(Eigen.Matrix3d().setZero())
 point.set_Ad(Eigen.Matrix3d().setZero())                         
 point.set_Ae(Eigen.Matrix3d().setZero())
 point.set_scale(454.7)
+
+# check for warnings
+if point.get_problems().have_warning():
+    print(point.get_problems().get_warnings())
+    
+# check for problems
+if point.get_problems().have_problem():
+    print(point.get_problems().get_problems())
 
 try:
     # calculate mass spectrum
