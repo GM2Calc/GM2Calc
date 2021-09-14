@@ -71,13 +71,13 @@ point = gm2calc.MSSMNoFV_onshell()
 point.set_alpha_MZ(0.00775531)
 point.set_alpha_thompson(0.00729735)
 point.set_g3(std.sqrt(4. * Pi * 0.1184))    
-point.set_mw(80.385)
-point.set_mz(91.1876)
-point.set_mh(125.09)
-point.set_mu(2,173.34)
-point.set_md(2,4.18)
-point.set_ml(2,1.777)
-point.set_ml(1,0.1056583715)
+point.get_physical().MVWm = 80.385
+point.get_physical().MVZ  = 91.1876
+point.get_physical().Mhh  = 125.09
+point.get_physical().MFt  = 173.34
+point.get_physical().MFb  = 4.18
+point.get_physical().MFtau = 1.777
+point.get_physical().MFm  = 0.1056583715
 
 # Initialize matrices
 Matrix7000sqr = Eigen.Matrix3d().setZero()
@@ -138,14 +138,14 @@ testclose(delta_amu,2.334226722205371*10.**(-10))
 point = gm2calc.MSSMNoFV_onshell()
 point.set_alpha_MZ(0.00775531)
 point.set_alpha_thompson(0.00729735)
-point.set_g3(std.sqrt(4. * Pi * 0.1184))    
-point.set_mw(80.385)
-point.set_mz(91.1876)
-point.set_mh(125.09)
-point.set_mu(2,173.34)
-point.set_md(2,4.18)
-point.set_ml(2,1.777)
-point.set_ml(1,0.1056583715)
+point.set_g3(std.sqrt(4. * Pi * 0.1184))     
+point.get_physical().MVWm = 80.385
+point.get_physical().MVZ  = 91.1876
+point.get_physical().Mhh  = 125.09
+point.get_physical().MFt  = 173.34
+point.get_physical().MFb  = 4.18
+point.get_physical().MFtau = 1.777
+point.get_physical().MFm  = 0.1056583715
 
 # Initialize matrices
 Matrix500sqr = Eigen.Matrix3d().setZero()
@@ -193,13 +193,13 @@ point = gm2calc.MSSMNoFV_onshell()
 point.set_alpha_MZ(0.00775531)
 point.set_alpha_thompson(0.00729735)
 point.set_g3(std.sqrt(4. * Pi * 0.1184))    
-point.set_mw(80.385)
-point.set_mz(91.1876)
-point.set_mh(125.09)
-point.set_mu(2,173.34)
-point.set_md(2,4.18)
-point.set_ml(2,1.777)
-point.set_ml(1,0.1056583715)
+point.get_physical().MVWm = 80.385
+point.get_physical().MVZ  = 91.1876
+point.get_physical().Mhh  = 125.09
+point.get_physical().MFt  = 173.34
+point.get_physical().MFb  = 4.18
+point.get_physical().MFtau = 1.777
+point.get_physical().MFm  = 0.1056583715
 
 # Initialize matrices
 Matrix3000sqr = Eigen.Matrix3d().setZero()
@@ -255,13 +255,13 @@ point = gm2calc.MSSMNoFV_onshell()
 point.set_alpha_MZ(0.00775531)
 point.set_alpha_thompson(0.00729735)
 point.set_g3(std.sqrt(4. * Pi * 0.1184))    
-point.set_mw(80.385)
-point.set_mz(91.1876)
-point.set_mh(125.09)
-point.set_mu(2,173.34)
-point.set_md(2,4.18)
-point.set_ml(2,1.777)
-point.set_ml(1,0.1056583715)
+point.get_physical().MVWm = 80.385
+point.get_physical().MVZ  = 91.1876
+point.get_physical().Mhh  = 125.09
+point.get_physical().MFt  = 173.34
+point.get_physical().MFb  = 4.18
+point.get_physical().MFtau = 1.777
+point.get_physical().MFm  = 0.1056583715
 
 # Initialize matrices
 Matrix7000sqr = Eigen.Matrix3d().setZero()
