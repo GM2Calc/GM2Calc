@@ -115,6 +115,8 @@ point.set_Ad(Eigen.Matrix3d().setZero())
 point.set_Ae(Eigen.Matrix3d().setZero())
 point.set_scale(1000.)
 
+point.convert_to_onshell()
+
 try:
     # calculate mass spectrum
     point.calculate_masses()
@@ -126,7 +128,7 @@ try:
 except gm2calc.Error as e:
     print(e.what())
 
-testclose(amu,      2.339244076106932*10.**(-9))
+testclose(amu,      2.339244076106932*10.**(-9),10**(-7))
 testclose(delta_amu,2.334226722205371*10.**(-10))
 
 
