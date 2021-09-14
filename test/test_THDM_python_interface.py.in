@@ -120,7 +120,7 @@ try:
     amu = amu1L + amu2Lf + amu2Lb
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
 except gm2calc.Error as e:
-    print(e.what)
+    print(e.what())
 
 testclose(amu,-5.867433445099365*10.**(-12))
 testclose(amu1L,6.12624332*10.**(-16))
@@ -182,7 +182,7 @@ try:
     amu = amu1L + amu2Lf + amu2Lb
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
 except gm2calc.Error as e:
-    print(e.what)
+    print(e.what())
 
 testclose(amu,1.8787546646721519*10.**(-11))
 testclose(amu1L,-2.21199808*10.**(-15),10**(-7))
@@ -244,7 +244,7 @@ try:
     amu = amu1L + amu2Lf + amu2Lb
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
 except gm2calc.Error as e:
-    print(e.what)
+    print(e.what())
 
 testclose(amu,1.8762630021293123*10.**(-11))
 testclose(amu1L,-2.21199808*10.**(-15),10**(-7))
@@ -306,7 +306,7 @@ try:
     amu = amu1L + amu2Lf + amu2Lb
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
 except gm2calc.Error as e:
-    print(e.what)
+    print(e.what())
 
 testclose(amu,-5.857908763806516*10.**(-12))
 testclose(amu1L,6.12624332*10.**(-16))
@@ -371,7 +371,7 @@ try:
     amu = amu1L + amu2Lf + amu2Lb
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
 except gm2calc.Error as e:
-    print(e.what)
+    print(e.what())
 
 testclose(amu,-1.23943792*10.**(-8))
 testclose(amu1L,8.28686099*10.**(-11))
@@ -433,7 +433,7 @@ try:
     amu = amu1L + amu2Lf + amu2Lb
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
 except gm2calc.Error as e:
-    print(e.what)
+    print(e.what())
 
 testclose(amu,1.1234764842312642*10.**(-7))
 testclose(amu1L,8.096409030210353*10.**(-10))
@@ -496,7 +496,7 @@ try:
     amu = amu1L + amu2Lf + amu2Lb
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
 except gm2calc.Error as e:
-    print(e.what)
+    print(e.what())
 
 testclose(amu,3.2720909955357482*10.**(-11))
 

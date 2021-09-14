@@ -87,4 +87,4 @@ try:
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
     print("amu =",amu,"+-",delta_amu)
 except gm2calc.Error as e:
-    print(e.what)
+    print(e.what())

@@ -115,7 +115,7 @@ for n in range(0,nsteps):
         amu = gm2calc.calculate_amu_1loop(model) + gm2calc.calculate_amu_2loop(model)
         delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
     except gm2calc.Error as e:
-        error = "# " + str(e.what)
+        error = "# " + str(e.what())
         amu = std.numeric_limits['double'].signaling_NaN()
         delta_amu = std.numeric_limits['double'].signaling_NaN()
 
