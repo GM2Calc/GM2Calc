@@ -207,7 +207,7 @@ double THDM::get_zeta_u() const
    case thdm::Yukawa_type::aligned:
       return zeta_u;
    case thdm::Yukawa_type::general:
-      return 0; // never used in the general THDM
+      return 0; // undefined in the general THDM
    }
    throw ESetupError("Bug: unhandled case in get_zeta_u.");
 }
@@ -227,7 +227,7 @@ double THDM::get_zeta_d() const
    case thdm::Yukawa_type::aligned:
       return zeta_d;
    case thdm::Yukawa_type::general:
-      return 0; // never used in the general THDM
+      return 0; // undefined in the general THDM
    }
    throw ESetupError("Bug: unhandled case in get_zeta_d.");
 }
@@ -247,7 +247,7 @@ double THDM::get_zeta_l() const
    case thdm::Yukawa_type::aligned:
       return zeta_l;
    case thdm::Yukawa_type::general:
-      return 0; // never used in the general THDM
+      return 0; // undefined in the general THDM
    }
    throw ESetupError("Bug: unhandled case in get_zeta_l.");
 }
