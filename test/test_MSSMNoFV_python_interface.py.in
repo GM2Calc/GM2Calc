@@ -115,17 +115,16 @@ point.set_Ad(Eigen.Matrix3d().setZero())
 point.set_Ae(Eigen.Matrix3d().setZero())
 point.set_scale(1000.)
 
-# calculate mass spectrum
-point.calculate_masses()
-
 try:
+    # calculate mass spectrum
+    point.calculate_masses()
     model = gm2calc.MSSMNoFV_onshell(point)
     amu1L = gm2calc.calculate_amu_1loop(model) 
     amu2L = gm2calc.calculate_amu_2loop(model)
     amu = amu1L + amu2L
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
 except gm2calc.Error as e:
-    print(e.what)
+    print(e.what())
 
 testclose(amu,      2.339244076106932*10.**(-9))
 testclose(delta_amu,2.334226722205371*10.**(-10))
@@ -173,17 +172,16 @@ point.set_Ad(Eigen.Matrix3d().setZero())
 point.set_Ae(Eigen.Matrix3d().setZero())
 point.set_scale(454.7)
 
-# calculate mass spectrum
-point.calculate_masses()
-
 try:
+    # calculate mass spectrum
+    point.calculate_masses()
     model = gm2calc.MSSMNoFV_onshell(point)
     amu1L = gm2calc.calculate_amu_1loop(model) 
     amu2L = gm2calc.calculate_amu_2loop(model)
     amu = amu1L + amu2L
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
 except gm2calc.Error as e:
-    print(e.what)
+    print(e.what())
 
 testclose(amu,      7.964321357104185*10.**(-10))
 testclose(delta_amu,2.309099582759784*10.**(-10))
@@ -231,19 +229,19 @@ point.set_Ad(Eigen.Matrix3d().setZero())
 point.set_Ae(Eigen.Matrix3d().setZero())
 point.set_scale(866.360379)
 
-# calculate mass spectrum
-point.calculate_masses()
-
 try:
+    # calculate mass spectrum
+    point.calculate_masses()
     model = gm2calc.MSSMNoFV_onshell(point)
     amu1L = gm2calc.calculate_amu_1loop(model) 
     amu2L = gm2calc.calculate_amu_2loop(model)
     amu = amu1L + amu2L
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
+    print('Error: MSSM invalid point test does not faile')
+    errors += 1
 except gm2calc.Error as e:
-    print(e.what)
+    passed += 1
 
-testequal(delta_amu,None)
 
 # MSSM invalid point without tanbeta resummation
 
@@ -287,19 +285,19 @@ point.set_Ad(Eigen.Matrix3d().setZero())
 point.set_Ae(Eigen.Matrix3d().setZero())
 point.set_scale(866.360379)
 
-# calculate mass spectrum
-point.calculate_masses()
-
 try:
+    # calculate mass spectrum
+    point.calculate_masses()
     model = gm2calc.MSSMNoFV_onshell(point)
     amu1L = gm2calc.calculate_amu_1loop_non_tan_beta_resummed(model) 
     amu2L = gm2calc.calculate_amu_2loop_non_tan_beta_resummed(model)
     amu = amu1L + amu2L
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
+    print('Error: MSSM invalid point test does not faile')
+    errors += 1
 except gm2calc.Error as e:
-    print(e.what)
-
-testequal(amu,None)
+    passed += 1
+    #print(e.what())
 
 
 print()
