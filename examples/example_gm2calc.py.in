@@ -82,7 +82,7 @@ def setup():
 
 
 try:
-    model = gm2calc.MSSMNoFV_onshell(setup())
+    model = setup()
     amu = gm2calc.calculate_amu_1loop(model) + gm2calc.calculate_amu_2loop(model)
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
     print("amu =",amu,"+-",delta_amu)

@@ -123,11 +123,10 @@ if point.get_problems().have_problem():
     print(point.get_problems().get_problems())
 
 try:
-    model = gm2calc.MSSMNoFV_onshell(point)
-    amu1L = gm2calc.calculate_amu_1loop(model) 
-    amu2L = gm2calc.calculate_amu_2loop(model)
+    amu1L = gm2calc.calculate_amu_1loop(point) 
+    amu2L = gm2calc.calculate_amu_2loop(point)
     amu = amu1L + amu2L
-    delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
+    delta_amu = gm2calc.calculate_uncertainty_amu_2loop(point)
 except gm2calc.Error as e:
     print(e.what())
 
@@ -188,11 +187,10 @@ if point.get_problems().have_problem():
 try:
     # calculate mass spectrum
     point.calculate_masses()
-    model = gm2calc.MSSMNoFV_onshell(point)
-    amu1L = gm2calc.calculate_amu_1loop(model) 
-    amu2L = gm2calc.calculate_amu_2loop(model)
+    amu1L = gm2calc.calculate_amu_1loop(point) 
+    amu2L = gm2calc.calculate_amu_2loop(point)
     amu = amu1L + amu2L
-    delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
+    delta_amu = gm2calc.calculate_uncertainty_amu_2loop(point)
 except gm2calc.Error as e:
     print(e.what())
 
@@ -245,11 +243,10 @@ point.set_scale(866.360379)
 try:
     # calculate mass spectrum
     point.calculate_masses()
-    model = gm2calc.MSSMNoFV_onshell(point)
-    amu1L = gm2calc.calculate_amu_1loop(model) 
-    amu2L = gm2calc.calculate_amu_2loop(model)
+    amu1L = gm2calc.calculate_amu_1loop(point) 
+    amu2L = gm2calc.calculate_amu_2loop(point)
     amu = amu1L + amu2L
-    delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
+    delta_amu = gm2calc.calculate_uncertainty_amu_2loop(point)
     print('Error: MSSM invalid point test does not faile')
     errors += 1
 except gm2calc.Error as e:
@@ -301,11 +298,10 @@ point.set_scale(866.360379)
 try:
     # calculate mass spectrum
     point.calculate_masses()
-    model = gm2calc.MSSMNoFV_onshell(point)
-    amu1L = gm2calc.calculate_amu_1loop_non_tan_beta_resummed(model) 
-    amu2L = gm2calc.calculate_amu_2loop_non_tan_beta_resummed(model)
+    amu1L = gm2calc.calculate_amu_1loop_non_tan_beta_resummed(point) 
+    amu2L = gm2calc.calculate_amu_2loop_non_tan_beta_resummed(point)
     amu = amu1L + amu2L
-    delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
+    delta_amu = gm2calc.calculate_uncertainty_amu_2loop(point)
     print('Error: MSSM invalid point test does not faile')
     errors += 1
 except gm2calc.Error as e:
