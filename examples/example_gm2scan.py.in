@@ -107,7 +107,7 @@ for n in range(0,nsteps):
     tanb = tanb_start + (tanb_stop - tanb_start) * n / nsteps
     error = std.string()
     
-    model = gm2calc.MSSMNoFV_onshell(setup())
+    model = setup()
     model.set_TB(tanb)
     
     try:
