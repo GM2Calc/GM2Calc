@@ -28,10 +28,6 @@ librarypath = "@CMAKE_LIBRARY_OUTPUT_DIRECTORY@"
 cppyy.add_library_path(librarypath)
 cppyy.load_library("libgm2calc")
 
-cppyy.cppdef("#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN 1")
-
-cppyy.include("doctest.h")
-
 # Load data types
 from cppyy.gbl import std
 from cppyy.gbl import Eigen
