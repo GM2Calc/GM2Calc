@@ -59,7 +59,7 @@ Contents
 Requirements
 ============
 
- * C++11 compatible compiler (g++ >= 4.6.3 or clang++ >= 3.4 or icpc >= 14.0.3)
+ * C++14 compatible compiler (g++ >= 5 or clang++ >= 3.4 or icpc >= 14.0.3)
  * C11 compatible compiler (gcc >= 4.6 or clang)
  * Boost (version 1.37.0 or higher) [http://www.boost.org]
  * Eigen 3 (version 3.1 or higher) [http://eigen.tuxfamily.org]
