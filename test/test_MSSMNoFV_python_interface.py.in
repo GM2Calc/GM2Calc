@@ -12,7 +12,7 @@ includepath = os.path.join(gm2calcpath,"include")
 testpath = os.path.join(gm2calcpath,"test")
 cppyy.add_include_path(includepath)
 cppyy.add_include_path(testpath)
-    
+
 # Add Eigen3/Core directory to path
 eigen3path = "@EIGEN3_INCLUDE_DIR@"
 cppyy.add_include_path(eigen3path)
@@ -66,7 +66,7 @@ Pi = 3.141592653589793
 point = gm2calc.MSSMNoFV_onshell()
 point.set_alpha_MZ(0.00775531)
 point.set_alpha_thompson(0.00729735)
-point.set_g3(std.sqrt(4. * Pi * 0.1184))    
+point.set_g3(std.sqrt(4. * Pi * 0.1184))
 point.get_physical().MVWm = 80.385
 point.get_physical().MVZ  = 91.1876
 point.get_physical().Mhh  = 125.09
@@ -85,29 +85,29 @@ point.get_physical().MChi[2] = -5.16529941*10**(2)
 point.get_physical().MChi[3] =  5.45628749*10**(2)
 point.get_physical().MCha[0] =  4.0998989*10**(2)
 point.get_physical().MCha[1] =  5.46057190*10**(2)
-point.get_physical().MAh[1]  =  1500.                            
-point.set_TB(40.)                            
-point.set_Mu(500.) 
-point.set_MassB(200.)                   
-point.set_MassWB(400.)                 
-point.set_MassG(2000.)      
-point.set_mq2(0, 0, 7000 * 7000)  
-point.set_mq2(1, 1, 7000 * 7000) 
-point.set_mq2(2, 2, 7000 * 7000) 
-point.set_ml2(0, 0, 500 * 500)  
-point.set_ml2(1, 1, 500 * 500) 
-point.set_ml2(2, 2, 500 * 500) 
-point.set_mu2(0, 0, 7000 * 7000)  
-point.set_mu2(1, 1, 7000 * 7000) 
-point.set_mu2(2, 2, 7000 * 7000) 
-point.set_md2(0, 0, 7000 * 7000)  
-point.set_md2(1, 1, 7000 * 7000) 
-point.set_md2(2, 2, 7000 * 7000) 
-point.set_me2(0, 0, 500 * 500)  
-point.set_me2(1, 1, 500 * 500) 
-point.set_me2(2, 2, 500 * 500)      
-point.set_Au(Eigen.Matrix3d().setZero())                         
-point.set_Ad(Eigen.Matrix3d().setZero())                         
+point.get_physical().MAh[1]  =  1500.
+point.set_TB(40.)
+point.set_Mu(500.)
+point.set_MassB(200.)
+point.set_MassWB(400.)
+point.set_MassG(2000.)
+point.set_mq2(0, 0, 7000 * 7000)
+point.set_mq2(1, 1, 7000 * 7000)
+point.set_mq2(2, 2, 7000 * 7000)
+point.set_ml2(0, 0, 500 * 500)
+point.set_ml2(1, 1, 500 * 500)
+point.set_ml2(2, 2, 500 * 500)
+point.set_mu2(0, 0, 7000 * 7000)
+point.set_mu2(1, 1, 7000 * 7000)
+point.set_mu2(2, 2, 7000 * 7000)
+point.set_md2(0, 0, 7000 * 7000)
+point.set_md2(1, 1, 7000 * 7000)
+point.set_md2(2, 2, 7000 * 7000)
+point.set_me2(0, 0, 500 * 500)
+point.set_me2(1, 1, 500 * 500)
+point.set_me2(2, 2, 500 * 500)
+point.set_Au(Eigen.Matrix3d().setZero())
+point.set_Ad(Eigen.Matrix3d().setZero())
 point.set_Ae(Eigen.Matrix3d().setZero())
 point.set_scale(1000.)
 
@@ -117,13 +117,13 @@ point.convert_to_onshell()
 # check for warnings
 if point.get_problems().have_warning():
     print(point.get_problems().get_warnings())
-    
+
 # check for problems
 if point.get_problems().have_problem():
     print(point.get_problems().get_problems())
 
 try:
-    amu1L = gm2calc.calculate_amu_1loop(point) 
+    amu1L = gm2calc.calculate_amu_1loop(point)
     amu2L = gm2calc.calculate_amu_2loop(point)
     amu = amu1L + amu2L
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(point)
@@ -140,7 +140,7 @@ testclose(delta_amu,2.334226722205371*10.**(-10))
 point = gm2calc.MSSMNoFV_onshell()
 point.set_alpha_MZ(0.00775531)
 point.set_alpha_thompson(0.00729735)
-point.set_g3(std.sqrt(4. * Pi * 0.1184))     
+point.set_g3(std.sqrt(4. * Pi * 0.1184))
 point.get_physical().MVWm = 80.385
 point.get_physical().MVZ  = 91.1876
 point.get_physical().Mhh  = 125.09
@@ -151,35 +151,35 @@ point.get_physical().MFm  = 0.1056583715
 
 # Setup the point information
 point.get_physical().MAh[1] = 1500.
-point.set_TB(10.)                            
-point.set_Mu(350.) 
-point.set_MassB(150.)                   
-point.set_MassWB(300.)                 
-point.set_MassG(1000.)    
-point.set_mq2(0, 0, 500 * 500)  
-point.set_mq2(1, 1, 500 * 500) 
-point.set_mq2(2, 2, 500 * 500)    
-point.set_ml2(0, 0, 500 * 500)  
-point.set_ml2(1, 1, 500 * 500) 
-point.set_ml2(2, 2, 500 * 500)    
-point.set_mu2(0, 0, 500 * 500)  
-point.set_mu2(1, 1, 500 * 500) 
-point.set_mu2(2, 2, 500 * 500)    
-point.set_md2(0, 0, 500 * 500)  
-point.set_md2(1, 1, 500 * 500) 
-point.set_md2(2, 2, 500 * 500)    
-point.set_me2(0, 0, 500 * 500)  
-point.set_me2(1, 1, 500 * 500) 
-point.set_me2(2, 2, 500 * 500)           
-point.set_Au(Eigen.Matrix3d().setZero())                         
-point.set_Ad(Eigen.Matrix3d().setZero())                         
+point.set_TB(10.)
+point.set_Mu(350.)
+point.set_MassB(150.)
+point.set_MassWB(300.)
+point.set_MassG(1000.)
+point.set_mq2(0, 0, 500 * 500)
+point.set_mq2(1, 1, 500 * 500)
+point.set_mq2(2, 2, 500 * 500)
+point.set_ml2(0, 0, 500 * 500)
+point.set_ml2(1, 1, 500 * 500)
+point.set_ml2(2, 2, 500 * 500)
+point.set_mu2(0, 0, 500 * 500)
+point.set_mu2(1, 1, 500 * 500)
+point.set_mu2(2, 2, 500 * 500)
+point.set_md2(0, 0, 500 * 500)
+point.set_md2(1, 1, 500 * 500)
+point.set_md2(2, 2, 500 * 500)
+point.set_me2(0, 0, 500 * 500)
+point.set_me2(1, 1, 500 * 500)
+point.set_me2(2, 2, 500 * 500)
+point.set_Au(Eigen.Matrix3d().setZero())
+point.set_Ad(Eigen.Matrix3d().setZero())
 point.set_Ae(Eigen.Matrix3d().setZero())
 point.set_scale(454.7)
 
 # check for warnings
 if point.get_problems().have_warning():
     print(point.get_problems().get_warnings())
-    
+
 # check for problems
 if point.get_problems().have_problem():
     print(point.get_problems().get_problems())
@@ -187,7 +187,7 @@ if point.get_problems().have_problem():
 try:
     # calculate mass spectrum
     point.calculate_masses()
-    amu1L = gm2calc.calculate_amu_1loop(point) 
+    amu1L = gm2calc.calculate_amu_1loop(point)
     amu2L = gm2calc.calculate_amu_2loop(point)
     amu = amu1L + amu2L
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(point)
@@ -204,7 +204,7 @@ testclose(delta_amu,2.309099582759784*10.**(-10))
 point = gm2calc.MSSMNoFV_onshell()
 point.set_alpha_MZ(0.00775531)
 point.set_alpha_thompson(0.00729735)
-point.set_g3(std.sqrt(4. * Pi * 0.1184))    
+point.set_g3(std.sqrt(4. * Pi * 0.1184))
 point.get_physical().MVWm = 80.385
 point.get_physical().MVZ  = 91.1876
 point.get_physical().Mhh  = 125.09
@@ -215,35 +215,35 @@ point.get_physical().MFm  = 0.1056583715
 
 # Setup the point information
 point.get_physical().MAh[1] = 1500.
-point.set_TB(1000.)                            
-point.set_Mu(30000.) 
-point.set_MassB(1000.)                   
-point.set_MassWB(-30000.)                 
-point.set_MassG(2000.)  
-point.set_mq2(0, 0, 3000 * 3000)  
-point.set_mq2(1, 1, 3000 * 3000) 
-point.set_mq2(2, 2, 3000 * 3000)    
-point.set_ml2(0, 0, 5 * 5)  
-point.set_ml2(1, 1, 5 * 5) 
-point.set_ml2(2, 2, 5 * 5)    
-point.set_mu2(0, 0, 3000 * 3000)  
-point.set_mu2(1, 1, 3000 * 3000) 
-point.set_mu2(2, 2, 3000 * 3000)    
-point.set_md2(0, 0, 3000 * 3000)  
-point.set_md2(1, 1, 3000 * 3000) 
-point.set_md2(2, 2, 3000 * 3000)    
-point.set_me2(0, 0, 1000 * 1000)  
-point.set_me2(1, 1, 1000 * 1000) 
-point.set_me2(2, 2, 3000 * 3000)                    
-point.set_Au(Eigen.Matrix3d().setZero())                         
-point.set_Ad(Eigen.Matrix3d().setZero())                         
+point.set_TB(1000.)
+point.set_Mu(30000.)
+point.set_MassB(1000.)
+point.set_MassWB(-30000.)
+point.set_MassG(2000.)
+point.set_mq2(0, 0, 3000 * 3000)
+point.set_mq2(1, 1, 3000 * 3000)
+point.set_mq2(2, 2, 3000 * 3000)
+point.set_ml2(0, 0, 5 * 5)
+point.set_ml2(1, 1, 5 * 5)
+point.set_ml2(2, 2, 5 * 5)
+point.set_mu2(0, 0, 3000 * 3000)
+point.set_mu2(1, 1, 3000 * 3000)
+point.set_mu2(2, 2, 3000 * 3000)
+point.set_md2(0, 0, 3000 * 3000)
+point.set_md2(1, 1, 3000 * 3000)
+point.set_md2(2, 2, 3000 * 3000)
+point.set_me2(0, 0, 1000 * 1000)
+point.set_me2(1, 1, 1000 * 1000)
+point.set_me2(2, 2, 3000 * 3000)
+point.set_Au(Eigen.Matrix3d().setZero())
+point.set_Ad(Eigen.Matrix3d().setZero())
 point.set_Ae(Eigen.Matrix3d().setZero())
 point.set_scale(866.360379)
 
 try:
     # calculate mass spectrum
     point.calculate_masses()
-    amu1L = gm2calc.calculate_amu_1loop(point) 
+    amu1L = gm2calc.calculate_amu_1loop(point)
     amu2L = gm2calc.calculate_amu_2loop(point)
     amu = amu1L + amu2L
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(point)
@@ -259,7 +259,7 @@ except gm2calc.Error as e:
 point = gm2calc.MSSMNoFV_onshell()
 point.set_alpha_MZ(0.00775531)
 point.set_alpha_thompson(0.00729735)
-point.set_g3(std.sqrt(4. * Pi * 0.1184))    
+point.set_g3(std.sqrt(4. * Pi * 0.1184))
 point.get_physical().MVWm = 80.385
 point.get_physical().MVZ  = 91.1876
 point.get_physical().Mhh  = 125.09
@@ -270,35 +270,35 @@ point.get_physical().MFm  = 0.1056583715
 
 # Setup the point information
 point.get_physical().MAh[1] = 1500.
-point.set_TB(1000.)                            
-point.set_Mu(30000.) 
-point.set_MassB(1000.)                   
-point.set_MassWB(-30000.)                 
-point.set_MassG(2000.)      
-point.set_mq2(0, 0, 3000 * 3000)  
-point.set_mq2(1, 1, 3000 * 3000) 
-point.set_mq2(2, 2, 3000 * 3000) 
-point.set_ml2(0, 0, 1000 * 1000)  
-point.set_ml2(1, 1, 1000 * 1000) 
-point.set_ml2(2, 2, 3000 * 3000) 
-point.set_mu2(0, 0, 3000 * 3000)  
-point.set_mu2(1, 1, 3000 * 3000) 
-point.set_mu2(2, 2, 3000 * 3000) 
-point.set_md2(0, 0, 3000 * 3000)  
-point.set_md2(1, 1, 3000 * 3000) 
-point.set_md2(2, 2, 3000 * 3000) 
-point.set_me2(0, 0, 1000 * 1000)  
-point.set_me2(1, 1, 1000 * 1000) 
-point.set_me2(2, 2, 3000 * 3000)       
-point.set_Au(Eigen.Matrix3d().setZero())                         
-point.set_Ad(Eigen.Matrix3d().setZero())                         
+point.set_TB(1000.)
+point.set_Mu(30000.)
+point.set_MassB(1000.)
+point.set_MassWB(-30000.)
+point.set_MassG(2000.)
+point.set_mq2(0, 0, 3000 * 3000)
+point.set_mq2(1, 1, 3000 * 3000)
+point.set_mq2(2, 2, 3000 * 3000)
+point.set_ml2(0, 0, 1000 * 1000)
+point.set_ml2(1, 1, 1000 * 1000)
+point.set_ml2(2, 2, 3000 * 3000)
+point.set_mu2(0, 0, 3000 * 3000)
+point.set_mu2(1, 1, 3000 * 3000)
+point.set_mu2(2, 2, 3000 * 3000)
+point.set_md2(0, 0, 3000 * 3000)
+point.set_md2(1, 1, 3000 * 3000)
+point.set_md2(2, 2, 3000 * 3000)
+point.set_me2(0, 0, 1000 * 1000)
+point.set_me2(1, 1, 1000 * 1000)
+point.set_me2(2, 2, 3000 * 3000)
+point.set_Au(Eigen.Matrix3d().setZero())
+point.set_Ad(Eigen.Matrix3d().setZero())
 point.set_Ae(Eigen.Matrix3d().setZero())
 point.set_scale(866.360379)
 
 try:
     # calculate mass spectrum
     point.calculate_masses()
-    amu1L = gm2calc.calculate_amu_1loop_non_tan_beta_resummed(point) 
+    amu1L = gm2calc.calculate_amu_1loop_non_tan_beta_resummed(point)
     amu2L = gm2calc.calculate_amu_2loop_non_tan_beta_resummed(point)
     amu = amu1L + amu2L
     delta_amu = gm2calc.calculate_uncertainty_amu_2loop(point)
@@ -313,5 +313,3 @@ print()
 print("Passed tests: ["+str(passed)+"/"+str(passed+errors)+"]")
 
 exit(errors)
-
-
