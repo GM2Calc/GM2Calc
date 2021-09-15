@@ -1,0 +1,508 @@
+#!/usr/bin/env python
+
+from __future__ import print_function
+import os
+from math import isclose
+
+import cppyy
+
+gm2calcpath = "@PROJECT_SOURCE_DIR@"
+# Add gm2calc headers to path
+includepath = os.path.join(gm2calcpath,"include")
+testpath = os.path.join(gm2calcpath,"test")
+cppyy.add_include_path(includepath)
+cppyy.add_include_path(testpath)
+
+# Add Eigen3/Core directory to path
+eigen3path = "@EIGEN3_INCLUDE_DIR@"
+cppyy.add_include_path(eigen3path)
+
+cppyy.include(os.path.join("gm2calc","gm2_1loop.hpp"))
+cppyy.include(os.path.join("gm2calc","gm2_2loop.hpp"))
+cppyy.include(os.path.join("gm2calc","gm2_uncertainty.hpp"))
+cppyy.include(os.path.join("gm2calc","gm2_error.hpp"))
+cppyy.include(os.path.join("gm2calc","THDM.hpp"))
+cppyy.include(os.path.join("gm2calc","SM.hpp"))
+
+# Load library containing gm2calc definitions
+librarypath = "@CMAKE_LIBRARY_OUTPUT_DIRECTORY@"
+cppyy.add_library_path(librarypath)
+cppyy.load_library("libgm2calc")
+
+cppyy.cppdef("#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN 1")
+
+cppyy.include("doctest.h")
+
+# Load data types
+from cppyy.gbl import std
+from cppyy.gbl import Eigen
+
+from cppyy.gbl import gm2calc
+from cppyy.gbl.gm2calc import SM
+from cppyy.gbl.gm2calc import THDM
+from cppyy.gbl.gm2calc import Error
+
+passed = 0
+errors = 0
+
+def testclose(val1,val2,rel_tol=10**(-9)):
+    global passed, errors
+    try:
+        if not(isclose(val1,val2,rel_tol=rel_tol)):
+            print("Error: values are not equal:",str(val1),"=!=",str(val2))
+            errors += 1
+        else:
+            passed += 1
+    except TypeError:
+        print("Non-numeric value found: val1 =",str(val1),"val2 =",str(val2))
+        errors += 1
+
+def testequal(expr1,expr2):
+    global passed, errors
+    if expr1 is expr2:
+        passed += 1
+    else:
+        print("Error: expressions are not equal:",str(expr1),"is not",str(expr2))
+        errors += 1
+
+# THDM mass basis point for type I
+
+# Setup the SM parameters
+sm = gm2calc.SM()
+sm.set_alpha_em_mz(1.0/128.94579)
+sm.set_alpha_em_0(0.00729735)
+sm.set_alpha_s_mz(0.1184)
+sm.set_mw(80.385)
+sm.set_mz(91.1876)
+sm.set_mh(125.09)
+sm.set_mu(2,173.34)
+sm.set_mu(1,1.28)
+sm.set_mu(0,0.0022)
+sm.set_md(2,4.18)
+sm.set_md(1,0.096)
+sm.set_md(0,0.0047)
+sm.set_ml(2,1.77684)
+sm.set_ml(1,0.1056583715)
+sm.set_ml(0,0.000510998928)
+sm.set_mv(2,0.)
+sm.set_mv(1,0.)
+sm.set_mv(0,0.)
+sm.set_ckm(Eigen.Matrix3d().Identity())
+
+# Setup the point information
+basis = gm2calc.thdm.Mass_basis()
+basis.yukawa_type = gm2calc.thdm.Yukawa_type.type_1
+basis.mh = 125.
+basis.mH = 400.
+basis.mA = 420.
+basis.mHp = 440.
+basis.sin_beta_minus_alpha = 0.999
+basis.lambda_6 = 0.2
+basis.lambda_7 = 0.1
+basis.tan_beta = 3.
+basis.m122 = 40000.
+basis.zeta_u = 0.
+basis.zeta_d = 0.
+basis.zeta_l = 0.
+basis.Pi_u = Eigen.Matrix3d().setZero()
+basis.Pi_d = Eigen.Matrix3d().setZero()
+basis.Pi_l = Eigen.Matrix3d().setZero()
+
+config = gm2calc.thdm.Config()
+config.force_output = False;
+config.running_couplings = False
+
+try:
+    model = gm2calc.THDM(basis,sm,config)
+    amu1L = gm2calc.calculate_amu_1loop(model)
+    amu2Lf = gm2calc.calculate_amu_2loop_fermionic(model)
+    amu2Lb = gm2calc.calculate_amu_2loop_bosonic(model)
+    amu = amu1L + amu2Lf + amu2Lb
+    delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
+except gm2calc.Error as e:
+    print(e.what())
+
+testclose(amu,-5.867433445099365*10.**(-12))
+testclose(amu1L,6.12624332*10.**(-16))
+testclose(delta_amu,2.47743777*10.**(-12))
+
+
+# THDM mass basis point for type II
+
+# Setup the SM parameters
+sm = gm2calc.SM()
+sm.set_alpha_em_mz(1.0/128.94579)
+sm.set_alpha_em_0(0.00729735)
+sm.set_alpha_s_mz(0.1184)
+sm.set_mw(80.385)
+sm.set_mz(91.1876)
+sm.set_mh(125.09)
+sm.set_mu(2,173.34)
+sm.set_mu(1,1.28)
+sm.set_mu(0,0.0022)
+sm.set_md(2,4.18)
+sm.set_md(1,0.096)
+sm.set_md(0,0.0047)
+sm.set_ml(2,1.77684)
+sm.set_ml(1,0.1056583715)
+sm.set_ml(0,0.000510998928)
+sm.set_mv(2,0.)
+sm.set_mv(1,0.)
+sm.set_mv(0,0.)
+sm.set_ckm(Eigen.Matrix3d().Identity())
+
+# Setup the point information
+basis = gm2calc.thdm.Mass_basis()
+basis.yukawa_type = gm2calc.thdm.Yukawa_type.type_2
+basis.mh = 125.
+basis.mH = 400.
+basis.mA = 420.
+basis.mHp = 440.
+basis.sin_beta_minus_alpha = 0.999
+basis.lambda_6 = 0.2
+basis.lambda_7 = 0.1
+basis.tan_beta = 3.
+basis.m122 = 40000.
+basis.zeta_u = 0.
+basis.zeta_d = 0.
+basis.zeta_l = 0.
+basis.Pi_u = Eigen.Matrix3d().setZero()
+basis.Pi_d = Eigen.Matrix3d().setZero()
+basis.Pi_l = Eigen.Matrix3d().setZero()
+
+config = gm2calc.thdm.Config()
+config.force_output = False;
+config.running_couplings = False
+
+try:
+    model = gm2calc.THDM(basis,sm,config)
+    amu1L = gm2calc.calculate_amu_1loop(model)
+    amu2Lf = gm2calc.calculate_amu_2loop_fermionic(model)
+    amu2Lb = gm2calc.calculate_amu_2loop_bosonic(model)
+    amu = amu1L + amu2Lf + amu2Lb
+    delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
+except gm2calc.Error as e:
+    print(e.what())
+
+testclose(amu,1.8787546646721519*10.**(-11))
+testclose(amu1L,-2.21199808*10.**(-15),10**(-7))
+testclose(delta_amu,3.52879849*10.**(-12))
+
+
+# THDM mass basis point for type X
+
+# Setup the SM parameters
+sm = gm2calc.SM()
+sm.set_alpha_em_mz(1.0/128.94579)
+sm.set_alpha_em_0(0.00729735)
+sm.set_alpha_s_mz(0.1184)
+sm.set_mw(80.385)
+sm.set_mz(91.1876)
+sm.set_mh(125.09)
+sm.set_mu(2,173.34)
+sm.set_mu(1,1.28)
+sm.set_mu(0,0.0022)
+sm.set_md(2,4.18)
+sm.set_md(1,0.096)
+sm.set_md(0,0.0047)
+sm.set_ml(2,1.77684)
+sm.set_ml(1,0.1056583715)
+sm.set_ml(0,0.000510998928)
+sm.set_mv(2,0.)
+sm.set_mv(1,0.)
+sm.set_mv(0,0.)
+sm.set_ckm(Eigen.Matrix3d().Identity())
+
+# Setup the point information
+basis = gm2calc.thdm.Mass_basis()
+basis.yukawa_type = gm2calc.thdm.Yukawa_type.type_X
+basis.mh = 125.
+basis.mH = 400.
+basis.mA = 420.
+basis.mHp = 440.
+basis.sin_beta_minus_alpha = 0.999
+basis.lambda_6 = 0.2
+basis.lambda_7 = 0.1
+basis.tan_beta = 3.
+basis.m122 = 40000.
+basis.zeta_u = 0.
+basis.zeta_d = 0.
+basis.zeta_l = 0.
+basis.Pi_u = Eigen.Matrix3d().setZero()
+basis.Pi_d = Eigen.Matrix3d().setZero()
+basis.Pi_l = Eigen.Matrix3d().setZero()
+
+config = gm2calc.thdm.Config()
+config.force_output = False;
+config.running_couplings = False
+
+try:
+    model = gm2calc.THDM(basis,sm,config)
+    amu1L = gm2calc.calculate_amu_1loop(model)
+    amu2Lf = gm2calc.calculate_amu_2loop_fermionic(model)
+    amu2Lb = gm2calc.calculate_amu_2loop_bosonic(model)
+    amu = amu1L + amu2Lf + amu2Lb
+    delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
+except gm2calc.Error as e:
+    print(e.what())
+
+testclose(amu,1.8762630021293123*10.**(-11))
+testclose(amu1L,-2.21199808*10.**(-15),10**(-7))
+testclose(delta_amu,3.52677143*10.**(-12))
+
+
+# THDM mass basis point for type Y
+
+# Setup the SM parameters
+sm = gm2calc.SM()
+sm.set_alpha_em_mz(1.0/128.94579)
+sm.set_alpha_em_0(0.00729735)
+sm.set_alpha_s_mz(0.1184)
+sm.set_mw(80.385)
+sm.set_mz(91.1876)
+sm.set_mh(125.09)
+sm.set_mu(2,173.34)
+sm.set_mu(1,1.28)
+sm.set_mu(0,0.0022)
+sm.set_md(2,4.18)
+sm.set_md(1,0.096)
+sm.set_md(0,0.0047)
+sm.set_ml(2,1.77684)
+sm.set_ml(1,0.1056583715)
+sm.set_ml(0,0.000510998928)
+sm.set_mv(2,0.)
+sm.set_mv(1,0.)
+sm.set_mv(0,0.)
+sm.set_ckm(Eigen.Matrix3d().Identity())
+
+# Setup the point information
+basis = gm2calc.thdm.Mass_basis()
+basis.yukawa_type = gm2calc.thdm.Yukawa_type.type_Y
+basis.mh = 125.
+basis.mH = 400.
+basis.mA = 420.
+basis.mHp = 440.
+basis.sin_beta_minus_alpha = 0.999
+basis.lambda_6 = 0.2
+basis.lambda_7 = 0.1
+basis.tan_beta = 3.
+basis.m122 = 40000.
+basis.zeta_u = 0.
+basis.zeta_d = 0.
+basis.zeta_l = 0.
+basis.Pi_u = Eigen.Matrix3d().setZero()
+basis.Pi_d = Eigen.Matrix3d().setZero()
+basis.Pi_l = Eigen.Matrix3d().setZero()
+
+config = gm2calc.thdm.Config()
+config.force_output = False;
+config.running_couplings = False
+
+try:
+    model = gm2calc.THDM(basis,sm,config)
+    amu1L = gm2calc.calculate_amu_1loop(model)
+    amu2Lf = gm2calc.calculate_amu_2loop_fermionic(model)
+    amu2Lb = gm2calc.calculate_amu_2loop_bosonic(model)
+    amu = amu1L + amu2Lf + amu2Lb
+    delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
+except gm2calc.Error as e:
+    print(e.what())
+
+testclose(amu,-5.857908763806516*10.**(-12))
+testclose(amu1L,6.12624332*10.**(-16))
+testclose(delta_amu,2.47666290*10.**(-12))
+
+
+# THDM mass basis point for flavour-aligned THDM
+
+# Setup the SM parameters
+sm = gm2calc.SM()
+sm.set_alpha_em_mz(1.0/128.94579)
+sm.set_alpha_em_0(0.00729735)
+sm.set_alpha_s_mz(0.1184)
+sm.set_mw(80.385)
+sm.set_mz(91.1876)
+sm.set_mh(125.09)
+sm.set_mu(2,173.34)
+sm.set_mu(1,1.28)
+sm.set_mu(0,0.0022)
+sm.set_md(2,4.18)
+sm.set_md(1,0.096)
+sm.set_md(0,0.0047)
+sm.set_ml(2,1.77684)
+sm.set_ml(1,0.1056583715)
+sm.set_ml(0,0.000510998928)
+sm.set_mv(2,0.)
+sm.set_mv(1,0.)
+sm.set_mv(0,0.)
+sm.set_ckm(Eigen.Matrix3d().Identity())
+
+# Setup the point information
+basis = gm2calc.thdm.Mass_basis()
+basis.yukawa_type = gm2calc.thdm.Yukawa_type.aligned
+basis.mh = 125.
+basis.mH = 400.
+basis.mA = 420.
+basis.mHp = 440.
+basis.sin_beta_minus_alpha = 0.999
+basis.lambda_6 = 0.2
+basis.lambda_7 = 0.1
+basis.tan_beta = 3.
+basis.m122 = 40000.
+basis.zeta_u = 1.
+basis.zeta_d = 2.
+basis.zeta_l = 3.
+basis.Delta_u = Eigen.Matrix3d().setZero()
+basis.Delta_d = Eigen.Matrix3d().setZero()
+basis.Delta_l = Eigen.Matrix3d().setZero()
+basis.Delta_u[4] = 0.1
+basis.Delta_d[4] = 0.2
+basis.Delta_l[4] = 0.3
+
+config = gm2calc.thdm.Config()
+config.force_output = False;
+config.running_couplings = False
+
+try:
+    model = gm2calc.THDM(basis,sm,config)
+    amu1L = gm2calc.calculate_amu_1loop(model)
+    amu2Lf = gm2calc.calculate_amu_2loop_fermionic(model)
+    amu2Lb = gm2calc.calculate_amu_2loop_bosonic(model)
+    amu = amu1L + amu2Lf + amu2Lb
+    delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
+except gm2calc.Error as e:
+    print(e.what())
+
+testclose(amu,-1.23943792*10.**(-8))
+testclose(amu1L,8.28686099*10.**(-11))
+testclose(delta_amu,1.02381338*10.**(-9))
+
+
+# THDM mass basis point for general THDM
+
+# Setup the SM parameters
+sm = gm2calc.SM()
+sm.set_alpha_em_mz(1.0/128.94579)
+sm.set_alpha_em_0(0.00729735)
+sm.set_alpha_s_mz(0.1184)
+sm.set_mw(80.385)
+sm.set_mz(91.1876)
+sm.set_mh(125.09)
+sm.set_mu(2,173.34)
+sm.set_mu(1,1.28)
+sm.set_mu(0,0.0022)
+sm.set_md(2,4.18)
+sm.set_md(1,0.096)
+sm.set_md(0,0.0047)
+sm.set_ml(2,1.77684)
+sm.set_ml(1,0.1056583715)
+sm.set_ml(0,0.000510998928)
+sm.set_mv(2,0.)
+sm.set_mv(1,0.)
+sm.set_mv(0,0.)
+sm.set_ckm(Eigen.Matrix3d().Identity())
+
+# Setup the point information
+basis = gm2calc.thdm.Mass_basis()
+basis.yukawa_type = gm2calc.thdm.Yukawa_type.general
+basis.mh = 125.
+basis.mH = 400.
+basis.mA = 420.
+basis.mHp = 440.
+basis.sin_beta_minus_alpha = 0.999
+basis.lambda_6 = 0.2
+basis.lambda_7 = 0.1
+basis.tan_beta = 3.
+basis.m122 = 40000.
+basis.Pi_u = Eigen.Matrix3d().setZero()
+basis.Pi_d = Eigen.Matrix3d().setZero()
+basis.Pi_l = Eigen.Matrix3d().setZero()
+basis.Pi_u[4] = 0.1
+basis.Pi_d[4] = 0.2
+basis.Pi_l[4] = 0.3
+
+config = gm2calc.thdm.Config()
+config.force_output = False;
+config.running_couplings = False
+
+try:
+    model = gm2calc.THDM(basis,sm,config)
+    amu1L = gm2calc.calculate_amu_1loop(model)
+    amu2Lf = gm2calc.calculate_amu_2loop_fermionic(model)
+    amu2Lb = gm2calc.calculate_amu_2loop_bosonic(model)
+    amu = amu1L + amu2Lf + amu2Lb
+    delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
+except gm2calc.Error as e:
+    print(e.what())
+
+testclose(amu,1.1234764842312642*10.**(-7))
+testclose(amu1L,8.096409030210353*10.**(-10))
+testclose(delta_amu,9.141909743537708*10.**(-9))
+
+
+# THDM gauge basis point for type II
+
+# Setup the SM parameters
+sm = gm2calc.SM()
+sm.set_alpha_em_mz(1.0/128.94579)
+sm.set_alpha_em_0(0.00729735)
+sm.set_alpha_s_mz(0.1184)
+sm.set_mw(80.385)
+sm.set_mz(91.1876)
+sm.set_mh(125.09)
+sm.set_mu(2,173.34)
+sm.set_mu(1,1.28)
+sm.set_mu(0,0.0022)
+sm.set_md(2,4.18)
+sm.set_md(1,0.096)
+sm.set_md(0,0.0047)
+sm.set_ml(2,1.77684)
+sm.set_ml(1,0.1056583715)
+sm.set_ml(0,0.000510998928)
+sm.set_mv(2,0.)
+sm.set_mv(1,0.)
+sm.set_mv(0,0.)
+sm.set_ckm(Eigen.Matrix3d().Identity())
+
+# Setup the point information
+basis = gm2calc.thdm.Gauge_basis()
+basis.yukawa_type = gm2calc.thdm.Yukawa_type.type_2
+# lambda is a reserved keyword, so we have to get creative
+Matrix7d = Eigen.Matrix('double',7,1)
+lam = Matrix7d().setZero()
+lam[0] = 0.7
+lam[1] = 0.6
+lam[2] = 0.5
+lam[3] = 0.4
+lam[4] = 0.3
+lam[5] = 0.2
+lam[6] = 0.1
+basis.__setattr__('lambda',lam)
+basis.tan_beta = 3.
+basis.m122 = 40000.
+basis.Pi_u = Eigen.Matrix3d().setZero()
+basis.Pi_d = Eigen.Matrix3d().setZero()
+basis.Pi_l = Eigen.Matrix3d().setZero()
+
+config = gm2calc.thdm.Config()
+config.force_output = False;
+config.running_couplings = False
+
+try:
+    model = gm2calc.THDM(basis,sm,config)
+    amu1L = gm2calc.calculate_amu_1loop(model)
+    amu2Lf = gm2calc.calculate_amu_2loop_fermionic(model)
+    amu2Lb = gm2calc.calculate_amu_2loop_bosonic(model)
+    amu = amu1L + amu2Lf + amu2Lb
+    delta_amu = gm2calc.calculate_uncertainty_amu_2loop(model)
+except gm2calc.Error as e:
+    print(e.what())
+
+testclose(amu,3.2720909955357482*10.**(-11))
+
+
+print()
+print("Passed tests: ["+str(passed)+"/"+str(passed+errors)+"]")
+
+# Return an exit code
+exit(errors)

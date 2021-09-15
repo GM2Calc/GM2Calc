@@ -48,3 +48,21 @@ if(Mathematica_MathLink_FOUND)
     TARGET gm2calc.mx
     SCRIPT test_mathlink_interface.m)
 endif()
+
+# test Python scripts
+if(Python_INTERFACE)
+  configure_file(${PROJECT_SOURCE_DIR}/test/test_THDM_python_interface.py.in 
+                 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test_THDM_python_interface.py 
+                 @ONLY)
+  add_test(
+    NAME test_THDM_python_interface
+    COMMAND ${Python3_EXECUTABLE} test_THDM_python_interface.py 
+    WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+  configure_file(${PROJECT_SOURCE_DIR}/test/test_MSSMNoFV_python_interface.py.in 
+                 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test_MSSMNoFV_python_interface.py 
+                 @ONLY)
+  add_test(
+    NAME test_MSSMNoFV_python_interface
+    COMMAND ${Python3_EXECUTABLE} test_MSSMNoFV_python_interface.py 
+    WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+endif()
