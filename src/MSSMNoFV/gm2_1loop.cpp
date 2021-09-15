@@ -117,11 +117,11 @@ double amu1LChipm(const MSSMNoFV_onshell& model)
 
    for (int k = 0; k < 2; ++k) {
       result +=
-         AAC_(k) * F1C(x(k)) / (12. * sqr(MSvm)) +
-         MCha(k) * BBC_(k) * F2C(x(k)) / (3. * model.get_MM() * sqr(MSvm));
+         AAC_(k) * F1C(x(k)) / 12 +
+         MCha(k) * BBC_(k) * F2C(x(k)) / (3 * model.get_MM());
    }
 
-   return result * sqr(model.get_MM()) * oneOver16PiSqr;
+   return result * sqr(model.get_MM()/MSvm) * oneOver16PiSqr;
 }
 
 /**
@@ -188,10 +188,10 @@ Eigen::Array<std::complex<double>,2,1> c_L(const MSSMNoFV_onshell& model)
    Eigen::Array<std::complex<double>,2,1> result;
 
    for (int k = 0; k < 2; ++k) {
-      result(k) = -g2 * std::conj(UP(k, 0));
+      result(k) = std::conj(UP(k, 0));
    }
 
-   return result;
+   return -g2 * result;
 }
 
 /**
@@ -208,10 +208,10 @@ Eigen::Array<std::complex<double>,2,1> c_R(const MSSMNoFV_onshell& model)
    Eigen::Array<std::complex<double>,2,1> result;
 
    for (int k = 0; k < 2; ++k) {
-      result(k) = ymu * UM(k, 1);
+      result(k) = UM(k, 1);
    }
 
-   return result;
+   return ymu * result;
 }
 
 /**
