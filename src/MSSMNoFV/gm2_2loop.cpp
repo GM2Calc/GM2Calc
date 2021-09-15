@@ -303,19 +303,19 @@ double amu2LChipmPhotonic(const MSSMNoFV_onshell& model)
    const Eigen::Array<double,2,1> BBC_(BBC(model));
    const Eigen::Array<double,2,1>& MCha(model.get_MCha());
    const double MSvmL = model.get_MSvmL();
-   const Eigen::Array<double,2,1> x__k(x_k(model));
+   const Eigen::Array<double,2,1> x(x_k(model));
    const double Q = model.get_scale();
 
    double result = 0.;
 
    for (int k = 0; k < 2; k++) {
-      result += (AAC_(k) * F1C(x__k(k)) / 12.
-                 + MCha(k) / 3. * BBC_(k) / model.get_MM() * F2C(x__k(k)))
+      result += (AAC_(k) * F1C(x(k)) / 12.
+                 + MCha(k) / 3. * BBC_(k) / model.get_MM() * F2C(x(k)))
                     * 16. * std::log(MM / MSvmL)
-                  - 47. * AAC_(k) * F3C(x__k(k)) / 72.
-                  - 61. * MCha(k) / 9. * BBC_(k) / model.get_MM() * F4C(x__k(k))
-                  - (0.5 * AAC_(k) * F1C(x__k(k))
-                     + MCha(k) * BBC_(k) / model.get_MM() * F2C(x__k(k)))
+                  - 47. * AAC_(k) * F3C(x(k)) / 72.
+                  - 61. * MCha(k) / 9. * BBC_(k) / model.get_MM() * F4C(x(k))
+                  - (0.5 * AAC_(k) * F1C(x(k))
+                     + MCha(k) * BBC_(k) / model.get_MM() * F2C(x(k)))
                     * std::log(sqr(MSvmL / Q));
    }
 
@@ -333,7 +333,7 @@ double amu2LChi0Photonic(const MSSMNoFV_onshell& model)
    const Eigen::Matrix<double,4,2> BBN_(BBN(model));
    const Eigen::Array<double,4,1>& MNeu(model.get_MChi());
    const Eigen::Array<double,2,1>& MSmu(model.get_MSm());
-   const Eigen::Matrix<double,4,2> x__im(x_im(model));
+   const Eigen::Matrix<double,4,2> x(x_im(model));
    const double Q = model.get_scale();
 
    double result = 0.;
@@ -341,12 +341,12 @@ double amu2LChi0Photonic(const MSSMNoFV_onshell& model)
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
          result += 1. / sqr(MSmu(m))
-                    * ((- 1. / 12. * AAN_(i, m) * F1N(x__im(i, m))
-                       - MNeu(i) / 6. * BBN_(i, m) / model.get_MM() * F2N(x__im(i, m)))
+                    * ((- 1. / 12. * AAN_(i, m) * F1N(x(i, m))
+                       - MNeu(i) / 6. * BBN_(i, m) / model.get_MM() * F2N(x(i, m)))
                         * 16. * std::log(MM / MSmu(m))
-                      + 35. / 72. * AAN_(i, m) * F3N(x__im(i, m))
-                      + 8. * MNeu(i) / 9. * BBN_(i, m) / model.get_MM() * F4N(x__im(i, m))
-                      + (0.25 * AAN_(i, m) * F1N(x__im(i, m)))
+                      + 35. / 72. * AAN_(i, m) * F3N(x(i, m))
+                      + 8. * MNeu(i) / 9. * BBN_(i, m) / model.get_MM() * F4N(x(i, m))
+                      + (0.25 * AAN_(i, m) * F1N(x(i, m)))
                        * std::log(sqr(MSmu(m) / Q)) );
       }
    }

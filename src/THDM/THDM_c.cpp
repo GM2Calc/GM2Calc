@@ -37,8 +37,8 @@ gm2calc::thdm::Config convert_to_config(const gm2calc_THDM_config* config)
    gm2calc::thdm::Config c;
 
    if (config != nullptr) {
-      c.force_output = config->force_output;
-      c.running_couplings = config->running_couplings;
+      c.force_output = config->force_output != 0;
+      c.running_couplings = config->running_couplings != 0;
    }
 
    return c;
@@ -202,7 +202,7 @@ gm2calc_error gm2calc_thdm_new_with_gauge_basis(
       return gm2calc_InvalidInput;
    }
 
-   gm2calc_error error;
+   gm2calc_error error = gm2calc_NoError;
 
    try {
       const auto c(gm2calc::convert_to_config(config));
@@ -244,7 +244,7 @@ gm2calc_error gm2calc_thdm_new_with_mass_basis(
       return gm2calc_InvalidInput;
    }
 
-   gm2calc_error error;
+   gm2calc_error error = gm2calc_NoError;
 
    try {
       const auto c(gm2calc::convert_to_config(config));
