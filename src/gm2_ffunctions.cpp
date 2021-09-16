@@ -505,12 +505,10 @@ double I2aac(double a, double b, double c) noexcept {
 
 /// I2abc(a,a,0), squared arguments, a != 0
 double I2aa0(double a, double b) noexcept {
-   const double a2 = sqr(a);
-   const double a3 = a2*a;
    const double ba = b - a;
-   const double ba2 = sqr(ba);
+   const double baa = ba/a;
 
-   return 1.0/a - ba/(2.0*a2) + ba2/(3.0*a3);
+   return (1 + baa*(-0.5 + baa/3))/a;
 }
 
 /// I2abc(0,b,c), squared arguments, b != c
