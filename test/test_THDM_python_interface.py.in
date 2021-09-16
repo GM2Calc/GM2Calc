@@ -4,9 +4,6 @@ from __future__ import print_function
 from gm2_python_interface import *
 from math import isclose
 
-testpath = os.path.join(gm2calcpath,"test")
-cppyy.add_include_path(testpath)
-
 cppyy.include(os.path.join("gm2calc","gm2_1loop.hpp"))
 cppyy.include(os.path.join("gm2calc","gm2_2loop.hpp"))
 cppyy.include(os.path.join("gm2calc","gm2_uncertainty.hpp"))
@@ -15,10 +12,6 @@ cppyy.include(os.path.join("gm2calc","THDM.hpp"))
 cppyy.include(os.path.join("gm2calc","SM.hpp"))
 
 cppyy.load_library("libgm2calc")
-
-cppyy.cppdef("#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN 1")
-
-cppyy.include("doctest.h")
 
 # Load data types
 from cppyy.gbl import std
