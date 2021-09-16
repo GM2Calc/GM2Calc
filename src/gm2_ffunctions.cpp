@@ -366,9 +366,15 @@ double Fbx(double x, double y) noexcept {
 } // anonymous namespace
 
 double Fb(double x, double y) noexcept {
-   if ((is_zero(x, eps) && is_zero(y, eps)) || is_zero(x, eps) ||
-       is_zero(y, eps)) {
-      return 0.0;
+   if (x < 0 || y < 0) {
+      ERROR("Fb: x and y must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   }
+
+   sort(x, y);
+
+   if (is_zero(x, eps) || is_zero(y, eps)) {
+      return 0;
    }
 
    if (is_equal(x, 1.0, 0.01) && is_equal(y, 1.0, 0.01)) {
