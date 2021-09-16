@@ -68,7 +68,7 @@ if(Mathematica_MathLink_FOUND)
   Mathematica_MathLink_ADD_EXECUTABLE(
     gm2calc.mx
     gm2calc.tm)
-  target_link_libraries(gm2calc.mx GM2Calc::GM2Calc)
+  target_link_libraries(gm2calc.mx PRIVATE GM2Calc::GM2Calc)
   target_include_directories(gm2calc.mx
     PRIVATE ${Mathematica_MathLink_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
   install(
