@@ -50,6 +50,11 @@ namespace {
       return is_zero(a - b, prec*(1.0 + max));
    }
 
+   void sort(double& x, double& y) noexcept
+   {
+      if (x > y) { std::swap(x, y); }
+   }
+
    void sort(double& x, double& y, double& z) noexcept
    {
       if (x > y) { std::swap(x, y); }
@@ -431,9 +436,15 @@ double Fax(double x, double y) noexcept {
 } // anonymous namespace
 
 double Fa(double x, double y) noexcept {
-   if ((is_zero(x, eps) && is_zero(y, eps)) || is_zero(x, eps) ||
-       is_zero(y, eps)) {
-      return 0.0;
+   if (x < 0 || y < 0) {
+      ERROR("Fa: x and y must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   }
+
+   sort(x, y);
+
+   if (is_zero(x, eps) || is_zero(y, eps)) {
+      return 0;
    }
 
    if (is_equal(x, 1.0, 0.001) && is_equal(y, 1.0, 0.001)) {
