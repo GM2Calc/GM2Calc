@@ -625,8 +625,8 @@ TEST_CASE("parametrizations")
    general_basis.Pi_d = cos_beta*(std::sqrt(2.0)*md/v*(zeta_d + tan_beta) + Delta_d);
    general_basis.Pi_l = cos_beta*(std::sqrt(2.0)*ml/v*(zeta_l + tan_beta) + Delta_l);
 
-   gm2calc::THDM aligned_thdm(aligned_basis, sm, config);
-   gm2calc::THDM general_thdm(general_basis, sm, config);
+   const gm2calc::THDM aligned_thdm(aligned_basis, sm, config);
+   const gm2calc::THDM general_thdm(general_basis, sm, config);
 
    const double aligned_amu = gm2calc::calculate_amu_1loop(aligned_thdm)
                             + gm2calc::calculate_amu_2loop_fermionic(aligned_thdm);
@@ -634,4 +634,60 @@ TEST_CASE("parametrizations")
                             + gm2calc::calculate_amu_2loop_fermionic(general_thdm);
 
    CHECK_CLOSE(aligned_amu*1e10, general_amu*1e10, 1e-10);
+}
+
+
+double calc_amu_for_type(gm2calc::thdm::Yukawa_type yukawa_type, double tan_beta,
+                         double zeta_u, double zeta_d, double zeta_l)
+{
+   gm2calc::thdm::Mass_basis basis;
+   basis.yukawa_type = yukawa_type;
+   basis.mh = 125;
+   basis.mH = 400;
+   basis.mA = 420;
+   basis.mHp = 440;
+   basis.sin_beta_minus_alpha = 0.995;
+   basis.tan_beta = tan_beta;
+   basis.m122 = 200*200;
+   basis.zeta_u = zeta_u;
+   basis.zeta_d = zeta_d;
+   basis.zeta_l = zeta_l;
+
+   const gm2calc::THDM thdm(basis);
+
+   return gm2calc::calculate_amu_1loop(thdm) + gm2calc::calculate_amu_2loop(thdm);
+}
+
+
+// This test checks that the type I, II, X, Y models are special cases
+// of the aligned THDM for specific choices of the zeta_f.
+TEST_CASE("alignment_limits")
+{
+   const double eps = 1e-14;
+   const double tan_beta = 3;
+   const double cot_beta = 1/tan_beta;
+
+   {
+      const auto type_1  = calc_amu_for_type(gm2calc::thdm::Yukawa_type::type_1 , tan_beta, 0, 0, 0);
+      const auto aligned = calc_amu_for_type(gm2calc::thdm::Yukawa_type::aligned, tan_beta, cot_beta, cot_beta, cot_beta);
+      CHECK_CLOSE(type_1*1e10, aligned*1e10, eps);
+   }
+
+   {
+      const auto type_2  = calc_amu_for_type(gm2calc::thdm::Yukawa_type::type_2 , tan_beta, 0, 0, 0);
+      const auto aligned = calc_amu_for_type(gm2calc::thdm::Yukawa_type::aligned, tan_beta, cot_beta, -tan_beta, -tan_beta);
+      CHECK_CLOSE(type_2*1e10, aligned*1e10, eps);
+   }
+
+   {
+      const auto type_X  = calc_amu_for_type(gm2calc::thdm::Yukawa_type::type_X , tan_beta, 0, 0, 0);
+      const auto aligned = calc_amu_for_type(gm2calc::thdm::Yukawa_type::aligned, tan_beta, cot_beta, cot_beta, -tan_beta);
+      CHECK_CLOSE(type_X*1e10, aligned*1e10, eps);
+   }
+
+   {
+      const auto type_Y  = calc_amu_for_type(gm2calc::thdm::Yukawa_type::type_Y , tan_beta, 0, 0, 0);
+      const auto aligned = calc_amu_for_type(gm2calc::thdm::Yukawa_type::aligned, tan_beta, cot_beta, -tan_beta, cot_beta);
+      CHECK_CLOSE(type_Y*1e10, aligned*1e10, eps);
+   }
 }

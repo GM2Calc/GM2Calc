@@ -638,7 +638,7 @@ provided by cppyy.
 To use the routines of GM2Calc in a python script, the following 
 folders and C++ header files have to be included:
 
-    `Eigen3 include folder`, may be /usr/include/eigen3/ or similar
+    `Eigen3 include folder`             # /usr/include/eigen3/ or similar
     include/                            # GM2Calc's include folder
     include/gm2calc/gm2_1loop.hpp
     include/gm2calc/gm2_2loop.hpp

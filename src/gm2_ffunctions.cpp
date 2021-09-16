@@ -480,9 +480,8 @@ double I2aaa(double a, double b, double c) noexcept {
    const double ba = b - a;
    const double ca = c - a;
    const double a2 = sqr(a);
-   const double a3 = a2*a;
 
-   return 0.5/a + (-ba - ca)/(6.0*a2) + (sqr(ba) + ba*ca + sqr(ca))/(12.0*a3);
+   return (0.5 - (ba + ca)/(6*a) + (sqr(ba) + ba*ca + sqr(ca))/(12*a2))/a;
 }
 
 /// I2abc(a,a,c), squared arguments, a != c
@@ -494,23 +493,19 @@ double I2aac(double a, double b, double c) noexcept {
    const double c2 = sqr(c);
    const double c3 = c2*c;
    const double ac2 = sqr(ac);
-   const double ac3 = ac2*ac;
-   const double ac4 = ac2*ac2;
+   const double baaca = ba/(a*ac);
    const double lac = std::log(a/c);
 
-   return (ac - c*lac)/ac2
-      + ba*(-a2 + c2 + 2*a*c*lac)/(2.0*a*ac3)
-      + sqr(ba)*((2*a3 + 3*a2*c - 6*a*c2 + c3 - 6*a2*c*lac)/(6.*a2*ac4));
+   return ((ac - c*lac) + baaca*((-a2 + c2 + 2*a*c*lac)/2
+      + baaca*(2*a3 + 3*a2*c - 6*a*c2 + c3 - 6*a2*c*lac)/6))/ac2;
 }
 
 /// I2abc(a,a,0), squared arguments, a != 0
 double I2aa0(double a, double b) noexcept {
-   const double a2 = sqr(a);
-   const double a3 = a2*a;
    const double ba = b - a;
-   const double ba2 = sqr(ba);
+   const double baa = ba/a;
 
-   return 1.0/a - ba/(2.0*a2) + ba2/(3.0*a3);
+   return (1 + baa*(-0.5 + baa/3))/a;
 }
 
 /// I2abc(0,b,c), squared arguments, b != c

@@ -85,15 +85,15 @@ double amu1LChi0(const MSSMNoFV_onshell& model)
    const Eigen::Array<double,2,1>& m_smu(model.get_MSm());
    const Eigen::Matrix<double,4,2> AAN_(AAN(model));
    const Eigen::Matrix<double,4,2> BBN_(BBN(model));
-   const Eigen::Matrix<double,4,2> x__im(x_im(model));
+   const Eigen::Matrix<double,4,2> x(x_im(model));
    const Eigen::Array<double,4,1>& MChi(model.get_MChi());
 
    double result = 0.;
 
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
-         result += - AAN_(i, m) * F1N(x__im(i, m)) / (12. * sqr(m_smu(m)))
-                   - MChi(i) * BBN_(i, m) * F2N(x__im(i, m))
+         result += - AAN_(i, m) * F1N(x(i, m)) / (12. * sqr(m_smu(m)))
+                   - MChi(i) * BBN_(i, m) * F2N(x(i, m))
                       / (6. * model.get_MM() * sqr(m_smu(m)));
       }
    }
@@ -107,7 +107,7 @@ double amu1LChi0(const MSSMNoFV_onshell& model)
  */
 double amu1LChipm(const MSSMNoFV_onshell& model)
 {
-   const Eigen::Array<double,2,1> x__k(x_k(model));
+   const Eigen::Array<double,2,1> x(x_k(model));
    const double MSvm(model.get_MSvmL());
    const Eigen::Array<double,2,1> AAC_(AAC(model));
    const Eigen::Array<double,2,1> BBC_(BBC(model));
@@ -117,11 +117,11 @@ double amu1LChipm(const MSSMNoFV_onshell& model)
 
    for (int k = 0; k < 2; ++k) {
       result +=
-         AAC_(k) * F1C(x__k(k)) / (12. * sqr(MSvm)) +
-         MCha(k) * BBC_(k) * F2C(x__k(k)) / (3. * model.get_MM() * sqr(MSvm));
+         AAC_(k) * F1C(x(k)) / 12 +
+         MCha(k) * BBC_(k) * F2C(x(k)) / (3 * model.get_MM());
    }
 
-   return result * sqr(model.get_MM()) * oneOver16PiSqr;
+   return result * sqr(model.get_MM()/MSvm) * oneOver16PiSqr;
 }
 
 /**
@@ -188,10 +188,10 @@ Eigen::Array<std::complex<double>,2,1> c_L(const MSSMNoFV_onshell& model)
    Eigen::Array<std::complex<double>,2,1> result;
 
    for (int k = 0; k < 2; ++k) {
-      result(k) = -g2 * std::conj(UP(k, 0));
+      result(k) = std::conj(UP(k, 0));
    }
 
-   return result;
+   return -g2 * result;
 }
 
 /**
@@ -208,10 +208,10 @@ Eigen::Array<std::complex<double>,2,1> c_R(const MSSMNoFV_onshell& model)
    Eigen::Array<std::complex<double>,2,1> result;
 
    for (int k = 0; k < 2; ++k) {
-      result(k) = ymu * UM(k, 1);
+      result(k) = UM(k, 1);
    }
 
-   return result;
+   return ymu * result;
 }
 
 /**
@@ -224,13 +224,13 @@ Eigen::Array<std::complex<double>,2,1> c_R(const MSSMNoFV_onshell& model)
  */
 Eigen::Array<double,2,1> AAC(const MSSMNoFV_onshell& model)
 {
-   const Eigen::Array<std::complex<double>,2,1> c__L(c_L(model));
-   const Eigen::Array<std::complex<double>,2,1> c__R(c_R(model));
+   const Eigen::Array<std::complex<double>,2,1> cL(c_L(model));
+   const Eigen::Array<std::complex<double>,2,1> cR(c_R(model));
 
    Eigen::Array<double,2,1> result;
 
    for (int k = 0; k < 2; ++k) {
-      result(k) = norm(c__L(k)) + norm(c__R(k));
+      result(k) = norm(cL(k)) + norm(cR(k));
    }
 
    return result;
@@ -246,14 +246,14 @@ Eigen::Array<double,2,1> AAC(const MSSMNoFV_onshell& model)
  */
 Eigen::Matrix<double,4,2> AAN(const MSSMNoFV_onshell& model)
 {
-   const Eigen::Matrix<std::complex<double>,4,2> n__L(n_L(model));
-   const Eigen::Matrix<std::complex<double>,4,2> n__R(n_R(model));
+   const Eigen::Matrix<std::complex<double>,4,2> nL(n_L(model));
+   const Eigen::Matrix<std::complex<double>,4,2> nR(n_R(model));
 
    Eigen::Matrix<double,4,2> result;
 
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
-         result(i, m) = norm(n__L(i, m)) + norm(n__R(i, m));
+         result(i, m) = norm(nL(i, m)) + norm(nR(i, m));
       }
    }
 
@@ -267,13 +267,13 @@ Eigen::Matrix<double,4,2> AAN(const MSSMNoFV_onshell& model)
  */
 Eigen::Array<double,2,1> BBC(const MSSMNoFV_onshell& model)
 {
-   const Eigen::Array<std::complex<double>,2,1> c__L(c_L(model));
-   const Eigen::Array<std::complex<double>,2,1> c__R(c_R(model));
+   const Eigen::Array<std::complex<double>,2,1> cL(c_L(model));
+   const Eigen::Array<std::complex<double>,2,1> cR(c_R(model));
 
    Eigen::Array<double,2,1> result;
 
    for (int k = 0; k < 2; ++k) {
-      result(k) = 2. * std::real(std::conj(c__L(k)) * c__R(k));
+      result(k) = 2. * std::real(std::conj(cL(k)) * cR(k));
    }
 
    return result;
@@ -286,14 +286,14 @@ Eigen::Array<double,2,1> BBC(const MSSMNoFV_onshell& model)
  */
 Eigen::Matrix<double,4,2> BBN(const MSSMNoFV_onshell& model)
 {
-   const Eigen::Matrix<std::complex<double>,4,2> n__L = n_L(model);
-   const Eigen::Matrix<std::complex<double>,4,2> n__R = n_R(model);
+   const Eigen::Matrix<std::complex<double>,4,2> nL = n_L(model);
+   const Eigen::Matrix<std::complex<double>,4,2> nR = n_R(model);
 
    Eigen::Matrix<double,4,2> result;
 
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
-         result(i, m) = 2. * std::real(std::conj(n__L(i, m)) * n__R(i, m));
+         result(i, m) = 2. * std::real(std::conj(nL(i, m)) * nR(i, m));
       }
    }
 
