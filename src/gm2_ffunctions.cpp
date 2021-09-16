@@ -493,13 +493,11 @@ double I2aac(double a, double b, double c) noexcept {
    const double c2 = sqr(c);
    const double c3 = c2*c;
    const double ac2 = sqr(ac);
-   const double ac3 = ac2*ac;
-   const double ac4 = ac2*ac2;
+   const double baaca = ba/(a*ac);
    const double lac = std::log(a/c);
 
-   return (ac - c*lac)/ac2
-      + ba*(-a2 + c2 + 2*a*c*lac)/(2.0*a*ac3)
-      + sqr(ba)*((2*a3 + 3*a2*c - 6*a*c2 + c3 - 6*a2*c*lac)/(6.*a2*ac4));
+   return ((ac - c*lac) + baaca*((-a2 + c2 + 2*a*c*lac)/2
+      + baaca*(2*a3 + 3*a2*c - 6*a*c2 + c3 - 6*a2*c*lac)/6))/ac2;
 }
 
 /// I2abc(a,a,0), squared arguments, a != 0
