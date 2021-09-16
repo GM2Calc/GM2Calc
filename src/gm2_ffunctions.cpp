@@ -480,9 +480,8 @@ double I2aaa(double a, double b, double c) noexcept {
    const double ba = b - a;
    const double ca = c - a;
    const double a2 = sqr(a);
-   const double a3 = a2*a;
 
-   return 0.5/a + (-ba - ca)/(6.0*a2) + (sqr(ba) + ba*ca + sqr(ca))/(12.0*a3);
+   return (0.5 - (ba + ca)/(6*a) + (sqr(ba) + ba*ca + sqr(ca))/(12*a2))/a;
 }
 
 /// I2abc(a,a,c), squared arguments, a != c
