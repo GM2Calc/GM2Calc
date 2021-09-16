@@ -96,6 +96,9 @@ install(
 
 if(${Python_INTERFACE})
   message("-- Copying python examples")
+  configure_file(${PROJECT_SOURCE_DIR}/src/gm2_python_interface.py.in 
+                 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/gm2_python_interface.py 
+                 @ONLY)
   configure_file(${PROJECT_SOURCE_DIR}/examples/example_thdm.py.in 
                  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/example_thdm.py 
                  @ONLY)
