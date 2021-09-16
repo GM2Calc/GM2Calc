@@ -37,22 +37,22 @@ namespace thdm {
 namespace {
 
 struct F_sm_pars {
-   double mw2;    ///< squared W boson mass
-   double mz2;    ///< squared Z boson mass
+   double mw2{}; ///< squared W boson mass
+   double mz2{}; ///< squared Z boson mass
 };
 
 struct F_neut_pars {
-   double qf;    ///< electromagnetic charge of fermion f
-   double ql;    ///< electromagnetic charge of fermion l
-   double t3f;   ///< SU(2)_L charge of ferimon f
-   double t3l;   ///< SU(2)_L charge of ferimon l
-   double nc;    ///< number of colors of fermion f
+   double qf{};  ///< electromagnetic charge of fermion f
+   double ql{};  ///< electromagnetic charge of fermion l
+   double t3f{}; ///< SU(2)_L charge of ferimon f
+   double t3l{}; ///< SU(2)_L charge of ferimon l
+   double nc{};  ///< number of colors of fermion f
 };
 
 struct F_char_pars {
-   double qd;    ///< electromagnetic charge of up-type fermion
-   double qu;    ///< electromagnetic charge of down-type fermion
-   double nc;    ///< number of colors
+   double qd{};  ///< electromagnetic charge of up-type fermion
+   double qu{};  ///< electromagnetic charge of down-type fermion
+   double nc{};  ///< number of colors
 };
 
 const double pi = 3.1415926535897932;
