@@ -126,7 +126,7 @@ namespace {
 
       if (is_equal(u, v, eps)) {
          return 2*(2*cl2acos(0.5/std::sqrt(u))
-                   + cl2acos(0.5*(-1 + 2*u)/std::abs(u)))/lambda;
+                   + cl2acos(1 - 0.5/u))/lambda;
       }
 
       const auto sqrtu = std::sqrt(u);
