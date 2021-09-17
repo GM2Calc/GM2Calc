@@ -148,9 +148,9 @@ double FlHp(double ms2, double mf2) noexcept
  * @note There is a misprint in Eq (61), arxiv:1607.06292v2: There
  * should be no Phi function in the 2nd line of (61).
  *
- * @return
+ * @param phi Phi(xd, xu, 1.0)
  */
-double FdHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
+double FdHp(double ms2, double md2, double mu2, double qd, double qu, double phi) noexcept
 {
    const double xu = mu2/ms2;
    const double xd = md2/ms2;
@@ -161,9 +161,17 @@ double FdHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
    const double lxu = std::log(xu);
    const double lxd = std::log(xd);
 
-   return -(xu - xd) + (cbar/y - c*(xu - xd)/y) * Phi(xd, xu, 1.0)
+   return -(xu - xd) + (cbar/y - c*(xu - xd)/y) * phi
       + c*(dilog(1.0 - xd/xu) - 0.5*lxu*(lxd - lxu))
       + (s + xd)*lxd + (s - xu)*lxu;
+}
+
+double FdHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
+{
+   const double xu = mu2/ms2;
+   const double xd = md2/ms2;
+
+   return FdHp(ms2, md2, mu2, qd, qu, Phi(xd, xu, 1.0));
 }
 
 /// Eq (62), arxiv:1607.06292
@@ -172,9 +180,10 @@ double FuHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
    const double xu = mu2/ms2;
    const double xd = md2/ms2;
    const double y = sqr(xu - xd) - 2*(xu + xd) + 1.0;
+   const double phi = Phi(xd, xu, 1.0);
 
-   return FdHp(ms2, md2, mu2, 2.0 + qd, 2.0 + qu)
-      - 4.0/3.0*(xu - xd - 1.0)/y*Phi(xd, xu, 1.0)
+   return FdHp(ms2, md2, mu2, 2.0 + qd, 2.0 + qu, phi)
+      - 4.0/3.0*(xu - xd - 1.0)/y*phi
       - 1.0/3.0*(sqr(std::log(xd)) - sqr(std::log(xu)));
 }
 
