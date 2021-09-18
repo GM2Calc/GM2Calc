@@ -111,6 +111,7 @@ namespace {
       const double eps = 1.0e-7;
 
       if (is_equal(u, 1.0, eps) && is_equal(v, 1.0, eps)) {
+         // -I/9 (Pi^2 - 36 PolyLog[2, (1 - I Sqrt[3])/2])/Sqrt[3]
          return 2.343907238689459;
       }
 
