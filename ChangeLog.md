@@ -1,6 +1,15 @@
 GM2Calc-2.0.0 []
 =================================
 
+New features
+------------
+
+ * Calculation of the anomalous magnetic moment of the muon in the
+   Two-Higgs-Doublet Model (2HDM) at the 1- and leading 2-loop level.
+   The implemented expressions are taken from
+   [<a href="http://arxiv.org/abs/1607.06292">JHEP 01 (2017) 007</a>].
+   See the README file and `examples/example-thdm.{c,cpp,m}` for examples.
+
 Fixed bugs
 ----------
 
