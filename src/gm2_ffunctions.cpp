@@ -39,12 +39,12 @@ namespace {
    /// returns number to the power 4
    template <typename T> T pow4(T x) noexcept { return sqr(sqr(x)); }
 
-   bool is_zero(double a, double prec)
+   bool is_zero(double a, double prec) noexcept
    {
       return std::fabs(a) < prec;
    }
 
-   bool is_equal(double a, double b, double prec)
+   bool is_equal(double a, double b, double prec) noexcept
    {
       const double max = std::max(std::abs(a), std::abs(b));
       return is_zero(a - b, prec*(1.0 + max));
