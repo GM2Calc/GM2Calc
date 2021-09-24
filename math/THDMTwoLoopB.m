@@ -1,3 +1,17 @@
+(*
+
+  This file contains the bosonic non-Standard Model 2-loop contributions
+  to the anomalous magnetic moment of the muon in the Two-Higgs Doublet
+  Model from [arxiv:1607.06292].
+
+  amu2LBNonYuk : non-Yukawa contributions from Eq. (71)
+
+  amu2LBYuk : Yukawa contributions from Eq. (52)
+
+  amu2LBEW : electro-weak contributions from Eq. (49)
+
+ *)
+
 expandAmu = {
     CW2 -> CW^2,
     SW2 -> 1 - CW2,
