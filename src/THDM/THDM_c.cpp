@@ -164,6 +164,8 @@ gm2calc_THDM_yukawa_type int_to_c_yukawa_type(int i)
       yukawa_type = static_cast<gm2calc_THDM_yukawa_type>(yukawa_type_cpp);
    } catch (const gm2calc::Error& e) {
       ERROR(e.what());
+   } catch (...) {
+      ERROR("unknown exception thrown");
    }
 
    return yukawa_type;
@@ -177,8 +179,8 @@ void gm2calc_thdm_config_set_to_default(gm2calc_THDM_config* config)
 {
    if (config != nullptr) {
       gm2calc::thdm::Config cpp;
-      config->force_output = cpp.force_output;
-      config->running_couplings = cpp.running_couplings;
+      config->force_output = static_cast<int>(cpp.force_output);
+      config->running_couplings = static_cast<int>(cpp.running_couplings);
    }
 }
 
