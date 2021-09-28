@@ -44,7 +44,7 @@ namespace gm2calc {
 class MSSMNoFV_onshell : public MSSMNoFV_onshell_mass_eigenstates {
 public:
    MSSMNoFV_onshell();
-   virtual ~MSSMNoFV_onshell() {}
+   virtual ~MSSMNoFV_onshell() = default;
 
    /// enable/disable verbose output
    void set_verbose_output(bool flag) { verbose_output = flag; }
