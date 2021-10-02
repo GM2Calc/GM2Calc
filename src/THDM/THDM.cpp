@@ -512,8 +512,8 @@ void THDM::set_basis(const thdm::Mass_basis& basis)
 
    set_lambda1((sqr(mH)*ca2 + sqr(mh)*sa2 - m12_2*tb)/(v2*cb2) - 1.5*lambda6*tb + 0.5*lambda7*tb*tb*tb);
    set_lambda2((sqr(mH)*sa2 + sqr(mh)*ca2 - m12_2*ctb)/(v2*sb2) + 0.5*lambda6*ctb*ctb*ctb - 1.5*lambda7*ctb);
-   set_lambda3(((sqr(mH) - sqr(mh))*ca*sa + 2.*mHp*mHp*sb*cb - m12_2)/(v2*sb*cb) - 0.5*lambda6*ctb - 0.5*lambda7*tb);
-   set_lambda4(((sqr(mA) - 2.*mHp*mHp)*cb*sb + m12_2)/(v2*sb*cb) - 0.5*lambda6*ctb - 0.5*lambda7*tb);
+   set_lambda3(((sqr(mH) - sqr(mh))*ca*sa + 2.*sqr(mHp)*sb*cb - m12_2)/(v2*sb*cb) - 0.5*lambda6*ctb - 0.5*lambda7*tb);
+   set_lambda4(((sqr(mA) - 2.*sqr(mHp))*cb*sb + m12_2)/(v2*sb*cb) - 0.5*lambda6*ctb - 0.5*lambda7*tb);
    set_lambda5((m12_2 - sqr(mA)*sb*cb)/v2/sb/cb - 0.5*lambda6*ctb - 0.5*lambda7*tb);
    set_lambda6(basis.lambda_6);
    set_lambda7(basis.lambda_7);
