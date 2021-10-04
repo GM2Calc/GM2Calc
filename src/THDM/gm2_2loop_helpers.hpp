@@ -39,6 +39,7 @@ struct THDM_B_parameters {
    double zetal{};   ///< zeta_l
    double eta{};     ///< eta
    double lambda5{}; ///< Lambda_5
+   double lambda67{}; ///< difference (Lambda_567 - Lambda_5)
 };
 
 /// parameters to be passed to the fermionic contribution functions
