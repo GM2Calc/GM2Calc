@@ -130,6 +130,7 @@ public:
    double get_alpha_em() const;   ///< electromagnetic coupling
    double get_eta() const;        ///< deviation of CP-even Higgs mixing angle from SM limit
    double get_LambdaFive() const; ///< capital Lambda5, Eq (14) arxiv:1607.06292
+   double get_LambdaSixSeven() const; ///< capital Lambda_{567} - Lambda_{5}
    double ThetaW() const;         ///< weak mixing angle
    double get_v() const;          ///< SM-like VEV
    double get_v_sqr() const;      ///< squared SM-like VEV

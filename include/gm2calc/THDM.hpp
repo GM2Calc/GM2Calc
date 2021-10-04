@@ -140,6 +140,7 @@ public:
    using THDM_mass_eigenstates::get_lambda6;
    using THDM_mass_eigenstates::get_lambda7;
    using THDM_mass_eigenstates::get_LambdaFive;
+   using THDM_mass_eigenstates::get_LambdaSixSeven;
    using THDM_mass_eigenstates::get_m122;
    using THDM_mass_eigenstates::get_g1;
    using THDM_mass_eigenstates::get_g2;

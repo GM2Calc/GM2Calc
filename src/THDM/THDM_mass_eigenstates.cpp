@@ -472,6 +472,19 @@ double CLASSNAME::get_LambdaFive() const
    return 2*get_m122()/(get_v_sqr() * sbcb);
 }
 
+/**
+ * Returns \f$\Lambda_{567} - \Lambda_{5}\f$
+ */
+double CLASSNAME::get_LambdaSixSeven() const
+{
+   const double tb = get_tan_beta();
+   const double sb = get_sin_beta();
+   const double cb = get_cos_beta();
+   return 0;
+   // @todo(alex) activate the followling line:
+   return 1/(tb - 1/tb)*(lambda6/sqr(sb) - lambda7/sqr(cb));
+}
+
 double CLASSNAME::ThetaW() const
 {
    return std::atan(gut_normalization*g1/g2);
