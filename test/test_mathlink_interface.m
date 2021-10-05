@@ -464,7 +464,7 @@ point = {
 
 {myAmu, myDamu} = {amu, Damu} /. GM2CalcAmuTHDMGaugeBasis[point];
 
-TestClose[myAmu, 3.243291601385784*^-11];
+TestClose[myAmu, 3.2425579745851276*^-11];
 
 Print[];
 Print["Passed tests: [", passed, "/", passed + errors,"]"];

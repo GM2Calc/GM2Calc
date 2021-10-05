@@ -47,14 +47,14 @@ ${BASEDIR}/test_points/BM4-1504.05500_1L_resummed.in,gm2calc,1,2.76249844E-09
 ${BASEDIR}/test_points/BM4-1504.05500_2L_resummed.in,gm2calc,1,2.44726409E-09
 ${BASEDIR}/test_points/BM5-1504.05500_1L_resummed.in,gm2calc,0,2.88732973E-09
 ${BASEDIR}/test_points/BM5-1504.05500_2L_resummed.in,gm2calc,0,2.98718794E-09
-${BASEDIR}/test_points/thdm_mass-basis.in,thdm,0,1.60465903E-11
+${BASEDIR}/test_points/thdm_mass-basis.in,thdm,0,1.60457622E-11
 ${BASEDIR}/test_points/thdm_mass-basis_test_point_1.in,thdm,0,-5.83949247E-12
 ${BASEDIR}/test_points/thdm_mass-basis_test_point_2.in,thdm,0,1.85910919E-11
 ${BASEDIR}/test_points/thdm_mass-basis_test_point_3.in,thdm,0,1.85661753E-11
 ${BASEDIR}/test_points/thdm_mass-basis_test_point_4.in,thdm,0,-5.82996779E-12
 ${BASEDIR}/test_points/thdm_mass-basis_test_point_5.in,thdm,0,-1.23941717e-08
 ${BASEDIR}/test_points/thdm_mass-basis_test_point_6.in,thdm,0,1.12347654e-07
-${BASEDIR}/test_points/thdm_gauge-basis.in,thdm,0,3.24329555E-11
+${BASEDIR}/test_points/thdm_gauge-basis.in,thdm,0,3.24256193E-11
 ${BASEDIR}/test_points/thdm_contradictory_input.in,thdm,1,
 "
 

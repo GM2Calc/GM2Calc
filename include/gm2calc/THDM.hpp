@@ -128,6 +128,8 @@ public:
    using THDM_mass_eigenstates::get_alpha_em;
    using THDM_mass_eigenstates::get_alpha_h;
    using THDM_mass_eigenstates::get_beta;
+   using THDM_mass_eigenstates::get_sin_beta_minus_alpha;
+   using THDM_mass_eigenstates::get_cos_beta_minus_alpha;
    using THDM_mass_eigenstates::get_eta;
    using THDM_mass_eigenstates::get_tan_beta;
    using THDM_mass_eigenstates::get_v;
