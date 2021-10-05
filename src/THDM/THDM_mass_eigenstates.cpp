@@ -480,8 +480,6 @@ double CLASSNAME::get_LambdaSixSeven() const
    const double tb = get_tan_beta();
    const double sb = get_sin_beta();
    const double cb = get_cos_beta();
-   return 0;
-   // @todo(alex) activate the followling line:
    return (lambda6/sqr(sb) - lambda7/sqr(cb))/(tb - 1/tb);
 }
 

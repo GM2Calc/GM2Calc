@@ -292,11 +292,11 @@ amu2LBYuk =
             + a000
             + a0z0*(TB - 1/TB)*ZetaL
             + a500*Lambda5
-            + a5z0*(TB - 1/TB)*Lambda5*ZetaL
+            + a5z0*(TB - 1/TB)*Lambda567*ZetaL
             + (
                 + a001*(TB - 1/TB)
                 + a0z1*ZetaL
-                + a501*(TB - 1/TB)*Lambda5
+                + a501*(TB - 1/TB)*Lambda567
                 + a5z1*Lambda5*ZetaL
             )*aeps
         ) //. expandAmu

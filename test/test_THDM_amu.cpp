@@ -683,6 +683,7 @@ TEST_CASE("2-loop_bosonic_Yuk")
    pars.zetal = 1.0;
    pars.eta = 2.0;
    pars.lambda5 = 3.0;
+   pars.lambda67 = 0;
 
    const auto amu = gm2calc::thdm::amu2L_B_Yuk(pars);
 
@@ -727,6 +728,7 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.zetal = 1.0;
       pars.eta = 2.0;
       pars.lambda5 = 3.0;
+      pars.lambda67 = 0;
 
       CHECK(std::isfinite(gm2calc::thdm::amu2L_B_Yuk(pars)));
    }
@@ -745,6 +747,7 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.zetal = 1.0;
       pars.eta = 2.0;
       pars.lambda5 = 3.0;
+      pars.lambda67 = 0;
 
       CHECK(std::isfinite(gm2calc::thdm::amu2L_B_Yuk(pars)));
    }
@@ -763,6 +766,7 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.zetal = 1.0;
       pars.eta = 2.0;
       pars.lambda5 = 3.0;
+      pars.lambda67 = 0;
 
       CHECK(std::isfinite(gm2calc::thdm::amu2L_B_Yuk(pars)));
    }
@@ -781,6 +785,7 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.zetal = 1.0;
       pars.eta = 2.0;
       pars.lambda5 = 3.0;
+      pars.lambda67 = 0;
 
       CHECK(std::isfinite(gm2calc::thdm::amu2L_B_Yuk(pars)));
    }
@@ -799,6 +804,7 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.zetal = 1.0;
       pars.eta = 2.0;
       pars.lambda5 = 3.0;
+      pars.lambda67 = 0;
 
       CHECK(std::isfinite(gm2calc::thdm::amu2L_B_Yuk(pars)));
    }
@@ -817,6 +823,7 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.zetal = 1.0;
       pars.eta = 2.0;
       pars.lambda5 = 3.0;
+      pars.lambda67 = 0;
 
       CHECK(std::isfinite(gm2calc::thdm::amu2L_B_Yuk(pars)));
    }
@@ -835,6 +842,7 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.zetal = 1.0;
       pars.eta = 2.0;
       pars.lambda5 = 3.0;
+      pars.lambda67 = 0;
 
       CHECK(std::isfinite(gm2calc::thdm::amu2L_B_Yuk(pars)));
    }

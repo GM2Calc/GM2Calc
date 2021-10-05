@@ -178,10 +178,10 @@ point = {
 
 {myAmu, myAmu1L, myAmu2LF, myAmu2LB, myDamu} = {amu, amu1L, amu2LF, amu2LB, Damu} /. GM2CalcAmuTHDMMassBasis[point];
 
-TestClose[myAmu, -5.867433445099365*^-12];
+TestClose[myAmu, -5.839492472829384*^-12];
 TestClose[myAmu1L, 6.12624332*^-16];
 TestClose[myAmu, myAmu1L + myAmu2LF + myAmu2LB];
-TestClose[myDamu, 2.47743777*^-12];
+TestClose[myDamu, 2.4751646657603756*^-12];
 
 (* THDM mass basis point for type II *)
 GM2CalcSetFlags[loopOrder -> 2, runningCouplings -> False];
@@ -227,10 +227,10 @@ point = {
 
 {myAmu, myAmu1L, myAmu2LF, myAmu2LB, myDamu} = {amu, amu1L, amu2LF, amu2LB, Damu} /. GM2CalcAmuTHDMMassBasis[point];
 
-TestClose[myAmu, 1.8787546646721519*^-11];
+TestClose[myAmu, 1.859109191856968*^-11];
 TestClose[myAmu1L, -2.21199808*^-15];
 TestClose[myAmu, myAmu1L + myAmu2LF + myAmu2LB];
-TestClose[myDamu, 3.52879849*^-12];
+TestClose[myDamu, 3.512816151300083*^-12];
 
 (* THDM mass basis point for type X *)
 GM2CalcSetFlags[loopOrder -> 2, runningCouplings -> False];
@@ -276,10 +276,10 @@ point = {
 
 {myAmu, myAmu1L, myAmu2LF, myAmu2LB, myDamu} = {amu, amu1L, amu2LF, amu2LB, Damu} /. GM2CalcAmuTHDMMassBasis[point];
 
-TestClose[myAmu, 1.8762630021293123*^-11];
+TestClose[myAmu, 1.856617529314188*^-11];
 TestClose[myAmu1L, -2.21199808*^-15];
 TestClose[myAmu, myAmu1L + myAmu2LF + myAmu2LB];
-TestClose[myDamu, 3.52677143*^-12];
+TestClose[myDamu, 3.5107890887783476*^-12];
 
 (* THDM mass basis point for type Y *)
 GM2CalcSetFlags[loopOrder -> 2, runningCouplings -> False];
@@ -325,10 +325,10 @@ point = {
 
 {myAmu, myAmu1L, myAmu2LF, myAmu2LB, myDamu} = {amu, amu1L, amu2LF, amu2LB, Damu} /. GM2CalcAmuTHDMMassBasis[point];
 
-TestClose[myAmu, -5.857908763806516*^-12];
+TestClose[myAmu, -5.829967791536537*^-12];
 TestClose[myAmu1L, 6.12624332*^-16];
 TestClose[myAmu, myAmu1L + myAmu2LF + myAmu2LB];
-TestClose[myDamu, 2.47666290*^-12];
+TestClose[myDamu, 2.4743897966057966*^-12];
 
 (* THDM mass basis point for type flavour-aligned *)
 GM2CalcSetFlags[loopOrder -> 2, runningCouplings -> False];
@@ -374,10 +374,10 @@ point = {
 
 {myAmu, myAmu1L, myAmu2LF, myAmu2LB, myDamu} = {amu, amu1L, amu2LF, amu2LB, Damu} /. GM2CalcAmuTHDMMassBasis[point];
 
-TestClose[myAmu, -1.23943792*^-08];
+TestClose[myAmu, -1.2394171742487368*^-08];
 TestClose[myAmu1L, 8.28686099*^-11];
 TestClose[myAmu, myAmu1L + myAmu2LF + myAmu2LB];
-TestClose[myDamu, 1.02381338*^-09];
+TestClose[myDamu, 1.0237965032025479*^-09];
 
 (* THDM mass basis point for type general *)
 GM2CalcSetFlags[loopOrder -> 2, runningCouplings -> False];
@@ -420,10 +420,10 @@ point = {
 
 {myAmu, myAmu1L, myAmu2LF, myAmu2LB, myDamu} = {amu, amu1L, amu2LF, amu2LB, Damu} /. GM2CalcAmuTHDMMassBasis[point];
 
-TestClose[myAmu, 1.1234764842312642*^-07];
+TestClose[myAmu, 1.1234765392453873*^-07];
 TestClose[myAmu1L, 8.096409030210353*^-10];
 TestClose[myAmu, myAmu1L + myAmu2LF + myAmu2LB];
-TestClose[myDamu, 9.141909743537708*^-9];
+TestClose[myDamu, 9.141910191098583*^-9];
 
 (* THDM gauge basis point *)
 GM2CalcSetFlags[loopOrder -> 2, runningCouplings -> False];
@@ -464,7 +464,7 @@ point = {
 
 {myAmu, myDamu} = {amu, Damu} /. GM2CalcAmuTHDMGaugeBasis[point];
 
-TestClose[myAmu, 3.2720909955357482*^-11];
+TestClose[myAmu, 3.243291601385784*^-11];
 
 Print[];
 Print["Passed tests: [", passed, "/", passed + errors,"]"];

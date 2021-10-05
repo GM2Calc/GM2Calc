@@ -102,9 +102,9 @@ try:
 except gm2calc.Error as e:
     print(e.what())
 
-testclose(amu,-5.867433445099365*10.**(-12))
+testclose(amu,-5.839492472829384*10.**(-12))
 testclose(amu1L,6.12624332*10.**(-16))
-testclose(delta_amu,2.47743777*10.**(-12))
+testclose(delta_amu,2.4751646657603756*10.**(-12))
 
 
 # THDM mass basis point for type II
@@ -164,9 +164,9 @@ try:
 except gm2calc.Error as e:
     print(e.what())
 
-testclose(amu,1.8787546646721519*10.**(-11))
+testclose(amu,1.859109191856968*10.**(-11))
 testclose(amu1L,-2.21199808*10.**(-15),10**(-7))
-testclose(delta_amu,3.52879849*10.**(-12))
+testclose(delta_amu,3.512816151300083*10.**(-12))
 
 
 # THDM mass basis point for type X
@@ -226,9 +226,9 @@ try:
 except gm2calc.Error as e:
     print(e.what())
 
-testclose(amu,1.8762630021293123*10.**(-11))
+testclose(amu,1.856617529314188*10.**(-11))
 testclose(amu1L,-2.21199808*10.**(-15),10**(-7))
-testclose(delta_amu,3.52677143*10.**(-12))
+testclose(delta_amu,3.5107890887783476*10.**(-12))
 
 
 # THDM mass basis point for type Y
@@ -288,9 +288,9 @@ try:
 except gm2calc.Error as e:
     print(e.what())
 
-testclose(amu,-5.857908763806516*10.**(-12))
+testclose(amu,-5.829967791536537*10.**(-12))
 testclose(amu1L,6.12624332*10.**(-16))
-testclose(delta_amu,2.47666290*10.**(-12))
+testclose(delta_amu,2.4743897966057966*10.**(-12))
 
 
 # THDM mass basis point for flavour-aligned THDM
@@ -353,9 +353,9 @@ try:
 except gm2calc.Error as e:
     print(e.what())
 
-testclose(amu,-1.23943792*10.**(-8))
+testclose(amu,-1.2394171742487368*10.**(-8))
 testclose(amu1L,8.28686099*10.**(-11))
-testclose(delta_amu,1.02381338*10.**(-9))
+testclose(delta_amu,1.0237965032025479*10.**(-9))
 
 
 # THDM mass basis point for general THDM
@@ -415,9 +415,9 @@ try:
 except gm2calc.Error as e:
     print(e.what())
 
-testclose(amu,1.1234764842312642*10.**(-7))
+testclose(amu,1.1234765392453873*10.**(-7))
 testclose(amu1L,8.096409030210353*10.**(-10))
-testclose(delta_amu,9.141909743537708*10.**(-9))
+testclose(delta_amu,9.141910191098583*10.**(-9))
 
 
 # THDM gauge basis point for type II
@@ -478,7 +478,7 @@ try:
 except gm2calc.Error as e:
     print(e.what())
 
-testclose(amu,3.2720909955357482*10.**(-11))
+testclose(amu,3.243291601385784*10.**(-11))
 
 
 print()
