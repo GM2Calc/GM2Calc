@@ -681,7 +681,7 @@ TEST_CASE("2-loop_bosonic_Yuk")
    pars.mHp = 500.0;
    pars.tb = 30.0;
    pars.zetal = 1.0;
-   pars.eta = 2.0;
+   pars.cos_beta_minus_alpha = 2.0;
    pars.lambda5 = 3.0;
    pars.lambda67 = 0;
 
@@ -701,7 +701,7 @@ pp = {
     CW -> MW/MZ,
     TB -> 30,
     ZetaL -> 1,
-    aeps -> 2, (* eta *)
+    aeps -> 2, (* cos(beta - alpha) = eta *)
     Lambda5 -> 3
 }
 

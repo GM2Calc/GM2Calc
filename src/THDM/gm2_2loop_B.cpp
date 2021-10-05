@@ -608,7 +608,7 @@ double amu2L_B_Yuk(const THDM_B_parameters& thdm) noexcept
    const auto zetal = thdm.zetal;
    const auto lambda5 = thdm.lambda5;
    const auto lambda567 = thdm.lambda5 + thdm.lambda67; // Lambda_{567}
-   const auto eta = thdm.eta;
+   const auto cos_beta_minus_alpha = thdm.cos_beta_minus_alpha;
    const auto al = thdm.alpha_em;
    const auto mhSM2 = sqr(thdm.mhSM);
    const auto mH2 = sqr(thdm.mh(1));
@@ -672,7 +672,7 @@ double amu2L_B_Yuk(const THDM_B_parameters& thdm) noexcept
          + a0z1*zetal
          + a501*(tb - 1.0/tb)*lambda567
          + a5z1*lambda5*zetal
-         )*eta; // @todo(alex) use cos(beta-alpha) here
+         )*cos_beta_minus_alpha;
 
    const auto pref = sqr(al/(24*pi*cw2*(1.0 - cw2)) * thdm.mm/thdm.mz);
 
