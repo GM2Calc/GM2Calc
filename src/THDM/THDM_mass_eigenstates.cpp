@@ -482,7 +482,7 @@ double CLASSNAME::get_LambdaSixSeven() const
    const double cb = get_cos_beta();
    return 0;
    // @todo(alex) activate the followling line:
-   return 1/(tb - 1/tb)*(lambda6/sqr(sb) - lambda7/sqr(cb));
+   return (lambda6/sqr(sb) - lambda7/sqr(cb))/(tb - 1/tb);
 }
 
 double CLASSNAME::ThetaW() const
