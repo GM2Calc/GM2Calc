@@ -473,14 +473,13 @@ double CLASSNAME::get_LambdaFive() const
 }
 
 /**
- * Returns \f$\Lambda_{567} - \Lambda_{5}\f$
+ * Returns \f$\left(\Lambda_{567} - \Lambda_{5}\right)\left(\tan\beta - \frac{1}{\tan\beta}\right) = \frac{\lambda_6}{\sin^2\beta} - \frac{\lambda_7}{\cos^2\beta}\f$
  */
 double CLASSNAME::get_LambdaSixSeven() const
 {
-   const double tb = get_tan_beta();
    const double sb = get_sin_beta();
    const double cb = get_cos_beta();
-   return (lambda6/sqr(sb) - lambda7/sqr(cb))/(tb - 1/tb);
+   return lambda6/sqr(sb) - lambda7/sqr(cb);
 }
 
 double CLASSNAME::ThetaW() const

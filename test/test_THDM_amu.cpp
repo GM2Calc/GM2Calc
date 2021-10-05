@@ -726,7 +726,7 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.mHp = pars.mh(1);
       pars.tb = 30.0;
       pars.zetal = 1.0;
-      pars.eta = 2.0;
+      pars.cos_beta_minus_alpha = 2.0;
       pars.lambda5 = 3.0;
       pars.lambda67 = 0;
 
@@ -745,7 +745,7 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.mHp = 300.0;
       pars.tb = 30.0;
       pars.zetal = 1.0;
-      pars.eta = 2.0;
+      pars.cos_beta_minus_alpha = 2.0;
       pars.lambda5 = 3.0;
       pars.lambda67 = 0;
 
@@ -764,7 +764,7 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.mHp = 300.0;
       pars.tb = 30.0;
       pars.zetal = 1.0;
-      pars.eta = 2.0;
+      pars.cos_beta_minus_alpha = 2.0;
       pars.lambda5 = 3.0;
       pars.lambda67 = 0;
 
@@ -783,7 +783,7 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.mHp = 150.0;
       pars.tb = 30.0;
       pars.zetal = 1.0;
-      pars.eta = 2.0;
+      pars.cos_beta_minus_alpha = 2.0;
       pars.lambda5 = 3.0;
       pars.lambda67 = 0;
 
@@ -802,7 +802,7 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.mHp = pars.mw;
       pars.tb = 30.0;
       pars.zetal = 1.0;
-      pars.eta = 2.0;
+      pars.cos_beta_minus_alpha = 2.0;
       pars.lambda5 = 3.0;
       pars.lambda67 = 0;
 
@@ -821,7 +821,7 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.mHp = 200.0;
       pars.tb = 30.0;
       pars.zetal = 1.0;
-      pars.eta = 2.0;
+      pars.cos_beta_minus_alpha = 2.0;
       pars.lambda5 = 3.0;
       pars.lambda67 = 0;
 
@@ -840,7 +840,26 @@ TEST_CASE("2-loop_bosonic_Yuk-divergence")
       pars.mHp = pars.mz/2;
       pars.tb = 30.0;
       pars.zetal = 1.0;
-      pars.eta = 2.0;
+      pars.cos_beta_minus_alpha = 2.0;
+      pars.lambda5 = 3.0;
+      pars.lambda67 = 0;
+
+      CHECK(std::isfinite(gm2calc::thdm::amu2L_B_Yuk(pars)));
+   }
+
+   // test non-divergence for tan(beta) = 1
+   {
+      gm2calc::thdm::THDM_B_parameters pars;
+      pars.alpha_em = 1./137.036;
+      pars.mm = 0.10565837;
+      pars.mw = 80.379;
+      pars.mz = 91.1876;
+      pars.mh << 0.0, 300.0;
+      pars.mhSM = 125.0;
+      pars.mHp = 2*pars.mz;
+      pars.tb = 1.0;
+      pars.zetal = 1.0;
+      pars.cos_beta_minus_alpha = 2.0;
       pars.lambda5 = 3.0;
       pars.lambda67 = 0;
 
