@@ -41,7 +41,6 @@ double calculate_amu_2loop_bosonic(const THDM& model)
    pars_b.mh = model.get_Mhh();
    pars_b.tb = model.get_tan_beta();
    pars_b.zetal = model.get_zeta_l();
-   pars_b.eta = model.get_eta();
    pars_b.cos_beta_minus_alpha = model.get_cos_beta_minus_alpha();
    pars_b.lambda5 = model.get_LambdaFive();
    pars_b.lambda67 = model.get_LambdaSixSeven();

@@ -227,7 +227,7 @@ point = {
 
 {myAmu, myAmu1L, myAmu2LF, myAmu2LB, myDamu} = {amu, amu1L, amu2LF, amu2LB, Damu} /. GM2CalcAmuTHDMMassBasis[point];
 
-TestClose[myAmu, 1.859109191856968*^-11];
+TestClose[myAmu, 1.8592183028762964*^-11];
 TestClose[myAmu1L, -2.21199808*^-15];
 TestClose[myAmu, myAmu1L + myAmu2LF + myAmu2LB];
 TestClose[myDamu, 3.512816151300083*^-12];
@@ -276,7 +276,7 @@ point = {
 
 {myAmu, myAmu1L, myAmu2LF, myAmu2LB, myDamu} = {amu, amu1L, amu2LF, amu2LB, Damu} /. GM2CalcAmuTHDMMassBasis[point];
 
-TestClose[myAmu, 1.856617529314188*^-11];
+TestClose[myAmu, 1.8567266403335165*^-11];
 TestClose[myAmu1L, -2.21199808*^-15];
 TestClose[myAmu, myAmu1L + myAmu2LF + myAmu2LB];
 TestClose[myDamu, 3.5107890887783476*^-12];
@@ -374,7 +374,7 @@ point = {
 
 {myAmu, myAmu1L, myAmu2LF, myAmu2LB, myDamu} = {amu, amu1L, amu2LF, amu2LB, Damu} /. GM2CalcAmuTHDMMassBasis[point];
 
-TestClose[myAmu, -1.2394171742487368*^-08];
+TestClose[myAmu, -1.2394172720151344*^-08];
 TestClose[myAmu1L, 8.28686099*^-11];
 TestClose[myAmu, myAmu1L + myAmu2LF + myAmu2LB];
 TestClose[myDamu, 1.0237965032025479*^-09];
@@ -464,7 +464,7 @@ point = {
 
 {myAmu, myDamu} = {amu, Damu} /. GM2CalcAmuTHDMGaugeBasis[point];
 
-TestClose[myAmu, 3.2425579745851276*^-11];
+TestClose[myAmu, 3.247273665589615*^-11];
 
 Print[];
 Print["Passed tests: [", passed, "/", passed + errors,"]"];

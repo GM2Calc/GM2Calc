@@ -102,9 +102,9 @@ try:
 except gm2calc.Error as e:
     print(e.what())
 
-testclose(amu,-5.8394212224115835e-12)
+testclose(amu,-5.839550681619648e-12)
 testclose(amu1L,6.12624332e-16)
-testclose(delta_amu,2.4751588692671067e-12)
+testclose(delta_amu,2.475169401267498e-12)
 
 
 # THDM mass basis point for type II
@@ -164,9 +164,9 @@ try:
 except gm2calc.Error as e:
     print(e.what())
 
-testclose(amu,1.8591017895890383e-11)
+testclose(amu,1.8592183028762964e-11)
 testclose(amu1L,-2.21199808e-15,1e-7)
-testclose(delta_amu,3.5128101292727662e-12)
+testclose(delta_amu,3.51290491727629e-12)
 
 
 # THDM mass basis point for type X
@@ -226,9 +226,9 @@ try:
 except gm2calc.Error as e:
     print(e.what())
 
-testclose(amu,1.8566101270462584e-11)
+testclose(amu,1.8567266403335165e-11)
 testclose(amu1L,-2.21199808e-15,1e-7)
-testclose(delta_amu,3.510783066751031e-12)
+testclose(delta_amu,3.5108778547545546e-12)
 
 
 # THDM mass basis point for type Y
@@ -288,9 +288,9 @@ try:
 except gm2calc.Error as e:
     print(e.what())
 
-testclose(amu,-5.829896541118736e-12)
+testclose(amu,-5.830026000326801e-12)
 testclose(amu1L,6.12624332e-16)
-testclose(delta_amu,2.4743840001125274e-12)
+testclose(delta_amu,2.474394532112919e-12)
 
 
 # THDM mass basis point for flavour-aligned THDM
@@ -353,9 +353,9 @@ try:
 except gm2calc.Error as e:
     print(e.what())
 
-testclose(amu,-1.2394171555018473e-08)
+testclose(amu,-1.2394172720151344e-08)
 testclose(amu1L,8.28686099e-11)
-testclose(delta_amu,1.0237964879512382e-09)
+testclose(delta_amu,1.0237965827392417e-09)
 
 
 # THDM mass basis point for general THDM
@@ -478,7 +478,7 @@ try:
 except gm2calc.Error as e:
     print(e.what())
 
-testclose(amu,3.2425579745851276e-11)
+testclose(amu,3.247273665589615e-11)
 
 
 print()

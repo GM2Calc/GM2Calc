@@ -37,7 +37,6 @@ struct THDM_B_parameters {
    Eigen::Matrix<double,2,1> mh{Eigen::Matrix<double,2,1>::Zero()}; ///< CP-even Higgs bosons mass
    double tb{};      ///< tan(beta)
    double zetal{};   ///< zeta_l
-   double eta{};     ///< eta
    double cos_beta_minus_alpha{}; ///< cos(beta - alpha_h)
    double lambda5{}; ///< Lambda_5
    double lambda67{}; ///< difference (Lambda_567 - Lambda_5)

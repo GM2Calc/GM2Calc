@@ -536,7 +536,7 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const auto pref = sqr(thdm.alpha_em*thdm.mm/(48*thdm.mz*pi*cw2*(4*cw2 - xh)*(1 - cw2)))
       /(2*(-1 + 4*cw2)*(-1 + xh));
 
-   return pref * std::real(res) * thdm.eta * thdm.zetal;
+   return pref * std::real(res) * thdm.cos_beta_minus_alpha * thdm.zetal;
 }
 
 /**

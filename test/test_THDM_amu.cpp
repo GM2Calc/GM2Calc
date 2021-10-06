@@ -487,13 +487,13 @@ TEST_CASE("2-loop_bosonic_EWadd")
    pars.mhSM = 125.0;
    pars.mh << pars.mhSM, 0.0;
    pars.zetal = 2;
-   pars.eta = 3;
+   pars.cos_beta_minus_alpha = 3;
 
    const auto amu = gm2calc::thdm::amu2L_B_EWadd(pars);
 
    // Eq.(49), arxiv:1607.06292
-   CHECK_CLOSE(1e10*amu, 2.3e-1*pars.eta*pars.zetal, 0.01);
-   CHECK_CLOSE(1e10*amu, 2.304734800631431e-1*pars.eta*pars.zetal, 1e-12);
+   CHECK_CLOSE(1e10*amu, 2.3e-1*pars.cos_beta_minus_alpha*pars.zetal, 0.01);
+   CHECK_CLOSE(1e10*amu, 2.304734800631431e-1*pars.cos_beta_minus_alpha*pars.zetal, 1e-12);
 }
 
 
@@ -509,7 +509,7 @@ TEST_CASE("2-loop_bosonic_EWadd-divergence")
       pars.mhSM = pars.mz;
       pars.mh << pars.mz, 0.0;
       pars.zetal = 2;
-      pars.eta = 3;
+      pars.cos_beta_minus_alpha = 3;
 
       CHECK(std::isfinite(gm2calc::thdm::amu2L_B_EWadd(pars)));
    }
