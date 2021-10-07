@@ -423,9 +423,10 @@ double CLASSNAME::get_alpha_h() const
 {
    double alpha_h = std::atan2(ZH(1,1), ZH(0,1));
    const double bma = get_beta() - alpha_h;
+   const double eps = 10*std::numeric_limits<double>::epsilon();
 
-   if (bma < -pi/2) { alpha_h -= pi; }
-   if (bma >  pi/2) { alpha_h += pi; }
+   if (bma < -pi/2 - eps) { alpha_h -= pi; }
+   if (bma >  pi/2 + eps) { alpha_h += pi; }
 
    return alpha_h;
 }
