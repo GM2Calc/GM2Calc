@@ -136,6 +136,7 @@ void CLASSNAME::print(std::ostream& ostr) const
    ostr << "alpha_h = " << get_alpha_h() << '\n';
    ostr << "beta = " << get_beta() << '\n';
    ostr << "sin(beta - alpha_h) = " << get_sin_beta_minus_alpha() << '\n';
+   ostr << "cos(beta - alpha_h) = " << get_cos_beta_minus_alpha() << '\n';
    ostr << "eta = " << get_eta() << '\n';
    ostr << "tan(beta) = " << get_tan_beta() << '\n';
 }
