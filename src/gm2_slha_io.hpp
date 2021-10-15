@@ -26,6 +26,7 @@
 #include <cmath>
 #include <iosfwd>
 #include <string>
+#include <type_traits>
 
 #include <Eigen/Core>
 
@@ -141,12 +142,15 @@ Scalar GM2_slha_io::convert_to(const std::string& str)
 template <class Derived>
 void GM2_slha_io::read_matrix(const SLHAea::Block& block, Eigen::MatrixBase<Derived>& matrix)
 {
-   const int cols = matrix.cols(), rows = matrix.rows();
+   using Index_t = Eigen::Index;
+   static_assert(std::is_signed<Index_t>::value, "Eigen::Index must be a signed integer type.");
+
+   const Index_t cols = matrix.cols(), rows = matrix.rows();
 
    for (const auto& line : block) {
       if (line.is_data_line() && line.size() >= 3) {
-         const int i = convert_to<int>(line[0]) - 1;
-         const int k = convert_to<int>(line[1]) - 1;
+         const Index_t i = convert_to<Index_t>(line[0]) - 1;
+         const Index_t k = convert_to<Index_t>(line[1]) - 1;
          if (0 <= i && i < rows && 0 <= k && k < cols) {
             matrix(i, k) = convert_to<double>(line[2]);
          }
@@ -163,11 +167,14 @@ void GM2_slha_io::read_matrix(const SLHAea::Block& block, Eigen::MatrixBase<Deri
 template <class Derived>
 void GM2_slha_io::read_vector(const SLHAea::Block& block, Eigen::MatrixBase<Derived>& vector)
 {
-   const int rows = vector.rows();
+   using Index_t = Eigen::Index;
+   static_assert(std::is_signed<Index_t>::value, "Eigen::Index must be a signed integer type.");
+
+   const Index_t rows = vector.rows();
 
    for (const auto& line : block) {
       if (line.is_data_line() && line.size() >= 2) {
-         const int i = convert_to<int>(line[0]) - 1;
+         const Index_t i = convert_to<Index_t>(line[0]) - 1;
          if (0 <= i && i < rows) {
             vector(i) = convert_to<double>(line[1]);
          }
