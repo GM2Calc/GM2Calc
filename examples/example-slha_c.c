@@ -7,15 +7,13 @@
 #include <stdlib.h>
 #include <math.h>
 
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
-
 void setup(MSSMNoFV_onshell* model) {
+   const double pi = 3.14159265358979323846;
+
    /* fill SM parameters */
    gm2calc_mssmnofv_set_alpha_MZ(model,0.0077552);            /* 1L */
    gm2calc_mssmnofv_set_alpha_thompson(model,0.00729735);     /* 2L */
-   gm2calc_mssmnofv_set_g3(model,sqrt(4 * M_PI * 0.1184));    /* 2L */
+   gm2calc_mssmnofv_set_g3(model,sqrt(4 * pi * 0.1184));      /* 2L */
    gm2calc_mssmnofv_set_MT_pole(model,173.34);                /* 2L */
    gm2calc_mssmnofv_set_MB_running(model,4.18);               /* 2L, mb(mb) MS-bar */
    gm2calc_mssmnofv_set_MM_pole(model,0.1056583715);          /* 1L */

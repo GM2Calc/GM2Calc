@@ -38,7 +38,7 @@ namespace gm2calc {
  */
 class MSSMNoFV_onshell_soft_parameters : public MSSMNoFV_onshell_susy_parameters {
 public:
-   virtual ~MSSMNoFV_onshell_soft_parameters() {}
+   virtual ~MSSMNoFV_onshell_soft_parameters() = default;
 
    void print(std::ostream&) const override;
 

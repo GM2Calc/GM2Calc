@@ -22,39 +22,51 @@
 #include "gm2calc/gm2_uncertainty.hpp"
 #include "gm2calc/gm2_version.h"
 #include "gm2calc/MSSMNoFV_onshell.hpp"
+#include "gm2calc/THDM.hpp"
 
-#include "gm2_1loop_helpers.hpp"
-#include "gm2_2loop_helpers.hpp"
+#include "MSSMNoFV/gm2_1loop_helpers.hpp"
+#include "MSSMNoFV/gm2_2loop_helpers.hpp"
+#include "THDM/gm2_2loop_helpers.hpp"
 #include "gm2_config_options.hpp"
 #include "gm2_log.hpp"
 #include "gm2_slha_io.hpp"
 
+#include <iomanip>
 #include <iostream>
 #include <limits>
 #include <string>
 #include <tuple>
 #include <utility>
 
+#define FORMAT_AMU(amu) std::scientific << std::setprecision(8) << std::setw(15) << (amu)
+#define FORMAT_DEL(amu) std::scientific << std::setprecision(8) << std::setw(14) << (amu)
+#define FORMAT_PCT(pct) std::fixed << std::setprecision(1) << std::setw(2) << (pct)
+
 namespace {
 
-/// reader function
-using Reader = std::function<void(gm2calc::MSSMNoFV_onshell&,
-                                  const gm2calc::GM2_slha_io& slha_io)>;
+/// MSSMNoFV reader function
+using MSSMNoFV_reader = std::function<void(
+   gm2calc::MSSMNoFV_onshell&, const gm2calc::GM2_slha_io& slha_io)>;
 
-/// writer function
-using Writer = std::function<void(const gm2calc::MSSMNoFV_onshell&,
-                                  const gm2calc::Config_options& options,
-                                  gm2calc::GM2_slha_io& slha_io)>;
+/// MSSMNoFV writer function
+using MSSMNoFV_writer = std::function<void(
+   const gm2calc::MSSMNoFV_onshell&, const gm2calc::Config_options& options,
+   gm2calc::GM2_slha_io& slha_io)>;
+
+/// THDM writer function
+using THDM_writer = std::function<void(const gm2calc::THDM&,
+                                       const gm2calc::Config_options& options,
+                                       gm2calc::GM2_slha_io& slha_io)>;
 
 /**
  * @class Gm2_cmd_line_options
  * @brief command line options for GM2Calc
  */
 struct Gm2_cmd_line_options {
-   enum E_input_type { SLHA, GM2Calc };
+   enum E_input_type { SLHA, GM2Calc, THDM };
 
    std::string input_source; ///< input source (file name or `-' for stdin)
-   E_input_type input_type{SLHA}; ///< input format (SLHA or GM2Calc)
+   E_input_type input_type{SLHA}; ///< input format (SLHA, GM2Calc or THDM)
 
    static bool starts_with(const std::string& str, const std::string& prefix) {
       return str.compare(0, prefix.size(), prefix) == 0;
@@ -68,9 +80,41 @@ void print_usage(const char* program_name)
       "Options:\n"
       "  --slha-input-file=<source>      SLHA input source (file name or - for stdin)\n"
       "  --gm2calc-input-file=<source>   GM2Calc input source (file name or - for stdin)\n"
+      "  --thdm-input-file=<source>      THDM input source (file name or - for stdin)\n"
       "  --help,-h                       print this help message\n"
       "  --version,-v                    print version number"
       "\n";
+}
+
+/**
+ * Checks whether the given string is a specification of an input file
+ * and processes it, if so.
+ *
+ * @param str option string
+ * @param options option struct to modify
+ *
+ * @return true if option string has been processed, false otherwise
+ */
+bool process_input_type(const std::string& str, Gm2_cmd_line_options& options)
+{
+   static const struct Input_file_options {
+      std::string input_source;
+      Gm2_cmd_line_options::E_input_type input_type;
+   } input_file_options[] = {
+      { "--slha-input-file="   , Gm2_cmd_line_options::SLHA    },
+      { "--gm2calc-input-file=", Gm2_cmd_line_options::GM2Calc },
+      { "--thdm-input-file="   , Gm2_cmd_line_options::THDM    }
+   };
+
+   for (const auto& ifo: input_file_options) {
+      if (Gm2_cmd_line_options::starts_with(str, ifo.input_source)) {
+         options.input_source = str.substr(ifo.input_source.length());
+         options.input_type = ifo.input_type;
+         return true; // option has been processed
+      }
+   }
+
+   return false; // option has not been processed
 }
 
 /**
@@ -86,31 +130,23 @@ Gm2_cmd_line_options get_cmd_line_options(int argc, const char* argv[])
    Gm2_cmd_line_options options;
 
    for (int i = 1; i < argc; ++i) {
-      const std::string option(argv[i]);
+      const std::string option_string(argv[i]);
 
-      if (Gm2_cmd_line_options::starts_with(option, "--slha-input-file=")) {
-         options.input_source = option.substr(18);
-         options.input_type = Gm2_cmd_line_options::SLHA;
+      if (process_input_type(option_string, options)) {
          continue;
       }
 
-      if (Gm2_cmd_line_options::starts_with(option, "--gm2calc-input-file=")) {
-         options.input_source = option.substr(21);
-         options.input_type = Gm2_cmd_line_options::GM2Calc;
-         continue;
-      }
-
-      if (option == "--help" || option == "-h") {
+      if (option_string == "--help" || option_string == "-h") {
          print_usage(argv[0]);
          exit(EXIT_SUCCESS);
       }
 
-      if (option == "--version" || option == "-v") {
+      if (option_string == "--version" || option_string == "-v") {
          std::cout << GM2CALC_VERSION << '\n';
          exit(EXIT_SUCCESS);
       }
 
-      ERROR("Unrecognized command line option: " << option);
+      ERROR("Unrecognized command line option: " << option_string);
       exit(EXIT_FAILURE);
    }
 
@@ -140,6 +176,9 @@ void set_to_default(gm2calc::Config_options& config_options,
       break;
    case Gm2_cmd_line_options::GM2Calc:
       config_options.output_format = gm2calc::Config_options::Detailed;
+      break;
+   case Gm2_cmd_line_options::THDM:
+      config_options.output_format = gm2calc::Config_options::GM2Calc;
       break;
    default:
       throw gm2calc::ESetupError("Unknown input option");
@@ -209,6 +248,30 @@ double calculate_amu(const gm2calc::MSSMNoFV_onshell& model,
 }
 
 /**
+ * Calculates a_mu for a given set of configuration options (loop
+ * order).
+ *
+ * @param model model (must be initialized)
+ * @param options configuration options
+ *
+ * @return a_mu
+ */
+double calculate_amu(const gm2calc::THDM& model,
+                     const gm2calc::Config_options& options)
+{
+   double result = 0.0;
+
+   if (options.loop_order > 0) {
+      result += gm2calc::calculate_amu_1loop(model);
+   }
+   if (options.loop_order > 1) {
+      result += gm2calc::calculate_amu_2loop(model);
+   }
+
+   return result;
+}
+
+/**
  * Calculates uncertainty of a_mu for a given set of configuration
  * options (loop order, tan(beta) resummation).
  *
@@ -217,7 +280,8 @@ double calculate_amu(const gm2calc::MSSMNoFV_onshell& model,
  *
  * @return a_mu
  */
-double calculate_uncertainty(const gm2calc::MSSMNoFV_onshell& model,
+template<class Model>
+double calculate_uncertainty(const Model& model,
                              const gm2calc::Config_options& options)
 {
    double result = std::numeric_limits<double>::signaling_NaN();
@@ -274,14 +338,55 @@ struct GM2Calc_reader {
 };
 
 /**
+ * Reads THDM parameters from SLHA i/o object and initializes model
+ * accordingly.
+ *
+ * @param model model to initialize
+ * @param slha_io SLHA i/o object to read parameters from
+ */
+
+struct THDM_reader {
+   gm2calc::THDM operator()(const gm2calc::GM2_slha_io& slha_io,
+                            const gm2calc::Config_options& options)
+   {
+      gm2calc::SM sm;
+      gm2calc::thdm::Mass_basis mass_basis;
+      gm2calc::thdm::Gauge_basis gauge_basis;
+      slha_io.fill(sm);
+      slha_io.fill(mass_basis);
+      slha_io.fill(gauge_basis);
+
+      gm2calc::thdm::Config thdm_config;
+      thdm_config.force_output = options.force_output;
+      thdm_config.running_couplings = options.running_couplings;
+
+      // test for unset parameters to decide which basis to use
+      if ((mass_basis.mh != 0 || mass_basis.mH != 0 ||
+           mass_basis.mA != 0 || mass_basis.mHp != 0 ||
+           mass_basis.sin_beta_minus_alpha != 0) &&
+          gauge_basis.lambda.head<5>().cwiseAbs().maxCoeff() == 0) {
+         return gm2calc::THDM(mass_basis, sm, thdm_config);
+      } else if (mass_basis.mh == 0 && mass_basis.mH == 0 &&
+                 mass_basis.mA == 0 && mass_basis.mHp == 0 &&
+                 mass_basis.sin_beta_minus_alpha == 0 &&
+                 gauge_basis.lambda.head<5>().cwiseAbs().maxCoeff() != 0) {
+         return gm2calc::THDM(gauge_basis, sm, thdm_config);
+      } else {
+         throw gm2calc::EInvalidInput("Cannot distinguish between mass and gauge basis.");
+      }
+   }
+};
+
+/**
  * Prints a_mu (or the uncertainty) to stdout.
  *
  * @param model the model (must be initialized)
  * @param options calculation options
  * @param slha_io SLHA i/o object where results are stored
  */
+template<class Model>
 struct Minimal_writer {
-   void operator()(const gm2calc::MSSMNoFV_onshell& model,
+   void operator()(const Model& model,
                    const gm2calc::Config_options& options,
                    gm2calc::GM2_slha_io& /* unused */)
    {
@@ -289,9 +394,12 @@ struct Minimal_writer {
                             ? calculate_uncertainty(model, options)
                             : calculate_amu(model, options);
 
-      std::cout << boost::format("%.8e") % value << '\n';
+      std::cout << std::scientific << std::setprecision(8) << value << '\n';
    }
 };
+
+template<class Model>
+struct Detailed_writer;
 
 /**
  * Prints detailed a_mu calculation (1-loop w/ and w/o tan(beta)
@@ -301,15 +409,12 @@ struct Minimal_writer {
  * @param options calculation options
  * @param slha_io SLHA i/o object where results are stored
  */
-struct Detailed_writer {
+template<>
+struct Detailed_writer<gm2calc::MSSMNoFV_onshell> {
    void operator()(const gm2calc::MSSMNoFV_onshell& model,
                    const gm2calc::Config_options& /* unused */,
                    gm2calc::GM2_slha_io& /* unused */)
    {
-#define FORMAT_AMU(amu) boost::format("% 14.8e") % (amu)
-#define FORMAT_DEL(amu) boost::format("%14.8e") % (amu)
-#define FORMAT_PCT(pct) boost::format("%2.1f") % (pct)
-
       const std::string error_str = model.get_problems().have_problem()
                                        ? model.get_problems().get_problems() +
                                             " (with tan(beta) resummation)\n\n"
@@ -433,9 +538,53 @@ struct Detailed_writer {
             "   amu(1L) * (1 / (1 + Delta_mu) - 1) = " << FORMAT_AMU(amu_2l_tanb_approx)
                             << " (" << FORMAT_PCT(100. * amu_2l_tanb_approx / amu_1l_non_tan_beta_resummed)
          << "%)\n";
+   }
+};
 
-#undef FORMAT_AMU
-#undef FORMAT_PCT
+/**
+ * Prints detailed a_mu calculation (1-loop, 2-loop, and different
+ * contributions).
+ *
+ * @param model the model (must be initialized)
+ * @param options calculation options
+ * @param slha_io SLHA i/o object where results are stored
+ */
+template<>
+struct Detailed_writer<gm2calc::THDM> {
+   void operator()(const gm2calc::THDM& model,
+                   const gm2calc::Config_options& /* unused */,
+                   gm2calc::GM2_slha_io& /* unused */)
+   {
+      const double amu_1l = gm2calc::calculate_amu_1loop(model);
+      const double amu_2l = gm2calc::calculate_amu_2loop(model);
+      const double amu_2l_B = gm2calc::calculate_amu_2loop_bosonic(model);
+      const double amu_2l_F = gm2calc::calculate_amu_2loop_fermionic(model);
+      const double amu_2l_uncertainty = gm2calc::calculate_uncertainty_amu_2loop(model);
+      const double amu_best = amu_1l + amu_2l;
+
+      std::cout
+         << "====================================================================\n"
+            "   amu (1-loop + 2-loop) = "
+         << FORMAT_AMU(amu_best) << " +- "
+         << FORMAT_DEL(amu_2l_uncertainty) << '\n'
+         << "====================================================================\n"
+            "\n"
+         << "==============================\n"
+            "   amu (1-loop) corrections\n"
+            "==============================\n"
+            "\n"
+            "full 1L: " << FORMAT_AMU(amu_1l)
+                        << " (" << FORMAT_PCT(100. * amu_1l / amu_best)
+                        << "% of full 1L + 2L result)\n"
+            "\n"
+            "==============================\n"
+            "   amu (2-loop) corrections\n"
+            "==============================\n"
+            "\n"
+            "bosonic   2L: " << FORMAT_AMU(amu_2l_B) << " (" << FORMAT_PCT(100. * amu_2l_B / amu_2l) << "% of 2L result)\n"
+         << "fermionic 2L: " << FORMAT_AMU(amu_2l_F) << " (" << FORMAT_PCT(100. * amu_2l_B / amu_2l) << "% of 2L result)\n"
+         << "sum         : " << FORMAT_AMU(amu_2l) << " (" << FORMAT_PCT(100. * amu_2l / amu_best)
+         << "% of full 1L + 2L result)\n";
    }
 };
 
@@ -447,11 +596,12 @@ struct Detailed_writer {
  * @param options calculation options
  * @param slha_io SLHA i/o object where results are stored
  */
+template<class Model>
 struct SLHA_writer {
    /// SLHA entry (block name, key, value, comment)
    using SLHA_entry = std::tuple<std::string, int, double, std::string>;
 
-   void operator()(const gm2calc::MSSMNoFV_onshell& model,
+   void operator()(const Model& model,
                    const gm2calc::Config_options& options,
                    gm2calc::GM2_slha_io& slha_io)
    {
@@ -504,28 +654,31 @@ private:
 };
 
 /**
- * Class which handles input/output.
+ * Class which handles input/output for the MSSM.
  */
-class Setup
+class MSSMNoFV_setup
 {
 public:
-   Setup(const gm2calc::Config_options& options_, const Reader& reader_,
-         const Writer& writer_)
+   MSSMNoFV_setup(const gm2calc::Config_options& options_,
+                  const MSSMNoFV_reader& reader_,
+                  const MSSMNoFV_writer& writer_)
       : options(options_), reader(reader_), writer(writer_)
    {
-      model.do_force_output(options_.force_output);
-      model.set_verbose_output(options_.verbose_output);
    }
 
-   /// returns whether the model discovered a problem
-   bool have_problem() const { return model.get_problems().have_problem(); }
-
-   /// read from SLHA i/o object and initialize model (via reader)
-   void read(const gm2calc::GM2_slha_io& slha_io)
+   /// read from SLHA and write to output
+   int run(gm2calc::GM2_slha_io& slha_io)
    {
       if (!reader) {
          throw gm2calc::ESetupError("No reader set");
       }
+      if (!writer) {
+         throw gm2calc::ESetupError("No writer set");
+      }
+
+      gm2calc::MSSMNoFV_onshell model;
+      model.do_force_output(options.force_output);
+      model.set_verbose_output(options.verbose_output);
 
       reader(model, slha_io);
 
@@ -537,60 +690,117 @@ public:
           model.get_problems().have_warning()) {
          std::cerr << model.get_problems() << '\n';
       }
+
+      writer(model, options, slha_io);
+
+      return model.get_problems().have_problem() ? EXIT_FAILURE : EXIT_SUCCESS;
    }
 
-   /// Output via the writer (potentially to SLHA i/o object)
-   void write(gm2calc::GM2_slha_io& slha_io) const
+private:
+   gm2calc::Config_options options;
+   MSSMNoFV_reader reader{nullptr};
+   MSSMNoFV_writer writer{nullptr};
+};
+
+/**
+ * Class which handles input/output for the MSSM.
+ */
+class THDM_setup
+{
+public:
+   THDM_setup(const gm2calc::Config_options& options_,
+              const THDM_reader& reader_,
+              const THDM_writer& writer_)
+      : options(options_), reader(reader_), writer(writer_)
+   {
+   }
+
+   /// read from SLHA and write to output
+   int run(gm2calc::GM2_slha_io& slha_io)
    {
       if (!writer) {
          throw gm2calc::ESetupError("No writer set");
       }
 
+      gm2calc::THDM model = reader(slha_io, options);
+
+      if (options.verbose_output) {
+         VERBOSE(model);
+      }
+
       writer(model, options, slha_io);
+
+      return EXIT_SUCCESS;
    }
 
 private:
-   gm2calc::MSSMNoFV_onshell model;
    gm2calc::Config_options options;
-   Reader reader{nullptr};
-   Writer writer{nullptr};
+   THDM_reader reader;
+   THDM_writer writer;
 };
 
 /**
- * Returns properly configured (but not initialized) Setup object.
+ * Returns properly configured (but not initialized) MSSMNoFV_setup object.
  *
  * @param input_type type of input (SLHA/GM2Calc)
  * @param options configuration options
  *
- * @return Setup object
+ * @return MSSMNoFV_setup object
  */
-Setup make_setup(
+MSSMNoFV_setup make_mssmnofv_setup(
    Gm2_cmd_line_options::E_input_type input_type,
    const gm2calc::Config_options& options)
 {
-   const Reader reader = [&] () -> Reader {
+   const auto reader = [&] () -> MSSMNoFV_reader {
       switch (input_type) {
       case Gm2_cmd_line_options::SLHA:
          return SLHA_reader();
       case Gm2_cmd_line_options::GM2Calc:
          return GM2Calc_reader();
+      case Gm2_cmd_line_options::THDM:
+         break;
       }
       throw gm2calc::ESetupError("Unknown input type");
    }();
 
-   const Writer writer = [&] () -> Writer {
+   const auto writer = [&] () -> MSSMNoFV_writer {
       switch (options.output_format) {
       case gm2calc::Config_options::Minimal:
-         return Minimal_writer();
+         return Minimal_writer<gm2calc::MSSMNoFV_onshell>();
       case gm2calc::Config_options::Detailed:
-         return Detailed_writer();
+         return Detailed_writer<gm2calc::MSSMNoFV_onshell>();
       default:
          break;
       }
-      return SLHA_writer();
+      return SLHA_writer<gm2calc::MSSMNoFV_onshell>();
    }();
 
-   return Setup(options, reader, writer);
+   return MSSMNoFV_setup(options, reader, writer);
+}
+
+/**
+ * Returns properly configured (but not initialized) MSSMNoFV_setup object.
+ *
+ * @param input_type type of input (SLHA/GM2Calc)
+ * @param options configuration options
+ *
+ * @return MSSMNoFV_setup object
+ */
+THDM_setup make_thdm_setup(const gm2calc::Config_options& options)
+{
+   const auto writer = [&] () -> THDM_writer {
+      switch (options.output_format) {
+      case gm2calc::Config_options::Minimal:
+         return Minimal_writer<gm2calc::THDM>();
+      case gm2calc::Config_options::Detailed:
+         return Detailed_writer<gm2calc::THDM>();
+      default:
+         break;
+      }
+      return SLHA_writer<gm2calc::THDM>();
+   }();
+
+   return THDM_setup(options, THDM_reader(), writer);
 }
 
 } // anonymous namespace
@@ -600,9 +810,11 @@ int main(int argc, const char* argv[])
    Gm2_cmd_line_options options(get_cmd_line_options(argc, argv));
 
    if (options.input_source.empty()) {
-      ERROR("No input source given!\n"
-            "   Please provide an SLHA input via the option --slha-input-file=\n"
-            "   or a GM2Calc input via the option --gm2calc-input-file=");
+      ERROR(std::string("No input source given!\n") +
+            "Examples: \n" +
+            "   " + argv[0] + " --slha-input-file=<file>     # MSSM SLHA input\n"
+            "   " + argv[0] + " --gm2calc-input-file=<file>  # MSSM GM2Calc input\n"
+            "   " + argv[0] + " --thdm-input-file=<file>     # THDM input");
       return EXIT_FAILURE;
    }
 
@@ -615,12 +827,18 @@ int main(int argc, const char* argv[])
       slha_io.read_from_source(options.input_source);
       slha_io.fill(config_options);
 
-      Setup setup = make_setup(options.input_type, config_options);
-      setup.read(slha_io);
-      setup.write(slha_io);
-
-      if (setup.have_problem()) {
-         exit_code = EXIT_FAILURE;
+      switch (options.input_type) {
+      case Gm2_cmd_line_options::SLHA:
+      case Gm2_cmd_line_options::GM2Calc: {
+         auto setup = make_mssmnofv_setup(options.input_type, config_options);
+         exit_code = setup.run(slha_io);
+         }
+         break;
+      case Gm2_cmd_line_options::THDM: {
+         auto setup = make_thdm_setup(config_options);
+         exit_code = setup.run(slha_io);
+         }
+         break;
       }
    } catch (const gm2calc::Error& error) {
       print_error(error, slha_io, config_options);

@@ -9,6 +9,9 @@
 :Evaluate: forceOutput::usage =
     "Enforce output, even in case an error has occurred.";
 
+:Evaluate: runningCouplings::usage =
+    "Use running couplings in the THDM.";
+
 :Evaluate: alphaMZ::usage =
     "Electromagnetic coupling in the MS-bar scheme at the scale MZ."
 
@@ -27,8 +30,20 @@
 :Evaluate: MT::usage =
     "Top quark pole mass."
 
+:Evaluate: mcmc::usage =
+    "Charm quark MS-bar mass mc at the scale mc."
+
+:Evaluate: mu2GeV::usage =
+    "Up quark MS-bar mass mu at the scale 2 GeV."
+
 :Evaluate: mbmb::usage =
     "Bottom quark MS-bar mass mb at the scale mb."
+
+:Evaluate: ms2GeV::usage =
+    "Strange quark MS-bar mass ms at the scale 2 GeV."
+
+:Evaluate: md2GeV::usage =
+    "Down quark MS-bar mass ms at the scale 2 GeV."
 
 :Evaluate: mbMZ::usage =
     "Bottom quark DR-bar mass at the scale MZ."
@@ -39,8 +54,32 @@
 :Evaluate: MM::usage =
     "Muon pole mass."
 
+:Evaluate: ME::usage =
+    "Electron pole mass."
+
+:Evaluate: Mv1::usage =
+    "Lightest neutrino pole mass."
+
+:Evaluate: Mv2::usage =
+    "2nd lightest neutrino pole mass."
+
+:Evaluate: Mv3::usage =
+    "Heaviest neutrino pole mass."
+
+:Evaluate: CKM::usage =
+    "CKM matrix."
+
 :Evaluate: amu::usage =
     "Calculated value of the anomalous magnetic moment of the muon, amu = (g-2)/2.";
+
+:Evaluate: amu1L::usage =
+    "Calculated value of the anomalous magnetic moment of the muon, amu = (g-2)/2 (1-loop contribution only).";
+
+:Evaluate: amu2LF::usage =
+    "Calculated value of the anomalous magnetic moment of the muon, amu = (g-2)/2 (2-loop fermionic contribution only).";
+
+:Evaluate: amu2LB::usage =
+    "Calculated value of the anomalous magnetic moment of the muon, amu = (g-2)/2 (2-loop bosonic contribution only).";
 
 :Evaluate: Damu::usage =
     "Uncertainty of the calculated value of the anomalous magnetic moment of the muon.";
@@ -108,14 +147,23 @@
 :Evaluate: MCha::usage =
     "Chargino masses.";
 
+:Evaluate: MhSM::usage =
+    "Standard Model Higgs boson mass.";
+
+:Evaluate: Mhh::usage =
+    "CP-even Higgs boson masses.";
+
 :Evaluate: MAh::usage =
     "CP-odd Higgs boson mass.";
+
+:Evaluate: MHp::usage =
+    "charged Higgs boson mass.";
 
 :Evaluate: Mhh::usage =
     "CP-even Higgs bosons masses.";
 
 :Evaluate: TB::usage =
-    "tan(beta) = vu/vd.";
+    "tan(beta) = v2/v1 (= vu/vd in the MSSM).";
 
 :Evaluate: Mu::usage =
     "Superpotential mu-parameter.";
@@ -165,29 +213,83 @@
 :Evaluate: Ye::usage =
     "Yukawa couplings of down-type leptons.";
 
+:Evaluate: yukawaType::usage =
+    "Yukawa type of the Two-Higgs Doublet Model.";
+
+:Evaluate: sinBetaMinusAlpha::usage =
+    "Mixing angle sin(beta - alpha) of the Higgs sector in the Two-Higgs Doublet Model.";
+
+:Evaluate: lambda::usage =
+    "Lagrangian parameters { lambda_1, ... , lambda_7 } in the Two-Higgs Doublet Model.";
+
+:Evaluate: lambda6::usage =
+    "Lagrangian parameter lambda_6 in the Two-Higgs Doublet Model.";
+
+:Evaluate: lambda7::usage =
+    "Lagrangian parameter lambda_7 in the Two-Higgs Doublet Model.";
+
+:Evaluate: m122::usage =
+    "Lagrangian parameter m_{12}^2 in the Two-Higgs Doublet Model.";
+
+:Evaluate: zetau::usage =
+    "Alignment parameter zeta_u in the Two-Higgs Doublet Model.";
+
+:Evaluate: zetad::usage =
+    "Alignment parameter zeta_d in the Two-Higgs Doublet Model.";
+
+:Evaluate: zetal::usage =
+    "Alignment parameter zeta_l in the Two-Higgs Doublet Model.";
+
+:Evaluate: Deltau::usage =
+    "Yukawa coupling Delta_u in the general Two-Higgs Doublet Model.";
+
+:Evaluate: Deltad::usage =
+    "Yukawa coupling Delta_d in the general Two-Higgs Doublet Model.";
+
+:Evaluate: Deltal::usage =
+    "Yukawa coupling Delta_l in the general Two-Higgs Doublet Model.";
+
+:Evaluate: Piu::usage =
+    "Yukawa coupling Pi_u in the general Two-Higgs Doublet Model.";
+
+:Evaluate: Pid::usage =
+    "Yukawa coupling Pi_d in the general Two-Higgs Doublet Model.";
+
+:Evaluate: Pil::usage =
+    "Yukawa coupling Pi_l in the general Two-Higgs Doublet Model.";
+
 :Evaluate: GM2CalcSetFlags::usage =
-    "GM2CalcSetFlags sets the configuration flags for GM2Calc.  Available flags are: {loopOrder, tanBetaResummation, forceOutput}.  Unset flags are set to their default values, see Options[GM2CalcSetFlags].  Use GM2CalcGetFlags[] to retrieve the flags currently set."
+    "GM2CalcSetFlags sets the configuration flags for GM2Calc.  Available flags are: {loopOrder, tanBetaResummation, forceOutput, runningCouplings}.  Unset flags are set to their default values, see Options[GM2CalcSetFlags].  Use GM2CalcGetFlags[] to retrieve the flags currently set."
 
 :Evaluate: GM2CalcGetFlags::usage =
     "GM2CalcGetFlags returns the current configuration flags for GM2Calc."
 
 :Evaluate: GM2CalcSetSMParameters::usage =
-    "GM2CalcSetSMParameters sets the Standard Model parameters input parameters.  Available Standard Model parameters are: {alphaMZ, alpha0, alphaS, MW, MZ, MT, mbmb, mbMZ, ML, MM}.  Unset parameters are set to their default values, see Options[GM2CalcSetSMParameters].  Use GM2CalcGetSMParameters[] to retrieve the current values of the Standard Model parameters."
+    "GM2CalcSetSMParameters sets the Standard Model parameters input parameters. Unset parameters are set to their default values, see Options[GM2CalcSetSMParameters].  Use GM2CalcGetSMParameters[] to retrieve the current values of the Standard Model parameters."
 
 :Evaluate: GM2CalcGetSMParameters::usage =
     "GM2CalcGetSMParameters returns the Standard Model parameters."
 
 :Evaluate: GM2CalcAmuSLHAScheme::usage =
-    "GM2CalcAmuSLHAScheme calculates amu and its uncertainty using the given SLHA parameters (SLHA interface).  Unset SLHA parameters are set to zero.  See Options[GM2CalcAmuSLHAScheme] for all SLHA parameters and their default values."
+    "GM2CalcAmuSLHAScheme calculates amu and its uncertainty in the MSSM using the given SLHA parameters (SLHA interface).  Unset SLHA parameters are set to zero.  See Options[GM2CalcAmuSLHAScheme] for all SLHA parameters and their default values."
 
 :Evaluate: GM2CalcAmuGM2CalcScheme::usage =
-    "GM2CalcAmuGM2CalcScheme calculates amu and its uncertainty using the given parameters in the GM2Calc-specific renormalization scheme (GM2Calc interface).  Unset parameters are set to zero.  See Options[GM2CalcAmuGM2CalcScheme] for all input parameters in the GM2Calc scheme and their default values."
+    "GM2CalcAmuGM2CalcScheme calculates amu and its uncertainty in the MSSM using the given parameters in the GM2Calc-specific renormalization scheme (GM2Calc interface).  Unset parameters are set to zero.  See Options[GM2CalcAmuGM2CalcScheme] for all input parameters in the GM2Calc scheme and their default values."
+
+:Evaluate: GM2CalcAmuTHDMGaugeBasis::usage =
+    "GM2CalcAmuTHDMGaugeBasis calculates amu and its uncertainty in the Two-Higgs Doublet Model using the given input parameters in the gauge bassis.  Unset input parameters are set to zero.  See Options[GM2CalcAmuTHDMGaugeBasis] for all parameters and their default values."
+
+:Evaluate: GM2CalcAmuTHDMMassBasis::usage =
+    "GM2CalcAmuTHDMMassBasis calculates amu and its uncertainty in the Two-Higgs Doublet Model using the given input parameters.  Unset input parameters are set to zero.  See Options[GM2CalcAmuTHDMMassBasis] for all parameters and their default values."
 
 :Evaluate: GM2CalcAmuSLHAScheme::error = "`1`";
 :Evaluate: GM2CalcAmuSLHAScheme::warning = "`1`";
 
 :Evaluate: GM2CalcAmuGM2CalcScheme::error = "`1`";
 :Evaluate: GM2CalcAmuGM2CalcScheme::warning = "`1`";
+
+:Evaluate: GM2CalcAmuTHDMMassBasis::error = "`1`";
+:Evaluate: GM2CalcAmuTHDMGaugeBasis::error = "`1`";
 
 :Evaluate: Begin["`Private`"]
 
@@ -197,15 +299,17 @@
 :Arguments: {
    OptionValue[loopOrder],
    Boole[OptionValue[tanBetaResummation]],
-   Boole[OptionValue[forceOutput]] }
-:ArgumentTypes: {Integer, Integer, Integer}
+   Boole[OptionValue[forceOutput]],
+   Boole[OptionValue[runningCouplings]] }
+:ArgumentTypes: {Integer, Integer, Integer, Integer}
 :ReturnType: Integer
 :End:
 
 :Evaluate: Options[GM2CalcSetFlags] = {
    loopOrder -> 2,
    tanBetaResummation -> True,
-   forceOutput -> False }
+   forceOutput -> False,
+   runningCouplings -> False }
 
 :Evaluate: GM2CalcSetFlags::wronglooporder = "Unsupported loop order: `1`";
 
@@ -221,29 +325,70 @@
 :Function: GM2CalcSetSMParameters
 :Pattern: GM2CalcSetSMParameters[OptionsPattern[]]
 :Arguments: {
-   N @ OptionValue[alphaMZ],
    N @ OptionValue[alpha0],
+   N @ OptionValue[alphaMZ],
    N @ OptionValue[alphaS],
+   N @ OptionValue[MhSM],
    N @ OptionValue[MW],
    N @ OptionValue[MZ],
    N @ OptionValue[MT],
+   N @ OptionValue[mcmc],
+   N @ OptionValue[mu2GeV],
    N @ OptionValue[mbmb],
+   N @ OptionValue[ms2GeV],
+   N @ OptionValue[md2GeV],
+   N @ OptionValue[Mv1],
+   N @ OptionValue[Mv2],
+   N @ OptionValue[Mv3],
    N @ OptionValue[ML],
-   N @ OptionValue[MM] }
-:ArgumentTypes: { Real, Real, Real, Real, Real, Real, Real, Real, Real }
+   N @ OptionValue[MM],
+   N @ OptionValue[ME],
+   Re @ N @ OptionValue[CKM][[1,1]],
+   Re @ N @ OptionValue[CKM][[1,2]],
+   Re @ N @ OptionValue[CKM][[1,3]],
+   Re @ N @ OptionValue[CKM][[2,1]],
+   Re @ N @ OptionValue[CKM][[2,2]],
+   Re @ N @ OptionValue[CKM][[2,3]],
+   Re @ N @ OptionValue[CKM][[3,1]],
+   Re @ N @ OptionValue[CKM][[3,2]],
+   Re @ N @ OptionValue[CKM][[3,3]],
+   Im @ N @ OptionValue[CKM][[1,1]],
+   Im @ N @ OptionValue[CKM][[1,2]],
+   Im @ N @ OptionValue[CKM][[1,3]],
+   Im @ N @ OptionValue[CKM][[2,1]],
+   Im @ N @ OptionValue[CKM][[2,2]],
+   Im @ N @ OptionValue[CKM][[2,3]],
+   Im @ N @ OptionValue[CKM][[3,1]],
+   Im @ N @ OptionValue[CKM][[3,2]],
+   Im @ N @ OptionValue[CKM][[3,3]] }
+:ArgumentTypes: {
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real }
 :ReturnType: Integer
 :End:
 
 :Evaluate: Options[GM2CalcSetSMParameters] = {
-    alphaMZ -> 0.0077552,
     alpha0 -> 0.00729735,
+    alphaMZ -> 0.0077552,
     alphaS -> 0.1184,
+    MhSM -> 125.09,
     MW -> 80.385,
     MZ -> 91.1876,
     MT -> 173.34,
+    mcmc -> 1.28,
+    mu2GeV -> 0.0022,
     mbmb -> 4.18,
+    ms2GeV -> 0.096,
+    md2GeV -> 0.0047,
     ML -> 1.777,
-    MM -> 0.1056583715 }
+    MM -> 0.1056583715,
+    ME -> 0.000510998928,
+    Mv1 -> 0,
+    Mv2 -> 0,
+    Mv3 -> 0,
+    CKM -> {{1,0,0}, {0,1,0}, {0,0,1}} }
 
 :Begin:
 :Function: GM2CalcGetSMParameters
@@ -375,6 +520,205 @@
     Ae     -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
     Q      -> 0 }
 
+:Begin:
+:Function: GM2CalcAmuTHDMGaugeBasis
+:Pattern: GM2CalcAmuTHDMGaugeBasis[OptionsPattern[]]
+:Arguments: {
+   N @ OptionValue[yukawaType],
+   N @ OptionValue[lambda][[1]],
+   N @ OptionValue[lambda][[2]],
+   N @ OptionValue[lambda][[3]],
+   N @ OptionValue[lambda][[4]],
+   N @ OptionValue[lambda][[5]],
+   N @ OptionValue[lambda][[6]],
+   N @ OptionValue[lambda][[7]],
+   N @ OptionValue[TB],
+   N @ OptionValue[m122],
+   N @ OptionValue[zetau],
+   N @ OptionValue[zetad],
+   N @ OptionValue[zetal],
+   Re @ N @ OptionValue[Deltau][[1,1]],
+   Re @ N @ OptionValue[Deltau][[1,2]],
+   Re @ N @ OptionValue[Deltau][[1,3]],
+   Re @ N @ OptionValue[Deltau][[2,1]],
+   Re @ N @ OptionValue[Deltau][[2,2]],
+   Re @ N @ OptionValue[Deltau][[2,3]],
+   Re @ N @ OptionValue[Deltau][[3,1]],
+   Re @ N @ OptionValue[Deltau][[3,2]],
+   Re @ N @ OptionValue[Deltau][[3,3]],
+   Re @ N @ OptionValue[Deltad][[1,1]],
+   Re @ N @ OptionValue[Deltad][[1,2]],
+   Re @ N @ OptionValue[Deltad][[1,3]],
+   Re @ N @ OptionValue[Deltad][[2,1]],
+   Re @ N @ OptionValue[Deltad][[2,2]],
+   Re @ N @ OptionValue[Deltad][[2,3]],
+   Re @ N @ OptionValue[Deltad][[3,1]],
+   Re @ N @ OptionValue[Deltad][[3,2]],
+   Re @ N @ OptionValue[Deltad][[3,3]],
+   Re @ N @ OptionValue[Deltal][[1,1]],
+   Re @ N @ OptionValue[Deltal][[1,2]],
+   Re @ N @ OptionValue[Deltal][[1,3]],
+   Re @ N @ OptionValue[Deltal][[2,1]],
+   Re @ N @ OptionValue[Deltal][[2,2]],
+   Re @ N @ OptionValue[Deltal][[2,3]],
+   Re @ N @ OptionValue[Deltal][[3,1]],
+   Re @ N @ OptionValue[Deltal][[3,2]],
+   Re @ N @ OptionValue[Deltal][[3,3]],
+   Re @ N @ OptionValue[Piu][[1,1]],
+   Re @ N @ OptionValue[Piu][[1,2]],
+   Re @ N @ OptionValue[Piu][[1,3]],
+   Re @ N @ OptionValue[Piu][[2,1]],
+   Re @ N @ OptionValue[Piu][[2,2]],
+   Re @ N @ OptionValue[Piu][[2,3]],
+   Re @ N @ OptionValue[Piu][[3,1]],
+   Re @ N @ OptionValue[Piu][[3,2]],
+   Re @ N @ OptionValue[Piu][[3,3]],
+   Re @ N @ OptionValue[Pid][[1,1]],
+   Re @ N @ OptionValue[Pid][[1,2]],
+   Re @ N @ OptionValue[Pid][[1,3]],
+   Re @ N @ OptionValue[Pid][[2,1]],
+   Re @ N @ OptionValue[Pid][[2,2]],
+   Re @ N @ OptionValue[Pid][[2,3]],
+   Re @ N @ OptionValue[Pid][[3,1]],
+   Re @ N @ OptionValue[Pid][[3,2]],
+   Re @ N @ OptionValue[Pid][[3,3]],
+   Re @ N @ OptionValue[Pil][[1,1]],
+   Re @ N @ OptionValue[Pil][[1,2]],
+   Re @ N @ OptionValue[Pil][[1,3]],
+   Re @ N @ OptionValue[Pil][[2,1]],
+   Re @ N @ OptionValue[Pil][[2,2]],
+   Re @ N @ OptionValue[Pil][[2,3]],
+   Re @ N @ OptionValue[Pil][[3,1]],
+   Re @ N @ OptionValue[Pil][[3,2]],
+   Re @ N @ OptionValue[Pil][[3,3]] }
+:ArgumentTypes: {
+   Integer, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real }
+:ReturnType: Manual
+:End:
+
+:Evaluate: Options[GM2CalcAmuTHDMGaugeBasis] = {
+    yukawaType -> 0,
+    lambda     -> { 0, 0, 0, 0, 0, 0, 0 },
+    TB         -> 0,
+    m122       -> 0,
+    zetau      -> 0,
+    zetad      -> 0,
+    zetal      -> 0,
+    Deltau     -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Deltad     -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Deltal     -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Piu        -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Pid        -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Pil        -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} }
+
+:Begin:
+:Function: GM2CalcAmuTHDMMassBasis
+:Pattern: GM2CalcAmuTHDMMassBasis[OptionsPattern[]]
+:Arguments: {
+   N @ OptionValue[yukawaType],
+   N @ OptionValue[Mhh][[1]],
+   N @ OptionValue[Mhh][[2]],
+   N @ OptionValue[MAh],
+   N @ OptionValue[MHp],
+   N @ OptionValue[sinBetaMinusAlpha],
+   N @ OptionValue[lambda6],
+   N @ OptionValue[lambda7],
+   N @ OptionValue[TB],
+   N @ OptionValue[m122],
+   N @ OptionValue[zetau],
+   N @ OptionValue[zetad],
+   N @ OptionValue[zetal],
+   Re @ N @ OptionValue[Deltau][[1,1]],
+   Re @ N @ OptionValue[Deltau][[1,2]],
+   Re @ N @ OptionValue[Deltau][[1,3]],
+   Re @ N @ OptionValue[Deltau][[2,1]],
+   Re @ N @ OptionValue[Deltau][[2,2]],
+   Re @ N @ OptionValue[Deltau][[2,3]],
+   Re @ N @ OptionValue[Deltau][[3,1]],
+   Re @ N @ OptionValue[Deltau][[3,2]],
+   Re @ N @ OptionValue[Deltau][[3,3]],
+   Re @ N @ OptionValue[Deltad][[1,1]],
+   Re @ N @ OptionValue[Deltad][[1,2]],
+   Re @ N @ OptionValue[Deltad][[1,3]],
+   Re @ N @ OptionValue[Deltad][[2,1]],
+   Re @ N @ OptionValue[Deltad][[2,2]],
+   Re @ N @ OptionValue[Deltad][[2,3]],
+   Re @ N @ OptionValue[Deltad][[3,1]],
+   Re @ N @ OptionValue[Deltad][[3,2]],
+   Re @ N @ OptionValue[Deltad][[3,3]],
+   Re @ N @ OptionValue[Deltal][[1,1]],
+   Re @ N @ OptionValue[Deltal][[1,2]],
+   Re @ N @ OptionValue[Deltal][[1,3]],
+   Re @ N @ OptionValue[Deltal][[2,1]],
+   Re @ N @ OptionValue[Deltal][[2,2]],
+   Re @ N @ OptionValue[Deltal][[2,3]],
+   Re @ N @ OptionValue[Deltal][[3,1]],
+   Re @ N @ OptionValue[Deltal][[3,2]],
+   Re @ N @ OptionValue[Deltal][[3,3]],
+   Re @ N @ OptionValue[Piu][[1,1]],
+   Re @ N @ OptionValue[Piu][[1,2]],
+   Re @ N @ OptionValue[Piu][[1,3]],
+   Re @ N @ OptionValue[Piu][[2,1]],
+   Re @ N @ OptionValue[Piu][[2,2]],
+   Re @ N @ OptionValue[Piu][[2,3]],
+   Re @ N @ OptionValue[Piu][[3,1]],
+   Re @ N @ OptionValue[Piu][[3,2]],
+   Re @ N @ OptionValue[Piu][[3,3]],
+   Re @ N @ OptionValue[Pid][[1,1]],
+   Re @ N @ OptionValue[Pid][[1,2]],
+   Re @ N @ OptionValue[Pid][[1,3]],
+   Re @ N @ OptionValue[Pid][[2,1]],
+   Re @ N @ OptionValue[Pid][[2,2]],
+   Re @ N @ OptionValue[Pid][[2,3]],
+   Re @ N @ OptionValue[Pid][[3,1]],
+   Re @ N @ OptionValue[Pid][[3,2]],
+   Re @ N @ OptionValue[Pid][[3,3]],
+   Re @ N @ OptionValue[Pil][[1,1]],
+   Re @ N @ OptionValue[Pil][[1,2]],
+   Re @ N @ OptionValue[Pil][[1,3]],
+   Re @ N @ OptionValue[Pil][[2,1]],
+   Re @ N @ OptionValue[Pil][[2,2]],
+   Re @ N @ OptionValue[Pil][[2,3]],
+   Re @ N @ OptionValue[Pil][[3,1]],
+   Re @ N @ OptionValue[Pil][[3,2]],
+   Re @ N @ OptionValue[Pil][[3,3]] }
+:ArgumentTypes: {
+   Integer, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real, Real, Real, Real,
+   Real, Real, Real, Real, Real, Real, Real }
+:ReturnType: Manual
+:End:
+
+:Evaluate: Options[GM2CalcAmuTHDMMassBasis] = {
+    yukawaType        -> 0,
+    Mhh               -> { 0, 0 },
+    MAh               -> 0,
+    MHp               -> 0,
+    sinBetaMinusAlpha -> 0,
+    lambda6           -> 0,
+    lambda7           -> 0,
+    TB                -> 0,
+    m122              -> 0,
+    zetau             -> 0,
+    zetad             -> 0,
+    zetal             -> 0,
+    Deltau            -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Deltad            -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Deltal            -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Piu               -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Pid               -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
+    Pil               -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}} }
+
 :Evaluate: End[]
 
 :Evaluate: EndPackage[]
@@ -385,8 +729,8 @@
 #include "gm2calc/gm2_uncertainty.h"
 #include "gm2calc/gm2_version.h"
 #include "gm2calc/MSSMNoFV_onshell.h"
-
-#include "gm2_constants.h"
+#include "gm2calc/SM.h"
+#include "gm2calc/THDM.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -467,6 +811,19 @@
       }                                                           \
    } while (0)
 
+#define MLPutComplexMatrixTHDM(link,M,dim1,dim2)                  \
+   do {                                                           \
+      MLPutFunction(link, "List", dim1);                          \
+      for (unsigned i = 0; i < dim1; i++) {                       \
+         MLPutFunction(link, "List", dim2);                       \
+         for (unsigned k = 0; k < dim2; k++) {                    \
+            double re = M##_real[i][k];                           \
+            double im = M##_imag[i][k];                           \
+            MLPutComplex(link, re, im);                           \
+         }                                                        \
+      }                                                           \
+   } while (0)
+
 #define MLPutRuleToRealVectorInterface(link,M,name,dim) \
  do {                                                   \
     MLPutFunction(link, "Rule", 2);                     \
@@ -488,39 +845,28 @@
     MLPutComplexMatrixInterface(link,M,dim1,dim2);                      \
  } while (0)
 
+#define MLPutRuleToComplexMatrixTHDM(link,M,name,dim1,dim2)             \
+ do {                                                                   \
+    MLPutFunction(link, "Rule", 2);                                     \
+    MLPutSymbol(link, name);                                            \
+    MLPutComplexMatrixTHDM(link,M,dim1,dim2);                           \
+ } while (0)
+
 /* global configuration flags */
 struct Config_flags {
    int loopOrder;
    int tanBetaResummation;
    int forceOutput;
+   int runningCouplings;
 } config_flags = {
    .loopOrder = 2,
    .tanBetaResummation = 1,
-   .forceOutput = 0
+   .forceOutput = 0,
+   .runningCouplings = 1
 };
 
 /* Standard Model parameters */
-struct SM_parameters {
-   double alphaMZ;
-   double alpha0;
-   double alphaS;
-   double MW;
-   double MZ;
-   double MT;
-   double mbmb;
-   double ML;
-   double MM;
-} sm_parameters = {
-   .alphaMZ = GM2CALC_ALPHA_EM_MZ,
-   .alpha0 = GM2CALC_ALPHA_EM_THOMPSON,
-   .alphaS = GM2CALC_ALPHA_S_MZ,
-   .MW = GM2CALC_MW,
-   .MZ = GM2CALC_MZ,
-   .MT = GM2CALC_MT,
-   .mbmb = GM2CALC_MBMB,
-   .ML = GM2CALC_ML,
-   .MM = GM2CALC_MM
-};
+gm2calc_SM sm;
 
 /* SUSY parameters for SLHA interface */
 struct SLHA_parameters {
@@ -647,15 +993,15 @@ gm2calc_error setup_model_slha_scheme(MSSMNoFV_onshell* model,
                                       const struct SLHA_parameters* pars)
 {
    /* fill SM parameters */
-   gm2calc_mssmnofv_set_alpha_MZ(model, sm_parameters.alphaMZ);
-   gm2calc_mssmnofv_set_alpha_thompson(model, sm_parameters.alpha0);
-   gm2calc_mssmnofv_set_g3(model, sqrt(4 * M_PI * sm_parameters.alphaS));
-   gm2calc_mssmnofv_set_MT_pole(model, sm_parameters.MT);
-   gm2calc_mssmnofv_set_MB_running(model, sm_parameters.mbmb);
-   gm2calc_mssmnofv_set_MM_pole(model, sm_parameters.MM);
-   gm2calc_mssmnofv_set_ML_pole(model, sm_parameters.ML);
-   gm2calc_mssmnofv_set_MW_pole(model, sm_parameters.MW);
-   gm2calc_mssmnofv_set_MZ_pole(model, sm_parameters.MZ);
+   gm2calc_mssmnofv_set_alpha_MZ(model, sm.alpha_em_mz);
+   gm2calc_mssmnofv_set_alpha_thompson(model, sm.alpha_em_0);
+   gm2calc_mssmnofv_set_g3(model, sqrt(4 * M_PI * sm.alpha_s_mz));
+   gm2calc_mssmnofv_set_MT_pole(model, sm.mu[2]);
+   gm2calc_mssmnofv_set_MB_running(model, sm.md[2]);
+   gm2calc_mssmnofv_set_MM_pole(model, sm.ml[1]);
+   gm2calc_mssmnofv_set_ML_pole(model, sm.ml[2]);
+   gm2calc_mssmnofv_set_MW_pole(model, sm.mw);
+   gm2calc_mssmnofv_set_MZ_pole(model, sm.mz);
 
    /* fill pole masses */
    gm2calc_mssmnofv_set_MSvmL_pole(model, pars->MSvmL);
@@ -701,15 +1047,15 @@ gm2calc_error setup_model_gm2calc_scheme(MSSMNoFV_onshell* model,
                                          const struct GM2Calc_parameters* pars)
 {
    /* fill SM parameters */
-   gm2calc_mssmnofv_set_alpha_MZ(model, sm_parameters.alphaMZ);
-   gm2calc_mssmnofv_set_alpha_thompson(model, sm_parameters.alpha0);
-   gm2calc_mssmnofv_set_g3(model, sqrt(4 * M_PI * sm_parameters.alphaS));
-   gm2calc_mssmnofv_set_MT_pole(model, sm_parameters.MT);
-   gm2calc_mssmnofv_set_MB_running(model, sm_parameters.mbmb);
-   gm2calc_mssmnofv_set_MM_pole(model, sm_parameters.MM);
-   gm2calc_mssmnofv_set_ML_pole(model, sm_parameters.ML);
-   gm2calc_mssmnofv_set_MW_pole(model, sm_parameters.MW);
-   gm2calc_mssmnofv_set_MZ_pole(model, sm_parameters.MZ);
+   gm2calc_mssmnofv_set_alpha_MZ(model, sm.alpha_em_mz);
+   gm2calc_mssmnofv_set_alpha_thompson(model, sm.alpha_em_0);
+   gm2calc_mssmnofv_set_g3(model, sqrt(4 * M_PI * sm.alpha_s_mz));
+   gm2calc_mssmnofv_set_MT_pole(model, sm.mu[2]);
+   gm2calc_mssmnofv_set_MB_running(model, sm.md[2]);
+   gm2calc_mssmnofv_set_MM_pole(model, sm.ml[1]);
+   gm2calc_mssmnofv_set_ML_pole(model, sm.ml[2]);
+   gm2calc_mssmnofv_set_MW_pole(model, sm.mw);
+   gm2calc_mssmnofv_set_MZ_pole(model, sm.mz);
 
    /* fill DR-bar parameters */
    gm2calc_mssmnofv_set_TB(model, pars->TB);
@@ -769,6 +1115,28 @@ double calculate_amu(MSSMNoFV_onshell* model)
 
 /******************************************************************/
 
+void calculate_amu_thdm(gm2calc_THDM* model, double* amu1L, double* amu2LF, double* amu2LB, double* damu)
+{
+   /* calculate amu contributions */
+   if (config_flags.loopOrder > 0) {
+      *amu1L = gm2calc_thdm_calculate_amu_1loop(model);
+   }
+   if (config_flags.loopOrder > 1) {
+      *amu2LF = gm2calc_thdm_calculate_amu_2loop_fermionic(model);
+      *amu2LB = gm2calc_thdm_calculate_amu_2loop_bosonic(model);
+   }
+   /* calculate uncertainty */
+   if (config_flags.loopOrder == 0) {
+      *damu = gm2calc_thdm_calculate_uncertainty_amu_0loop(model);
+   } else if (config_flags.loopOrder == 1) {
+      *damu = gm2calc_thdm_calculate_uncertainty_amu_1loop(model);
+   } else if (config_flags.loopOrder == 2) {
+      *damu = gm2calc_thdm_calculate_uncertainty_amu_2loop(model);
+   }
+}
+
+/******************************************************************/
+
 double calculate_uncertainty(MSSMNoFV_onshell* model)
 {
    double delta_amu = 0.;
@@ -791,13 +1159,10 @@ static void print_package()
    static int do_print = 1;
 
    if (do_print) {
-      printf("=======================================================\n");
+      printf("===========================\n");
       printf("GM2Calc " GM2CALC_VERSION "\n");
-      printf("P. Athron, M. Bach, H. G. Fargnoli, C. Gnendiger,\n");
-      printf("R. Greifenhagen, J.-h. Park, S. Paßehr, D. Stöckinger,\n");
-      printf("H. Stöckinger-Kim, A. Voigt\n");
       printf("http://gm2calc.hepforge.org\n");
-      printf("=======================================================\n");
+      printf("===========================\n");
 
       do_print = 0;
    }
@@ -805,20 +1170,22 @@ static void print_package()
 
 /******************************************************************/
 
-int GM2CalcSetFlags(int loopOrder_, int tanBetaResummation_, int forceOutput_)
+int GM2CalcSetFlags(int loopOrder_, int tanBetaResummation_, int forceOutput_,
+                    int runningCouplings_)
 {
    char loop_order_str[12];
 
    print_package();
 
    if (loopOrder_ < 0 || loopOrder_ > 2) {
-      snprintf(loop_order_str, 12, "%d", loopOrder_);
+      snprintf(loop_order_str, sizeof(loop_order_str), "%d", loopOrder_);
       put_error_message("GM2CalcSetFlags", "wronglooporder", loop_order_str);
    }
 
    config_flags.loopOrder = loopOrder_;
    config_flags.tanBetaResummation = tanBetaResummation_;
    config_flags.forceOutput = forceOutput_;
+   config_flags.runningCouplings = runningCouplings_;
 
    return 0;
 }
@@ -827,35 +1194,90 @@ int GM2CalcSetFlags(int loopOrder_, int tanBetaResummation_, int forceOutput_)
 
 void GM2CalcGetFlags(void)
 {
-   MLPutFunction(stdlink, "List", 3);
+   MLPutFunction(stdlink, "List", 4);
    MLPutRuleToInteger(stdlink, config_flags.loopOrder, "loopOrder");
    MLPutRuleToString(stdlink, config_flags.tanBetaResummation ? "True" : "False", "tanBetaResummation");
    MLPutRuleToString(stdlink, config_flags.forceOutput ? "True" : "False", "forceOutput");
+   MLPutRuleToString(stdlink, config_flags.runningCouplings ? "True" : "False", "runningCouplings");
    MLEndPacket(stdlink);
 }
 
 /******************************************************************/
 
 int GM2CalcSetSMParameters(
-   double alphaMZ_,
    double alpha0_,
+   double alphaMZ_,
    double alphaS_,
+   double MhSM_,
    double MW_,
    double MZ_,
    double MT_,
+   double mcmc_,
+   double mu2GeV_,
    double mbmb_,
+   double ms2GeV_,
+   double md2GeV_,
+   double Mv1_,
+   double Mv2_,
+   double Mv3_,
    double ML_,
-   double MM_)
+   double MM_,
+   double ME_,
+   double CKM_real_11_,
+   double CKM_real_12_,
+   double CKM_real_13_,
+   double CKM_real_21_,
+   double CKM_real_22_,
+   double CKM_real_23_,
+   double CKM_real_31_,
+   double CKM_real_32_,
+   double CKM_real_33_,
+   double CKM_imag_11_,
+   double CKM_imag_12_,
+   double CKM_imag_13_,
+   double CKM_imag_21_,
+   double CKM_imag_22_,
+   double CKM_imag_23_,
+   double CKM_imag_31_,
+   double CKM_imag_32_,
+   double CKM_imag_33_)
 {
-   sm_parameters.alphaMZ = alphaMZ_;
-   sm_parameters.alpha0 = alpha0_;
-   sm_parameters.alphaS = alphaS_;
-   sm_parameters.MW = MW_;
-   sm_parameters.MZ = MZ_;
-   sm_parameters.MT = MT_;
-   sm_parameters.mbmb = mbmb_;
-   sm_parameters.ML = ML_;
-   sm_parameters.MM = MM_;
+   sm.alpha_em_0 = alpha0_;
+   sm.alpha_em_mz = alphaMZ_;
+   sm.alpha_s_mz = alphaS_;
+   sm.mh = MhSM_;
+   sm.mw = MW_;
+   sm.mz = MZ_;
+   sm.mu[2] = MT_;
+   sm.mu[1] = mcmc_;
+   sm.mu[0] = mu2GeV_;
+   sm.md[2] = mbmb_;
+   sm.md[1] = ms2GeV_;
+   sm.md[0] = md2GeV_;
+   sm.mv[2] = Mv3_;
+   sm.mv[1] = Mv2_;
+   sm.mv[0] = Mv1_;
+   sm.ml[2] = ML_;
+   sm.ml[1] = MM_;
+   sm.ml[0] = ME_;
+   sm.ckm_real[0][0] = CKM_real_11_;
+   sm.ckm_real[0][1] = CKM_real_12_;
+   sm.ckm_real[0][2] = CKM_real_13_;
+   sm.ckm_real[1][0] = CKM_real_21_;
+   sm.ckm_real[1][1] = CKM_real_22_;
+   sm.ckm_real[1][2] = CKM_real_23_;
+   sm.ckm_real[2][0] = CKM_real_31_;
+   sm.ckm_real[2][1] = CKM_real_32_;
+   sm.ckm_real[2][2] = CKM_real_33_;
+   sm.ckm_imag[0][0] = CKM_imag_11_;
+   sm.ckm_imag[0][1] = CKM_imag_12_;
+   sm.ckm_imag[0][2] = CKM_imag_13_;
+   sm.ckm_imag[1][0] = CKM_imag_21_;
+   sm.ckm_imag[1][1] = CKM_imag_22_;
+   sm.ckm_imag[1][2] = CKM_imag_23_;
+   sm.ckm_imag[2][0] = CKM_imag_31_;
+   sm.ckm_imag[2][1] = CKM_imag_32_;
+   sm.ckm_imag[2][2] = CKM_imag_33_;
 
    return 0;
 }
@@ -864,16 +1286,28 @@ int GM2CalcSetSMParameters(
 
 void GM2CalcGetSMParameters(void)
 {
-   MLPutFunction(stdlink, "List", 9);
-   MLPutRuleToReal(stdlink, sm_parameters.alphaMZ, "alphaMZ");
-   MLPutRuleToReal(stdlink, sm_parameters.alpha0, "alpha0");
-   MLPutRuleToReal(stdlink, sm_parameters.alphaS, "alphaS");
-   MLPutRuleToReal(stdlink, sm_parameters.MW, "MW");
-   MLPutRuleToReal(stdlink, sm_parameters.MZ, "MZ");
-   MLPutRuleToReal(stdlink, sm_parameters.MT, "MT");
-   MLPutRuleToReal(stdlink, sm_parameters.mbmb, "mbmb");
-   MLPutRuleToReal(stdlink, sm_parameters.ML, "ML");
-   MLPutRuleToReal(stdlink, sm_parameters.MM, "MM");
+   MLPutFunction(stdlink, "List", 19);
+
+   MLPutRuleToReal(stdlink, sm.alpha_em_0, "alpha0");
+   MLPutRuleToReal(stdlink, sm.alpha_em_mz, "alphaMZ");
+   MLPutRuleToReal(stdlink, sm.alpha_s_mz, "alphaS");
+   MLPutRuleToReal(stdlink, sm.mh, "MhSM");
+   MLPutRuleToReal(stdlink, sm.mw, "MW");
+   MLPutRuleToReal(stdlink, sm.mz, "MZ");
+   MLPutRuleToReal(stdlink, sm.mu[2], "MT");
+   MLPutRuleToReal(stdlink, sm.mu[1], "mcmc");
+   MLPutRuleToReal(stdlink, sm.mu[0], "mu2GeV");
+   MLPutRuleToReal(stdlink, sm.md[2], "mbmb");
+   MLPutRuleToReal(stdlink, sm.md[1], "ms2GeV");
+   MLPutRuleToReal(stdlink, sm.md[0], "md2GeV");
+   MLPutRuleToReal(stdlink, sm.mv[2], "Mv1");
+   MLPutRuleToReal(stdlink, sm.mv[1], "Mv2");
+   MLPutRuleToReal(stdlink, sm.mv[0], "Mv3");
+   MLPutRuleToReal(stdlink, sm.ml[2], "ML");
+   MLPutRuleToReal(stdlink, sm.ml[1], "MM");
+   MLPutRuleToReal(stdlink, sm.ml[0], "ME");
+   MLPutRuleToComplexMatrixTHDM(stdlink, sm.ckm, "CKM", 3, 3);
+
    MLEndPacket(stdlink);
 }
 
@@ -1143,7 +1577,356 @@ void GM2CalcAmuGM2CalcScheme(
 
 /******************************************************************/
 
+void GM2CalcAmuTHDMGaugeBasis(
+   int yukawa_type_,
+   double lambda_1_,
+   double lambda_2_,
+   double lambda_3_,
+   double lambda_4_,
+   double lambda_5_,
+   double lambda_6_,
+   double lambda_7_,
+   double TB_,
+   double m122_,
+   double zeta_u_,
+   double zeta_d_,
+   double zeta_l_,
+   double Deltau_11_,
+   double Deltau_12_,
+   double Deltau_13_,
+   double Deltau_21_,
+   double Deltau_22_,
+   double Deltau_23_,
+   double Deltau_31_,
+   double Deltau_32_,
+   double Deltau_33_,
+   double Deltad_11_,
+   double Deltad_12_,
+   double Deltad_13_,
+   double Deltad_21_,
+   double Deltad_22_,
+   double Deltad_23_,
+   double Deltad_31_,
+   double Deltad_32_,
+   double Deltad_33_,
+   double Deltal_11_,
+   double Deltal_12_,
+   double Deltal_13_,
+   double Deltal_21_,
+   double Deltal_22_,
+   double Deltal_23_,
+   double Deltal_31_,
+   double Deltal_32_,
+   double Deltal_33_,
+   double Piu_11_,
+   double Piu_12_,
+   double Piu_13_,
+   double Piu_21_,
+   double Piu_22_,
+   double Piu_23_,
+   double Piu_31_,
+   double Piu_32_,
+   double Piu_33_,
+   double Pid_11_,
+   double Pid_12_,
+   double Pid_13_,
+   double Pid_21_,
+   double Pid_22_,
+   double Pid_23_,
+   double Pid_31_,
+   double Pid_32_,
+   double Pid_33_,
+   double Pil_11_,
+   double Pil_12_,
+   double Pil_13_,
+   double Pil_21_,
+   double Pil_22_,
+   double Pil_23_,
+   double Pil_31_,
+   double Pil_32_,
+   double Pil_33_)
+{
+   if (yukawa_type_ < 1 || yukawa_type_ > 6) {
+      put_error_message("GM2CalcAmuTHDMGaugeBasis", "error",
+                        "yukawaType must be between 1 and 6.");
+      create_error_output();
+      return;
+   }
+
+   gm2calc_THDM_gauge_basis basis;
+   basis.yukawa_type = int_to_c_yukawa_type(yukawa_type_);
+   basis.lambda[0] = lambda_1_;
+   basis.lambda[1] = lambda_2_;
+   basis.lambda[2] = lambda_3_;
+   basis.lambda[3] = lambda_4_;
+   basis.lambda[4] = lambda_5_;
+   basis.lambda[5] = lambda_6_;
+   basis.lambda[6] = lambda_7_;
+   basis.tan_beta = TB_;
+   basis.m122 = m122_;
+   basis.zeta_u = zeta_u_;
+   basis.zeta_d = zeta_d_;
+   basis.zeta_l = zeta_l_;
+   basis.Delta_u[0][0] = Deltau_11_;
+   basis.Delta_u[0][1] = Deltau_12_;
+   basis.Delta_u[0][2] = Deltau_13_;
+   basis.Delta_u[1][0] = Deltau_21_;
+   basis.Delta_u[1][1] = Deltau_22_;
+   basis.Delta_u[1][2] = Deltau_23_;
+   basis.Delta_u[2][0] = Deltau_31_;
+   basis.Delta_u[2][1] = Deltau_32_;
+   basis.Delta_u[2][2] = Deltau_33_;
+   basis.Delta_d[0][0] = Deltad_11_;
+   basis.Delta_d[0][1] = Deltad_12_;
+   basis.Delta_d[0][2] = Deltad_13_;
+   basis.Delta_d[1][0] = Deltad_21_;
+   basis.Delta_d[1][1] = Deltad_22_;
+   basis.Delta_d[1][2] = Deltad_23_;
+   basis.Delta_d[2][0] = Deltad_31_;
+   basis.Delta_d[2][1] = Deltad_32_;
+   basis.Delta_d[2][2] = Deltad_33_;
+   basis.Delta_l[0][0] = Deltal_11_;
+   basis.Delta_l[0][1] = Deltal_12_;
+   basis.Delta_l[0][2] = Deltal_13_;
+   basis.Delta_l[1][0] = Deltal_21_;
+   basis.Delta_l[1][1] = Deltal_22_;
+   basis.Delta_l[1][2] = Deltal_23_;
+   basis.Delta_l[2][0] = Deltal_31_;
+   basis.Delta_l[2][1] = Deltal_32_;
+   basis.Delta_l[2][2] = Deltal_33_;
+   basis.Pi_u[0][0] = Piu_11_;
+   basis.Pi_u[0][1] = Piu_12_;
+   basis.Pi_u[0][2] = Piu_13_;
+   basis.Pi_u[1][0] = Piu_21_;
+   basis.Pi_u[1][1] = Piu_22_;
+   basis.Pi_u[1][2] = Piu_23_;
+   basis.Pi_u[2][0] = Piu_31_;
+   basis.Pi_u[2][1] = Piu_32_;
+   basis.Pi_u[2][2] = Piu_33_;
+   basis.Pi_d[0][0] = Pid_11_;
+   basis.Pi_d[0][1] = Pid_12_;
+   basis.Pi_d[0][2] = Pid_13_;
+   basis.Pi_d[1][0] = Pid_21_;
+   basis.Pi_d[1][1] = Pid_22_;
+   basis.Pi_d[1][2] = Pid_23_;
+   basis.Pi_d[2][0] = Pid_31_;
+   basis.Pi_d[2][1] = Pid_32_;
+   basis.Pi_d[2][2] = Pid_33_;
+   basis.Pi_l[0][0] = Pil_11_;
+   basis.Pi_l[0][1] = Pil_12_;
+   basis.Pi_l[0][2] = Pil_13_;
+   basis.Pi_l[1][0] = Pil_21_;
+   basis.Pi_l[1][1] = Pil_22_;
+   basis.Pi_l[1][2] = Pil_23_;
+   basis.Pi_l[2][0] = Pil_31_;
+   basis.Pi_l[2][1] = Pil_32_;
+   basis.Pi_l[2][2] = Pil_33_;
+
+   gm2calc_THDM_config config;
+   config.force_output = config_flags.forceOutput;
+   config.running_couplings = config_flags.runningCouplings;
+
+   gm2calc_THDM* model = 0;
+   gm2calc_error error = gm2calc_thdm_new_with_gauge_basis(&model, &basis, &sm, &config);
+
+   if (error == gm2calc_NoError) {
+      double amu1L = 0, amu2LF = 0, amu2LB = 0, damu = 0;
+      calculate_amu_thdm(model, &amu1L, &amu2LF, &amu2LB, &damu);
+
+      MLPutFunction(stdlink, "List", 5);
+      MLPutRuleToReal(stdlink, amu1L + amu2LF + amu2LB, "amu");
+      MLPutRuleToReal(stdlink, amu1L, "amu1L");
+      MLPutRuleToReal(stdlink, amu2LF, "amu2LF");
+      MLPutRuleToReal(stdlink, amu2LB, "amu2LB");
+      MLPutRuleToReal(stdlink, damu, "Damu");
+      MLEndPacket(stdlink);
+   } else {
+      put_error_message("GM2CalcAmuTHDMMassBasis", "error",
+                        gm2calc_error_str(error));
+      create_error_output();
+   }
+
+   gm2calc_thdm_free(model);
+}
+
+/******************************************************************/
+
+void GM2CalcAmuTHDMMassBasis(
+   int yukawa_type_,
+   double Mhh_1_,
+   double Mhh_2_,
+   double MAh_,
+   double MHp_,
+   double sin_beta_minus_alpha_,
+   double lambda_6_,
+   double lambda_7_,
+   double TB_,
+   double m122_,
+   double zeta_u_,
+   double zeta_d_,
+   double zeta_l_,
+   double Deltau_11_,
+   double Deltau_12_,
+   double Deltau_13_,
+   double Deltau_21_,
+   double Deltau_22_,
+   double Deltau_23_,
+   double Deltau_31_,
+   double Deltau_32_,
+   double Deltau_33_,
+   double Deltad_11_,
+   double Deltad_12_,
+   double Deltad_13_,
+   double Deltad_21_,
+   double Deltad_22_,
+   double Deltad_23_,
+   double Deltad_31_,
+   double Deltad_32_,
+   double Deltad_33_,
+   double Deltal_11_,
+   double Deltal_12_,
+   double Deltal_13_,
+   double Deltal_21_,
+   double Deltal_22_,
+   double Deltal_23_,
+   double Deltal_31_,
+   double Deltal_32_,
+   double Deltal_33_,
+   double Piu_11_,
+   double Piu_12_,
+   double Piu_13_,
+   double Piu_21_,
+   double Piu_22_,
+   double Piu_23_,
+   double Piu_31_,
+   double Piu_32_,
+   double Piu_33_,
+   double Pid_11_,
+   double Pid_12_,
+   double Pid_13_,
+   double Pid_21_,
+   double Pid_22_,
+   double Pid_23_,
+   double Pid_31_,
+   double Pid_32_,
+   double Pid_33_,
+   double Pil_11_,
+   double Pil_12_,
+   double Pil_13_,
+   double Pil_21_,
+   double Pil_22_,
+   double Pil_23_,
+   double Pil_31_,
+   double Pil_32_,
+   double Pil_33_)
+{
+   if (yukawa_type_ < 1 || yukawa_type_ > 6) {
+      put_error_message("GM2CalcAmuTHDMMassBasis", "error",
+                        "yukawaType must be between 1 and 6.");
+      create_error_output();
+      return;
+   }
+
+   gm2calc_THDM_mass_basis basis;
+   basis.yukawa_type = int_to_c_yukawa_type(yukawa_type_);
+   basis.mh = Mhh_1_;
+   basis.mH = Mhh_2_;
+   basis.mA = MAh_;
+   basis.mHp = MHp_;
+   basis.sin_beta_minus_alpha = sin_beta_minus_alpha_;
+   basis.lambda_6 = lambda_6_;
+   basis.lambda_7 = lambda_7_;
+   basis.tan_beta = TB_;
+   basis.m122 = m122_;
+   basis.zeta_u = zeta_u_;
+   basis.zeta_d = zeta_d_;
+   basis.zeta_l = zeta_l_;
+   basis.Delta_u[0][0] = Deltau_11_;
+   basis.Delta_u[0][1] = Deltau_12_;
+   basis.Delta_u[0][2] = Deltau_13_;
+   basis.Delta_u[1][0] = Deltau_21_;
+   basis.Delta_u[1][1] = Deltau_22_;
+   basis.Delta_u[1][2] = Deltau_23_;
+   basis.Delta_u[2][0] = Deltau_31_;
+   basis.Delta_u[2][1] = Deltau_32_;
+   basis.Delta_u[2][2] = Deltau_33_;
+   basis.Delta_d[0][0] = Deltad_11_;
+   basis.Delta_d[0][1] = Deltad_12_;
+   basis.Delta_d[0][2] = Deltad_13_;
+   basis.Delta_d[1][0] = Deltad_21_;
+   basis.Delta_d[1][1] = Deltad_22_;
+   basis.Delta_d[1][2] = Deltad_23_;
+   basis.Delta_d[2][0] = Deltad_31_;
+   basis.Delta_d[2][1] = Deltad_32_;
+   basis.Delta_d[2][2] = Deltad_33_;
+   basis.Delta_l[0][0] = Deltal_11_;
+   basis.Delta_l[0][1] = Deltal_12_;
+   basis.Delta_l[0][2] = Deltal_13_;
+   basis.Delta_l[1][0] = Deltal_21_;
+   basis.Delta_l[1][1] = Deltal_22_;
+   basis.Delta_l[1][2] = Deltal_23_;
+   basis.Delta_l[2][0] = Deltal_31_;
+   basis.Delta_l[2][1] = Deltal_32_;
+   basis.Delta_l[2][2] = Deltal_33_;
+   basis.Pi_u[0][0] = Piu_11_;
+   basis.Pi_u[0][1] = Piu_12_;
+   basis.Pi_u[0][2] = Piu_13_;
+   basis.Pi_u[1][0] = Piu_21_;
+   basis.Pi_u[1][1] = Piu_22_;
+   basis.Pi_u[1][2] = Piu_23_;
+   basis.Pi_u[2][0] = Piu_31_;
+   basis.Pi_u[2][1] = Piu_32_;
+   basis.Pi_u[2][2] = Piu_33_;
+   basis.Pi_d[0][0] = Pid_11_;
+   basis.Pi_d[0][1] = Pid_12_;
+   basis.Pi_d[0][2] = Pid_13_;
+   basis.Pi_d[1][0] = Pid_21_;
+   basis.Pi_d[1][1] = Pid_22_;
+   basis.Pi_d[1][2] = Pid_23_;
+   basis.Pi_d[2][0] = Pid_31_;
+   basis.Pi_d[2][1] = Pid_32_;
+   basis.Pi_d[2][2] = Pid_33_;
+   basis.Pi_l[0][0] = Pil_11_;
+   basis.Pi_l[0][1] = Pil_12_;
+   basis.Pi_l[0][2] = Pil_13_;
+   basis.Pi_l[1][0] = Pil_21_;
+   basis.Pi_l[1][1] = Pil_22_;
+   basis.Pi_l[1][2] = Pil_23_;
+   basis.Pi_l[2][0] = Pil_31_;
+   basis.Pi_l[2][1] = Pil_32_;
+   basis.Pi_l[2][2] = Pil_33_;
+
+   gm2calc_THDM_config config;
+   config.force_output = config_flags.forceOutput;
+   config.running_couplings = config_flags.runningCouplings;
+
+   gm2calc_THDM* model = 0;
+   gm2calc_error error = gm2calc_thdm_new_with_mass_basis(&model, &basis, &sm, &config);
+
+   if (error == gm2calc_NoError) {
+      double amu1L = 0, amu2LF = 0, amu2LB = 0, damu = 0;
+      calculate_amu_thdm(model, &amu1L, &amu2LF, &amu2LB, &damu);
+
+      MLPutFunction(stdlink, "List", 5);
+      MLPutRuleToReal(stdlink, amu1L + amu2LF + amu2LB, "amu");
+      MLPutRuleToReal(stdlink, amu1L, "amu1L");
+      MLPutRuleToReal(stdlink, amu2LF, "amu2LF");
+      MLPutRuleToReal(stdlink, amu2LB, "amu2LB");
+      MLPutRuleToReal(stdlink, damu, "Damu");
+      MLEndPacket(stdlink);
+   } else {
+      put_error_message("GM2CalcAmuTHDMMassBasis", "error",
+                        gm2calc_error_str(error));
+      create_error_output();
+   }
+
+   gm2calc_thdm_free(model);
+}
+
+/******************************************************************/
+
 int main(int argc, char *argv[])
 {
+   gm2calc_sm_set_to_default(&sm);
    return MLMain(argc, argv);
 }

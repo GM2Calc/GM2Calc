@@ -45,7 +45,7 @@ namespace gm2calc {
  */
 class MSSMNoFV_onshell_mass_eigenstates : public MSSMNoFV_onshell_soft_parameters {
 public:
-   virtual ~MSSMNoFV_onshell_mass_eigenstates() {}
+   virtual ~MSSMNoFV_onshell_mass_eigenstates() = default;
 
    void print(std::ostream&) const override;
 

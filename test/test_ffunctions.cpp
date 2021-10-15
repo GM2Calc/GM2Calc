@@ -100,6 +100,15 @@ TEST_CASE("test_F")
    test_1("F2N", [] (double x) { return gm2calc::F2N(x); }, 1e-9);
    test_1("F3N", [] (double x) { return gm2calc::F3N(x); }, 1e-9);
    test_1("F4N", [] (double x) { return gm2calc::F4N(x); }, 1e-9);
+
+   test_1("F1" , [] (double x) { return gm2calc::F1(x);  }, 1e-14);
+   test_1("F1t", [] (double x) { return gm2calc::F1t(x); }, 1e-14);
+   test_1("F2" , [] (double x) { return gm2calc::F2(x);  }, 1e-14);
+   test_1("F3" , [] (double x) { return gm2calc::F3(x);  }, 1e-14);
+
+   test_1("fPS", [] (double x) { return gm2calc::f_PS(x);}, 1e-14);
+   test_1("fS" , [] (double x) { return gm2calc::f_S(x); }, 1e-14);
+   test_1("fsferm", [] (double x) { return gm2calc::f_sferm(x); }, 1e-14);
 }
 
 TEST_CASE("test_G")
@@ -166,4 +175,5 @@ void test_3(const char* func_name, T func, double eps)
 TEST_CASE("test_Iabc")
 {
    test_3("Iabc", [] (double x, double y, double z) { return gm2calc::Iabc(x,y,z); }, 1e-7);
+   test_3("Phi" , [] (double x, double y, double z) { return gm2calc::Phi(x,y,z);  }, 1e-7);
 }

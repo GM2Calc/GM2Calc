@@ -13,12 +13,21 @@ function(add_gm2calc_bench name ext)
   target_include_directories(${name}.x PRIVATE $<TARGET_PROPERTY:GM2Calc::GM2Calc,INCLUDE_DIRECTORIES>)
 endfunction()
 
-add_gm2calc_bench(test_benchmark       cpp)
-add_gm2calc_test(test_c_interface      cpp)
-add_gm2calc_test(test_MSSMNoFV_onshell cpp)
-add_gm2calc_test(test_slha_io          cpp)
-add_gm2calc_test(test_version          cpp)
-add_gm2calc_test(test_ffunctions       cpp)
+add_gm2calc_bench(test_benchmark           cpp)
+add_gm2calc_bench(test_benchmark_ffunctions cpp)
+add_gm2calc_test(test_THDM                 cpp)
+add_gm2calc_test(test_THDM_amu             cpp)
+add_gm2calc_test(test_THDM_c_interface     cpp)
+add_gm2calc_test(test_THDM_slha_io         cpp)
+add_gm2calc_test(test_MSSMNoFV             cpp)
+add_gm2calc_test(test_MSSMNoFV_c_interface cpp)
+add_gm2calc_test(test_MSSMNoFV_slha_io     cpp)
+add_gm2calc_test(test_mf                   cpp)
+add_gm2calc_test(test_SM                   cpp)
+add_gm2calc_test(test_SM_slha_io           cpp)
+add_gm2calc_test(test_slha_io              cpp)
+add_gm2calc_test(test_version              cpp)
+add_gm2calc_test(test_ffunctions           cpp)
 
 # test shell scripts
 find_program(BASH_PROGRAM sh)
@@ -38,4 +47,22 @@ if(Mathematica_MathLink_FOUND)
     NAME test_mathlink_interface
     TARGET gm2calc.mx
     SCRIPT test_mathlink_interface.m)
+endif()
+
+# test Python scripts
+if(Python_INTERFACE)
+  configure_file(${PROJECT_SOURCE_DIR}/test/test_THDM_python_interface.py.in 
+                 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test_THDM_python_interface.py 
+                 @ONLY)
+  add_test(
+    NAME test_THDM_python_interface
+    COMMAND ${Python3_EXECUTABLE} test_THDM_python_interface.py 
+    WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+  configure_file(${PROJECT_SOURCE_DIR}/test/test_MSSMNoFV_python_interface.py.in 
+                 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test_MSSMNoFV_python_interface.py 
+                 @ONLY)
+  add_test(
+    NAME test_MSSMNoFV_python_interface
+    COMMAND ${Python3_EXECUTABLE} test_MSSMNoFV_python_interface.py 
+    WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 endif()

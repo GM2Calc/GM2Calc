@@ -53,6 +53,16 @@ double f_PS(double) noexcept;
 double f_S(double) noexcept;
 /// \f$f_{\tilde{f}}(z)\f$, Eq (72) arXiv:hep-ph/0609168
 double f_sferm(double) noexcept;
+/// \f$\mathcal{F}_1(\omega)\f$, Eq (25) arxiv:1502.04199
+double F1(double) noexcept;
+/// \f$\tilde{\mathcal{F}}_1(\omega)\f$, Eq (26) arxiv:1502.04199
+double F1t(double) noexcept;
+/// \f$\mathcal{F}_2(\omega)\f$, Eq (27) arxiv:1502.04199
+double F2(double) noexcept;
+/// \f$\mathcal{F}_3(\omega)\f$, Eq (28) arxiv:1502.04199
+double F3(double) noexcept;
+/// \f$\Phi(x,y,z)\f$ with squared masses, Davydychev and Tausk, Nucl. Phys. B397 (1993) 23
+double Phi(double x, double y, double z) noexcept;
 
 } // namespace gm2calc
 

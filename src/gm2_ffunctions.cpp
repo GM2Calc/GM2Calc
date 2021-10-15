@@ -39,15 +39,133 @@ namespace {
    /// returns number to the power 4
    template <typename T> T pow4(T x) noexcept { return sqr(sqr(x)); }
 
-   bool is_zero(double a, double prec)
+   bool is_zero(double a, double prec) noexcept
    {
       return std::fabs(a) < prec;
    }
 
-   bool is_equal(double a, double b, double prec)
+   bool is_equal(double a, double b, double prec) noexcept
    {
       const double max = std::max(std::abs(a), std::abs(b));
       return is_zero(a - b, prec*(1.0 + max));
+   }
+
+   void sort(double& x, double& y) noexcept
+   {
+      if (x > y) { std::swap(x, y); }
+   }
+
+   void sort(double& x, double& y, double& z) noexcept
+   {
+      if (x > y) { std::swap(x, y); }
+      if (y > z) { std::swap(y, z); }
+      if (x > y) { std::swap(x, y); }
+   }
+
+   /// lambda^2(u,v)
+   double lambda_2(double u, double v) noexcept
+   {
+      return sqr(1 - u - v) - 4*u*v;
+   }
+
+   /// clausen_2(2*acos(x))
+   double cl2acos(double x) noexcept {
+      return clausen_2(2*std::acos(x));
+   }
+
+   /// u < 1 && v < 1, lambda^2(u,v) > 0; note: phi_pos(u,v) = phi_pos(v,u)
+   double phi_pos(double u, double v) noexcept
+   {
+      const double eps = 1.0e-7;
+
+      if (is_equal(u, 1.0, eps) && is_equal(v, 1.0, eps)) {
+         return 2.343907238689459;
+      }
+
+      const double pi23 = 3.2898681336964529; // Pi^2/3
+      const auto lambda = std::sqrt(lambda_2(u,v));
+
+      if (is_equal(u, v, eps)) {
+         return (- sqr(std::log(u))
+                 + 2*sqr(std::log(0.5*(1 - lambda)))
+                 - 4*dilog(0.5*(1 - lambda))
+                 + pi23)/lambda;
+      }
+
+      return (- std::log(u)*std::log(v)
+              + 2*std::log(0.5*(1 - lambda + u - v))*std::log(0.5*(1 - lambda - u + v))
+              - 2*dilog(0.5*(1 - lambda + u - v))
+              - 2*dilog(0.5*(1 - lambda - u + v))
+              + pi23)/lambda;
+   }
+
+   /// lambda^2(u,v) < 0, u = 1
+   double phi_neg_1v(double v, double lambda) noexcept
+   {
+      return 2*(cl2acos(1 - 0.5*v) + 2*cl2acos(0.5*std::sqrt(v)))/lambda;
+   }
+
+   /// lambda^2(u,v) < 0; note: phi_neg(u,v) = phi_neg(v,u)
+   double phi_neg(double u, double v) noexcept
+   {
+      const double eps = 1.0e-7;
+
+      if (is_equal(u, 1.0, eps) && is_equal(v, 1.0, eps)) {
+         // -I/9 (Pi^2 - 36 PolyLog[2, (1 - I Sqrt[3])/2])/Sqrt[3]
+         return 2.343907238689459;
+      }
+
+      const auto lambda = std::sqrt(-lambda_2(u,v));
+
+      if (is_equal(u, 1.0, eps)) {
+         return phi_neg_1v(v, lambda);
+      }
+
+      if (is_equal(v, 1.0, eps)) {
+         return phi_neg_1v(u, lambda);
+      }
+
+      if (is_equal(u, v, eps)) {
+         return 2*(2*cl2acos(0.5/std::sqrt(u))
+                   + cl2acos(1 - 0.5/u))/lambda;
+      }
+
+      const auto sqrtu = std::sqrt(u);
+      const auto sqrtv = std::sqrt(v);
+
+      return 2*(+ cl2acos(0.5*(1 + u - v)/sqrtu)
+                + cl2acos(0.5*(1 - u + v)/sqrtv)
+                + cl2acos(0.5*(-1 + u + v)/(sqrtu*sqrtv)))/lambda;
+   }
+
+   /**
+    * Phi(u,v) with u = x/z, v = y/z.
+    *
+    * The following identities hold:
+    * Phi(u,v) = Phi(v,u) = Phi(1/u,v/u)/u = Phi(1/v,u/v)/v
+    */
+   double phi_uv(double u, double v) noexcept
+   {
+      const auto lambda = lambda_2(u,v);
+
+      if (is_zero(lambda, 1e-11)) {
+         // phi_uv is always multiplied by lambda.  So, in order to
+         // avoid nans if lambda == 0, we simply return 0
+         return 0.0;
+      }
+
+      if (lambda > 0.) {
+         if (u <= 1 && v <= 1) {
+            return phi_pos(u,v);
+         }
+         if (u >= 1 && v/u <= 1) {
+            return phi_pos(1./u,v/u)/u;
+         }
+         // v >= 1 && u/v <= 1
+         return phi_pos(1./v,u/v)/v;
+      }
+
+      return phi_neg(u,v);
    }
 
 } // anonymous namespace
@@ -186,8 +304,7 @@ double F3N(double x) noexcept {
 }
 
 double F4N(double x) noexcept {
-   const double PI = 3.14159265358979323846;
-   const double PI2 = PI * PI;
+   const double PI2 = 9.8696044010893586; // Pi^2
 
    if (is_zero(x, eps)) {
       return -3.0/4.0*(-9.0 + PI2);
@@ -250,9 +367,15 @@ double Fbx(double x, double y) noexcept {
 } // anonymous namespace
 
 double Fb(double x, double y) noexcept {
-   if ((is_zero(x, eps) && is_zero(y, eps)) || is_zero(x, eps) ||
-       is_zero(y, eps)) {
-      return 0.0;
+   if (x < 0 || y < 0) {
+      ERROR("Fb: x and y must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   }
+
+   sort(x, y);
+
+   if (is_zero(x, eps) || is_zero(y, eps)) {
+      return 0;
    }
 
    if (is_equal(x, 1.0, 0.01) && is_equal(y, 1.0, 0.01)) {
@@ -320,9 +443,15 @@ double Fax(double x, double y) noexcept {
 } // anonymous namespace
 
 double Fa(double x, double y) noexcept {
-   if ((is_zero(x, eps) && is_zero(y, eps)) || is_zero(x, eps) ||
-       is_zero(y, eps)) {
-      return 0.0;
+   if (x < 0 || y < 0) {
+      ERROR("Fa: x and y must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   }
+
+   sort(x, y);
+
+   if (is_zero(x, eps) || is_zero(y, eps)) {
+      return 0;
    }
 
    if (is_equal(x, 1.0, 0.001) && is_equal(y, 1.0, 0.001)) {
@@ -369,37 +498,30 @@ double I2aaa(double a, double b, double c) noexcept {
    const double ba = b - a;
    const double ca = c - a;
    const double a2 = sqr(a);
-   const double a3 = a2*a;
 
-   return 0.5/a + (-ba - ca)/(6.0*a2) + (sqr(ba) + ba*ca + sqr(ca))/(12.0*a3);
+   return (0.5 - (ba + ca)/(6*a) + (sqr(ba) + ba*ca + sqr(ca))/(12*a2))/a;
 }
 
 /// I2abc(a,a,c), squared arguments, a != c
 double I2aac(double a, double b, double c) noexcept {
-   const double ba = b - a;
    const double ac = a - c;
    const double a2 = sqr(a);
    const double a3 = a2*a;
    const double c2 = sqr(c);
    const double c3 = c2*c;
    const double ac2 = sqr(ac);
-   const double ac3 = ac2*ac;
-   const double ac4 = ac2*ac2;
+   const double d = (b - a)/(a*ac);
    const double lac = std::log(a/c);
 
-   return (ac - c*lac)/ac2
-      + ba*(-a2 + c2 + 2*a*c*lac)/(2.0*a*ac3)
-      + sqr(ba)*((2*a3 + 3*a2*c - 6*a*c2 + c3 - 6*a2*c*lac)/(6.*a2*ac4));
+   return ((ac - c*lac) + d*((-a2 + c2 + 2*a*c*lac)/2
+      + d*(2*a3 + 3*a2*c - 6*a*c2 + c3 - 6*a2*c*lac)/6))/ac2;
 }
 
 /// I2abc(a,a,0), squared arguments, a != 0
 double I2aa0(double a, double b) noexcept {
-   const double a2 = sqr(a);
-   const double a3 = a2*a;
-   const double ba = b - a;
-   const double ba2 = sqr(ba);
+   const double d = (b - a)/a;
 
-   return 1.0/a - ba/(2.0*a2) + ba2/(3.0*a3);
+   return (1 + d*(-0.5 + d/3))/a;
 }
 
 /// I2abc(0,b,c), squared arguments, b != c
@@ -410,10 +532,10 @@ double I20bc(double b, double c) noexcept {
 } // anonymous namespace
 
 double Iabc(double a, double b, double c) noexcept {
+   sort(a, b, c);
+
    if ((is_zero(a, eps) && is_zero(b, eps) && is_zero(c, eps)) ||
-       (is_zero(a, eps) && is_zero(b, eps)) ||
-       (is_zero(a, eps) && is_zero(c, eps)) ||
-       (is_zero(b, eps) && is_zero(c, eps))) {
+       (is_zero(a, eps) && is_zero(b, eps))) {
       return 0.0;
    }
 
@@ -427,9 +549,6 @@ double Iabc(double a, double b, double c) noexcept {
    }
 
    if (is_equal(a2, b2, eps_eq)) {
-      if (is_zero(c, eps)) {
-         return I2aa0(a2, b2);
-      }
       return I2aac(a2, b2, c2);
    }
 
@@ -440,23 +559,8 @@ double Iabc(double a, double b, double c) noexcept {
       return I2aac(b2, c2, a2);
    }
 
-   if (is_equal(a2, c2, eps_eq)) {
-      if (is_zero(b, eps)) {
-         return I2aa0(a2, c2);
-      }
-      return I2aac(a2, c2, b2);
-   }
-
    if (is_zero(a, eps)) {
       return I20bc(b2, c2);
-   }
-
-   if (is_zero(b, eps)) {
-      return I20bc(c2, a2);
-   }
-
-   if (is_zero(c, eps)) {
-      return I20bc(a2, b2);
    }
 
    return (+ a2 * b2 * std::log(a2/b2)
@@ -467,20 +571,25 @@ double Iabc(double a, double b, double c) noexcept {
 
 /**
  * Calculates \f$f_{PS}(z)\f$, Eq (70) arXiv:hep-ph/0609168
+ * @author Alexander Voigt
  */
 double f_PS(double z) noexcept {
-   double result = 0.0;
-
-   if (z < 0.25) {
-      const double y = std::sqrt(1. - 4. * z);
-      result = 2.0*z/y*(dilog(1.0 - 0.5*(1.0 - y)/z) - dilog(1.0 - 0.5*(1.0 + y)/z));
-   } else {
-      const std::complex<double> y = std::sqrt(std::complex<double>(1.0 - 4.0*z, 0.0));
-      const std::complex<double> zc(z, 0.0);
-      result = std::real(2.0*zc/y*(dilog(1.0 - 0.5*(1.0 - y)/zc) - dilog(1.0 - 0.5*(1.0 + y)/zc)));
+   if (z < 0.0) {
+      ERROR("f_PS: z must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   } else if (z == 0.0) {
+      return 0.0;
+   } else if (z < 0.25) {
+      const double y = std::sqrt(1 - 4*z);
+      return 2*z/y*(dilog(1 - 0.5*(1 - y)/z) - dilog(1 - 0.5*(1 + y)/z));
+   } else if (z == 0.25) {
+      return 1.3862943611198906; // Log[4]
    }
 
-   return result;
+   // z > 0.25
+   const double y = std::sqrt(-1 + 4*z);
+   const double theta = std::atan2(y, 2*z - 1);
+   return 4*z/y*clausen_2(theta);
 }
 
 /**
@@ -489,6 +598,9 @@ double f_PS(double z) noexcept {
 double f_S(double z) noexcept {
    if (z < 0.0) {
       ERROR("f_S: z must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   } else if (z == 0.0) {
+      return 0.0;
    }
 
    return (2.0*z - 1.0)*f_PS(z) - 2.0*z*(2.0 + std::log(z));
@@ -500,9 +612,105 @@ double f_S(double z) noexcept {
 double f_sferm(double z) noexcept {
    if (z < 0.0) {
       ERROR("f_sferm: z must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   } else if (z == 0.0) {
+      return 0.0;
    }
 
    return 0.5*z*(2.0 + std::log(z) - f_PS(z));
+}
+
+/**
+ * \f$\mathcal{F}_1(\omega)\f$, Eq (25) arxiv:1502.04199
+ */
+double F1(double w) noexcept {
+   if (w < 0.0) {
+      ERROR("F1: w must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   } else if (w == 0.0) {
+      return 0.0;
+   } else if (w == 0.25) {
+      return -0.5;
+   }
+
+   return (2*w - 1) * F1t(w) - w * (2 + std::log(w));
+}
+
+/**
+ * \f$\tilde{\mathcal{F}}_1(\omega)\f$, Eq (26) arxiv:1502.04199
+ */
+double F1t(double w) noexcept {
+   return 0.5*f_PS(w);
+}
+
+/**
+ * \f$\mathcal{F}_2(\omega)\f$, Eq (27) arxiv:1502.04199
+ */
+double F2(double w) noexcept {
+   if (w < 0.0) {
+      ERROR("F2: w must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   } else if (w == 0.25) {
+      return -0.38629436111989062; // 1 - Log[4]
+   }
+
+   return 1 + std::log(w)/2 - F1t(w);
+}
+
+/**
+ * \f$\mathcal{F}_3(\omega)\f$, Eq (28) arxiv:1502.04199
+ * @author Alexander Voigt
+ */
+double F3(double w) noexcept {
+   if (w < 0.0) {
+      ERROR("F3: w must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   } else if (w < 0.25) {
+      const double zeta2 = 1.6449340668482264; // Zeta[2]
+      const double l2 = 0.69314718055994531; // Log[2]
+      const double y = std::sqrt(1 - 4*w); // 0 < y < 1
+      const double lw = std::log(w);
+      const double l1py = std::log(1 + y);
+      const double l1my = std::log(1 - y);
+      return (1 + 15*w)*(1 + lw/2)
+         + (-17 + 30*w)*w/y*(
+            + std::atanh(y)*(2*l2 + lw) + dilog((1 + y)/(-1 + y))
+            + zeta2/2 + (l1my - l1py)*(3*l1my + l1py)/4);
+   } else if (w == 0.25) {
+      return 19.0/4.0;
+   }
+
+   // w > 0.25
+   const double pi = 3.1415926535897932;
+   const double l2 = 0.69314718055994531; // Log[2]
+   const double y = std::sqrt(-1 + 4*w);
+   const double lw = std::log(w);
+   const double y2 = y*y;
+   const double theta = std::atan2(-2*y, y2 - 1);
+   const double l1y2 = std::log(1 + y2);
+
+   return (1 + 15*w)*(1 + lw/2)
+      + (-17 + 30*w)*w/y*(
+         (std::atan(y) - pi/2)*(2*l2 + lw - l1y2) + clausen_2(theta));
+}
+
+/**
+ * \f$\Phi(x,y,z)\f$ function.  The arguments x, y and z are
+ * interpreted as squared masses.
+ *
+ * Davydychev and Tausk, Nucl. Phys. B397 (1993) 23
+ *
+ * @param x squared mass
+ * @param y squared mass
+ * @param z squared mass
+ *
+ * @return \f$\Phi(x,y,z)\f$
+ */
+double Phi(double x, double y, double z) noexcept
+{
+   sort(x, y, z);
+   const auto u = x/z, v = y/z;
+   return phi_uv(u,v)*z*lambda_2(u, v)/2;
 }
 
 } // namespace gm2calc

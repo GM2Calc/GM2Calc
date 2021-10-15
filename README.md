@@ -4,9 +4,9 @@ GM2Calc
 ![](https://img.shields.io/github/v/release/GM2Calc/GM2Calc)
 [![Build Status](https://github.com/GM2Calc/GM2Calc/workflows/test/badge.svg)](https://github.com/GM2Calc/GM2Calc/actions)
 
-GM2Calc calculates the SUSY contributions to the anomalous magnetic
-moment of the muon a_mu = (g-2)/2 in the real MSSM at the 1- and
-leading 2-loop level.
+GM2Calc calculates the new physics contributions to the anomalous
+magnetic moment of the muon a_mu = (g-2)/2 in the real MSSM and in the
+THDM at the 1- and leading 2-loop level.
 
  * Homepage:                https://gm2calc.hepforge.org
  * Source code repository:  https://github.com/gm2calc
@@ -28,6 +28,7 @@ Run GM2Calc with input files at the command line:
 
     bin/gm2calc.x --gm2calc-input-file=../input/example.gm2
     bin/gm2calc.x --slha-input-file=../input/example.slha
+    bin/gm2calc.x --thdm-input-file=../input/example.thdm
 
 
 Contents
@@ -40,12 +41,17 @@ Contents
 - [Running GM2Calc](#running-gm2calc)
   * [From the command line](#from-the-command-line)
   * [From within Mathematica](#from-within-mathematica)
+  * [From within Python](#from-within-python)
 - [Input parameters](#input-parameters)
-  * [SLHA input parameters](#slha-input-parameters)
-  * [GM2Calc input parameters](#gm2calc-input-parameters)
+  * [MSSM: SLHA input parameters](#mssm-slha-input-parameters)
+  * [MSSM: GM2Calc input parameters](#mssm-gm2calc-input-parameters)
+  * [THDM: SLHA-like input parameters](#thdm-slha-like-input-parameters)
+    + [Gauge basis](#gauge-basis)
+    + [Mass basis](#mass-basis)
   * [Block `GM2CalcConfig`](#block-gm2calcconfig)
 - [C/C++ interface](#cc-interface)
 - [Mathematica interface](#mathematica-interface)
+- [Python interface](#python-interface)
 - [Source code documentation](#source-code-documentation)
 - [References](#references)
 
@@ -53,7 +59,8 @@ Contents
 Requirements
 ============
 
- * C++ compiler (g++ >= 4.6.3 or clang++ >= 3.4 or icpc >= 14.0.3)
+ * C++14 compatible compiler (g++ >= 5 or clang++ >= 3.4 or icpc >= 14.0.3)
+ * C11 compatible compiler (gcc >= 4.6 or clang)
  * Boost (version 1.37.0 or higher) [http://www.boost.org]
  * Eigen 3 (version 3.1 or higher) [http://eigen.tuxfamily.org]
 
@@ -110,12 +117,14 @@ Running GM2Calc
 From the command line
 ---------------------
 
-GM2Calc can be run from the command line using an SLHA input file or a
-custom GM2Calc input file (similar to SLHA, but different definition
-of input parameters in a mixed DR-bar/on-shell scheme).  See
-`bin/gm2calc.x --help` for all options.
+GM2Calc can be run from the command line using an SLHA or SLHA-like
+input. For the MSSM the input can be given in the SLHA format or in a
+custom GM2Calc input format (similar to SLHA, but different definition
+of input parameters in a mixed DR-bar/on-shell scheme). For the THDM
+the input can be given in an SLHA-like format (compatible with
+2HDMC). See `bin/gm2calc.x --help` for all options.
 
-**Example:** Running GM2Calc with an SLHA input file:
+**Examples:** Running GM2Calc with an SLHA input file for the MSSM:
 
     bin/gm2calc.x --slha-input-file=../input/example.slha
 
@@ -123,8 +132,8 @@ or
 
     cat ../input/example.slha | bin/gm2calc.x --slha-input-file=-
 
-**Example:** Running GM2Calc with a custom GM2Calc input file (mixed
-DR-bar/on-shell scheme):
+**Example:** Running GM2Calc with a custom GM2Calc input file for the
+MSSM (mixed DR-bar/on-shell scheme):
 
     bin/gm2calc.x --gm2calc-input-file=../input/example.gm2
 
@@ -143,6 +152,14 @@ or
     bin/SPheno input/LesHouches.in.mSUGRA
     bin/gm2calc.x --slha-input-file=SPheno.spc
 
+**Example:** Running GM2Calc with an input file for the THDM:
+
+    bin/gm2calc.x --thdminput-file=../input/example.thdm
+
+or
+
+    cat ../input/example.thdm | bin/gm2calc.x --thdm input-file=-
+
 
 From within Mathematica
 -----------------------
@@ -155,24 +172,44 @@ can be installed in Mathematica by calling
     Install["bin/gm2calc.mx"]
 
 Afterwards, the GM2Calc Mathematica interface functions can be used.
-See `examples/example-slha.m` and `examples/example-gm2calc.m` for
-examples with SLHA and GM2Calc input parameters, respectively.
+See `examples/example-slha.m` (MSSM), `examples/example-gm2calc.m`
+(MSSM) and `examples/example-thdm.m` (THDM) for examples with
+different input parameters.
 
 **Example:**
 
     math -run "<< ../examples/example-slha.m"
     math -run "<< ../examples/example-gm2calc.m"
+    math -run "<< ../examples/example-thdm.m"
+
+From within Python
+------------------
+
+When a valid python installation is detected, GM2Calc, will
+attempt to create `example_*.py` files in `build/bin/`.  Either
+Python2 or 3 can be used, and the python package `cppyy` is required.  
+`cppyy` installation instructions can be found at:
+[](https://cppyy.readthedocs.io/en/latest/installation.html)
+See `examples/example_slha.py` (MSSM), `examples/example_gm2calc.py`
+(MSSM) and `examples/example_thdm.py` (THDM) for examples with
+different input parameters.
+
+**Example:**
+
+    python bin/example_slha.py
+    python bin/example_gm2calc.py
+    python bin/example_thdm.py
 
 
 Input parameters
 ================
 
-SLHA input parameters
----------------------
+MSSM: SLHA input parameters
+---------------------------
 
 When GM2Calc is called with an
-[SLHA-1](https://arxiv.org/abs/hep-ph/0311123) input file, for example
-as
+[SLHA-1](https://arxiv.org/abs/hep-ph/0311123) input file for the
+MSSM, for example as
 
     bin/gm2calc.x --slha-input-file=../input/example.slha
 
@@ -284,8 +321,8 @@ flavour violation.
 
 ---
 
-GM2Calc input parameters
-------------------------
+MSSM: GM2Calc input parameters
+------------------------------
 
 When GM2Calc is called with an input file in the custom GM2Calc
 format (in a mixed DR-bar/on-shell scheme), for example as
@@ -354,15 +391,117 @@ then the input parameters are read from the following blocks:
 See `input/example.gm2` for an example input file with custom GM2Calc
 input parameters.
 
+THDM: SLHA-like input parameters
+--------------------------------
+
+When GM2Calc is called with an SLHA-like input file for the THDM, for
+example as
+
+    bin/gm2calc.x --thdm-input-file=../input/example.thdm
+
+then the input parameters are read from different blocks, depending on
+the input basis.
+
+### Gauge basis
+
+The THDM-specific input parameters in the gauge basis are read from
+the following blocks:
+
+ * `MINPAR`: tan(β), λ\_{1,...,7}, m\_{12}^2, ζ\_{u,d,l} and the
+   Yukawa type (1 = type I, 2 = type II, 3 = type X, 4 = type Y, 5 =
+   aligned THDM, 6 = general)
+
+   Note: The parameters ζ\_{u,d,l} are only used if the Yukawa type is
+   set to the aligned THDM (Yukawa type = 5).
+
+   *Example:*
+
+       Block MINPAR                  # model parameters in gauge basis
+           3        3                # tan(beta)
+          11        0.7              # lambda_1
+          12        0.6              # lambda_2
+          13        0.5              # lambda_3
+          14        0.4              # lambda_4
+          15        0.3              # lambda_5
+          16        0.2              # lambda_6
+          17        0.1              # lambda_7
+          18        40000            # m_{12}^2
+          21        0                # zeta_u
+          22        0                # zeta_d
+          23        0                # zeta_l
+          24        2                # Yukawa type (1, 2, 3, 4, 5 = aligned, 6 = general)
+
+ * `GM2CalcTHDMDeltauInput`, `GM2CalcTHDMDeltadInput`, `GM2CalcTHDMDeltalInput`:
+   The real parts of the matrices Delta_u, Delta_d and Delta_l
+
+ * `GM2CalcTHDMPiuInput`, `GM2CalcTHDMPidInput`, `GM2CalcTHDMPilInput`:
+   The real parts of the matrices Pi_u, Pi_d and Pi_l
+
+Note: The parameters Delta\_{u,d,l} are only used if the Yukawa type is
+not set to the general THDM (Yukawa type = 1,...,5).
+
+Note: The parameters Pi\_{u,d,l} are only used if the Yukawa type is
+set to the general THDM (Yukawa type = 6).
+
+### Mass basis
+
+The THDM-specific input parameters in the mass basis are read from the
+following blocks:
+
+ * `MINPAR`: tan(β), λ\_{6,7}, m\_{12}^2, sin(β-α), ζ\_{u,d,l} and the
+   Yukawa type (1 = type I, 2 = type II, 3 = type X, 4 = type Y, 5 =
+   aligned THDM, 6 = general)
+
+   Note: The parameters ζ\_{u,d,l} are only used if the Yukawa type is
+   set to the aligned THDM (Yukawa type = 5).
+
+   *Example:*
+
+       Block MINPAR                  # model parameters
+           3        3                # tan(beta)
+          16        0.2              # lambda_6
+          17        0.1              # lambda_7
+          18        40000            # m_{12}^2
+          20        0.999            # sin(beta - alpha)
+          21        0                # zeta_u
+          22        0                # zeta_d
+          23        0                # zeta_l
+          24        2                # Yukawa type (1, 2, 3, 4, 5 = aligned, 6 = general)
+
+ * `MASS`: CP-even Higgs boson masses m_h, m_H, the CP-odd Higgs boson
+   mass m_A and the charged Higgs boson mass m_{H^+}
+
+   *Example:*
+
+       Block MASS                    # Higgs masses
+          25        100              # mh, lightest CP-even Higgs
+          35        400              # mH, heaviest CP-even Higgs
+          36        420              # mA, CP-odd Higgs
+          37        440              # mH+, charged Higgs
+
+ * `GM2CalcTHDMDeltauInput`, `GM2CalcTHDMDeltadInput`, `GM2CalcTHDMDeltalInput`:
+   The real parts of the matrices Delta_u, Delta_d and Delta_l
+
+ * `GM2CalcTHDMPiuInput`, `GM2CalcTHDMPidInput`, `GM2CalcTHDMPilInput`:
+   The real parts of the matrices Pi_u, Pi_d and Pi_l
+
+Note: The parameters Delta\_{u,d,l} are only used if the Yukawa type is
+not set to the general THDM (Yukawa type = 1,...,5).
+
+Note: The parameters Pi\_{u,d,l} are only used if the Yukawa type is
+set to the general THDM (Yukawa type = 6).
+
+See `input/example.thdm` for an example input file.
+
 
 Block `GM2CalcConfig`
 ---------------------
 
-When running GM2Calc from the command line with an (SLHA or custom
-GM2Calc) input file, the input file may contain the `GM2CalcConfig`
-configuration block to customize the calculation and the output.  The
-`GM2CalcConfig` block entries are summarized in the following table
-and are described below:
+When running GM2Calc from the command line with SLHA or SLHA-like
+input, the input may contain the `GM2CalcConfig` configuration block
+to customize the calculation and the output.  The `GM2CalcConfig`
+block entries are summarized in the following table and are described
+below:
 
 | Entry    | Description           | Possible values | Defaul value                              |
 |----------|-----------------------|-----------------|-------------------------------------------|
@@ -372,6 +511,7 @@ and are described below:
 | 3        | force output          | `0`, `1`        | `0`                                       |
 | 4        | verboe output         | `0`, `1`        | `0`                                       |
 | 5        | estimate uncertainty  | `0`, `1`        | `0`                                       |
+| 6        | running parameters    | `0`, `1`        | `1`                                       |
 
 Description:
 
@@ -404,6 +544,9 @@ Description:
    * to the first line              in case of detailed output,
    * to `GM2CalcOutput[1]`          otherwise.
 
+ * `GM2CalcConfig[6]`: disable/enable use of running parameters (`0` or `1`)
+   in the fermionic 2-loop contributions in the THDM.
+
 We recommend to use the following configuration block in an SLHA input
 file:
 
@@ -414,28 +557,48 @@ file:
          2     1     # disable/enable tan(beta) resummation (0 or 1)
          3     0     # force output (0 or 1)
          4     0     # verbose output (0 or 1)
-         5     1     # calculate uncertainty
+         5     1     # calculate uncertainty (0 or 1)
+         6     1     # running parameters (0 or 1)
 
 
 C/C++ interface
 ===============
 
 GM2Calc provides a C and a C++ interface.  To use the routines of
-GM2Calc in a C++ program, the following C++ header files have to be
-included:
+GM2Calc in a C++ program and perform an MSSM calculation, the
+following C++ header files have to be included:
 
     include/gm2calc/gm2_1loop.hpp
     include/gm2calc/gm2_2loop.hpp
     include/gm2calc/gm2_uncertainty.hpp
+    include/gm2calc/gm2_error.hpp
     include/gm2calc/MSSMNoFV_onshell.hpp
 
-To use the routines of GM2Calc in a C program, the following C header
-files have to be included:
+For the calculation in the THDM, the following C++ header files have
+to be included:
+
+    include/gm2calc/gm2_1loop.hpp
+    include/gm2calc/gm2_2loop.hpp
+    include/gm2calc/gm2_uncertainty.hpp
+    include/gm2calc/gm2_error.hpp
+    include/gm2calc/THDM.hpp
+
+To use the routines of GM2Calc in a C program to perform an MSSM
+calculation, the following C header files have to be included:
 
     include/gm2calc/gm2_1loop.h
     include/gm2calc/gm2_2loop.h
     include/gm2calc/gm2_uncertainty.h
     include/gm2calc/MSSMNoFV_onshell.h
+
+For the calculation in the THDM, the following C header files must be
+included:
+
+    include/gm2calc/gm2_1loop.h
+    include/gm2calc/gm2_2loop.h
+    include/gm2calc/gm2_uncertainty.h
+    include/gm2calc/THDM.h
+    include/gm2calc/SM.h
 
 Please refer to the content of these header files for a precise
 definition of all interface functions.  The C/C++ example programs in
@@ -450,17 +613,71 @@ After the GM2Calc MathLink executable has been loaded by
 e.g. `Install["bin/gm2calc.mx"]`, the following functions are
 available:
 
-| Function                | Description                                                |
-| ----------------------- | ---------------------------------------------------------- |
-| GM2CalcSetFlags         | Sets configuration flags for the calculation               |
-| GM2CalcGetFlags         | Returns currently set configuration flags                  |
-| GM2CalcSetSMParameters  | Sets Standard Model parameters                             |
-| GM2CalcGetSMParameters  | Returns currently set Standard Model parameters            |
-| GM2CalcAmuSLHAScheme    | Calculates `a_mu`, given SLHA input parameters             |
-| GM2CalcAmuGM2CalcScheme | Calculates `a_mu`, given GM2Calc-specific input parameters |
+| Function                | Description                                                           |
+| ----------------------- | --------------------------------------------------------------------- |
+| GM2CalcSetFlags         | Sets configuration flags for the calculation                          |
+| GM2CalcGetFlags         | Returns currently set configuration flags                             |
+| GM2CalcSetSMParameters  | Sets Standard Model parameters                                        |
+| GM2CalcGetSMParameters  | Returns currently set Standard Model parameters                       |
+| GM2CalcAmuSLHAScheme    | Calculates `a_mu`, in the MSSM with SLHA input parameters             |
+| GM2CalcAmuGM2CalcScheme | Calculates `a_mu`, in the MSSM with GM2Calc-specific input parameters |
+| GM2CalcAmuTHDMGaugeBasis| Calculates `a_mu`, in the THDM with gauge basis input parameters      |
+| GM2CalcAmuTHDMMassBasis | Calculates `a_mu`, in the THDM with mass basis input parameters       |
 
-See the example Mathematica scripts `examples/example-slha.m` and
-`examples/example-gm2calc.m`.
+See the example Mathematica scripts `examples/example-slha.m`,
+`examples/example-gm2calc.m` and `examples/example-thdm.m`.
+
+
+Python interface
+================
+
+After building GM2Calc with shared libraries, it is possible to
+load GM2Calc functions into python using the C-Python interface
+provided by cppyy.
+
+To use the routines of GM2Calc in a python script, the following 
+folders and C++ header files have to be included:
+
+    `Eigen3 include folder`             # /usr/include/eigen3/ or similar
+    include/                            # GM2Calc's include folder
+    include/gm2calc/gm2_1loop.hpp
+    include/gm2calc/gm2_2loop.hpp
+    include/gm2calc/gm2_uncertainty.hpp
+    include/gm2calc/gm2_error.hpp
+
+To perform an MSSM calculation, the following C++ header files 
+have to be included:
+
+    include/gm2calc/MSSMNoFV_onshell.hpp
+
+For the calculation in the THDM, the following C++ header files 
+have to be included:
+
+    include/gm2calc/THDM.hpp
+
+And finally for any GM2Calc model the following library must be
+loaded:
+
+    cppyy.load_library("libgm2calc")
+
+Then one can import the C++ functions into python using the command
+`from cppy.gbl import gm2calc`.  Then the following functions are 
+available:
+
+| Function                                | Description                                                   |
+| --------------------------------------- | ------------------------------------------------------------- |
+| gm2calc.SM                              | Constructs an SM model                                        |
+| gm2calc.MSSMNoFV_onshell                | Constructs an MSSMNoFV model                                  |
+| gm2calc.THDM                            | Constructs a THDM model                                       |
+| gm2calc.calculate_amu_0loop             | Calculates the tree-level contributions to `a_mu`             |
+| gm2calc.calculate_amu_1loop             | Calculates the 1-loop contributions to `a_mu`                 |
+| gm2calc.calculate_amu_2loop             | Calculates the 2-loop contributions to `a_mu`                 |
+| gm2calc.calculate_uncertainty_amu_0loop | Calculates the uncertainty of `a_mu` if working at tree-level |
+| gm2calc.calculate_uncertainty_amu_1loop | Calculates the uncertainty of `a_mu` if working at 1 level    |
+| gm2calc.calculate_uncertainty_amu_2loop | Calculates the uncertainty of `a_mu` if working at 2 level    |
+
+See the example Python scripts `examples/example_slha.py`,
+`examples/example_gm2calc.py` and `examples/example_thdm.py`.
 
 
 Source code documentation
@@ -489,8 +706,15 @@ GM2Calc has been published in [`Athron:2015rva`]
   href="http://arxiv.org/abs/1510.08071">Eur.Phys.J. C76 (2016) no.2,
   62</a>]
 
-The expressions implemented in GM2Calc have been taken from
+- Peter Athron, Csaba Balazs, Adriano Cherchiglia, Douglas Jacob,
+  Dominik Stöckinger, Hyejung Stöckinger-Kim, Alexander Voigt:
+  *[TODO]*
+
+The expressions implemented in GM2Calc for the MSSM have been taken from
 [<a href="http://arxiv.org/abs/1003.5820">Phys.Rev. D81 (2010) 093004</a>,
  <a href="http://arxiv.org/abs/1309.0980">Phys.Lett. B726 (2013) 717-724</a>,
  <a href="http://arxiv.org/abs/1311.1775">JHEP 1402 (2014) 070</a>,
  <a href="http://arxiv.org/abs/1504.05500">JHEP 1510 (2015) 026</a>]
+
+The expressions implemented in GM2Calc for the THDM have been taken from
+[<a href="http://arxiv.org/abs/1607.06292">JHEP 01 (2017) 007</a>]

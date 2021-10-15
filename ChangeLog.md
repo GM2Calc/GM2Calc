@@ -1,3 +1,36 @@
+GM2Calc-2.0.0 []
+=================================
+
+New features
+------------
+
+ * Calculation of the anomalous magnetic moment of the muon in the
+   Two-Higgs-Doublet Model (2HDM) at the 1- and leading 2-loop level.
+   The implemented expressions are taken from
+   [<a href="http://arxiv.org/abs/1607.06292">JHEP 01 (2017) 007</a>].
+   See the README file and `examples/example-thdm.{c,cpp,m}` for examples.
+
+Fixed bugs
+----------
+
+ * Bugfix (commit 205f5cf): Ensure that MSSM Goldstone bosons are
+   always at the first position in the Higgs multiplets.
+   This change has no effect on the value of a_mu in the MSSM.
+
+ * Bugfix (commit b72cc64): Avoid a NaN in the 2-loop sfermionic MSSM
+   contributions when the `f_sferm` function is called with `z = 0` as
+   argument.  This case appears when a stop, sbottom or stau is
+   massless.
+
+ * Bugfix (commit 906bbca): Avoid a NaN in the 2-loop sfermionic MSSM
+   contributions when the `f_S` function is called with `z = 0` as
+   argument.  This case appears when a chargino is massless.
+
+ * Bugfix (commit 5bee954): Avoid a NaN in the 2-loop sfermionic MSSM
+   contributions when the `f_PS` function is called with `z = 0` as
+   argument.  This case appears when a chargino is massless.
+
+
 GM2Calc-1.7.5 [February, 11 2021]
 =================================
 

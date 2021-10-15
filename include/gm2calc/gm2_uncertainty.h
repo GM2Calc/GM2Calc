@@ -19,11 +19,21 @@
 #ifndef GM2_UNCERTAINTY_H
 #define GM2_UNCERTAINTY_H
 
-#include "MSSMNoFV_onshell.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+typedef struct gm2calc_THDM gm2calc_THDM;
+typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
+
+/** calculates uncertainty for amu(0-loop) in the general THDM */
+double gm2calc_thdm_calculate_uncertainty_amu_0loop(const gm2calc_THDM*);
+
+/** calculates uncertainty for amu(1-loop) in the general THDM */
+double gm2calc_thdm_calculate_uncertainty_amu_1loop(const gm2calc_THDM*);
+
+/** calculates uncertainty for amu(2-loop) in the general THDM */
+double gm2calc_thdm_calculate_uncertainty_amu_2loop(const gm2calc_THDM*);
 
 /** calculates uncertainty for amu(0-loop) in the MSSMNoFV w/ tan(beta) resummation */
 double gm2calc_mssmnofv_calculate_uncertainty_amu_0loop(const MSSMNoFV_onshell*);

@@ -19,6 +19,8 @@
 #include "gm2_slha_io.hpp"
 
 #include "gm2calc/MSSMNoFV_onshell.hpp"
+#include "gm2calc/SM.hpp"
+#include "gm2calc/THDM.hpp"
 
 #include "gm2_config_options.hpp"
 #include "gm2_log.hpp"
@@ -30,8 +32,14 @@
 #include <limits>
 #include <string>
 
+#include <boost/format.hpp>
 #include <boost/lexical_cast.hpp>
 #include <Eigen/Core>
+
+#define FORMAT_ELEMENT(pdg,value,name)                                  \
+   boost::format(" %5d   %16.8E   # %s\n") % (pdg) % (value) % (name)
+#define FORMAT_SPINFO(n,str)                                            \
+   boost::format(" %5d   %s\n") % (n) % (str)
 
 namespace gm2calc {
 
@@ -49,13 +57,27 @@ namespace {
       double alpha_thompson{0.0};
    };
 
+   struct CKM_wolfenstein {
+      double lambda{0.0};
+      double A{0.0};
+      double rho{0.0};
+      double eta{0.0};
+   };
+
    void process_gm2calcconfig_tuple(Config_options& /*config_options*/, int /*key*/, double /*value*/);
    void process_gm2calcinput_tuple(GM2CalcInput_data& /*data*/, int /*key*/, double /*value*/);
    void process_gm2calcinput_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
+   void process_gm2calcinput_tuple(gm2calc::SM& /*model*/, int /*key*/, double /*value*/);
    void process_sminputs_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
+   void process_sminputs_tuple(gm2calc::SM& /* sm */, int /* key */, double /* value */);
    void process_hmix_tuple(HMIX_data& /*data*/, int /*key*/, double /*value*/);
    void process_mass_tuple(MSSMNoFV_onshell_physical& /*physical*/, int /*key*/, double /*value*/);
+   void process_mass_tuple(gm2calc::SM& /* sm */, int /* key */, double /* value */);
+   void process_mass_tuple(gm2calc::thdm::Mass_basis& /* basis */, int /* key */, double /* value */);
+   void process_minpar_tuple(gm2calc::thdm::Gauge_basis& /* basis */, int /* key */, double /* value */);
+   void process_minpar_tuple(gm2calc::thdm::Mass_basis& /* basis */, int /* key */, double /* value */);
    void process_msoft_tuple(MSSMNoFV_onshell& /*model*/, int /*key*/, double /*value*/);
+   void process_vckm_tuple(CKM_wolfenstein& /* ckm */, int /* key */, double /* value */);
 
 } // anonymous namespace
 
@@ -412,6 +434,111 @@ void GM2_slha_io::fill_slha(MSSMNoFV_onshell& model) const
 }
 
 /**
+ * Reads SM parameters
+ *
+ * @param sm SM class
+ */
+void GM2_slha_io::fill(gm2calc::SM& sm) const
+{
+   CKM_wolfenstein ckm;
+
+   GM2_slha_io::Tuple_processor sminputs_processor = [&sm] (int key, double value) {
+      return process_sminputs_tuple(sm, key, value);
+   };
+   GM2_slha_io::Tuple_processor mass_processor = [&sm] (int key, double value) {
+      return process_mass_tuple(sm, key, value);
+   };
+   GM2_slha_io::Tuple_processor gm2calcinput_processor = [&sm] (int key, double value) {
+      return process_gm2calcinput_tuple(sm, key, value);
+   };
+   GM2_slha_io::Tuple_processor vckm_processor = [&ckm] (int key, double value) {
+      return process_vckm_tuple(ckm, key, value);
+   };
+
+   read_block("SMINPUTS", sminputs_processor);
+   // try to read mW from MASS block
+   read_block("MASS"    , mass_processor);
+   // try to read mhSM from GM2CalcInput block
+   read_block("GM2CalcInput", gm2calcinput_processor);
+   // read CKM matrix
+   read_block("VCKMIN"  , vckm_processor);
+
+   sm.set_ckm_from_wolfenstein(ckm.lambda, ckm.A, ckm.rho, ckm.eta);
+}
+
+/**
+ * Reads THDM parameters in gauge basis
+ *
+ * @param basis gauge basis
+ */
+void GM2_slha_io::fill(gm2calc::thdm::Gauge_basis& basis) const
+{
+   GM2_slha_io::Tuple_processor minpar_processor = [&basis] (int key, double value) {
+      return process_minpar_tuple(basis, key, value);
+   };
+
+   Eigen::Matrix<double,3,3> Delta_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_l{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_l{Eigen::Matrix<double,3,3>::Zero()};
+
+   read_block("MINPAR", minpar_processor);
+   read_block("GM2CalcTHDMDeltauInput", Delta_u);
+   read_block("GM2CalcTHDMDeltadInput", Delta_d);
+   read_block("GM2CalcTHDMDeltalInput", Delta_l);
+   read_block("GM2CalcTHDMPiuInput", Pi_u);
+   read_block("GM2CalcTHDMPidInput", Pi_d);
+   read_block("GM2CalcTHDMPilInput", Pi_l);
+
+   basis.Delta_u = Delta_u;
+   basis.Delta_d = Delta_d;
+   basis.Delta_l = Delta_l;
+   basis.Pi_u = Pi_u;
+   basis.Pi_d = Pi_d;
+   basis.Pi_l = Pi_l;
+}
+
+/**
+ * Reads THDM parameters in mass basis
+ *
+ * @param basis mass basis
+ */
+void GM2_slha_io::fill(gm2calc::thdm::Mass_basis& basis) const
+{
+   GM2_slha_io::Tuple_processor minpar_processor = [&basis] (int key, double value) {
+      return process_minpar_tuple(basis, key, value);
+   };
+   GM2_slha_io::Tuple_processor mass_processor = [&basis] (int key, double value) {
+      return process_mass_tuple(basis, key, value);
+   };
+
+   Eigen::Matrix<double,3,3> Delta_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Delta_l{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_u{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_d{Eigen::Matrix<double,3,3>::Zero()};
+   Eigen::Matrix<double,3,3> Pi_l{Eigen::Matrix<double,3,3>::Zero()};
+
+   read_block("MINPAR", minpar_processor);
+   read_block("MASS", mass_processor);
+   read_block("GM2CalcTHDMDeltauInput", Delta_u);
+   read_block("GM2CalcTHDMDeltadInput", Delta_d);
+   read_block("GM2CalcTHDMDeltalInput", Delta_l);
+   read_block("GM2CalcTHDMPiuInput", Pi_u);
+   read_block("GM2CalcTHDMPidInput", Pi_d);
+   read_block("GM2CalcTHDMPilInput", Pi_l);
+
+   basis.Delta_u = Delta_u;
+   basis.Delta_d = Delta_d;
+   basis.Delta_l = Delta_l;
+   basis.Pi_u = Pi_u;
+   basis.Pi_d = Pi_d;
+   basis.Pi_l = Pi_l;
+}
+
+/**
  * Reads configuration from GM2CalcConfig block
  *
  * @param config_options configuration settings
@@ -463,6 +590,15 @@ void read_integer(double value, T& result, T min, T max, const char* error_msg)
    }
 }
 
+int read_integer(double value)
+{
+   if (is_integer(value)) {
+      return static_cast<int>(value);
+   } else {
+      throw EInvalidInput(gm2calc::to_string(value) + " is not an integer");
+   }
+}
+
 void read_double_non_zero(double value, double& result)
 {
    const double eps = std::numeric_limits<double>::epsilon();
@@ -503,6 +639,10 @@ void process_gm2calcconfig_tuple(
    case 5:
       read_bool(value, config_options.calculate_uncertainty,
                 "unsupported uncertainty flag value in GM2CalcConfig[5]");
+      break;
+   case 6:
+      read_bool(value, config_options.running_couplings,
+                "unsupported running couplings flag value in GM2CalcConfig[6]");
       break;
    default:
       WARNING("Unrecognized entry in block GM2CalcConfig: " << key);
@@ -547,6 +687,7 @@ void process_gm2calcinput_tuple(
    case 30: model.set_Au( 0, 0, value); break;
    case 31: model.set_Au( 1, 1, value); break;
    case 32: model.set_Au( 2, 2, value); break;
+   case 33: /* mhSM */ break;
    default:
       WARNING("Unrecognized entry in block GM2CalcInput: " << key);
       break;
@@ -560,6 +701,16 @@ void process_gm2calcinput_tuple(
    case  0: /* scale */                  break;
    case  1: data.alpha_MZ = value;       break;
    case  2: data.alpha_thompson = value; break;
+   default:
+      break;
+   }
+}
+
+void process_gm2calcinput_tuple(
+   gm2calc::SM& sm, int key, double value)
+{
+   switch (key) {
+   case 33: sm.set_mh(value); break;
    default:
       break;
    }
@@ -589,6 +740,33 @@ void process_sminputs_tuple(
    case 23: physical.MFs = value;   break;
    case 22: physical.MFu = value;   break;
    case 24: physical.MFc = value;   break;
+   default:
+      WARNING("Unrecognized entry in block SMINPUTS: " << key);
+      break;
+   }
+}
+
+void process_sminputs_tuple(
+   gm2calc::SM& sm, int key, double value)
+{
+   switch (key) {
+   case  1: sm.set_alpha_em_mz(1/value); break;
+   case  2: /* G_F */                    break;
+   case  3: sm.set_alpha_s_mz(value);    break;
+   case  4: sm.set_mz(value);            break;
+   case  5: sm.set_md(2, value);         break;
+   case  6: sm.set_mu(2, value);         break;
+   case  7: sm.set_ml(2, value);         break;
+   case  8: sm.set_mv(2, value);         break;
+   case  9: sm.set_mw(value);            break;
+   case 11: sm.set_ml(0, value);         break;
+   case 12: sm.set_mv(0, value);         break;
+   case 13: sm.set_ml(1, value);         break;
+   case 14: sm.set_mv(1, value);         break;
+   case 21: sm.set_md(0, value);         break;
+   case 22: sm.set_mu(0, value);         break;
+   case 23: sm.set_md(1, value);         break;
+   case 24: sm.set_mu(1, value);         break;
    default:
       WARNING("Unrecognized entry in block SMINPUTS: " << key);
       break;
@@ -676,6 +854,84 @@ void process_mass_tuple(
    case 1000035: physical.MChi(3) = value;  break;
    case 1000024: physical.MCha(0) = value;  break;
    case 1000037: physical.MCha(1) = value;  break;
+   default:
+      break;
+   }
+}
+
+void process_mass_tuple(
+   gm2calc::SM& sm, int key, double value)
+{
+   switch (key) {
+   case 24: sm.set_mw(value); break;
+   default:
+      break;
+   }
+}
+
+void process_mass_tuple(
+   gm2calc::thdm::Mass_basis& basis, int key, double value)
+{
+   switch (key) {
+   case 25: basis.mh = value;  break;
+   case 35: basis.mH = value;  break;
+   case 36: basis.mA = value;  break;
+   case 37: basis.mHp = value; break;
+   default:
+      break;
+   }
+}
+
+void process_minpar_tuple(
+   gm2calc::thdm::Gauge_basis& basis, int key, double value)
+{
+   switch (key) {
+   case  3: basis.tan_beta = value;  break;
+   case 11: basis.lambda(0) = value; break;
+   case 12: basis.lambda(1) = value; break;
+   case 13: basis.lambda(2) = value; break;
+   case 14: basis.lambda(3) = value; break;
+   case 15: basis.lambda(4) = value; break;
+   case 16: basis.lambda(5) = value; break;
+   case 17: basis.lambda(6) = value; break;
+   case 18: basis.m122 = value;      break;
+   case 21: basis.zeta_u = value;    break;
+   case 22: basis.zeta_d = value;    break;
+   case 23: basis.zeta_l = value;    break;
+   case 24: basis.yukawa_type = thdm::int_to_cpp_yukawa_type(read_integer(value));
+      break;
+   default:
+      break;
+   }
+}
+
+void process_minpar_tuple(
+   gm2calc::thdm::Mass_basis& basis, int key, double value)
+{
+   switch (key) {
+   case  3: basis.tan_beta = value;             break;
+   case 16: basis.lambda_6 = value;             break;
+   case 17: basis.lambda_7 = value;             break;
+   case 18: basis.m122 = value;                 break;
+   case 20: basis.sin_beta_minus_alpha = value; break;
+   case 21: basis.zeta_u = value;               break;
+   case 22: basis.zeta_d = value;               break;
+   case 23: basis.zeta_l = value;               break;
+   case 24: basis.yukawa_type = thdm::int_to_cpp_yukawa_type(read_integer(value));
+      break;
+   default:
+      break;
+   }
+}
+
+void process_vckm_tuple(
+   CKM_wolfenstein& ckm, int key, double value)
+{
+   switch (key) {
+   case 1: ckm.lambda = value; break;
+   case 2: ckm.A      = value; break;
+   case 3: ckm.rho    = value; break;
+   case 4: ckm.eta    = value; break;
    default:
       break;
    }
