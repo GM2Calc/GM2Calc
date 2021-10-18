@@ -25,15 +25,6 @@
 
 namespace gm2calc {
 
-template<class Real, int N>
-class Abs_less {
-public:
-    explicit Abs_less(const Eigen::Array<Real, N, 1>& w_) : w(w_) {}
-    bool operator() (int i, int j) { return std::abs(w[i]) < std::abs(w[j]); }
-private:
-    const Eigen::Array<Real, N, 1>& w;
-};
-
 template <typename Derived>
 unsigned closest_index(double mass, const Eigen::ArrayBase<Derived>& v)
 {
@@ -154,7 +145,7 @@ void reorder_vector(
    Eigen::PermutationMatrix<N> p;
    p.setIdentity();
    std::sort(p.indices().data(), p.indices().data() + p.indices().size(),
-             Abs_less<Real, N>(v2));
+             [&v2] (int i, int j) { return std::abs(v2[i]) < std::abs(v2[j]); });
 
 #if EIGEN_VERSION_AT_LEAST(3,1,4)
    v.matrix().transpose() *= p.inverse();
