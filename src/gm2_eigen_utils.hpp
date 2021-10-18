@@ -34,11 +34,6 @@ private:
     const Eigen::Array<Real, N, 1>& w;
 };
 
-template <class T>
-struct Is_not_finite {
-   bool operator()(T x) { return !std::isfinite(x); }
-};
-
 template <typename Derived>
 unsigned closest_index(double mass, const Eigen::ArrayBase<Derived>& v)
 {
@@ -141,7 +136,7 @@ Eigen::Array<Real,Nsrc - Ncmp,1> remove_if_equal(
    }
 
    std::remove_copy_if(non_equal.data(), non_equal.data() + Nsrc,
-                       dst.data(), Is_not_finite<Real>());
+                       dst.data(), [] (auto x) { return !std::isfinite(x); });
 
    return dst;
 }
