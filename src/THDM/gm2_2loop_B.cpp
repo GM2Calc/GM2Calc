@@ -429,7 +429,7 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    // combinations that appear several times
    const auto phi1 = 6.*l1*l2 - 6.*li1 - 6.*li2 + pi2;
    const double phi4 = 3*lh2 + 12*li4 + pi2;
-   const auto phi5 = (6.*l32 - 3.*lc2 - 12.*li5 + pi2)/s0;
+   const double phi5 = std::real((6.*l32 - 3.*lc2 - 12.*li5 + pi2)/s0);
    const auto phi6 = l4*l5 - li6 - li7;
 
    const auto xm2 = 128.*(5*cw4*(-3*lh2 + phi4 - 3*pi2) + 16*cw12*(-6*li3 + pi2) + 8*(4*cw6 - 7*cw8)*(3*lh2 - phi4 + 3*pi2) + 4*cw10*(24*lh2 + 6*li3 - 8.*phi4 + 23*pi2) - 90*cw10*(6.*phi6 + pi2)*s2 + 
