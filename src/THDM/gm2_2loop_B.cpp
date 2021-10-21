@@ -404,14 +404,15 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const auto mh2 = sqr(thdm.mh(0));
    const auto xh_ = mh2/mz2; // temporary value
    const auto xh = is_equal_rel(1.0, xh_, eps_shift) ? xh_*(1 + eps_shift) : xh_;
-   const auto s0 = std::sqrt(std::complex<double>(1 - 4*cw2, 0.0));
+   const auto zw = std::sqrt(4*cw2 - 1);
+   const auto s0 = std::complex<double>(0.0, zw);
    const auto s1 = std::sqrt(std::complex<double>(xh*(-4 + xh), 0.0));
    const auto s2 = std::sqrt(std::complex<double>(xh*(-4*cw2 + xh), 0.0));
    const auto lh = std::log(xh);
    const auto lc = std::log(cw2);
    const auto l1 = gm2calc::log(1.0 - (s1 + xh)/2.0);
    const auto l2 = gm2calc::log((-s1 + xh)/2.0);
-   const auto l3 = gm2calc::log((1.0 - s0)/2.0);
+   const auto l3 = std::complex<double>(0.5*lc, std::atan2(-zw, 1.0)); // log((1.0 - s0)/2.0)
    const auto l4 = gm2calc::log(1.0 - (s2 + xh)/(2.0*cw2));
    const auto l5 = gm2calc::log((-s2 + xh)/(2.0*cw2));
    const auto li1 = dilog((xh - s1)/2.0);
