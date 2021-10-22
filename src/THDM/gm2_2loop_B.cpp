@@ -423,11 +423,10 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const auto li6 = dilog(1.0 - (xh + s2)/(2.0*cw2));
    const auto li7 = dilog((xh - s2)/(2.0*cw2));
    const auto l32 = l3*l3;
-   const auto lc2 = lc*lc;
    const auto lh2 = lh*lh;
 
    // combinations that appear several times
-   const auto phi1 = (6.*l1*l2 - 6.*li1 - 6.*li2 + pi2)*s1;
+   const double phi1 = std::real((6.*l1*l2 - 6.*li1 - 6.*li2 + pi2)*s1);
    const double phi4 = 3*lh2 + 12*li4 + pi2;
    const double phi5 = std::real((6.*l32 - 12.*li5)/s0);
    const auto phi6 = l4*l5 - li6 - li7;
@@ -465,7 +464,7 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
       16*(-72*cw8*phi4 + cw4*(63 + 126*lh - 42*lh2 - 142*phi4 - 14*pi2) + 8*cw6*(-9*lh + 3*lh2 + 38*phi4 + pi2)) + 36.*phi1 - 24*(7*cw4 - 44*cw6 + 32*cw8)*phi1 + 
       4*cw2*(126 + 252*lh - 87*lh2 + 96*li3 - 7*phi4 - 29*pi2 - 39.*phi1));
 
-   const auto x5 = 24.*((-5 + 27*cw2 - 14*cw4 - 72*cw6 + 64*cw8)*phi4 + (1 - 7*cw2 + 14*cw4 - 8*cw6)*phi1);
+   const double x5 = 24*((-5 + 27*cw2 - 14*cw4 - 72*cw6 + 64*cw8)*phi4 + (1 - 7*cw2 + 14*cw4 - 8*cw6)*phi1);
 
    const double x6 = -24*(-1 + 7*cw2 - 14*cw4 + 8*cw6)*phi4;
 
