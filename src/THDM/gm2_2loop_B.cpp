@@ -429,9 +429,10 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double phi1 = std::real((6.*l1*l2 - 6.*li1 - 6.*li2 + pi2)*s1);
    const double phi4 = 3*lh2 + 12*li4 + pi2;
    const double phi5 = std::real((6.*l32 - 12.*li5)/s0);
+   const double phi6 = -3*lh2 + phi4 - 3*pi2;
    const double phi7 = std::real((6.*(l4*l5 - li6 - li7) + pi2)*s2);
 
-   const double xm2 = 128*(5*cw4*(-3*lh2 + phi4 - 3*pi2) + 16*cw12*(-6*li3 + pi2) + 8*(4*cw6 - 7*cw8)*(3*lh2 - phi4 + 3*pi2) + 4*cw10*(24*lh2 + 6*li3 - 8*phi4 + 23*pi2) - 90*cw10*phi7 + 
+   const double xm2 = 128*(5*cw4*phi6 + 16*cw12*(-6*li3 + pi2) - 8*(4*cw6 - 7*cw8)*phi6 + 4*cw10*(24*lh2 + 6*li3 - 8*phi4 + 23*pi2) - 90*cw10*phi7 + 
       18*(4*cw12 + cw8)*phi7);
 
    const double xm1 = 32*(-240*cw4*lh + 1536*cw6*lh - 177*cw4*lh2 + 240*cw6*lh2 + 6*(40*cw4 - 256*cw6 + 752*cw8 + 5*cw2*lh2) - 10*cw2*phi4 + 59*cw4*phi4 - 80*cw6*phi4 + 
@@ -440,7 +441,7 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
     4*(3072*cw10 + 907*cw6 - 4396*cw8)*phi7;
 
    const double x0 = 96*(730*cw10 - 936*cw12 + 384*cw14 + 21*cw6 - 211*cw8)*phi5 + 
-    8*(-1674*cw6 + 1704*cw8 - 13824*cw12*(2 + lc) + 5*(-3*lh2 + phi4 - 3*pi2) - 2*cw6*(561*lc - 1089*lh + 696*lh2 + 24*li3 - 232*phi4 + 686*pi2 - 96*phi1) + 
+    8*(-1674*cw6 + 1704*cw8 - 13824*cw12*(2 + lc) + 5*phi6 - 2*cw6*(561*lc - 1089*lh + 696*lh2 + 24*li3 - 232*phi4 + 686*pi2 - 96*phi1) + 
        4*cw4*(468 - 588*lh + 51*lh2 - 17*phi4 + 51*pi2 - 54*phi1) + 32*cw10*(936 + 417*lc - 84*lh - 36*lh2 + 12*li3 + 12*phi4 - 38*pi2 - 8*phi1) + 
        cw2*(-480 + 480*lh + 66*lh2 - 22*phi4 + 66*pi2 + 40*phi1) + 8*cw8*(306*lc - 141*lh + 4*(69*lh2 + 3*li3 - 23*phi4 + 67*pi2 + 6*phi1))) + 4*(231*cw4 - 1037*cw6 + 452*cw8)*phi7;
 
