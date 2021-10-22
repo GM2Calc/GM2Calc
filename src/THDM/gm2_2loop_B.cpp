@@ -413,11 +413,11 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double li3 = dilog(1.0 - xh/cw2);
    const double li4 = dilog(1.0 - xh);
    const double lh2 = lh*lh;
-   const double phi1 = std::real(6.0*(gm2calc::log(1.0 - (s1 + xh)/2.0)*gm2calc::log((xh - s1)/2.0) - dilog((xh - s1)/2.0) - dilog(1.0 - (xh + s1)/2.0) + pi2/6)*s1);
+   const double phi1 = 6.0*std::real((gm2calc::log(1.0 - (s1 + xh)/2.0)*gm2calc::log((xh - s1)/2.0) - dilog((xh - s1)/2.0) - dilog(1.0 - (xh + s1)/2.0) + pi2/6)*s1);
    const double phi4 = 3*lh2 + 12*li4 + pi2; // = (phi6 + 3*pi2 + 3*lh2)
-   const double phi5 = std::real(6.0*(sqr(std::complex<double>(0.5*lc, std::atan2(-zw, 1.0))) - 2.0*dilog((1.0 - s0)/2.0))/s0);
+   const double phi5 = 6.0*std::real((sqr(std::complex<double>(0.5*lc, std::atan2(-zw, 1.0))) - 2.0*dilog((1.0 - s0)/2.0))/s0);
    const double phi6 = 12*li4 - 2*pi2;
-   const double phi7 = std::real((6.0*(gm2calc::log(1.0 - (s2 + xh)/(2.0*cw2))*gm2calc::log((xh - s2)/(2.0*cw2)) - dilog(1.0 - (xh + s2)/(2.0*cw2)) - dilog((xh - s2)/(2.0*cw2)) + pi2/6))*s2);
+   const double phi7 = 6.0*std::real((gm2calc::log(1.0 - (s2 + xh)/(2.0*cw2))*gm2calc::log((xh - s2)/(2.0*cw2)) - dilog(1.0 - (xh + s2)/(2.0*cw2)) - dilog((xh - s2)/(2.0*cw2)) + pi2/6)*s2);
 
    const double xm2 = 128*(5*cw4*phi6 + 16*cw12*(-6*li3 + pi2)
       - 8*(4*cw6 - 7*cw8)*phi6 + 4*cw10*(6*li3 - 8*phi6 - pi2) - 90*cw10*phi7
