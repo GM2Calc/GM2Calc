@@ -438,7 +438,7 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
 
    const double xm1 = 32*(-240*cw4*lh + 1536*cw6*lh - 177*cw4*lh2 + 240*cw6*lh2 + 6*(40*cw4 - 256*cw6 + 752*cw8 + 5*cw2*lh2) - 10*cw2*phi4 + 59*cw4*phi4 - 80*cw6*phi4 + 
        64*cw12*(6*(18 + 9*lc - 9*lh + li3) - pi2) + 30*cw2*pi2 - 177*cw4*pi2 + 240*cw6*pi2 - 20*cw4*phi1 + 128*cw6*phi1 - 
-       32*cw10*(330 + 147*lc - 195*lh + 3*lh2 + 6*li3 - phi4 + 2*pi2 - 4*phi1) + 4*cw8*(240*lc - 912*lh - 6*lh2 + 6*li3 + 2*phi4 - 7*(pi2 + 8*phi1))) - 
+       32*cw10*(330 + 147*lc - 195*lh + 6*li3 - phi6 - pi2 - 4*phi1) + 4*cw8*(240*lc - 912*lh - 6*lh2 + 6*li3 + 2*phi4 - 7*(pi2 + 8*phi1))) - 
     4*(3072*cw10 + 907*cw6 - 4396*cw8)*phi7;
 
    const double x0 = 96*(730*cw10 - 936*cw12 + 384*cw14 + 21*cw6 - 211*cw8)*phi5 + 
