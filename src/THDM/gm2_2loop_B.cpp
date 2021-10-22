@@ -383,6 +383,8 @@ double Fmp(double u, double w, double al, double cw2) noexcept
    return (-9*(-1 + cw2))/(al*pi) * (T9(u,w,cw2)/2 + T10(u,w,cw2));
 }
 
+// double phi(
+
 } // anonymous namespace
 
 /**
@@ -405,13 +407,14 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double mh2 = sqr(thdm.mh(0));
    const double xh_ = mh2/mz2; // temporary value
    const double xh = is_equal_rel(1.0, xh_, eps_shift) ? xh_*(1 + eps_shift) : xh_;
+   const double xw = xh/cw2;
    const double zw = std::sqrt(4*cw2 - 1);
    const auto s0 = std::complex<double>(0.0, zw);
    const auto s1 = std::sqrt(std::complex<double>(xh*(-4 + xh), 0.0));
-   const auto s2 = std::sqrt(std::complex<double>(xh*(-4*cw2 + xh), 0.0));
+   const auto s2 = std::sqrt(std::complex<double>(xw*(-4 + xw), 0.0));
    const double lh = std::log(xh);
    const double lc = std::log(cw2);
-   const double li3 = dilog(1.0 - xh/cw2);
+   const double li3 = dilog(1.0 - xw);
    const double li4 = dilog(1.0 - xh);
    const double lh2 = lh*lh;
    const auto l0 = std::complex<double>(0.5*lc, std::atan2(-zw, 1.0)); // log((1.0 - s0)/2.0)
@@ -419,7 +422,7 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double phi4 = 3*lh2 + 12*li4 + pi2; // = (phi6 + 3*pi2 + 3*lh2)
    const double phi5 = 6.0*std::real((sqr(l0) - 2.0*dilog((1.0 - s0)/2.0))/s0);
    const double phi6 = 12*(li4 - zeta2);
-   const double phi7 = 6.0*std::real((gm2calc::log(1.0 - (s2 + xh)/(2.0*cw2))*gm2calc::log((xh - s2)/(2.0*cw2)) - dilog(1.0 - (xh + s2)/(2.0*cw2)) - dilog((xh - s2)/(2.0*cw2)) + zeta2)*s2);
+   const double phi7 = 6.0*cw2*std::real((gm2calc::log(1.0 - (s2 + xw)/2.0)*gm2calc::log((xw - s2)/2.0) - dilog(1.0 - (xw + s2)/2.0) - dilog((xw - s2)/2.0) + zeta2)*s2);
 
    const double xm2 = -128*(32*cw10 - 5*cw4 + 32*cw6 - 56*cw8)*phi6
       - 2304*(5*cw10 - 4*cw12 - cw8)*phi7 + 512*(cw10 - 4*cw12)*(6*li3 - pi2);
