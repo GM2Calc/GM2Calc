@@ -468,12 +468,12 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
 
    const double x6 = -24*(-1 + 7*cw2 - 14*cw4 + 8*cw6)*phi4;
 
-   const auto res = (xm2/xh + xm1)/xh + x0 + xh*(x1 + xh*(x2 + xh*(x3 + xh*(x4 + xh*(x5 + xh*x6)))));
+   const double res = std::real((xm2/xh + xm1)/xh + x0 + xh*(x1 + xh*(x2 + xh*(x3 + xh*(x4 + xh*(x5 + xh*x6))))));
 
-   const auto pref = sqr(thdm.alpha_em*thdm.mm/(48*thdm.mz*pi*cw2*(4*cw2 - xh)*(1 - cw2)))
+   const double pref = sqr(thdm.alpha_em*thdm.mm/(48*thdm.mz*pi*cw2*(4*cw2 - xh)*(1 - cw2)))
       /(2*(-1 + 4*cw2)*(-1 + xh));
 
-   return pref * std::real(res) * thdm.cos_beta_minus_alpha * thdm.zetal;
+   return pref * res * thdm.cos_beta_minus_alpha * thdm.zetal;
 }
 
 /**
