@@ -432,7 +432,7 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double phi6 = -3*lh2 + phi4 - 3*pi2;
    const double phi7 = std::real((6.*(l4*l5 - li6 - li7) + pi2)*s2);
 
-   const double xm2 = 128*(5*cw4*phi6 + 16*cw12*(-6*li3 + pi2) - 8*(4*cw6 - 7*cw8)*phi6 + 4*cw10*(24*lh2 + 6*li3 - 8*phi4 + 23*pi2) - 90*cw10*phi7 + 
+   const double xm2 = 128*(5*cw4*phi6 + 16*cw12*(-6*li3 + pi2) - 8*(4*cw6 - 7*cw8)*phi6 + 4*cw10*(6*li3 - 8*phi6 - pi2) - 90*cw10*phi7 + 
       18*(4*cw12 + cw8)*phi7);
 
    const double xm1 = 32*(-240*cw4*lh + 1536*cw6*lh - 177*cw4*lh2 + 240*cw6*lh2 + 6*(40*cw4 - 256*cw6 + 752*cw8 + 5*cw2*lh2) - 10*cw2*phi4 + 59*cw4*phi4 - 80*cw6*phi4 + 
