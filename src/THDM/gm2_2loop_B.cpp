@@ -427,7 +427,7 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const auto lh2 = lh*lh;
 
    // combinations that appear several times
-   const auto phi1 = 6.*l1*l2 - 6.*li1 - 6.*li2 + pi2;
+   const auto phi1 = (6.*l1*l2 - 6.*li1 - 6.*li2 + pi2)*s1;
    const double phi4 = 3*lh2 + 12*li4 + pi2;
    const double phi5 = std::real((6.*l32 - 12.*li5)/s0);
    const auto phi6 = l4*l5 - li6 - li7;
@@ -436,36 +436,36 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
       18*(4*cw12 + cw8)*(6.*phi6 + pi2)*s2);
 
    const auto xm1 = 32.*(-240*cw4*lh + 1536*cw6*lh - 177*cw4*lh2 + 240*cw6*lh2 + 6*(40*cw4 - 256*cw6 + 752*cw8 + 5*cw2*lh2) - 10*cw2*phi4 + 59*cw4*phi4 - 80*cw6*phi4 + 
-       64*cw12*(6*(18 + 9*lc - 9*lh + li3) - pi2) + 30*cw2*pi2 - 177*cw4*pi2 + 240*cw6*pi2 - 20*cw4*phi1*s1 + 128*cw6*phi1*s1 - 
-       32*cw10*(330 + 147*lc - 195*lh + 3*lh2 + 6*li3 - phi4 + 2*pi2 - 4.*phi1*s1) + 4*cw8*(240*lc - 912*lh - 6*lh2 + 6*li3 + 2.*phi4 - 7.*(pi2 + 8.*phi1*s1))) - 
+       64*cw12*(6*(18 + 9*lc - 9*lh + li3) - pi2) + 30*cw2*pi2 - 177*cw4*pi2 + 240*cw6*pi2 - 20*cw4*phi1 + 128*cw6*phi1 - 
+       32*cw10*(330 + 147*lc - 195*lh + 3*lh2 + 6*li3 - phi4 + 2*pi2 - 4.*phi1) + 4*cw8*(240*lc - 912*lh - 6*lh2 + 6*li3 + 2.*phi4 - 7.*(pi2 + 8.*phi1))) - 
     4*(3072*cw10 + 907*cw6 - 4396*cw8)*(6.*phi6 + pi2)*s2;
 
    const auto x0 = 96*(730*cw10 - 936*cw12 + 384*cw14 + 21*cw6 - 211*cw8)*phi5 + 
-    8.*(-1674*cw6 + 1704*cw8 - 13824*cw12*(2 + lc) + 5*(-3*lh2 + phi4 - 3*pi2) - 2*cw6*(561*lc - 1089*lh + 696*lh2 + 24*li3 - 232.*phi4 + 686*pi2 - 96.*phi1*s1) + 
-       4*cw4*(468 - 588*lh + 51*lh2 - 17.*phi4 + 51*pi2 - 54.*phi1*s1) + 32*cw10*(936 + 417*lc - 84*lh - 36*lh2 + 12*li3 + 12.*phi4 - 38*pi2 - 8.*phi1*s1) + 
-       cw2*(-480 + 480*lh + 66*lh2 - 22.*phi4 + 66*pi2 + 40.*phi1*s1) + 8*cw8*(306*lc - 141*lh + 4.*(69*lh2 + 3*li3 - 23.*phi4 + 67*pi2 + 6.*phi1*s1))) + 4*(231*cw4 - 1037*cw6 + 452*cw8)*(6.*phi6 + pi2)*s2;
+    8.*(-1674*cw6 + 1704*cw8 - 13824*cw12*(2 + lc) + 5*(-3*lh2 + phi4 - 3*pi2) - 2*cw6*(561*lc - 1089*lh + 696*lh2 + 24*li3 - 232.*phi4 + 686*pi2 - 96.*phi1) + 
+       4*cw4*(468 - 588*lh + 51*lh2 - 17.*phi4 + 51*pi2 - 54.*phi1) + 32*cw10*(936 + 417*lc - 84*lh - 36*lh2 + 12*li3 + 12.*phi4 - 38*pi2 - 8.*phi1) + 
+       cw2*(-480 + 480*lh + 66*lh2 - 22.*phi4 + 66*pi2 + 40.*phi1) + 8*cw8*(306*lc - 141*lh + 4.*(69*lh2 + 3*li3 - 23.*phi4 + 67*pi2 + 6.*phi1))) + 4*(231*cw4 - 1037*cw6 + 452*cw8)*(6.*phi6 + pi2)*s2;
 
    const auto x1 = 48*(836*cw10 - 304*cw12 - 21*cw4 + 205*cw6 - 692*cw8)*phi5 + 
     2.*(31512*cw6 - 91296*cw8 - 2*cw4*(5190 + 345*lc - 3081*lh - 1644*lh2 + 804*li3 + 548.*phi4 - 1366*pi2) + 16*cw6*(390*lc - 579*lh - 606*lh2 + 414*li3 + 202.*phi4 - 376*pi2) - 
-       32*cw8*(768*lc + 291*lh - 408*lh2 + 24*li3 + 136.*phi4 - 194*pi2) + 64*(13*cw4 - 70*cw6 + 120*cw8)*phi1*s1 - 5.*(-48 + 48*lh - 3*lh2 + phi4 - 3*pi2 + 4.*phi1*s1) + 
-       8*cw2*(108 + 12*lh - 57*lh2 + 19.*phi4 - 57*pi2 + 6.*phi1*s1) + 128*cw10*(171*lc + 8.*(57 + 12*lh - 6*lh2 + 2.*phi4 - 2*pi2 - 4.*phi1*s1)) + 45*cw2*(6.*phi6 + pi2)*s2 - 
+       32*cw8*(768*lc + 291*lh - 408*lh2 + 24*li3 + 136.*phi4 - 194*pi2) + 64*(13*cw4 - 70*cw6 + 120*cw8)*phi1 - 5.*(-48 + 48*lh - 3*lh2 + phi4 - 3*pi2 + 4.*phi1) + 
+       8*cw2*(108 + 12*lh - 57*lh2 + 19.*phi4 - 57*pi2 + 6.*phi1) + 128*cw10*(171*lc + 8.*(57 + 12*lh - 6*lh2 + 2.*phi4 - 2*pi2 - 4.*phi1)) + 45*cw2*(6.*phi6 + pi2)*s2 - 
        6*(11*cw4 + 76*cw6)*(6.*phi6 + pi2)*s2);
 
    const auto x2 = 16416*cw6 + 30*(-20 + 512*cw8 + 12*lh + 3*lh2 - phi4 + 3*pi2) - 4*
      (32*cw8*(9*lc - 8*(51*lh - 15*lh2 + 26.*phi4 - 5*pi2)) + cw4*(2661 + 72*lc - 717*lh - 1236*lh2 + 768*li3 + 28.*phi4 - 586*pi2) + 4*cw6*(174*lc + 723*lh + 12*lh2 + 804*li3 + 668.*phi4 + 34*pi2)) + 
-    6*(64*cw10 + 21*cw2 - 187*cw4 + 578*cw6 - 536*cw8)*phi5 + 4*(5 + 696*cw4 + 192*cw6 - 3008*cw8)*phi1*s1 - 1024*cw10*(18 + 36*lh - 12*lh2 + 16.*phi4 - 4*pi2 - 9.*phi1*s1) + 
-    8*(-4 + 99*cw4)*(6.*phi6 + pi2)*s2 + cw2*(3867 + 426*lc - 2106*lh - 1392*lh2 + 1572*li3 + 464.*phi4 - 848*pi2 - 672.*phi1*s1 - 70.*(6.*phi6 + pi2)*s2);
+    6*(64*cw10 + 21*cw2 - 187*cw4 + 578*cw6 - 536*cw8)*phi5 + 4*(5 + 696*cw4 + 192*cw6 - 3008*cw8)*phi1 - 1024*cw10*(18 + 36*lh - 12*lh2 + 16.*phi4 - 4*pi2 - 9.*phi1) + 
+    8*(-4 + 99*cw4)*(6.*phi6 + pi2)*s2 + cw2*(3867 + 426*lc - 2106*lh - 1392*lh2 + 1572*li3 + 464.*phi4 - 848*pi2 - 672.*phi1 - 70.*(6.*phi6 + pi2)*s2);
 
-   const auto x3 = -6*(3*cw2 - 19*cw4 + 50*cw6 - 40*cw8)*phi5 - 2.*(12 + 30*lh - 51*lh2 + 96*li3 + 17.*phi4 - 7680.*cw10*phi4 - 17*pi2 - 34.*phi1*s1 + 1536*cw10*phi1*s1 - 
-       2*cw4*(1683 + 417*lc + 3222*lh - 1056*lh2 + 1572*li3 + 1216.*phi4 - 352*pi2 - 688.*phi1*s1) - 128*cw8*(36 + 72*lh - 24*lh2 - 73.*phi4 - 8*pi2 + 3.*phi1*s1) + 
-       8*cw6*(45*lc + 8.*(123 + 240*lh - 78*lh2 + 5.*phi4 - 26*pi2 - 38.*phi1*s1)) - 96.*phi6*s2 - 16*pi2*s2) - 
-    cw2*(747 + 426*lc + 1350*lh - 120*lh2 + 804*li3 + 808.*phi4 - 40*pi2 - 112.*phi1*s1 + 128.*(6.*phi6 + pi2)*s2);
+   const auto x3 = -6*(3*cw2 - 19*cw4 + 50*cw6 - 40*cw8)*phi5 - 2.*(12 + 30*lh - 51*lh2 + 96*li3 + 17.*phi4 - 7680.*cw10*phi4 - 17*pi2 - 34.*phi1 + 1536*cw10*phi1 - 
+       2*cw4*(1683 + 417*lc + 3222*lh - 1056*lh2 + 1572*li3 + 1216.*phi4 - 352*pi2 - 688.*phi1) - 128*cw8*(36 + 72*lh - 24*lh2 - 73.*phi4 - 8*pi2 + 3.*phi1) + 
+       8*cw6*(45*lc + 8.*(123 + 240*lh - 78*lh2 + 5.*phi4 - 26*pi2 - 38.*phi1)) - 96.*phi6*s2 - 16*pi2*s2) - 
+    cw2*(747 + 426*lc + 1350*lh - 120*lh2 + 804*li3 + 808.*phi4 - 40*pi2 - 112.*phi1 + 128.*(6.*phi6 + pi2)*s2);
 
    const auto x4 = -2.*(-72 + 576*cw6 - 144*lh + 51*lh2 - 96*li3 - 65*phi4 + 1536*cw10*phi4 + 17*pi2 - 
-      16*(-72*cw8*phi4 + cw4*(63 + 126*lh - 42*lh2 - 142*phi4 - 14*pi2) + 8*cw6*(-9*lh + 3*lh2 + 38*phi4 + pi2)) + 36.*phi1*s1 - 24*(7*cw4 - 44*cw6 + 32*cw8)*phi1*s1 + 
-      4*cw2*(126 + 252*lh - 87*lh2 + 96*li3 - 7*phi4 - 29*pi2 - 39.*phi1*s1));
+      16*(-72*cw8*phi4 + cw4*(63 + 126*lh - 42*lh2 - 142*phi4 - 14*pi2) + 8*cw6*(-9*lh + 3*lh2 + 38*phi4 + pi2)) + 36.*phi1 - 24*(7*cw4 - 44*cw6 + 32*cw8)*phi1 + 
+      4*cw2*(126 + 252*lh - 87*lh2 + 96*li3 - 7*phi4 - 29*pi2 - 39.*phi1));
 
-   const auto x5 = 24.*((-5 + 27*cw2 - 14*cw4 - 72*cw6 + 64*cw8)*phi4 + (1 - 7*cw2 + 14*cw4 - 8*cw6)*phi1*s1);
+   const auto x5 = 24.*((-5 + 27*cw2 - 14*cw4 - 72*cw6 + 64*cw8)*phi4 + (1 - 7*cw2 + 14*cw4 - 8*cw6)*phi1);
 
    const double x6 = -24*(-1 + 7*cw2 - 14*cw4 + 8*cw6)*phi4;
 
