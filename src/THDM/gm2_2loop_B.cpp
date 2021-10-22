@@ -410,27 +410,14 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const auto s2 = std::sqrt(std::complex<double>(xh*(-4*cw2 + xh), 0.0));
    const double lh = std::log(xh);
    const double lc = std::log(cw2);
-   const auto l1 = gm2calc::log(1.0 - (s1 + xh)/2.0);
-   const auto l2 = gm2calc::log((-s1 + xh)/2.0);
-   const auto l3 = std::complex<double>(0.5*lc, std::atan2(-zw, 1.0)); // log((1.0 - s0)/2.0)
-   const auto l4 = gm2calc::log(1.0 - (s2 + xh)/(2.0*cw2));
-   const auto l5 = gm2calc::log((-s2 + xh)/(2.0*cw2));
-   const auto li1 = dilog((xh - s1)/2.0);
-   const auto li2 = dilog(1.0 - (xh + s1)/2.0);
    const double li3 = dilog(1.0 - xh/cw2);
    const double li4 = dilog(1.0 - xh);
-   const auto li5 = dilog((1.0 - s0)/2.0);
-   const auto li6 = dilog(1.0 - (xh + s2)/(2.0*cw2));
-   const auto li7 = dilog((xh - s2)/(2.0*cw2));
-   const auto l32 = l3*l3;
    const double lh2 = lh*lh;
-
-   // combinations that appear several times
-   const double phi1 = std::real((6.*l1*l2 - 6.*li1 - 6.*li2 + pi2)*s1);
+   const double phi1 = std::real(6.0*(gm2calc::log(1.0 - (s1 + xh)/2.0)*gm2calc::log((-s1 + xh)/2.0) - dilog((xh - s1)/2.0) - dilog(1.0 - (xh + s1)/2.0) + pi2/6)*s1);
    const double phi4 = 3*lh2 + 12*li4 + pi2; // = (phi6 + 3*pi2 + 3*lh2)
-   const double phi5 = std::real((6.*l32 - 12.*li5)/s0);
+   const double phi5 = std::real(6.0*(sqr(std::complex<double>(0.5*lc, std::atan2(-zw, 1.0))) - 2.0*dilog((1.0 - s0)/2.0))/s0);
    const double phi6 = 12*li4 - 2*pi2;
-   const double phi7 = std::real((6.*(l4*l5 - li6 - li7) + pi2)*s2);
+   const double phi7 = std::real((6.0*(gm2calc::log(1.0 - (s2 + xh)/(2.0*cw2))*gm2calc::log((-s2 + xh)/(2.0*cw2)) - dilog(1.0 - (xh + s2)/(2.0*cw2)) - dilog((xh - s2)/(2.0*cw2))) + pi2)*s2);
 
    const double xm2 = 128*(5*cw4*phi6 + 16*cw12*(-6*li3 + pi2)
       - 8*(4*cw6 - 7*cw8)*phi6 + 4*cw10*(6*li3 - 8*phi6 - pi2) - 90*cw10*phi7
