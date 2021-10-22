@@ -392,24 +392,24 @@ double Fmp(double u, double w, double al, double cw2) noexcept
  */
 double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
 {
-   const auto mw2 = sqr(thdm.mw);
-   const auto mz2 = sqr(thdm.mz);
-   const auto cw2 = mw2/mz2;
-   const auto cw4  = cw2*cw2;
-   const auto cw6  = cw4*cw2;
-   const auto cw8  = cw4*cw4;
-   const auto cw10 = cw8*cw2;
-   const auto cw12 = cw8*cw4;
-   const auto cw14 = cw8*cw6;
-   const auto mh2 = sqr(thdm.mh(0));
-   const auto xh_ = mh2/mz2; // temporary value
-   const auto xh = is_equal_rel(1.0, xh_, eps_shift) ? xh_*(1 + eps_shift) : xh_;
-   const auto zw = std::sqrt(4*cw2 - 1);
+   const double mw2 = sqr(thdm.mw);
+   const double mz2 = sqr(thdm.mz);
+   const double cw2 = mw2/mz2;
+   const double cw4  = cw2*cw2;
+   const double cw6  = cw4*cw2;
+   const double cw8  = cw4*cw4;
+   const double cw10 = cw8*cw2;
+   const double cw12 = cw8*cw4;
+   const double cw14 = cw8*cw6;
+   const double mh2 = sqr(thdm.mh(0));
+   const double xh_ = mh2/mz2; // temporary value
+   const double xh = is_equal_rel(1.0, xh_, eps_shift) ? xh_*(1 + eps_shift) : xh_;
+   const double zw = std::sqrt(4*cw2 - 1);
    const auto s0 = std::complex<double>(0.0, zw);
    const auto s1 = std::sqrt(std::complex<double>(xh*(-4 + xh), 0.0));
    const auto s2 = std::sqrt(std::complex<double>(xh*(-4*cw2 + xh), 0.0));
-   const auto lh = std::log(xh);
-   const auto lc = std::log(cw2);
+   const double lh = std::log(xh);
+   const double lc = std::log(cw2);
    const auto l1 = gm2calc::log(1.0 - (s1 + xh)/2.0);
    const auto l2 = gm2calc::log((-s1 + xh)/2.0);
    const auto l3 = std::complex<double>(0.5*lc, std::atan2(-zw, 1.0)); // log((1.0 - s0)/2.0)
@@ -417,13 +417,13 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const auto l5 = gm2calc::log((-s2 + xh)/(2.0*cw2));
    const auto li1 = dilog((xh - s1)/2.0);
    const auto li2 = dilog(1.0 - (xh + s1)/2.0);
-   const auto li3 = dilog(1.0 - xh/cw2);
-   const auto li4 = dilog(1.0 - xh);
+   const double li3 = dilog(1.0 - xh/cw2);
+   const double li4 = dilog(1.0 - xh);
    const auto li5 = dilog((1.0 - s0)/2.0);
    const auto li6 = dilog(1.0 - (xh + s2)/(2.0*cw2));
    const auto li7 = dilog((xh - s2)/(2.0*cw2));
    const auto l32 = l3*l3;
-   const auto lh2 = lh*lh;
+   const double lh2 = lh*lh;
 
    // combinations that appear several times
    const double phi1 = std::real((6.*l1*l2 - 6.*li1 - 6.*li2 + pi2)*s1);
