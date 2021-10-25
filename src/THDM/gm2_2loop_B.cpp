@@ -426,29 +426,29 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double phi3 = 6*(-li3 + zeta2);
    const double phi4 = 6*(lh2/2 + 2*li4 + zeta2); // = (phi6 + 3*pi2 + 3*lh2)
    const double phi5 = 6*std::real((sqr(l0) - 2.0*dilog((1.0 - s0)/2.0))/s0);
-   const double phi6 = -2*6*(-li4 + zeta2);
+   const double phi6 = 6*(-li4 + zeta2);
    const double phi7 = 6*cw2*phi(xw);
 
-   const double xm2 = -128*(32*cw10 - 5*cw4 + 32*cw6 - 56*cw8)*phi6
+   const double xm2 = 256*(32*cw10 - 5*cw4 + 32*cw6 - 56*cw8)*phi6
       - 2304*(5*cw10 - 4*cw12 - cw8)*phi7 - 512*(cw10 - 4*cw12)*phi3;
 
-   const double xm1 = 32*(-240*cw4*lh + 1536*cw6*lh + 6*(40*cw4 - 256*cw6 + 752*cw8) - 10*cw2*phi6 + 59*cw4*phi6 - 80*cw6*phi6 +
+   const double xm1 = 32*(-240*cw4*lh + 1536*cw6*lh + 6*(40*cw4 - 256*cw6 + 752*cw8) + 20*cw2*phi6 - 118*cw4*phi6 + 160*cw6*phi6 +
        64*cw12*(6*(18 + 9*lc - 9*lh) - phi3) - 20*cw4*phi1 + 128*cw6*phi1 -
-       32*cw10*(330 + 147*lc - 195*lh - phi6 - phi3 - 4*phi1) + 4*cw8*(240*lc - 912*lh + 2*phi6 - phi3 - 7*8*phi1)) -
+       32*cw10*(330 + 147*lc - 195*lh + 2*phi6 - phi3 - 4*phi1) + 4*cw8*(240*lc - 912*lh - 4*phi6 - phi3 - 7*8*phi1)) -
     4*(3072*cw10 + 907*cw6 - 4396*cw8)*phi7;
 
    const double x0 = 96*(730*cw10 - 936*cw12 + 384*cw14 + 21*cw6 - 211*cw8)*phi5 +
-    8*(-1674*cw6 + 1704*cw8 - 13824*cw12*(2 + lc) + 5*phi6 - 2*cw6*(561*lc - 1089*lh - 4*phi3 - 232*phi6 - 6*pi2 - 96*phi1) +
-       4*cw4*(468 - 588*lh - 17*phi6 - 54*phi1) + 32*cw10*(936 + 417*lc - 84*lh + 12*phi6 - 2*phi3 - 8*phi1) +
-       cw2*(-480 + 480*lh - 22*phi6 + 40*phi1) + 8*cw8*(306*lc - 141*lh - 2*phi3 - 6*pi2 + 4*(-23*phi6 + 6*phi1))) + 4*(231*cw4 - 1037*cw6 + 452*cw8)*phi7;
+    8*(-1674*cw6 + 1704*cw8 - 13824*cw12*(2 + lc) - 10*phi6 - 2*cw6*(561*lc - 1089*lh - 4*phi3 + 464*phi6 - 6*pi2 - 96*phi1) +
+       4*cw4*(468 - 588*lh + 34*phi6 - 54*phi1) + 32*cw10*(936 + 417*lc - 84*lh - 24*phi6 - 2*phi3 - 8*phi1) +
+       cw2*(-480 + 480*lh + 44*phi6 + 40*phi1) + 8*cw8*(306*lc - 141*lh - 2*phi3 - 6*pi2 + 4*(46*phi6 + 6*phi1))) + 4*(231*cw4 - 1037*cw6 + 452*cw8)*phi7;
 
    const double x1 = 48*(836*cw10 - 304*cw12 - 21*cw4 + 205*cw6 - 692*cw8)*phi5 +
-    2*(31512*cw6 - 91296*cw8 - 2*cw4*(5190 + 345*lc - 3081*lh - 134*phi3 + 548*phi6 + 412*pi2) + 16*cw6*(390*lc - 579*lh - 69*phi3 + 202*phi6 + 299*pi2) -
-       32*cw8*(768*lc + 291*lh - 4*phi3 + 136*phi6 + 218*pi2) + 64*(13*cw4 - 70*cw6 + 120*cw8)*phi1 - 5*(-48 + 48*lh + phi6 + 4*phi1) +
-       8*cw2*(108 + 12*lh + 19*phi6 + 6*phi1) + 128*cw10*(171*lc + 8*(57 + 12*lh + 2*phi6 + 4*pi2 - 4*phi1)) + 45*cw2*phi7 -
+    2*(31512*cw6 - 91296*cw8 - 2*cw4*(5190 + 345*lc - 3081*lh - 134*phi3 - 1096*phi6 + 412*pi2) + 16*cw6*(390*lc - 579*lh - 69*phi3 - 404*phi6 + 299*pi2) -
+       32*cw8*(768*lc + 291*lh - 4*phi3 - 272*phi6 + 218*pi2) + 64*(13*cw4 - 70*cw6 + 120*cw8)*phi1 - 5*(-48 + 48*lh - 2*phi6 + 4*phi1) +
+       8*cw2*(108 + 12*lh - 38*phi6 + 6*phi1) + 128*cw10*(171*lc + 8*(57 + 12*lh - 4*phi6 + 4*pi2 - 4*phi1)) + 45*cw2*phi7 -
        6*(11*cw4 + 76*cw6)*phi7);
 
-   const double x2 = 16416*cw6 + 30*(-20 + 512*cw8 + 12*lh - phi6) - 4*
+   const double x2 = 16416*cw6 + 30*(-20 + 512*cw8 + 12*lh + 2*phi6) - 4*
      (32*cw8*(9*lc - 8*(51*lh - 15*lh2 + 26*phi4 - 5*pi2)) + cw4*(2661 + 72*lc - 717*lh - 1236*lh2 - 128*phi3 + 28*phi4 - 458*pi2) + 4*cw6*(174*lc + 723*lh + 12*lh2 - 134*phi3 + 668*phi4 + 168*pi2)) +
     6*(64*cw10 + 21*cw2 - 187*cw4 + 578*cw6 - 536*cw8)*phi5 + 4*(5 + 696*cw4 + 192*cw6 - 3008*cw8)*phi1 - 1024*cw10*(18 + 36*lh - 12*lh2 + 16*phi4 - 4*pi2 - 9*phi1) +
     8*(-4 + 99*cw4)*phi7 + cw2*(3867 + 426*lc - 2106*lh - 1392*lh2 - 262*phi3 + 464*phi4 - 586*pi2 - 672*phi1 - 70*phi7);
