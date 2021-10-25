@@ -424,7 +424,8 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double phi1 = 6*phi(xh);
    const double phi3 = 6*(-li3 + zeta2);
    const double phi4 = 6*(lh2/2 + 2*li4 + zeta2); // = (phi6 + 3*pi2 + 3*lh2)
-   const double phi5 = 6*(lc*std::atan2(-zw, 1.0) - 2*std::real(dilog((1.0 - s0)/2.0)*std::complex<double>(0.0,-1.0)))/zw; // 6*((sqr(log((1.0 - s0)/2.0)) - 2.0*dilog((1.0 - s0)/2.0))/s0)
+   // 6*((sqr(log((1.0 - s0)/2.0)) - 2.0*dilog((1.0 - s0)/2.0))/s0)
+   const double phi5 = 6*(lc*std::atan2(-zw, 1.0) - 2*std::real(dilog((1.0 - s0)/2.0)*std::complex<double>(0.0,-1.0)))/zw;
    const double phi6 = 6*(-li4 + zeta2);
    const double phi7 = 6*cw2*phi(xw);
 
