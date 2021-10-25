@@ -49,7 +49,7 @@ Contents
   * [THDM: SLHA-like input parameters](#thdm-slha-like-input-parameters)
     + [Gauge basis](#gauge-basis)
     + [Mass basis](#mass-basis)
-  * [Block `GM2CalcConfig`](#block-gm2calcconfig)
+  * [Block GM2CalcConfig](#block-gm2calcconfig)
 - [C/C++ interface](#cc-interface)
 - [Mathematica interface](#mathematica-interface)
 - [Python interface](#python-interface)
@@ -495,8 +495,8 @@ set to the general THDM (Yukawa type = 6).
 See `input/example.thdm` for an example input file.
 
 
-Block `GM2CalcConfig`
----------------------
+Block GM2CalcConfig
+-------------------
 
 When running GM2Calc from the command line with SLHA or SLHA-like
 input, the input may contain the `GM2CalcConfig` configuration block
