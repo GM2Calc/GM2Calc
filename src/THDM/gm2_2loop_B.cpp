@@ -415,7 +415,6 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double xh = is_equal_rel(1.0, xh_, eps_shift) ? xh_*(1 + eps_shift) : xh_;
    const double xw = xh/cw2;
    const double zw = std::sqrt(4*cw2 - 1);
-   const auto s0 = std::complex<double>(0.0, zw);
    const double lh = std::log(xh);
    const double lc = std::log(cw2);
    const double li3 = dilog(1.0 - xw);
@@ -424,8 +423,8 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double phi1 = 6*phi(xh);
    const double phi3 = 6*(-li3 + zeta2);
    const double phi4 = 6*(lh2/2 + 2*li4 + zeta2); // = (phi6 + 3*pi2 + 3*lh2)
-   // 6*((sqr(log((1.0 - s0)/2.0)) - 2.0*dilog((1.0 - s0)/2.0))/s0)
-   const double phi5 = 6*(lc*std::atan2(-zw, 1.0) - 2*std::imag(dilog((1.0 - s0)/2.0)))/zw;
+   // 6*((sqr(log((1.0 - s0)/2.0)) - 2.0*dilog((1.0 - s0)/2.0))/s0), s0 = Sqrt[1 - 4*cw2];
+   const double phi5 = 6*(lc*std::atan2(-zw, 1.0) - 2*std::imag(dilog(std::complex<double>(0.5, -0.5*zw))))/zw;
    const double phi6 = 6*(-li4 + zeta2);
    const double phi7 = 6*cw2*phi(xw);
 
