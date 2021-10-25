@@ -426,19 +426,19 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double phi3 = 6*(-li3 + zeta2);
    const double phi4 = 6*(lh2/2 + 2*li4 + zeta2); // = (phi6 + 3*pi2 + 3*lh2)
    const double phi5 = 6*std::real((sqr(l0) - 2.0*dilog((1.0 - s0)/2.0))/s0);
-   const double phi6 = 12*(li4 - zeta2);
+   const double phi6 = -2*6*(-li4 + zeta2);
    const double phi7 = 6*cw2*phi(xw);
 
    const double xm2 = -128*(32*cw10 - 5*cw4 + 32*cw6 - 56*cw8)*phi6
       - 2304*(5*cw10 - 4*cw12 - cw8)*phi7 - 512*(cw10 - 4*cw12)*phi3;
 
    const double xm1 = 32*(-240*cw4*lh + 1536*cw6*lh + 6*(40*cw4 - 256*cw6 + 752*cw8) - 10*cw2*phi6 + 59*cw4*phi6 - 80*cw6*phi6 +
-       64*cw12*(6*(18 + 9*lc - 9*lh) + -phi3) - 20*cw4*phi1 + 128*cw6*phi1 -
+       64*cw12*(6*(18 + 9*lc - 9*lh) - phi3) - 20*cw4*phi1 + 128*cw6*phi1 -
        32*cw10*(330 + 147*lc - 195*lh - phi6 - phi3 - 4*phi1) + 4*cw8*(240*lc - 912*lh + 2*phi6 - phi3 - 7*8*phi1)) -
     4*(3072*cw10 + 907*cw6 - 4396*cw8)*phi7;
 
    const double x0 = 96*(730*cw10 - 936*cw12 + 384*cw14 + 21*cw6 - 211*cw8)*phi5 +
-    8*(-1674*cw6 + 1704*cw8 - 13824*cw12*(2 + lc) + 5*phi6 - 2*cw6*(561*lc - 1089*lh + -4*phi3 - 232*phi6 - 6*pi2 - 96*phi1) +
+    8*(-1674*cw6 + 1704*cw8 - 13824*cw12*(2 + lc) + 5*phi6 - 2*cw6*(561*lc - 1089*lh - 4*phi3 - 232*phi6 - 6*pi2 - 96*phi1) +
        4*cw4*(468 - 588*lh - 17*phi6 - 54*phi1) + 32*cw10*(936 + 417*lc - 84*lh + 12*phi6 - 2*phi3 - 8*phi1) +
        cw2*(-480 + 480*lh - 22*phi6 + 40*phi1) + 8*cw8*(306*lc - 141*lh - 2*phi3 - 6*pi2 + 4*(-23*phi6 + 6*phi1))) + 4*(231*cw4 - 1037*cw6 + 452*cw8)*phi7;
 
