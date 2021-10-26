@@ -431,10 +431,13 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double xm2 = 256*(32*cw10 - 5*cw4 + 32*cw6 - 56*cw8)*phi6
       - 2304*(5*cw10 - 4*cw12 - cw8)*phi7 - 512*(cw10 - 4*cw12)*phi3;
 
-   const double xm1 = 32*(-240*cw4*lh + 1536*cw6*lh + 6*(40*cw4 - 256*cw6 + 752*cw8) + 20*cw2*phi6 - 118*cw4*phi6 + 160*cw6*phi6 +
-       64*cw12*(6*(18 + 9*lc - 9*lh) - phi3) - 20*cw4*phi1 + 128*cw6*phi1 -
-       32*cw10*(330 + 147*lc - 195*lh + 2*phi6 - phi3 - 4*phi1) + 4*cw8*(240*lc - 912*lh - 4*phi6 - phi3 - 7*8*phi1)) -
-    4*(3072*cw10 + 907*cw6 - 4396*cw8)*phi7;
+   const double xm1 = 64*(24*(144*cw12 + 5*cw4 - 32*cw6 + 94*cw8) -
+      2*((5*cw4 - 32*cw6)*(12*lh + phi1) +
+         8*cw10*(330 + 147*lc - 195*lh - 4*phi1 - phi3) +
+         16*cw12*(-54*lc + 54*lh + phi3) +
+         cw8*(-240*lc + 912*lh + 56*phi1 + phi3)) +
+      (-32*cw10 + 10*cw2 - 59*cw4 + 80*cw6 - 8*cw8)*phi6) -
+      4*(3072*cw10 + 907*cw6 - 4396*cw8)*phi7;
 
    const double x0 = 96*(730*cw10 - 936*cw12 + 384*cw14 + 21*cw6 - 211*cw8)*phi5 +
     8*(-1674*cw6 + 1704*cw8 - 13824*cw12*(2 + lc) - 10*phi6 - 2*cw6*(561*lc - 1089*lh - 4*phi3 + 464*phi6 - 6*pi2 - 96*phi1) +
