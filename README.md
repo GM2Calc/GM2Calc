@@ -12,7 +12,7 @@ THDM at the 1- and leading 2-loop level.
  * Source code repository:  https://github.com/gm2calc
  * References:              Eur.Phys.J. C76 (2016) no.2, 62
    [[arxiv:1510.08071](https://arxiv.org/abs/1510.08071)] and
-   [[arxiv:2110.XXXXX](https://arxiv.org/abs/2110.XXXXX)]
+   [[arxiv:2110.13238](https://arxiv.org/abs/2110.13238)]
 
 
 Quick start
@@ -698,7 +698,7 @@ can be openend with your favourite web browser, e.g.
 References
 ==========
 
-GM2Calc has been published in [`Athron:2015rva`]
+GM2Calc has been published in [`Athron:2015rva`, `Athron:2021evk`]:
 
 - Peter Athron, Markus Bach, Helvecio G. Fargnoli, Christoph
   Gnendiger, Robert Greifenhagen, Jae-hyeon Park, Sebastian Paßehr,
@@ -709,7 +709,9 @@ GM2Calc has been published in [`Athron:2015rva`]
 
 - Peter Athron, Csaba Balazs, Adriano Cherchiglia, Douglas Jacob,
   Dominik Stöckinger, Hyejung Stöckinger-Kim, Alexander Voigt:
-  *[TODO]*
+  *Two-loop Prediction of the Anomalous Magnetic Moment of the Muon in
+  the Two-Higgs Doublet Model with GM2Calc 2*
+  [[arxiv:2110.13238](https://arxiv.org/abs/2110.13238)]
 
 The expressions implemented in GM2Calc for the MSSM have been taken from
 [<a href="http://arxiv.org/abs/1003.5820">Phys.Rev. D81 (2010) 093004</a>,
