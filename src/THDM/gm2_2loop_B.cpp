@@ -387,10 +387,20 @@ double phi(double x) noexcept
 {
    // @todo(alex) optimize this function, depending on x > 4 or x < 4
    const double zeta2 = 1.6449340668482264; // Zeta[2]
-   const auto s = std::sqrt(std::complex<double>(x*(-4 + x), 0.0));
-   const auto x1 = 1.0 - (s + x)/2.0;
-   const auto x2 = (x - s)/2.0;
-   return std::real((gm2calc::log(x1)*gm2calc::log(x2) - dilog(x1) - dilog(x2) + zeta2)*s);
+
+   if (x < 4) {
+      const auto s = std::sqrt(std::complex<double>(x*(x - 4), 0.0));
+      const auto x1 = 1.0 - (s + x)/2.0;
+      const auto x2 = (x - s)/2.0;
+      return std::real((gm2calc::log(x1)*gm2calc::log(x2) - dilog(x1) - dilog(x2) + zeta2)*s);
+   } if (x == 4) {
+      return 0;
+   } else { // x > 4
+      const auto s = std::sqrt(x*(x - 4));
+      const auto x1 = std::complex<double>(1.0 - (s + x)/2.0, 0.0);
+      const auto x2 = std::complex<double>((x - s)/2.0);
+      return std::real((gm2calc::log(x1)*gm2calc::log(x2) - dilog(x1) - dilog(x2) + zeta2)*s);
+   }
 }
 
 } // anonymous namespace
