@@ -399,7 +399,7 @@ double phi(double x) noexcept
       const auto s = std::sqrt(x*(x - 4));
       const auto x1 = std::complex<double>(1.0 - (s + x)/2.0, 0.0);
       const auto x2 = std::complex<double>((x - s)/2.0);
-      return std::real((gm2calc::log(x1)*gm2calc::log(x2) - dilog(x1) - dilog(x2) + zeta2))*s;
+      return std::real(gm2calc::log(x1)*gm2calc::log(x2) - dilog(x1) - dilog(x2) + zeta2)*s;
    }
 }
 
