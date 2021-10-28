@@ -388,7 +388,9 @@ double phi(double x) noexcept
    // @todo(alex) optimize this function, depending on x > 4 or x < 4
    const double zeta2 = 1.6449340668482264; // Zeta[2]
    const auto s = std::sqrt(std::complex<double>(x*(-4 + x), 0.0));
-   return std::real((gm2calc::log(1.0 - (s + x)/2.0)*gm2calc::log((x - s)/2.0) - dilog((x - s)/2.0) - dilog(1.0 - (x + s)/2.0) + zeta2)*s);
+   const auto x1 = 1.0 - (s + x)/2.0;
+   const auto x2 = (x - s)/2.0;
+   return std::real((gm2calc::log(x1)*gm2calc::log(x2) - dilog(x1) - dilog(x2) + zeta2)*s);
 }
 
 } // anonymous namespace
