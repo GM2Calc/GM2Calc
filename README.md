@@ -68,6 +68,7 @@ Requirements
 Optional:
 
  * Mathematica (version 9.0 or higher) [https://www.wolfram.com/mathematica/]
+ * Python (version 2 or 3)
 
 
 Building GM2Calc
@@ -183,17 +184,18 @@ different input parameters.
     math -run "<< ../examples/example-gm2calc.m"
     math -run "<< ../examples/example-thdm.m"
 
+
 From within Python
 ------------------
 
 When a valid python installation is detected, GM2Calc, will
 attempt to create `example_*.py` files in `build/bin/`.  Either
-Python2 or 3 can be used, and the python package `cppyy` is required.  
-`cppyy` installation instructions can be found at:
-[](https://cppyy.readthedocs.io/en/latest/installation.html)
-See `examples/example_slha.py` (MSSM), `examples/example_gm2calc.py`
-(MSSM) and `examples/example_thdm.py` (THDM) for examples with
-different input parameters.
+Python2 or 3 can be used, and the python package `cppyy` is required.
+See the
+[`cppyy` installation instructions](https://cppyy.readthedocs.io/en/latest/installation.html)
+for further details.  In `examples/example_slha.py` (MSSM),
+`examples/example_gm2calc.py` (MSSM) and `examples/example_thdm.py`
+(THDM) examples with different input parameters can be found.
 
 **Example:**
 
