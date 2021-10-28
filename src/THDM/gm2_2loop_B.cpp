@@ -389,7 +389,7 @@ double phi(double x) noexcept
    const double zeta2 = 1.6449340668482264; // Zeta[2]
 
    if (x < 4) {
-      const auto s = std::sqrt(std::complex<double>(x*(x - 4), 0.0));
+      const auto s = std::complex<double>(0.0, std::sqrt(x*(4 - x)));
       const auto x1 = 1.0 - (s + x)/2.0;
       const auto x2 = (x - s)/2.0;
       return std::real((gm2calc::log(x1)*gm2calc::log(x2) - dilog(x1) - dilog(x2) + zeta2)*s);
