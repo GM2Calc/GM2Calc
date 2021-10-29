@@ -406,7 +406,6 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double xh_ = mh2/mz2; // temporary value
    const double xh = is_equal_rel(1.0, xh_, eps_shift) ? xh_*(1 + eps_shift) : xh_;
    const double xw = xh/cw2;
-   const double zw = std::sqrt(4*cw2 - 1);
    const double lh = std::log(xh);
    const double lc = std::log(cw2);
    const double li3 = dilog(1.0 - xw);
@@ -415,7 +414,7 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double phi1 = 6*Phi(xh,1,1);
    const double phi3 = 6*(-li3 + zeta2);
    const double phi4 = 6*(lh2/2 + 2*li4 + zeta2); // = (phi6 + 3*pi2 + 3*lh2)
-   const double phi5 = 6*(-Phi(cw2,cw2,1)/sqr(zw));
+   const double phi5 = 6*(-Phi(cw2,cw2,1)/(4*cw2 - 1));
    const double phi6 = 6*(-li4 + zeta2);
    const double phi7 = 6*cw2*Phi(xw,1,1);
 
