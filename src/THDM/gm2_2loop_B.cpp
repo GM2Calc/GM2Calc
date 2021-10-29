@@ -383,26 +383,6 @@ double Fmp(double u, double w, double al, double cw2) noexcept
    return (-9*(-1 + cw2))/(al*pi) * (T9(u,w,cw2)/2 + T10(u,w,cw2));
 }
 
-double phi(double x) noexcept
-{
-   // @todo(alex) optimize this function, depending on x > 4 or x < 4
-   const double zeta2 = 1.6449340668482264; // Zeta[2]
-
-   if (x < 4) {
-      const auto s = std::complex<double>(0.0, std::sqrt(x*(4 - x)));
-      const auto x1 = 1.0 - (s + x)/2.0;
-      const auto x2 = (x - s)/2.0;
-      return std::real((gm2calc::log(x1)*gm2calc::log(x2) - dilog(x1) - dilog(x2) + zeta2)*s);
-   } if (x == 4) {
-      return 0;
-   } else { // x > 4
-      const auto s = std::sqrt(x*(x - 4));
-      const auto x1 = std::complex<double>(1.0 - (s + x)/2.0, 0.0);
-      const auto x2 = std::complex<double>((x - s)/2.0);
-      return std::real(gm2calc::log(x1)*gm2calc::log(x2) - dilog(x1) - dilog(x2) + zeta2)*s;
-   }
-}
-
 } // anonymous namespace
 
 /**
@@ -432,13 +412,13 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double li3 = dilog(1.0 - xw);
    const double li4 = dilog(1.0 - xh);
    const double lh2 = lh*lh;
-   const double phi1 = 6*phi(xh);
+   const double phi1 = 6*Phi(xh,1,1);
    const double phi3 = 6*(-li3 + zeta2);
    const double phi4 = 6*(lh2/2 + 2*li4 + zeta2); // = (phi6 + 3*pi2 + 3*lh2)
    // 6*((sqr(log((1.0 - s0)/2.0)) - 2.0*dilog((1.0 - s0)/2.0))/s0), s0 = Sqrt[1 - 4*cw2];
    const double phi5 = 6*(lc*std::atan2(-zw, 1.0) - 2*std::imag(dilog(std::complex<double>(0.5, -0.5*zw))))/zw;
    const double phi6 = 6*(-li4 + zeta2);
-   const double phi7 = 6*cw2*phi(xw);
+   const double phi7 = 6*cw2*Phi(xw,1,1);
 
    const double xm2 = 256*(32*cw10 - 5*cw4 + 32*cw6 - 56*cw8)*phi6
       - 2304*(5*cw10 - 4*cw12 - cw8)*phi7 - 512*(cw10 - 4*cw12)*phi3;
