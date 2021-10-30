@@ -408,8 +408,8 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double xw = xh/cw2;
    const double lh = std::log(xh);
    const double lc = std::log(cw2);
-   const double liw = dilog(1.0 - xw);
-   const double lih = dilog(1.0 - xh);
+   const double liw = dilog(1 - xw);
+   const double lih = dilog(1 - xh);
    const double lh2 = lh*lh;
    const double phi1 = 6*Phi(xh,1,1);
    const double phi3 = 6*(-liw + zeta2);
