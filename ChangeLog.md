@@ -1,3 +1,13 @@
+GM2Calc-2.1.0 [not released yet]
+================================
+
+Changes
+-------
+
+ * Change (commit fd9ec530): Performance improvement of the 2-loop
+   electroweak contributions in the THDM by a factor 4.
+
+
 GM2Calc-2.0.0 [October, 25 2021]
 ================================
 
