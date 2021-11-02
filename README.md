@@ -12,7 +12,7 @@ THDM at the 1- and leading 2-loop level.
  * Source code repository:  https://github.com/gm2calc
  * References:              Eur.Phys.J. C76 (2016) no.2, 62
    [[arxiv:1510.08071](https://arxiv.org/abs/1510.08071)] and
-   [[arxiv:2110.XXXXX](https://arxiv.org/abs/2110.XXXXX)]
+   [[arxiv:2110.13238](https://arxiv.org/abs/2110.13238)]
 
 
 Quick start
@@ -68,6 +68,7 @@ Requirements
 Optional:
 
  * Mathematica (version 9.0 or higher) [https://www.wolfram.com/mathematica/]
+ * Python (version 2 or 3)
 
 
 Building GM2Calc
@@ -183,17 +184,18 @@ different input parameters.
     math -run "<< ../examples/example-gm2calc.m"
     math -run "<< ../examples/example-thdm.m"
 
+
 From within Python
 ------------------
 
 When a valid python installation is detected, GM2Calc, will
 attempt to create `example_*.py` files in `build/bin/`.  Either
-Python2 or 3 can be used, and the python package `cppyy` is required.  
-`cppyy` installation instructions can be found at:
-[](https://cppyy.readthedocs.io/en/latest/installation.html)
-See `examples/example_slha.py` (MSSM), `examples/example_gm2calc.py`
-(MSSM) and `examples/example_thdm.py` (THDM) for examples with
-different input parameters.
+Python2 or 3 can be used, and the python package `cppyy` is required.
+See the
+[`cppyy` installation instructions](https://cppyy.readthedocs.io/en/latest/installation.html)
+for further details.  In `examples/example_slha.py` (MSSM),
+`examples/example_gm2calc.py` (MSSM) and `examples/example_thdm.py`
+(THDM) examples with different input parameters can be found.
 
 **Example:**
 
@@ -698,7 +700,7 @@ can be openend with your favourite web browser, e.g.
 References
 ==========
 
-GM2Calc has been published in [`Athron:2015rva`]
+GM2Calc has been published in [`Athron:2015rva`, `Athron:2021evk`]:
 
 - Peter Athron, Markus Bach, Helvecio G. Fargnoli, Christoph
   Gnendiger, Robert Greifenhagen, Jae-hyeon Park, Sebastian Paßehr,
@@ -709,7 +711,9 @@ GM2Calc has been published in [`Athron:2015rva`]
 
 - Peter Athron, Csaba Balazs, Adriano Cherchiglia, Douglas Jacob,
   Dominik Stöckinger, Hyejung Stöckinger-Kim, Alexander Voigt:
-  *[TODO]*
+  *Two-loop Prediction of the Anomalous Magnetic Moment of the Muon in
+  the Two-Higgs Doublet Model with GM2Calc 2*
+  [[arxiv:2110.13238](https://arxiv.org/abs/2110.13238)]
 
 The expressions implemented in GM2Calc for the MSSM have been taken from
 [<a href="http://arxiv.org/abs/1003.5820">Phys.Rev. D81 (2010) 093004</a>,
