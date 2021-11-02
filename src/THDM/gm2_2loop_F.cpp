@@ -67,7 +67,7 @@ const double t3_l = -0.5;     ///< SU(2)_L charge of charged lepton
 
 double sqr(double x) noexcept { return x*x; }
 
-double calc_v2(const THDM_F_parameters& thdm)
+double calc_v2(const THDM_F_parameters& thdm) noexcept
 {
    const double mw2 = sqr(thdm.mw);
    const double mz2 = sqr(thdm.mz);
@@ -78,7 +78,7 @@ double calc_v2(const THDM_F_parameters& thdm)
 }
 
 /// Eq (56), arxiv:1607.06292, S = h or H
-double FS(double ms2, double mf2)
+double FS(double ms2, double mf2) noexcept
 {
    if (std::abs(ms2 - 4*mf2) <= 2*std::numeric_limits<double>::epsilon()) {
       return -2.0;
@@ -89,7 +89,7 @@ double FS(double ms2, double mf2)
 }
 
 /// Eq (57), arxiv:1607.06292, S = A
-double FA(double ms2, double mf2)
+double FA(double ms2, double mf2) noexcept
 {
    if (std::abs(ms2 - 4*mf2) <= 2*std::numeric_limits<double>::epsilon()) {
       return 2.7725887222397812; // Log[16]
