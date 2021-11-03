@@ -53,8 +53,8 @@ double calculate_alpha_s_SM5_at(double scale, double lambda_qcd) noexcept
    const double logt = std::log(t);
 
    return 12.*pi/23*it * (
-      1 - 348./529 * logt*it
-      + sqr(348./529)*sqr(it) * (sqr(logt - 0.5) - 78073./242208)
+      1 + it*(- 348./529*logt
+              + sqr(348./529)*it*(sqr(logt - 0.5) - 78073./242208))
       );
 }
 
