@@ -310,12 +310,7 @@ double flHp(double ms2, double ml2, double mw2, double mz2) noexcept
  * Calculates 2-loop fermionic contributions with charged Higgs
  * boson.
  *
- * @note The contribution is expressed in terms of \f$Y_f^{H^\pm} =
- * \sqrt{2} \; Y_f^A\f$, not in terms of \f$Y_f^A\f$.  For this reason
- * there is an extra factor 1/2 in front of the charged Higgs
- * contribution in this implementation.
- *
- * Eq (58), arxiv:1607:06292
+ * Eq (52), arXiv:2110.13238
  */
 double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
 {
@@ -324,7 +319,7 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
    const double mz2 = sqr(thdm.mz);
    const double v2 = calc_v2(thdm);
    const double sw2 = 1 - mw2/mz2;
-   const double pref = sqr(thdm.alpha_em*thdm.mm/(4*pi*thdm.mw*sw2))/2;
+   const double pref = sqr(thdm.alpha_em*thdm.mm/(8*pi*thdm.mw*sw2))*v2/thdm.ml(1);
 
    double res = 0;
 
@@ -333,17 +328,17 @@ double amu2L_F_charged(const THDM_F_parameters& thdm) noexcept
       for (int j = 0; j < 3; ++j) {
          // u
          res += fuHp(mHp2, sqr(thdm.md(j)), sqr(thdm.mu(i)), mw2, mz2)
-                *std::real(std::conj(thdm.yuHp(i,j))*thdm.vckm(i,j)*thdm.ylHp(1,1))/(thdm.mu(i)*thdm.ml(1));
+                *std::real(std::conj(thdm.yuHp(i,j))*thdm.vckm(i,j)*thdm.ylHp(1,1))/thdm.mu(i);
          // d
          res += fdHp(mHp2, sqr(thdm.md(j)), sqr(thdm.mu(i)), mw2, mz2)
-                *std::real(std::conj(thdm.ydHp(i,j))*thdm.vckm(i,j)*thdm.ylHp(1,1))/(thdm.md(j)*thdm.ml(1));
+                *std::real(std::conj(thdm.ydHp(i,j))*thdm.vckm(i,j)*thdm.ylHp(1,1))/thdm.md(j);
       }
       // l
       res += flHp(mHp2, sqr(thdm.ml(i)), mw2, mz2)
-             *std::real(std::conj(thdm.ylHp(i,i))*thdm.ylHp(1,1))/(thdm.ml(i)*thdm.ml(1));
+             *std::real(std::conj(thdm.ylHp(i,i))*thdm.ylHp(1,1))/thdm.ml(i);
    }
 
-   return pref*v2/2*res;
+   return pref*res;
 }
 
 /**
