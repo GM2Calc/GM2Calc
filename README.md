@@ -188,10 +188,9 @@ different input parameters.
 From within Python
 ------------------
 
-When a valid python installation is detected, GM2Calc, will
-attempt to create `example_*.py` files in `build/bin/`.  Either
-Python2 or 3 can be used, and the python package `cppyy` is required.
-See the
+When a valid Python installation is detected, GM2Calc, will attempt to
+create `example_*.py` files in `build/bin/`.  Either Python 2 or 3 can
+be used, and the Python package `cppyy` is required.  See the
 [`cppyy` installation instructions](https://cppyy.readthedocs.io/en/latest/installation.html)
 for further details.  In `examples/example_slha.py` (MSSM),
 `examples/example_gm2calc.py` (MSSM) and `examples/example_thdm.py`
@@ -635,10 +634,10 @@ Python interface
 ================
 
 After building GM2Calc with shared libraries, it is possible to
-load GM2Calc functions into python using the C-Python interface
+load GM2Calc functions into Python using the C-Python interface
 provided by cppyy.
 
-To use the routines of GM2Calc in a python script, the following 
+To use the routines of GM2Calc in a Python script, the following 
 folders and C++ header files have to be included:
 
     `Eigen3 include folder`             # /usr/include/eigen3/ or similar
@@ -663,7 +662,7 @@ loaded:
 
     cppyy.load_library("libgm2calc")
 
-Then one can import the C++ functions into python using the command
+Then one can import the C++ functions into Python using the command
 `from cppy.gbl import gm2calc`.  Then the following functions are 
 available:
 
