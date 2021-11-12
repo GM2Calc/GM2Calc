@@ -156,11 +156,11 @@ or
 
 **Example:** Running GM2Calc with an input file for the THDM:
 
-    bin/gm2calc.x --thdminput-file=../input/example.thdm
+    bin/gm2calc.x --thdm-input-file=../input/example.thdm
 
 or
 
-    cat ../input/example.thdm | bin/gm2calc.x --thdm input-file=-
+    cat ../input/example.thdm | bin/gm2calc.x --thdm-input-file=-
 
 
 From within Mathematica
