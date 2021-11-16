@@ -29,7 +29,7 @@ int sign(double x) noexcept { return x < 0 ? -1 : 1; }
 double signed_sqr(double x) noexcept { return sign(x) * x * x; }
 
 double signed_abs_sqrt(double x) noexcept {
-   return sign(x) * std::sqrt(std::abs(x));
+   return sign(x) * abs_sqrt(x);
 }
 
 } // namespace gm2calc
