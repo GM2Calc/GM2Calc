@@ -529,12 +529,14 @@ double I20bc(double b, double c) noexcept {
    return std::log(b/c)/(b - c);
 }
 
+/// I2xy(0,y), squared arguments, y != 0
 double I20y(double, double y) noexcept {
    if (is_equal(y, 1, eps)) {
-      return 1 + (1 - y)/2 + sqr(-1 + y)/3;
+      const double d = y - 1;
+      return 1 + d*(-0.5 + d/3);
    }
 
-   return std::log(y)/(-1 + y);
+   return std::log(y)/(y - 1);
 }
 
 double I21y(double x, double y) noexcept {
