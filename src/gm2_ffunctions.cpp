@@ -550,10 +550,11 @@ double I2xx(double x, double y) noexcept {
    const double eps_eq = 0.001;
 
    if (is_equal(y, 1, eps_eq)) {
-      return 0.5 + (-1 + x)*(-0.16666666666666666 + (-1 + y)/12. - 
-       sqr(-1 + y)/20.) + sqr(-1 + x)*
-     (0.08333333333333333 + (1 - y)/20. + sqr(-1 + y)/30.) + (1 - y)/6. + 
-         sqr(-1 + y)/12.;
+      const double dx = x - 1;
+      const double dy = y - 1;
+      return 0.5 + dx*(-1./6 + dy/12 - sqr(dy)/20.)
+         + sqr(dx)*(1./12 - dy/20 + sqr(dy)/30)
+         - dy/6 + sqr(dy)/12;
    }
 
    return (-1 + y - log(y))/pow(-1 + y,2) + 
