@@ -529,9 +529,82 @@ double I20bc(double b, double c) noexcept {
    return std::log(b/c)/(b - c);
 }
 
+double I20y(double, double y) noexcept {
+   if (is_equal(y, 1, eps)) {
+      return 1 + (1 - y)/2 + sqr(-1 + y)/3;
+   }
+
+   return std::log(y)/(-1 + y);
+}
+
+double I21y(double x, double y) noexcept {
+   return (1 - y + y*log(y))/pow(-1 + y,2) + 
+    ((-1 + x)*(1 - pow(y,2) + 2*y*log(y)))/(2.*pow(-1 + y,3)) + 
+    (pow(-1 + x,2)*(2 + 3*y - 6*pow(y,2) + pow(y,3) + 6*y*log(y)))/
+     (6.*pow(-1 + y,4));
+}
+
+double I2xx(double x, double y) noexcept {
+   const double eps_eq = 0.001;
+
+   if (is_equal(y, 1, eps_eq)) {
+      return 0.5 + (-1 + x)*(-0.16666666666666666 + (-1 + y)/12. - 
+       sqr(-1 + y)/20.) + sqr(-1 + x)*
+     (0.08333333333333333 + (1 - y)/20. + sqr(-1 + y)/30.) + (1 - y)/6. + 
+         sqr(-1 + y)/12.;
+   }
+
+   return (-1 + y - log(y))/pow(-1 + y,2) + 
+    ((x - y)*(1 - pow(y,2) + 2*y*log(y)))/(2.*pow(-1 + y,3)*y) + 
+    (pow(x - y,2)*(1 - 6*y + 3*pow(y,2) + 2*pow(y,3) - 
+         6*pow(y,2)*log(y)))/(6.*pow(-1 + y,4)*pow(y,2));
+}
+
+double I2xy(double x, double y) noexcept {
+   const double eps_eq = 0.001;
+
+   if (is_zero(x, eps)) {
+      return I20y(x, y);
+   }
+
+   if (is_equal(x/y, 1, eps_eq)) {
+      return I2xx(x, y);
+   }
+
+   if (is_equal(x, 1, eps_eq)) {
+      return I21y(x, y);
+   }
+
+   if (is_equal(y, 1, eps_eq)) {
+      return I21y(y, x);
+   }
+
+   const double lx = std::log(x);
+   const double ly = std::log(y);
+
+   return (-x*lx + x*y*(lx - ly) + y*ly)/
+      ((x - 1)*(x - y)*(y - 1));
+}
+
+double I2abc(double x, double y, double z) noexcept {
+   sort(x, y, z);
+
+   if (is_zero(y, eps) || is_zero(z, eps)) {
+      return 0;
+   }
+
+   return I2xy(x/z, y/z) / z;
+}
+
+double Iabc2(double a, double b, double c) noexcept {
+   return I2abc(sqr(a), sqr(b), sqr(c));
+}
+
 } // anonymous namespace
 
 double Iabc(double a, double b, double c) noexcept {
+   return Iabc2(a, b, c);
+
    sort(a, b, c);
 
    if ((is_zero(a, eps) && is_zero(b, eps) && is_zero(c, eps)) ||
