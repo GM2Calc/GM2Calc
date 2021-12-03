@@ -539,6 +539,7 @@ double I20y(double y) noexcept {
    return std::log(y)/(y - 1);
 }
 
+/// I2(x,y), squared arguments, x == 1, y != 0
 double I21y(double x, double y) noexcept {
    return (1 - y + y*log(y))/pow(-1 + y,2) + 
     ((-1 + x)*(1 - pow(y,2) + 2*y*log(y)))/(2.*pow(-1 + y,3)) + 
@@ -546,6 +547,7 @@ double I21y(double x, double y) noexcept {
      (6.*pow(-1 + y,4));
 }
 
+/// I2(x,y), squared arguments, x == y, x != 0, y != 0
 double I2xx(double x, double y) noexcept {
    const double eps_eq = 0.001;
 
@@ -563,6 +565,7 @@ double I2xx(double x, double y) noexcept {
          6*pow(y,2)*log(y)))/(6.*pow(-1 + y,4)*pow(y,2));
 }
 
+/// I2(x,y), x and y are squared arguments
 double I2xy(double x, double y) noexcept {
    const double eps_eq = 0.001;
 
@@ -585,7 +588,7 @@ double I2xy(double x, double y) noexcept {
    const double lx = std::log(x);
    const double ly = std::log(y);
 
-   return (x*(y - 1)*lx + y*(1 - x)*ly)/((x - 1)*(x - y)*(y - 1));
+   return (x*(y - 1)*lx - y*(x - 1)*ly)/((x - 1)*(x - y)*(y - 1));
 }
 
 double I2abc(double x, double y, double z) noexcept {
@@ -595,7 +598,7 @@ double I2abc(double x, double y, double z) noexcept {
       return 0;
    }
 
-   return I2xy(x/z, y/z) / z;
+   return I2xy(x/z, y/z)/z;
 }
 
 double Iabc2(double a, double b, double c) noexcept {
