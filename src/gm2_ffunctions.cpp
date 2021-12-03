@@ -530,7 +530,7 @@ double I20bc(double b, double c) noexcept {
 }
 
 /// I2xy(0,y), squared arguments, y != 0
-double I20y(double, double y) noexcept {
+double I20y(double y) noexcept {
    if (is_equal(y, 1, eps)) {
       const double d = y - 1;
       return 1 + d*(-0.5 + d/3);
@@ -566,7 +566,7 @@ double I2xy(double x, double y) noexcept {
    const double eps_eq = 0.001;
 
    if (is_zero(x, eps)) {
-      return I20y(x, y);
+      return I20y(y);
    }
 
    if (is_equal(x/y, 1, eps_eq)) {
