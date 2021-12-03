@@ -541,10 +541,15 @@ double I20y(double y) noexcept {
 
 /// I2(x,y), squared arguments, x == 1, y != 0
 double I21y(double x, double y) noexcept {
-   return (1 - y + y*log(y))/pow(-1 + y,2) +
-    ((-1 + x)*(1 - pow(y,2) + 2*y*log(y)))/(2*pow(-1 + y,3)) +
-    (pow(-1 + x,2)*(2 + 3*y - 6*pow(y,2) + pow(y,3) + 6*y*log(y)))/
-     (6*pow(-1 + y,4));
+   const double dx = x - 1;
+   const double dy = y - 1;
+   const double dy2 = sqr(dy);
+   const double y2 = sqr(y);
+   const double yly = y*std::log(y);
+
+   return (1 - y + yly)/dy2
+      + (dx*(1 - y2 + 2*yly))/(2*dy2*dy)
+      + (sqr(dx)*(2 + 3*y + 6*yly + y2*(y - 6)))/(6*sqr(dy2));
 }
 
 /// I2(x,y), squared arguments, x == y, x != 0, y != 0
