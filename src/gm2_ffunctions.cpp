@@ -566,10 +566,15 @@ double I2xx(double x, double y) noexcept {
          - dy/6 + dy2/12;
    }
 
-   return (-1 + y - log(y))/pow(-1 + y,2) +
-    ((x - y)*(1 - pow(y,2) + 2*y*log(y)))/(2*pow(-1 + y,3)*y) +
-    (pow(x - y,2)*(1 - 6*y + 3*pow(y,2) + 2*pow(y,3) -
-         6*pow(y,2)*log(y)))/(6*pow(-1 + y,4)*pow(y,2));
+   const double y2 = sqr(y);
+   const double dx = x - 1;
+   const double dy = y - 1;
+   const double dy2 = sqr(dy);
+   const double ly = std::log(y);
+
+   return (dy - ly)/dy2
+      + ((x - y)*(1 - y2 + 2*y*ly))/(2*dy2*dy*y)
+      + (sqr(x - y)*(1 - 6*y + y2*(3 + 2*y - 6*ly)))/(6*sqr(dy2)*y2);
 }
 
 /// I2(x,y), x and y are squared arguments
