@@ -582,8 +582,7 @@ double I2xy(double x, double y) noexcept {
    const double lx = std::log(x);
    const double ly = std::log(y);
 
-   return (-x*lx + x*y*(lx - ly) + y*ly)/
-      ((x - 1)*(x - y)*(y - 1));
+   return (x*(y - 1)*lx + y*(1 - x)*ly)/((x - 1)*(x - y)*(y - 1));
 }
 
 double I2abc(double x, double y, double z) noexcept {
