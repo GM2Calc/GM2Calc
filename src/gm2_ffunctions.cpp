@@ -541,10 +541,10 @@ double I20y(double y) noexcept {
 
 /// I2(x,y), squared arguments, x == 1, y != 0
 double I21y(double x, double y) noexcept {
-   return (1 - y + y*log(y))/pow(-1 + y,2) + 
-    ((-1 + x)*(1 - pow(y,2) + 2*y*log(y)))/(2.*pow(-1 + y,3)) + 
+   return (1 - y + y*log(y))/pow(-1 + y,2) +
+    ((-1 + x)*(1 - pow(y,2) + 2*y*log(y)))/(2*pow(-1 + y,3)) +
     (pow(-1 + x,2)*(2 + 3*y - 6*pow(y,2) + pow(y,3) + 6*y*log(y)))/
-     (6.*pow(-1 + y,4));
+     (6*pow(-1 + y,4));
 }
 
 /// I2(x,y), squared arguments, x == y, x != 0, y != 0
@@ -554,15 +554,15 @@ double I2xx(double x, double y) noexcept {
    if (is_equal(y, 1, eps_eq)) {
       const double dx = x - 1;
       const double dy = y - 1;
-      return 0.5 + dx*(-1./6 + dy/12 - sqr(dy)/20.)
+      return 0.5 + dx*(-1./6 + dy/12 - sqr(dy)/20)
          + sqr(dx)*(1./12 - dy/20 + sqr(dy)/30)
          - dy/6 + sqr(dy)/12;
    }
 
-   return (-1 + y - log(y))/pow(-1 + y,2) + 
-    ((x - y)*(1 - pow(y,2) + 2*y*log(y)))/(2.*pow(-1 + y,3)*y) + 
-    (pow(x - y,2)*(1 - 6*y + 3*pow(y,2) + 2*pow(y,3) - 
-         6*pow(y,2)*log(y)))/(6.*pow(-1 + y,4)*pow(y,2));
+   return (-1 + y - log(y))/pow(-1 + y,2) +
+    ((x - y)*(1 - pow(y,2) + 2*y*log(y)))/(2*pow(-1 + y,3)*y) +
+    (pow(x - y,2)*(1 - 6*y + 3*pow(y,2) + 2*pow(y,3) -
+         6*pow(y,2)*log(y)))/(6*pow(-1 + y,4)*pow(y,2));
 }
 
 /// I2(x,y), x and y are squared arguments
