@@ -493,8 +493,8 @@ double G4(double x) noexcept {
 
 namespace {
 
-/// I2xy(0,y), squared arguments, y != 0
-double I20y(double y) noexcept {
+/// Ixy(0,y), squared arguments, y != 0
+double I0y(double y) noexcept {
    if (is_equal(y, 1, eps)) {
       const double d = y - 1;
       return 1 + d*(-0.5 + d/3);
@@ -503,8 +503,8 @@ double I20y(double y) noexcept {
    return std::log(y)/(y - 1);
 }
 
-/// I2(x,y), squared arguments, x == 1, y != 0
-double I21y(double x, double y) noexcept {
+/// I(x,y), squared arguments, x == 1, y != 0
+double I1y(double x, double y) noexcept {
    const double dy = y - 1;
    const double dy2 = sqr(dy);
    const double dx = (x - 1)/dy2;
@@ -516,8 +516,8 @@ double I21y(double x, double y) noexcept {
       + sqr(dx)*(1./3 + y/2 + yly + y2*(y/6 - 1));
 }
 
-/// I2(x,y), squared arguments, x == y, x != 0, y != 0
-double I2xx(double x, double y) noexcept {
+/// I(x,y), squared arguments, x == y, x != 0, y != 0
+double Ixx(double x, double y) noexcept {
    const double eps_eq = 0.001;
 
    if (is_equal(y, 1, eps_eq)) {
@@ -541,8 +541,8 @@ double I2xx(double x, double y) noexcept {
       + sqr(dxy)*(1./6 - y + y2*(0.5 + y/3 - ly))/y2;
 }
 
-/// I2(x,y), x and y are squared arguments
-double I2xy(double x, double y) noexcept {
+/// I(x,y), x < y, x and y are squared arguments
+double Ixy(double x, double y) noexcept {
    const double eps_eq = 0.001;
 
    if (is_zero(y, eps)) {
@@ -550,19 +550,19 @@ double I2xy(double x, double y) noexcept {
    }
 
    if (is_zero(x, eps)) {
-      return I20y(y);
+      return I0y(y);
    }
 
    if (is_equal(x/y, 1, eps_eq)) {
-      return I2xx(x, y);
+      return Ixx(x, y);
    }
 
    if (is_equal(x, 1, eps_eq)) {
-      return I21y(x, y);
+      return I1y(x, y);
    }
 
    if (is_equal(y, 1, eps_eq)) {
-      return I21y(y, x);
+      return I1y(y, x);
    }
 
    const double lx = std::log(x);
@@ -571,21 +571,21 @@ double I2xy(double x, double y) noexcept {
    return (x*(y - 1)*lx - y*(x - 1)*ly)/((x - 1)*(x - y)*(y - 1));
 }
 
-/// I2(x,y,z), x, y and z are squared arguments
-double I2xyz(double x, double y, double z) noexcept {
+/// I(x,y,z), x, y and z are squared arguments
+double Ixyz(double x, double y, double z) noexcept {
    sort(x, y, z);
 
    if (is_zero(z, eps)) {
       return 0;
    }
 
-   return I2xy(x/z, y/z)/z;
+   return Ixy(x/z, y/z)/z;
 }
 
 } // anonymous namespace
 
 double Iabc(double a, double b, double c) noexcept {
-   return I2xyz(sqr(a), sqr(b), sqr(c));
+   return Ixyz(sqr(a), sqr(b), sqr(c));
 }
 
 /**
