@@ -493,42 +493,6 @@ double G4(double x) noexcept {
 
 namespace {
 
-/// I2abc(a,a,a), squared arguments, a != 0
-double I2aaa(double a, double b, double c) noexcept {
-   const double ba = b - a;
-   const double ca = c - a;
-   const double a2 = sqr(a);
-
-   return (0.5 - (ba + ca)/(6*a) + (sqr(ba) + ba*ca + sqr(ca))/(12*a2))/a;
-}
-
-/// I2abc(a,a,c), squared arguments, a != c
-double I2aac(double a, double b, double c) noexcept {
-   const double ac = a - c;
-   const double a2 = sqr(a);
-   const double a3 = a2*a;
-   const double c2 = sqr(c);
-   const double c3 = c2*c;
-   const double ac2 = sqr(ac);
-   const double d = (b - a)/(a*ac);
-   const double lac = std::log(a/c);
-
-   return ((ac - c*lac) + d*((-a2 + c2 + 2*a*c*lac)/2
-      + d*(2*a3 + 3*a2*c - 6*a*c2 + c3 - 6*a2*c*lac)/6))/ac2;
-}
-
-/// I2abc(a,a,0), squared arguments, a != 0
-double I2aa0(double a, double b) noexcept {
-   const double d = (b - a)/a;
-
-   return (1 + d*(-0.5 + d/3))/a;
-}
-
-/// I2abc(0,b,c), squared arguments, b != c
-double I20bc(double b, double c) noexcept {
-   return std::log(b/c)/(b - c);
-}
-
 /// I2xy(0,y), squared arguments, y != 0
 double I20y(double y) noexcept {
    if (is_equal(y, 1, eps)) {
@@ -567,7 +531,6 @@ double I2xx(double x, double y) noexcept {
    }
 
    const double y2 = sqr(y);
-   const double dx = x - 1;
    const double dy = y - 1;
    const double dy2 = sqr(dy);
    const double dxy = (x - y)/dy2;
@@ -604,7 +567,8 @@ double I2xy(double x, double y) noexcept {
    return (x*(y - 1)*lx - y*(x - 1)*ly)/((x - 1)*(x - y)*(y - 1));
 }
 
-double I2abc(double x, double y, double z) noexcept {
+/// I2(x,y,z), x, y and z are squared arguments
+double I2xyz(double x, double y, double z) noexcept {
    sort(x, y, z);
 
    if (is_zero(y, eps) || is_zero(z, eps)) {
@@ -614,50 +578,10 @@ double I2abc(double x, double y, double z) noexcept {
    return I2xy(x/z, y/z)/z;
 }
 
-double Iabc2(double a, double b, double c) noexcept {
-   return I2abc(sqr(a), sqr(b), sqr(c));
-}
-
 } // anonymous namespace
 
 double Iabc(double a, double b, double c) noexcept {
-   return Iabc2(a, b, c);
-
-   sort(a, b, c);
-
-   if ((is_zero(a, eps) && is_zero(b, eps) && is_zero(c, eps)) ||
-       (is_zero(a, eps) && is_zero(b, eps))) {
-      return 0.0;
-   }
-
-   const double a2 = sqr(a);
-   const double b2 = sqr(b);
-   const double c2 = sqr(c);
-   const double eps_eq = 0.001;
-
-   if (is_equal(a2, b2, eps_eq) && is_equal(a2, c2, eps_eq)) {
-      return I2aaa(a2, b2, c2);
-   }
-
-   if (is_equal(a2, b2, eps_eq)) {
-      return I2aac(a2, b2, c2);
-   }
-
-   if (is_equal(b2, c2, eps_eq)) {
-      if (is_zero(a, eps)) {
-         return I2aa0(b2, c2);
-      }
-      return I2aac(b2, c2, a2);
-   }
-
-   if (is_zero(a, eps)) {
-      return I20bc(b2, c2);
-   }
-
-   return (+ a2 * b2 * std::log(a2/b2)
-           + b2 * c2 * std::log(b2/c2)
-           + c2 * a2 * std::log(c2/a2))
-           / ((a2 - b2) * (b2 - c2) * (a2 - c2));
+   return I2xyz(sqr(a), sqr(b), sqr(c));
 }
 
 /**
