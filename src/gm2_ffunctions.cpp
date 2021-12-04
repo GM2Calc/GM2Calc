@@ -545,6 +545,10 @@ double I2xx(double x, double y) noexcept {
 double I2xy(double x, double y) noexcept {
    const double eps_eq = 0.001;
 
+   if (is_zero(y, eps)) {
+      return 0;
+   }
+
    if (is_zero(x, eps)) {
       return I20y(y);
    }
@@ -571,7 +575,7 @@ double I2xy(double x, double y) noexcept {
 double I2xyz(double x, double y, double z) noexcept {
    sort(x, y, z);
 
-   if (is_zero(y, eps) || is_zero(z, eps)) {
+   if (is_zero(z, eps)) {
       return 0;
    }
 
