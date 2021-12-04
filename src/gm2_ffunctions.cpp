@@ -541,15 +541,15 @@ double I20y(double y) noexcept {
 
 /// I2(x,y), squared arguments, x == 1, y != 0
 double I21y(double x, double y) noexcept {
-   const double dx = x - 1;
    const double dy = y - 1;
    const double dy2 = sqr(dy);
+   const double dx = (x - 1)/dy2;
    const double y2 = sqr(y);
    const double yly = y*std::log(y);
 
    return (1 - y + yly)/dy2
-      + dx*(1 - y2 + 2*yly)/(2*dy2*dy)
-      + sqr(dx)*(2 + 3*y + 6*yly + y2*(y - 6))/(6*sqr(dy2));
+      + dx*(1 - y2 + 2*yly)/(2*dy)
+      + sqr(dx)*(2 + 3*y + 6*yly + y2*(y - 6))/6;
 }
 
 /// I2(x,y), squared arguments, x == y, x != 0, y != 0
@@ -570,12 +570,12 @@ double I2xx(double x, double y) noexcept {
    const double dx = x - 1;
    const double dy = y - 1;
    const double dy2 = sqr(dy);
-   const double dxy = x - y;
+   const double dxy = (x - y)/dy2;
    const double ly = std::log(y);
 
    return (dy - ly)/dy2
-      + dxy*(1 - y2 + 2*y*ly)/(2*dy2*dy*y)
-      + sqr(dxy)*(1 - 6*y + y2*(3 + 2*y - 6*ly))/(6*sqr(dy2)*y2);
+      + dxy*(1 - y2 + 2*y*ly)/(2*dy*y)
+      + sqr(dxy)*(1 - 6*y + y2*(3 + 2*y - 6*ly))/(6*y2);
 }
 
 /// I2(x,y), x and y are squared arguments
