@@ -548,8 +548,8 @@ double I21y(double x, double y) noexcept {
    const double yly = y*std::log(y);
 
    return (1 - y + yly)/dy2
-      + dx*(1 - y2 + 2*yly)/(2*dy)
-      + sqr(dx)*(2 + 3*y + 6*yly + y2*(y - 6))/6;
+      + dx*(0.5 - y2/2 + yly)/dy
+      + sqr(dx)*(1./3 + y/2 + yly + y2*(y/6 - 1));
 }
 
 /// I2(x,y), squared arguments, x == y, x != 0, y != 0
@@ -574,8 +574,8 @@ double I2xx(double x, double y) noexcept {
    const double ly = std::log(y);
 
    return (dy - ly)/dy2
-      + dxy*(1 - y2 + 2*y*ly)/(2*dy*y)
-      + sqr(dxy)*(1 - 6*y + y2*(3 + 2*y - 6*ly))/(6*y2);
+      + dxy*(0.5 - y2/2 + y*ly)/(dy*y)
+      + sqr(dxy)*(1./6 - y + y2*(0.5 + y/3 - ly))/y2;
 }
 
 /// I2(x,y), x and y are squared arguments
