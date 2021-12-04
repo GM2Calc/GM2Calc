@@ -570,11 +570,12 @@ double I2xx(double x, double y) noexcept {
    const double dx = x - 1;
    const double dy = y - 1;
    const double dy2 = sqr(dy);
+   const double dxy = x - y;
    const double ly = std::log(y);
 
    return (dy - ly)/dy2
-      + (x - y)*(1 - y2 + 2*y*ly)/(2*dy2*dy*y)
-      + sqr(x - y)*(1 - 6*y + y2*(3 + 2*y - 6*ly))/(6*sqr(dy2)*y2);
+      + dxy*(1 - y2 + 2*y*ly)/(2*dy2*dy*y)
+      + sqr(dxy)*(1 - 6*y + y2*(3 + 2*y - 6*ly))/(6*sqr(dy2)*y2);
 }
 
 /// I2(x,y), x and y are squared arguments
