@@ -567,17 +567,13 @@ double delta_bottom_correction(const MSSMNoFV_onshell& model)
         * Iabc(abs_sqrt(msbL2), std::abs(mu), std::abs(M2))
       ;
 
-   // Eq.(35)
-   const double eps_Y_vM =
-      - oneOver16PiSqr * At * mu
-        * Iabc(abs_sqrt(mstL2), abs_sqrt(mstR2), std::abs(mu))
-      // term ~ self-energy neglected
-      ;
+   const double Ittm = Iabc(abs_sqrt(mstL2), abs_sqrt(mstR2), std::abs(mu));
+
+   // Eq.(35), term ~ self-energy neglected
+   const double eps_Y_vM = - oneOver16PiSqr * At * mu * Ittm;
 
    // Eq.(32)
-   const double eps_Y = oneOver16PiSqr * At * mu
-      * Iabc(abs_sqrt(mstL2), abs_sqrt(mstR2), std::abs(mu))
-      + eps_Y_vM;
+   const double eps_Y = oneOver16PiSqr * At * mu * Ittm + eps_Y_vM;
 
    // Eq.(33)
    const double eps_3_tilde = eps_0 + sqr(yt) * eps_Y;
