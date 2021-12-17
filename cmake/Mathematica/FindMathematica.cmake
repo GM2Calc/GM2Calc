@@ -34,7 +34,7 @@ cmake_minimum_required(VERSION 2.8.12)
 cmake_policy(POP)
 
 set (Mathematica_CMAKE_MODULE_DIR "${CMAKE_CURRENT_LIST_DIR}")
-set (Mathematica_CMAKE_MODULE_VERSION "3.5.0")
+set (Mathematica_CMAKE_MODULE_VERSION "3.6.0")
 
 # activate select policies
 if (POLICY CMP0025)
@@ -242,9 +242,13 @@ endmacro()
 macro (_get_program_names _outProgramNames)
 	set (${_outProgramNames} "")
 	# Mathematica products in order of preference
-	set (_MathematicaApps "Mathematica" "Wolfram Desktop" "Wolfram Engine" "gridMathematica Server")
+	set (_MathematicaApps
+		"Mathematica" "mathematica"
+		"Wolfram Desktop" "Wolfram Engine"
+		"gridMathematica Server")
 	# Mathematica product versions in order of preference
 	set (_MathematicaVersions
+		"13.0"
 		"12.3" "12.2" "12.1" "12.0"
 		"11.3" "11.2" "11.1" "11.0"
 		"10.4" "10.3" "10.2" "10.1" "10.0"
@@ -348,8 +352,10 @@ function (_add_launch_services_search_paths _outSearchPaths)
 		# the executable usually resides in the LaunchServices framework Support directory
 		# The LaunchServices framework is a sub-framework of the CoreServices umbrella framework
 		cmake_find_frameworks(CoreServices)
-		find_program (Mathematica_LSRegister_EXECUTABLE NAMES "lsregister" PATH_SUFFIXES "Support"
-			HINTS "${CoreServices_FRAMEWORKS}/Frameworks/LaunchServices.framework")
+		find_program (Mathematica_LSRegister_EXECUTABLE
+			NAMES "lsregister"
+			PATH_SUFFIXES "/Frameworks/LaunchServices.framework/Support"
+			HINTS ${CoreServices_FRAMEWORKS})
 		mark_as_advanced(
 			Mathematica_CoreServices_DIR
 			Mathematica_LaunchServices_DIR
@@ -361,7 +367,7 @@ function (_add_launch_services_search_paths _outSearchPaths)
 		foreach (_bundleID IN ITEMS ${ARGN})
 			execute_process(
 				COMMAND "${Mathematica_LSRegister_EXECUTABLE}" "-dump"
-				COMMAND "grep" "--before-context=20" "--after-context=20" " ${_bundleID} "
+				COMMAND "grep" "--before-context=20" "--after-context=20" "${_bundleID}"
 				COMMAND "grep" "--only-matching" "/.*\\.app"
 				TIMEOUT 10 OUTPUT_VARIABLE _queryResult ERROR_QUIET)
 			string (REPLACE ";" "\\;" _queryResult "${_queryResult}")
@@ -461,6 +467,14 @@ macro (_get_search_paths _outSearchPaths)
 				list (APPEND ${_outSearchPaths} "${_unixPath}/Wolfram Research" )
 			endif()
 		endforeach()
+		# add default installation path
+		if (IS_DIRECTORY "C:/Program Files/Wolfram Research")
+			list (APPEND ${_outSearchPaths} "C:/Program Files/Wolfram Research" )
+		endif()
+		# Windows container paths may be lowercase
+		if (IS_DIRECTORY "C:/Program Files/wolfram research")
+			list (APPEND ${_outSearchPaths} "C:/Program Files/wolfram research" )
+		endif()
 	elseif (CMAKE_HOST_APPLE)
 		# add standard Mathematica Mac OS X installation paths
 		list (APPEND ${_outSearchPaths} "~/Applications;/Applications")
@@ -1195,7 +1209,10 @@ macro (_append_WSTP_needed_system_libraries _outLibraries)
 			if (DEFINED Mathematica_WSTP_VERSION_MINOR)
 				if ("${Mathematica_WSTP_VERSION_MINOR}" GREATER 24)
 					# Linux WSTP API revision >= 25 has dependency on libdl and libuuid
-					list (APPEND ${_outLibraries} dl uuid)
+					list (APPEND ${_outLibraries} ${CMAKE_DL_LIBS})
+					find_library (Mathematica_uuid_LIBRARY uuid)
+					mark_as_advanced(Mathematica_uuid_LIBRARY)
+					list (APPEND ${_outLibraries} ${Mathematica_uuid_LIBRARY})
 				endif()
 			endif()
 		endif()
@@ -2477,6 +2494,31 @@ macro (_log_found_variables)
 			message (STATUS "MUnit package dir ${Mathematica_MUnit_PACKAGE_DIR}")
 		else()
 			message (STATUS "MUnit not found")
+		endif()
+	endif()
+	# warn explicitly about common mistakes users make
+	if (UNIX AND NOT APPLE)
+		if (DEFINED Mathematica_uuid_LIBRARY)
+			if (Mathematica_uuid_LIBRARY MATCHES "-NOTFOUND$")
+				message (WARNING "WSTP and MathLink require libuuid. Install libuuid with the system package manager.")
+			endif()
+		endif()
+	endif()
+	if (DEFINED Mathematica_VERSION)
+		if (CMAKE_SIZEOF_VOID_P EQUAL 4)
+			if (WINDOWS)
+				if (NOT "${Mathematica_VERSION}" VERSION_LESS "12.1")
+					message (WARNING "Windows Mathematica ${Mathematica_VERSION} does not support 32-bit.")
+				endif()
+			elseif (APPLE)
+				if (NOT "${Mathematica_VERSION}" VERSION_LESS "9.0")
+					message (WARNING "Mac Mathematica ${Mathematica_VERSION} does not support 32-bit.")
+				endif()
+			elseif (UNIX)
+				if (NOT "${Mathematica_VERSION}" VERSION_LESS "11.3")
+					message (WARNING "Linux Mathematica ${Mathematica_VERSION} does not support 32-bit.")
+				endif()
+			endif()
 		endif()
 	endif()
 	if (DEFINED Mathematica_VERSION_MAJOR AND
