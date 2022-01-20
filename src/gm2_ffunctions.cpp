@@ -118,11 +118,11 @@ namespace {
       const auto lambda = std::sqrt(-lambda_2(u,v));
 
       if (is_equal(u, 1.0, eps)) {
-         return phi_neg_1v(v, lambda);
+         return phi_neg_1v(v)/lambda;
       }
 
       if (is_equal(v, 1.0, eps)) {
-         return phi_neg_1v(u, lambda);
+         return phi_neg_1v(u)/lambda;
       }
 
       if (is_equal(u, v, eps)) {
