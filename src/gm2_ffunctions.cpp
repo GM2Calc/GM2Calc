@@ -158,11 +158,14 @@ namespace {
          if (u <= 1 && v <= 1) {
             return phi_pos(u,v);
          }
-         if (u >= 1 && v/u <= 1) {
-            return phi_pos(1./u,v/u)/u;
+         const auto oou = 1/u;
+         const auto vou = v/u;
+         if (u >= 1 && vou <= 1) {
+            return phi_pos(oou,vou)*oou;
          }
          // v >= 1 && u/v <= 1
-         return phi_pos(1./v,u/v)/v;
+         const auto oov = 1/v;
+         return phi_pos(oov,1/vou)*oov;
       }
 
       return phi_neg(u,v);
