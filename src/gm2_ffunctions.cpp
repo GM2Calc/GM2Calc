@@ -100,9 +100,9 @@ namespace {
    }
 
    /// lambda^2(u,v) < 0, u = 1
-   double phi_neg_1v(double v, double lambda) noexcept
+   double phi_neg_1v(double v) noexcept
    {
-      return 2*(cl2acos(1 - 0.5*v) + 2*cl2acos(0.5*std::sqrt(v)))/lambda;
+      return 2*(cl2acos(1 - 0.5*v) + 2*cl2acos(0.5*std::sqrt(v)));
    }
 
    /// lambda^2(u,v) < 0; note: phi_neg(u,v) = phi_neg(v,u)
