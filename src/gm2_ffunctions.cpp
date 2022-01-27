@@ -697,8 +697,8 @@ double F3(double w) noexcept {
       const double l1my = std::log(1 - y);
       return (1 + 15*w)*(1 + lw/2)
          + (-17 + 30*w)*w/y*(
-            + 0.5*std::log(q)*(2*l2 + lw) + dilog(-q)
-            + zeta2/2 - lq*(4*l1my + lq)/4);
+            + lq*(l2 + lw/2 - l1my - lq/4)
+            + dilog(-q) + zeta2/2);
    } else if (w == 0.25) {
       return 19.0/4.0;
    }
