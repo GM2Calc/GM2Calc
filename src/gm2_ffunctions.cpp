@@ -707,9 +707,8 @@ double F3(double w) noexcept {
    const double l2 = 0.69314718055994531; // Log[2]
    const double y = std::sqrt(-1 + 4*w);
    const double lw = std::log(w);
-   const double y2 = y*y;
-   const double theta = std::atan2(-2*y, y2 - 1);
-   const double l1y2 = std::log(1 + y2);
+   const double theta = std::atan2(-2*y, 4*w - 2);
+   const double l1y2 = 2*l2 + lw; // Log[4w]
 
    return (1 + 15*w)*(1 + lw/2)
       + (-17 + 30*w)*w/y*(
