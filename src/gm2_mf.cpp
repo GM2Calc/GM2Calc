@@ -134,7 +134,7 @@ double Fb(double alpha) noexcept
 {
    const double as = alpha / pi;
 
-   return std::pow(23.*as/6, 12./23) * (
+   return std::pow(23./6*as, 12./23) * (
       1 + as*(3731./3174 + 1.500706*as)
       );
 }
@@ -168,7 +168,7 @@ double conversion_mb_MSbar_to_DRbar(double alpha) noexcept
 double calculate_alpha_s_SM6_MSbar_at_mt(
    double mt_pole, double alpha_s_mz, double mz) noexcept
 {
-   return alpha_s_mz /(1 - 23*alpha_s_mz/(6*pi)*std::log(mz/mt_pole));
+   return alpha_s_mz /(1 - 23/(6*pi)*alpha_s_mz*std::log(mz/mt_pole));
 }
 
 /**
