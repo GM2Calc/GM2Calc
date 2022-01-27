@@ -688,13 +688,13 @@ double F3(double w) noexcept {
       ERROR("F3: w must not be negative!");
       return std::numeric_limits<double>::quiet_NaN();
    } else if (w < 0.25) {
-      const double zeta2 = 1.6449340668482264; // Zeta[2]
+      const double z2 = 2.4674011002723397; // 3/2 Zeta[2] == Pi^2/4
       const double y = std::sqrt(1 - 4*w); // 0 < y < 1
       const double lw = std::log(w)/2;
       const double q = (1 + y)/(1 - y);
       const double lq = std::log(q);
       return (1 + 15*w)*(1 + lw)
-         + (-17 + 30*w)*w/y*(lq*(lw - lq/4) - dilog(1 + q) + 3*zeta2/2);
+         + (-17 + 30*w)*w/y*(lq*(lw - lq/4) - dilog(1 + q) + z2);
    } else if (w == 0.25) {
       return 19.0/4.0;
    }
