@@ -690,21 +690,21 @@ double F3(double w) noexcept {
    } else if (w < 0.25) {
       const double zeta2 = 1.6449340668482264; // Zeta[2]
       const double y = std::sqrt(1 - 4*w); // 0 < y < 1
-      const double lw = std::log(w);
+      const double lw = std::log(w)/2;
       const double q = (1 + y)/(1 - y);
       const double lq = std::log(q);
-      return (1 + 15*w)*(1 + lw/2)
-         + (-17 + 30*w)*w/y*(lq*(lw/2 - lq/4) - dilog(1 + q) + 3*zeta2/2);
+      return (1 + 15*w)*(1 + lw)
+         + (-17 + 30*w)*w/y*(lq*(lw - lq/4) - dilog(1 + q) + 3*zeta2/2);
    } else if (w == 0.25) {
       return 19.0/4.0;
    }
 
    // w > 0.25
    const double y = std::sqrt(-1 + 4*w);
-   const double lw = std::log(w);
+   const double lw = std::log(w)/2;
    const double theta = std::atan2(-y, 2*w - 1);
 
-   return (1 + 15*w)*(1 + lw/2)
+   return (1 + 15*w)*(1 + lw)
       + (-17 + 30*w)*w/y*clausen_2(theta);
 }
 
