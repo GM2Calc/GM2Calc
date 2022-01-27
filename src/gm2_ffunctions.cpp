@@ -692,13 +692,13 @@ double F3(double w) noexcept {
       const double l2 = 0.69314718055994531; // Log[2]
       const double y = std::sqrt(1 - 4*w); // 0 < y < 1
       const double lw = std::log(w);
-      const double ry = (1 + y)/(1 - y);
-      const double l1py = std::log(1 + y);
+      const double q = (1 + y)/(1 - y);
+      const double lq = std::log(q);
       const double l1my = std::log(1 - y);
       return (1 + 15*w)*(1 + lw/2)
          + (-17 + 30*w)*w/y*(
-            + 0.5*std::log(ry)*(2*l2 + lw) + dilog(-ry)
-            + zeta2/2 + (l1my - l1py)*(3*l1my + l1py)/4);
+            + 0.5*std::log(q)*(2*l2 + lw) + dilog(-q)
+            + zeta2/2 - lq*(4*l1my + lq)/4);
    } else if (w == 0.25) {
       return 19.0/4.0;
    }
