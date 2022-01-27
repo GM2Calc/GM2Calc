@@ -703,16 +703,12 @@ double F3(double w) noexcept {
    }
 
    // w > 0.25
-   const double pi = 3.1415926535897932;
-   const double l2 = 0.69314718055994531; // Log[2]
    const double y = std::sqrt(-1 + 4*w);
    const double lw = std::log(w);
    const double theta = std::atan2(-y, 2*w - 1);
-   const double l1y2 = 2*l2 + lw; // Log[4w]
 
    return (1 + 15*w)*(1 + lw/2)
-      + (-17 + 30*w)*w/y*(
-         (std::atan(y) - pi/2)*(2*l2 + lw - l1y2) + clausen_2(theta));
+      + (-17 + 30*w)*w/y*clausen_2(theta);
 }
 
 /**
