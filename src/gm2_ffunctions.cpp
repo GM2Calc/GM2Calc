@@ -602,8 +602,11 @@ double f_PS(double z) noexcept {
    } else if (z == 0.0) {
       return 0.0;
    } else if (z < 0.25) {
-      const double y = std::sqrt(1 - 4*z);
-      return 2*z/y*(dilog(1 - 0.5*(1 - y)/z) - dilog(1 - 0.5*(1 + y)/z));
+      const double y = std::sqrt(1 - 4*z); // 0 < y < 1
+      const double c = -9.8696044010893586; // -Pi^2
+      const double q = (1 + y)/(1 - y);
+      const double lq = std::log(q);
+      return z/y*(4*dilog(1 + q) - lq*(2*std::log(z) - lq) + c);
    } else if (z == 0.25) {
       return 1.3862943611198906; // Log[4]
    }
