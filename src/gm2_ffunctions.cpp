@@ -625,7 +625,7 @@ double f_S(double z) noexcept {
       return 0.0;
    }
 
-   return (2.0*z - 1.0)*f_PS(z) - 2.0*z*(2.0 + std::log(z));
+   return (2*z - 1)*f_PS(z) - 2*z*(2 + std::log(z));
 }
 
 /**
@@ -639,7 +639,7 @@ double f_sferm(double z) noexcept {
       return 0.0;
    }
 
-   return 0.5*z*(2.0 + std::log(z) - f_PS(z));
+   return 0.5*z*(2 + std::log(z) - f_PS(z));
 }
 
 /**
@@ -655,7 +655,7 @@ double F1(double w) noexcept {
       return -0.5;
    }
 
-   return (2*w - 1) * F1t(w) - w * (2 + std::log(w));
+   return (w - 0.5)*f_PS(w) - w*(2 + std::log(w));
 }
 
 /**
@@ -676,7 +676,7 @@ double F2(double w) noexcept {
       return -0.38629436111989062; // 1 - Log[4]
    }
 
-   return 1 + std::log(w)/2 - F1t(w);
+   return 1 + 0.5*(std::log(w) - f_PS(w));
 }
 
 /**
