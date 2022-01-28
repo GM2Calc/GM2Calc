@@ -687,25 +687,11 @@ double F3(double w) noexcept {
    if (w < 0.0) {
       ERROR("F3: w must not be negative!");
       return std::numeric_limits<double>::quiet_NaN();
-   } else if (w < 0.25) {
-      const double z2 = 2.4674011002723397; // 3/2 Zeta[2] == Pi^2/4
-      const double y = std::sqrt(1 - 4*w); // 0 < y < 1
-      const double lw = std::log(w)/2;
-      const double q = (1 + y)/(1 - y);
-      const double lq = std::log(q);
-      return (1 + 15*w)*(1 + lw)
-         + (-17 + 30*w)*w/y*(lq*(lw - lq/4) - dilog(1 + q) + z2);
    } else if (w == 0.25) {
       return 19.0/4.0;
    }
 
-   // w > 0.25
-   const double y = std::sqrt(-1 + 4*w);
-   const double lw = std::log(w)/2;
-   const double theta = std::atan2(-y, 2*w - 1);
-
-   return (1 + 15*w)*(1 + lw)
-      + (-17 + 30*w)*w/y*clausen_2(theta);
+   return (0.5 + 7.5*w)*(2 + std::log(w)) + (4.25 - 7.5*w)*f_PS(w);
 }
 
 /**
