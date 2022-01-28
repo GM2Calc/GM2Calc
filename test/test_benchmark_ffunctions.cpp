@@ -52,7 +52,7 @@ double bench_1_in_ms(double start, double stop, unsigned N, F f)
 TEST_CASE("benchmark f_PS")
 {
    const auto time_in_ms = bench_1_in_ms(
-      0.1, 1000.0, 1000000,
+      0.0, 0.5, 1000000,
       [] (double x) { return gm2calc::f_PS(x); });
 
    std::cout << "f_PS(x): average time per point: " << time_in_ms*1000 << " ns\n";
@@ -61,7 +61,7 @@ TEST_CASE("benchmark f_PS")
 TEST_CASE("benchmark F1")
 {
    const auto time_in_ms = bench_1_in_ms(
-      0.1, 1000.0, 1000000,
+      0.1, 0.5, 1000000,
       [] (double x) { return gm2calc::F1(x); });
 
    std::cout << "F1(x): average time per point: " << time_in_ms*1000 << " ns\n";
@@ -70,7 +70,7 @@ TEST_CASE("benchmark F1")
 TEST_CASE("benchmark F1t")
 {
    const auto time_in_ms = bench_1_in_ms(
-      0.1, 1000.0, 1000000,
+      0.1, 0.5, 1000000,
       [] (double x) { return gm2calc::F1t(x); });
 
    std::cout << "F1t(x): average time per point: " << time_in_ms*1000 << " ns\n";
@@ -79,7 +79,7 @@ TEST_CASE("benchmark F1t")
 TEST_CASE("benchmark F2")
 {
    const auto time_in_ms = bench_1_in_ms(
-      0.1, 1000.0, 1000000,
+      0.1, 0.5, 1000000,
       [] (double x) { return gm2calc::F2(x); });
 
    std::cout << "F2(x): average time per point: " << time_in_ms*1000 << " ns\n";
@@ -88,7 +88,7 @@ TEST_CASE("benchmark F2")
 TEST_CASE("benchmark F3")
 {
    const auto time_in_ms = bench_1_in_ms(
-      0.1, 1000.0, 1000000,
+      0.1, 0.5, 1000000,
       [] (double x) { return gm2calc::F3(x); });
 
    std::cout << "F3(x): average time per point: " << time_in_ms*1000 << " ns\n";
