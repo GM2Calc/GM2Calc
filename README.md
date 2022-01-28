@@ -5,7 +5,7 @@ GM2Calc
 [![Build Status](https://github.com/GM2Calc/GM2Calc/workflows/test/badge.svg)](https://github.com/GM2Calc/GM2Calc/actions)
 
 GM2Calc calculates the new physics contributions to the anomalous
-magnetic moment of the muon a_mu = (g-2)/2 in the real MSSM and in the
+magnetic moment of the muon a_µ = (g-2)/2 in the real MSSM and in the
 THDM at the 1- and leading 2-loop level.
 
  * Homepage:                https://gm2calc.hepforge.org
