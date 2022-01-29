@@ -27,13 +27,13 @@ double random(double start, double stop)
 }
 
 /// random value for SUSY scale MS
-auto rMS = [] { return random(400, 4000); };
+auto rMS = [] { return random(400, 500); };
 
 /// random value for Higgs boson mass
-auto rMH = [] { return random(130, 400); };
+auto rMH = [] { return random(130, 200); };
 
 /// random value for tan(beta)
-auto rTB = [] { return random(2, 1000); };
+auto rTB = [] { return random(5, 100); };
 
 /// generate random SLHA input parameter point
 gm2calc::MSSMNoFV_onshell random_point_slha()
