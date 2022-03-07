@@ -728,5 +728,6 @@ TEST_CASE("alpha_h_stability")
    INFO("        output: beta = " << model_2.get_beta());
    INFO("        output: sin(b-a) = " << model_2.get_sin_beta_minus_alpha());
 
-   CHECK_CLOSE(model_1.get_alpha_h(), model_2.get_alpha_h(), std::abs(sba_1 - sba_2));
+   CHECK_CLOSE(model_1.get_sin_beta_minus_alpha(), sba_1, 1e-14);
+   CHECK_CLOSE(model_2.get_sin_beta_minus_alpha(), sba_2, 1e-14);
 }
