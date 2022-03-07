@@ -691,3 +691,42 @@ TEST_CASE("alignment_limits")
       CHECK_CLOSE(type_Y*1e10, aligned*1e10, eps);
    }
 }
+
+
+gm2calc::THDM calc_unstable_point(double sin_beta_minus_alpha)
+{
+   gm2calc::thdm::Mass_basis basis;
+   basis.yukawa_type = gm2calc::thdm::Yukawa_type::type_2;
+   basis.mh = 125;
+   basis.mH = 400;
+   basis.mA = 400;
+   basis.mHp = 400;
+   basis.sin_beta_minus_alpha = sin_beta_minus_alpha;
+   basis.tan_beta = 3;
+   basis.m122 = 40000;
+
+   return gm2calc::THDM(basis);
+}
+
+
+// test stability of alpha_h in the limit sin(beta - alpha_h) -> 1
+TEST_CASE("alpha_h_stability")
+{
+   const double sba_1 = 1.0;
+   const double sba_2 = 0.9999;
+
+   const auto model_1 = calc_unstable_point(sba_1);
+   const auto model_2 = calc_unstable_point(sba_2);
+
+   INFO("Model 1 input: sin(b-a) = " << sba_1);
+   INFO("        output: alpha_h = " << model_1.get_alpha_h());
+   INFO("        output: beta = " << model_1.get_beta());
+   INFO("        output: sin(b-a) = " << model_1.get_sin_beta_minus_alpha());
+
+   INFO("Model 2 input: sin(b-a) = " << sba_2);
+   INFO("        output: alpha_h = " << model_2.get_alpha_h());
+   INFO("        output: beta = " << model_2.get_beta());
+   INFO("        output: sin(b-a) = " << model_2.get_sin_beta_minus_alpha());
+
+   CHECK_CLOSE(model_1.get_alpha_h(), model_2.get_alpha_h(), std::abs(sba_1 - sba_2));
+}
