@@ -7,6 +7,9 @@ Changes
  * Change (commit fd9ec530): Performance improvement of the 2-loop
    electroweak contributions in the THDM by a factor 4.
 
+ * Change (commit 00728f28): Performance improvement of the 2-loop
+   contributions in the MSSM.
+
 
 GM2Calc-2.0.0 [October, 25 2021]
 ================================
