@@ -721,8 +721,8 @@ gm2calc::THDM calc_unstable_point(double sin_beta_minus_alpha)
 // test stability of alpha_h in the limit sin(beta - alpha_h) -> 1
 TEST_CASE("alpha_h_stability")
 {
-   const double sba_1 = 1.0;
-   const double sba_2 = 0.9999;
+   const double sba_1 = 1.0;    // order of h and H switched: (H, h)
+   const double sba_2 = 0.9999; // normal ordering: (h, H)
 
    const auto model_1 = calc_unstable_point(sba_1);
    const auto model_2 = calc_unstable_point(sba_2);
@@ -737,6 +737,6 @@ TEST_CASE("alpha_h_stability")
    INFO("        output: beta = " << model_2.get_beta());
    INFO("        output: sin(b-a) = " << model_2.get_sin_beta_minus_alpha());
 
-   CHECK_CLOSE(model_1.get_sin_beta_minus_alpha(), sba_1, 1e-14);
+   CHECK_CLOSE(model_1.get_sin_beta_minus_alpha(), sba_1, 1e-3);
    CHECK_CLOSE(model_2.get_sin_beta_minus_alpha(), sba_2, 1e-14);
 }

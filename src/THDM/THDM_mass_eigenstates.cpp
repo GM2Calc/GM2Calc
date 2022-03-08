@@ -422,7 +422,14 @@ double CLASSNAME::get_tan_beta() const
  */
 double CLASSNAME::get_alpha_h() const
 {
-   double alpha_h = std::atan2(ZH(1,1), ZH(0,1));
+   double alpha_h = 0;
+
+   if (sign(ZH(0,1)) == sign(ZH(1,0))) {
+      alpha_h = std::atan2(ZH(1,1), ZH(0,1)); // normal ordering
+   } else {
+      alpha_h = std::atan2(ZH(1,0), ZH(0,0)); // swapped
+   }
+
    const double bma = get_beta() - alpha_h;
    const double eps = 10*std::numeric_limits<double>::epsilon();
 
