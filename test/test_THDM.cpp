@@ -693,7 +693,7 @@ TEST_CASE("alignment_limits")
 }
 
 
-gm2calc::THDM calc_unstable_point(double sin_beta_minus_alpha)
+gm2calc::THDM calc_point(double sin_beta_minus_alpha)
 {
    gm2calc::thdm::Mass_basis basis;
    basis.yukawa_type = gm2calc::thdm::Yukawa_type::general;
@@ -718,24 +718,14 @@ gm2calc::THDM calc_unstable_point(double sin_beta_minus_alpha)
 }
 
 
-// test stability of alpha_h in the limit sin(beta - alpha_h) -> 1
-TEST_CASE("alpha_h_stability")
+// test stability of alpha_h when h and H are swapped
+TEST_CASE("alpha_h_swapped")
 {
    const double sba_1 = 1.0;    // order of h and H switched: (H, h)
    const double sba_2 = 0.9999; // normal ordering: (h, H)
 
-   const auto model_1 = calc_unstable_point(sba_1);
-   const auto model_2 = calc_unstable_point(sba_2);
-
-   INFO("Model 1 input: sin(b-a) = " << sba_1);
-   INFO("        output: alpha_h = " << model_1.get_alpha_h());
-   INFO("        output: beta = " << model_1.get_beta());
-   INFO("        output: sin(b-a) = " << model_1.get_sin_beta_minus_alpha());
-
-   INFO("Model 2 input: sin(b-a) = " << sba_2);
-   INFO("        output: alpha_h = " << model_2.get_alpha_h());
-   INFO("        output: beta = " << model_2.get_beta());
-   INFO("        output: sin(b-a) = " << model_2.get_sin_beta_minus_alpha());
+   const auto model_1 = calc_point(sba_1);
+   const auto model_2 = calc_point(sba_2);
 
    CHECK_CLOSE(model_1.get_sin_beta_minus_alpha(), sba_1, 1e-3);
    CHECK_CLOSE(model_2.get_sin_beta_minus_alpha(), sba_2, 1e-14);
