@@ -696,14 +696,23 @@ TEST_CASE("alignment_limits")
 gm2calc::THDM calc_unstable_point(double sin_beta_minus_alpha)
 {
    gm2calc::thdm::Mass_basis basis;
-   basis.yukawa_type = gm2calc::thdm::Yukawa_type::type_2;
-   basis.mh = 125;
-   basis.mH = 400;
-   basis.mA = 400;
-   basis.mHp = 400;
+   basis.yukawa_type = gm2calc::thdm::Yukawa_type::general;
+   basis.mh = 125.09;
+   basis.mH = 3485;
+   basis.mA = 3485;
+   basis.mHp = 3429;
    basis.sin_beta_minus_alpha = sin_beta_minus_alpha;
-   basis.tan_beta = 3;
-   basis.m122 = 40000;
+   basis.tan_beta = 0.98;
+   basis.m122 = 5885476;
+   basis.Pi_u << 0, 0, 0,
+                 0, 1.15, -0.64,
+                 0, -0.64, 0.60;
+   basis.Pi_d << 0, 0, 0,
+                 0, 0.10, 0.004,
+                 0, 0.004, 0.017;
+   basis.Pi_l << 0, 0, 0,
+                 0, -0.04, 0.75,
+                 0, 0.75, -0.36;
 
    return gm2calc::THDM(basis);
 }
