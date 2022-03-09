@@ -672,7 +672,6 @@ available:
 | gm2calc.SM                              | Constructs an SM model                                        |
 | gm2calc.MSSMNoFV_onshell                | Constructs an MSSMNoFV model                                  |
 | gm2calc.THDM                            | Constructs a THDM model                                       |
-| gm2calc.calculate_amu_0loop             | Calculates the tree-level contributions to `a_mu`             |
 | gm2calc.calculate_amu_1loop             | Calculates the 1-loop contributions to `a_mu`                 |
 | gm2calc.calculate_amu_2loop             | Calculates the 2-loop contributions to `a_mu`                 |
 | gm2calc.calculate_uncertainty_amu_0loop | Calculates the uncertainty of `a_mu` if working at tree-level |
