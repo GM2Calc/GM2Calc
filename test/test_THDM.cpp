@@ -727,6 +727,6 @@ TEST_CASE("alpha_h_swapped")
    const auto model_1 = calc_point(sba_1);
    const auto model_2 = calc_point(sba_2);
 
-   CHECK_CLOSE(model_1.get_sin_beta_minus_alpha(), sba_1, 1e-3);
+   CHECK_CLOSE(model_1.get_sin_beta_minus_alpha(), sba_1, 1e-14);
    CHECK_CLOSE(model_2.get_sin_beta_minus_alpha(), sba_2, 1e-14);
 }
