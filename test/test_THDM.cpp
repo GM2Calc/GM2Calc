@@ -718,15 +718,18 @@ gm2calc::THDM calc_point(double sin_beta_minus_alpha)
 }
 
 
+// tests that the value for sin(beta - alpha_h) returned by the model
+// matches the input
+void test_sin_beta_minus_alpha(double sin_beta_minus_alpha)
+{
+   const auto model = calc_point(sin_beta_minus_alpha);
+   CHECK_CLOSE(model.get_sin_beta_minus_alpha(), sin_beta_minus_alpha, 1e-14);
+}
+
+
 // test stability of alpha_h when h and H are swapped
 TEST_CASE("alpha_h_swapped")
 {
-   const double sba_1 = 1.0;    // order of h and H switched: (H, h)
-   const double sba_2 = 0.9999; // normal ordering: (h, H)
-
-   const auto model_1 = calc_point(sba_1);
-   const auto model_2 = calc_point(sba_2);
-
-   CHECK_CLOSE(model_1.get_sin_beta_minus_alpha(), sba_1, 1e-14);
-   CHECK_CLOSE(model_2.get_sin_beta_minus_alpha(), sba_2, 1e-14);
+   test_sin_beta_minus_alpha(1.0);    // order of h and H switched: (H, h)
+   test_sin_beta_minus_alpha(0.9999); // normal ordering: (h, H)
 }
