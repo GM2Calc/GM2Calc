@@ -68,11 +68,6 @@ namespace {
       return sqr(1 - u - v) - 4*u*v;
    }
 
-   /// clausen_2(2*acos(x))
-   double cl2acos(double x) noexcept {
-      return clausen_2(2*std::acos(x));
-   }
-
    /// u < 1 && v < 1, lambda^2(u,v) > 0; note: phi_pos(u,v) = phi_pos(v,u)
    double phi_pos(double u, double v) noexcept
    {
@@ -99,6 +94,12 @@ namespace {
               + pi23)/lambda;
    }
 
+   /// clausen_2(2*acos(x))
+   double cl2acos(double x) noexcept
+   {
+      return clausen_2(2*std::acos(x));
+   }
+
    /// lambda^2(u,v) < 0, u = 1
    double phi_neg_1v(double v) noexcept
    {
@@ -117,16 +118,16 @@ namespace {
 
       const auto lambda = std::sqrt(-lambda_2(u,v));
 
+      if (is_equal(u, v, eps)) {
+         return 4*clausen_2(2*std::asin(std::sqrt(0.25/u)))/lambda;
+      }
+
       if (is_equal(u, 1.0, eps)) {
          return phi_neg_1v(v)/lambda;
       }
 
       if (is_equal(v, 1.0, eps)) {
          return phi_neg_1v(u)/lambda;
-      }
-
-      if (is_equal(u, v, eps)) {
-         return 4*clausen_2(2*std::asin(std::sqrt(0.25/u)))/lambda;
       }
 
       const auto sqrtu = std::sqrt(u);
