@@ -691,3 +691,45 @@ TEST_CASE("alignment_limits")
       CHECK_CLOSE(type_Y*1e10, aligned*1e10, eps);
    }
 }
+
+
+gm2calc::THDM calc_point(double sin_beta_minus_alpha)
+{
+   gm2calc::thdm::Mass_basis basis;
+   basis.yukawa_type = gm2calc::thdm::Yukawa_type::general;
+   basis.mh = 125.09;
+   basis.mH = 3485;
+   basis.mA = 3485;
+   basis.mHp = 3429;
+   basis.sin_beta_minus_alpha = sin_beta_minus_alpha;
+   basis.tan_beta = 0.98;
+   basis.m122 = 5885476;
+   basis.Pi_u << 0, 0, 0,
+                 0, 1.15, -0.64,
+                 0, -0.64, 0.60;
+   basis.Pi_d << 0, 0, 0,
+                 0, 0.10, 0.004,
+                 0, 0.004, 0.017;
+   basis.Pi_l << 0, 0, 0,
+                 0, -0.04, 0.75,
+                 0, 0.75, -0.36;
+
+   return gm2calc::THDM(basis);
+}
+
+
+// tests that the value for sin(beta - alpha_h) returned by the model
+// matches the input
+void test_sin_beta_minus_alpha(double sin_beta_minus_alpha)
+{
+   const auto model = calc_point(sin_beta_minus_alpha);
+   CHECK_CLOSE(model.get_sin_beta_minus_alpha(), sin_beta_minus_alpha, 1e-14);
+}
+
+
+// test stability of alpha_h when h and H are swapped
+TEST_CASE("alpha_h_swapped")
+{
+   test_sin_beta_minus_alpha(1.0);    // order of h and H switched: (H, h)
+   test_sin_beta_minus_alpha(0.9999); // normal ordering: (h, H)
+}
