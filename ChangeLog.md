@@ -10,6 +10,15 @@ Changes
  * Change (commit 00728f28): Performance improvement of the 2-loop
    contributions in the MSSM.
 
+Fixed bugs
+----------
+
+ * Bugfix (commit d2d12dc2): Correcting the calculation of `alpha_h`
+   in the 2HDM when the Higgs boson mass eigenstates h and H change
+   their positions in the multiplet due to mixing effects.  This bug
+   has been seen in a scenario with `tan(beta) < 1` and
+   `sin(beta - alpha_h) ~ 1`.
+
 
 GM2Calc-2.0.0 [October, 25 2021]
 ================================
