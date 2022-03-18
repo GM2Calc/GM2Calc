@@ -11,10 +11,9 @@ THDM at the 1- and leading 2-loop level.
  * Homepage:                https://gm2calc.hepforge.org
  * Source code repository:  https://github.com/gm2calc
  * Source code documentation: https://gm2calc.github.io
- * References:              Eur.Phys.J. C76 (2016) no.2, 62
-   [[arxiv:1510.08071](https://arxiv.org/abs/1510.08071)] and
-   Eur.Phys.J. C82 (2022) no.3, 229
-   [[arxiv:2110.13238](https://arxiv.org/abs/2110.13238)]
+ * References:
+   [[Eur.Phys.J. C76 (2016) no.2, 62](https://arxiv.org/abs/1510.08071)] and
+   [[Eur.Phys.J. C82 (2022) no.3, 229](https://arxiv.org/abs/2110.13238)]
 
 
 Quick start
