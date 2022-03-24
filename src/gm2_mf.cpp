@@ -239,10 +239,10 @@ double calculate_mt_SM6_MSbar(
    const double mt_mt = calculate_mt_SM6_MSbar_at(mt_pole, alpha_s_mt);
 
    // run from Q = mt_pole to Q = scale
-   const double mt_scale = mt_mt * std::pow(scale/mt_pole, -2*alpha_s_mt/pi);
+   const double mt_scale = mt_mt * std::pow(scale/mt_pole, -2/pi*alpha_s_mt);
 
    // Note: QCD beta function of the quark mass parameter:
-   // dm/d(log(Q)) = -2*alpha_s*m/pi
+   // dm/d(log(Q)) = -2/pi*alpha_s*m
 
    return mt_scale;
 }
@@ -275,7 +275,7 @@ double calculate_mb_SM6_MSbar(
    const double mb_mt = mb_mb * Fb(alpha_s_mt) / Fb(alpha_s_mb);
 
    // run mb(mt) to Q = scale
-   const double mb_scale = mb_mt * std::pow(scale/mt_pole, -2*alpha_s_mt/pi);
+   const double mb_scale = mb_mt * std::pow(scale/mt_pole, -2/pi*alpha_s_mt);
 
    return mb_scale;
 }
@@ -297,10 +297,10 @@ double calculate_mtau_SM6_MSbar(
    const double mtau_mtau = mtau_pole; // neglecting loop corrections
 
    // Note: QED beta function of the lepton mass parameter:
-   // dm/d(log(Q)) = -3*alpha_em*m/(2*pi)
+   // dm/d(log(Q)) = -3/(2*pi)*alpha_em*m
 
    // run mtau(mtau) to Q = scale
-   const double mtau_scale = mtau_mtau * std::pow(scale/mtau_mtau, -3*alpha_em_mz/(2*pi));
+   const double mtau_scale = mtau_mtau * std::pow(scale/mtau_mtau, -3/(2*pi)*alpha_em_mz);
 
    return mtau_scale;
 }

@@ -549,17 +549,17 @@ double delta_bottom_correction(const MSSMNoFV_onshell& model)
 
    // Eq.(31)
    const double eps_0 =
-        2. * alpha_S / (3*Pi) * mu * M3
+        2/(3*Pi) * alpha_S * mu * M3
         * Iabc(abs_sqrt(msbL2), abs_sqrt(msbR2), std::abs(M3))
 
-      - sqr(gY) / (96.*sqr(Pi)) * mu * M1
+      - 1/(96*sqr(Pi)) * sqr(gY) * mu * M1
         * (Iabc(abs_sqrt(msbL2), std::abs(mu), std::abs(M1))
-           + 2. * Iabc(abs_sqrt(msbR2), std::abs(mu), std::abs(M1)))
+           + 2 * Iabc(abs_sqrt(msbR2), std::abs(mu), std::abs(M1)))
 
-      - sqr(gY) / (144.*sqr(Pi)) * mu * M1
+      - 1/(144*sqr(Pi)) * sqr(gY) * mu * M1
         * Iabc(abs_sqrt(msbL2), abs_sqrt(msbR2), std::abs(M1))
 
-      - 3. * sqr(g2) / (32.*sqr(Pi)) * mu * M2
+      - 3/(32*sqr(Pi)) * sqr(g2) * mu * M2
         * Iabc(abs_sqrt(msbL2), std::abs(mu), std::abs(M2))
       ;
 
