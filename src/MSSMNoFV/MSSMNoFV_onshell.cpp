@@ -544,7 +544,7 @@ void MSSMNoFV_onshell::convert_Mu_M1_M2(
       const double old_precision = precision;
       precision = calc_precision(bino_idx_DR);
 
-      if (precision > old_precision) {
+      if (precision >= old_precision) {
          if (verbose_output) {
             VERBOSE("   No improvement in last iteration step, stopping iteration ...");
          }
@@ -824,7 +824,7 @@ double MSSMNoFV_onshell::convert_me2_fpi_modify(
       const double old_precision = precision;
       precision = calc_precision(right_index);
 
-      if (precision > old_precision) {
+      if (precision >= old_precision) {
          if (verbose_output) {
             VERBOSE("   No improvement in last iteration step, stopping iteration ...");
          }
