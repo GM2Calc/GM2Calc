@@ -392,11 +392,11 @@ double amu2LChi0Photonic(const MSSMNoFV_onshell& model)
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
          result += 1. / sqr(MSmu(m))
-                    * ((- 1. / 12. * AAN_(i, m) * F1N(x(i, m))
-                       - MNeu(i) / 6. * BBN_(i, m) / model.get_MM() * F2N(x(i, m)))
+                    * ((- 1./12 * AAN_(i, m) * F1N(x(i, m))
+                       -  1./6 * MNeu(i) * BBN_(i, m) / model.get_MM() * F2N(x(i, m)))
                         * 16. * std::log(MM / MSmu(m))
-                      + 35. / 72. * AAN_(i, m) * F3N(x(i, m))
-                      + 8. * MNeu(i) / 9. * BBN_(i, m) / model.get_MM() * F4N(x(i, m))
+                      + 35./72 * AAN_(i, m) * F3N(x(i, m))
+                      + 8./9 * MNeu(i) * BBN_(i, m) / model.get_MM() * F4N(x(i, m))
                       + (0.25 * AAN_(i, m) * F1N(x(i, m)))
                        * std::log(sqr(MSmu(m) / Q)) );
       }
