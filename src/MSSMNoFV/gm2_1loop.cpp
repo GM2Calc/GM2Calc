@@ -478,27 +478,23 @@ double delta_down_lepton_correction(const MSSMNoFV_onshell& model, int gen)
    const double gY = model.get_gY();
    const double M1 = model.get_MassB();
    const double M2 = model.get_MassWB();
-   const double MW = model.get_MW();
-   const double MZ = model.get_MZ();
-   const double SW = std::sqrt(1. - sqr(MW / MZ));
-
-   const double m1 =
-      abs_sqrt(0.5 * (sqr(M2) + sqr(mu) + 2. * sqr(MW)
-                      - abs_sqrt(sqr(sqr(M2) + sqr(mu) + 2. * sqr(MW))
-                                 - sqr(2. * M2 * mu))));
-   const double m2 =
-      abs_sqrt(0.5 * (sqr(M2) + sqr(mu) + 2. * sqr(MW)
-                      + abs_sqrt(sqr(sqr(M2) + sqr(mu) + 2. * sqr(MW))
-                                 - sqr(2. * M2 * mu))));
-   const double m_sneu_lep = abs_sqrt(model.get_ml2(gen, gen) - 0.5 * sqr(MZ));
-   const double m_slep_L = abs_sqrt(model.get_ml2(gen, gen) - sqr(MZ) * (sqr(SW) - 0.5));
-   const double m_slep_R = abs_sqrt(model.get_me2(gen, gen) + sqr(MZ * SW));
+   const double MW2 = sqr(model.get_MW());
+   const double MZ2 = sqr(model.get_MZ());
+   const double SW = std::sqrt(1 - MW2/MZ2);
+   const double SW2 = SW*SW;
+   const double x1 = sqr(M2) + sqr(mu) + 2*MW2;
+   const double x2 = abs_sqrt(sqr(x1) - sqr(2*M2*mu));
+   const double m1 = abs_sqrt(0.5*(x1 - x2));
+   const double m2 = abs_sqrt(0.5*(x1 + x2));
+   const double m_sneu_lep = abs_sqrt(model.get_ml2(gen, gen) - 0.5*MZ2);
+   const double m_slep_L = abs_sqrt(model.get_ml2(gen, gen) - MZ2*(SW2 - 0.5));
+   const double m_slep_R = abs_sqrt(model.get_me2(gen, gen) + MZ2*SW2);
 
    const double delta_lep =
-      - mu * TB * oneOver16PiSqr
-        * (sqr(g2) * M2 * (Iabc(m1, m2, m_sneu_lep) + 0.5 * Iabc(m1, m2, m_slep_L))
-           + sqr(gY) * M1 * (Iabc(mu, M1, m_slep_R) - 0.5 * Iabc(mu, M1, m_slep_L)
-                              - Iabc(M1, m_slep_L, m_slep_R)));
+      - mu*TB*oneOver16PiSqr
+       *(+ sqr(g2)*M2*(Iabc(m1, m2, m_sneu_lep) + 0.5*Iabc(m1, m2, m_slep_L))
+         + sqr(gY)*M1*(Iabc(mu, M1, m_slep_R) - 0.5*Iabc(mu, M1, m_slep_L)
+                       - Iabc(M1, m_slep_L, m_slep_R)));
 
    return delta_lep;
 }
