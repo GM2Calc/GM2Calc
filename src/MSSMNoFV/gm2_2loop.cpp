@@ -286,7 +286,6 @@ double amu2LFSfapprox_non_tan_beta_resummed(const MSSMNoFV_onshell& model)
  */
 double amu2LFSfapprox(const MSSMNoFV_onshell& model)
 {
-
    return amu2LFSfapprox_non_tan_beta_resummed(model) * tan_beta_cor(model);
 }
 
