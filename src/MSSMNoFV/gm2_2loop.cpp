@@ -41,6 +41,46 @@ namespace {
 const double oneOver16PiSqr = 6.332573977646111e-3; // 1/(4 Pi)^2
 const double root2 = 1.414213562373095; // Sqrt[2]
 
+/**
+ * Calculates 1st line of Eq (6.5) arxiv:1311.1775.
+ */
+double amu2LWHnu(const MSSMNoFV_onshell& model, double delta_g2, double delta_yuk, double delta_tb)
+{
+   return amu1LWHnu(model) * (0.015 + delta_g2 + delta_yuk + delta_tb);
+}
+
+/**
+ * Calculates 2nd line of Eq (6.5) arxiv:1311.1775.
+ */
+double amu2LWHmuL(const MSSMNoFV_onshell& model, double delta_g2, double delta_yuk, double delta_tb)
+{
+   return amu1LWHmuL(model) * (0.015 + delta_g2 + delta_yuk + delta_tb);
+}
+
+/**
+ * Calculates 3rd line of Eq (6.5) arxiv:1311.1775.
+ */
+double amu2LBHmuL(const MSSMNoFV_onshell& model, double delta_g1, double delta_yuk, double delta_tb)
+{
+   return amu1LBHmuL(model) * (0.015 + delta_g1 + delta_yuk + delta_tb);
+}
+
+/**
+ * Calculates 4th line of Eq (6.5) arxiv:1311.1775.
+ */
+double amu2LBHmuR(const MSSMNoFV_onshell& model, double delta_g1, double delta_yuk, double delta_tb)
+{
+   return amu1LBHmuR(model) * (0.04 + delta_g1 + delta_yuk + delta_tb);
+}
+
+/**
+ * Calculates 5th line of Eq (6.5) arxiv:1311.1775.
+ */
+double amu2LBmuLmuR(const MSSMNoFV_onshell& model, double delta_g1, double delta_tb)
+{
+   return amu1LBmuLmuR(model) * (0.03 + delta_g1 + delta_tb);
+}
+
 } // anonymous namespace
 
 /**
@@ -222,9 +262,10 @@ double delta_tan_beta(const MSSMNoFV_onshell& model)
  */
 double amu2LWHnu(const MSSMNoFV_onshell& model)
 {
-   return amu1LWHnu(model) *
-          (0.015 + delta_g2(model) + delta_yuk_higgsino(model) +
-           delta_yuk_wino_higgsino(model) + delta_tan_beta(model));
+   return amu2LWHnu(model,
+                    delta_g2(model),
+                    delta_yuk_higgsino(model) + delta_yuk_wino_higgsino(model),
+                    delta_tan_beta(model));
 }
 
 /**
@@ -232,9 +273,10 @@ double amu2LWHnu(const MSSMNoFV_onshell& model)
  */
 double amu2LWHmuL(const MSSMNoFV_onshell& model)
 {
-   return amu1LWHmuL(model) *
-          (0.015 + delta_g2(model) + delta_yuk_higgsino(model) +
-           delta_yuk_wino_higgsino(model) + delta_tan_beta(model));
+   return amu2LWHmuL(model,
+                     delta_g2(model),
+                     delta_yuk_higgsino(model) + delta_yuk_wino_higgsino(model),
+                     delta_tan_beta(model));
 }
 
 /**
@@ -242,9 +284,10 @@ double amu2LWHmuL(const MSSMNoFV_onshell& model)
  */
 double amu2LBHmuL(const MSSMNoFV_onshell& model)
 {
-   return amu1LBHmuL(model) *
-          (0.015 + delta_g1(model) + delta_yuk_higgsino(model) +
-           delta_yuk_bino_higgsino(model) + delta_tan_beta(model));
+   return amu2LBHmuL(model,
+                     delta_g1(model),
+                     delta_yuk_higgsino(model) + delta_yuk_bino_higgsino(model),
+                     delta_tan_beta(model));
 }
 
 /**
@@ -252,9 +295,10 @@ double amu2LBHmuL(const MSSMNoFV_onshell& model)
  */
 double amu2LBHmuR(const MSSMNoFV_onshell& model)
 {
-   return amu1LBHmuR(model) *
-          (0.04 + delta_g1(model) + delta_yuk_higgsino(model) +
-           delta_yuk_bino_higgsino(model) + delta_tan_beta(model));
+   return amu2LBHmuR(model,
+                     delta_g1(model),
+                     delta_yuk_higgsino(model) + delta_yuk_bino_higgsino(model),
+                     delta_tan_beta(model));
 }
 
 /**
@@ -262,8 +306,7 @@ double amu2LBHmuR(const MSSMNoFV_onshell& model)
  */
 double amu2LBmuLmuR(const MSSMNoFV_onshell& model)
 {
-   return amu1LBmuLmuR(model) *
-          (0.03 + delta_g1(model) + delta_tan_beta(model));
+   return amu2LBmuLmuR(model, delta_g1(model), delta_tan_beta(model));
 }
 
 /**
@@ -274,8 +317,17 @@ double amu2LBmuLmuR(const MSSMNoFV_onshell& model)
  */
 double amu2LFSfapprox_non_tan_beta_resummed(const MSSMNoFV_onshell& model)
 {
-   return amu2LWHnu(model) + amu2LWHmuL(model) + amu2LBHmuL(model) +
-          amu2LBHmuR(model) + amu2LBmuLmuR(model);
+   const double dg1 = delta_g1(model);
+   const double dg2 = delta_g2(model);
+   const double dyb = delta_yuk_higgsino(model) + delta_yuk_bino_higgsino(model);
+   const double dyw = delta_yuk_higgsino(model) + delta_yuk_wino_higgsino(model);
+   const double dtb = delta_tan_beta(model);
+
+   return amu2LWHnu(model, dg2, dyw, dtb)
+        + amu2LWHmuL(model, dg2, dyw, dtb)
+        + amu2LBHmuL(model, dg1, dyb, dtb)
+        + amu2LBHmuR(model, dg1, dyb, dtb)
+        + amu2LBmuLmuR(model, dg1, dtb);
 }
 
 /**
