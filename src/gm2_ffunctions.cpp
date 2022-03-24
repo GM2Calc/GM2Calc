@@ -299,8 +299,8 @@ double F3N(double x) noexcept {
 
    const double x2 = sqr(x);
 
-   return 4.0/(105.0 * pow4(d)) * (
-      + (1.0 - x) * (- 97.0 * x2 - 529.0 * x + 2.0)
+   return 4.0/105.0/pow4(d) * (
+      + (1.0 - x) * (-97.0 * x2 - 529.0 * x + 2.0)
       + 6.0 * x2 * (13.0 * x + 81.0) * std::log(x)
       + 108.0 * x * (7.0 * x + 4.0) * dilog(1.0 - x)
       );
