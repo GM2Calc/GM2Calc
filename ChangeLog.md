@@ -1,3 +1,14 @@
+GM2Calc-2.2.0 [not released yet]
+================================
+
+Changes
+-------
+
+ * Change (commits 2e0a7b0d, 80bb314e): Performance improvement of
+   DR-bar to on-shell conversion for parameter points where the
+   conversion does not converge.
+
+
 GM2Calc-2.1.0 [March, 18 2022]
 ==============================
 
