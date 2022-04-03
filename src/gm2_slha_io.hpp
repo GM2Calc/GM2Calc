@@ -123,7 +123,25 @@ Scalar GM2_slha_io::convert_to(const std::string& str)
 {
    Scalar value;
    try {
-      value = SLHAea::to<Scalar>(str);
+      if (std::is_same<Scalar, int>::value) {
+         value = std::stoi(str);
+      } else if (std::is_same<Scalar, long>::value) {
+         value = std::stol(str);
+      } else if (std::is_same<Scalar, long long>::value) {
+         value = std::stoll(str);
+      } else if (std::is_same<Scalar, unsigned long>::value) {
+         value = std::stoul(str);
+      } else if (std::is_same<Scalar, unsigned long long>::value) {
+         value = std::stoull(str);
+      } else if (std::is_same<Scalar, float>::value) {
+         value = std::stof(str);
+      } else if (std::is_same<Scalar, double>::value) {
+         value = std::stod(str);
+      } else if (std::is_same<Scalar, long double>::value) {
+         value = std::stold(str);
+      } else {
+         value = SLHAea::to<Scalar>(str);
+      }
       if (!std::isfinite(static_cast<double>(value))) {
          throw 1;
       }
