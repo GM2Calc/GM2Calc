@@ -153,12 +153,12 @@ double GM2_slha_io::read_scale(const SLHAea::Block& block)
 double GM2_slha_io::read_scale(const std::string& block_name) const
 {
    double scale = 0.;
-   auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
+   auto block = data.find(block_name);
 
    while (block != data.cend()) {
       scale = GM2_slha_io::read_scale(*block);
       ++block;
-      block = SLHAea::Coll::find(block, data.cend(), block_name);
+      block = data.find(block, data.end(), block_name);
    }
 
    return scale;
@@ -213,7 +213,7 @@ void GM2_slha_io::read_block(const std::string& block_name,
                              const Tuple_processor& processor,
                              double scale) const
 {
-   auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
+   auto block = data.find(block_name);
 
    while (block != data.cend()) {
       if (is_at_scale(*block, scale)) {
@@ -221,7 +221,7 @@ void GM2_slha_io::read_block(const std::string& block_name,
       }
 
       ++block;
-      block = SLHAea::Coll::find(block, data.cend(), block_name);
+      block = data.find(block, data.end(), block_name);
    }
 }
 
@@ -253,7 +253,7 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
                                    unsigned entry, double value,
                                    const std::string& description)
 {
-   auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
+   auto block = data.find(block_name);
 
    if (block == data.cend()) {
       SLHAea::Block block;
@@ -276,7 +276,7 @@ void GM2_slha_io::fill_block_entry(const std::string& block_name,
                                    unsigned entry,
                                    const std::string& description)
 {
-   auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
+   auto block = data.find(block_name);
 
    if (block == data.cend()) {
       SLHAea::Block block;

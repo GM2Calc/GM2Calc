@@ -228,7 +228,7 @@ void GM2_slha_io::read_block(const std::string& block_name,
                              Eigen::MatrixBase<Derived>& matrix,
                              double scale) const
 {
-   auto block = SLHAea::Coll::find(data.cbegin(), data.cend(), block_name);
+   auto block = data.find(block_name);
 
    while (block != data.cend()) {
       if (is_at_scale(*block, scale)) {
@@ -236,7 +236,7 @@ void GM2_slha_io::read_block(const std::string& block_name,
       }
 
       ++block;
-      block = SLHAea::Coll::find(block, data.cend(), block_name);
+      block = data.find(block, data.end(), block_name);
    }
 }
 
