@@ -4,7 +4,7 @@
 #include "gm2calc/gm2_error.hpp"
 #include "gm2calc/MSSMNoFV_onshell.hpp"
 
-#include <iostream>
+#include <cstdio>
 
 gm2calc::MSSMNoFV_onshell setup() {
    gm2calc::MSSMNoFV_onshell model;
@@ -62,12 +62,12 @@ gm2calc::MSSMNoFV_onshell setup() {
 
    // check for warnings
    if (model.get_problems().have_warning()) {
-      std::cout << model.get_problems().get_warnings()  << '\n';
+      std::printf("%s\n", model.get_problems().get_warnings().c_str());
    }
 
    // check for problems
    if (model.get_problems().have_problem()) {
-      std::cout << model.get_problems().get_problems()  << '\n';
+      std::printf("%s\n", model.get_problems().get_problems().c_str());
    }
 
    return model;
@@ -84,9 +84,9 @@ int main() {
       const double delta_amu =
          gm2calc::calculate_uncertainty_amu_2loop(model);
 
-      std::cout << "amu = " << amu << " +- " << delta_amu << '\n';
+      std::printf("amu = %.5e +- %.5e\n", amu, delta_amu);
    } catch (const gm2calc::Error& e) {
-      std::cout << e.what() << '\n';
+      std::printf("%s\n", e.what());
    }
 
    return 0;
