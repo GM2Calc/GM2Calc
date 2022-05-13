@@ -4,6 +4,8 @@ project(GM2Calc
   DESCRIPTION "Calculation of BSM contributions to the anomalous magnetic moment of the muon"
   LANGUAGES C CXX)
 
+option(ENABLE_MATHEMATICA "Enable Mathematica interface" ON)
+
 include(GNUInstallDirs)
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -35,7 +37,9 @@ string(REGEX REPLACE "^#define[ \t]+GM2CALC_VERSION[ \t]+\"([0-9.]+)\"$" "\\1" G
 
 find_package(Boost 1.37.0 REQUIRED)
 find_package(Eigen3 3.1 REQUIRED)
-find_package(Mathematica COMPONENTS MathLink)
+if(ENABLE_MATHEMATICA)
+  find_package(Mathematica COMPONENTS MathLink)
+endif()
 
 # Needed a shared library for cppyy package used for the python interface
 if(${BUILD_SHARED_LIBS})
