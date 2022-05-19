@@ -6,6 +6,7 @@ project(GM2Calc
 
 option(ENABLE_MATHEMATICA "Enable Mathematica interface" ON)
 option(ENABLE_PYTHON "Enable Python interface" ON)
+option(ENABLE_TESTS "Enable tests" ON)
 
 include(GNUInstallDirs)
 
@@ -80,7 +81,7 @@ add_subdirectory(src)
 add_subdirectory(examples)
 add_subdirectory(doc)
 
-if(EXISTS "${PROJECT_SOURCE_DIR}/test")
+if(ENABLE_TESTS AND EXISTS "${PROJECT_SOURCE_DIR}/test")
   enable_testing()
   add_subdirectory(test)
 endif()
