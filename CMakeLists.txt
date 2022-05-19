@@ -5,6 +5,7 @@ project(GM2Calc
   LANGUAGES C CXX)
 
 option(ENABLE_MATHEMATICA "Enable Mathematica interface" ON)
+option(ENABLE_PYTHON "Enable Python interface" ON)
 
 include(GNUInstallDirs)
 
@@ -41,12 +42,14 @@ if(ENABLE_MATHEMATICA)
   find_package(Mathematica COMPONENTS MathLink)
 endif()
 
-# Needed a shared library for cppyy package used for the python interface
-if(${BUILD_SHARED_LIBS})
-  find_package(Python2 COMPONENTS Interpreter Development)
-  find_package(Python3 COMPONENTS Interpreter Development)
-else()
-  message("-- Python interface requires a shared library to be built.  Use the option -DBUILD_SHARED_LIBS=ON to enable.")
+if(ENABLE_PYTHON)
+  # Needed a shared library for cppyy package used for the python interface
+  if(${BUILD_SHARED_LIBS})
+    find_package(Python2 COMPONENTS Interpreter Development)
+    find_package(Python3 COMPONENTS Interpreter Development)
+  else()
+    message("-- Python interface requires a shared library to be built.  Use the option -DBUILD_SHARED_LIBS=ON to enable.")
+  endif()
 endif()
 
 if(Python2_FOUND)
