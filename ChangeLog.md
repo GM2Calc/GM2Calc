@@ -1,6 +1,32 @@
 GM2Calc-2.2.0 [not released yet]
 ================================
 
+New
+---
+
+ * The Mathematica interface can now be disabled at the CMake level
+   with the CMake option `ENABLE_MATHEMATICA`. The Mathematica
+   interface is enabled by default.
+
+   Example:
+
+       cmake -DENABLE_MATHEMATICA=OFF ..
+
+ * The Python interface can now be disabled at the CMake level with
+   the CMake option `ENABLE_PYTHON`. The Python interface is enabled
+   by default.
+   
+   Example:
+
+       cmake -DENABLE_PYTHON=OFF ..
+
+ * The tests can now be disabled at the CMake level with the CMake
+   option `ENABLE_TESTS`. The tests are enabled by default.
+   
+   Example:
+
+       cmake -DENABLE_TESTS=OFF ..
+
 Changes
 -------
 
