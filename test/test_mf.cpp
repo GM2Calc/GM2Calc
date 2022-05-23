@@ -80,7 +80,7 @@ TEST_CASE("mt_MSbar_at_mt")
 }
 
 
-// This test checks the calculation of mt(MS-bar,Q=mt)
+// This test checks the calculation of mt(MS-bar,Q=1000GeV)
 TEST_CASE("mt_MSbar_at_1TeV")
 {
    const double alpha_s_mz = 0.1184;
@@ -97,7 +97,7 @@ TEST_CASE("mt_MSbar_at_1TeV")
 }
 
 
-// This test checks the calculation of mt(MS-bar,Q=mt)
+// This test checks the calculation of mt(MS-bar,1000GeV)
 TEST_CASE("mtau_MSbar_at_1TeV")
 {
    const double alpha_em_mz = 1/127.934;
