@@ -377,7 +377,7 @@ double Fb(double x, double y) noexcept {
 
    sort(x, y);
 
-   if (is_zero(x, eps) || is_zero(y, eps)) {
+   if (is_zero(y, eps)) {
       return 0;
    }
 
@@ -453,7 +453,7 @@ double Fa(double x, double y) noexcept {
 
    sort(x, y);
 
-   if (is_zero(x, eps) || is_zero(y, eps)) {
+   if (is_zero(y, eps)) {
       return 0;
    }
 
