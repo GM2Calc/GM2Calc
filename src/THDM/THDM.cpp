@@ -491,14 +491,15 @@ void THDM::set_basis(const thdm::Mass_basis& basis)
 
    const double sba = basis.sin_beta_minus_alpha;
    const double tb = basis.tan_beta;
-   const double ctb = 1./tb;
-   const double sb = tb/std::sqrt(1 + sqr(tb));
-   const double cb = 1./std::sqrt(1 + sqr(tb));
+   const double ctb = 1/tb;
+   const double rtb = std::sqrt(1 + sqr(tb));
+   const double sb = tb/rtb;
+   const double cb = 1/rtb;
    const double sb2 = sqr(sb);
    const double cb2 = sqr(cb);
    const double alpha = -std::asin(sba) + std::atan(tb);
    const double sa = std::sin(alpha);
-   const double ca  = std::cos(alpha);
+   const double ca = std::cos(alpha);
    const double mh = basis.mh;
    const double mH = basis.mH;
    const double mA = basis.mA;
