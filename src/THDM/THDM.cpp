@@ -29,7 +29,8 @@ namespace gm2calc {
 
 namespace {
 
-const double sqrt2 = 1.4142135623730950; // Sqrt[2]
+constexpr double sqrt2 = 1.4142135623730950; // Sqrt[2]
+constexpr double inv_sqrt2 = 0.70710678118654752; // 1/Sqrt[2]
 
 /// Eq.(6) arxiv:0908.1554 and arxiv:1001.0293, solved for xi_f
 double calc_xi(double zeta, double tan_beta) noexcept
@@ -295,7 +296,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuh() const
    const double v = get_v();
    const Eigen::Matrix<double,3,3> mu = get_mu(get_Mhh(0)).asDiagonal();
 
-   return sba*mu/v + cba*get_rho_u(mu)/sqrt2;
+   return sba*mu/v + cba*get_rho_u(mu)*inv_sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuH() const
@@ -305,13 +306,13 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuH() const
    const double v = get_v();
    const Eigen::Matrix<double,3,3> mu = get_mu(get_Mhh(1)).asDiagonal();
 
-   return cba*mu/v - sba*get_rho_u(mu)/sqrt2;
+   return cba*mu/v - sba*get_rho_u(mu)*inv_sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuA() const
 {
    const Eigen::Matrix<double,3,3> mu = get_mu(get_MAh(1)).asDiagonal();
-   return get_rho_u(mu)/sqrt2;
+   return get_rho_u(mu)*inv_sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_yuHp() const
@@ -327,7 +328,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ydh() const
    const double v = get_v();
    const Eigen::Matrix<double,3,3> md = get_md(get_Mhh(0)).asDiagonal();
 
-   return sba*md/v + cba*get_rho_d(md)/sqrt2;
+   return sba*md/v + cba*get_rho_d(md)*inv_sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_ydH() const
@@ -337,13 +338,13 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ydH() const
    const double v = get_v();
    const Eigen::Matrix<double,3,3> md = get_md(get_Mhh(1)).asDiagonal();
 
-   return cba*md/v - sba*get_rho_d(md)/sqrt2;
+   return cba*md/v - sba*get_rho_d(md)*inv_sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_ydA() const
 {
    const Eigen::Matrix<double,3,3> md = get_md(get_MAh(1)).asDiagonal();
-   return -get_rho_d(md)/sqrt2;
+   return -get_rho_d(md)*inv_sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_ydHp() const
@@ -359,7 +360,7 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylh() const
    const double v = get_v();
    const Eigen::Matrix<double,3,3> ml = get_ml(get_Mhh(0)).asDiagonal();
 
-   return sba*ml/v + cba*get_rho_l(ml)/sqrt2;
+   return sba*ml/v + cba*get_rho_l(ml)*inv_sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylH() const
@@ -369,13 +370,13 @@ Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylH() const
    const double v = get_v();
    const Eigen::Matrix<double,3,3> ml = get_ml(get_Mhh(1)).asDiagonal();
 
-   return cba*ml/v - sba*get_rho_l(ml)/sqrt2;
+   return cba*ml/v - sba*get_rho_l(ml)*inv_sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylA() const
 {
    const Eigen::Matrix<double,3,3> ml = get_ml(get_MAh(1)).asDiagonal();
-   return -get_rho_l(ml)/sqrt2;
+   return -get_rho_l(ml)*inv_sqrt2;
 }
 
 Eigen::Matrix<std::complex<double>,3,3> THDM::get_ylHp() const
