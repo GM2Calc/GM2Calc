@@ -499,8 +499,6 @@ void THDM::set_basis(const thdm::Mass_basis& basis)
    const double alpha = -std::asin(sba) + std::atan(tb);
    const double sa = std::sin(alpha);
    const double ca  = std::cos(alpha);
-   const double sa2 = sqr(sa);
-   const double ca2 = sqr(ca);
    const double mh = basis.mh;
    const double mH = basis.mH;
    const double mA = basis.mA;
@@ -511,8 +509,8 @@ void THDM::set_basis(const thdm::Mass_basis& basis)
    const double v = sm.get_v();
    const double v2 = sqr(v);
 
-   set_lambda1((sqr(mH)*ca2 + sqr(mh)*sa2 - m12_2*tb)/(v2*cb2) - 1.5*lambda6*tb + 0.5*lambda7*tb*tb*tb);
-   set_lambda2((sqr(mH)*sa2 + sqr(mh)*ca2 - m12_2*ctb)/(v2*sb2) + 0.5*lambda6*ctb*ctb*ctb - 1.5*lambda7*ctb);
+   set_lambda1((sqr(mH*ca) + sqr(mh*sa) - m12_2*tb)/(v2*cb2) - 1.5*lambda6*tb + 0.5*lambda7*tb*tb*tb);
+   set_lambda2((sqr(mH*sa) + sqr(mh*ca) - m12_2*ctb)/(v2*sb2) + 0.5*lambda6*ctb*ctb*ctb - 1.5*lambda7*ctb);
    set_lambda3(((sqr(mH) - sqr(mh))*ca*sa + 2.*sqr(mHp)*sb*cb - m12_2)/(v2*sb*cb) - 0.5*lambda6*ctb - 0.5*lambda7*tb);
    set_lambda4(((sqr(mA) - 2.*sqr(mHp))*cb*sb + m12_2)/(v2*sb*cb) - 0.5*lambda6*ctb - 0.5*lambda7*tb);
    set_lambda5((m12_2 - sqr(mA)*sb*cb)/v2/sb/cb - 0.5*lambda6*ctb - 0.5*lambda7*tb);
