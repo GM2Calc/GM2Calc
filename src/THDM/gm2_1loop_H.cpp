@@ -112,14 +112,14 @@ double amu1L_approx(const THDM_1L_parameters& pars) noexcept
 
    // Eq.(27), arxiv:1607.06292
    const auto res =
-      + std::norm(pars.ylh(1,1)) * mm2/mh2 * Fh(mm2/mh2)
-      + std::norm(pars.ylH(1,1)) * mm2/mH2 * Fh(mm2/mH2)
-      + std::norm(pars.ylA(1,1)) * mm2/mA2 * FA(mm2/mA2)
-      + 0.5 * std::norm(pars.ylHp(1,1)) * mm2/mHp2 * FHp(mm2/mHp2)
+      + std::norm(pars.ylh(1,1))/mh2*Fh(mm2/mh2)
+      + std::norm(pars.ylH(1,1))/mH2*Fh(mm2/mH2)
+      + std::norm(pars.ylA(1,1))/mA2*FA(mm2/mA2)
+      + 0.5 * std::norm(pars.ylHp(1,1))/mHp2*FHp(mm2/mHp2)
       // subtract SM contribution
-      - mm2/v2 * mm2/mhSM2 * Fh(mm2/mhSM2);
+      - mm2/(v2*mhSM2)*Fh(mm2/mhSM2);
 
-   return res/(8*pi2);
+   return mm2*res/(8*pi2);
 }
 
 /**
@@ -149,16 +149,16 @@ double amu1L(const THDM_1L_parameters& pars) noexcept
    double res = 0.0;
 
    for (int g = 0; g < 3; ++g) {
-      res += mm2/mh2 * AS(g, pars.ml, mh2, pars.ylh);
-      res += mm2/mH2 * AS(g, pars.ml, mH2, pars.ylH);
-      res += mm2/mA2 * AA(g, pars.ml, mA2, pars.ylA);
-      res += mm2/mHp2 * AHp(g, pars.mv, mHp2, pars.ylHp);
+      res += AS(g, pars.ml, mh2, pars.ylh)/mh2;
+      res += AS(g, pars.ml, mH2, pars.ylH)/mH2;
+      res += AA(g, pars.ml, mA2, pars.ylA)/mA2;
+      res += AHp(g, pars.mv, mHp2, pars.ylHp)/mHp2;
    }
 
    // subtract SM contribution
-   res -= mm2/mhSM2 * AS(1, pars.ml, mhSM2, ylhSM);
+   res -= AS(1, pars.ml, mhSM2, ylhSM)/mhSM2;
 
-   return res/(8*pi2);
+   return mm2*res/(8*pi2);
 }
 
 /**
