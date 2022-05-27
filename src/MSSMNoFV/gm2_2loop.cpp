@@ -361,12 +361,12 @@ double amu2LChipmPhotonic(const MSSMNoFV_onshell& model)
 
    for (int k = 0; k < 2; k++) {
       result += (AAC_(k) * F1C(x(k)) / 12.
-                 + MCha(k) / 3. * BBC_(k) / model.get_MM() * F2C(x(k)))
+                 + MCha(k) / 3. * BBC_(k) / MM * F2C(x(k)))
                     * 16. * std::log(MM / MSvmL)
                   - 47. * AAC_(k) * F3C(x(k)) / 72.
-                  - 61. * MCha(k) / 9. * BBC_(k) / model.get_MM() * F4C(x(k))
+                  - 61. * MCha(k) / 9. * BBC_(k) / MM * F4C(x(k))
                   - (0.5 * AAC_(k) * F1C(x(k))
-                     + MCha(k) * BBC_(k) / model.get_MM() * F2C(x(k)))
+                     + MCha(k) * BBC_(k) / MM * F2C(x(k)))
                     * std::log(sqr(MSvmL / Q));
    }
 
@@ -393,10 +393,10 @@ double amu2LChi0Photonic(const MSSMNoFV_onshell& model)
       for (int m = 0; m < 2; ++m) {
          result += 1. / sqr(MSmu(m))
                     * ((- 1./12 * AAN_(i, m) * F1N(x(i, m))
-                       -  1./6 * MNeu(i) * BBN_(i, m) / model.get_MM() * F2N(x(i, m)))
+                       -  1./6 * MNeu(i) * BBN_(i, m) / MM * F2N(x(i, m)))
                         * 16. * std::log(MM / MSmu(m))
                       + 35./72 * AAN_(i, m) * F3N(x(i, m))
-                      + 8./9 * MNeu(i) * BBN_(i, m) / model.get_MM() * F4N(x(i, m))
+                      + 8./9 * MNeu(i) * BBN_(i, m) / MM * F4N(x(i, m))
                       + (0.25 * AAN_(i, m) * F1N(x(i, m)))
                        * std::log(sqr(MSmu(m) / Q)) );
       }
