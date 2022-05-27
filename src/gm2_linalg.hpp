@@ -1500,11 +1500,10 @@ void fs_diagonalize_hermitian_2x2
  Eigen::Matrix<Real, 2, 2>& z)
 {
    Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Real,2,2> > es;
-   Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Real,2,2> >& result
-      = es.computeDirect(m, Eigen::ComputeEigenvectors);
+   es.computeDirect(m, Eigen::ComputeEigenvectors);
 
-   w = result.eigenvalues();
-   z = result.eigenvectors();
+   w = es.eigenvalues();
+   z = es.eigenvectors();
 }
 
 } // namespace gm2calc
