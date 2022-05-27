@@ -1494,7 +1494,7 @@ void fs_diagonalize_hermitian
  * @param[out] z      2-by-2 unitary matrix
  */
 template<class Real>
-void fs_diagonalize_hermitian_2x2
+void fs_diagonalize_hermitian
 (const Eigen::Matrix<Real, 2, 2>& m,
  Eigen::Array<Real, 2, 1>& w,
  Eigen::Matrix<Real, 2, 2>& z)

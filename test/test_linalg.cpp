@@ -10,21 +10,48 @@
       CHECK((a) == doctest::Approx(b).epsilon(eps));    \
    } while (0)
 
+
 using RM22 = Eigen::Matrix<double,2,2>;
 using AR21 = Eigen::Array<double,2,1>;
+
 
 RM22 create_real_symmetric_2x2(double a, double b, double c)
 {
    return (RM22() << a, b, b, c).finished();
 }
 
+
+// diagonalization using the general SelfAdjointEigenSolver
+void diagonalize_real_symmetric_2x2(const RM22& m, AR21& w, RM22& z)
+{
+   constexpr int N = 2;
+   using Scalar = double;
+
+   Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Scalar,N,N> >
+      es(m, Eigen::ComputeEigenvectors);
+   w = es.eigenvalues();
+   z = es.eigenvectors();
+
+   Eigen::PermutationMatrix<N> p;
+   p.setIdentity();
+   std::sort(p.indices().data(), p.indices().data() + p.indices().size(),
+             [&w] (int i, int j) { return std::abs(w[i]) < std::abs(w[j]); });
+#if EIGEN_VERSION_AT_LEAST(3,1,4)
+   w.matrix().transpose() *= p;
+#else
+   Eigen::Map<Eigen::Matrix<Real, N, 1> >(w.data()).transpose() *= p;
+#endif
+   z = (z * p).adjoint().eval();
+}
+
+
 void test_real_symmetric_2x2(const RM22& m, double eps)
 {
    AR21 v1, v2;
    RM22 z1, z2;
 
-   gm2calc::fs_diagonalize_hermitian<double,double,2>(m, v1, z1);
-   gm2calc::fs_diagonalize_hermitian_2x2<double>(m, v2, z2);
+   diagonalize_real_symmetric_2x2(m, v1, z1);
+   gm2calc::fs_diagonalize_hermitian<double>(m, v2, z2);
 
    CHECK_CLOSE(v1(0), v2(0), eps);
    CHECK_CLOSE(v1(1), v2(1), eps);
@@ -37,6 +64,7 @@ void test_real_symmetric_2x2(const RM22& m, double eps)
    CHECK_CLOSE((m - z1.transpose() * v1.matrix().asDiagonal() * z1).cwiseAbs().maxCoeff(), 0.0, eps);
    CHECK_CLOSE((m - z2.transpose() * v2.matrix().asDiagonal() * z2).cwiseAbs().maxCoeff(), 0.0, eps);
 }
+
 
 // test eigenvalues of real symmetric 2x2 matrix
 TEST_CASE("test-real-symmetric-2x2")
