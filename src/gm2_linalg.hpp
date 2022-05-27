@@ -1499,11 +1499,16 @@ void fs_diagonalize_hermitian_2x2
  Eigen::Array<Real, 2, 1>& w,
  Eigen::Matrix<Real, 2, 2>& z)
 {
-   Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Real,2,2> > es;
+   Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Real, 2, 2> > es;
    es.computeDirect(m, Eigen::ComputeEigenvectors);
 
    w = es.eigenvalues();
    z = es.eigenvectors();
+
+   if (std::abs(w[0]) > std::abs(w[1])) {
+      std::swap(w(0), w(1));
+      z.row(0).swap(z.row(1));
+   }
 }
 
 } // namespace gm2calc
