@@ -539,10 +539,10 @@ double delta_bottom_correction(const MSSMNoFV_onshell& model)
    const double M1 = model.get_MassB();
    const double M2 = model.get_MassWB();
    const double M3 = model.get_MassG();
-   const double mstL2 = std::abs(model.get_mq2(2,2));
-   const double mstR2 = std::abs(model.get_mu2(2,2));
-   const double msbL2 = std::abs(model.get_mq2(2,2));
-   const double msbR2 = std::abs(model.get_md2(2,2));
+   const double mstL = abs_sqrt(model.get_mq2(2,2));
+   const double mstR = abs_sqrt(model.get_mu2(2,2));
+   const double msbL = abs_sqrt(model.get_mq2(2,2));
+   const double msbR = abs_sqrt(model.get_md2(2,2));
 
    // Note:
    // 1/z^2 H_2(x^2/z^2, y^2/z^2) = - Iabc(x,y,z)
@@ -550,20 +550,20 @@ double delta_bottom_correction(const MSSMNoFV_onshell& model)
    // Eq.(31)
    const double eps_0 =
         2/(3*Pi) * alpha_S * mu * M3
-        * Iabc(abs_sqrt(msbL2), abs_sqrt(msbR2), std::abs(M3))
+        * Iabc(msbL, msbR, std::abs(M3))
 
       - 1/(96*sqr(Pi)) * sqr(gY) * mu * M1
-        * (Iabc(abs_sqrt(msbL2), std::abs(mu), std::abs(M1))
-           + 2 * Iabc(abs_sqrt(msbR2), std::abs(mu), std::abs(M1)))
+        * (Iabc(msbL, std::abs(mu), std::abs(M1))
+           + 2 * Iabc(msbR, std::abs(mu), std::abs(M1)))
 
       - 1/(144*sqr(Pi)) * sqr(gY) * mu * M1
-        * Iabc(abs_sqrt(msbL2), abs_sqrt(msbR2), std::abs(M1))
+        * Iabc(msbL, msbR, std::abs(M1))
 
       - 3/(32*sqr(Pi)) * sqr(g2) * mu * M2
-        * Iabc(abs_sqrt(msbL2), std::abs(mu), std::abs(M2))
+        * Iabc(msbL, std::abs(mu), std::abs(M2))
       ;
 
-   const double Ittm = Iabc(abs_sqrt(mstL2), abs_sqrt(mstR2), std::abs(mu));
+   const double Ittm = Iabc(mstL, mstR, std::abs(mu));
 
    // Eq.(35), term ~ self-energy neglected
    const double eps_Y_vM = - oneOver16PiSqr * At * mu * Ittm;
