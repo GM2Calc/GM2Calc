@@ -54,8 +54,12 @@ void hermitian_eigen
  Eigen::Array<Real, N, 1>& w,
  Eigen::Matrix<Scalar, N, N> *z)
 {
-    Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Scalar,N,N> >
-	es(m, z ? Eigen::ComputeEigenvectors : Eigen::EigenvaluesOnly);
+    Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Scalar,N,N> > es;
+    if (N == 2 || N == 3) {
+        es.computeDirect(m, z ? Eigen::ComputeEigenvectors : Eigen::EigenvaluesOnly);
+    } else {
+	es.compute(m, z ? Eigen::ComputeEigenvectors : Eigen::EigenvaluesOnly);
+    }
     w = es.eigenvalues();
     if (z) { *z = es.eigenvectors(); }
 }
@@ -1479,38 +1483,6 @@ void fs_diagonalize_hermitian
  Real& w_errbd)
 {
     fs_diagonalize_hermitian_errbd<Real,Scalar,N>(m, w, 0, &w_errbd);
-}
-
-/**
- * Diagonalizes 2-by-2 hermitian matrix m so that
- *
- *     m == z.adjoint() * w.matrix().asDiagonal() * z    // convention of SARAH
- *
- * w is arranged so that `abs(w[i])` are in ascending order.
- *
- * @tparam     Real   real numeric type
- * @tparam     Scalar type of elements of m and z
- * @tparam     N      number of rows and columns in m and z (assumed to be 2)
- * @param[in]  m      2-by-2 matrix to be diagonalized
- * @param[out] w      array of length 2 to contain eigenvalues
- * @param[out] z      2-by-2 unitary matrix
- */
-template<class Real, class Scalar, int>
-void fs_diagonalize_hermitian
-(const Eigen::Matrix<Scalar, 2, 2>& m,
- Eigen::Array<Real, 2, 1>& w,
- Eigen::Matrix<Scalar, 2, 2>& z)
-{
-   Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Scalar, 2, 2> > es;
-   es.computeDirect(m, Eigen::ComputeEigenvectors);
-
-   w = es.eigenvalues();
-   z = es.eigenvectors();
-
-   if (std::abs(w[0]) > std::abs(w[1])) {
-      std::swap(w(0), w(1));
-      z.row(0).swap(z.row(1));
-   }
 }
 
 } // namespace gm2calc
