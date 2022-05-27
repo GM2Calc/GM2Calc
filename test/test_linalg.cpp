@@ -23,8 +23,8 @@ void test_real_symmetric_2x2(const RM22& m, double eps)
    AR21 v1, v2;
    RM22 z1, z2;
 
-   gm2calc::fs_diagonalize_hermitian(m, v1, z1);
-   gm2calc::fs_diagonalize_hermitian_2x2(m, v2, z2);
+   gm2calc::fs_diagonalize_hermitian<double,double,2>(m, v1, z1);
+   gm2calc::fs_diagonalize_hermitian_2x2<double>(m, v2, z2);
 
    CHECK_CLOSE(v1(0), v2(0), eps);
    CHECK_CLOSE(v1(1), v2(1), eps);
