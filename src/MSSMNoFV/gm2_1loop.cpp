@@ -38,10 +38,10 @@ namespace gm2calc {
 
 namespace {
 
-const double Pi = 3.141592653589793;
-const double oneOver16PiSqr = 6.332573977646111e-3; // 1/(4 Pi)^2
-const double root2 = 1.414213562373095; // Sqrt[2]
-const double eps = std::numeric_limits<double>::epsilon();
+constexpr double Pi = 3.141592653589793;
+constexpr double oneOver16PiSqr = 6.332573977646111e-3; // 1/(4 Pi)^2
+constexpr double root2 = 1.414213562373095; // Sqrt[2]
+constexpr double eps = std::numeric_limits<double>::epsilon();
 
 } // anonymous namespace
 
@@ -86,15 +86,15 @@ double amu1LChi0(const MSSMNoFV_onshell& model)
    const Eigen::Matrix<double,4,2> AAN_(AAN(model));
    const Eigen::Matrix<double,4,2> BBN_(BBN(model));
    const Eigen::Matrix<double,4,2> x(x_im(model));
-   const Eigen::Array<double,4,1>& MChi(model.get_MChi());
+   const Eigen::Array<double,4,1>& m_chi(model.get_MChi());
 
-   double result = 0.;
+   double result = 0;
 
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
-         result += - AAN_(i, m) * F1N(x(i, m)) / (12. * sqr(m_smu(m)))
-                   - MChi(i) * BBN_(i, m) * F2N(x(i, m))
-                      / (6. * model.get_MM() * sqr(m_smu(m)));
+         result += - AAN_(i, m) * F1N(x(i, m)) / (12 * sqr(m_smu(m)))
+                   - m_chi(i) * BBN_(i, m) * F2N(x(i, m))
+                      / (6 * model.get_MM() * sqr(m_smu(m)));
       }
    }
 
@@ -111,14 +111,14 @@ double amu1LChipm(const MSSMNoFV_onshell& model)
    const double MSvm(model.get_MSvmL());
    const Eigen::Array<double,2,1> AAC_(AAC(model));
    const Eigen::Array<double,2,1> BBC_(BBC(model));
-   const Eigen::Array<double,2,1>& MCha(model.get_MCha());
+   const Eigen::Array<double,2,1>& m_cha(model.get_MCha());
 
-   double result = 0.;
+   double result = 0;
 
    for (int k = 0; k < 2; ++k) {
       result +=
          AAC_(k) * F1C(x(k)) / 12 +
-         MCha(k) * BBC_(k) * F2C(x(k)) / (3 * model.get_MM());
+         m_cha(k) * BBC_(k) * F2C(x(k)) / (3 * model.get_MM());
    }
 
    return result * sqr(model.get_MM()/MSvm) * oneOver16PiSqr;
@@ -141,8 +141,8 @@ Eigen::Matrix<std::complex<double>,4,2> n_L(const MSSMNoFV_onshell& model)
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
          result(i, m) =
-            1. / root2 * (gY * std::conj(ZN(i,0))
-                          + g2 * std::conj(ZN(i,1))) * u_smu(m,0)
+            1 / root2 * (+ gY * std::conj(ZN(i,0))
+                         + g2 * std::conj(ZN(i,1))) * u_smu(m,0)
             - ymu * std::conj(ZN(i,2)) * u_smu(m,1);
       }
    }
@@ -230,7 +230,7 @@ Eigen::Array<double,2,1> AAC(const MSSMNoFV_onshell& model)
    Eigen::Array<double,2,1> result;
 
    for (int k = 0; k < 2; ++k) {
-      result(k) = norm(cL(k)) + norm(cR(k));
+      result(k) = std::norm(cL(k)) + std::norm(cR(k));
    }
 
    return result;
@@ -253,7 +253,7 @@ Eigen::Matrix<double,4,2> AAN(const MSSMNoFV_onshell& model)
 
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
-         result(i, m) = norm(nL(i, m)) + norm(nR(i, m));
+         result(i, m) = std::norm(nL(i, m)) + std::norm(nR(i, m));
       }
    }
 
@@ -273,7 +273,7 @@ Eigen::Array<double,2,1> BBC(const MSSMNoFV_onshell& model)
    Eigen::Array<double,2,1> result;
 
    for (int k = 0; k < 2; ++k) {
-      result(k) = 2. * std::real(std::conj(cL(k)) * cR(k));
+      result(k) = 2 * std::real(std::conj(cL(k)) * cR(k));
    }
 
    return result;
@@ -293,7 +293,7 @@ Eigen::Matrix<double,4,2> BBN(const MSSMNoFV_onshell& model)
 
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
-         result(i, m) = 2. * std::real(std::conj(nL(i, m)) * nR(i, m));
+         result(i, m) = 2 * std::real(std::conj(nL(i, m)) * nR(i, m));
       }
    }
 
@@ -342,12 +342,12 @@ double amu1LWHnu(const MSSMNoFV_onshell& model)
 {
    const double tan_beta = model.get_TB();
    const double M2 = model.get_MassWB();
-   const double MUE = model.get_Mu();
-   const double MSv_2 = model.get_MSvmL();
+   const double mu = model.get_Mu();
+   const double msv_2 = model.get_MSvmL();
 
-   return sqr(model.get_g2()) * 2. * oneOver16PiSqr
-      * (sqr(model.get_MM()) * M2 * MUE * tan_beta) / sqr(sqr(MSv_2))
-      * Fa(sqr(M2 / MSv_2), sqr(MUE / MSv_2));
+   return sqr(model.get_g2()) * 2 * oneOver16PiSqr
+      * (sqr(model.get_MM()) * M2 * mu * tan_beta) / sqr(sqr(msv_2))
+      * Fa(sqr(M2 / msv_2), sqr(mu / msv_2));
 }
 
 /**
@@ -358,12 +358,12 @@ double amu1LWHmuL(const MSSMNoFV_onshell& model)
 {
    const double tan_beta = model.get_TB();
    const double M2 = model.get_MassWB();
-   const double MUE = model.get_Mu();
-   const double MSL_2 = std::sqrt(model.get_ml2(1, 1));
+   const double mu = model.get_Mu();
+   const double msl_2 = std::sqrt(model.get_ml2(1, 1));
 
    return - sqr(model.get_g2()) * oneOver16PiSqr
-      * (sqr(model.get_MM()) * M2 * MUE * tan_beta) / sqr(sqr(MSL_2))
-      * Fb(sqr(M2 / MSL_2), sqr(MUE / MSL_2));
+      * (sqr(model.get_MM()) * M2 * mu * tan_beta) / sqr(sqr(msl_2))
+      * Fb(sqr(M2 / msl_2), sqr(mu / msl_2));
 }
 
 /**
@@ -374,13 +374,13 @@ double amu1LBHmuL(const MSSMNoFV_onshell& model)
 {
    const double tan_beta = model.get_TB();
    const double M1 = model.get_MassB();
-   const double MUE = model.get_Mu();
-   const double MSL_2 = std::sqrt(model.get_ml2(1, 1));
+   const double mu = model.get_Mu();
+   const double msl_2 = std::sqrt(model.get_ml2(1, 1));
    const double gY = model.get_gY();
 
    return sqr(gY) * oneOver16PiSqr
-      * (sqr(model.get_MM()) * M1 * MUE * tan_beta) / sqr(sqr(MSL_2))
-      * Fb(sqr(M1 / MSL_2), sqr(MUE / MSL_2));
+      * (sqr(model.get_MM()) * M1 * mu * tan_beta) / sqr(sqr(msl_2))
+      * Fb(sqr(M1 / msl_2), sqr(mu / msl_2));
 }
 
 /**
@@ -391,13 +391,13 @@ double amu1LBHmuR(const MSSMNoFV_onshell& model)
 {
    const double tan_beta = model.get_TB();
    const double M1 = model.get_MassB();
-   const double MUE = model.get_Mu();
-   const double MSE_2 = std::sqrt(model.get_me2(1, 1));
+   const double mu = model.get_Mu();
+   const double mse_2 = std::sqrt(model.get_me2(1, 1));
    const double gY = model.get_gY();
 
-   return - sqr(gY) * 2. * oneOver16PiSqr
-      * (sqr(model.get_MM()) * M1 * MUE * tan_beta) / sqr(sqr(MSE_2))
-      * Fb(sqr(M1 / MSE_2), sqr(MUE / MSE_2));
+   return - sqr(gY) * 2 * oneOver16PiSqr
+      * (sqr(model.get_MM()) * M1 * mu * tan_beta) / sqr(sqr(mse_2))
+      * Fb(sqr(M1 / mse_2), sqr(mu / mse_2));
 }
 
 /**
@@ -408,18 +408,18 @@ double amu1LBmuLmuR(const MSSMNoFV_onshell& model)
 {
    const double tan_beta = model.get_TB();
    const double M1 = model.get_MassB();
-   const double MUE = model.get_Mu();
-   const double MSL_2 = std::sqrt(model.get_ml2(1, 1));
-   const double MSE_2 = std::sqrt(model.get_me2(1, 1));
+   const double mu = model.get_Mu();
+   const double msl_2 = std::sqrt(model.get_ml2(1, 1));
+   const double mse_2 = std::sqrt(model.get_me2(1, 1));
    const double gY = model.get_gY();
 
    if (is_zero(M1, eps)) {
-      return 0.;
+      return 0;
    }
 
-   return sqr(gY) * 2. * oneOver16PiSqr
-      * (sqr(model.get_MM()) * MUE * tan_beta) / (M1 * sqr(M1))
-      * Fb(sqr(MSL_2 / M1), sqr(MSE_2 / M1));
+   return sqr(gY) * 2 * oneOver16PiSqr
+      * (sqr(model.get_MM()) * mu * tan_beta) / (M1 * sqr(M1))
+      * Fb(sqr(msl_2 / M1), sqr(mse_2 / M1));
 }
 
 /**
@@ -471,25 +471,25 @@ double tan_beta_cor(const MSSMNoFV_onshell& model)
 double delta_down_lepton_correction(const MSSMNoFV_onshell& model, int gen)
 {
    const double mu = model.get_Mu();
-   const double TB = model.get_TB();
+   const double tb = model.get_TB();
    const double g2 = model.get_g2();
    const double gY = model.get_gY();
    const double M1 = model.get_MassB();
    const double M2 = model.get_MassWB();
-   const double MW2 = sqr(model.get_MW());
-   const double MZ2 = sqr(model.get_MZ());
-   const double SW = std::sqrt(1 - MW2/MZ2);
-   const double SW2 = SW*SW;
-   const double x1 = sqr(M2) + sqr(mu) + 2*MW2;
+   const double mw2 = sqr(model.get_MW());
+   const double mz2 = sqr(model.get_MZ());
+   const double sw = std::sqrt(1 - mw2/mz2);
+   const double sw2 = sw*sw;
+   const double x1 = sqr(M2) + sqr(mu) + 2*mw2;
    const double x2 = abs_sqrt(sqr(x1) - sqr(2*M2*mu));
    const double m1 = abs_sqrt(0.5*(x1 - x2));
    const double m2 = abs_sqrt(0.5*(x1 + x2));
-   const double m_sneu_lep = abs_sqrt(model.get_ml2(gen, gen) - 0.5*MZ2);
-   const double m_slep_L = abs_sqrt(model.get_ml2(gen, gen) - MZ2*(SW2 - 0.5));
-   const double m_slep_R = abs_sqrt(model.get_me2(gen, gen) + MZ2*SW2);
+   const double m_sneu_lep = abs_sqrt(model.get_ml2(gen, gen) - 0.5*mz2);
+   const double m_slep_L = abs_sqrt(model.get_ml2(gen, gen) - mz2*(sw2 - 0.5));
+   const double m_slep_R = abs_sqrt(model.get_me2(gen, gen) + mz2*sw2);
 
    const double delta_lep =
-      - mu*TB*oneOver16PiSqr
+      - mu*tb*oneOver16PiSqr
        *(+ sqr(g2)*M2*(Iabc(m1, m2, m_sneu_lep) + 0.5*Iabc(m1, m2, m_slep_L))
          + sqr(gY)*M1*(Iabc(mu, M1, m_slep_R) - 0.5*Iabc(mu, M1, m_slep_L)
                        - Iabc(M1, m_slep_L, m_slep_R)));
@@ -527,7 +527,7 @@ double delta_tau_correction(const MSSMNoFV_onshell& model)
  */
 double delta_bottom_correction(const MSSMNoFV_onshell& model)
 {
-   const double TB = model.get_TB();
+   const double tb = model.get_TB();
    const double At = model.get_Au(2,2);
    const double yt = model.get_Yu(2,2);
    const double gY = model.get_gY();
@@ -573,7 +573,7 @@ double delta_bottom_correction(const MSSMNoFV_onshell& model)
    const double eps_3_tilde = eps_0 + sqr(yt) * eps_Y;
 
    // Eq.(103)
-   const double delta_b = TB * eps_3_tilde;
+   const double delta_b = tb * eps_3_tilde;
 
    return delta_b;
 }
