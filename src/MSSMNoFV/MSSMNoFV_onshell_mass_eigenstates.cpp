@@ -373,8 +373,13 @@ void CLASSNAME::calculate_MVP()
 
 double CLASSNAME::get_mass_matrix_VZ() const
 {
-   const double mass_matrix_VZ = 0.25*(sqr(vd) + sqr(vu))*sqr(g2*std::cos(
-      ThetaW()) + 0.7745966692414834*g1*std::sin(ThetaW()));
+   const double tw = 0.7745966692414834*g1/g2;
+   const double rt = std::sqrt(1 + tw*tw);
+   const double sw = tw/rt;
+   const double cw = 1/rt;
+
+   const double mass_matrix_VZ = 0.25*(sqr(vd) + sqr(vu))*
+      sqr(g2*cw + 0.7745966692414834*g1*sw);
 
    return mass_matrix_VZ;
 }
@@ -850,17 +855,21 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Ah() const
 {
    Eigen::Matrix<double,2,2> mass_matrix_Ah;
 
-   mass_matrix_Ah(0,0) = mHd2 + sqr(Mu) + 0.3872983346207417*g1*g2*std::cos
-      (ThetaW())*std::sin(ThetaW())*sqr(vd) + 0.075*sqr(g1)*sqr(vd) + 0.125*sqr(g2)*
+   const double tw = 0.7745966692414834*g1/g2;
+   const double rt = std::sqrt(1 + tw*tw);
+   const double sw = tw/rt;
+   const double cw = 1/rt;
+
+   mass_matrix_Ah(0,0) = mHd2 + sqr(Mu) + 0.3872983346207417*g1*g2*cw*sw*sqr(vd)
+      + 0.075*sqr(g1)*sqr(vd) + 0.125*sqr(g2)*
       sqr(vd) - 0.075*sqr(g1)*sqr(vu) - 0.125*sqr(g2)*sqr(vu) + 0.25*sqr(g2)*
-      sqr(vd)*sqr(std::cos(ThetaW())) + 0.15*sqr(g1)*sqr(vd)*sqr(std::sin(ThetaW()));
+      sqr(vd)*sqr(cw) + 0.15*sqr(g1)*sqr(vd)*sqr(sw);
    mass_matrix_Ah(0,1) = 0.5*BMu + 0.5*BMu - 0.3872983346207417*g1*
-      g2*vd*vu*std::cos(ThetaW())*std::sin(ThetaW()) - 0.25*vd*vu*sqr(g2)*sqr(std::cos(ThetaW(
-      ))) - 0.15*vd*vu*sqr(g1)*sqr(std::sin(ThetaW()));
+      g2*vd*vu*cw*sw - 0.25*vd*vu*sqr(g2)*sqr(cw) - 0.15*vd*vu*sqr(g1)*sqr(sw);
    mass_matrix_Ah(1,1) = mHu2 + sqr(Mu) - 0.075*sqr(g1)*sqr(vd) -
-      0.125*sqr(g2)*sqr(vd) + 0.3872983346207417*g1*g2*std::cos(ThetaW())*std::sin(ThetaW
-      ())*sqr(vu) + 0.075*sqr(g1)*sqr(vu) + 0.125*sqr(g2)*sqr(vu) + 0.25*sqr(g2
-      )*sqr(vu)*sqr(std::cos(ThetaW())) + 0.15*sqr(g1)*sqr(vu)*sqr(std::sin(ThetaW()));
+      0.125*sqr(g2)*sqr(vd) + 0.3872983346207417*g1*g2*cw*sw*sqr(vu)
+      + 0.075*sqr(g1)*sqr(vu) + 0.125*sqr(g2)*sqr(vu) + 0.25*sqr(g2
+      )*sqr(vu)*sqr(cw) + 0.15*sqr(g1)*sqr(vu)*sqr(sw);
 
    symmetrize(mass_matrix_Ah);
 
