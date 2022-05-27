@@ -1481,6 +1481,32 @@ void fs_diagonalize_hermitian
     fs_diagonalize_hermitian_errbd<Real,Scalar,N>(m, w, 0, &w_errbd);
 }
 
+/**
+ * Diagonalizes 2-by-2 hermitian matrix m so that
+ *
+ *     m == z.adjoint() * w.matrix().asDiagonal() * z    // convention of SARAH
+ *
+ * w is arranged so that `abs(w[i])` are in ascending order.
+ *
+ * @tparam     Real   real numeric type
+ * @param[in]  m      2-by-2 matrix to be diagonalized
+ * @param[out] w      array of length 2 to contain eigenvalues
+ * @param[out] z      2-by-2 unitary matrix
+ */
+template<class Real>
+void fs_diagonalize_hermitian_2x2
+(const Eigen::Matrix<Real, 2, 2>& m,
+ Eigen::Array<Real, 2, 1>& w,
+ Eigen::Matrix<Real, 2, 2>& z)
+{
+   Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Real,2,2> > es;
+   Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Real,2,2> >& result
+      = es.computeDirect(m, Eigen::ComputeEigenvectors);
+
+   w = result.eigenvalues();
+   z = result.eigenvectors();
+}
+
 } // namespace gm2calc
 
 #endif // linalg2_hpp

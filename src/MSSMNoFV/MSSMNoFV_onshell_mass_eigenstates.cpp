@@ -602,7 +602,7 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Sd() const
 void CLASSNAME::calculate_MSd()
 {
    const auto mass_matrix_Sd(get_mass_matrix_Sd());
-   fs_diagonalize_hermitian<double,double,2>(mass_matrix_Sd, MSd, ZD);
+   fs_diagonalize_hermitian_2x2<double>(mass_matrix_Sd, MSd, ZD);
    MSd = sqrt(MSd.cwiseAbs());
 }
 
@@ -626,7 +626,7 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Su() const
 void CLASSNAME::calculate_MSu()
 {
    const auto mass_matrix_Su(get_mass_matrix_Su());
-   fs_diagonalize_hermitian<double,double,2>(mass_matrix_Su, MSu, ZU);
+   fs_diagonalize_hermitian_2x2<double>(mass_matrix_Su, MSu, ZU);
    MSu = sqrt(MSu.cwiseAbs());
 }
 
@@ -650,7 +650,7 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Se() const
 void CLASSNAME::calculate_MSe()
 {
    const auto mass_matrix_Se(get_mass_matrix_Se());
-   fs_diagonalize_hermitian<double,double,2>(mass_matrix_Se, MSe, ZE);
+   fs_diagonalize_hermitian_2x2<double>(mass_matrix_Se, MSe, ZE);
    MSe = sqrt(MSe.cwiseAbs());
 }
 
@@ -674,7 +674,7 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Sm() const
 void CLASSNAME::calculate_MSm()
 {
    const auto mass_matrix_Sm(get_mass_matrix_Sm());
-   fs_diagonalize_hermitian<double,double,2>(mass_matrix_Sm, MSm, ZM);
+   fs_diagonalize_hermitian_2x2<double>(mass_matrix_Sm, MSm, ZM);
 
    if (MSm.minCoeff() < 0.) {
       problems.flag_tachyon("Sm");
@@ -703,7 +703,7 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Stau() const
 void CLASSNAME::calculate_MStau()
 {
    const auto mass_matrix_Stau(get_mass_matrix_Stau());
-   fs_diagonalize_hermitian<double,double,2>(mass_matrix_Stau, MStau, ZTau);
+   fs_diagonalize_hermitian_2x2<double>(mass_matrix_Stau, MStau, ZTau);
 
    if (MStau.minCoeff() < 0.) {
       problems.flag_tachyon("Stau");
@@ -732,7 +732,7 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Ss() const
 void CLASSNAME::calculate_MSs()
 {
    const auto mass_matrix_Ss(get_mass_matrix_Ss());
-   fs_diagonalize_hermitian<double,double,2>(mass_matrix_Ss, MSs, ZS);
+   fs_diagonalize_hermitian_2x2<double>(mass_matrix_Ss, MSs, ZS);
    MSs = sqrt(MSs.cwiseAbs());
 }
 
@@ -756,7 +756,7 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Sc() const
 void CLASSNAME::calculate_MSc()
 {
    const auto mass_matrix_Sc(get_mass_matrix_Sc());
-   fs_diagonalize_hermitian<double,double,2>(mass_matrix_Sc, MSc, ZC);
+   fs_diagonalize_hermitian_2x2<double>(mass_matrix_Sc, MSc, ZC);
    MSc = sqrt(MSc.cwiseAbs());
 }
 
@@ -780,7 +780,7 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Sb() const
 void CLASSNAME::calculate_MSb()
 {
    const auto mass_matrix_Sb(get_mass_matrix_Sb());
-   fs_diagonalize_hermitian<double,double,2>(mass_matrix_Sb, MSb, ZB);
+   fs_diagonalize_hermitian_2x2<double>(mass_matrix_Sb, MSb, ZB);
 
    if (MSb.minCoeff() < 0.) {
       problems.flag_tachyon("Sb");
@@ -809,7 +809,7 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_St() const
 void CLASSNAME::calculate_MSt()
 {
    const auto mass_matrix_St(get_mass_matrix_St());
-   fs_diagonalize_hermitian<double,double,2>(mass_matrix_St, MSt, ZT);
+   fs_diagonalize_hermitian_2x2<double>(mass_matrix_St, MSt, ZT);
 
    if (MSt.minCoeff() < 0.) {
       problems.flag_tachyon("St");
@@ -837,7 +837,7 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_hh() const
 void CLASSNAME::calculate_Mhh()
 {
    const auto mass_matrix_hh(get_mass_matrix_hh());
-   fs_diagonalize_hermitian<double,double,2>(mass_matrix_hh, Mhh, ZH);
+   fs_diagonalize_hermitian_2x2<double>(mass_matrix_hh, Mhh, ZH);
 
    if (Mhh.minCoeff() < 0.) {
       problems.flag_tachyon("hh");
@@ -870,7 +870,7 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Ah() const
 void CLASSNAME::calculate_MAh()
 {
    const auto mass_matrix_Ah(get_mass_matrix_Ah());
-   fs_diagonalize_hermitian<double,double,2>(mass_matrix_Ah, MAh, ZA);
+   fs_diagonalize_hermitian_2x2<double>(mass_matrix_Ah, MAh, ZA);
 
    if (MAh.minCoeff() < 0.) {
       problems.flag_tachyon("Ah");
@@ -897,7 +897,7 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Hpm() const
 void CLASSNAME::calculate_MHpm()
 {
    const auto mass_matrix_Hpm(get_mass_matrix_Hpm());
-   fs_diagonalize_hermitian<double,double,2>(mass_matrix_Hpm, MHpm, ZP);
+   fs_diagonalize_hermitian_2x2<double>(mass_matrix_Hpm, MHpm, ZP);
 
    if (MHpm.minCoeff() < 0.) {
       problems.flag_tachyon("Hpm");
