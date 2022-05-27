@@ -1489,17 +1489,19 @@ void fs_diagonalize_hermitian
  * w is arranged so that `abs(w[i])` are in ascending order.
  *
  * @tparam     Real   real numeric type
+ * @tparam     Scalar type of elements of m and z
+ * @tparam     N      number of rows and columns in m and z (assumed to be 2)
  * @param[in]  m      2-by-2 matrix to be diagonalized
  * @param[out] w      array of length 2 to contain eigenvalues
  * @param[out] z      2-by-2 unitary matrix
  */
-template<class Real>
+template<class Real, class Scalar, int>
 void fs_diagonalize_hermitian
-(const Eigen::Matrix<Real, 2, 2>& m,
+(const Eigen::Matrix<Scalar, 2, 2>& m,
  Eigen::Array<Real, 2, 1>& w,
- Eigen::Matrix<Real, 2, 2>& z)
+ Eigen::Matrix<Scalar, 2, 2>& z)
 {
-   Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Real, 2, 2> > es;
+   Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Scalar, 2, 2> > es;
    es.computeDirect(m, Eigen::ComputeEigenvectors);
 
    w = es.eigenvalues();
