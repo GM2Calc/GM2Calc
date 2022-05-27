@@ -54,8 +54,12 @@ void hermitian_eigen
  Eigen::Array<Real, N, 1>& w,
  Eigen::Matrix<Scalar, N, N> *z)
 {
-    Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Scalar,N,N> >
-	es(m, z ? Eigen::ComputeEigenvectors : Eigen::EigenvaluesOnly);
+    Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Scalar,N,N> > es;
+    if (N == 2 || N == 3) {
+        es.computeDirect(m, z ? Eigen::ComputeEigenvectors : Eigen::EigenvaluesOnly);
+    } else {
+        es.compute(m, z ? Eigen::ComputeEigenvectors : Eigen::EigenvaluesOnly);
+    }
     w = es.eigenvalues();
     if (z) { *z = es.eigenvectors(); }
 }

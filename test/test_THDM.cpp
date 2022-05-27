@@ -663,7 +663,7 @@ double calc_amu_for_type(gm2calc::thdm::Yukawa_type yukawa_type, double tan_beta
 // of the aligned THDM for specific choices of the zeta_f.
 TEST_CASE("alignment_limits")
 {
-   const double eps = 1e-14;
+   const double eps = 1e-13;
    const double tan_beta = 3;
    const double cot_beta = 1/tan_beta;
 
