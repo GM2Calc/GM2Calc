@@ -58,7 +58,7 @@ void hermitian_eigen
     if (N == 2 || N == 3) {
         es.computeDirect(m, z ? Eigen::ComputeEigenvectors : Eigen::EigenvaluesOnly);
     } else {
-	es.compute(m, z ? Eigen::ComputeEigenvectors : Eigen::EigenvaluesOnly);
+        es.compute(m, z ? Eigen::ComputeEigenvectors : Eigen::EigenvaluesOnly);
     }
     w = es.eigenvalues();
     if (z) { *z = es.eigenvectors(); }
