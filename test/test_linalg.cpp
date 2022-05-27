@@ -22,10 +22,13 @@ RM22 create_real_symmetric_2x2(double a, double b, double c)
 
 
 // diagonalization using the general SelfAdjointEigenSolver
-void diagonalize_real_symmetric_2x2(const RM22& m, AR21& w, RM22& z)
+template<class Real, class Scalar, int>
+void fs_diagonalize_hermitian_2x2
+(const Eigen::Matrix<Scalar, 2, 2>& m,
+ Eigen::Array<Real, 2, 1>& w,
+ Eigen::Matrix<Scalar, 2, 2>& z)
 {
    constexpr int N = 2;
-   using Scalar = double;
 
    Eigen::SelfAdjointEigenSolver<Eigen::Matrix<Scalar,N,N> >
       es(m, Eigen::ComputeEigenvectors);
@@ -50,7 +53,7 @@ void test_real_symmetric_2x2(const RM22& m, double eps)
    AR21 v1, v2;
    RM22 z1, z2;
 
-   diagonalize_real_symmetric_2x2(m, v1, z1);
+   fs_diagonalize_hermitian_2x2<double,double,2>(m, v1, z1);
    gm2calc::fs_diagonalize_hermitian<double,double,2>(m, v2, z2);
 
    CHECK_CLOSE(v1(0), v2(0), eps);
