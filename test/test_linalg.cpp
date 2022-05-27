@@ -77,11 +77,19 @@ TEST_CASE("test-real-symmetric-2x2")
 {
    const double eps = std::numeric_limits<double>::epsilon();
 
-   test_hermitian_2x2<double, double>(create_real_symmetric_2x2(1, 0, 2), 10*eps);
-   test_hermitian_2x2<double, double>(create_real_symmetric_2x2(2, 0, 1), 10*eps);
-   test_hermitian_2x2<double, double>(create_real_symmetric_2x2(2, 5, 1), 10*eps);
-   test_hermitian_2x2<double, double>(create_real_symmetric_2x2(-1, 0, -2), 10*eps);
-   test_hermitian_2x2<double, double>(create_real_symmetric_2x2(-2, 0, -1), 10*eps);
-   test_hermitian_2x2<double, double>(create_real_symmetric_2x2(-2, 5, -1), 10*eps);
-   test_hermitian_2x2<double, double>(create_real_symmetric_2x2(1, 2, 3), 10*eps);
+   struct Matrix_elements {
+      double a, b, c, eps;
+   } const data[] = {
+      { 1, 0,  2, 10*eps},
+      { 2, 0,  1, 10*eps},
+      { 2, 5,  1, 10*eps},
+      {-1, 0, -2, 10*eps},
+      {-2, 0, -1, 10*eps},
+      {-2, 5, -1, 10*eps},
+      { 1, 2,  3, 10*eps}
+   };
+
+   for (const auto& d: data) {
+      test_hermitian_2x2<double, double>(create_real_symmetric_2x2(d.a, d.b, d.c), d.eps);
+   }
 }
