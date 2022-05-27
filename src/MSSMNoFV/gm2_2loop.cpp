@@ -446,9 +446,10 @@ Eigen::Matrix<std::complex<double>,3,3> lambda_mu_cha(const MSSMNoFV_onshell& mo
    const double rtb = std::sqrt(1 + sqr(TB));
    const double CB = 1/rtb;
    const double SB = TB/rtb;
-   const double TA(tan_alpha(model));
-   const double CA = 1. / std::sqrt(1. + sqr(TA));
-   const double SA = - std::sqrt(1. - sqr(CA));
+   const double TA = tan_alpha(model);
+   const double rta = std::sqrt(1 + sqr(TA));
+   const double CA = 1/rta;
+   const double SA = TA/rta;
    const Eigen::Matrix<std::complex<double>,2,2>& U(model.get_UM());
    const Eigen::Matrix<std::complex<double>,2,2>& V(model.get_UP());
    const double one_over_cb_eff = root2 * model.get_Ye(1,1)
@@ -475,14 +476,15 @@ Eigen::Matrix<std::complex<double>,3,3> lambda_mu_cha(const MSSMNoFV_onshell& mo
  * Calculates \f$\lambda_{\tilde{b}_i}\f$, Eq (67)
  * arXiv:hep-ph/0609168
  */
-Eigen::Matrix<std::complex<double>,2,2> lambda_stop(const MSSMNoFV_onshell& model) {
+Eigen::Matrix<std::complex<double>,2,2> lambda_stop(const MSSMNoFV_onshell& model)
+{
    const double TB(model.get_TB());
    const double rtb = std::sqrt(1 + sqr(TB));
-   const double CB = 1/rtb;
    const double SB = TB/rtb;
    const double TA(tan_alpha(model));
-   const double CA = 1. / std::sqrt(1. + sqr(TA));
-   const double SA = - std::sqrt(1. - sqr(CA));
+   const double rta = std::sqrt(1 + sqr(TA));
+   const double CA = 1/rta;
+   const double SA = TA/rta;
    const double MT(model.get_MT());
    const Eigen::Array<double,2,1>& MStop(model.get_MSt());
    const Eigen::Matrix<double,2,2>& UStop(model.get_USt());
@@ -509,9 +511,10 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_stop(const MSSMNoFV_onshell& mode
  */
 Eigen::Matrix<std::complex<double>,2,2> lambda_sbot(const MSSMNoFV_onshell& model)
 {
-   const double TA(tan_alpha(model));
-   const double CA = 1. / std::sqrt(1. + sqr(TA));
-   const double SA = - std::sqrt(1. - sqr(CA));
+   const double TA = tan_alpha(model);
+   const double rta = std::sqrt(1 + sqr(TA));
+   const double CA = 1/rta;
+   const double SA = TA/rta;
    const Eigen::Array<double,2,1>& MSbot(model.get_MSb());
    const Eigen::Matrix<double,2,2>& USbot(model.get_USb());
    const double Ab(model.get_Ad(2, 2));
@@ -539,9 +542,10 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_sbot(const MSSMNoFV_onshell& mode
  */
 Eigen::Matrix<std::complex<double>,2,2> lambda_stau(const MSSMNoFV_onshell& model)
 {
-   const double TA(tan_alpha(model));
-   const double CA = 1. / std::sqrt(1. + sqr(TA));
-   const double SA = - std::sqrt(1. - sqr(CA));
+   const double TA = tan_alpha(model);
+   const double rta = std::sqrt(1 + sqr(TA));
+   const double CA = 1/rta;
+   const double SA = TA/rta;
    const Eigen::Array<double,2,1>& MStau(model.get_MStau());
    const Eigen::Matrix<double,2,2>& UStau(model.get_UStau());
    const double Al(model.get_Ae(2, 2));
