@@ -239,21 +239,25 @@ Eigen::Matrix<double,2,2> CLASSNAME::get_mass_matrix_Ah() const
 {
    Eigen::Matrix<double,2,2> mass_matrix_Ah;
 
+   const double tw = gut_normalization*g1/g2;
+   const double rt = std::sqrt(1 + tw*tw);
+   const double sw = tw/rt;
+   const double cw = 1/rt;
+
    mass_matrix_Ah(0,0) = m112 + 0.5*lambda6*v1*v2 + 0.5*v1*v2*lambda6 +
-      0.5*lambda1*sqr(v1) + 0.3872983346207417*g1*g2*std::cos(ThetaW())*std::sin(ThetaW()
-      )*sqr(v1) + 0.5*lambda3*sqr(v2) + 0.5*lambda4*sqr(v2) - 0.25*lambda5*sqr(
-      v2) - 0.25*lambda5*sqr(v2) + 0.25*sqr(g2)*sqr(v1)*sqr(std::cos(ThetaW())
-      ) + 0.15*sqr(g1)*sqr(v1)*sqr(std::sin(ThetaW()));
+      0.5*lambda1*sqr(v1) + 0.3872983346207417*g1*g2*cw*sw*sqr(v1) +
+      0.5*lambda3*sqr(v2) + 0.5*lambda4*sqr(v2) - 0.25*lambda5*sqr(
+      v2) - 0.25*lambda5*sqr(v2) + 0.25*sqr(g2)*sqr(v1)*sqr(cw
+      ) + 0.15*sqr(g1)*sqr(v1)*sqr(sw);
    mass_matrix_Ah(0,1) = -0.5*m122 + 0.5*lambda5*v1*v2 + 0.5*v1*v2*lambda5
-      - 0.5*m122 + 0.3872983346207417*g1*g2*v1*v2*std::cos(ThetaW())*std::sin(
-      ThetaW()) + 0.25*lambda6*sqr(v1) + 0.25*lambda6*sqr(v1) + 0.25*
-      lambda7*sqr(v2) + 0.25*lambda7*sqr(v2) + 0.25*v1*v2*sqr(g2)*sqr(std::cos
-      (ThetaW())) + 0.15*v1*v2*sqr(g1)*sqr(std::sin(ThetaW()));
+      - 0.5*m122 + 0.3872983346207417*g1*g2*v1*v2*cw*sw + 0.25*lambda6*sqr(v1)
+      + 0.25*lambda6*sqr(v1) + 0.25*
+      lambda7*sqr(v2) + 0.25*lambda7*sqr(v2) + 0.25*v1*v2*sqr(g2)*sqr(cw) +
+      0.15*v1*v2*sqr(g1)*sqr(sw);
    mass_matrix_Ah(1,1) = m222 + 0.5*lambda7*v1*v2 + 0.5*v1*v2*lambda7 +
       0.5*lambda3*sqr(v1) + 0.5*lambda4*sqr(v1) - 0.25*lambda5*sqr(v1) - 0.25*
       lambda5*sqr(v1) + 0.5*lambda2*sqr(v2) + 0.3872983346207417*g1*g2*
-      std::cos(ThetaW())*std::sin(ThetaW())*sqr(v2) + 0.25*sqr(g2)*sqr(v2)*sqr(std::cos(ThetaW
-      ())) + 0.15*sqr(g1)*sqr(v2)*sqr(std::sin(ThetaW()));
+      cw*sw*sqr(v2) + 0.25*sqr(g2)*sqr(v2)*sqr(cw) + 0.15*sqr(g1)*sqr(v2)*sqr(sw);
 
    symmetrize(mass_matrix_Ah);
 
@@ -350,8 +354,13 @@ void CLASSNAME::calculate_MVWm()
 
 double CLASSNAME::get_mass_matrix_VZ() const
 {
-   const double mass_matrix_VZ = 0.25*(sqr(v1) + sqr(v2))*sqr(g2*std::cos(
-      ThetaW()) + gut_normalization*g1*std::sin(ThetaW()));
+   const double tw = gut_normalization*g1/g2;
+   const double rt = std::sqrt(1 + tw*tw);
+   const double sw = tw/rt;
+   const double cw = 1/rt;
+
+   const double mass_matrix_VZ = 0.25*(sqr(v1) + sqr(v2))
+      *sqr(g2*cw + gut_normalization*g1*sw);
 
    return mass_matrix_VZ;
 }
