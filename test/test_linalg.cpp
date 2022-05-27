@@ -18,15 +18,13 @@ RM22 create_real_symmetric_2x2(double a, double b, double c)
    return (RM22() << a, b, b, c).finished();
 }
 
-void test_eigensystem_real_symmetric_2x2(const RM22& m)
+void test_eigensystem_real_symmetric_2x2(const RM22& m, double eps)
 {
    AR21 v1, v2;
    RM22 z1, z2;
 
    gm2calc::fs_diagonalize_hermitian(m, v1, z1);
    gm2calc::fs_diagonalize_hermitian_2x2(m, v2, z2);
-
-   const double eps = std::numeric_limits<double>::epsilon();
 
    CHECK_CLOSE(v1(0), v2(0), eps);
    CHECK_CLOSE(v1(1), v2(1), eps);
@@ -39,5 +37,7 @@ void test_eigensystem_real_symmetric_2x2(const RM22& m)
 // test eigenvalues of real symmetric 2x2 matrix
 TEST_CASE("test-real-symmetric-2x2")
 {
-   test_eigensystem_real_symmetric_2x2(create_real_symmetric_2x2(1.0, 2.0, 3.0));
+   const double eps = std::numeric_limits<double>::epsilon();
+
+   test_eigensystem_real_symmetric_2x2(create_real_symmetric_2x2(1.0, 2.0, 3.0), 10*eps);
 }
