@@ -2,6 +2,7 @@
 
 #include "doctest.h"
 #include "gm2_linalg.hpp"
+#include <complex>
 #include <limits>
 #include <Eigen/Core>
 
@@ -11,8 +12,9 @@
    } while (0)
 
 
+using CM22 = Eigen::Matrix<std::complex<double>,2,2>;
 using RM22 = Eigen::Matrix<double,2,2>;
-using AR21 = Eigen::Array<double,2,1>;
+using RA21 = Eigen::Array<double,2,1>;
 
 
 RM22 create_real_symmetric_2x2(double a, double b, double c)
@@ -50,7 +52,7 @@ void fs_diagonalize_hermitian_2x2
 
 void test_real_symmetric_2x2(const RM22& m, double eps)
 {
-   AR21 v1, v2;
+   RA21 v1, v2;
    RM22 z1, z2;
 
    fs_diagonalize_hermitian_2x2<double,double,2>(m, v1, z1);
