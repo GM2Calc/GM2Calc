@@ -443,8 +443,9 @@ Eigen::Matrix<std::complex<double>,3,3> lambda_mu_cha(const MSSMNoFV_onshell& mo
    const Eigen::Array<double,2,1>& MCha(model.get_MCha());
    const double MW(model.get_MW());
    const double TB(model.get_TB());
-   const double CB = 1. / std::sqrt(1. + sqr(TB));
-   const double SB = std::sqrt(1. - sqr(CB));
+   const double rtb = std::sqrt(1 + sqr(TB));
+   const double CB = 1/rtb;
+   const double SB = TB/rtb;
    const double TA(tan_alpha(model));
    const double CA = 1. / std::sqrt(1. + sqr(TA));
    const double SA = - std::sqrt(1. - sqr(CA));
@@ -476,8 +477,9 @@ Eigen::Matrix<std::complex<double>,3,3> lambda_mu_cha(const MSSMNoFV_onshell& mo
  */
 Eigen::Matrix<std::complex<double>,2,2> lambda_stop(const MSSMNoFV_onshell& model) {
    const double TB(model.get_TB());
-   const double CB = 1. / std::sqrt(1. + sqr(TB));
-   const double SB = std::sqrt(1. - sqr(CB));
+   const double rtb = std::sqrt(1 + sqr(TB));
+   const double CB = 1/rtb;
+   const double SB = TB/rtb;
    const double TA(tan_alpha(model));
    const double CA = 1. / std::sqrt(1. + sqr(TA));
    const double SA = - std::sqrt(1. - sqr(CA));
