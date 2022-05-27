@@ -306,14 +306,11 @@ Eigen::Matrix<double,4,2> BBN(const MSSMNoFV_onshell& model)
  */
 Eigen::Matrix<double,4,2> x_im(const MSSMNoFV_onshell& model)
 {
-   const Eigen::Array<double,2,1>& m_smu(model.get_MSm());
-   const Eigen::Array<double,4,1>& MChi(model.get_MChi());
-
    Eigen::Matrix<double,4,2> result;
 
    for (int i = 0; i < 4; ++i) {
       for (int m = 0; m < 2; ++m) {
-         result(i, m) = sqr(MChi(i) / m_smu(m));
+         result(i, m) = sqr(model.get_MChi(i) / model.get_MSm(m));
       }
    }
 
@@ -324,7 +321,8 @@ Eigen::Matrix<double,4,2> x_im(const MSSMNoFV_onshell& model)
  * Calculates \f$x_k = m^2_{\chi_k^\pm} / m^2_{\tilde{\nu}_\mu}\f$,
  * which appears in Eq (47) of arXiv:hep-ph/0609168.
  */
-Eigen::Array<double,2,1> x_k(const MSSMNoFV_onshell& model) {
+Eigen::Array<double,2,1> x_k(const MSSMNoFV_onshell& model)
+{
    Eigen::Array<double,2,1> result;
 
    for (int k = 0; k < 2; ++k) {
