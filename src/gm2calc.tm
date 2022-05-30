@@ -1115,28 +1115,6 @@ double calculate_amu_mssmnofv(MSSMNoFV_onshell* model)
 
 /******************************************************************/
 
-void calculate_amu_thdm(gm2calc_THDM* model, double* amu1L, double* amu2LF, double* amu2LB, double* damu)
-{
-   /* calculate amu contributions */
-   if (config_flags.loopOrder > 0) {
-      *amu1L = gm2calc_thdm_calculate_amu_1loop(model);
-   }
-   if (config_flags.loopOrder > 1) {
-      *amu2LF = gm2calc_thdm_calculate_amu_2loop_fermionic(model);
-      *amu2LB = gm2calc_thdm_calculate_amu_2loop_bosonic(model);
-   }
-   /* calculate uncertainty */
-   if (config_flags.loopOrder == 0) {
-      *damu = gm2calc_thdm_calculate_uncertainty_amu_0loop(model);
-   } else if (config_flags.loopOrder == 1) {
-      *damu = gm2calc_thdm_calculate_uncertainty_amu_1loop(model);
-   } else if (config_flags.loopOrder > 1) {
-      *damu = gm2calc_thdm_calculate_uncertainty_amu_2loop(model);
-   }
-}
-
-/******************************************************************/
-
 double calculate_uncertainty_mssmnofv(MSSMNoFV_onshell* model)
 {
    double delta_amu = 0.;
@@ -1147,6 +1125,36 @@ double calculate_uncertainty_mssmnofv(MSSMNoFV_onshell* model)
       delta_amu = gm2calc_mssmnofv_calculate_uncertainty_amu_1loop(model);
    } else if (config_flags.loopOrder > 1) {
       delta_amu = gm2calc_mssmnofv_calculate_uncertainty_amu_2loop(model);
+   }
+
+   return delta_amu;
+}
+
+/******************************************************************/
+
+void calculate_amu_thdm(gm2calc_THDM* model, double* amu1L, double* amu2LF, double* amu2LB)
+{
+   if (config_flags.loopOrder > 0) {
+      *amu1L = gm2calc_thdm_calculate_amu_1loop(model);
+   }
+   if (config_flags.loopOrder > 1) {
+      *amu2LF = gm2calc_thdm_calculate_amu_2loop_fermionic(model);
+      *amu2LB = gm2calc_thdm_calculate_amu_2loop_bosonic(model);
+   }
+}
+
+/******************************************************************/
+
+double calculate_uncertainty_thdm(gm2calc_THDM* model)
+{
+   double delta_amu = 0.;
+
+   if (config_flags.loopOrder == 0) {
+      delta_amu = gm2calc_thdm_calculate_uncertainty_amu_0loop(model);
+   } else if (config_flags.loopOrder == 1) {
+      delta_amu = gm2calc_thdm_calculate_uncertainty_amu_1loop(model);
+   } else if (config_flags.loopOrder > 1) {
+      delta_amu = gm2calc_thdm_calculate_uncertainty_amu_2loop(model);
    }
 
    return delta_amu;
@@ -1730,8 +1738,9 @@ void GM2CalcAmuTHDMGaugeBasis(
    gm2calc_error error = gm2calc_thdm_new_with_gauge_basis(&model, &basis, &sm, &config);
 
    if (error == gm2calc_NoError) {
-      double amu1L = 0, amu2LF = 0, amu2LB = 0, damu = 0;
-      calculate_amu_thdm(model, &amu1L, &amu2LF, &amu2LB, &damu);
+      double amu1L = 0, amu2LF = 0, amu2LB = 0;
+      calculate_amu_thdm(model, &amu1L, &amu2LF, &amu2LB);
+      double damu = calculate_uncertainty_thdm(model);
 
       MLPutFunction(stdlink, "List", 5);
       MLPutRuleToReal(stdlink, amu1L + amu2LF + amu2LB, "amu");
@@ -1904,8 +1913,9 @@ void GM2CalcAmuTHDMMassBasis(
    gm2calc_error error = gm2calc_thdm_new_with_mass_basis(&model, &basis, &sm, &config);
 
    if (error == gm2calc_NoError) {
-      double amu1L = 0, amu2LF = 0, amu2LB = 0, damu = 0;
-      calculate_amu_thdm(model, &amu1L, &amu2LF, &amu2LB, &damu);
+      double amu1L = 0, amu2LF = 0, amu2LB = 0;
+      calculate_amu_thdm(model, &amu1L, &amu2LF, &amu2LB);
+      double damu = calculate_uncertainty_thdm(model);
 
       MLPutFunction(stdlink, "List", 5);
       MLPutRuleToReal(stdlink, amu1L + amu2LF + amu2LB, "amu");
