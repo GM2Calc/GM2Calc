@@ -1323,8 +1323,8 @@ void GM2CalcGetSMParameters(void)
 
 void create_result_list(MSSMNoFV_onshell* model)
 {
-   double amu = calculate_amu_mssmnofv(model);
-   double Damu = calculate_uncertainty_mssmnofv(model);
+   const double amu = calculate_amu_mssmnofv(model);
+   const double Damu = calculate_uncertainty_mssmnofv(model);
 
    MLPutFunction(stdlink, "List", 45);
    /* amu [2] */
@@ -1740,7 +1740,7 @@ void GM2CalcAmuTHDMGaugeBasis(
    if (error == gm2calc_NoError) {
       double amu1L = 0, amu2LF = 0, amu2LB = 0;
       calculate_amu_thdm(model, &amu1L, &amu2LF, &amu2LB);
-      double damu = calculate_uncertainty_thdm(model);
+      const double damu = calculate_uncertainty_thdm(model);
 
       MLPutFunction(stdlink, "List", 5);
       MLPutRuleToReal(stdlink, amu1L + amu2LF + amu2LB, "amu");
@@ -1915,7 +1915,7 @@ void GM2CalcAmuTHDMMassBasis(
    if (error == gm2calc_NoError) {
       double amu1L = 0, amu2LF = 0, amu2LB = 0;
       calculate_amu_thdm(model, &amu1L, &amu2LF, &amu2LB);
-      double damu = calculate_uncertainty_thdm(model);
+      const double damu = calculate_uncertainty_thdm(model);
 
       MLPutFunction(stdlink, "List", 5);
       MLPutRuleToReal(stdlink, amu1L + amu2LF + amu2LB, "amu");
