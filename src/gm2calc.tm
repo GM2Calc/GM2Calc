@@ -1137,7 +1137,7 @@ void calculate_amu_thdm(gm2calc_THDM* model, double* amu1L, double* amu2LF, doub
 
 /******************************************************************/
 
-double calculate_uncertainty(MSSMNoFV_onshell* model)
+double calculate_uncertainty_mssmnofv(MSSMNoFV_onshell* model)
 {
    double delta_amu = 0.;
 
@@ -1316,7 +1316,7 @@ void GM2CalcGetSMParameters(void)
 void create_result_list(MSSMNoFV_onshell* model)
 {
    double amu = calculate_amu_mssmnofv(model);
-   double Damu = calculate_uncertainty(model);
+   double Damu = calculate_uncertainty_mssmnofv(model);
 
    MLPutFunction(stdlink, "List", 45);
    /* amu [2] */
