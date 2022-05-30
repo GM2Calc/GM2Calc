@@ -1130,7 +1130,7 @@ void calculate_amu_thdm(gm2calc_THDM* model, double* amu1L, double* amu2LF, doub
       *damu = gm2calc_thdm_calculate_uncertainty_amu_0loop(model);
    } else if (config_flags.loopOrder == 1) {
       *damu = gm2calc_thdm_calculate_uncertainty_amu_1loop(model);
-   } else if (config_flags.loopOrder == 2) {
+   } else if (config_flags.loopOrder > 1) {
       *damu = gm2calc_thdm_calculate_uncertainty_amu_2loop(model);
    }
 }
