@@ -1090,7 +1090,7 @@ gm2calc_error setup_model_gm2calc_scheme(MSSMNoFV_onshell* model,
 
 /******************************************************************/
 
-double calculate_amu(MSSMNoFV_onshell* model)
+double calculate_amu_mssmnofv(MSSMNoFV_onshell* model)
 {
    double amu = 0.;
 
@@ -1315,7 +1315,7 @@ void GM2CalcGetSMParameters(void)
 
 void create_result_list(MSSMNoFV_onshell* model)
 {
-   double amu = calculate_amu(model);
+   double amu = calculate_amu_mssmnofv(model);
    double Damu = calculate_uncertainty(model);
 
    MLPutFunction(stdlink, "List", 45);
