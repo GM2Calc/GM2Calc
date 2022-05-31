@@ -501,10 +501,11 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_stop(const MSSMNoFV_onshell& mode
    Eigen::Matrix<std::complex<double>,2,2> result;
 
    for (int i = 0; i < 2; ++i) {
-      result(i, 0) = 2 * mt / (sqr(m_stop(i)) * sb) * (mu * sa + At * ca)
-                      * std::conj(u_stop(i, 0)) * u_stop(i, 1);
-      result(i, 1) = 2 * mt / (sqr(m_stop(i)) * sb) * (mu * (-ca) + At * sa)
-                      * std::conj(u_stop(i, 0)) * u_stop(i, 1);
+      const double tt = 2 * mt / (sqr(m_stop(i)) * sb);
+      const std::complex<double> uu = std::conj(u_stop(i, 0)) * u_stop(i, 1);
+
+      result(i, 0) = tt * (mu * sa + At * ca) * uu;
+      result(i, 1) = tt * (-mu * ca + At * sa) * uu;
    }
 
    return result;
@@ -532,10 +533,11 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_sbot(const MSSMNoFV_onshell& mode
    Eigen::Matrix<std::complex<double>,2,2> result;
 
    for (int i = 0; i < 2; ++i) {
-      result(i, 0) = 2 * mb_over_cb_eff / (sqr(m_sbot(i))) * (- mu * ca + Ab * (-sa))
-                      * std::conj(u_sbot(i, 0)) * u_sbot(i, 1);
-      result(i, 1) = 2 * mb_over_cb_eff / (sqr(m_sbot(i))) * (- mu * sa + Ab * ca)
-                      * std::conj(u_sbot(i, 0)) * u_sbot(i, 1);
+      const double bb = 2 * mb_over_cb_eff / sqr(m_sbot(i));
+      const std::complex<double> uu = std::conj(u_sbot(i, 0)) * u_sbot(i, 1);
+
+      result(i, 0) = bb * (-mu * ca - Ab * sa) * uu;
+      result(i, 1) = bb * (-mu * sa + Ab * ca) * uu;
    }
 
    return result;
@@ -563,10 +565,11 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_stau(const MSSMNoFV_onshell& mode
    Eigen::Matrix<std::complex<double>,2,2> result;
 
    for (int i = 0; i < 2; ++i) {
-      result(i, 0) = 2 * mtau_over_cb_eff / (sqr(m_stau(i))) * (- mu * ca + Al * (-sa))
-                      * std::conj(u_stau(i, 0)) * u_stau(i, 1);
-      result(i, 1) = 2 * mtau_over_cb_eff / (sqr(m_stau(i))) * (- mu * sa + Al * ca)
-                      * std::conj(u_stau(i, 0)) * u_stau(i, 1);
+      const double tt = 2 * mtau_over_cb_eff / sqr(m_stau(i));
+      const std::complex<double> uu = std::conj(u_stau(i, 0)) * u_stau(i, 1);
+
+      result(i, 0) = tt * (-mu * ca - Al * sa) * uu;
+      result(i, 1) = tt * (-mu * sa + Al * ca) * uu;
    }
 
    return result;
