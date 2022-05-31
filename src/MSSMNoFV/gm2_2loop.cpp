@@ -599,32 +599,28 @@ double amu2LaSferm(const MSSMNoFV_onshell& model)
    const Eigen::Matrix<std::complex<double>,2,2> lambdastau(lambda_stau(model));
 
    double result = 0;
-   double N_c = 3;
-   double Q = 2./3;
 
    for (int i = 0; i < 2; ++i) {
       for (int s = 0; s < 2; ++s) {
-         result += N_c * sqr(Q) * std::real(lambda_mu(s)
+         // prefactor N_c*q^2 = 3*(2/3)^2 = 4/3
+         result += 4./3 * std::real(lambda_mu(s)
                    * lambdastop(i, s))
                    * f_sferm(sqr(m_stop(i) / m_higgs(s)));
       }
    }
 
-   Q = -1./3;
    for (int i = 0; i < 2; ++i) {
       for (int s = 0; s < 2; ++s) {
-         result += N_c * sqr(Q) * std::real(lambda_mu(s)
+         // prefactor N_c*q^2 = 3*(1/3)^2 = 1/3
+         result += 1./3 * std::real(lambda_mu(s)
                    * lambdasbot(i, s))
                    * f_sferm(sqr(m_sbot(i) / m_higgs(s)));
       }
    }
 
-   N_c = 1;
-   Q = -1;
    for (int i = 0; i < 2; ++i) {
       for (int s = 0; s < 2; ++s) {
-         result += N_c * sqr(Q) * std::real(lambda_mu(s)
-                   * lambdastau(i, s))
+         result += std::real(lambda_mu(s) * lambdastau(i, s))
                    * f_sferm(sqr(m_stau(i) / m_higgs(s)));
       }
    }
