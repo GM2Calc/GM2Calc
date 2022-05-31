@@ -356,6 +356,9 @@ double amu2LChipmPhotonic(const MSSMNoFV_onshell& model)
    const double MSvmL = model.get_MSvmL();
    const Eigen::Array<double,2,1> x(x_k(model));
    const double Q = model.get_scale();
+   const double x_mv = mm / MSvmL;
+   const double log_x_mv = std::log(x_mv);
+   const double log_x_vq = std::log(MSvmL / Q);
 
    double result = 0.;
 
@@ -364,15 +367,13 @@ double amu2LChipmPhotonic(const MSSMNoFV_onshell& model)
       const double f1c = F1C(x(k));
       const double f2c = F2C(x(k));
       result +=
-         + (4./3 * AAC_(k) * f1c + 16./3 * BBC_(k) * y * f2c)
-           * std::log(mm / MSvmL)
-         - 47./72 * AAC_(k) * F3C(x(k))
-         - 61./9 * BBC_(k) * y * F4C(x(k))
-         - (AAC_(k) * f1c + 2 * BBC_(k) * y * f2c)
-           * std::log(MSvmL / Q);
+         + (4./3*AAC_(k)*f1c + 16./3*BBC_(k)*y*f2c)*log_x_mv
+         - 47./72*AAC_(k)*F3C(x(k))
+         - 61./9*BBC_(k)*y*F4C(x(k))
+         - (AAC_(k)*f1c + 2*BBC_(k)*y*f2c)*log_x_vq;
    }
 
-   return  sqr(model.get_EL0()) * sqr(oneOver16PiSqr) * sqr(mm / MSvmL) * result;
+   return sqr(model.get_EL0() * oneOver16PiSqr * x_mv) * result;
 }
 
 /**
