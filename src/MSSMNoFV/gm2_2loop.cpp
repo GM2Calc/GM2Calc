@@ -389,25 +389,26 @@ double amu2LChi0Photonic(const MSSMNoFV_onshell& model)
    const Eigen::Array<double,2,1>& MSmu(model.get_MSm());
    const Eigen::Matrix<double,4,2> x(x_im(model));
    const double Q = model.get_scale();
+   const Eigen::Array<double,2,1> log_x_mm((MSmu / mm).log());
+   const Eigen::Array<double,2,1> log_x_mq((MSmu / Q).log());
 
    double result = 0.;
 
    for (int i = 0; i < 4; ++i) {
+      const double y = MNeu(i) / mm;
       for (int m = 0; m < 2; ++m) {
-         result +=
-            1. / sqr(MSmu(m)) * (
-               + (- 1./12 * AAN_(i, m) * F1N(x(i, m))
-                  - 1./6 * MNeu(i) * BBN_(i, m) / mm * F2N(x(i, m)))
-               * 16. * std::log(mm / MSmu(m))
-               + 35./72 * AAN_(i, m) * F3N(x(i, m))
-               + 8./9 * MNeu(i) * BBN_(i, m) / mm * F4N(x(i, m))
-               + (0.25 * AAN_(i, m) * F1N(x(i, m)))
-                 * std::log(sqr(MSmu(m) / Q))
-            );
+         const double f1n = F1N(x(i, m));
+         result += (
+            + (4./3*AAN_(i, m)*f1n
+               + 16./6*BBN_(i, m)*y*F2N(x(i, m)))*log_x_mm(m)
+            + 35./72*AAN_(i, m)*F3N(x(i, m))
+            + 8./9*BBN_(i, m)*y*F4N(x(i, m))
+            + 0.5*AAN_(i, m)*f1n*log_x_mq(m)
+            )/sqr(MSmu(m));
       }
    }
 
-   return sqr(model.get_EL0()) * sqr(oneOver16PiSqr) * sqr(mm) * result;
+   return sqr(model.get_EL0() * oneOver16PiSqr * mm) * result;
 }
 
 // ==== amu2Loop_a corrections ====
