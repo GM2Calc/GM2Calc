@@ -59,12 +59,12 @@ double tan_beta_cor(const MSSMNoFV_onshell&);
 // === couplings ===
 
 Eigen::Array<double,2,1> AAC(const MSSMNoFV_onshell&);
-Eigen::Matrix<double,4,2> AAN(const MSSMNoFV_onshell&);
+Eigen::Array<double,4,2> AAN(const MSSMNoFV_onshell&);
 Eigen::Array<double,2,1> BBC(const MSSMNoFV_onshell&);
-Eigen::Matrix<double,4,2> BBN(const MSSMNoFV_onshell&);
+Eigen::Array<double,4,2> BBN(const MSSMNoFV_onshell&);
 
 /// squared neutralino smuon mass ratio
-Eigen::Matrix<double,4,2> x_im(const MSSMNoFV_onshell&);
+Eigen::Array<double,4,2> x_im(const MSSMNoFV_onshell&);
 /// squared chargino muon-sneutrino mass ratio
 Eigen::Array<double,2,1> x_k(const MSSMNoFV_onshell&);
 
