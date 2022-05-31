@@ -360,13 +360,16 @@ double amu2LChipmPhotonic(const MSSMNoFV_onshell& model)
    double result = 0.;
 
    for (int k = 0; k < 2; k++) {
+      const double y = MCha(k)/mm;
+      const double f1c = F1C(x(k));
+      const double f2c = F2C(x(k));
       result +=
-         + (1./12 * AAC_(k) * F1C(x(k)) + 1./3 * MCha(k) * BBC_(k) / mm * F2C(x(k)))
-           * 16*std::log(mm / MSvmL)
+         + (4./3 * AAC_(k) * f1c + 16./3 * BBC_(k) * y * f2c)
+           * std::log(mm / MSvmL)
          - 47./72 * AAC_(k) * F3C(x(k))
-         - 61./9 * MCha(k) * BBC_(k) / mm * F4C(x(k))
-         - (0.5 * AAC_(k) * F1C(x(k)) + MCha(k) * BBC_(k) / mm * F2C(x(k)))
-           * std::log(sqr(MSvmL / Q));
+         - 61./9 * BBC_(k) * y * F4C(x(k))
+         - (AAC_(k) * f1c + 2 * BBC_(k) * y * f2c)
+           * std::log(MSvmL / Q);
    }
 
    return  sqr(model.get_EL0()) * sqr(oneOver16PiSqr) * sqr(mm / MSvmL) * result;
