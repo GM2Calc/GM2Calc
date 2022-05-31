@@ -459,17 +459,18 @@ Eigen::Matrix<std::complex<double>,3,3> lambda_mu_cha(const MSSMNoFV_onshell& mo
    const Eigen::Matrix<std::complex<double>,2,2>& U(model.get_UM());
    const Eigen::Matrix<std::complex<double>,2,2>& V(model.get_UP());
    const double one_over_cb_eff = root2 * model.get_Ye(1,1)
-      * mw / model.get_MM() / model.get_g2();
+      * mw / (model.get_MM() * model.get_g2());
 
    Eigen::Matrix<std::complex<double>,3,3> result;
 
    for (int k = 0; k < 2; ++k) {
-      result(k, 0) = root2 * mw / MCha(k)
-                      * (U(k, 0) * V(k, 1) * ca + U(k, 1) * V(k, 0) * (-sa));
-      result(k, 1) = root2 * mw / MCha(k)
-                      * (U(k, 0) * V(k, 1) * sa + U(k, 1) * V(k, 0) * ca);
-      result(k, 2) = root2 * mw / MCha(k)
-                      * (U(k, 0) * V(k, 1) * (-cb) + U(k, 1) * V(k, 0) * (-sb));
+      const double wc = root2 * mw / MCha(k);
+      const std::complex<double> u0v1 = U(k, 0) * V(k, 1);
+      const std::complex<double> u1v0 = U(k, 1) * V(k, 0);
+
+      result(k, 0) = wc * (u0v1 * ca - u1v0 * sa);
+      result(k, 1) = wc * (u0v1 * sa + u1v0 * ca);
+      result(k, 2) = wc * (-u0v1 * cb - u1v0 * sb);
    }
    result(2, 0) = -sa * one_over_cb_eff;
    result(2, 1) = ca * one_over_cb_eff;
