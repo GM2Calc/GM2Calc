@@ -248,15 +248,10 @@ Eigen::Array<double,4,2> BBN(const MSSMNoFV_onshell& model)
  */
 Eigen::Array<double,4,2> x_im(const MSSMNoFV_onshell& model)
 {
-   Eigen::Array<double,4,2> result;
+   const Eigen::Matrix<double,4,1> m_chi(model.get_MChi());
+   const Eigen::Matrix<double,2,1> m_sm(model.get_MSm());
 
-   for (int i = 0; i < 4; ++i) {
-      for (int m = 0; m < 2; ++m) {
-         result(i, m) = sqr(model.get_MChi(i) / model.get_MSm(m));
-      }
-   }
-
-   return result;
+   return (m_chi * m_sm.cwiseInverse().transpose()).array().square();
 }
 
 /**
@@ -265,13 +260,7 @@ Eigen::Array<double,4,2> x_im(const MSSMNoFV_onshell& model)
  */
 Eigen::Array<double,2,1> x_k(const MSSMNoFV_onshell& model)
 {
-   Eigen::Array<double,2,1> result;
-
-   for (int k = 0; k < 2; ++k) {
-      result(k) = sqr(model.get_MCha(k) / model.get_MSvmL());
-   }
-
-   return result;
+   return (model.get_MCha() / model.get_MSvmL()).square();
 }
 
 // === approximations ===
