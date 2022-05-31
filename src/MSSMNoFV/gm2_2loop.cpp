@@ -603,8 +603,7 @@ double amu2LaSferm(const MSSMNoFV_onshell& model)
    for (int i = 0; i < 2; ++i) {
       for (int s = 0; s < 2; ++s) {
          // prefactor N_c*q^2 = 3*(2/3)^2 = 4/3
-         result += 4./3 * std::real(lambda_mu(s)
-                   * lambdastop(i, s))
+         result += 4./3 * std::real(lambda_mu(s) * lambdastop(i, s))
                    * f_sferm(sqr(m_stop(i) / m_higgs(s)));
       }
    }
@@ -612,8 +611,7 @@ double amu2LaSferm(const MSSMNoFV_onshell& model)
    for (int i = 0; i < 2; ++i) {
       for (int s = 0; s < 2; ++s) {
          // prefactor N_c*q^2 = 3*(1/3)^2 = 1/3
-         result += 1./3 * std::real(lambda_mu(s)
-                   * lambdasbot(i, s))
+         result += 1./3 * std::real(lambda_mu(s) * lambdasbot(i, s))
                    * f_sferm(sqr(m_sbot(i) / m_higgs(s)));
       }
    }
