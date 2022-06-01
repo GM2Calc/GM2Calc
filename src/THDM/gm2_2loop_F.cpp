@@ -161,7 +161,7 @@ double FdHp(double ms2, double md2, double mu2, double qd, double qu, double phi
    const double lxu = std::log(xu);
    const double lxd = std::log(xd);
 
-   return -(xu - xd) + (cbar - c*(xu - xd))/y * phi
+   return -(xu - xd) + (cbar/y - c*(xu - xd)/y) * phi
       + c*(dilog(1.0 - xd/xu) - 0.5*lxu*(lxd - lxu))
       + (s + xd)*lxd + (s - xu)*lxu;
 }
