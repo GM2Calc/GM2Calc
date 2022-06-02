@@ -1090,27 +1090,22 @@ gm2calc_error setup_model_gm2calc_scheme(MSSMNoFV_onshell* model,
 
 /******************************************************************/
 
-double calculate_amu_mssmnofv(MSSMNoFV_onshell* model)
+void calculate_amu_mssmnofv(MSSMNoFV_onshell* model, double* amu1L, double* amu2L)
 {
-   double amu = 0.;
-
-   if (config_flags.loopOrder == 1) {
+   if (config_flags.loopOrder > 0) {
       if (config_flags.tanBetaResummation) {
-         amu = gm2calc_mssmnofv_calculate_amu_1loop(model);
+         *amu1L = gm2calc_mssmnofv_calculate_amu_1loop(model);
       } else {
-         amu = gm2calc_mssmnofv_calculate_amu_1loop_non_tan_beta_resummed(model);
-      }
-   } else if (config_flags.loopOrder > 1) {
-      if (config_flags.tanBetaResummation) {
-         amu = gm2calc_mssmnofv_calculate_amu_1loop(model)
-             + gm2calc_mssmnofv_calculate_amu_2loop(model);
-      } else {
-         amu = gm2calc_mssmnofv_calculate_amu_1loop_non_tan_beta_resummed(model)
-             + gm2calc_mssmnofv_calculate_amu_2loop_non_tan_beta_resummed(model);
+         *amu1L = gm2calc_mssmnofv_calculate_amu_1loop_non_tan_beta_resummed(model);
       }
    }
-
-   return amu;
+   if (config_flags.loopOrder > 1) {
+      if (config_flags.tanBetaResummation) {
+         *amu2L = gm2calc_mssmnofv_calculate_amu_2loop(model);
+      } else {
+         *amu2L = gm2calc_mssmnofv_calculate_amu_2loop_non_tan_beta_resummed(model);
+      }
+   }
 }
 
 /******************************************************************/
@@ -1323,7 +1318,9 @@ void GM2CalcGetSMParameters(void)
 
 void create_result_list(MSSMNoFV_onshell* model)
 {
-   const double amu = calculate_amu_mssmnofv(model);
+   double amu1L = 0, amu2L = 0;
+   calculate_amu_mssmnofv(model, &amu1L, &amu2L);
+   const double amu = amu1L + amu2L;
    const double Damu = calculate_uncertainty_mssmnofv(model);
 
    MLPutFunction(stdlink, "List", 45);
