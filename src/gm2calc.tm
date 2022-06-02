@@ -75,6 +75,9 @@
 :Evaluate: amu1L::usage =
     "Calculated value of the anomalous magnetic moment of the muon, amu = (g-2)/2 (1-loop contribution only).";
 
+:Evaluate: amu2L::usage =
+    "Calculated value of the anomalous magnetic moment of the muon, amu = (g-2)/2 (2-loop contribution only).";
+
 :Evaluate: amu2LF::usage =
     "Calculated value of the anomalous magnetic moment of the muon, amu = (g-2)/2 (2-loop fermionic contribution only).";
 
@@ -1323,9 +1326,11 @@ void create_result_list(MSSMNoFV_onshell* model)
    const double amu = amu1L + amu2L;
    const double Damu = calculate_uncertainty_mssmnofv(model);
 
-   MLPutFunction(stdlink, "List", 45);
-   /* amu [2] */
+   MLPutFunction(stdlink, "List", 47);
+   /* amu [4] */
    MLPutRuleToReal(stdlink, amu, "amu");
+   MLPutRuleToReal(stdlink, amu1L, "amu1L");
+   MLPutRuleToReal(stdlink, amu2L, "amu2L");
    MLPutRuleToReal(stdlink, Damu, "Damu");
    /* couplings [3] */
    MLPutRuleToReal(stdlink, sqr(gm2calc_mssmnofv_get_EL(model))/(4.*M_PI), "alphaMZ");
