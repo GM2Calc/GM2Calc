@@ -33,6 +33,25 @@
 
 namespace gm2calc {
 
+double calculate_uncertainty_amu_2loop(const THDM& model, double amu_1L, double amu_2L);
+
+/**
+ * Calculates uncertainty associated with amu(0-loop)
+ *
+ * The estimated uncertainty is the magnitude amu(1-loop) plus
+ * amu(2-loop).
+ *
+ * @param model model parameters (unused tag type)
+ * @param amu_1L 1-loop contribution to amu
+ * @param amu_2L 2-loop contribution to amu
+ *
+ * @return uncertainty for amu(0-loop)
+ */
+double calculate_uncertainty_amu_0loop(const THDM& /* model */, double amu_1L, double amu_2L)
+{
+   return std::abs(amu_1L) + std::abs(amu_2L);
+}
+
 /**
  * Calculates uncertainty associated with amu(0-loop)
  *
@@ -48,7 +67,27 @@ double calculate_uncertainty_amu_0loop(const THDM& model)
    const double amu_1L = calculate_amu_1loop(model);
    const double amu_2L = calculate_amu_2loop(model);
 
-   return std::abs(amu_1L) + std::abs(amu_2L);
+   return calculate_uncertainty_amu_0loop(model, amu_1L, amu_2L);
+}
+
+/**
+ * Calculates uncertainty associated with amu(1-loop)
+ *
+ * The estimated uncertainty is the sum of magnitude amu(2-loop) and
+ * the 2-loop uncertainty, calculated by
+ * calculate_uncertainty_amu_2loop().
+ *
+ * @param model model parameters
+ * @param amu_2L 2-loop contribution to amu
+ *
+ * @return uncertainty for amu(1-loop)
+ */
+double calculate_uncertainty_amu_1loop(const THDM& model, double amu_2L)
+{
+   const double amu_1L = calculate_amu_1loop(model);
+   const double delta_amu_2L = calculate_uncertainty_amu_2loop(model, amu_1L, amu_2L);
+
+   return std::abs(amu_2L) + std::abs(delta_amu_2L);
 }
 
 /**
@@ -65,9 +104,8 @@ double calculate_uncertainty_amu_0loop(const THDM& model)
 double calculate_uncertainty_amu_1loop(const THDM& model)
 {
    const double amu_2L = calculate_amu_2loop(model);
-   const double delta_amu_2L = calculate_uncertainty_amu_2loop(model);
 
-   return std::abs(amu_2L) + std::abs(delta_amu_2L);
+   return calculate_uncertainty_amu_1loop(model, amu_2L);
 }
 
 /**
@@ -79,10 +117,12 @@ double calculate_uncertainty_amu_1loop(const THDM& model)
  * contributions of \f$O(m_\mu^2)\f$
  *
  * @param model model parameters
+ * @param amu_1L 1-loop contribution to amu
+ * @param amu_2L 2-loop contribution to amu
  *
  * @return uncertainty for amu(2-loop)
  */
-double calculate_uncertainty_amu_2loop(const THDM& model)
+double calculate_uncertainty_amu_2loop(const THDM& model, double amu_1L, double amu_2L)
 {
    const double pi = 3.1415926535897932;
    const double alpha_em = model.get_alpha_em();
@@ -99,12 +139,32 @@ double calculate_uncertainty_amu_2loop(const THDM& model)
    const double delta_amu_2L_delta_r = 2e-12;
 
    // estimate of 2-loop corrections O(mm^4)
-   const double delta_amu_2L_mm4 = std::abs(calculate_amu_1loop(model)*delta_alpha_em);
+   const double delta_amu_2L_mm4 = std::abs(amu_1L*delta_alpha_em);
 
    // estimate of 3-loop corrections O(mm^2)
-   const double delta_amu_3L = std::abs(calculate_amu_2loop(model)*delta_alpha_em);
+   const double delta_amu_3L = std::abs(amu_2L*delta_alpha_em);
 
    return delta_amu_2L_delta_r + delta_amu_2L_mm4 + delta_amu_3L;
+}
+
+/**
+ * Calculates uncertainty associated with amu(2-loop)
+ *
+ * Takes into account the neglected two-loop contribution
+ * \f$a_\mu^{\Delta r\text{-shift}}\f$, Eq.(34) arxiv:1607.06292,
+ * two-loop contributions of \f$O(m_\mu^4)\f$ and three-loop
+ * contributions of \f$O(m_\mu^2)\f$
+ *
+ * @param model model parameters
+ *
+ * @return uncertainty for amu(2-loop)
+ */
+double calculate_uncertainty_amu_2loop(const THDM& model)
+{
+   const double amu_1L = calculate_amu_1loop(model);
+   const double amu_2L = calculate_amu_2loop(model);
+
+   return calculate_uncertainty_amu_2loop(model, amu_1L, amu_2L);
 }
 
 } // namespace gm2calc
