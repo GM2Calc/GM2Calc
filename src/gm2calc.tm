@@ -734,6 +734,7 @@
 #include "gm2calc/MSSMNoFV_onshell.h"
 #include "gm2calc/SM.h"
 #include "gm2calc/THDM.h"
+#include "gm2_uncertainty_helpers.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -1113,14 +1114,14 @@ void calculate_amu_mssmnofv(MSSMNoFV_onshell* model, double* amu1L, double* amu2
 
 /******************************************************************/
 
-double calculate_uncertainty_mssmnofv(MSSMNoFV_onshell* model)
+double calculate_uncertainty_mssmnofv(MSSMNoFV_onshell* model, double amu1L, double amu2L)
 {
    double delta_amu = 0.;
 
    if (config_flags.loopOrder == 0) {
-      delta_amu = gm2calc_mssmnofv_calculate_uncertainty_amu_0loop(model);
+      delta_amu = gm2calc_mssmnofv_calculate_uncertainty_amu_0loop_amu1L(model, amu1L);
    } else if (config_flags.loopOrder == 1) {
-      delta_amu = gm2calc_mssmnofv_calculate_uncertainty_amu_1loop(model);
+      delta_amu = gm2calc_mssmnofv_calculate_uncertainty_amu_1loop_amu2L(model, amu2L);
    } else if (config_flags.loopOrder > 1) {
       delta_amu = gm2calc_mssmnofv_calculate_uncertainty_amu_2loop(model);
    }
@@ -1143,16 +1144,16 @@ void calculate_amu_thdm(gm2calc_THDM* model, double* amu1L, double* amu2LF, doub
 
 /******************************************************************/
 
-double calculate_uncertainty_thdm(gm2calc_THDM* model)
+double calculate_uncertainty_thdm(gm2calc_THDM* model, double amu1L, double amu2L)
 {
    double delta_amu = 0.;
 
    if (config_flags.loopOrder == 0) {
-      delta_amu = gm2calc_thdm_calculate_uncertainty_amu_0loop(model);
+      delta_amu = gm2calc_thdm_calculate_uncertainty_amu_0loop_amu1L_amu2L(model, amu1L, amu2L);
    } else if (config_flags.loopOrder == 1) {
-      delta_amu = gm2calc_thdm_calculate_uncertainty_amu_1loop(model);
+      delta_amu = gm2calc_thdm_calculate_uncertainty_amu_1loop_amu2L(model, amu2L);
    } else if (config_flags.loopOrder > 1) {
-      delta_amu = gm2calc_thdm_calculate_uncertainty_amu_2loop(model);
+      delta_amu = gm2calc_thdm_calculate_uncertainty_amu_2loop_amu1L_amu2L(model, amu1L, amu2L);
    }
 
    return delta_amu;
@@ -1324,7 +1325,7 @@ void create_result_list(MSSMNoFV_onshell* model)
    double amu1L = 0, amu2L = 0;
    calculate_amu_mssmnofv(model, &amu1L, &amu2L);
    const double amu = amu1L + amu2L;
-   const double Damu = calculate_uncertainty_mssmnofv(model);
+   const double Damu = calculate_uncertainty_mssmnofv(model, amu1L, amu2L);
 
    MLPutFunction(stdlink, "List", 47);
    /* amu [4] */
@@ -1742,7 +1743,7 @@ void GM2CalcAmuTHDMGaugeBasis(
    if (error == gm2calc_NoError) {
       double amu1L = 0, amu2LF = 0, amu2LB = 0;
       calculate_amu_thdm(model, &amu1L, &amu2LF, &amu2LB);
-      const double damu = calculate_uncertainty_thdm(model);
+      const double damu = calculate_uncertainty_thdm(model, amu1L, amu2LF + amu2LB);
 
       MLPutFunction(stdlink, "List", 5);
       MLPutRuleToReal(stdlink, amu1L + amu2LF + amu2LB, "amu");
@@ -1917,7 +1918,7 @@ void GM2CalcAmuTHDMMassBasis(
    if (error == gm2calc_NoError) {
       double amu1L = 0, amu2LF = 0, amu2LB = 0;
       calculate_amu_thdm(model, &amu1L, &amu2LF, &amu2LB);
-      const double damu = calculate_uncertainty_thdm(model);
+      const double damu = calculate_uncertainty_thdm(model, amu1L, amu2LF + amu2LB);
 
       MLPutFunction(stdlink, "List", 5);
       MLPutRuleToReal(stdlink, amu1L + amu2LF + amu2LB, "amu");

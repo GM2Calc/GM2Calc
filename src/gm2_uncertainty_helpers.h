@@ -27,19 +27,19 @@ typedef struct gm2calc_THDM gm2calc_THDM;
 typedef struct MSSMNoFV_onshell MSSMNoFV_onshell;
 
 /** calculates uncertainty for amu(0-loop) */
-double calculate_uncertainty_amu_0loop(const gm2calc_THDM* /* model */, double /* amu_1L */, double /* amu_2L */);
+double gm2calc_thdm_calculate_uncertainty_amu_0loop_amu1L_amu2L(const gm2calc_THDM* /* model */, double /* amu_1L */, double /* amu_2L */);
 
 /** calculates uncertainty for amu(1-loop) */
-double calculate_uncertainty_amu_1loop(const gm2calc_THDM* /* model */, double /* amu_2L */);
+double gm2calc_thdm_calculate_uncertainty_amu_1loop_amu2L(const gm2calc_THDM* /* model */, double /* amu_2L */);
 
 /** calculates uncertainty for amu(2-loop) */
-double calculate_uncertainty_amu_2loop(const gm2calc_THDM* /* model */, double /* amu_1L */, double /* amu_2L */);
+double gm2calc_thdm_calculate_uncertainty_amu_2loop_amu1L_amu2L(const gm2calc_THDM* /* model */, double /* amu_1L */, double /* amu_2L */);
 
 /** calculates uncertainty for amu(0-loop) w/ tan(beta) resummation */
-double calculate_uncertainty_amu_0loop(const MSSMNoFV_onshell* /* model */, double /* amu_1L*/);
+double gm2calc_mssmnofv_calculate_uncertainty_amu_0loop_amu1L(const MSSMNoFV_onshell* /* model */, double /* amu_1L*/);
 
 /** calculates uncertainty for amu(1-loop) w/ tan(beta) resummation */
-double calculate_uncertainty_amu_1loop(const MSSMNoFV_onshell* /* model */, double /* amu_2L */);
+double gm2calc_mssmnofv_calculate_uncertainty_amu_1loop_amu2L(const MSSMNoFV_onshell* /* model */, double /* amu_2L */);
 
 #ifdef __cplusplus
 } /* extern "C" */

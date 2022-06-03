@@ -18,13 +18,27 @@
 
 #include "gm2calc/gm2_uncertainty.h"
 #include "gm2calc/gm2_uncertainty.hpp"
+#include "gm2_uncertainty_helpers.h"
+#include "gm2_uncertainty_helpers.hpp"
 
 extern "C" {
+
+double gm2calc_mssmnofv_calculate_uncertainty_amu_0loop_amu1L(const MSSMNoFV_onshell* model, double amu_1L)
+{
+   return gm2calc::calculate_uncertainty_amu_0loop(
+      *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model), amu_1L);
+}
 
 double gm2calc_mssmnofv_calculate_uncertainty_amu_0loop(const MSSMNoFV_onshell* model)
 {
    return gm2calc::calculate_uncertainty_amu_0loop(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
+}
+
+double gm2calc_mssmnofv_calculate_uncertainty_amu_1loop_amu2L(const MSSMNoFV_onshell* model, double amu_2L)
+{
+   return gm2calc::calculate_uncertainty_amu_1loop(
+      *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model), amu_2L);
 }
 
 double gm2calc_mssmnofv_calculate_uncertainty_amu_1loop(const MSSMNoFV_onshell* model)

@@ -18,8 +18,28 @@
 
 #include "gm2calc/gm2_uncertainty.h"
 #include "gm2calc/gm2_uncertainty.hpp"
+#include "gm2_uncertainty_helpers.h"
+#include "gm2_uncertainty_helpers.hpp"
 
 extern "C" {
+
+double gm2calc_thdm_calculate_uncertainty_amu_0loop_amu1L_amu2L(const gm2calc_THDM* model, double amu_1L, double amu_2L)
+{
+   return gm2calc::calculate_uncertainty_amu_0loop(
+      *reinterpret_cast<const gm2calc::THDM*>(model), amu_1L, amu_2L);
+}
+
+double gm2calc_thdm_calculate_uncertainty_amu_1loop_amu2L(const gm2calc_THDM* model, double amu_2L)
+{
+   return gm2calc::calculate_uncertainty_amu_1loop(
+      *reinterpret_cast<const gm2calc::THDM*>(model), amu_2L);
+}
+
+double gm2calc_thdm_calculate_uncertainty_amu_2loop_amu1L_amu2L(const gm2calc_THDM* model, double amu_1L, double amu_2L)
+{
+   return gm2calc::calculate_uncertainty_amu_2loop(
+      *reinterpret_cast<const gm2calc::THDM*>(model), amu_1L, amu_2L);
+}
 
 double gm2calc_thdm_calculate_uncertainty_amu_0loop(const gm2calc_THDM* model)
 {
