@@ -55,9 +55,6 @@ double calculate_uncertainty_amu_0loop(const THDM& /* model */, double amu_1L, d
 /**
  * Calculates uncertainty associated with amu(0-loop)
  *
- * The estimated uncertainty is the magnitude amu(1-loop) plus
- * amu(2-loop).
- *
  * @param model model parameters
  *
  * @return uncertainty for amu(0-loop)
@@ -92,10 +89,6 @@ double calculate_uncertainty_amu_1loop(const THDM& model, double amu_2L)
 
 /**
  * Calculates uncertainty associated with amu(1-loop)
- *
- * The estimated uncertainty is the sum of magnitude amu(2-loop) and
- * the 2-loop uncertainty, calculated by
- * calculate_uncertainty_amu_2loop().
  *
  * @param model model parameters
  *
@@ -149,11 +142,6 @@ double calculate_uncertainty_amu_2loop(const THDM& model, double amu_1L, double 
 
 /**
  * Calculates uncertainty associated with amu(2-loop)
- *
- * Takes into account the neglected two-loop contribution
- * \f$a_\mu^{\Delta r\text{-shift}}\f$, Eq.(34) arxiv:1607.06292,
- * two-loop contributions of \f$O(m_\mu^4)\f$ and three-loop
- * contributions of \f$O(m_\mu^2)\f$
  *
  * @param model model parameters
  *
