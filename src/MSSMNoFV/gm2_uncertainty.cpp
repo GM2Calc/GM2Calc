@@ -52,9 +52,6 @@ double calculate_uncertainty_amu_0loop(const MSSMNoFV_onshell& /* model */, doub
  * Calculates uncertainty associated with amu(0-loop) including
  * tan(beta) resummation.
  *
- * The estimated uncertainty is the magnitude amu(1-loop) (including
- * tan(beta) resummation).
- *
  * @param model model parameters
  *
  * @return uncertainty for amu(0-loop) w/ tan(beta) resummation
@@ -88,10 +85,6 @@ double calculate_uncertainty_amu_1loop(const MSSMNoFV_onshell& model, double amu
 /**
  * Calculates uncertainty associated with amu(1-loop) including
  * tan(beta) resummation.
- *
- * The estimated uncertainty is the sum of magnitude amu(2-loop)
- * (including tan(beta) resummation) and the 2-loop uncertainty,
- * calculated by calculate_uncertainty_amu_2loop().
  *
  * @param model model parameters
  *
