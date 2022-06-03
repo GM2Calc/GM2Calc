@@ -21,6 +21,7 @@
 #include "gm2calc/gm2_2loop.hpp"
 #include "gm2calc/THDM.hpp"
 #include "gm2_1loop_helpers.hpp"
+#include "gm2_uncertainty_helpers.hpp"
 
 #include <cmath>
 
@@ -32,8 +33,6 @@
  */
 
 namespace gm2calc {
-
-double calculate_uncertainty_amu_2loop(const THDM& model, double amu_1L, double amu_2L);
 
 /**
  * Calculates uncertainty associated with amu(0-loop)
