@@ -28,7 +28,7 @@ class THDM;
 double calculate_uncertainty_amu_0loop(const THDM& /* model */, double /* amu_1L */, double /* amu_2L */);
 
 /// calculates uncertainty for amu(1-loop)
-double calculate_uncertainty_amu_1loop(const THDM& /* model */, double /* amu_2L */);
+double calculate_uncertainty_amu_1loop(const THDM& /* model */, double /* amu_1L */, double /* amu_2L */);
 
 /// calculates uncertainty for amu(2-loop)
 double calculate_uncertainty_amu_2loop(const THDM& /* model */, double /* amu_1L */, double /* amu_2L */);

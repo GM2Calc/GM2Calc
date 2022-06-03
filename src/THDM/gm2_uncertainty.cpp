@@ -74,13 +74,13 @@ double calculate_uncertainty_amu_0loop(const THDM& model)
  * calculate_uncertainty_amu_2loop().
  *
  * @param model model parameters
+ * @param amu_1L 1-loop contribution to amu
  * @param amu_2L 2-loop contribution to amu
  *
  * @return uncertainty for amu(1-loop)
  */
-double calculate_uncertainty_amu_1loop(const THDM& model, double amu_2L)
+double calculate_uncertainty_amu_1loop(const THDM& model, double amu_1L, double amu_2L)
 {
-   const double amu_1L = calculate_amu_1loop(model);
    const double delta_amu_2L = calculate_uncertainty_amu_2loop(model, amu_1L, amu_2L);
 
    return std::abs(amu_2L) + std::abs(delta_amu_2L);
@@ -95,9 +95,10 @@ double calculate_uncertainty_amu_1loop(const THDM& model, double amu_2L)
  */
 double calculate_uncertainty_amu_1loop(const THDM& model)
 {
+   const double amu_1L = calculate_amu_1loop(model);
    const double amu_2L = calculate_amu_2loop(model);
 
-   return calculate_uncertainty_amu_1loop(model, amu_2L);
+   return calculate_uncertainty_amu_1loop(model, amu_1L, amu_2L);
 }
 
 /**

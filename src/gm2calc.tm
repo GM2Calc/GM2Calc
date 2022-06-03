@@ -1151,7 +1151,7 @@ double calculate_uncertainty_thdm(gm2calc_THDM* model, double amu1L, double amu2
    if (config_flags.loopOrder == 0) {
       delta_amu = gm2calc_thdm_calculate_uncertainty_amu_0loop_amu1L_amu2L(model, amu1L, amu2L);
    } else if (config_flags.loopOrder == 1) {
-      delta_amu = gm2calc_thdm_calculate_uncertainty_amu_1loop_amu2L(model, amu2L);
+      delta_amu = gm2calc_thdm_calculate_uncertainty_amu_1loop_amu1L_amu2L(model, amu1L, amu2L);
    } else if (config_flags.loopOrder > 1) {
       delta_amu = gm2calc_thdm_calculate_uncertainty_amu_2loop_amu1L_amu2L(model, amu1L, amu2L);
    }

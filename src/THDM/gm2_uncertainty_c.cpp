@@ -29,10 +29,10 @@ double gm2calc_thdm_calculate_uncertainty_amu_0loop_amu1L_amu2L(const gm2calc_TH
       *reinterpret_cast<const gm2calc::THDM*>(model), amu_1L, amu_2L);
 }
 
-double gm2calc_thdm_calculate_uncertainty_amu_1loop_amu2L(const gm2calc_THDM* model, double amu_2L)
+double gm2calc_thdm_calculate_uncertainty_amu_1loop_amu1L_amu2L(const gm2calc_THDM* model, double amu_1L, double amu_2L)
 {
    return gm2calc::calculate_uncertainty_amu_1loop(
-      *reinterpret_cast<const gm2calc::THDM*>(model), amu_2L);
+      *reinterpret_cast<const gm2calc::THDM*>(model), amu_1L, amu_2L);
 }
 
 double gm2calc_thdm_calculate_uncertainty_amu_2loop_amu1L_amu2L(const gm2calc_THDM* model, double amu_1L, double amu_2L)
