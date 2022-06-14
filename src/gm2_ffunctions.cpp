@@ -71,8 +71,6 @@ namespace {
    /// u < 1 && v < 1, lambda^2(u,v) > 0; note: phi_pos(u,v) = phi_pos(v,u)
    double phi_pos(double u, double v) noexcept
    {
-      const double eps = 1.0e-7;
-
       if (is_equal(u, 1.0, eps) && is_equal(v, 1.0, eps)) {
          return 2.343907238689459;
       }
