@@ -156,9 +156,9 @@ namespace {
          if (u <= 1 && v <= 1) {
             return phi_pos(u,v);
          }
-         const auto oou = 1/u;
          const auto vou = v/u;
          if (u >= 1 && vou <= 1) {
+            const auto oou = 1/u;
             return phi_pos(oou,vou)*oou;
          }
          // v >= 1 && u/v <= 1
