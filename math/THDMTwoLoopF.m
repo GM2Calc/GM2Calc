@@ -38,9 +38,12 @@ FdHp[xu_, xd_, qd_, qu_] :=
 
 (* Eq (62), arxiv:1607.06292 *)
 FuHp[ms2_, md2_, mu2_, qd_, qu_] :=
+    FuHp[mu2/ms2, md2/ms2, qd, qu]
+
+FuHp[xu_, xd_, qd_, qu_] :=
     Module[{y = (xu - xd)^2 - 2 (xu + xd) + 1},
            (
-               FdHp[ms2, md2, mu2, 2 + qd, 2 + qu]
+               FdHp[xu, xd, 2 + qd, 2 + qu]
                - 4/3 (xu - xd - 1)/y Phi[xd, xu, 1]
                - 1/3 (Log[xd]^2 - Log[xu]^2)
            )
