@@ -34,6 +34,13 @@ Changes
    DR-bar to on-shell conversion for parameter points where the
    conversion does not converge.
 
+Fixed bugs
+----------
+
+ * Bugfix (commit ebce8648): Fix compilation error when boost and
+   Eigen headers are located in different parent directories.
+   Thanks to Sho Iwamoto.
+
 
 GM2Calc-2.1.0 [March, 18 2022]
 ==============================
