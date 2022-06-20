@@ -56,7 +56,11 @@ install(
 # GM2Calc main executable
 add_executable(gm2calc.x gm2calc.cpp)
 target_link_libraries(gm2calc.x PRIVATE GM2Calc::GM2Calc)
-target_include_directories(gm2calc.x PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_include_directories(gm2calc.x
+  PRIVATE
+    "${CMAKE_CURRENT_BINARY_DIR}"
+    "${Boost_INCLUDE_DIRS}"
+)
 
 install(
   TARGETS gm2calc.x
@@ -70,7 +74,11 @@ if(Mathematica_MathLink_FOUND)
     gm2calc.tm)
   target_link_libraries(gm2calc.mx PRIVATE GM2Calc::GM2Calc)
   target_include_directories(gm2calc.mx
-    PRIVATE ${Mathematica_MathLink_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
+    PRIVATE
+      "${Mathematica_MathLink_INCLUDE_DIR}"
+      "${CMAKE_CURRENT_SOURCE_DIR}"
+      "${Boost_INCLUDE_DIRS}"
+  )
   install(
     TARGETS gm2calc.mx
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
