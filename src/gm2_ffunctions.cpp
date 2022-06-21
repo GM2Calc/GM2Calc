@@ -28,7 +28,8 @@
 namespace gm2calc {
 
 namespace {
-   const double eps = 10.0*std::numeric_limits<double>::epsilon();
+   constexpr double eps = 10.0*std::numeric_limits<double>::epsilon();
+   constexpr double cbrt_eps = std::cbrt(eps);
 
    /// returns number squared
    template <typename T> T sqr(T x) noexcept { return x*x; }
@@ -68,6 +69,30 @@ namespace {
       return sqr(1 - u - v) - 4*u*v;
    }
 
+   /// returns (1 - lambda + u - v)/2 for u ~ v ~ 0
+   double luv_uu0(double u, double v) noexcept
+   {
+      return u*(1 + v*(1 + v) + u*v*(1 + 3*v));
+   }
+
+   /// returns (1 - lambda + u - v)/2 for u ~ 0
+   double luv_u0v(double u, double v) noexcept
+   {
+      const double a = std::abs(-1 + v);
+      const double a2 = a*a;
+      const double a4 = a2*a2;
+      return 0.5*(1 - v - a) + u*(0.5*(1 + (1 + v)*a/a2) + u*v*a/a4);
+   }
+
+   /// returns (1 - lambda - u + v)/2 for u ~ 0
+   double lvu_u0v(double u, double v) noexcept
+   {
+      const double a = std::abs(-1 + v);
+      const double a2 = a*a;
+      const double a4 = a2*a2;
+      return 0.5*(1 + v - a) + u*(0.5*(-1 + (1 + v)*a/a2) + u*v*a/a4);
+   }
+
    /// u < 1 && v < 1, lambda^2(u,v) > 0; note: phi_pos(u,v) = phi_pos(v,u)
    double phi_pos(double u, double v) noexcept
    {
@@ -79,17 +104,27 @@ namespace {
       const auto lambda = std::sqrt(lambda_2(u,v));
 
       if (is_equal(u, v, eps)) {
-         return (- sqr(std::log(u))
-                 + 2*sqr(std::log(0.5*(1 - lambda)))
-                 - 4*dilog(0.5*(1 - lambda))
-                 + pi23)/lambda;
+         const double x = u < cbrt_eps ? u*(1 + u*(1 + 2*u)) : 0.5*(1 - lambda);
+
+         return (- sqr(std::log(u)) + 2*sqr(std::log(x))
+                 - 4*dilog(x) + pi23)/lambda;
       }
 
-      return (- std::log(u)*std::log(v)
-              + 2*std::log(0.5*(1 - lambda + u - v))*std::log(0.5*(1 - lambda - u + v))
-              - 2*dilog(0.5*(1 - lambda + u - v))
-              - 2*dilog(0.5*(1 - lambda - u + v))
-              + pi23)/lambda;
+      double x = 0, y = 0;
+
+      if (u < cbrt_eps && v < cbrt_eps) {
+         x = luv_uu0(u, v);
+         y = luv_uu0(v, u);
+      } else if (u < cbrt_eps) {
+         x = luv_u0v(u, v);
+         y = lvu_u0v(u, v);
+      } else {
+         x = 0.5*(1 - lambda + u - v);
+         y = 0.5*(1 - lambda - u + v);
+      }
+
+      return (- std::log(u)*std::log(v) + 2*std::log(x)*std::log(y)
+              - 2*dilog(x) - 2*dilog(y) + pi23)/lambda;
    }
 
    /// clausen_2(2*acos(x))
