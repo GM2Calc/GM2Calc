@@ -179,7 +179,7 @@ namespace {
    {
       const auto lambda = lambda_2(u,v);
 
-      if (is_zero(lambda, 1e-11)) {
+      if (is_zero(lambda, eps)) {
          // phi_uv is always multiplied by lambda.  So, in order to
          // avoid nans if lambda == 0, we simply return 0
          return 0.0;
