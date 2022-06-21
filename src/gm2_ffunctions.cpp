@@ -29,7 +29,7 @@ namespace gm2calc {
 
 namespace {
    constexpr double eps = 10.0*std::numeric_limits<double>::epsilon();
-   constexpr double cbrt_eps = std::cbrt(eps);
+   const double cbrt_eps = std::cbrt(eps);
 
    /// returns number squared
    template <typename T> T sqr(T x) noexcept { return x*x; }
