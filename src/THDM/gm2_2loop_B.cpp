@@ -361,8 +361,7 @@ double T10(double u, double w, double cw2) noexcept
    return
       (u2 - cw2*w - 2*u*w + w2)/(2*(cw2-w))*lwu*lwc
       + cw2*(cw2 + 2*u - 2*w)/(2*(cw2-w))*lwc
-      + cw2*u/w*lwu
-      + cw2/w*(w-u);
+      + cw2*(u*lwu + w - u)/w;
 }
 
 /// Eq.(99), arxiv:1607.06292
