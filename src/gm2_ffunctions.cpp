@@ -731,6 +731,21 @@ double F3(double w) noexcept {
 }
 
 /**
+ * Källén lambda function \f$\lambda^2(x,y,z) = x^2 + y^2 + z^2 - 2xy - 2yz - 2xz\f$.
+ * The arguments u and v are interpreted as squared masses.
+ *
+ * @param x squared mass
+ * @param y squared mass
+ * @param z squared mass
+ *
+ * @return \f$\lambda^2(x,y,z)\f$
+ */
+double lambda_2(double x, double y, double z) noexcept
+{
+   return z*z*lambda_2(x/z, y/z);
+}
+
+/**
  * \f$\Phi(x,y,z)\f$ function.  The arguments x, y and z are
  * interpreted as squared masses.
  *

@@ -63,6 +63,8 @@ double F2(double) noexcept;
 double F3(double) noexcept;
 /// \f$\Phi(x,y,z)\f$ with squared masses, Davydychev and Tausk, Nucl. Phys. B397 (1993) 23
 double Phi(double x, double y, double z) noexcept;
+/// Källén lambda function \f$\lambda^2(x, y, z)\f$
+double lambda_2(double x, double y, double z) noexcept;
 
 } // namespace gm2calc
 
