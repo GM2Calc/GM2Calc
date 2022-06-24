@@ -24,6 +24,7 @@
 #include <cmath>
 #include <complex>
 #include <limits>
+#include <tuple>
 
 namespace gm2calc {
 
@@ -95,6 +96,18 @@ namespace {
       return 0.5*(1 + v - a) + u*(0.5*(-1 + (1 + v)*a/a2) + u*(v*a/a4 + u*v*(1 + v)*a/a6));
    }
 
+   /// returns tuple (0.5*(1 - lambda + u - v), 0.5*(1 - lambda - u + v))
+   std::tuple<double,double> luv(double lambda, double u, double v) noexcept
+   {
+      if (v < qdrt_eps) {
+         return std::make_tuple(luv_uu0(u, v), luv_uu0(v, u));
+      } else if (u < qdrt_eps) {
+         return std::make_tuple(luv_u0v(u, v), lvu_u0v(u, v));
+      }
+      return std::make_tuple(0.5*(1 - lambda + u - v),
+                             0.5*(1 - lambda - u + v));
+   }
+
    /// u < 1 && v < 1, lambda^2(u,v) > 0; note: phi_pos(u,v) = phi_pos(v,u)
    double phi_pos(double u, double v) noexcept
    {
@@ -113,17 +126,7 @@ namespace {
       }
 
       double x = 0, y = 0;
-
-      if (v < qdrt_eps) {
-         x = luv_uu0(u, v);
-         y = luv_uu0(v, u);
-      } else if (u < qdrt_eps) {
-         x = luv_u0v(u, v);
-         y = lvu_u0v(u, v);
-      } else {
-         x = 0.5*(1 - lambda + u - v);
-         y = 0.5*(1 - lambda - u + v);
-      }
+      std::tie(x, y) = luv(lambda, u, v);
 
       return (- std::log(u)*std::log(v) + 2*std::log(x)*std::log(y)
               - 2*dilog(x) - 2*dilog(y) + pi23)/lambda;
