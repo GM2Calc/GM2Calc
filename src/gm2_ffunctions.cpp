@@ -85,7 +85,7 @@ namespace {
       return u*(0.5*(1 + (1 + v)/a) + u*(v + u*v*(1 + v)/a2)/a3);
    }
 
-   /// expansion of (1 - lambda - u + v)/2 for u ~ 0 up and v < 1 to including O(u^3 v^3)
+   /// expansion of (1 - lambda - u + v)/2 for u ~ 0 and v < 1 up to including O(u^3 v^3)
    double lvu_u0v(double u, double v) noexcept
    {
       const double a = 1 - v;
@@ -117,7 +117,7 @@ namespace {
       const auto lambda = std::sqrt(lambda_2(u,v));
 
       if (is_equal(u, v, eps)) {
-         const double x = u < qdrt_eps ? u*(1 + u*(1 + 2*u)) : 0.5*(1 - lambda);
+         const double x = u < qdrt_eps ? u*(1 + u*(1 + u*(2 + 5*u))) : 0.5*(1 - lambda);
 
          return (- sqr(std::log(u)) + 2*sqr(std::log(x))
                  - 4*dilog(x) + pi23)/lambda;
