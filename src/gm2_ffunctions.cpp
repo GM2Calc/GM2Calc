@@ -76,22 +76,22 @@ namespace {
       return v*(1 + u*(1 + u*(1 + u)) + v*(u*(1 + u*(3 + 6*u)) + u*(1 + u*(6 + 20*u))*v));
    }
 
-   /// expansion of (1 - lambda + u - v)/2 for u ~ 0 up to including O(u^3 v^3)
+   /// expansion of (1 - lambda + u - v)/2 for u ~ 0 and v < 1 up to including O(u^3 v^3)
    double luv_u0v(double u, double v) noexcept
    {
-      const double a = std::abs(-1 + v);
+      const double a = 1 - v;
       const double a2 = a*a;
       const double a3 = a2*a;
-      return 0.5*(1 - v - a) + u*(0.5*(1 + (1 + v)/a) + u*(v + u*v*(1 + v)/a2)/a3);
+      return u*(0.5*(1 + (1 + v)/a) + u*(v + u*v*(1 + v)/a2)/a3);
    }
 
-   /// expansion of (1 - lambda - u + v)/2 for u ~ 0 up to including O(u^3 v^3)
+   /// expansion of (1 - lambda - u + v)/2 for u ~ 0 up and v < 1 to including O(u^3 v^3)
    double lvu_u0v(double u, double v) noexcept
    {
-      const double a = std::abs(-1 + v);
+      const double a = 1 - v;
       const double a2 = a*a;
       const double a3 = a2*a;
-      return 0.5*(1 + v - a) + u*(0.5*(-1 + (1 + v)/a) + u*(v + u*v*(1 + v)/a2)/a3);
+      return v + u*(0.5*(-1 + (1 + v)/a) + u*(v + u*v*(1 + v)/a2)/a3);
    }
 
    /// returns tuple (0.5*(1 - lambda + u - v), 0.5*(1 - lambda - u + v))
