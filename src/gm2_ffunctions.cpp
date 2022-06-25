@@ -81,9 +81,8 @@ namespace {
    {
       const double a = std::abs(-1 + v);
       const double a2 = a*a;
-      const double a4 = a2*a2;
-      const double a6 = a2*a4;
-      return 0.5*(1 - v - a) + u*(0.5*(1 + (1 + v)*a/a2) + u*(v*a/a4 + u*v*(1 + v)*a/a6));
+      const double a3 = a2*a;
+      return 0.5*(1 - v - a) + u*(0.5*(1 + (1 + v)/a) + u*(v + u*v*(1 + v)/a2)/a3);
    }
 
    /// expansion of (1 - lambda - u + v)/2 for u ~ 0 up to including O(u^3 v^3)
@@ -91,9 +90,8 @@ namespace {
    {
       const double a = std::abs(-1 + v);
       const double a2 = a*a;
-      const double a4 = a2*a2;
-      const double a6 = a2*a4;
-      return 0.5*(1 + v - a) + u*(0.5*(-1 + (1 + v)*a/a2) + u*(v*a/a4 + u*v*(1 + v)*a/a6));
+      const double a3 = a2*a;
+      return 0.5*(1 + v - a) + u*(0.5*(-1 + (1 + v)/a) + u*(v + u*v*(1 + v)/a2)/a3);
    }
 
    /// returns tuple (0.5*(1 - lambda + u - v), 0.5*(1 - lambda - u + v))
