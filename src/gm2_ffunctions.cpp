@@ -71,13 +71,13 @@ namespace {
    }
 
    /// expansion of (1 - lambda + u - v)/2 for u ~ v ~ 0 up to including O(u^3 v^3)
-   double luv_uu0(double u, double v) noexcept
+   double l00(double u, double v) noexcept
    {
       return v*(1 + u*(1 + u*(1 + u)) + v*(u*(1 + u*(3 + 6*u)) + u*(1 + u*(6 + 20*u))*v));
    }
 
    /// expansion of (1 - lambda + u - v)/2 for u ~ 0 and v < 1 up to including O(u^3 v^3)
-   double luv_u0v(double u, double v) noexcept
+   double l0v(double u, double v) noexcept
    {
       const double a = 1 - v;
       const double a2 = a*a;
@@ -86,7 +86,7 @@ namespace {
    }
 
    /// expansion of (1 - lambda - u + v)/2 for u ~ 0 and v < 1 up to including O(u^3 v^3)
-   double lvu_u0v(double u, double v) noexcept
+   double lv0(double u, double v) noexcept
    {
       const double a = 1 - v;
       const double a2 = a*a;
@@ -98,9 +98,9 @@ namespace {
    std::tuple<double,double> luv(double lambda, double u, double v) noexcept
    {
       if (v < qdrt_eps) {
-         return std::make_tuple(luv_uu0(u, v), luv_uu0(v, u));
+         return std::make_tuple(l00(u, v), l00(v, u));
       } else if (u < qdrt_eps) {
-         return std::make_tuple(luv_u0v(u, v), lvu_u0v(u, v));
+         return std::make_tuple(l0v(u, v), lv0(u, v));
       }
       return std::make_tuple(0.5*(1 - lambda + u - v),
                              0.5*(1 - lambda - u + v));
