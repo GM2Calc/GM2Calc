@@ -534,7 +534,7 @@ namespace {
 double I0y(double y) noexcept {
    if (is_equal(y, 1, eps)) {
       const double d = y - 1;
-      return 1 + d*(-0.5 + d/3);
+      return 1 + d*(-0.5 + 1./3*d);
    }
 
    return std::log(y)/(y - 1);
@@ -549,8 +549,8 @@ double I1y(double x, double y) noexcept {
    const double yly = y*std::log(y);
 
    return (1 - y + yly)/dy2
-      + dx*(0.5 - y2/2 + yly)/dy
-      + sqr(dx)*(1./3 + y/2 + yly + y2*(y/6 - 1));
+      + dx*(0.5 - 0.5*y2 + yly)/dy
+      + sqr(dx)*(1./3 + 0.5*y + yly + y2*(1./6*y - 1));
 }
 
 /// I(x,y), squared arguments, x == y, x != 0, y != 0
@@ -562,9 +562,9 @@ double Ixx(double x, double y) noexcept {
       const double dy = y - 1;
       const double dy2 = sqr(dy);
 
-      return 0.5 + dx*(-1./6 + dy/12 - dy2/20)
-         + sqr(dx)*(1./12 - dy/20 + dy2/30)
-         - dy/6 + dy2/12;
+      return 0.5 + dx*(-1./6 + 1./12*dy - 1./20*dy2)
+         + sqr(dx)*(1./12 - 1./20*dy + 1./30*dy2)
+         - 1./6*dy + 1./12*dy2;
    }
 
    const double y2 = sqr(y);
@@ -574,8 +574,8 @@ double Ixx(double x, double y) noexcept {
    const double ly = std::log(y);
 
    return (dy - ly)/dy2
-      + dxy*(0.5 - y2/2 + y*ly)/(dy*y)
-      + sqr(dxy)*(1./6 - y + y2*(0.5 + y/3 - ly))/y2;
+      + dxy*(0.5 - 0.5*y2 + y*ly)/(dy*y)
+      + sqr(dxy)*(1./6 - y + y2*(0.5 + 1./3*y - ly))/y2;
 }
 
 /// I(x,y), x < y, x and y are squared arguments
