@@ -555,7 +555,7 @@ double I1y(double x, double y) noexcept {
 
 /// I(x,y), squared arguments, x == y, x != 0, y != 0
 double Ixx(double x, double y) noexcept {
-   const double eps_eq = 0.001;
+   const double eps_eq = 0.0001;
 
    if (is_equal(y, 1, eps_eq)) {
       const double dx = x - 1;
@@ -580,7 +580,7 @@ double Ixx(double x, double y) noexcept {
 
 /// I(x,y), x < y, x and y are squared arguments
 double Ixy(double x, double y) noexcept {
-   const double eps_eq = 0.001;
+   const double eps_eq = 0.0001;
 
    if (is_zero(y, eps)) {
       return 0;
