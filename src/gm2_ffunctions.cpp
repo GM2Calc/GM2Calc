@@ -516,7 +516,7 @@ double G3(double x) noexcept {
       return 1.0/3.0 + d*(-0.25 + d*(0.2 + (-1.0/6.0 + d/7.0)*d));
    }
 
-   return 1.0/(2.0*pow3(x - 1.0))*((x - 1.0)*(x - 3.0) + 2.0*std::log(x));
+   return ((x - 1)*(x - 3) + 2*std::log(x))/(2*pow3(x - 1));
 }
 
 double G4(double x) noexcept {
@@ -525,7 +525,7 @@ double G4(double x) noexcept {
       return 1.0/6.0 + d*(-1.0/12.0 + d*(0.05 + (-1.0/30.0 + d/42.0)*d));
    }
 
-   return 1.0/(2.0*pow3(x - 1.0))*((x - 1.0)*(x + 1.0) - 2.0*x*std::log(x));
+   return ((x - 1)*(x + 1) - 2*x*std::log(x))/(2*pow3(x - 1));
 }
 
 namespace {
