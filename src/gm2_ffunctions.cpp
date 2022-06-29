@@ -431,7 +431,7 @@ double Fb(double x, double y) noexcept {
       return Fbx(x, y);
    }
 
-   return - (G4(x) - G4(y)) / (x - y);
+   return (G4(y) - G4(x))/(x - y);
 }
 
 namespace {
@@ -507,13 +507,13 @@ double Fa(double x, double y) noexcept {
       return Fax(x,y);
    }
 
-   return - (G3(x) - G3(y)) / (x - y);
+   return (G3(y) - G3(x))/(x - y);
 }
 
 double G3(double x) noexcept {
    if (is_equal(x, 1.0, 0.01)) {
-      const double d = x - 1.0;
-      return 1.0/3.0 + d*(-0.25 + d*(0.2 + (-1.0/6.0 + d/7.0)*d));
+      const double d = x - 1;
+      return 1.0/3 + d*(-0.25 + d*(0.2 + (-1.0/6 + 1.0/7*d)*d));
    }
 
    return ((x - 1)*(x - 3) + 2*std::log(x))/(2*pow3(x - 1));
@@ -521,8 +521,8 @@ double G3(double x) noexcept {
 
 double G4(double x) noexcept {
    if (is_equal(x, 1.0, 0.01)) {
-      const double d = x - 1.0;
-      return 1.0/6.0 + d*(-1.0/12.0 + d*(0.05 + (-1.0/30.0 + d/42.0)*d));
+      const double d = x - 1;
+      return 1.0/6 + d*(-1.0/12 + d*(0.05 + (-1.0/30 + 1.0/42*d)*d));
    }
 
    return ((x - 1)*(x + 1) - 2*x*std::log(x))/(2*pow3(x - 1));
