@@ -364,13 +364,13 @@ namespace {
 
 /// expansion of Fb(x,y) around x ~ 1 and y ~ 1 up to including O((x-1)^2 (y-1)^2)
 double Fb11(double x, double y) noexcept {
-   const double x1 = x - 1.0;
-   const double y1 = y - 1.0;
+   const double x1 = x - 1;
+   const double y1 = y - 1;
 
    return
-      + 1.0/12.0 + (-0.05 + y1/30.)*y1
-      + x1*(-0.05 + (1.0/30.0 - y1/42.0)*y1
-      + x1*(1.0/30.0 + (-1.0/42.0 + y1/56.0)*y1));
+      + 1.0/12 + (-0.05 + 1.0/30*y1)*y1
+      + x1*(-0.05 + (1.0/30 - 1.0/42*y1)*y1
+      + x1*(1.0/30 + (-1.0/42 + 1.0/56*y1)*y1));
 }
 
 /// expansion of Fb(x,y) around y ~ x, x != 0
@@ -421,13 +421,13 @@ namespace {
 
 /// expansion of Fa(x,y) around x ~ 1 and y ~ 1 up to including O((x-1)^2 (y-1)^2)
 double Fa11(double x, double y) noexcept {
-   const double x1 = x - 1.0;
-   const double y1 = y - 1.0;
+   const double x1 = x - 1;
+   const double y1 = y - 1;
 
    return
-      0.25 + (-0.2 + y1/6.)*y1
-      + x1*(-0.2 + (1.0/6.0 - y1/7.0)*y1)
-      + sqr(x1)*(1.0/6.0 + (-1.0/7.0 + y1/8.0)*y1);
+      0.25 + (-0.2 + 1.0/6*y1)*y1
+      + x1*(-0.2 + (1.0/6 - 1.0/7*y1)*y1
+      + x1*(1.0/6 + (-1.0/7 + 1.0/8*y1)*y1));
 }
 
 /// expansion of Fa(x,y) around y ~ x, x != 0
