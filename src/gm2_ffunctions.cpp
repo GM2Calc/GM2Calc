@@ -362,7 +362,7 @@ double F4N(double x) noexcept {
 
 namespace {
 
-/// Fb(1,1)
+/// expansion of Fb(x,y) around x ~ 1 and y ~ 1 up to including O((x-1)^2 (y-1)^2)
 double Fb11(double x, double y) noexcept {
    const double x1 = x - 1.0;
    const double y1 = y - 1.0;
@@ -373,21 +373,7 @@ double Fb11(double x, double y) noexcept {
       + x1*(1.0/30.0 + (-1.0/42.0 + y1/56.0)*y1));
 }
 
-/// Fb(x,1), x != 1, x != 0
-double Fb1(double x, double y) noexcept {
-   const double x1 = x - 1.0;
-   const double y1 = y - 1.0;
-   const double lx = std::log(x);
-   const double x14 = pow4(x1);
-   const double x15 = x14*x1;
-   const double x16 = x15*x1;
-
-   return (2.0 + x*(3.0 + 6.0*lx + x*(-6.0 + x)))/(6.0*x14)
-      + y1*(3.0 + x*(10.0 + 12.0*lx + x*(-18.0 + x*(6.0 - x))))/(12.0*x15)
-      + sqr(y1)*(12.0 + x*(65.0 + 60.0*lx + x*(-120.0 + x*(60.0 + x*(-20.0 + 3.0*x)))))/(60.*x16);
-}
-
-/// Fb(x,x), x != 1, x != 0
+/// expansion of Fb(x,y) around y ~ x, x != 0
 double Fbx(double x, double y) noexcept {
    const double x1 = x - 1.0;
    const double d = y - x;
@@ -396,9 +382,14 @@ double Fbx(double x, double y) noexcept {
    const double x15 = x14*x1;
    const double x16 = x15*x1;
 
-   return (-5.0 - 2.0*lx + x*(4.0 - 4.0*lx + x))/(2.0*x14)
-      - d*(-1.0 + x*(-9.0 - 6.0*lx + x*(9.0 - 6.0*lx + x)))/(2.0*x15*x)
-      - sqr(d)*(-1.0 + x*(12.0 + x*(36.0 + 36.0*lx + x*(-44.0 + 24.0*lx - 3.0*x))))/(6.*x16*sqr(x));
+   if (is_equal(x, 1.0, 1e-2)) {
+      const double d = x - 1;
+      return 1.0/12 + d*(-0.1 + d*(0.1 + d*(-2.0/21 + d*(5.0/56 + d*(-1.0/12 + d*(7.0/90 - 4.0/55*d))))));
+   }
+
+   return (-5 - 2*lx + x*(4 - 4*lx + x))/(2*x14)
+      - d*(-1 + x*(-9 - 6*lx + x*(9 - 6*lx + x)))/(2*x15*x)
+      - sqr(d)*(-1 + x*(12 + x*(36 + 36*lx + x*(-44 + 24*lx - 3*x))))/(6*x16*sqr(x));
 }
 
 } // anonymous namespace
@@ -415,19 +406,11 @@ double Fb(double x, double y) noexcept {
       return 0;
    }
 
-   if (is_equal(x, 1.0, 0.01) && is_equal(y, 1.0, 0.01)) {
+   if (is_equal(x, 1.0, 1e-4) && is_equal(y, 1.0, 1e-4)) {
       return Fb11(x, y);
    }
 
-   if (is_equal(x, 1.0, 0.01)) {
-      return Fb1(y, x);
-   }
-
-   if (is_equal(y, 1.0, 0.01)) {
-      return Fb1(x, y);
-   }
-
-   if (is_equal(x, y, 0.01)) {
+   if (is_equal(x, y, 1e-5)) {
       return Fbx(x, y);
    }
 
@@ -436,7 +419,7 @@ double Fb(double x, double y) noexcept {
 
 namespace {
 
-/// expansion of Fa(1,1) up to including O((x-1)^2 (y-1)^2)
+/// expansion of Fa(x,y) around x ~ 1 and y ~ 1 up to including O((x-1)^2 (y-1)^2)
 double Fa11(double x, double y) noexcept {
    const double x1 = x - 1.0;
    const double y1 = y - 1.0;
@@ -447,7 +430,7 @@ double Fa11(double x, double y) noexcept {
       + sqr(x1)*(1.0/6.0 + (-1.0/7.0 + y1/8.0)*y1);
 }
 
-/// Fa(x,x), x != 0
+/// expansion of Fa(x,y) around y ~ x, x != 0
 double Fax(double x, double y) noexcept {
    const double x1 = x - 1.0;
    const double d = y - x;
@@ -496,16 +479,18 @@ double Fa(double x, double y) noexcept {
 double G3(double x) noexcept {
    if (is_equal(x, 1.0, 1e-2)) {
       const double d = x - 1;
-      return 1.0/3 + d*(-0.25 + d*(0.2 + d*(-1.0/6 + d*(1.0/7 + d*(-1.0/8 + d*(1.0/9 + d*(-0.1 + 1.0/11*d)))))));
+      return 1.0/3 + d*(-0.25 + d*(0.2 + d*(-1.0/6 + d*(1.0/7 + d*(-1.0/8
+         + d*(1.0/9 + d*(-0.1 + 1.0/11*d)))))));
    }
 
    return ((x - 1)*(x - 3) + 2*std::log(x))/(2*pow3(x - 1));
 }
 
 double G4(double x) noexcept {
-   if (is_equal(x, 1.0, 0.01)) {
+   if (is_equal(x, 1.0, 1e-2)) {
       const double d = x - 1;
-      return 1.0/6 + d*(-1.0/12 + d*(0.05 + (-1.0/30 + 1.0/42*d)*d));
+      return 1.0/6 + d*(-1.0/12 + d*(0.05 + d*(-1.0/30 + d*(1.0/42
+         + d*(-1.0/56 + d*(1.0/72 + d*(-1.0/90 + 1.0/110*d)))))));
    }
 
    return ((x - 1)*(x + 1) - 2*x*std::log(x))/(2*pow3(x - 1));
