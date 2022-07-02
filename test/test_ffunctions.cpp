@@ -119,8 +119,8 @@ TEST_CASE("test_F")
 
 TEST_CASE("test_G")
 {
-   test_1("G3", [] (double x) { return gm2calc::G3(x); }, 1e-9);
-   test_1("G4", [] (double x) { return gm2calc::G4(x); }, 1e-9);
+   test_1("G3", [] (double x) { return gm2calc::G3(x); }, 1e-13);
+   test_1("G4", [] (double x) { return gm2calc::G4(x); }, 1e-12);
 }
 
 template <typename T>
