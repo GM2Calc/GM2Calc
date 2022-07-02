@@ -149,7 +149,7 @@ void test_2(const char* func_name, T func, double eps)
 
 TEST_CASE("test_Fab")
 {
-   test_2("Fa", [] (double x, double y) { return gm2calc::Fa(x,y); }, 1e-7);
+   test_2("Fa", [] (double x, double y) { return gm2calc::Fa(x,y); }, 1e-10);
    test_2("Fb", [] (double x, double y) { return gm2calc::Fb(x,y); }, 1e-7);
    test_2("Lambda2", [] (double x, double y) { return gm2calc::lambda_2(x,y,1); }, 1e-14);
 }
