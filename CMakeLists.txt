@@ -43,6 +43,10 @@ if(ENABLE_MATHEMATICA)
   find_package(Mathematica COMPONENTS MathLink)
 endif()
 
+# check for IPO/LTO
+include(CheckIPOSupported)
+check_ipo_supported(RESULT GM2CALC_HAVE_IPO)
+
 if(ENABLE_PYTHON)
   # Needed a shared library for cppyy package used for the python interface
   if(${BUILD_SHARED_LIBS})

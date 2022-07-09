@@ -44,6 +44,9 @@ target_include_directories(gm2calc
     "${CMAKE_CURRENT_SOURCE_DIR}"
     "${Boost_INCLUDE_DIRS}"
 )
+if(GM2CALC_HAVE_IPO)
+  set_property(TARGET gm2calc PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+endif()
 add_library(GM2Calc::GM2Calc ALIAS gm2calc)
 
 install(
