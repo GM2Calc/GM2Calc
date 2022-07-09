@@ -64,6 +64,9 @@ target_include_directories(gm2calc.x
     "${CMAKE_CURRENT_BINARY_DIR}"
     "${Boost_INCLUDE_DIRS}"
 )
+if(GM2CALC_HAVE_IPO)
+  set_property(TARGET gm2calc.x PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+endif()
 
 install(
   TARGETS gm2calc.x
