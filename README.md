@@ -354,10 +354,10 @@ then the input parameters are read from the following blocks:
  * `GM2CalcInput`: renormalization scale Q, $\alpha_{em}(M_Z)$,
    $\alpha_{em}(0)$ in the Thomson limit, $\tan(\beta)$ (DR-bar
    scheme), $\mu$ parameter (on-shell), soft-breaking gaugino masses
-   $M_1$ and $M_2$ (on-shell), CP-odd Higgs pole mass $M_A$,
-   soft-breaking sfermion masses $(m_{\tilde{l}})_{22}$ and
-   $(m_{\tilde{e}})_{22}$ in (on-shell), soft-breaking trilinear
-   couplings $(A_e)_{22}$ (DR-bar scheme)
+   ($M_1$ and $M_2$ in on-shell scheme), CP-odd Higgs pole mass $M_A$,
+   soft-breaking sfermion masses ($(m_{\tilde{l}})_{22}$ and
+   $(m_{\tilde{e}})_{22}$ in on-shell scheme), soft-breaking trilinear
+   couplings ($(A_e)_{22}$ in DR-bar scheme)
 
    *Example:*
 
