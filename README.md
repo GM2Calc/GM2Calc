@@ -5,8 +5,8 @@ GM2Calc
 [![Build Status](https://github.com/GM2Calc/GM2Calc/workflows/test/badge.svg)](https://github.com/GM2Calc/GM2Calc/actions)
 
 GM2Calc calculates the new physics contributions to the anomalous
-magnetic moment of the muon a_µ = (g-2)/2 in the real MSSM and in the
-THDM at the 1- and leading 2-loop level.
+magnetic moment of the muon $a_\mu = (g_\mu-2)/2$ in the real MSSM and
+in the THDM at the 1- and leading 2-loop level.
 
  * Homepage:                https://gm2calc.hepforge.org
  * Source code repository:  https://github.com/gm2calc
@@ -218,7 +218,8 @@ MSSM, for example as
 
 then the input parameters are read from the following blocks:
 
- * `SMINPUTS`: α_s(MZ), Standard Model fermion masses, W and Z pole masses.
+ * `SMINPUTS`: $\alpha_s(M_Z)$, Standard Model fermion masses, W and Z
+   pole masses.
 
    *Example:*
 
@@ -251,7 +252,8 @@ then the input parameters are read from the following blocks:
           2000013     5.05095249e+02   # smuon(2)          [1L]
 
 
- * `HMIX`: μ parameter (initial guess), tan(β), renormalization scale Q
+ * `HMIX`: $\mu$ parameter (initial guess), $tan(\beta)$,
+   renormalization scale Q
 
    *Example:*
 
@@ -298,7 +300,8 @@ then the input parameters are read from the following blocks:
            48     7.00000000e+03      # msR(Q)             [2L]
            49     7.00000000e+03      # mbR(Q)             [2L]
 
- * `GM2CalcInput`: α_em(MZ), α_em(0) in the Thomson limit
+ * `GM2CalcInput`: $\alpha_{em}(M_Z)$, $\alpha_{em}(0)$ in the Thomson
+   limit
 
    *Example:*
 
@@ -334,7 +337,8 @@ format (in a mixed DR-bar/on-shell scheme), for example as
 
 then the input parameters are read from the following blocks:
 
- * `SMINPUTS`: α_s(MZ), Standard Model fermion masses, W and Z pole masses.
+ * `SMINPUTS`: $\alpha_s(M_Z)$, Standard Model fermion masses, W and Z
+   pole masses.
 
    *Example:*
 
@@ -347,12 +351,13 @@ then the input parameters are read from the following blocks:
             9     8.03850000E+01   # MW(pole)              [1L]
            13     0.1056583715     # mmuon(pole)           [1L]
 
- * `GM2CalcInput`: renormalization scale Q, α_em(MZ), α_em(0) in the
-   Thomson limit, tan(β) (DR-bar scheme), μ parameter (on-shell),
-   soft-breaking gaugino masses (M1 and M2 in on-shell scheme), CP-odd
-   Higgs pole mass MA, soft-breaking sfermion masses (msl(2,2) and
-   mse(2,2) in on-shell scheme), soft-breaking trilinear couplings
-   (Ae(2,2) in DR-bar scheme)
+ * `GM2CalcInput`: renormalization scale Q, $\alpha_{em}(M_Z)$,
+   $\alpha_{em}(0)$ in the Thomson limit, $\tan(\beta)$ (DR-bar
+   scheme), $\mu$ parameter (on-shell), soft-breaking gaugino masses
+   ($M_1$ and $M_2$ in on-shell scheme), CP-odd Higgs pole mass $M_A$,
+   soft-breaking sfermion masses ($(m_{\tilde{l}})_{22}$ and
+   $(m_{\tilde{e}})_{22}$ in on-shell scheme), soft-breaking trilinear
+   couplings ($(A_e)_{22}$ in DR-bar scheme)
 
    *Example:*
 
@@ -410,12 +415,12 @@ the input basis.
 The THDM-specific input parameters in the gauge basis are read from
 the following blocks:
 
- * `MINPAR`: tan(β), λ\_{1,...,7}, m\_{12}^2, ζ\_{u,d,l} and the
-   Yukawa type (1 = type I, 2 = type II, 3 = type X, 4 = type Y, 5 =
-   aligned THDM, 6 = general)
+ * `MINPAR`: $\tan(\beta)$, $\lambda_{1,...,7}$, $m_{12}^2$,
+   $\zeta_{u,d,l}$ and the Yukawa type (1 = type I, 2 = type II, 3 =
+   type X, 4 = type Y, 5 = aligned THDM, 6 = general)
 
-   Note: The parameters ζ\_{u,d,l} are only used if the Yukawa type is
-   set to the aligned THDM (Yukawa type = 5).
+   Note: The parameters $\zeta_{u,d,l}$ are only used if the Yukawa
+   type is set to the aligned THDM (Yukawa type = 5).
 
    *Example:*
 
@@ -435,15 +440,15 @@ the following blocks:
           24        2                # Yukawa type (1, 2, 3, 4, 5 = aligned, 6 = general)
 
  * `GM2CalcTHDMDeltauInput`, `GM2CalcTHDMDeltadInput`, `GM2CalcTHDMDeltalInput`:
-   The real parts of the matrices Delta_u, Delta_d and Delta_l
+   The real parts of the matrices $\Delta_u$, $\Delta_d$ and $\Delta_l$
 
  * `GM2CalcTHDMPiuInput`, `GM2CalcTHDMPidInput`, `GM2CalcTHDMPilInput`:
-   The real parts of the matrices Pi_u, Pi_d and Pi_l
+   The real parts of the matrices $\Pi_u$, $\Pi_d$ and $\Pi_l$
 
-Note: The parameters Delta\_{u,d,l} are only used if the Yukawa type is
+Note: The parameters $\Delta_{u,d,l}$ are only used if the Yukawa type is
 not set to the general THDM (Yukawa type = 1,...,5).
 
-Note: The parameters Pi\_{u,d,l} are only used if the Yukawa type is
+Note: The parameters $\Pi_{u,d,l}$ are only used if the Yukawa type is
 set to the general THDM (Yukawa type = 6).
 
 ### Mass basis
@@ -451,12 +456,13 @@ set to the general THDM (Yukawa type = 6).
 The THDM-specific input parameters in the mass basis are read from the
 following blocks:
 
- * `MINPAR`: tan(β), λ\_{6,7}, m\_{12}^2, sin(β-α), ζ\_{u,d,l} and the
-   Yukawa type (1 = type I, 2 = type II, 3 = type X, 4 = type Y, 5 =
-   aligned THDM, 6 = general)
+ * `MINPAR`: $\tan(\beta)$, $\lambda_{6,7}$, $m_{12}^2$,
+   $sin(\beta-\alpha)$, $\zeta_{u,d,l}$ and the Yukawa type (1 = type
+   I, 2 = type II, 3 = type X, 4 = type Y, 5 = aligned THDM, 6 =
+   general)
 
-   Note: The parameters ζ\_{u,d,l} are only used if the Yukawa type is
-   set to the aligned THDM (Yukawa type = 5).
+   Note: The parameters $\zeta_{u,d,l}$ are only used if the Yukawa
+   type is set to the aligned THDM (Yukawa type = 5).
 
    *Example:*
 
@@ -471,8 +477,8 @@ following blocks:
           23        0                # zeta_l
           24        2                # Yukawa type (1, 2, 3, 4, 5 = aligned, 6 = general)
 
- * `MASS`: CP-even Higgs boson masses m_h, m_H, the CP-odd Higgs boson
-   mass m_A and the charged Higgs boson mass m_{H^+}
+ * `MASS`: CP-even Higgs boson masses $m_h$, $m_H$, the CP-odd Higgs
+   boson mass $m_A$ and the charged Higgs boson mass $m_{H^+}$
 
    *Example:*
 
@@ -483,15 +489,15 @@ following blocks:
           37        440              # mH+, charged Higgs
 
  * `GM2CalcTHDMDeltauInput`, `GM2CalcTHDMDeltadInput`, `GM2CalcTHDMDeltalInput`:
-   The real parts of the matrices Delta_u, Delta_d and Delta_l
+   The real parts of the matrices $\Delta_u$, $\Delta_d$ and $\Delta_l$
 
  * `GM2CalcTHDMPiuInput`, `GM2CalcTHDMPidInput`, `GM2CalcTHDMPilInput`:
-   The real parts of the matrices Pi_u, Pi_d and Pi_l
+   The real parts of the matrices $\Pi_u$, $\Pi_d$ and $\Pi_l$
 
-Note: The parameters Delta\_{u,d,l} are only used if the Yukawa type is
+Note: The parameters $\Delta_{u,d,l}$ are only used if the Yukawa type is
 not set to the general THDM (Yukawa type = 1,...,5).
 
-Note: The parameters Pi\_{u,d,l} are only used if the Yukawa type is
+Note: The parameters $\Pi_{u,d,l}$ are only used if the Yukawa type is
 set to the general THDM (Yukawa type = 6).
 
 See `input/example.thdm` for an example input file.
@@ -616,16 +622,16 @@ After the GM2Calc MathLink executable has been loaded by
 e.g. `Install["bin/gm2calc.mx"]`, the following functions are
 available:
 
-| Function                | Description                                                           |
-| ----------------------- | --------------------------------------------------------------------- |
-| GM2CalcSetFlags         | Sets configuration flags for the calculation                          |
-| GM2CalcGetFlags         | Returns currently set configuration flags                             |
-| GM2CalcSetSMParameters  | Sets Standard Model parameters                                        |
-| GM2CalcGetSMParameters  | Returns currently set Standard Model parameters                       |
-| GM2CalcAmuSLHAScheme    | Calculates `a_mu`, in the MSSM with SLHA input parameters             |
-| GM2CalcAmuGM2CalcScheme | Calculates `a_mu`, in the MSSM with GM2Calc-specific input parameters |
-| GM2CalcAmuTHDMGaugeBasis| Calculates `a_mu`, in the THDM with gauge basis input parameters      |
-| GM2CalcAmuTHDMMassBasis | Calculates `a_mu`, in the THDM with mass basis input parameters       |
+| Function                | Description                                                                   |
+| ----------------------- | ----------------------------------------------------------------------------- |
+| GM2CalcSetFlags         | Sets configuration flags for the calculation                                  |
+| GM2CalcGetFlags         | Returns currently set configuration flags                                     |
+| GM2CalcSetSMParameters  | Sets Standard Model parameters                                                |
+| GM2CalcGetSMParameters  | Returns currently set Standard Model parameters                               |
+| GM2CalcAmuSLHAScheme    | Calculates $\Delta a_\mu$, in the MSSM with SLHA input parameters             |
+| GM2CalcAmuGM2CalcScheme | Calculates $\Delta a_\mu$, in the MSSM with GM2Calc-specific input parameters |
+| GM2CalcAmuTHDMGaugeBasis| Calculates $\Delta a_\mu$, in the THDM with gauge basis input parameters      |
+| GM2CalcAmuTHDMMassBasis | Calculates $\Delta a_\mu$, in the THDM with mass basis input parameters       |
 
 See the example Mathematica scripts `examples/example-slha.m`,
 `examples/example-gm2calc.m` and `examples/example-thdm.m`.
@@ -636,7 +642,7 @@ Python interface
 
 After building GM2Calc with shared libraries, it is possible to
 load GM2Calc functions into Python using the C-Python interface
-provided by cppyy.
+provided by [cppyy](https://pypi.org/project/cppyy/).
 
 To use the routines of GM2Calc in a Python script, the following 
 folders and C++ header files have to be included:
@@ -667,16 +673,16 @@ Then one can import the C++ functions into Python using the command
 `from cppy.gbl import gm2calc`.  Then the following functions are 
 available:
 
-| Function                                | Description                                                   |
-| --------------------------------------- | ------------------------------------------------------------- |
-| gm2calc.SM                              | Constructs an SM model                                        |
-| gm2calc.MSSMNoFV_onshell                | Constructs an MSSMNoFV model                                  |
-| gm2calc.THDM                            | Constructs a THDM model                                       |
-| gm2calc.calculate_amu_1loop             | Calculates the 1-loop contributions to `a_mu`                 |
-| gm2calc.calculate_amu_2loop             | Calculates the 2-loop contributions to `a_mu`                 |
-| gm2calc.calculate_uncertainty_amu_0loop | Calculates the uncertainty of `a_mu` if working at tree-level |
-| gm2calc.calculate_uncertainty_amu_1loop | Calculates the uncertainty of `a_mu` if working at 1 level    |
-| gm2calc.calculate_uncertainty_amu_2loop | Calculates the uncertainty of `a_mu` if working at 2 level    |
+| Function                                | Description                                                           |
+| --------------------------------------- | --------------------------------------------------------------------- |
+| gm2calc.SM                              | Constructs an SM model                                                |
+| gm2calc.MSSMNoFV_onshell                | Constructs an MSSMNoFV model                                          |
+| gm2calc.THDM                            | Constructs a THDM model                                               |
+| gm2calc.calculate_amu_1loop             | Calculates the 1-loop contributions to $\Delta a_\mu$                 |
+| gm2calc.calculate_amu_2loop             | Calculates the 2-loop contributions to $\Delta a_\mu$                 |
+| gm2calc.calculate_uncertainty_amu_0loop | Calculates the uncertainty of $\Delta a_\mu$ if working at tree-level |
+| gm2calc.calculate_uncertainty_amu_1loop | Calculates the uncertainty of $\Delta a_\mu$ if working at 1 level    |
+| gm2calc.calculate_uncertainty_amu_2loop | Calculates the uncertainty of $\Delta a_\mu$ if working at 2 level    |
 
 See the example Python scripts `examples/example_slha.py`,
 `examples/example_gm2calc.py` and `examples/example_thdm.py`.
