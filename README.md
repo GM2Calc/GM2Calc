@@ -252,7 +252,7 @@ then the input parameters are read from the following blocks:
           2000013     5.05095249e+02   # smuon(2)          [1L]
 
 
- * `HMIX`: $\mu$ parameter (initial guess), $tan(\beta)$,
+ * `HMIX`: $\mu$ parameter (initial guess), $\tan(\beta)$,
    renormalization scale Q
 
    *Example:*
@@ -457,7 +457,7 @@ The THDM-specific input parameters in the mass basis are read from the
 following blocks:
 
  * `MINPAR`: $\tan(\beta)$, $\lambda_{6,7}$, $m_{12}^2$,
-   $sin(\beta-\alpha)$, $\zeta_{u,d,l}$ and the Yukawa type (1 = type
+   $\sin(\beta-\alpha)$, $\zeta_{u,d,l}$ and the Yukawa type (1 = type
    I, 2 = type II, 3 = type X, 4 = type Y, 5 = aligned THDM, 6 =
    general)
 
@@ -512,15 +512,15 @@ to customize the calculation and the output.  The `GM2CalcConfig`
 block entries are summarized in the following table and are described
 below:
 
-| Entry    | Description           | Possible values | Defaul value                              |
-|----------|-----------------------|-----------------|-------------------------------------------|
-| 0        | output format         | `0`, ..., `4`   | `4` for SLHA input, `1` for GM2Calc input |
-| 1        | loop order            | `0`, `1`, `2`   | `2`                                       |
-| 2        | tan(beta) resummation | `0`, `1`        | `1`                                       |
-| 3        | force output          | `0`, `1`        | `0`                                       |
-| 4        | verboe output         | `0`, `1`        | `0`                                       |
-| 5        | estimate uncertainty  | `0`, `1`        | `0`                                       |
-| 6        | running parameters    | `0`, `1`        | `1`                                       |
+| Entry    | Description               | Possible values | Defaul value                              |
+|----------|---------------------------|-----------------|-------------------------------------------|
+| 0        | output format             | `0`, ..., `4`   | `4` for SLHA input, `1` for GM2Calc input |
+| 1        | loop order                | `0`, `1`, `2`   | `2`                                       |
+| 2        | $\tan(\beta)$ resummation | `0`, `1`        | `1`                                       |
+| 3        | force output              | `0`, `1`        | `0`                                       |
+| 4        | verboe output             | `0`, `1`        | `0`                                       |
+| 5        | estimate uncertainty      | `0`, `1`        | `0`                                       |
+| 6        | running parameters        | `0`, `1`        | `1`                                       |
 
 Description:
 
@@ -535,7 +535,7 @@ Description:
  * `GM2CalcConfig[1]`: loop order of the calculation (`0`, `1` or `2`).
    We recommend to use `2`.
 
- * `GM2CalcConfig[2]`: disable/enable tan(beta) resummation (`0` or `1`).
+ * `GM2CalcConfig[2]`: disable/enable $\tan(\beta)$ resummation (`0` or `1`).
    We recommend to use `1`.
 
  * `GM2CalcConfig[3]`: force output even if physical problem has
