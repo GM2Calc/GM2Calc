@@ -31,7 +31,7 @@
 
 extern "C" {
 
-/** calculates full 1-loop SUSY contributions to (g-2) in the MSSM (w/ tan(beta) resummation) */
+/** calculates full 1-loop BSM contributions to (g-2) in the THDM */
 double gm2calc_thdm_calculate_amu_1loop(const gm2calc_THDM* model)
 {
    double amu = std::numeric_limits<double>::quiet_NaN();
