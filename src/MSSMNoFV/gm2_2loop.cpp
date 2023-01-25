@@ -480,7 +480,7 @@ Eigen::Matrix<std::complex<double>,3,3> lambda_mu_cha(const MSSMNoFV_onshell& mo
 }
 
 /**
- * Calculates \f$\lambda_{\tilde{b}_i}\f$, Eq (67)
+ * Calculates \f$\lambda_{\tilde{t}_i}\f$, Eq (67)
  * arXiv:hep-ph/0609168
  */
 Eigen::Matrix<std::complex<double>,2,2> lambda_stop(const MSSMNoFV_onshell& model)
@@ -544,7 +544,7 @@ Eigen::Matrix<std::complex<double>,2,2> lambda_sbot(const MSSMNoFV_onshell& mode
 }
 
 /**
- * Calculates \f$\lambda_{\tilde{t}_i}\f$, Eq (69)
+ * Calculates \f$\lambda_{\tilde{\tau}_i}\f$, Eq (69)
  * arXiv:hep-ph/0609168
  *
  * includes tan(beta) resummation
