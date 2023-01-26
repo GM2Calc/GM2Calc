@@ -141,6 +141,90 @@ fsferm[0] := 0
 
 fsferm[z_] := z/2 (2 + Log[z] - fPS[z])
 
+(* arxiv:1502.04199, Eq.(28) *)
+fv[0] := -Infinity
+
+fv[Infinity] := Infinity
+
+fv[1/4] := 19/4
+
+(* 1/2 Integrate[(x(3x(4x-1) + 10)w - x(1-x))/(w - x(1-x)) Log[w/(x(1-x))], {x, 0, 1}] *)
+fv[w_] := Re[(12*Sqrt[-1 + 4*w] + 180*w*Sqrt[-1 + 4*w] + 6*Sqrt[-1 + 4*w]*Log[w] + 
+  90*w*Sqrt[-1 + 4*w]*Log[w] + (114*I)*w*Log[2]*Log[-1 - I*Sqrt[-1 + 4*w]] - 
+  (72*I)*w^2*Log[2]*Log[-1 - I*Sqrt[-1 + 4*w]] - 
+  114*w*Sqrt[-1 + 4*w]*Log[2]*Log[-1 - I*Sqrt[-1 + 4*w]] + 
+  72*w^2*Sqrt[-1 + 4*w]*Log[2]*Log[-1 - I*Sqrt[-1 + 4*w]] + 
+  (57*I)*w*Log[w]*Log[-1 - I*Sqrt[-1 + 4*w]] - 
+  (36*I)*w^2*Log[w]*Log[-1 - I*Sqrt[-1 + 4*w]] - 
+  57*w*Sqrt[-1 + 4*w]*Log[w]*Log[-1 - I*Sqrt[-1 + 4*w]] + 
+  36*w^2*Sqrt[-1 + 4*w]*Log[w]*Log[-1 - I*Sqrt[-1 + 4*w]] - 
+  (57*I)*w*Log[2]*Log[1 - I*Sqrt[-1 + 4*w]] + 
+  (36*I)*w^2*Log[2]*Log[1 - I*Sqrt[-1 + 4*w]] + 
+  19*w*Sqrt[-1 + 4*w]*Log[8]*Log[1 - I*Sqrt[-1 + 4*w]] - 
+  12*w^2*Sqrt[-1 + 4*w]*Log[8]*Log[1 - I*Sqrt[-1 + 4*w]] - 
+  (57*I)*w*Log[w]*Log[1 - I*Sqrt[-1 + 4*w]] + 
+  (36*I)*w^2*Log[w]*Log[1 - I*Sqrt[-1 + 4*w]] + 
+  57*w*Sqrt[-1 + 4*w]*Log[w]*Log[1 - I*Sqrt[-1 + 4*w]] - 
+  36*w^2*Sqrt[-1 + 4*w]*Log[w]*Log[1 - I*Sqrt[-1 + 4*w]] - 
+  (45*I)*w*Log[2]*Log[-1 + I*Sqrt[-1 + 4*w]] + 
+  (144*I)*w^2*Log[2]*Log[-1 + I*Sqrt[-1 + 4*w]] - 
+  19*w*Sqrt[-1 + 4*w]*Log[8]*Log[-1 + I*Sqrt[-1 + 4*w]] + 
+  12*w^2*Sqrt[-1 + 4*w]*Log[8]*Log[-1 + I*Sqrt[-1 + 4*w]] - 
+  (45*I)*w*Log[w]*Log[-1 + I*Sqrt[-1 + 4*w]] + 
+  (144*I)*w^2*Log[w]*Log[-1 + I*Sqrt[-1 + 4*w]] - 
+  57*w*Sqrt[-1 + 4*w]*Log[w]*Log[-1 + I*Sqrt[-1 + 4*w]] + 
+  36*w^2*Sqrt[-1 + 4*w]*Log[w]*Log[-1 + I*Sqrt[-1 + 4*w]] + 
+  (39*I)*w*Log[2]*Log[1 + I*Sqrt[-1 + 4*w]] - 
+  (198*I)*w^2*Log[2]*Log[1 + I*Sqrt[-1 + 4*w]] + 
+  19*w*Sqrt[-1 + 4*w]*Log[8]*Log[1 + I*Sqrt[-1 + 4*w]] - 
+  12*w^2*Sqrt[-1 + 4*w]*Log[8]*Log[1 + I*Sqrt[-1 + 4*w]] + 
+  (45*I)*w*Log[w]*Log[1 + I*Sqrt[-1 + 4*w]] - 
+  (144*I)*w^2*Log[w]*Log[1 + I*Sqrt[-1 + 4*w]] + 
+  57*w*Sqrt[-1 + 4*w]*Log[w]*Log[1 + I*Sqrt[-1 + 4*w]] - 
+  36*w^2*Sqrt[-1 + 4*w]*Log[w]*Log[1 + I*Sqrt[-1 + 4*w]] - 
+  (57*I)*w*Log[-1 - I*Sqrt[-1 + 4*w]]*Log[1 + I*Sqrt[-1 + 4*w]] + 
+  (36*I)*w^2*Log[-1 - I*Sqrt[-1 + 4*w]]*Log[1 + I*Sqrt[-1 + 4*w]] + 
+  57*w*Sqrt[-1 + 4*w]*Log[-1 - I*Sqrt[-1 + 4*w]]*Log[1 + I*Sqrt[-1 + 4*w]] - 
+  36*w^2*Sqrt[-1 + 4*w]*Log[-1 - I*Sqrt[-1 + 4*w]]*
+   Log[1 + I*Sqrt[-1 + 4*w]] + (57*I)*w*Log[1 - I*Sqrt[-1 + 4*w]]*
+   Log[1 + I*Sqrt[-1 + 4*w]] - (36*I)*w^2*Log[1 - I*Sqrt[-1 + 4*w]]*
+   Log[1 + I*Sqrt[-1 + 4*w]] - 57*w*Sqrt[-1 + 4*w]*Log[1 - I*Sqrt[-1 + 4*w]]*
+   Log[1 + I*Sqrt[-1 + 4*w]] + 36*w^2*Sqrt[-1 + 4*w]*
+   Log[1 - I*Sqrt[-1 + 4*w]]*Log[1 + I*Sqrt[-1 + 4*w]] + 
+  (45*I)*w*Log[-1 + I*Sqrt[-1 + 4*w]]*Log[1 + I*Sqrt[-1 + 4*w]] - 
+  (144*I)*w^2*Log[-1 + I*Sqrt[-1 + 4*w]]*Log[1 + I*Sqrt[-1 + 4*w]] + 
+  57*w*Sqrt[-1 + 4*w]*Log[-1 + I*Sqrt[-1 + 4*w]]*Log[1 + I*Sqrt[-1 + 4*w]] - 
+  36*w^2*Sqrt[-1 + 4*w]*Log[-1 + I*Sqrt[-1 + 4*w]]*
+   Log[1 + I*Sqrt[-1 + 4*w]] - (45*I)*w*Log[1 + I*Sqrt[-1 + 4*w]]^2 + 
+  (144*I)*w^2*Log[1 + I*Sqrt[-1 + 4*w]]^2 - 57*w*Sqrt[-1 + 4*w]*
+   Log[1 + I*Sqrt[-1 + 4*w]]^2 + 36*w^2*Sqrt[-1 + 4*w]*
+   Log[1 + I*Sqrt[-1 + 4*w]]^2 + (57*I)*w*Log[-1 - I*Sqrt[-1 + 4*w]]*
+   Log[I/(I + Sqrt[-1 + 4*w])] - (36*I)*w^2*Log[-1 - I*Sqrt[-1 + 4*w]]*
+   Log[I/(I + Sqrt[-1 + 4*w])] - 57*w*Sqrt[-1 + 4*w]*
+   Log[-1 - I*Sqrt[-1 + 4*w]]*Log[I/(I + Sqrt[-1 + 4*w])] + 
+  36*w^2*Sqrt[-1 + 4*w]*Log[-1 - I*Sqrt[-1 + 4*w]]*
+   Log[I/(I + Sqrt[-1 + 4*w])] - (6*I)*w*Log[1 + I*Sqrt[-1 + 4*w]]*
+   Log[I/(I + Sqrt[-1 + 4*w])] - (54*I)*w^2*Log[1 + I*Sqrt[-1 + 4*w]]*
+   Log[I/(I + Sqrt[-1 + 4*w])] - (57*I)*w*Log[1 - I*Sqrt[-1 + 4*w]]*
+   Log[(2*I)/(I + Sqrt[-1 + 4*w])] + (36*I)*w^2*Log[1 - I*Sqrt[-1 + 4*w]]*
+   Log[(2*I)/(I + Sqrt[-1 + 4*w])] + 57*w*Sqrt[-1 + 4*w]*
+   Log[1 - I*Sqrt[-1 + 4*w]]*Log[(2*I)/(I + Sqrt[-1 + 4*w])] - 
+  36*w^2*Sqrt[-1 + 4*w]*Log[1 - I*Sqrt[-1 + 4*w]]*
+   Log[(2*I)/(I + Sqrt[-1 + 4*w])] - (45*I)*w*Log[-1 + I*Sqrt[-1 + 4*w]]*
+   Log[(2*I)/(I + Sqrt[-1 + 4*w])] + (144*I)*w^2*Log[-1 + I*Sqrt[-1 + 4*w]]*
+   Log[(2*I)/(I + Sqrt[-1 + 4*w])] - 57*w*Sqrt[-1 + 4*w]*
+   Log[-1 + I*Sqrt[-1 + 4*w]]*Log[(2*I)/(I + Sqrt[-1 + 4*w])] + 
+  36*w^2*Sqrt[-1 + 4*w]*Log[-1 + I*Sqrt[-1 + 4*w]]*
+   Log[(2*I)/(I + Sqrt[-1 + 4*w])] + (51*I)*w*Log[1 + I*Sqrt[-1 + 4*w]]*
+   Log[(2*I)/(I + Sqrt[-1 + 4*w])] - (90*I)*w^2*Log[1 + I*Sqrt[-1 + 4*w]]*
+   Log[(2*I)/(I + Sqrt[-1 + 4*w])] + 57*w*Sqrt[-1 + 4*w]*
+   Log[1 + I*Sqrt[-1 + 4*w]]*Log[(2*I)/(I + Sqrt[-1 + 4*w])] - 
+  36*w^2*Sqrt[-1 + 4*w]*Log[1 + I*Sqrt[-1 + 4*w]]*
+   Log[(2*I)/(I + Sqrt[-1 + 4*w])] - (6*I)*w*(-17 + 30*w)*
+   PolyLog[2, (-I + Sqrt[-1 + 4*w])/(I + Sqrt[-1 + 4*w])] + 
+  (6*I)*w*(-17 + 30*w)*PolyLog[2, (I + Sqrt[-1 + 4*w])/
+     (-I + Sqrt[-1 + 4*w])])/(12*Sqrt[-1 + 4*w])]
+
 (* arxiv:1502.04199, Eq.(25) *)
 (* Module[{x}, w/2 Integrate[(2x(1-x)-1)/(w-x(1-x)) Log[w/(x(1-x))], {x,0,1}]] *)
 F1[0] := 0
