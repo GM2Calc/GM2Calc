@@ -115,6 +115,7 @@ TEST_CASE("test_F")
    test_1("fPS", [] (double x) { return gm2calc::f_PS(x);}, 1e-14);
    test_1("fS" , [] (double x) { return gm2calc::f_S(x); }, 1e-14);
    test_1("fsferm", [] (double x) { return gm2calc::f_sferm(x); }, 1e-14);
+   test_1("fv" , [] (double x) { return gm2calc::f_v(x); }, 1e-14);
 }
 
 TEST_CASE("test_G")

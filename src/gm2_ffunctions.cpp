@@ -648,6 +648,22 @@ double f_sferm(double z) noexcept {
 }
 
 /**
+ * Calculates \f$f_V(z)\f$, Eq (28) arXiv:1502.04199.
+ *
+ *  2-loop function for Barr-Zee type diagram with vector boson loop.
+ */
+double f_v(double z) noexcept {
+   if (z < 0.0) {
+      ERROR("f_v: z must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   } else if (z == 0.0) {
+      return 0.0;
+   }
+
+   return (17./4 - 7.5*z)*f_PS(z) + (0.5 + 7.5*z)*(2 + std::log(z));
+}
+
+/**
  * \f$\mathcal{F}_1(\omega)\f$, Eq (25) arxiv:1502.04199
  */
 double F1(double w) noexcept {
