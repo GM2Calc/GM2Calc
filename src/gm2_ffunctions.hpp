@@ -53,8 +53,6 @@ double f_PS(double) noexcept;
 double f_S(double) noexcept;
 /// \f$f_{\tilde{f}}(z)\f$, Eq (72) arXiv:hep-ph/0609168
 double f_sferm(double) noexcept;
-/// \f$f_V(z)\f$, Eq (28) arXiv:1502.04199
-double f_v(double) noexcept;
 /// \f$\mathcal{F}_1(\omega)\f$, Eq (25) arxiv:1502.04199
 double F1(double) noexcept;
 /// \f$\tilde{\mathcal{F}}_1(\omega)\f$, Eq (26) arxiv:1502.04199
