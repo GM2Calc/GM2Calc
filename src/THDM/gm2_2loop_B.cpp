@@ -629,7 +629,7 @@ double amu2L_B_Yuk(const THDM_B_parameters& thdm) noexcept
 /**
  * Calculates the sum of the 2-loop bosonic contributions.
  *
- * Eq (48), arxiv:1607:06292
+ * Eq (48), arxiv:1607.06292
  */
 double amu2L_B(const THDM_B_parameters& thdm) noexcept
 {
