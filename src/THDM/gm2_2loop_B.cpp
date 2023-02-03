@@ -387,7 +387,7 @@ double Fmp(double u, double w, double al, double cw2) noexcept
 /**
  * Calculates 2-loop bosonic pure electroweak contributions.
  *
- * Eq (49), arxiv:1607:06292
+ * Eq (49), arxiv:1607.06292
  */
 double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
 {
@@ -488,7 +488,7 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
 /**
  * Calculates 2-loop bosonic non-Yukawa contributions.
  *
- * Eq (71), arxiv:1607:06292
+ * Eq (71), arxiv:1607.06292
  */
 double amu2L_B_nonYuk(const THDM_B_parameters& thdm) noexcept
 {
@@ -546,7 +546,7 @@ double amu2L_B_nonYuk(const THDM_B_parameters& thdm) noexcept
 /**
  * Calculates 2-loop bosonic Yukawa contributions.
  *
- * Eq (52), arxiv:1607:06292
+ * Eq (52), arxiv:1607.06292
  */
 double amu2L_B_Yuk(const THDM_B_parameters& thdm) noexcept
 {
