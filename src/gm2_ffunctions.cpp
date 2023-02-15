@@ -603,6 +603,10 @@ double f_PS(double z) noexcept {
       return std::numeric_limits<double>::quiet_NaN();
    } else if (z == 0.0) {
       return 0.0;
+   } else if (z < std::numeric_limits<double>::epsilon()) {
+      const double pi23 = 3.2898681336964529; // Pi^2/3
+      const double lz = std::log(z);
+      return z*(pi23 + lz*lz);
    } else if (z < 0.25) {
       const double y = std::sqrt(1 - 4*z); // 0 < y < 1
       const double c = -9.8696044010893586; // -Pi^2
