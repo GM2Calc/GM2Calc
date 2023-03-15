@@ -632,6 +632,11 @@ double f_S(double z) noexcept {
       return std::numeric_limits<double>::quiet_NaN();
    } else if (z == 0.0) {
       return 0.0;
+   } if (z > 1e2) {
+      const double lz = std::log(z);
+      const double iz = 1/z;
+      return (-13./9 - 2./3*lz) + iz*(-26./150 - 15./150*lz
+         + iz*(-673./22050 - 420./22050*lz + iz*(-971./158760 - 630./158760*lz)));
    }
 
    return (2*z - 1)*f_PS(z) - 2*z*(2 + std::log(z));
