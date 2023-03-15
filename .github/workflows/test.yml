@@ -19,7 +19,7 @@ jobs:
         python-version: '3.x'
     - name: install conan
       run: |
-        pip install conan
+        pip install "conan>=1,<2"
         conan profile detect
     - name: install dependencies
       run: conan install . --build=missing
