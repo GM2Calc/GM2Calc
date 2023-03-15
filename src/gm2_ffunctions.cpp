@@ -703,6 +703,14 @@ double F3(double w) noexcept {
       return std::numeric_limits<double>::quiet_NaN();
    } else if (w == 0.25) {
       return 19.0/4.0;
+   } if (w >= 1e2) {
+      const double lw = std::log(w);
+      const double iw = 1/w;
+      return 89./12 + 42./12*lw + iw*(284./360 + 165./360*lw
+         + iw*(6199./44100 + 3885./44100*lw
+         + iw*(30017./1.0584e6 + 19530./1.0584e6*lw
+         + iw*(83351./1.37214e7 + 55440./1.37214e7*lw
+         + iw*(34978051./2.597186592e10 + 23603580./2.597186592e10*lw)))));
    }
 
    return (0.5 + 7.5*w)*(2 + std::log(w)) + (4.25 - 7.5*w)*f_PS(w);
