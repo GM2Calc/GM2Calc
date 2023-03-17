@@ -1,7 +1,5 @@
 [requires]
 eigen/[>=3.1]
-
-[tool_requires]
 boost/1.75.0
 
 [options]
