@@ -1,11 +1,11 @@
 [requires]
 eigen/[>=3.1]
 
-[build_requires]
+[tool_requires]
 boost/1.75.0
 
 [options]
-boost:header_only=True
+boost/*:header_only=True
 
 [generators]
 cmake
