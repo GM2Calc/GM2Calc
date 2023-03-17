@@ -8,4 +8,4 @@ boost/1.75.0
 boost/*:header_only=True
 
 [generators]
-cmake
+CMakeDeps
