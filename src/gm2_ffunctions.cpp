@@ -732,10 +732,11 @@ double lambda_2(double x, double y, double z) noexcept
 }
 
 /**
- * \f$\Phi(x,y,z)\f$ function.  The arguments x, y and z are
- * interpreted as squared masses.
+ * \f$\Phi(x,y,z)\f$ function from arxiv:1607.06292 Eq.(68).
+
+ * @note The arguments x, y and z are interpreted as squared masses.
  *
- * Davydychev and Tausk, Nucl. Phys. B397 (1993) 23
+ * @note Proportional to Phi from Davydychev and Tausk, Nucl. Phys. B397 (1993) 23
  *
  * @param x squared mass
  * @param y squared mass
