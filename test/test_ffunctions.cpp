@@ -184,3 +184,27 @@ TEST_CASE("test_Iabc")
    test_3("Iabc", [] (double x, double y, double z) { return gm2calc::Iabc(x,y,z); }, 1e-12);
    test_3("Phi" , [] (double x, double y, double z) { return gm2calc::Phi(x,y,z);  }, 1e-13);
 }
+
+// test relation between Phi(x,y,z) and f_PS(x)
+TEST_CASE("test_Phi_f_PS")
+{
+   const int N = 100;
+   const double eps = 1e-12;
+   const double xstart = 0.1, xstop = 10;
+   const double ystart = 0.1, ystop = 10;
+
+   for (int ix = 0; ix <= N; ix++) {
+      for (int iy = 0; iy <= N; iy++) {
+         const double x = xstart + ix*(xstop - xstart)/N;
+         const double y = ystart + iy*(ystop - ystart)/N;
+
+         const double phi = gm2calc::Phi(x, y, y)/(x - 4*y);
+         const double fPS  = 0.5*x/y*gm2calc::f_PS(y/x);
+
+         INFO("x = " << x << ", y = " << y
+              << ", Phi(x,y,y) = " << phi << ", F3(y/x) = " << fPS);
+
+         CHECK_CLOSE(phi, fPS, eps);
+      }
+   }
+}
