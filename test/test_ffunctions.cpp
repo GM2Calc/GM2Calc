@@ -202,9 +202,33 @@ TEST_CASE("test_Phi_f_PS")
          const double fPS  = 0.5*x/y*gm2calc::f_PS(y/x);
 
          INFO("x = " << x << ", y = " << y
-              << ", Phi(x,y,y) = " << phi << ", F3(y/x) = " << fPS);
+              << ", Phi(x,y,y) = " << phi << ", f_PS(y/x) = " << fPS);
 
          CHECK_CLOSE(phi, fPS, eps);
+      }
+   }
+}
+
+// test relation between Phi(x,y,z) and f_S(x)
+TEST_CASE("test_Phi_f_S")
+{
+   const int N = 100;
+   const double eps = 1e-12;
+   const double xstart = 0.1, xstop = 10;
+   const double ystart = 0.1, ystop = 10;
+
+   for (int ix = 0; ix <= N; ix++) {
+      for (int iy = 0; iy <= N; iy++) {
+         const double x = xstart + ix*(xstop - xstart)/N;
+         const double y = ystart + iy*(ystop - ystart)/N;
+
+         const double phi = -2 + std::log(x/y) - (x - 2*y)/x*gm2calc::Phi(x, y, y)/(x - 4*y);
+         const double fS  = 0.5*x/y*gm2calc::f_S(y/x);
+
+         INFO("x = " << x << ", y = " << y
+              << ", Phi(x,y,y) = " << phi << ", f_S(y/x) = " << fS);
+
+         CHECK_CLOSE(phi, fS, eps);
       }
    }
 }
