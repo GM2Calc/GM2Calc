@@ -27,7 +27,7 @@ ExportData[func_, narg_, prec_, zero_] :=
     ]
 
 $MaxExtraPrecision = 10000;
-precision = 15;
+precision = 17;
 zero = 0;
 
 ExportData[F1C, 1, precision, 0];
@@ -59,3 +59,6 @@ ExportData[F1, 1, precision, 0];
 ExportData[F1t, 1, precision, 0];
 ExportData[F2, 1, precision, 0];
 ExportData[F3, 1, precision, 0];
+
+ExportData[FPZ, 2, precision, 1/20];
+ExportData[FSZ, 2, precision, 1/20];
