@@ -73,7 +73,7 @@ double YFZ(double u, double cw2) noexcept
    const auto u2 = u*u;
    const auto lu = std::log(u);
    const auto li = dilog(1.0 - u);
-   const auto phi = Phi(u, 1.0, 1.0);
+   const auto phi = 0.5*u*f_PS(1/u)*(u - 4); // Phi(u,1,1);
 
    const auto z1 = 3*(17 - 48*cw2 + 32*cw4); // Eq.(122)
    const auto z2 = 5 - 12*cw2 + 8*cw4;       // Eq.(123)
