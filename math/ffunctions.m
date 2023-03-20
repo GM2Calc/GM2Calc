@@ -141,6 +141,20 @@ fsferm[0] := 0
 
 fsferm[z_] := z/2 (2 + Log[z] - fPS[z])
 
+(* loop function for fermionic 2-loop Barr-Zee diagram with Z boson and pseudoscalar mediator *)
+FPZ[1/4, 1/4] := (-1 - 2*Log[2])/3
+
+FPZ[x_, x_] := -2 x (fPS[x] + Log[x])/(-1 + 4*x)
+
+FPZ[x_, y_] := (y fPS[x] - x fPS[y])/(x - y)
+
+(* loop function for fermionic 2-loop Barr-Zee diagram with Z boson and scalar mediator *)
+FSZ[1/4, 1/4] := (-1 + Log[16])/3
+
+FSZ[x_, x_] := (2 x (1 - 4 x + 2 x fPS[x] + Log[x] - 2 x Log[x]))/(-1 + 4 x)
+
+FSZ[x_, y_] := (y fS[x] - x fS[y])/(x - y)
+
 (* arxiv:1502.04199, Eq.(25) *)
 (* Module[{x}, w/2 Integrate[(2x(1-x)-1)/(w-x(1-x)) Log[w/(x(1-x))], {x,0,1}]] *)
 F1[0] := 0
