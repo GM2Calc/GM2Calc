@@ -50,18 +50,19 @@ void shift(double& val, double limit, double eps) noexcept
 /// Eq.(102), arxiv:1607.06292
 double YF1(double u, double w, double cw2) noexcept
 {
-   shift(u, 4*w, eps_shift);
-   shift(w, 0.25, eps_shift);
    shift(u, 1.0, eps_shift);
 
    const auto cw4 = cw2*cw2;
    const auto c0 = cw2*(-1 + cw2)*(u + 2*w)/u;
 
+   // Note: Phi(w,w,1) == 0.5/w*f_PS(w)*(1 - 4*w)
+   // Note: Phi(u,w,w) == 0.5*u/w*f_PS(w/u)*(u - 4*w)
+
    return
       - 72*c0 - 36*c0*std::log(w)
-      + 9*(-8*cw4 - 3*u + 2*cw2*(4 + u))*(u + 2*w)/(2*(u-1)*u)*std::log(u)
-      - 9*(3 - 10*cw2 + 8*cw4)*w*(u + 2*w)/((4*w-1)*(u-1))*Phi(w,w,1)
-      + 9*(8*cw4 + 3*u - 2*cw2*(4 + u))*w*(u + 2*w)/((4*w-u)*(u-1)*u*u)*Phi(u,w,w)
+      + 9*(-8*cw4 - 3*u + 2*cw2*(4 + u))*(u + 2*w)/(2*(u - 1)*u)*std::log(u)
+      + 9./2*(3 - 10*cw2 + 8*cw4)*(u + 2*w)/(u - 1)*f_PS(w)
+      - 9./2*(8*cw4 + 3*u - 2*cw2*(4 + u))*(u + 2*w)/((u - 1)*u)*f_PS(w/u)
       ;
 }
 
