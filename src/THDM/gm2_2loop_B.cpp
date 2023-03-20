@@ -420,12 +420,12 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double liw = dilog(1 - xw);
    const double lih = dilog(1 - xh);
    const double lh2 = lh*lh;
-   const double phi1 = 6*Phi(xh,1,1);
+   const double phi1 = 3*xh*f_PS(1/xh)*(xh - 4); // Phi(xh,1,1) == 0.5*xh*f_PS(1/xh)*(xh - 4)
    const double phi3 = 6*(-liw + zeta2);
    const double phi4 = 6*(lh2/2 + 2*lih + zeta2);
-   const double phi5 = 6*(-Phi(cw2,cw2,1)/(4*cw2 - 1));
+   const double phi5 = 3/cw2*f_PS(cw2); // Phi(cw2,cw2,1) == 0.5/cw2*f_PS(cw2)*(1 - 4*cw2)
    const double phi6 = 6*(-lih + zeta2);
-   const double phi7 = 6*cw2*Phi(xw,1,1);
+   const double phi7 = 3*cw2*xw*f_PS(1/xw)*(xw - 4); // Phi(xw,1,1) == 0.5*xw*f_PS(1/xw)*(xw - 4)
 
    const double xm2 = 256*(32*cw10 - 5*cw4 + 32*cw6 - 56*cw8)*phi6
       - 2304*(5*cw10 - 4*cw12 - cw8)*phi7 - 512*(cw10 - 4*cw12)*phi3;
