@@ -97,11 +97,13 @@ double YFW(double u, double cw2) noexcept
    const auto u2 = u*u;
    const auto u3 = u2*u;
 
+   // Note: Phi(u,cw2,cw2) == 0.5*u/cw2*f_PS(cw2/u)*(u - 4*cw2)
+
    const double res =
-      - 57.0/2*cw2 - 4*cw6*pi2/u2 + 3*cw4*(32 - 3*pi2)/(4*u)
-      + 3*(16*cw6 + 9*cw4*u + 12*cw2*u2 - 19*u3)*dilog(1.0 - u/cw2)/(2*u2)
-      + 3*cw2*(16*cw2 + 19*u)*(std::log(cw2/u))/(2*u)
-      + 3*(4*cw4 - 50*cw2*u + 19*u2)*Phi(u,cw2,cw2)/(2*(4*cw2-u)*u);
+      - 57.0/2*cw2 - 4*cw6*pi2/u2 + 3./4*cw4*(32 - 3*pi2)/u
+      + 3./2*(16*cw6 + 9*cw4*u + 12*cw2*u2 - 19*u3)/u2*dilog(1.0 - u/cw2)
+      + 3./2*cw2*(16*cw2 + 19*u)/u*std::log(cw2/u)
+      - 3./4*(4*cw4 - 50*cw2*u + 19*u2)/cw2*f_PS(cw2/u);
 
    return res;
 }
