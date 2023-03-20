@@ -136,14 +136,17 @@ double YF2(double u, double cw2) noexcept
    const double f13 = 9.0/2*cw2*(57 + 106*cw2);              // Eq.(119)
    const double f14 = -15.0/2*(7 + 45*cw2);                  // Eq.(120)
 
+   // Note: Phi(cw2,cw2,1) == 0.5/cw2*f_PS(cw2)*(1 - 4*cw2)
+   // Note: Phi(u,cw2,cw2) == 0.5*u/cw2*f_PS(cw2/u)*(u - 4*cw2)
+
    const double res =
       + 8*cw6*pi2/u2 + f0/u + 393.0/8*cw2
       + (f1/u + f2 + f3*u)*std::log(cw2)/((4*cw2-1)*(4*cw2-u))
       + (f4/u + f5 + f6*u + f7*u2)*std::log(u)/((u-1)*(4*cw2-u))
       - 3.0/2*(32*cw6/u2 + 21*cw4/u + 15*cw2 - 35*u)*dilog(1.0 - u/cw2)
-      + (f8 + f9*u)*9*cw2*(-3 + 4*cw2)/2*Phi(cw2,cw2,1)/(sqr(4*cw2-1)*(u-1))
-      + (f10/u2 + f11/u + f12 + f13*u + f14*u2 + 105.0/2*u3)*Phi(u,cw2,cw2)
-        /(sqr(4*cw2-u)*(u-1))
+      + (f8 + f9*u)*9./4*(-3 + 4*cw2)*f_PS(cw2)/((1-4*cw2)*(u-1))
+      + 0.5*(f10/u + f11 + f12*u + f13*u2 + f14*u3 + 105.0/2*u2*u2)*f_PS(cw2/u)
+        /(cw2*(u-4*cw2)*(u-1))
       ;
 
    return YFW(u, cw2) + YFZ(u, cw2) + res;
