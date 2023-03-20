@@ -349,10 +349,12 @@ double T9(double u, double w, double cw2) noexcept
    const auto u2 = u*u;
    const auto w2 = w*w;
 
+   // Note: Phi(u,w,w) == 0.5*u/w*f_PS(w/u)*(u - 4*w)
+
    return
       - 2*(cw4*w + cw2*(u2 + u*w - 2*w2) - cube(u-w))*Phi(u,w,cw2)
         /((cw2 - w)*(cw4 - 2*cw2*(u+w) + sqr(u-w)))
-      + 2*cw4*(u2 - 4*u*w + 2*w2)*Phi(u,w,w)/(w2*(w-cw2)*(u-4*w))
+      + cw4*(u2 - 4*u*w + 2*w2)*u*f_PS(w/u)/(w*w2*(w-cw2))
       - 2*(cw2*u*(u-2*w) + w*sqr(u-w))*dilog(1.0 - u/w)/w2;
 }
 
