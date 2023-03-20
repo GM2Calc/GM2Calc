@@ -717,6 +717,74 @@ double F3(double w) noexcept {
 }
 
 /**
+ * Barr-Zee 2-loop function with fermion loop and pseudoscalar and Z
+ * boson mediators.
+ *
+ * @param x squared mass ratio (mf/ms)^2.
+ * @param y squared mass ratio (mf/mz)^2.
+ */
+double FPZ(double x, double y)
+{
+   if (x < 0 || y < 0) {
+      ERROR("FPZ: arguments must not be negative.");
+   }
+
+   sort(x, y);
+
+   constexpr double eps = 1e-8;
+
+   if (x == 0 || y == 0) {
+      return 0;
+   } else if (std::abs(1 - x/y) < eps) {
+      if (std::abs(x - 0.25) < eps) {
+         // -(1 + 2*Log[2])/3 + O(x - 1/4)
+         return -0.79543145370663021 - 1.7453806518612167*(x - 0.25);
+      }
+      return 2*x*(f_PS(x) + std::log(x))/(1 - 4*x);
+   }
+
+   return (y*f_PS(x) - x*f_PS(y))/(x - y);
+}
+
+/**
+ * Barr-Zee 2-loop function with fermion loop and scalar and Z boson
+ * mediators.
+ *
+ * @param x squared mass ratio (mf/ms)^2.
+ * @param y squared mass ratio (mf/mz)^2.
+ */
+double FSZ(double x, double y)
+{
+   if (x < 0 || y < 0) {
+      ERROR("FSZ: arguments must not be negative.");
+   }
+
+   sort(x, y);
+
+   constexpr double eps = 1e-8;
+
+   if (x == 0 || y == 0) {
+      return 0;
+   } else if (std::abs(1 - x/y) < eps) {
+      if (std::abs(x - 0.25) < eps) {
+         // (-1 + 4*Log[2])/3 + O(x - 1/4)
+         return 0.59086290741326041 + 1.2361419555836500*(x - 0.25);
+      } else if (x >= 1e3) {
+         const double ix = 1/x;
+         const double lx = std::log(x);
+         return 7./9 + 2./3*lx
+            + ix*(37./150 + 1./5*lx
+            + ix*(533./7350 + 2./35*lx
+            + ix*(1627./79380 + 1./63*lx
+            + ix*(18107./3201660 + 1./231*lx))));
+      }
+      return 2*x*(1 - 4*x + 2*x*f_PS(x) + std::log(x)*(1 - 2*x))/(4*x - 1);
+   }
+
+   return (y*f_S(x) - x*f_S(y))/(x - y);
+}
+
+/**
  * Källén lambda function \f$\lambda^2(x,y,z) = x^2 + y^2 + z^2 - 2xy - 2yz - 2xz\f$.
  * The arguments u and v are interpreted as squared masses.
  *
