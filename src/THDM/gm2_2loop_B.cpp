@@ -50,18 +50,19 @@ void shift(double& val, double limit, double eps) noexcept
 /// Eq.(102), arxiv:1607.06292
 double YF1(double u, double w, double cw2) noexcept
 {
-   shift(u, 4*w, eps_shift);
-   shift(w, 0.25, eps_shift);
    shift(u, 1.0, eps_shift);
 
    const auto cw4 = cw2*cw2;
    const auto c0 = cw2*(-1 + cw2)*(u + 2*w)/u;
 
+   // Note: Phi(w,w,1) == 0.5/w*f_PS(w)*(1 - 4*w)
+   // Note: Phi(u,w,w) == 0.5*u/w*f_PS(w/u)*(u - 4*w)
+
    return
       - 72*c0 - 36*c0*std::log(w)
-      + 9*(-8*cw4 - 3*u + 2*cw2*(4 + u))*(u + 2*w)/(2*(u-1)*u)*std::log(u)
-      - 9*(3 - 10*cw2 + 8*cw4)*w*(u + 2*w)/((4*w-1)*(u-1))*Phi(w,w,1)
-      + 9*(8*cw4 + 3*u - 2*cw2*(4 + u))*w*(u + 2*w)/((4*w-u)*(u-1)*u*u)*Phi(u,w,w)
+      + 9*(-8*cw4 - 3*u + 2*cw2*(4 + u))*(u + 2*w)/(2*(u - 1)*u)*std::log(u)
+      + 9./2*(3 - 10*cw2 + 8*cw4)*(u + 2*w)/(u - 1)*f_PS(w)
+      - 9./2*(8*cw4 + 3*u - 2*cw2*(4 + u))*(u + 2*w)/((u - 1)*u)*f_PS(w/u)
       ;
 }
 
@@ -72,7 +73,7 @@ double YFZ(double u, double cw2) noexcept
    const auto u2 = u*u;
    const auto lu = std::log(u);
    const auto li = dilog(1.0 - u);
-   const auto phi = Phi(u, 1.0, 1.0);
+   const auto phi = 0.5*u*f_PS(1/u)*(u - 4); // Phi(u,1,1);
 
    const auto z1 = 3*(17 - 48*cw2 + 32*cw4); // Eq.(122)
    const auto z2 = 5 - 12*cw2 + 8*cw4;       // Eq.(123)
@@ -96,11 +97,13 @@ double YFW(double u, double cw2) noexcept
    const auto u2 = u*u;
    const auto u3 = u2*u;
 
+   // Note: Phi(u,cw2,cw2) == 0.5*u/cw2*f_PS(cw2/u)*(u - 4*cw2)
+
    const double res =
-      - 57.0/2*cw2 - 4*cw6*pi2/u2 + 3*cw4*(32 - 3*pi2)/(4*u)
-      + 3*(16*cw6 + 9*cw4*u + 12*cw2*u2 - 19*u3)*dilog(1.0 - u/cw2)/(2*u2)
-      + 3*cw2*(16*cw2 + 19*u)*(std::log(cw2/u))/(2*u)
-      + 3*(4*cw4 - 50*cw2*u + 19*u2)*Phi(u,cw2,cw2)/(2*(4*cw2-u)*u);
+      - 57.0/2*cw2 - 4*cw6*pi2/u2 + 3./4*cw4*(32 - 3*pi2)/u
+      + 3./2*(16*cw6 + 9*cw4*u + 12*cw2*u2 - 19*u3)/u2*dilog(1.0 - u/cw2)
+      + 3./2*cw2*(16*cw2 + 19*u)/u*std::log(cw2/u)
+      - 3./4*(4*cw4 - 50*cw2*u + 19*u2)/cw2*f_PS(cw2/u);
 
    return res;
 }
@@ -133,14 +136,17 @@ double YF2(double u, double cw2) noexcept
    const double f13 = 9.0/2*cw2*(57 + 106*cw2);              // Eq.(119)
    const double f14 = -15.0/2*(7 + 45*cw2);                  // Eq.(120)
 
+   // Note: Phi(cw2,cw2,1) == 0.5/cw2*f_PS(cw2)*(1 - 4*cw2)
+   // Note: Phi(u,cw2,cw2) == 0.5*u/cw2*f_PS(cw2/u)*(u - 4*cw2)
+
    const double res =
       + 8*cw6*pi2/u2 + f0/u + 393.0/8*cw2
       + (f1/u + f2 + f3*u)*std::log(cw2)/((4*cw2-1)*(4*cw2-u))
       + (f4/u + f5 + f6*u + f7*u2)*std::log(u)/((u-1)*(4*cw2-u))
       - 3.0/2*(32*cw6/u2 + 21*cw4/u + 15*cw2 - 35*u)*dilog(1.0 - u/cw2)
-      + (f8 + f9*u)*9*cw2*(-3 + 4*cw2)/2*Phi(cw2,cw2,1)/(sqr(4*cw2-1)*(u-1))
-      + (f10/u2 + f11/u + f12 + f13*u + f14*u2 + 105.0/2*u3)*Phi(u,cw2,cw2)
-        /(sqr(4*cw2-u)*(u-1))
+      + (f8 + f9*u)*9./4*(-3 + 4*cw2)*f_PS(cw2)/((1-4*cw2)*(u-1))
+      + 0.5*(f10/u + f11 + f12*u + f13*u2 + f14*u3 + 105.0/2*u2*u2)*f_PS(cw2/u)
+        /(cw2*(u-4*cw2)*(u-1))
       ;
 
    return YFW(u, cw2) + YFZ(u, cw2) + res;
@@ -185,6 +191,8 @@ double YF3(double u, double w, double cw2) noexcept
    const auto a7 = -9*cw2*u4 + 18*cw2*u3*(2*cw2 + w) + 36*u*(cw8 - 2*cw6*w)
       - 9*cw2*u2*(6*cw4 - cw2*w + w2) - 9*cw2*(cw2 - 3*w)*(cw6 - 2*cw4*w + cw2*w2);
 
+   // Note: Phi(u,cw2,cw2) == 0.5*u/cw2*f_PS(cw2/u)*(u - 4*cw2)
+
    const double res =
       + 9*u*(2*cw2 - u + w)/w
       + (a1*(lu - lc) + 9*cw4*(cw4 - 4*cw2*w + 3*w2)*lc)*(lw - lc)/(2*w2*(cw2-w))
@@ -192,7 +200,7 @@ double YF3(double u, double w, double cw2) noexcept
       + a3*lw/(w*(cw2-w))
       + a4*lc/(w2*(4*cw2-u)*(cw2-w))
       + a5/(cw2*w2)*dilog(1.0 - u/cw2)
-      + a6/(u*cw2*sqr(4*cw2-u)*(cw2-w))*Phi(u,cw2,cw2)
+      + a6/(sqr(cw2)*(u-4*cw2)*(cw2-w))*0.5*f_PS(cw2/u)
       + a7/(w2*(cw2-w)*(cw4-2*cw2*(u+w)+sqr(u-w)))*Phi(u,w,cw2)
       ;
 
@@ -334,17 +342,18 @@ double T8(double u, double w, double cw2) noexcept
 /// Eq.(103), arxiv:1607.06292
 double T9(double u, double w, double cw2) noexcept
 {
-   shift(u, 4*w, eps_shift);
    shift(w, cw2, eps_shift);
 
    const auto cw4 = cw2*cw2;
    const auto u2 = u*u;
    const auto w2 = w*w;
 
+   // Note: Phi(u,w,w) == 0.5*u/w*f_PS(w/u)*(u - 4*w)
+
    return
       - 2*(cw4*w + cw2*(u2 + u*w - 2*w2) - cube(u-w))*Phi(u,w,cw2)
         /((cw2 - w)*(cw4 - 2*cw2*(u+w) + sqr(u-w)))
-      + 2*cw4*(u2 - 4*u*w + 2*w2)*Phi(u,w,w)/(w2*(w-cw2)*(u-4*w))
+      + cw4*(u2 - 4*u*w + 2*w2)*u*f_PS(w/u)/(w*w2*(w-cw2))
       - 2*(cw2*u*(u-2*w) + w*sqr(u-w))*dilog(1.0 - u/w)/w2;
 }
 
@@ -410,12 +419,12 @@ double amu2L_B_EWadd(const THDM_B_parameters& thdm) noexcept
    const double liw = dilog(1 - xw);
    const double lih = dilog(1 - xh);
    const double lh2 = lh*lh;
-   const double phi1 = 6*Phi(xh,1,1);
+   const double phi1 = 3*xh*f_PS(1/xh)*(xh - 4); // Phi(xh,1,1) == 0.5*xh*f_PS(1/xh)*(xh - 4)
    const double phi3 = 6*(-liw + zeta2);
    const double phi4 = 6*(lh2/2 + 2*lih + zeta2);
-   const double phi5 = 6*(-Phi(cw2,cw2,1)/(4*cw2 - 1));
+   const double phi5 = 3/cw2*f_PS(cw2); // Phi(cw2,cw2,1) == 0.5/cw2*f_PS(cw2)*(1 - 4*cw2)
    const double phi6 = 6*(-lih + zeta2);
-   const double phi7 = 6*cw2*Phi(xw,1,1);
+   const double phi7 = 3*cw2*xw*f_PS(1/xw)*(xw - 4); // Phi(xw,1,1) == 0.5*xw*f_PS(1/xw)*(xw - 4)
 
    const double xm2 = 256*(32*cw10 - 5*cw4 + 32*cw6 - 56*cw8)*phi6
       - 2304*(5*cw10 - 4*cw12 - cw8)*phi7 - 512*(cw10 - 4*cw12)*phi3;
