@@ -80,22 +80,15 @@ double calc_v2(const THDM_F_parameters& thdm) noexcept
 /// Eq (56), arxiv:1607.06292, S = h or H
 double FS(double ms2, double mf2) noexcept
 {
-   if (std::abs(ms2 - 4*mf2) <= 2*std::numeric_limits<double>::epsilon()) {
-      return -2.0;
-   }
-
-   return -2.0 + std::log(ms2/mf2)
-      - (ms2 - 2*mf2)/ms2 * Phi(ms2, mf2, mf2)/(ms2 - 4*mf2);
+   const double x = mf2/ms2;
+   return 0.5/x*f_S(x);
 }
 
 /// Eq (57), arxiv:1607.06292, S = A
 double FA(double ms2, double mf2) noexcept
 {
-   if (std::abs(ms2 - 4*mf2) <= 2*std::numeric_limits<double>::epsilon()) {
-      return 2.7725887222397812; // Log[16]
-   }
-
-   return Phi(ms2, mf2, mf2)/(ms2 - 4*mf2);
+   const double x = mf2/ms2;
+   return 0.5/x*f_PS(x);
 }
 
 /// Eq (54), arxiv:1607.06292, S = h or H
