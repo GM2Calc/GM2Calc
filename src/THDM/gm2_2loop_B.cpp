@@ -342,7 +342,6 @@ double T8(double u, double w, double cw2) noexcept
 /// Eq.(103), arxiv:1607.06292
 double T9(double u, double w, double cw2) noexcept
 {
-   shift(u, 4*w, eps_shift);
    shift(w, cw2, eps_shift);
 
    const auto cw4 = cw2*cw2;
