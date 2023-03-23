@@ -62,9 +62,9 @@ double F2(double) noexcept;
 /// \f$\mathcal{F}_3(\omega)\f$, Eq (28) arxiv:1502.04199
 double F3(double) noexcept;
 /// \f$\tidle{F}_{FZ}(x,y)\f$
-double FPZ(double, double);
+double FPZ(double, double) noexcept;
 /// \f$F_{FZ}(x,y)\f$
-double FSZ(double, double);
+double FSZ(double, double) noexcept;
 /// \f$\Phi(x,y,z)\f$ with squared masses, Davydychev and Tausk, Nucl. Phys. B397 (1993) 23
 double Phi(double x, double y, double z) noexcept;
 /// Källén lambda function \f$\lambda^2(x, y, z)\f$

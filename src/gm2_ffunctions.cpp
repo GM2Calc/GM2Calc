@@ -723,7 +723,7 @@ double F3(double w) noexcept {
  * @param x squared mass ratio (mf/ms)^2.
  * @param y squared mass ratio (mf/mz)^2.
  */
-double FPZ(double x, double y)
+double FPZ(double x, double y) noexcept
 {
    if (x < 0 || y < 0) {
       ERROR("FPZ: arguments must not be negative.");
@@ -753,7 +753,7 @@ double FPZ(double x, double y)
  * @param x squared mass ratio (mf/ms)^2.
  * @param y squared mass ratio (mf/mz)^2.
  */
-double FSZ(double x, double y)
+double FSZ(double x, double y) noexcept
 {
    if (x < 0 || y < 0) {
       ERROR("FSZ: arguments must not be negative.");
