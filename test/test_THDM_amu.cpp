@@ -284,6 +284,28 @@ TEST_CASE("2-loop_fermionic_neutral")
 }
 
 
+TEST_CASE("2-loop_fermionic_divergence")
+{
+   // test non-divergence for mH = mZ
+   {
+      gm2calc::thdm::THDM_F_parameters pars;
+      pars.alpha_em = 1./137;
+      pars.mm = 1.0;
+      pars.mw = 80.0;
+      pars.mz = 90.0;
+      pars.mh << pars.mz, 400.0;
+      pars.mhSM = 125.0;
+      pars.mA = 300.0;
+      pars.mHp = 200.0;
+      pars.mu << 0.3, 3.0, 30.0;
+      pars.md << 0.2, 2.0, 20.0;
+      pars.ml << 0.1, 1.0, 10.0;
+
+      CHECK(std::isfinite(gm2calc::thdm::amu2L_F_neutral(pars)));
+   }
+}
+
+
 // check data of Fig.8 of arxiv:1607.06292
 TEST_CASE("2-loop_fermionic_figure_8")
 {

@@ -103,7 +103,7 @@ double fSgamma(double ms2, double mf2, const F_neut_pars& pars, F FS) noexcept
 
 /// Eq (55), arxiv:1607.06292, S = h or H
 template <typename F>
-double fSZ(double ms2, double mf2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexcept
+double fSZ(double ms2, double mf2, const F_neut_pars& pars, const F_sm_pars& sm, F FSZ) noexcept
 {
    const double mw2 = sm.mw2;
    const double mz2 = sm.mz2;
@@ -115,15 +115,17 @@ double fSZ(double ms2, double mf2, const F_neut_pars& pars, const F_sm_pars& sm,
    const double gvf = 0.5*pars.t3f - qf*sw2;
    const double gvl = 0.5*pars.t3l - ql*sw2;
 
-   return (-nc*qf*gvl*gvf)/(sw2*cw2)
-      * mf2/(ms2 - mz2) * (FS(ms2, mf2) - FS(mz2, mf2));
+   // Note: 0.5*FSZ(mf2, ms2, mz2) = -mf2/(ms2 - mz2) * (FS(ms2, mf2) - FS(mz2, mf2))
+   // with FS = {f_S, f_PS}
+
+   return 0.5*nc*qf*gvl*gvf/(sw2*cw2)*FSZ(mf2, ms2, mz2);
 }
 
 /// Eq (53), arxiv:1607.06292, S = h or H
-template <typename F>
-double ffS(double ms2, double mf2, const F_neut_pars& pars, const F_sm_pars& sm, F FS) noexcept
+template <typename F, typename FZ>
+double ffS(double ms2, double mf2, const F_neut_pars& pars, const F_sm_pars& sm, F FS, FZ FSZ) noexcept
 {
-   return fSgamma(ms2, mf2, pars, FS) + fSZ(ms2, mf2, pars, sm, FS);
+   return fSgamma(ms2, mf2, pars, FS) + fSZ(ms2, mf2, pars, sm, FSZ);
 }
 
 /// Eq (60), arxiv:1607.06292
@@ -221,8 +223,9 @@ double fuS(double ms2, double mu2, double mw2, double mz2) noexcept
    const F_neut_pars pars{q_u, q_l, t3_u, t3_l, 3.0};
    const F_sm_pars sm{ mw2, mz2 };
    const auto lFS = [] (double ms2, double mu2) { return FS(ms2, mu2); };
+   const auto lFSZ = [] (double mf2, double ms2, double mz2) { return FSZ(mf2/ms2, mf2/mz2); };
 
-   return ffS(ms2, mu2, pars, sm, lFS);
+   return ffS(ms2, mu2, pars, sm, lFS, lFSZ);
 }
 
 /// Eq (53), arxiv:1607.06292, f = d, S = h or H
@@ -231,8 +234,9 @@ double fdS(double ms2, double md2, double mw2, double mz2) noexcept
    const F_neut_pars pars{q_d, q_l, t3_d, t3_l, 3.0};
    const F_sm_pars sm{ mw2, mz2 };
    const auto lFS = [] (double ms2, double md2) { return FS(ms2, md2); };
+   const auto lFSZ = [] (double mf2, double ms2, double mz2) { return FSZ(mf2/ms2, mf2/mz2); };
 
-   return ffS(ms2, md2, pars, sm, lFS);
+   return ffS(ms2, md2, pars, sm, lFS, lFSZ);
 }
 
 /// Eq (53), arxiv:1607.06292, f = l, S = h or H
@@ -241,8 +245,9 @@ double flS(double ms2, double ml2, double mw2, double mz2) noexcept
    const F_neut_pars pars{q_l, q_l, t3_l, t3_l, 1.0};
    const F_sm_pars sm{ mw2, mz2 };
    const auto lFS = [] (double ms2, double ml2) { return FS(ms2, ml2); };
+   const auto lFSZ = [] (double mf2, double ms2, double mz2) { return FSZ(mf2/ms2, mf2/mz2); };
 
-   return ffS(ms2, ml2, pars, sm, lFS);
+   return ffS(ms2, ml2, pars, sm, lFS, lFSZ);
 }
 
 /// Eq (53), arxiv:1607.06292, f = u, S = A
@@ -251,8 +256,9 @@ double fuA(double ms2, double mu2, double mw2, double mz2) noexcept
    const F_neut_pars pars{q_u, q_l, t3_u, t3_l, 3.0};
    const F_sm_pars sm{ mw2, mz2 };
    const auto lFA = [] (double ms2, double mu2) { return FA(ms2, mu2); };
+   const auto lFAZ = [] (double mf2, double ms2, double mz2) { return FPZ(mf2/ms2, mf2/mz2); };
 
-   return ffS(ms2, mu2, pars, sm, lFA);
+   return ffS(ms2, mu2, pars, sm, lFA, lFAZ);
 }
 
 /// Eq (53), arxiv:1607.06292, f = d, S = A
@@ -261,8 +267,9 @@ double fdA(double ms2, double md2, double mw2, double mz2) noexcept
    const F_neut_pars pars{q_d, q_l, t3_d, t3_l, 3.0};
    const F_sm_pars sm{ mw2, mz2 };
    const auto lFA = [] (double ms2, double md2) { return FA(ms2, md2); };
+   const auto lFAZ = [] (double mf2, double ms2, double mz2) { return FPZ(mf2/ms2, mf2/mz2); };
 
-   return ffS(ms2, md2, pars, sm, lFA);
+   return ffS(ms2, md2, pars, sm, lFA, lFAZ);
 }
 
 /// Eq (53), arxiv:1607.06292, f = l, S = A
@@ -271,8 +278,9 @@ double flA(double ms2, double ml2, double mw2, double mz2) noexcept
    const F_neut_pars pars{q_l, q_l, t3_l, t3_l, 1.0};
    const F_sm_pars sm{mw2, mz2};
    const auto lFA = [] (double ms2, double ml2) { return FA(ms2, ml2); };
+   const auto lFAZ = [] (double mf2, double ms2, double mz2) { return FPZ(mf2/ms2, mf2/mz2); };
 
-   return ffS(ms2, ml2, pars, sm, lFA);
+   return ffS(ms2, ml2, pars, sm, lFA, lFAZ);
 }
 
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = u
