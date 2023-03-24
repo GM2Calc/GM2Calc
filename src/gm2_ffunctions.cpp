@@ -823,8 +823,8 @@ double FCZ(double x, double y) noexcept
       return 0;
    } else if (std::abs(1 - x/y) < eps) {
       const double pi26 = 1.6449340668482264;
-      return -f_CS(x) + x*(-0.5 + x*(3 + pi26*(2 - 3*x))
-         + (3*x - 0.5)*std::log(x) + x*(-2 + 3*x)*dilog(1 - 1/x));
+      return -f_CS(x) + x*(-0.5 + x*(3 + (3*x - 2)*(dilog(1 - 1/x) - pi26))
+         + (3*x - 0.5)*std::log(x));
    }
 
    return (y*f_CS(x) - x*f_CS(y))/(x - y);
