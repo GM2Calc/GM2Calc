@@ -657,6 +657,22 @@ double f_sferm(double z) noexcept {
 }
 
 /**
+ * Calculates Barr-Zee 2-loop function for diagram with fermion loop
+ * and charged Higgs and W boson mediators, Eq (60), arxiv:1607.06292,
+ * with extra global prefactor z.
+ */
+double f_CS(double z) noexcept {
+   if (z < 0.0) {
+      ERROR("f_CS: z must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   }
+
+   constexpr double pi26 = 1.6449340668482264;
+
+   return z*(z + z*(z - 1)*(dilog(1 - 1/z) - pi26) + (z - 0.5)*std::log(z));
+}
+
+/**
  * \f$\mathcal{F}_1(\omega)\f$, Eq (25) arxiv:1502.04199
  */
 double F1(double w) noexcept {
@@ -744,6 +760,26 @@ double FPZ(double x, double y) noexcept
    }
 
    return (y*f_PS(x) - x*f_PS(y))/(x - y);
+}
+
+/**
+ * Barr-Zee 2-loop function with fermion loop and charge scalar and W
+ * boson mediators.
+ *
+ * @param x squared mass ratio (mf/ms)^2.
+ * @param y squared mass ratio (mf/mw)^2.
+ */
+double FCZ(double x, double y) noexcept
+{
+   if (x < 0 || y < 0) {
+      ERROR("FCZ: arguments must not be negative.");
+   }
+
+   sort(x, y);
+
+   constexpr double eps = 1e-8;
+
+   return (y*f_CS(x) - x*f_CS(y))/(x - y);
 }
 
 /**

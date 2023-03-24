@@ -142,15 +142,6 @@ double ffS(double ms2, double mf2, const F_neut_pars& pars, const F_sm_pars& sm,
    return fSgamma(ms2, mf2, pars, FH) + fSZ(ms2, mf2, pars, sm, FHZ);
 }
 
-/// Eq (60), arxiv:1607.06292
-double FlHp(double ms2, double mf2) noexcept
-{
-   const double xl = mf2/ms2;
-
-   return xl + xl*(xl - 1.0)*(dilog(1.0 - 1.0/xl) - pi2/6)
-      + (xl - 0.5)*std::log(xl);
-}
-
 /**
  * Eq (61), arxiv:1607.06292
  *
@@ -201,8 +192,10 @@ double flHp(double ms2, double ml2, const F_char_pars& pars, const F_sm_pars& sm
 {
    const double mw2 = sm.mw2;
    const double nc = pars.nc;
+   const double x = ml2/ms2;
+   const double y = ml2/mw2;
 
-   return nc*ml2/(ms2 - mw2) * (FlHp(ms2, ml2) - FlHp(mw2, ml2));
+   return -nc*FCZ(x, y);
 }
 
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = u
