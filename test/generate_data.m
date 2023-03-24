@@ -63,3 +63,4 @@ ExportData[F3, 1, precision, 0];
 
 ExportData[FPZ, 2, precision, 1/20];
 ExportData[FSZ, 2, precision, 1/20];
+ExportData[FCZ, 2, precision, 1/20];

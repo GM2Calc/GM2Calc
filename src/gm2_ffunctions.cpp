@@ -819,6 +819,10 @@ double FCZ(double x, double y) noexcept
 
    constexpr double eps = 1e-8;
 
+   if (x == 0 || y == 0) {
+      return 0;
+   }
+
    return (y*f_CS(x) - x*f_CS(y))/(x - y);
 }
 
