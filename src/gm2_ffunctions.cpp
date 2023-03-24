@@ -763,26 +763,6 @@ double FPZ(double x, double y) noexcept
 }
 
 /**
- * Barr-Zee 2-loop function with fermion loop and charge scalar and W
- * boson mediators.
- *
- * @param x squared mass ratio (mf/ms)^2.
- * @param y squared mass ratio (mf/mw)^2.
- */
-double FCZ(double x, double y) noexcept
-{
-   if (x < 0 || y < 0) {
-      ERROR("FCZ: arguments must not be negative.");
-   }
-
-   sort(x, y);
-
-   constexpr double eps = 1e-8;
-
-   return (y*f_CS(x) - x*f_CS(y))/(x - y);
-}
-
-/**
  * Barr-Zee 2-loop function with fermion loop and scalar and Z boson
  * mediators.
  *
@@ -818,6 +798,26 @@ double FSZ(double x, double y) noexcept
    }
 
    return (y*f_S(x) - x*f_S(y))/(x - y);
+}
+
+/**
+ * Barr-Zee 2-loop function with fermion loop and charge scalar and W
+ * boson mediators.
+ *
+ * @param x squared mass ratio (mf/ms)^2.
+ * @param y squared mass ratio (mf/mw)^2.
+ */
+double FCZ(double x, double y) noexcept
+{
+   if (x < 0 || y < 0) {
+      ERROR("FCZ: arguments must not be negative.");
+   }
+
+   sort(x, y);
+
+   constexpr double eps = 1e-8;
+
+   return (y*f_CS(x) - x*f_CS(y))/(x - y);
 }
 
 /**
