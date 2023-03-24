@@ -665,6 +665,8 @@ double f_CS(double z) noexcept {
    if (z < 0.0) {
       ERROR("f_CS: z must not be negative!");
       return std::numeric_limits<double>::quiet_NaN();
+   } else if (z == 0) {
+      return 0.0;
    }
 
    constexpr double pi26 = 1.6449340668482264;

@@ -142,6 +142,8 @@ fsferm[0] := 0
 fsferm[z_] := z/2 (2 + Log[z] - fPS[z])
 
 (* arxiv:1607.06292, Eq.(60), with extra global prefactor factor z *)
+fC[0] := 0
+
 fC[z_] := z (z + z (z - 1) (PolyLog[2, 1 - 1/z] - Pi^2/6) + (z - 1/2) Log[z]);
 
 (* loop function for fermionic 2-loop Barr-Zee diagram with Z boson and pseudoscalar mediator *)
