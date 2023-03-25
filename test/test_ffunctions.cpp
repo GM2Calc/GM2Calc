@@ -155,7 +155,7 @@ TEST_CASE("test_Fxy")
    test_2("Lambda2", [] (double x, double y) { return gm2calc::lambda_2(x,y,1); }, 1e-14);
    test_2("FPZ", [] (double x, double y) { return gm2calc::FPZ(x,y); }, 1e-7);
    test_2("FSZ", [] (double x, double y) { return gm2calc::FSZ(x,y); }, 1e-7);
-   test_2("FCZ", [] (double x, double y) { return gm2calc::FCZ(x,y); }, 1e-8);
+   test_2("FCZl", [] (double x, double y) { return gm2calc::FCZl(x,y); }, 1e-8);
 }
 
 template <typename T>

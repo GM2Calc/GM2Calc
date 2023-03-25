@@ -195,7 +195,7 @@ double flHp(double ms2, double ml2, const F_char_pars& pars, const F_sm_pars& sm
    const double x = ml2/ms2;
    const double y = ml2/mw2;
 
-   return -nc*FCZ(x, y);
+   return -nc*FCZl(x, y);
 }
 
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = u
