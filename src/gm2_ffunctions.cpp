@@ -657,7 +657,7 @@ double f_sferm(double z) noexcept {
 }
 
 /**
- * Calculates Barr-Zee 2-loop function for diagram with fermion loop
+ * Calculates Barr-Zee 2-loop function for diagram with lepton loop
  * and charged Higgs and W boson mediators, Eq (60), arxiv:1607.06292,
  * with extra global prefactor z.
  */
@@ -803,7 +803,7 @@ double FSZ(double x, double y) noexcept
 }
 
 /**
- * Barr-Zee 2-loop function with fermion loop and charge scalar and W
+ * Barr-Zee 2-loop function with lepton loop and charge scalar and W
  * boson mediators.
  *
  * @param x squared mass ratio (mf/ms)^2.
