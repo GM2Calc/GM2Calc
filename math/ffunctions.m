@@ -142,9 +142,9 @@ fsferm[0] := 0
 fsferm[z_] := z/2 (2 + Log[z] - fPS[z])
 
 (* arxiv:1607.06292, Eq.(60), with extra global prefactor factor z *)
-fC[0] := 0
+fCl[0] := 0
 
-fC[z_] := z (z + z (z - 1) (PolyLog[2, 1 - 1/z] - Pi^2/6) + (z - 1/2) Log[z]);
+fCl[z_] := z (z + z (z - 1) (PolyLog[2, 1 - 1/z] - Pi^2/6) + (z - 1/2) Log[z]);
 
 (* loop function for fermionic 2-loop Barr-Zee diagram with Z boson and pseudoscalar mediator *)
 FPZ[1/4, 1/4] := (-1 - 2*Log[2])/3
@@ -165,7 +165,7 @@ FCZl[x_, x_] := (-3*x + 12*x^2 + Pi^2*x^2 - 2*Pi^2*x^3 - 6*x^2*Log[1 - (-1 + x)/
   6*x^2*Log[x] + 6*x^2*PolyLog[2, 1 - 1/x] - 6*x^3*PolyLog[2, 1 - 1/x] -
   12*x^2*PolyLog[2, (-1 + x)/x] + 18*x^3*PolyLog[2, (-1 + x)/x])/6
 
-FCZl[x_, y_] := (y fC[x] - x fC[y])/(x - y)
+FCZl[x_, y_] := (y fCl[x] - x fCl[y])/(x - y)
 
 (* arxiv:1502.04199, Eq.(25) *)
 (* Module[{x}, w/2 Integrate[(2x(1-x)-1)/(w-x(1-x)) Log[w/(x(1-x))], {x,0,1}]] *)

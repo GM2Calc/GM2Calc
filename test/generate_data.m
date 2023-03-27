@@ -46,7 +46,7 @@ ExportData[G4, 1, precision, 0];
 ExportData[fPS, 1, precision, 0];
 ExportData[fS, 1, precision, 0];
 ExportData[fsferm, 1, precision, 0];
-ExportData[fC, 1, precision, 0];
+ExportData[fCl, 1, precision, 0];
 
 ExportData[Fa, 2, precision, 1/20];
 ExportData[Fb, 2, precision, 1/20];

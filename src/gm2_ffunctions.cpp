@@ -661,9 +661,9 @@ double f_sferm(double z) noexcept {
  * and charged Higgs and W boson mediators, Eq (60), arxiv:1607.06292,
  * with extra global prefactor z.
  */
-double f_CS(double z) noexcept {
+double f_CSl(double z) noexcept {
    if (z < 0.0) {
-      ERROR("f_CS: z must not be negative!");
+      ERROR("f_CSl: z must not be negative!");
       return std::numeric_limits<double>::quiet_NaN();
    } else if (z == 0) {
       return 0.0;
@@ -823,11 +823,11 @@ double FCZl(double x, double y) noexcept
       return 0;
    } else if (std::abs(1 - x/y) < eps) {
       const double pi26 = 1.6449340668482264;
-      return -f_CS(x) + x*(-0.5 + x*(3 + (3*x - 2)*(dilog(1 - 1/x) - pi26))
+      return -f_CSl(x) + x*(-0.5 + x*(3 + (3*x - 2)*(dilog(1 - 1/x) - pi26))
          + (3*x - 0.5)*std::log(x));
    }
 
-   return (y*f_CS(x) - x*f_CS(y))/(x - y);
+   return (y*f_CSl(x) - x*f_CSl(y))/(x - y);
 }
 
 /**
