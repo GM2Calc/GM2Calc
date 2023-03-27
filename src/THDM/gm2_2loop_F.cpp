@@ -142,38 +142,6 @@ double ffS(double ms2, double mf2, const F_neut_pars& pars, const F_sm_pars& sm,
    return fSgamma(ms2, mf2, pars, FH) + fSZ(ms2, mf2, pars, sm, FHZ);
 }
 
-/**
- * Eq (61), arxiv:1607.06292
- *
- * @note There is a misprint in Eq (61), arxiv:1607.06292v2: There
- * should be no Phi function in the 2nd line of (61).
- */
-double FdHp(double xu, double xd, double qu, double qd) noexcept
-{
-   const double y = sqr(xu - xd) - 2*(xu + xd) + 1.0;
-   const double s = 0.25*(qu + qd);
-   const double c = sqr(xu - xd) - qu*xu + qd*xd;
-   const double cbar = (xu - qu)*xu - (xd + qd)*xd;
-   const double lxu = std::log(xu);
-   const double lxd = std::log(xd);
-   const double phi = Phi(xd, xu, 1);
-
-   return -(xu - xd) + (cbar/y - c*(xu - xd)/y) * phi
-      + c*(dilog(1.0 - xd/xu) - 0.5*lxu*(lxd - lxu))
-      + (s + xd)*lxd + (s - xu)*lxu;
-}
-
-/// Eq (62), arxiv:1607.06292
-double FuHp(double xu, double xd, double qu, double qd) noexcept
-{
-   const double y = sqr(xu - xd) - 2*(xu + xd) + 1.0;
-   const double phi = Phi(xd, xu, 1);
-
-   return FdHp(xu, xd, 2 + qu, 2 + qd)
-      - 4.0/3*(xu - xd - 1.0)/y*phi
-      - 1.0/3*(sqr(std::log(xd)) - sqr(std::log(xu)));
-}
-
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = l
 double flHp(double ms2, double ml2, const F_char_pars& pars, const F_sm_pars& sm) noexcept
 {
@@ -198,7 +166,7 @@ double fuHp(double ms2, double md2, double mu2, const F_char_pars& pars, const F
    const double xdw = md2/mw2;
 
    return -nc*xu*xuw/(xu - xuw)
-      * (FuHp(xu, xd, qu, qd) - FuHp(xuw, xdw, qu, qd));
+      * (f_CSu(xu, xd, qu, qd) - f_CSu(xuw, xdw, qu, qd));
 }
 
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = d
@@ -214,7 +182,7 @@ double fdHp(double ms2, double md2, double mu2, const F_char_pars& pars, const F
    const double xdw = md2/mw2;
 
    return -nc*xd*xdw/(xd - xdw)
-      * (FdHp(xu, xd, qu, qd) - FdHp(xuw, xdw, qu, qd));
+      * (f_CSd(xu, xd, qu, qd) - f_CSd(xuw, xdw, qu, qd));
 }
 
 } // anonymous namespace

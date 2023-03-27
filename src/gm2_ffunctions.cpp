@@ -675,6 +675,38 @@ double f_CSl(double z) noexcept {
 }
 
 /**
+ * Eq (61), arxiv:1607.06292
+ *
+ * @note There is a misprint in Eq (61), arxiv:1607.06292v2: There
+ * should be no Phi function in the 2nd line of (61).
+ */
+double f_CSd(double xu, double xd, double qu, double qd) noexcept
+{
+   const double y = sqr(xu - xd) - 2*(xu + xd) + 1;
+   const double s = 0.25*(qu + qd);
+   const double c = sqr(xu - xd) - qu*xu + qd*xd;
+   const double cbar = (xu - qu)*xu - (xd + qd)*xd;
+   const double lxu = std::log(xu);
+   const double lxd = std::log(xd);
+   const double phi = Phi(xd, xu, 1);
+
+   return -(xu - xd) + (cbar/y - c*(xu - xd)/y) * phi
+      + c*(dilog(1.0 - xd/xu) - 0.5*lxu*(lxd - lxu))
+      + (s + xd)*lxd + (s - xu)*lxu;
+}
+
+/// Eq (62), arxiv:1607.06292
+double f_CSu(double xu, double xd, double qu, double qd) noexcept
+{
+   const double y = sqr(xu - xd) - 2*(xu + xd) + 1;
+   const double phi = Phi(xd, xu, 1);
+
+   return f_CSd(xu, xd, 2 + qu, 2 + qd)
+      - 4.0/3*(xu - xd - 1)/y*phi
+      - 1.0/3*(sqr(std::log(xd)) - sqr(std::log(xu)));
+}
+
+/**
  * \f$\mathcal{F}_1(\omega)\f$, Eq (25) arxiv:1502.04199
  */
 double F1(double w) noexcept {
