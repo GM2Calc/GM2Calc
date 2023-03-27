@@ -197,7 +197,7 @@ double fuHp(double ms2, double md2, double mu2, const F_char_pars& pars, const F
    const double xuw = mu2/mw2;
    const double xdw = md2/mw2;
 
-   return nc*mu2/(ms2 - mw2)
+   return -nc*xu*xuw/(xu - xuw)
       * (FuHp(xu, xd, qd, qu) - FuHp(xuw, xdw, qd, qu));
 }
 
@@ -213,7 +213,7 @@ double fdHp(double ms2, double md2, double mu2, const F_char_pars& pars, const F
    const double xuw = mu2/mw2;
    const double xdw = md2/mw2;
 
-   return nc*md2/(ms2 - mw2)
+   return -nc*xd*xdw/(xd - xdw)
       * (FdHp(xu, xd, qd, qu) - FdHp(xuw, xdw, qd, qu));
 }
 
