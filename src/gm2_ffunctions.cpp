@@ -863,6 +863,46 @@ double FCWl(double x, double y) noexcept
 }
 
 /**
+ * Barr-Zee 2-loop function with up-type quark loop and charge scalar
+ * and W boson mediators.
+ *
+ * @param xu squared mass ratio (mu/ms)^2.
+ * @param xd squared mass ratio (md/ms)^2.
+ * @param yu squared mass ratio (mu/mw)^2.
+ * @param yd squared mass ratio (md/mw)^2.
+ * @param qu electric charge count of up-type quark
+ * @param qd electric charge count of down-type quark
+ */
+double FCWu(double xu, double xd, double yu, double yd, double qu, double qd) noexcept
+{
+   if (xu < 0 || xd < 0 || yu < 0 || yd < 0) {
+      ERROR("FCWu: arguments must not be negative.");
+   }
+
+   return xu*yu*(f_CSu(xu, xd, qu, qd) - f_CSu(yu, yd, qu, qd))/(xu - yu);
+}
+
+/**
+ * Barr-Zee 2-loop function with down-type quark loop and charge
+ * scalar and W boson mediators.
+ *
+ * @param xu squared mass ratio (mu/ms)^2.
+ * @param xd squared mass ratio (md/ms)^2.
+ * @param yu squared mass ratio (mu/mw)^2.
+ * @param yd squared mass ratio (md/mw)^2.
+ * @param qu electric charge count of up-type quark
+ * @param qd electric charge count of down-type quark
+ */
+double FCWd(double xu, double xd, double yu, double yd, double qu, double qd) noexcept
+{
+   if (xu < 0 || xd < 0 || yu < 0 || yd < 0) {
+      ERROR("FCWd: arguments must not be negative.");
+   }
+
+   return xd*yd*(f_CSd(xu, xd, qu, qd) - f_CSd(yu, yd, qu, qd))/(xd - yd);
+}
+
+/**
  * Källén lambda function \f$\lambda^2(x,y,z) = x^2 + y^2 + z^2 - 2xy - 2yz - 2xz\f$.
  * The arguments u and v are interpreted as squared masses.
  *

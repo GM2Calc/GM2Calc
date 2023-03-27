@@ -162,11 +162,10 @@ double fuHp(double ms2, double md2, double mu2, const F_char_pars& pars, const F
    const double nc = pars.nc;
    const double xu = mu2/ms2;
    const double xd = md2/ms2;
-   const double xuw = mu2/mw2;
-   const double xdw = md2/mw2;
+   const double yu = mu2/mw2;
+   const double yd = md2/mw2;
 
-   return -nc*xu*xuw/(xu - xuw)
-      * (f_CSu(xu, xd, qu, qd) - f_CSu(xuw, xdw, qu, qd));
+   return -nc*FCWu(xu, xd, yu, yd, qu, qd);
 }
 
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = d
@@ -178,11 +177,10 @@ double fdHp(double ms2, double md2, double mu2, const F_char_pars& pars, const F
    const double nc = pars.nc;
    const double xu = mu2/ms2;
    const double xd = md2/ms2;
-   const double xuw = mu2/mw2;
-   const double xdw = md2/mw2;
+   const double yu = mu2/mw2;
+   const double yd = md2/mw2;
 
-   return -nc*xd*xdw/(xd - xdw)
-      * (f_CSd(xu, xd, qu, qd) - f_CSd(xuw, xdw, qu, qd));
+   return -nc*FCWd(xu, xd, yu, yd, qu, qd);
 }
 
 } // anonymous namespace
