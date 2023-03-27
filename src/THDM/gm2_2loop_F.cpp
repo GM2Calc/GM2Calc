@@ -148,10 +148,8 @@ double ffS(double ms2, double mf2, const F_neut_pars& pars, const F_sm_pars& sm,
  * @note There is a misprint in Eq (61), arxiv:1607.06292v2: There
  * should be no Phi function in the 2nd line of (61).
  */
-double FdHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
+double FdHp(double xu, double xd, double qd, double qu) noexcept
 {
-   const double xu = mu2/ms2;
-   const double xd = md2/ms2;
    const double y = sqr(xu - xd) - 2*(xu + xd) + 1.0;
    const double s = 0.25*(qu + qd);
    const double c = sqr(xu - xd) - qu*xu + qd*xd;
@@ -166,14 +164,12 @@ double FdHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
 }
 
 /// Eq (62), arxiv:1607.06292
-double FuHp(double ms2, double md2, double mu2, double qd, double qu) noexcept
+double FuHp(double xu, double xd, double qd, double qu) noexcept
 {
-   const double xu = mu2/ms2;
-   const double xd = md2/ms2;
    const double y = sqr(xu - xd) - 2*(xu + xd) + 1.0;
    const double phi = Phi(xd, xu, 1);
 
-   return FdHp(ms2, md2, mu2, 2 + qd, 2 + qu)
+   return FdHp(xu, xd, 2 + qd, 2 + qu)
       - 4.0/3*(xu - xd - 1.0)/y*phi
       - 1.0/3*(sqr(std::log(xd)) - sqr(std::log(xu)));
 }
@@ -196,9 +192,13 @@ double fuHp(double ms2, double md2, double mu2, const F_char_pars& pars, const F
    const double qd = pars.qd;
    const double qu = pars.qu;
    const double nc = pars.nc;
+   const double xu = mu2/ms2;
+   const double xd = md2/ms2;
+   const double xuw = mu2/mw2;
+   const double xdw = md2/mw2;
 
    return nc*mu2/(ms2 - mw2)
-      * (FuHp(ms2, md2, mu2, qd, qu) - FuHp(mw2, md2, mu2, qd, qu));
+      * (FuHp(xu, xd, qd, qu) - FuHp(xuw, xdw, qd, qu));
 }
 
 /// Eq (59), arxiv:1607.06292, S = H^\pm, f = d
@@ -208,9 +208,13 @@ double fdHp(double ms2, double md2, double mu2, const F_char_pars& pars, const F
    const double qd = pars.qd;
    const double qu = pars.qu;
    const double nc = pars.nc;
+   const double xu = mu2/ms2;
+   const double xd = md2/ms2;
+   const double xuw = mu2/mw2;
+   const double xdw = md2/mw2;
 
    return nc*md2/(ms2 - mw2)
-      * (FdHp(ms2, md2, mu2, qd, qu) - FdHp(mw2, md2, mu2, qd, qu));
+      * (FdHp(xu, xd, qd, qu) - FdHp(xuw, xdw, qd, qu));
 }
 
 } // anonymous namespace
