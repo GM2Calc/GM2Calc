@@ -67,8 +67,8 @@ double F3(double) noexcept;
 double FPZ(double, double) noexcept;
 /// \f$F_{FZ}(x,y)\f$
 double FSZ(double, double) noexcept;
-/// \f$F_{CZ}^l(x,y)\f$
-double FCZl(double, double) noexcept;
+/// \f$F_{CW}^l(x,y)\f$
+double FCWl(double, double) noexcept;
 /// \f$\Phi(x,y,z)\f$ with squared masses, Davydychev and Tausk, Nucl. Phys. B397 (1993) 23
 double Phi(double x, double y, double z) noexcept;
 /// Källén lambda function \f$\lambda^2(x, y, z)\f$

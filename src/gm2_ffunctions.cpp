@@ -809,10 +809,10 @@ double FSZ(double x, double y) noexcept
  * @param x squared mass ratio (mf/ms)^2.
  * @param y squared mass ratio (mf/mw)^2.
  */
-double FCZl(double x, double y) noexcept
+double FCWl(double x, double y) noexcept
 {
    if (x < 0 || y < 0) {
-      ERROR("FCZl: arguments must not be negative.");
+      ERROR("FCWl: arguments must not be negative.");
    }
 
    sort(x, y);

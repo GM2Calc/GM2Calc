@@ -161,11 +161,11 @@ FSZ[x_, x_] := (2 x (1 - 4 x + 2 x fPS[x] + Log[x] - 2 x Log[x]))/(-1 + 4 x)
 FSZ[x_, y_] := (y fS[x] - x fS[y])/(x - y)
 
 (* loop function for leptonic 2-loop Barr-Zee diagram with W boson and scalar mediator *)
-FCZl[x_, x_] := (-3*x + 12*x^2 + Pi^2*x^2 - 2*Pi^2*x^3 - 6*x^2*Log[1 - (-1 + x)/x] +
+FCWl[x_, x_] := (-3*x + 12*x^2 + Pi^2*x^2 - 2*Pi^2*x^3 - 6*x^2*Log[1 - (-1 + x)/x] +
   6*x^2*Log[x] + 6*x^2*PolyLog[2, 1 - 1/x] - 6*x^3*PolyLog[2, 1 - 1/x] -
   12*x^2*PolyLog[2, (-1 + x)/x] + 18*x^3*PolyLog[2, (-1 + x)/x])/6
 
-FCZl[x_, y_] := (y fCl[x] - x fCl[y])/(x - y)
+FCWl[x_, y_] := (y fCl[x] - x fCl[y])/(x - y)
 
 (* arxiv:1502.04199, Eq.(25) *)
 (* Module[{x}, w/2 Integrate[(2x(1-x)-1)/(w-x(1-x)) Log[w/(x(1-x))], {x,0,1}]] *)
