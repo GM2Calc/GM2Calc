@@ -699,11 +699,18 @@ double f_CSd(double xu, double xd, double qu, double qd) noexcept
 double f_CSu(double xu, double xd, double qu, double qd) noexcept
 {
    const double y = sqr(xu - xd) - 2*(xu + xd) + 1;
+   const double s = 1 + 0.25*(qu + qd);
+   const double c = sqr(xu - xd) - (qu + 2)*xu + (qd + 2)*xd;
+   const double cbar = (xu - qu - 2)*xu - (xd + qd + 2)*xd;
+   const double lxu = std::log(xu);
+   const double lxd = std::log(xd);
    const double phi = Phi(xd, xu, 1);
+   const double fCSd = -(xu - xd) + (cbar/y - c*(xu - xd)/y) * phi
+      + c*(dilog(1.0 - xd/xu) - 0.5*lxu*(lxd - lxu))
+      + (s + xd)*lxd + (s - xu)*lxu;
 
-   return xu*(f_CSd(xu, xd, 2 + qu, 2 + qd)/xd
-              - 4.0/3*(xu - xd - 1)/y*phi
-              - 1.0/3*(sqr(std::log(xd)) - sqr(std::log(xu))));
+   return xu*(fCSd - 4.0/3*(xu - xd - 1)/y*phi
+              - 1.0/3*(sqr(lxd) - sqr(lxu)));
 }
 
 /**
