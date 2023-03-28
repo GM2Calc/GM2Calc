@@ -710,7 +710,7 @@ double f_CSu(double xu, double xd, double qu, double qd) noexcept
       + (s + xd)*lxd + (s - xu)*lxu;
 
    return xu*(fCSd - 4.0/3*(xu - xd - 1)/y*phi
-              - 1.0/3*(sqr(lxd) - sqr(lxu)));
+              - 1.0/3*(lxd + lxu)*(lxd - lxu));
 }
 
 /**
