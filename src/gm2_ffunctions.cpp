@@ -675,7 +675,7 @@ double f_CSl(double z) noexcept {
 }
 
 /**
- * Eq (61), arxiv:1607.06292
+ * Eq (61), arxiv:1607.06292, with extra global prefactor xd
  *
  * @note There is a misprint in Eq (61), arxiv:1607.06292v2: There
  * should be no Phi function in the 2nd line of (61).
@@ -690,20 +690,20 @@ double f_CSd(double xu, double xd, double qu, double qd) noexcept
    const double lxd = std::log(xd);
    const double phi = Phi(xd, xu, 1);
 
-   return -(xu - xd) + (cbar/y - c*(xu - xd)/y) * phi
-      + c*(dilog(1.0 - xd/xu) - 0.5*lxu*(lxd - lxu))
-      + (s + xd)*lxd + (s - xu)*lxu;
+   return xd*(-(xu - xd) + (cbar/y - c*(xu - xd)/y) * phi
+              + c*(dilog(1.0 - xd/xu) - 0.5*lxu*(lxd - lxu))
+              + (s + xd)*lxd + (s - xu)*lxu);
 }
 
-/// Eq (62), arxiv:1607.06292
+/// Eq (62), arxiv:1607.06292, with extra global prefactor xu
 double f_CSu(double xu, double xd, double qu, double qd) noexcept
 {
    const double y = sqr(xu - xd) - 2*(xu + xd) + 1;
    const double phi = Phi(xd, xu, 1);
 
-   return f_CSd(xu, xd, 2 + qu, 2 + qd)
-      - 4.0/3*(xu - xd - 1)/y*phi
-      - 1.0/3*(sqr(std::log(xd)) - sqr(std::log(xu)));
+   return xu*(f_CSd(xu, xd, 2 + qu, 2 + qd)/xd
+              - 4.0/3*(xu - xd - 1)/y*phi
+              - 1.0/3*(sqr(std::log(xd)) - sqr(std::log(xu))));
 }
 
 /**
@@ -879,7 +879,7 @@ double FCWu(double xu, double xd, double yu, double yd, double qu, double qd) no
       ERROR("FCWu: arguments must not be negative.");
    }
 
-   return xu*yu*(f_CSu(xu, xd, qu, qd) - f_CSu(yu, yd, qu, qd))/(xu - yu);
+   return (yu*f_CSu(xu, xd, qu, qd) - xu*f_CSu(yu, yd, qu, qd))/(xu - yu);
 }
 
 /**
@@ -899,7 +899,7 @@ double FCWd(double xu, double xd, double yu, double yd, double qu, double qd) no
       ERROR("FCWd: arguments must not be negative.");
    }
 
-   return xd*yd*(f_CSd(xu, xd, qu, qd) - f_CSd(yu, yd, qu, qd))/(xd - yd);
+   return (yd*f_CSd(xu, xd, qu, qd) - xd*f_CSd(yu, yd, qu, qd))/(xd - yd);
 }
 
 /**
