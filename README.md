@@ -97,7 +97,7 @@ To compile GM2Calc run:
     mkdir -p build
     cd build
     cmake ..
-    make
+    cmake --build .
 
 The GM2Calc executable can then be found in `bin/gm2calc.x` and the
 GM2Calc library can be found in the `lib/` directory.  The used
