@@ -109,7 +109,7 @@ compiler and package paths can be passed as arguments to cmake.
 
     cmake \
        -DCMAKE_CXX_COMPILER=icpc \
-       -DEIGEN3_INCLUDE_DIR=/opt/eigen3/eigen3 \
+       -DEigen3_DIR=/usr/share/eigen3/cmake \
        -DBOOST_ROOT=/opt/boost \
        ..
 

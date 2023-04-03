@@ -20,7 +20,6 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED YES)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
-  ${PROJECT_SOURCE_DIR}/cmake/Eigen
   ${PROJECT_SOURCE_DIR}/cmake/Mathematica)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
@@ -38,7 +37,7 @@ file(
 string(REGEX REPLACE "^#define[ \t]+GM2CALC_VERSION[ \t]+\"([0-9.]+)\"$" "\\1" GM2Calc_VERSION "${_gm2calc_version_line}")
 
 find_package(Boost 1.37.0 REQUIRED)
-find_package(Eigen3 3.1 REQUIRED)
+find_package(Eigen3 3.1 REQUIRED NO_MODULE)
 if(ENABLE_MATHEMATICA)
   find_package(Mathematica COMPONENTS MathLink)
 endif()
