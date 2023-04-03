@@ -24,7 +24,7 @@ jobs:
     - name: install dependencies
       run: conan install . --build=missing
     - name: cmake
-      run: cmake . -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
+      run: cmake . -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW
     - name: cmake build
       run: cmake --build .
     - name: ctest
