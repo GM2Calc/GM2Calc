@@ -41,11 +41,12 @@ target_include_directories(gm2calc
     "${PROJECT_SOURCE_DIR}/include"
   PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}"
-    "${Boost_INCLUDE_DIRS}"
 )
 target_link_libraries(gm2calc
   PUBLIC
     Eigen3::Eigen
+  PRIVATE
+    Boost::boost
 )
 add_library(GM2Calc::GM2Calc ALIAS gm2calc)
 
