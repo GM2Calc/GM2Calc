@@ -105,13 +105,17 @@ The GM2Calc executable can then be found in `bin/gm2calc.x` and the
 GM2Calc library can be found in the `lib/` directory.  The used
 compiler and package paths can be passed as arguments to cmake.
 
-**Example:**
+**Example:** manually specifing the dependencies:
 
     cmake \
        -DCMAKE_CXX_COMPILER=icpc \
        -DEigen3_DIR=/usr/share/eigen3/cmake \
        -DBOOST_ROOT=/opt/boost \
        ..
+
+**Example:** using the dependencies installed by Conan:
+
+    cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
 
 
 Running GM2Calc

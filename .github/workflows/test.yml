@@ -18,7 +18,9 @@ jobs:
       with:
         python-version: '3.x'
     - name: install conan
-      run: pip install "conan>=1,<2"
+      run: pip install
+    - name: detect conan profile
+      run: conan profile detect --force
     - name: install dependencies
       run: conan install . --build=missing
     - name: cmake
