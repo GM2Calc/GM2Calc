@@ -87,9 +87,7 @@ one may run:
 Alternatively, the [Conan](https://conan.io/) package manager can be
 used to install the dependencies:
 
-    mkdir -p build
-    cd build
-    conan install ..
+    conan install . --output-folder=build --build=missing
 
 Compilation of GM2Calc
 ----------------------
