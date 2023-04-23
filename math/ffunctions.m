@@ -296,6 +296,41 @@ F3[w_] := Re[(4*Sqrt[-1 + 4*w] + 60*w*Sqrt[-1 + 4*w] + 2*Sqrt[-1 + 4*w]*Log[w] +
   (2*I)*w*(-17 + 30*w)*PolyLog[2, (I + Sqrt[-1 + 4*w])/
   (-I + Sqrt[-1 + 4*w])])/(4*Sqrt[-1 + 4*w])]
 
+fCSd[0, xd_, qu_, qd_] :=
+    -1/12*(xd*(-12*xd + 2*Pi^2*qd*xd + 2*Pi^2*xd^2 - 3*(qd + qu + 4*xd)*Log[xd] + 6*xd*(qd + xd)*Log[xd]^2 - 3*qd*Log[xu] - 3*qu*Log[xu] + 12*xd*(qd + xd)*PolyLog[2, 1 - xd]))
+
+fCSd[xu_, 0, qu_, qd_] := 0
+
+fCSd[1/4, 1/4, qu_, qd_] := -1/2*((qd + qu)*Log[2])
+
+fCSd[xu_, xu_, qu_, qd_] :=
+    ((qd + qu)*xu*(Log[xu] + (Sqrt[1 - 4*xu]*xu*(Pi^2 + 6*Log[(1 - Sqrt[1 - 4*xu])/2]^2 - 3*Log[xu]^2 - 12*PolyLog[2, (1 - Sqrt[1 - 4*xu])/2]))/(-3 + 12*xu)))/2
+
+(* calculate Phi[xd, xu, 1]/y with y = (xu - xd)^2 - 2*(xu + xd) + 1, properly handle the case y = 0 *)
+PhiOverY[xu_, xd_] :=
+    Which[PossibleZeroQ[xu - (1 - 2 Sqrt[xd] + xd)],
+          -Log[-1 + Sqrt[xd]]/Sqrt[xd] + Log[xd]/(2*(-1 + Sqrt[xd])),
+          PossibleZeroQ[xu - (1 + 2 Sqrt[xd] + xd)],
+          Log[1 + Sqrt[xd]]/Sqrt[xd] - Log[xd]/(2*(1 + Sqrt[xd])),
+          True,
+          Phi[xd, xu, 1]/((xu - xd)^2 - 2*(xu + xd) + 1)
+    ]
+
+fCSd[xu_, xd_, qu_, qd_] :=
+    Module[{s, c, cbar, lxu, lxd, phiy},
+           s = 1/4*(qu + qd);
+           c = (xu - xd)^2 - qu*xu + qd*xd;
+           cbar = (xu - qu)*xu - (xd + qd)*xd;
+           lxu = Log[xu];
+           lxd = Log[xd];
+           xd*(-(xu - xd) + (cbar - c*(xu - xd))*PhiOverY[xu, xd] + c*(Li2[1 - xd/xu] - 1/2*lxu*(lxd - lxu)) + (s + xd)*lxd + (s - xu)*lxu)
+    ]
+
+fCSu[xu_, xd_, qu_, qd_] :=
+    Module[{lxu = Log[xu], lxd = Log[xd]},
+           xu*(fCSd[xu, xd, qu + 2, qd + 2]/xd - 4/3*(xu - xd - 1)*PhiOverY[xu, xd] - 1/3*(lxd + lxu)*(lxd - lxu))
+    ]
+
 (* arxiv:1502.04199, Eq.(29) *)
 G[wa_, wb_, x_] := Log[(wa*x+wb*(1-x))/(x(1-x))]/(x(1-x)-wa*x-wb*(1-x))
 
