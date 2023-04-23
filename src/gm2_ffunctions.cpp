@@ -64,6 +64,29 @@ namespace {
       if (x > y) { std::swap(x, y); }
    }
 
+   /// calculates phi(xd, xu, 1)/y with y = (xu - xd)^2 - 2*(xu + xd) + 1, properly handle the case y = 0
+   double phi_over_y(double xu, double xd) noexcept
+   {
+      const double sqrtxu = std::sqrt(xu);
+      const double sqrtxd = std::sqrt(xd);
+      const double ixd = 1/xd;
+      constexpr double eps = 1e-8;
+
+      // @todo(alex) catch case xd == 0
+
+      // test cases where y == 0
+      if (std::abs((xu - 1)*ixd + 2/sqrtxd - 1) < eps) {
+         return -std::log(std::abs(-1 + sqrtxd))/sqrtxd + std::log(xd)/(2*(-1 + sqrtxd));
+      } else if (std::abs((xu - 1)*ixd - 2/sqrtxd - 1) < eps) {
+         return std::log(1 + sqrtxd)/sqrtxd - std::log(xd)/(2*(1 + sqrtxd));
+      }
+
+      const double y = sqr(xu - xd) - 2*(xu + xd) + 1;
+      const double phi = Phi(xd, xu, 1);
+
+      return phi/y;
+   }
+
    /// lambda^2(u,v)
    double lambda_2(double u, double v) noexcept
    {
@@ -688,9 +711,9 @@ double f_CSd(double xu, double xd, double qu, double qd) noexcept
    const double cbar = (xu - qu)*xu - (xd + qd)*xd;
    const double lxu = std::log(xu);
    const double lxd = std::log(xd);
-   const double phi = Phi(xd, xu, 1);
+   const double phiy = phi_over_y(xu, xd);
 
-   return xd*(-(xu - xd) + (cbar/y - c*(xu - xd)/y) * phi
+   return xd*(-(xu - xd) + (cbar - c*(xu - xd)) * phiy
               + c*(dilog(1.0 - xd/xu) - 0.5*lxu*(lxd - lxu))
               + (s + xd)*lxd + (s - xu)*lxu);
 }
@@ -698,18 +721,17 @@ double f_CSd(double xu, double xd, double qu, double qd) noexcept
 /// Eq (62), arxiv:1607.06292, with extra global prefactor xu
 double f_CSu(double xu, double xd, double qu, double qd) noexcept
 {
-   const double y = sqr(xu - xd) - 2*(xu + xd) + 1;
    const double s = 1 + 0.25*(qu + qd);
    const double c = sqr(xu - xd) - (qu + 2)*xu + (qd + 2)*xd;
    const double cbar = (xu - qu - 2)*xu - (xd + qd + 2)*xd;
    const double lxu = std::log(xu);
    const double lxd = std::log(xd);
-   const double phi = Phi(xd, xu, 1);
-   const double fCSd = -(xu - xd) + (cbar/y - c*(xu - xd)/y) * phi
+   const double phiy = phi_over_y(xu, xd);
+   const double fCSd = -(xu - xd) + (cbar - c*(xu - xd)) * phiy
       + c*(dilog(1.0 - xd/xu) - 0.5*lxu*(lxd - lxu))
       + (s + xd)*lxd + (s - xu)*lxu;
 
-   return xu*(fCSd - 4.0/3*(xu - xd - 1)/y*phi
+   return xu*(fCSd - 4.0/3*(xu - xd - 1)*phiy
               - 1.0/3*(lxd + lxu)*(lxd - lxu));
 }
 
