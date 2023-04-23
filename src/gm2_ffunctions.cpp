@@ -64,7 +64,8 @@ namespace {
       if (x > y) { std::swap(x, y); }
    }
 
-   /// calculates phi(xd, xu, 1)/y with y = (xu - xd)^2 - 2*(xu + xd) + 1, properly handle the case y = 0
+   /// calculates phi(xd, xu, 1)/y with y = (xu - xd)^2 - 2*(xu + xd) + 1,
+   /// properly handle the case y = 0
    double phi_over_y(double xu, double xd) noexcept
    {
       const double sqrtxu = std::sqrt(xu);
@@ -72,9 +73,7 @@ namespace {
       const double ixd = 1/xd;
       constexpr double eps = 1e-8;
 
-      // @todo(alex) catch case xd == 0
-
-      // test cases where y == 0
+      // test two cases where y == 0
       if (std::abs((xu - 1)*ixd + 2/sqrtxd - 1) < eps) {
          return -std::log(std::abs(-1 + sqrtxd))/sqrtxd + std::log(xd)/(2*(-1 + sqrtxd));
       } else if (std::abs((xu - 1)*ixd - 2/sqrtxd - 1) < eps) {
@@ -712,6 +711,10 @@ double f_CSd(double xu, double xd, double qu, double qd) noexcept
    const double lxu = std::log(xu);
    const double lxd = std::log(xd);
    const double phiy = phi_over_y(xu, xd);
+
+   if (xd == 0) {
+      return 0;
+   }
 
    return xd*(-(xu - xd) + (cbar - c*(xu - xd)) * phiy
               + c*(dilog(1.0 - xd/xu) - 0.5*lxu*(lxd - lxu))
