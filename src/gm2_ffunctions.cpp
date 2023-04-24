@@ -704,6 +704,13 @@ double f_CSl(double z) noexcept {
  */
 double f_CSd(double xu, double xd, double qu, double qd) noexcept
 {
+   if (xd < 0.0 || xu < 0.0) {
+      ERROR("f_CSd: xu and xd must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   } else if (xd == 0.0) {
+      return 0.0;
+   }
+
    const double y = sqr(xu - xd) - 2*(xu + xd) + 1;
    const double s = 0.25*(qu + qd);
    const double c = sqr(xu - xd) - qu*xu + qd*xd;
@@ -711,10 +718,6 @@ double f_CSd(double xu, double xd, double qu, double qd) noexcept
    const double lxu = std::log(xu);
    const double lxd = std::log(xd);
    const double phiy = phi_over_y(xu, xd);
-
-   if (xd == 0) {
-      return 0;
-   }
 
    return xd*(-(xu - xd) + (cbar - c*(xu - xd)) * phiy
               + c*(dilog(1.0 - xd/xu) - 0.5*lxu*(lxd - lxu))
@@ -724,6 +727,11 @@ double f_CSd(double xu, double xd, double qu, double qd) noexcept
 /// Eq (62), arxiv:1607.06292, with extra global prefactor xu
 double f_CSu(double xu, double xd, double qu, double qd) noexcept
 {
+   if (xd < 0.0 || xu < 0.0) {
+      ERROR("f_CSu: xu and xd must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   }
+
    const double s = 1 + 0.25*(qu + qd);
    const double c = sqr(xu - xd) - (qu + 2)*xu + (qd + 2)*xd;
    const double cbar = (xu - qu - 2)*xu - (xd + qd + 2)*xd;
