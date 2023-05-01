@@ -331,6 +331,12 @@ fCSu[xu_, xd_, qu_, qd_] :=
            xu*(fCSd[xu, xd, qu + 2, qd + 2]/xd - 4/3*(xu - xd - 1)*PhiOverY[xu, xd] - 1/3*(lxd + lxu)*(lxd - lxu))
     ]
 
+FCWd[xu_, xd_, yu_, yd_, qu_, qd_] :=
+    (yd fCSd[xu, xd, qu, qd] - xd fCSd[yu, yd, qu, qd])/(xd - yd)
+
+FCWu[xu_, xd_, yu_, yd_, qu_, qd_] :=
+    (yu fCSu[xu, xd, qu, qd] - xu fCSu[yu, yd, qu, qd])/(xu - yu)
+
 (* arxiv:1502.04199, Eq.(29) *)
 G[wa_, wb_, x_] := Log[(wa*x+wb*(1-x))/(x(1-x))]/(x(1-x)-wa*x-wb*(1-x))
 
