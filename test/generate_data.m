@@ -67,3 +67,6 @@ ExportData[FCZ, 2, precision, 1/20];
 
 ExportData[Re[fCSd[#1, #2, 1, 1]]&, 2, precision, 1/20];
 ExportData[Re[fCSu[#1, #2, 1, 1]]&, 2, precision, 1/20];
+
+ExportData[Re[FCWd[#1, 2 #1, #2, 2 #2, 1, 1]]&, 2, precision, 1/20];
+ExportData[Re[FCWu[#1, 2 #1, #2, 2 #2, 1, 1]]&, 2, precision, 1/20];
