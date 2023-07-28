@@ -158,6 +158,8 @@ TEST_CASE("test_Fxy")
    test_2("FCWl", [] (double x, double y) { return gm2calc::FCWl(x,y); }, 1e-8);
    test_2("fCSd", [] (double x, double y) { return gm2calc::f_CSd(x, y, 1, 1); }, 1e-10);
    test_2("fCSu", [] (double x, double y) { return gm2calc::f_CSu(x, y, 1, 1); }, 1e-10);
+   test_2("FCWd", [] (double x, double y) { return gm2calc::FCWd(x, 2*x, y, 2*y, 1, 1); }, 1e-10);
+   test_2("FCWu", [] (double x, double y) { return gm2calc::FCWu(x, 2*x, y, 2*y, 1, 1); }, 1e-10);
 }
 
 template <typename T>

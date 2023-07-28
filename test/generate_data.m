@@ -68,5 +68,8 @@ ExportData[FCZ, 2, precision, 1/20];
 ExportData[Re[fCSd[#1, #2, 1, 1]]&, 2, precision, 1/20];
 ExportData[Re[fCSu[#1, #2, 1, 1]]&, 2, precision, 1/20];
 
-ExportData[Re[FCWd[#1, 2 #1, #2, 2 #2, 1, 1]]&, 2, precision, 1/20];
-ExportData[Re[FCWu[#1, 2 #1, #2, 2 #2, 1, 1]]&, 2, precision, 1/20];
+FFCWd[x_, y_] := Re[FCWd[x, 2 x, y, 2 y, 1, 1]];
+FFCWu[x_, y_] := Re[FCWu[x, 2 x, y, 2 y, 1, 1]];
+
+ExportData[FFCWd, 2, precision, 1/2];
+ExportData[FFCWu, 2, precision, 1/2];
