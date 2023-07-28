@@ -41,6 +41,8 @@ Fixed bugs
    Eigen headers are located in different parent directories.
    Thanks to Sho Iwamoto.
 
+ * Bugfix (commit 577b33c4): Fix numeric divergences in fermionic
+   2-loop contributions in the 2HDM.
 
 GM2Calc-2.1.0 [March, 18 2022]
 ==============================
