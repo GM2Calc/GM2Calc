@@ -115,6 +115,7 @@ TEST_CASE("test_F")
    test_1("fPS", [] (double x) { return gm2calc::f_PS(x);}, 1e-14);
    test_1("fS" , [] (double x) { return gm2calc::f_S(x); }, 1e-13);
    test_1("fsferm", [] (double x) { return gm2calc::f_sferm(x); }, 1e-14);
+   test_1("fCl" , [] (double x) { return gm2calc::f_CSl(x); }, 1e-14);
 }
 
 TEST_CASE("test_G")
@@ -154,6 +155,11 @@ TEST_CASE("test_Fxy")
    test_2("Lambda2", [] (double x, double y) { return gm2calc::lambda_2(x,y,1); }, 1e-14);
    test_2("FPZ", [] (double x, double y) { return gm2calc::FPZ(x,y); }, 1e-7);
    test_2("FSZ", [] (double x, double y) { return gm2calc::FSZ(x,y); }, 1e-7);
+   test_2("FCWl", [] (double x, double y) { return gm2calc::FCWl(x,y); }, 1e-8);
+   test_2("fCSd", [] (double x, double y) { return gm2calc::f_CSd(x, y, 1, 1); }, 1e-10);
+   test_2("fCSu", [] (double x, double y) { return gm2calc::f_CSu(x, y, 1, 1); }, 1e-10);
+   test_2("FCWd", [] (double x, double y) { return gm2calc::FCWd(x, 2*x, y, 2*y, 1, 1); }, 1e-5);
+   test_2("FCWu", [] (double x, double y) { return gm2calc::FCWu(x, 2*x, y, 2*y, 1, 1); }, 1e-5);
 }
 
 template <typename T>

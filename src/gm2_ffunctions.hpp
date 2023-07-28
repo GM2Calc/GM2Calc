@@ -53,6 +53,12 @@ double f_PS(double) noexcept;
 double f_S(double) noexcept;
 /// \f$f_{\tilde{f}}(z)\f$, Eq (72) arXiv:hep-ph/0609168
 double f_sferm(double) noexcept;
+/// \f$f_l^{H^\pm}(z)\f$, Eq (60) arxiv:1607.06292
+double f_CSl(double) noexcept;
+/// \f$\mathcal{F}_d^{H^\pm}(x,y,q_u,q_d)\f$, Eq (61) arxiv:1607.06292
+double f_CSd(double, double, double, double) noexcept;
+/// \f$\mathcal{F}_u^{H^\pm}(x,y,q_u,q_d)\f$, Eq (62) arxiv:1607.06292
+double f_CSu(double, double, double, double) noexcept;
 /// \f$\mathcal{F}_1(\omega)\f$, Eq (25) arxiv:1502.04199
 double F1(double) noexcept;
 /// \f$\tilde{\mathcal{F}}_1(\omega)\f$, Eq (26) arxiv:1502.04199
@@ -62,9 +68,15 @@ double F2(double) noexcept;
 /// \f$\mathcal{F}_3(\omega)\f$, Eq (28) arxiv:1502.04199
 double F3(double) noexcept;
 /// \f$\tidle{F}_{FZ}(x,y)\f$
-double FPZ(double, double);
+double FPZ(double, double) noexcept;
 /// \f$F_{FZ}(x,y)\f$
-double FSZ(double, double);
+double FSZ(double, double) noexcept;
+/// \f$F_{CW}^l(x,y)\f$
+double FCWl(double, double) noexcept;
+/// \f$F_{CW}^u(x_u,x_d,y_u,y_d,q_u,q_d)\f$
+double FCWu(double, double, double, double, double, double) noexcept;
+/// \f$F_{CW}^d(x_u,x_d,y_u,y_d,q_u,q_d)\f$
+double FCWd(double, double, double, double, double, double) noexcept;
 /// \f$\Phi(x,y,z)\f$ with squared masses, Davydychev and Tausk, Nucl. Phys. B397 (1993) 23
 double Phi(double x, double y, double z) noexcept;
 /// Källén lambda function \f$\lambda^2(x, y, z)\f$
