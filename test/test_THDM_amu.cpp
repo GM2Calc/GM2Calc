@@ -303,6 +303,24 @@ TEST_CASE("2-loop_fermionic_divergence")
 
       CHECK(std::isfinite(gm2calc::thdm::amu2L_F_neutral(pars)));
    }
+
+   // test non-divergence for mHp = mW
+   {
+      gm2calc::thdm::THDM_F_parameters pars;
+      pars.alpha_em = 1./137;
+      pars.mm = 1.0;
+      pars.mw = 80.0;
+      pars.mz = 90.0;
+      pars.mh << 100.0, 400.0;
+      pars.mhSM = 125.0;
+      pars.mA = 300.0;
+      pars.mHp = pars.mw;
+      pars.mu << 0.3, 3.0, 30.0;
+      pars.md << 0.2, 2.0, 20.0;
+      pars.ml << 0.1, 1.0, 10.0;
+
+      CHECK(std::isfinite(gm2calc::thdm::amu2L_F_charged(pars)));
+   }
 }
 
 

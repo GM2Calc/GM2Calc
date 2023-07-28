@@ -52,6 +52,29 @@ namespace {
       return is_zero(a - b, prec*(1.0 + max));
    }
 
+   bool is_equal_rel(double a, double b, double eps) noexcept
+   {
+      const double zero_eps = std::numeric_limits<double>::epsilon();
+
+      if (is_equal(a, b, zero_eps)) {
+         return true;
+      }
+
+      if (std::fabs(a) < zero_eps || std::fabs(b) < zero_eps) {
+         return false;
+      }
+
+      return std::fabs((a - b)/a) < eps;
+   }
+
+   /// shift value away from limit, if it is close to the limit
+   void shift(double& val, double limit, double eps) noexcept
+   {
+      if (is_equal_rel(val, limit, eps)) {
+         val = (1 + eps)*limit;
+      }
+   }
+
    void sort(double& x, double& y) noexcept
    {
       if (x > y) { std::swap(x, y); }
@@ -919,6 +942,14 @@ double FCWu(double xu, double xd, double yu, double yd, double qu, double qd) no
       ERROR("FCWu: arguments must not be negative.");
    }
 
+   constexpr double eps = 1e-8;
+
+   // Note: if xd == yd, then xu == yu, per definition
+   if (std::abs(1 - xd/yd) < eps && std::abs(1 - xu/yu) < eps) {
+      shift(xd, yd, eps);
+      shift(xu, yu, eps);
+   }
+
    return (yu*f_CSu(xu, xd, qu, qd) - xu*f_CSu(yu, yd, qu, qd))/(xu - yu);
 }
 
@@ -937,6 +968,14 @@ double FCWd(double xu, double xd, double yu, double yd, double qu, double qd) no
 {
    if (xu < 0 || xd < 0 || yu < 0 || yd < 0) {
       ERROR("FCWd: arguments must not be negative.");
+   }
+
+   constexpr double eps = 1e-8;
+
+   // Note: if xd == yd, then xu == yu, per definition
+   if (std::abs(1 - xd/yd) < eps && std::abs(1 - xu/yu) < eps) {
+      shift(xd, yd, eps);
+      shift(xu, yu, eps);
    }
 
    return (yd*f_CSd(xu, xd, qu, qd) - xd*f_CSd(yu, yd, qu, qd))/(xd - yd);
