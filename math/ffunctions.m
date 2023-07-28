@@ -317,7 +317,7 @@ PhiOverY[xu_, xd_] :=
     ]
 
 fCSd[xu_, xd_, qu_, qd_] :=
-    Module[{s, c, cbar, lxu, lxd, phiy},
+    Module[{s, c, cbar, lxu, lxd},
            s = 1/4*(qu + qd);
            c = (xu - xd)^2 - qu*xu + qd*xd;
            cbar = (xu - qu)*xu - (xd + qd)*xd;
