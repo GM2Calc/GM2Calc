@@ -67,11 +67,18 @@ namespace {
       return std::fabs((a - b)/a) < eps;
    }
 
-   /// shift value away from limit, if it is close to the limit
-   void shift(double& val, double limit, double eps) noexcept
+   /// shift values symmetrically away from equality, if they are close
+   void shift(double& x, double& y, double eps) noexcept
    {
-      if (is_equal_rel(val, limit, eps)) {
-         val = (1 + eps)*limit;
+      if (is_equal_rel(x, y, eps)) {
+         const double mid = 0.5*std::abs(y + x);
+         if (x < y) {
+            x = (1 - eps)*mid;
+            y = (1 + eps)*mid;
+         } else {
+            x = (1 + eps)*mid;
+            x = (1 - eps)*mid;
+         }
       }
    }
 
@@ -944,10 +951,10 @@ double FCWu(double xu, double xd, double yu, double yd, double qu, double qd) no
 
    constexpr double eps = 1e-8;
 
-   // Note: if xd == yd, then xu == yu, per definition
-   if (std::abs(1 - xd/yd) < eps && std::abs(1 - xu/yu) < eps) {
-      shift(xd, yd, eps);
+   // Note: xd == yd  <=>  xu == yu, per definition
+   if (std::abs(1 - xu/yu) < eps) {
       shift(xu, yu, eps);
+      shift(xd, yd, eps);
    }
 
    return (yu*f_CSu(xu, xd, qu, qd) - xu*f_CSu(yu, yd, qu, qd))/(xu - yu);
@@ -972,10 +979,10 @@ double FCWd(double xu, double xd, double yu, double yd, double qu, double qd) no
 
    constexpr double eps = 1e-8;
 
-   // Note: if xd == yd, then xu == yu, per definition
-   if (std::abs(1 - xd/yd) < eps && std::abs(1 - xu/yu) < eps) {
-      shift(xd, yd, eps);
+   // Note: xd == yd  <=>  xu == yu, per definition
+   if (std::abs(1 - xu/yu) < eps) {
       shift(xu, yu, eps);
+      shift(xd, yd, eps);
    }
 
    return (yd*f_CSd(xu, xd, qu, qd) - xd*f_CSd(yu, yd, qu, qd))/(xd - yd);
