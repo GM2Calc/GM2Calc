@@ -52,6 +52,36 @@ namespace {
       return is_zero(a - b, prec*(1.0 + max));
    }
 
+   bool is_equal_rel(double a, double b, double eps) noexcept
+   {
+      const double zero_eps = std::numeric_limits<double>::epsilon();
+
+      if (is_equal(a, b, zero_eps)) {
+         return true;
+      }
+
+      if (std::fabs(a) < zero_eps || std::fabs(b) < zero_eps) {
+         return false;
+      }
+
+      return std::fabs((a - b)/a) < eps;
+   }
+
+   /// shift values symmetrically away from equality, if they are close
+   void shift(double& x, double& y, double eps) noexcept
+   {
+      if (is_equal_rel(x, y, eps)) {
+         const double mid = 0.5*std::abs(y + x);
+         if (x < y) {
+            x = (1 - eps)*mid;
+            y = (1 + eps)*mid;
+         } else {
+            x = (1 + eps)*mid;
+            x = (1 - eps)*mid;
+         }
+      }
+   }
+
    void sort(double& x, double& y) noexcept
    {
       if (x > y) { std::swap(x, y); }
@@ -62,6 +92,28 @@ namespace {
       if (x > y) { std::swap(x, y); }
       if (y > z) { std::swap(y, z); }
       if (x > y) { std::swap(x, y); }
+   }
+
+   /// calculates phi(xd, xu, 1)/y with y = (xu - xd)^2 - 2*(xu + xd) + 1,
+   /// properly handle the case y = 0
+   double phi_over_y(double xu, double xd) noexcept
+   {
+      const double sqrtxu = std::sqrt(xu);
+      const double sqrtxd = std::sqrt(xd);
+      const double ixd = 1/xd;
+      constexpr double eps = 1e-8;
+
+      // test two cases where y == 0
+      if (std::abs((xu - 1)*ixd + 2/sqrtxd - 1) < eps) {
+         return -std::log(std::abs(-1 + sqrtxd))/sqrtxd + std::log(xd)/(2*(-1 + sqrtxd));
+      } else if (std::abs((xu - 1)*ixd - 2/sqrtxd - 1) < eps) {
+         return std::log(1 + sqrtxd)/sqrtxd - std::log(xd)/(2*(1 + sqrtxd));
+      }
+
+      const double y = sqr(xu - xd) - 2*(xu + xd) + 1;
+      const double phi = Phi(xd, xu, 1);
+
+      return phi/y;
    }
 
    /// lambda^2(u,v)
@@ -657,6 +709,74 @@ double f_sferm(double z) noexcept {
 }
 
 /**
+ * Calculates Barr-Zee 2-loop function for diagram with lepton loop
+ * and charged Higgs and W boson mediators, Eq (60), arxiv:1607.06292,
+ * with extra global prefactor z.
+ */
+double f_CSl(double z) noexcept {
+   if (z < 0.0) {
+      ERROR("f_CSl: z must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   } else if (z == 0) {
+      return 0.0;
+   }
+
+   constexpr double pi26 = 1.6449340668482264;
+
+   return z*(z + z*(z - 1)*(dilog(1 - 1/z) - pi26) + (z - 0.5)*std::log(z));
+}
+
+/**
+ * Eq (61), arxiv:1607.06292, with extra global prefactor xd
+ *
+ * @note There is a misprint in Eq (61), arxiv:1607.06292v2: There
+ * should be no Phi function in the 2nd line of (61).
+ */
+double f_CSd(double xu, double xd, double qu, double qd) noexcept
+{
+   if (xd < 0.0 || xu < 0.0) {
+      ERROR("f_CSd: xu and xd must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   } else if (xd == 0.0) {
+      return 0.0;
+   }
+
+   const double y = sqr(xu - xd) - 2*(xu + xd) + 1;
+   const double s = 0.25*(qu + qd);
+   const double c = sqr(xu - xd) - qu*xu + qd*xd;
+   const double cbar = (xu - qu)*xu - (xd + qd)*xd;
+   const double lxu = std::log(xu);
+   const double lxd = std::log(xd);
+   const double phiy = phi_over_y(xu, xd);
+
+   return xd*(-(xu - xd) + (cbar - c*(xu - xd)) * phiy
+              + c*(dilog(1.0 - xd/xu) - 0.5*lxu*(lxd - lxu))
+              + (s + xd)*lxd + (s - xu)*lxu);
+}
+
+/// Eq (62), arxiv:1607.06292, with extra global prefactor xu
+double f_CSu(double xu, double xd, double qu, double qd) noexcept
+{
+   if (xd < 0.0 || xu < 0.0) {
+      ERROR("f_CSu: xu and xd must not be negative!");
+      return std::numeric_limits<double>::quiet_NaN();
+   }
+
+   const double s = 1 + 0.25*(qu + qd);
+   const double c = sqr(xu - xd) - (qu + 2)*xu + (qd + 2)*xd;
+   const double cbar = (xu - qu - 2)*xu - (xd + qd + 2)*xd;
+   const double lxu = std::log(xu);
+   const double lxd = std::log(xd);
+   const double phiy = phi_over_y(xu, xd);
+   const double fCSd = -(xu - xd) + (cbar - c*(xu - xd)) * phiy
+      + c*(dilog(1.0 - xd/xu) - 0.5*lxu*(lxd - lxu))
+      + (s + xd)*lxd + (s - xu)*lxu;
+
+   return xu*(fCSd - 4.0/3*(xu - xd - 1)*phiy
+              - 1.0/3*(lxd + lxu)*(lxd - lxu));
+}
+
+/**
  * \f$\mathcal{F}_1(\omega)\f$, Eq (25) arxiv:1502.04199
  */
 double F1(double w) noexcept {
@@ -723,7 +843,7 @@ double F3(double w) noexcept {
  * @param x squared mass ratio (mf/ms)^2.
  * @param y squared mass ratio (mf/mz)^2.
  */
-double FPZ(double x, double y)
+double FPZ(double x, double y) noexcept
 {
    if (x < 0 || y < 0) {
       ERROR("FPZ: arguments must not be negative.");
@@ -753,7 +873,7 @@ double FPZ(double x, double y)
  * @param x squared mass ratio (mf/ms)^2.
  * @param y squared mass ratio (mf/mz)^2.
  */
-double FSZ(double x, double y)
+double FSZ(double x, double y) noexcept
 {
    if (x < 0 || y < 0) {
       ERROR("FSZ: arguments must not be negative.");
@@ -782,6 +902,90 @@ double FSZ(double x, double y)
    }
 
    return (y*f_S(x) - x*f_S(y))/(x - y);
+}
+
+/**
+ * Barr-Zee 2-loop function with lepton loop and charge scalar and W
+ * boson mediators.
+ *
+ * @param x squared mass ratio (mf/ms)^2.
+ * @param y squared mass ratio (mf/mw)^2.
+ */
+double FCWl(double x, double y) noexcept
+{
+   if (x < 0 || y < 0) {
+      ERROR("FCWl: arguments must not be negative.");
+   }
+
+   sort(x, y);
+
+   constexpr double eps = 1e-8;
+
+   if (x == 0 || y == 0) {
+      return 0;
+   } else if (std::abs(1 - x/y) < eps) {
+      const double pi26 = 1.6449340668482264;
+      return -f_CSl(x) + x*(-0.5 + x*(3 + (3*x - 2)*(dilog(1 - 1/x) - pi26))
+         + (3*x - 0.5)*std::log(x));
+   }
+
+   return (y*f_CSl(x) - x*f_CSl(y))/(x - y);
+}
+
+/**
+ * Barr-Zee 2-loop function with up-type quark loop and charge scalar
+ * and W boson mediators.
+ *
+ * @param xu squared mass ratio (mu/ms)^2.
+ * @param xd squared mass ratio (md/ms)^2.
+ * @param yu squared mass ratio (mu/mw)^2.
+ * @param yd squared mass ratio (md/mw)^2.
+ * @param qu electric charge count of up-type quark
+ * @param qd electric charge count of down-type quark
+ */
+double FCWu(double xu, double xd, double yu, double yd, double qu, double qd) noexcept
+{
+   if (xu < 0 || xd < 0 || yu < 0 || yd < 0) {
+      ERROR("FCWu: arguments must not be negative.");
+   }
+
+   constexpr double eps = 1e-8;
+
+   // Note: xd == yd  <=>  xu == yu, per definition
+   if (std::abs(1 - xu/yu) < eps) {
+      shift(xu, yu, eps);
+      shift(xd, yd, eps);
+   }
+
+   return (yu*f_CSu(xu, xd, qu, qd) - xu*f_CSu(yu, yd, qu, qd))/(xu - yu);
+}
+
+/**
+ * Barr-Zee 2-loop function with down-type quark loop and charge
+ * scalar and W boson mediators.
+ *
+ * @param xu squared mass ratio (mu/ms)^2.
+ * @param xd squared mass ratio (md/ms)^2.
+ * @param yu squared mass ratio (mu/mw)^2.
+ * @param yd squared mass ratio (md/mw)^2.
+ * @param qu electric charge count of up-type quark
+ * @param qd electric charge count of down-type quark
+ */
+double FCWd(double xu, double xd, double yu, double yd, double qu, double qd) noexcept
+{
+   if (xu < 0 || xd < 0 || yu < 0 || yd < 0) {
+      ERROR("FCWd: arguments must not be negative.");
+   }
+
+   constexpr double eps = 1e-8;
+
+   // Note: xd == yd  <=>  xu == yu, per definition
+   if (std::abs(1 - xu/yu) < eps) {
+      shift(xu, yu, eps);
+      shift(xd, yd, eps);
+   }
+
+   return (yd*f_CSd(xu, xd, qu, qd) - xd*f_CSd(yu, yd, qu, qd))/(xd - yd);
 }
 
 /**

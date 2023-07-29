@@ -46,6 +46,7 @@ ExportData[G4, 1, precision, 0];
 ExportData[fPS, 1, precision, 0];
 ExportData[fS, 1, precision, 0];
 ExportData[fsferm, 1, precision, 0];
+ExportData[fCl, 1, precision, 0];
 
 ExportData[Fa, 2, precision, 1/20];
 ExportData[Fb, 2, precision, 1/20];
@@ -62,3 +63,13 @@ ExportData[F3, 1, precision, 0];
 
 ExportData[FPZ, 2, precision, 1/20];
 ExportData[FSZ, 2, precision, 1/20];
+ExportData[FCZ, 2, precision, 1/20];
+
+ExportData[Re[fCSd[#1, #2, 1, 1]]&, 2, precision, 1/20];
+ExportData[Re[fCSu[#1, #2, 1, 1]]&, 2, precision, 1/20];
+
+FFCWd[x_, y_] := Re[FCWd[x, 2 x, y, 2 y, 1, 1]];
+FFCWu[x_, y_] := Re[FCWu[x, 2 x, y, 2 y, 1, 1]];
+
+ExportData[FFCWd, 2, precision, 1/2];
+ExportData[FFCWu, 2, precision, 1/2];
