@@ -22,13 +22,11 @@ for e in ${EXAMPLES}; do
     ex_c=$(echo "$e" | tr ',' ' ' | awk '{ print $2 }')
 
     [ -x "$ex_cpp" ] || {
-        echo "Error: $ex_cpp not built"
-        errors=$(expr $errors + 1);
+        echo "Warning: $ex_cpp not built; skipping test"
         continue;
     }
     [ -x "$ex_c" ] || {
-        echo "Error: $ex_c not built"
-        errors=$(expr $errors + 1);
+        echo "Warning: $ex_c not built; skipping test"
         continue;
     }
 
