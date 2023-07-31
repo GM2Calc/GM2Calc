@@ -52,25 +52,10 @@ namespace {
       return is_zero(a - b, prec*(1.0 + max));
    }
 
-   bool is_equal_rel(double a, double b, double rel_diff) noexcept
-   {
-      const double zero_eps = std::numeric_limits<double>::epsilon();
-
-      if (is_equal(a, b, zero_eps)) {
-         return true;
-      }
-
-      if (std::fabs(a) < zero_eps || std::fabs(b) < zero_eps) {
-         return false;
-      }
-
-      return std::fabs((a - b)/a) < rel_diff;
-   }
-
    /// shift values symmetrically away from equality, if they are close
    void shift(double& x, double& y, double rel_diff) noexcept
    {
-      if (is_equal_rel(x, y, rel_diff)) {
+      if (is_equal(x, y, rel_diff)) {
          const double mid = 0.5*std::abs(y + x);
          if (x < y) {
             x = (1 - rel_diff)*mid;
