@@ -71,17 +71,8 @@ bool is_equal(T a, T b, T eps) noexcept
 template <typename T>
 bool is_equal_rel(T a, T b, T eps) noexcept
 {
-   const double zero_eps = std::numeric_limits<T>::epsilon();
-
-   if (is_equal(a, b, zero_eps)) {
-      return true;
-   }
-
-   if (std::fabs(a) < zero_eps || std::fabs(b) < zero_eps) {
-      return false;
-   }
-
-   return std::fabs((a - b)/a) < eps;
+   const T max = std::max(std::abs(a), std::abs(b));
+   return is_zero(a - b, eps*(1.0 + max));
 }
 
 } // namespace gm2calc
