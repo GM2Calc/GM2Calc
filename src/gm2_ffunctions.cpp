@@ -19,10 +19,10 @@
 #include "gm2_ffunctions.hpp"
 #include "gm2_dilog.hpp"
 #include "gm2_log.hpp"
+#include "gm2_numerics.hpp"
 
 #include <algorithm>
 #include <cmath>
-#include <complex>
 #include <limits>
 #include <tuple>
 
@@ -31,26 +31,6 @@ namespace gm2calc {
 namespace {
    constexpr double eps = 10.0*std::numeric_limits<double>::epsilon();
    const double qdrt_eps = std::pow(eps, 0.25);
-
-   /// returns number squared
-   template <typename T> T sqr(T x) noexcept { return x*x; }
-
-   /// returns number cubed
-   template <typename T> T pow3(T x) noexcept { return x*x*x; }
-
-   /// returns number to the power 4
-   template <typename T> T pow4(T x) noexcept { return sqr(sqr(x)); }
-
-   bool is_zero(double a, double prec) noexcept
-   {
-      return std::fabs(a) < prec;
-   }
-
-   bool is_equal_rel(double a, double b, double prec) noexcept
-   {
-      const double max = std::max(std::abs(a), std::abs(b));
-      return is_zero(a - b, prec*(1.0 + max));
-   }
 
    /// shift values symmetrically away from equality, if they are close
    void shift(double& x, double& y, double rel_diff) noexcept
@@ -536,7 +516,7 @@ namespace {
 
 /// Ixy(0,y), squared arguments, y != 0
 double I0y(double y) noexcept {
-   if (is_equal_rel(y, 1, eps)) {
+   if (is_equal_rel(y, 1.0, eps)) {
       const double d = y - 1;
       return 1 + d*(-0.5 + 1./3*d);
    }
@@ -561,7 +541,7 @@ double I1y(double x, double y) noexcept {
 double Ixx(double x, double y) noexcept {
    const double eps_eq = 0.0001;
 
-   if (is_equal_rel(y, 1, eps_eq)) {
+   if (is_equal_rel(y, 1.0, eps_eq)) {
       const double dx = x - 1;
       const double dy = y - 1;
       const double dy2 = sqr(dy);
@@ -594,15 +574,15 @@ double Ixy(double x, double y) noexcept {
       return I0y(y);
    }
 
-   if (is_equal_rel(x/y, 1, eps_eq)) {
+   if (is_equal_rel(x/y, 1.0, eps_eq)) {
       return Ixx(x, y);
    }
 
-   if (is_equal_rel(x, 1, eps_eq)) {
+   if (is_equal_rel(x, 1.0, eps_eq)) {
       return I1y(x, y);
    }
 
-   if (is_equal_rel(y, 1, eps_eq)) {
+   if (is_equal_rel(y, 1.0, eps_eq)) {
       return I1y(y, x);
    }
 
