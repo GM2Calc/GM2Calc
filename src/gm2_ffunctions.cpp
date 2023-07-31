@@ -46,7 +46,7 @@ namespace {
       return std::fabs(a) < prec;
    }
 
-   bool is_equal(double a, double b, double prec) noexcept
+   bool is_equal_rel(double a, double b, double prec) noexcept
    {
       const double max = std::max(std::abs(a), std::abs(b));
       return is_zero(a - b, prec*(1.0 + max));
@@ -55,7 +55,7 @@ namespace {
    /// shift values symmetrically away from equality, if they are close
    void shift(double& x, double& y, double rel_diff) noexcept
    {
-      if (is_equal(x, y, rel_diff)) {
+      if (is_equal_rel(x, y, rel_diff)) {
          const double mid = 0.5*std::abs(y + x);
          if (x < y) {
             x = (1 - rel_diff)*mid;
@@ -145,14 +145,14 @@ namespace {
    /// u < 1 && v < 1, lambda^2(u,v) > 0; note: phi_pos(u,v) = phi_pos(v,u)
    double phi_pos(double u, double v) noexcept
    {
-      if (is_equal(u, 1.0, eps) && is_equal(v, 1.0, eps)) {
+      if (is_equal_rel(u, 1.0, eps) && is_equal_rel(v, 1.0, eps)) {
          return 2.343907238689459;
       }
 
       const double pi23 = 3.2898681336964529; // Pi^2/3
       const auto lambda = std::sqrt(lambda_2(u,v));
 
-      if (is_equal(u, v, eps)) {
+      if (is_equal_rel(u, v, eps)) {
          const double x = u < qdrt_eps ? u*(1 + u*(1 + u*(2 + 5*u))) : 0.5*(1 - lambda);
 
          return (- sqr(std::log(u)) + 2*sqr(std::log(x))
@@ -181,22 +181,22 @@ namespace {
    /// lambda^2(u,v) < 0; note: phi_neg(u,v) = phi_neg(v,u)
    double phi_neg(double u, double v) noexcept
    {
-      if (is_equal(u, 1.0, eps) && is_equal(v, 1.0, eps)) {
+      if (is_equal_rel(u, 1.0, eps) && is_equal_rel(v, 1.0, eps)) {
          // -I/9 (Pi^2 - 36 PolyLog[2, (1 - I Sqrt[3])/2])/Sqrt[3]
          return 2.343907238689459;
       }
 
       const auto lambda = std::sqrt(-lambda_2(u,v));
 
-      if (is_equal(u, v, eps)) {
+      if (is_equal_rel(u, v, eps)) {
          return 4*clausen_2(2*std::asin(std::sqrt(0.25/u)))/lambda;
       }
 
-      if (is_equal(u, 1.0, eps)) {
+      if (is_equal_rel(u, 1.0, eps)) {
          return phi_neg_1v(v)/lambda;
       }
 
-      if (is_equal(v, 1.0, eps)) {
+      if (is_equal_rel(v, 1.0, eps)) {
          return phi_neg_1v(u)/lambda;
       }
 
@@ -250,7 +250,7 @@ double F1C(double x) noexcept {
 
    const double d = x - 1.0;
 
-   if (is_equal(x, 1.0, 0.03)) {
+   if (is_equal_rel(x, 1.0, 0.03)) {
       return 1.0 + d*(-0.6 + d*(0.4 + d*(-2.0/7.0
          + d*(3.0/14.0 + d*(-1.0/6.0
          + 2.0/15.0*d)))));
@@ -264,7 +264,7 @@ double F2C(double x) noexcept {
       return 0.0;
    }
 
-   if (is_equal(x, 1.0, 0.03)) {
+   if (is_equal_rel(x, 1.0, 0.03)) {
       const double d = x - 1.0;
 
       return 1.0 + d*(-0.75 + d*(0.6 + d*(-0.5 + d*(3.0/7.0
@@ -277,7 +277,7 @@ double F2C(double x) noexcept {
 double F3C(double x) noexcept {
    const double d = x - 1.0;
 
-   if (is_equal(x, 1.0, 0.03)) {
+   if (is_equal_rel(x, 1.0, 0.03)) {
       return 1.0
          + d*(1059.0/1175.0
          + d*(-4313.0/3525.0
@@ -303,7 +303,7 @@ double F4C(double x) noexcept {
       return 0.0;
    }
 
-   if (is_equal(x, 1.0, 0.03)) {
+   if (is_equal_rel(x, 1.0, 0.03)) {
       const double d = x - 1.0;
 
       return 1.0
@@ -332,7 +332,7 @@ double F1N(double x) noexcept {
 
    const double d = x - 1.0;
 
-   if (is_equal(x, 1.0, 0.03)) {
+   if (is_equal_rel(x, 1.0, 0.03)) {
       return 1.0 + d*(-0.4 + d*(0.2 + d*(-4.0/35.0
          + d*(1.0/14.0 + d*(-1.0/21.0 + 1.0/30.0*d)))));
    }
@@ -345,7 +345,7 @@ double F2N(double x) noexcept {
       return 3.0;
    }
 
-   if (is_equal(x, 1.0, 0.04)) {
+   if (is_equal_rel(x, 1.0, 0.04)) {
       const double d = x - 1.0;
 
       return 1. + d*(-0.5 + d*(0.3 + d*(-0.2
@@ -362,7 +362,7 @@ double F3N(double x) noexcept {
 
    const double d = x - 1.0;
 
-   if (is_equal(x, 1.0, 0.03)) {
+   if (is_equal_rel(x, 1.0, 0.03)) {
       return 1.0 + d*(76/875.0 + d*(-431/2625.0 + d*(5858/42875.0
          + d*(-3561/34300.0 + d*(23/294.0 - 4381/73500.0*d)))));
    }
@@ -383,7 +383,7 @@ double F4N(double x) noexcept {
       return -3.0/4.0*(-9.0 + PI2);
    }
 
-   if (is_equal(x, 1.0, 0.03)) {
+   if (is_equal_rel(x, 1.0, 0.03)) {
       const double d = x - 1.0;
 
       return 1.0 + sqr(d)*(-111.0/800.0 + d*(59.0/400.0 + d*(-129.0/980.0
@@ -411,7 +411,7 @@ double Fb11(double x, double y) noexcept {
 
 /// expansion of Fb(x,y) around y ~ x, x != 0
 double Fbx(double x, double y) noexcept {
-   if (is_equal(x, 1.0, 1e-2)) {
+   if (is_equal_rel(x, 1.0, 1e-2)) {
       const double d = x - 1;
       return 1.0/12 + d*(-0.1 + d*(0.1 + d*(-2.0/21 + d*(5.0/56 + d*(-1.0/12 + d*(7.0/90 - 4.0/55*d))))));
    }
@@ -442,11 +442,11 @@ double Fb(double x, double y) noexcept {
       return 0;
    }
 
-   if (is_equal(x, 1.0, 1e-4) && is_equal(y, 1.0, 1e-4)) {
+   if (is_equal_rel(x, 1.0, 1e-4) && is_equal_rel(y, 1.0, 1e-4)) {
       return Fb11(x, y);
    }
 
-   if (is_equal(x, y, 1e-5)) {
+   if (is_equal_rel(x, y, 1e-5)) {
       return Fbx(x, y);
    }
 
@@ -468,7 +468,7 @@ double Fa11(double x, double y) noexcept {
 
 /// expansion of Fa(x,y) around y ~ x, x != 0
 double Fax(double x, double y) noexcept {
-   if (is_equal(x, 1.0, 1e-2)) {
+   if (is_equal_rel(x, 1.0, 1e-2)) {
       const double d = x - 1;
       return 0.25 + d*(-0.4 + d*(0.5 + d*(-4.0/7 + d*(5.0/8 + d*(-2./3 + d*(0.7 - 8.0/11*d))))));
    }
@@ -501,11 +501,11 @@ double Fa(double x, double y) noexcept {
       return 0;
    }
 
-   if (is_equal(x, 1.0, 1e-4) && is_equal(y, 1.0, 1e-4)) {
+   if (is_equal_rel(x, 1.0, 1e-4) && is_equal_rel(y, 1.0, 1e-4)) {
       return Fa11(x,y);
    }
 
-   if (is_equal(x, y, 1e-5)) {
+   if (is_equal_rel(x, y, 1e-5)) {
       return Fax(x,y);
    }
 
@@ -513,7 +513,7 @@ double Fa(double x, double y) noexcept {
 }
 
 double G3(double x) noexcept {
-   if (is_equal(x, 1.0, 1e-2)) {
+   if (is_equal_rel(x, 1.0, 1e-2)) {
       const double d = x - 1;
       return 1.0/3 + d*(-0.25 + d*(0.2 + d*(-1.0/6 + d*(1.0/7 + d*(-1.0/8
          + d*(1.0/9 + d*(-0.1 + 1.0/11*d)))))));
@@ -523,7 +523,7 @@ double G3(double x) noexcept {
 }
 
 double G4(double x) noexcept {
-   if (is_equal(x, 1.0, 1e-2)) {
+   if (is_equal_rel(x, 1.0, 1e-2)) {
       const double d = x - 1;
       return 1.0/6 + d*(-1.0/12 + d*(0.05 + d*(-1.0/30 + d*(1.0/42
          + d*(-1.0/56 + d*(1.0/72 + d*(-1.0/90 + 1.0/110*d)))))));
@@ -536,7 +536,7 @@ namespace {
 
 /// Ixy(0,y), squared arguments, y != 0
 double I0y(double y) noexcept {
-   if (is_equal(y, 1, eps)) {
+   if (is_equal_rel(y, 1, eps)) {
       const double d = y - 1;
       return 1 + d*(-0.5 + 1./3*d);
    }
@@ -561,7 +561,7 @@ double I1y(double x, double y) noexcept {
 double Ixx(double x, double y) noexcept {
    const double eps_eq = 0.0001;
 
-   if (is_equal(y, 1, eps_eq)) {
+   if (is_equal_rel(y, 1, eps_eq)) {
       const double dx = x - 1;
       const double dy = y - 1;
       const double dy2 = sqr(dy);
@@ -594,15 +594,15 @@ double Ixy(double x, double y) noexcept {
       return I0y(y);
    }
 
-   if (is_equal(x/y, 1, eps_eq)) {
+   if (is_equal_rel(x/y, 1, eps_eq)) {
       return Ixx(x, y);
    }
 
-   if (is_equal(x, 1, eps_eq)) {
+   if (is_equal_rel(x, 1, eps_eq)) {
       return I1y(x, y);
    }
 
-   if (is_equal(y, 1, eps_eq)) {
+   if (is_equal_rel(y, 1, eps_eq)) {
       return I1y(y, x);
    }
 
