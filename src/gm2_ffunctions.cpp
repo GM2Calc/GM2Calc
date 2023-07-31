@@ -98,7 +98,6 @@ namespace {
    /// properly handle the case y = 0
    double phi_over_y(double xu, double xd) noexcept
    {
-      const double sqrtxu = std::sqrt(xu);
       const double sqrtxd = std::sqrt(xd);
       const double ixd = 1/xd;
       constexpr double eps = 1e-8;
@@ -741,7 +740,6 @@ double f_CSd(double xu, double xd, double qu, double qd) noexcept
       return 0.0;
    }
 
-   const double y = sqr(xu - xd) - 2*(xu + xd) + 1;
    const double s = 0.25*(qu + qd);
    const double c = sqr(xu - xd) - qu*xu + qd*xd;
    const double cbar = (xu - qu)*xu - (xd + qd)*xd;
