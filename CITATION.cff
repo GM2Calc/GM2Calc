@@ -35,7 +35,7 @@ authors:
   given-names: "Alexander"
   orcid: "https://orcid.org/0000-0001-8963-6512"
 title: "GM2Calc"
-version: 2.1.0
-date-released: 2022-03-18
+version: 2.2.0
+date-released: 2023-07-31
 url: "https://github.com/GM2Calc"
 license: GPL-3.0
