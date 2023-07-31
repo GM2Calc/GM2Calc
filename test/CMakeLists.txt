@@ -33,14 +33,13 @@ add_gm2calc_test(test_ffunctions           cpp)
 find_program(BASH_PROGRAM sh)
 
 if(BASH_PROGRAM)
-  message("-- CMAKE_RUNTIME_OUTPUT_DIRECTORY: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
   add_test(NAME test_c_examples
     COMMAND ${BASH_PROGRAM} -c
     "BINDIR=${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${CMAKE_CURRENT_SOURCE_DIR}/test_c_examples.sh")
   add_test(NAME test_points
     COMMAND ${BASH_PROGRAM} -c
     "GM2CALC=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/gm2calc.x ${CMAKE_CURRENT_SOURCE_DIR}/test_points.sh")
-endif()
+endif (BASH_PROGRAM)
 
 # test Mathematica scripts
 if(Mathematica_MathLink_FOUND)
