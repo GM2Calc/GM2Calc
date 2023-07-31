@@ -34,6 +34,11 @@ Changes
    DR-bar to on-shell conversion for parameter points where the
    conversion does not converge.
 
+ * Change (commit 1ca5d76b): Change detection of Eigen and Boost
+   headers in `CMakeLists.txt` to be compatible with [Conan
+   2](https://conan.io/). See `README.md` for installtion
+   instructions.
+
 Fixed bugs
 ----------
 
