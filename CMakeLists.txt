@@ -10,10 +10,6 @@ option(ENABLE_TESTS "Enable tests" ON)
 
 include(GNUInstallDirs)
 
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release)
-endif()
-
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 set(CMAKE_C_STANDARD 11)

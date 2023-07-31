@@ -22,12 +22,12 @@ jobs:
     - name: detect conan profile
       run: conan profile detect --force
     - name: install dependencies
-      run: conan install . --build=missing -s build_type=Release
+      run: conan install . --build=missing
     - name: cmake
-      run: cmake . -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
+      run: cmake . -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake" -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
     - name: cmake build
       run: cmake --build .
     - name: ctest
-      run: ctest -C Release
+      run: ctest
       env:
         CTEST_OUTPUT_ON_FAILURE: 1
