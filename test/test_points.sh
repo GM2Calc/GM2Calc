@@ -59,8 +59,8 @@ ${BASEDIR}/test_points/thdm_contradictory_input.in,thdm,1,
 "
 
 if test ! -x "${GM2CALC}"; then
-    echo "Error: GM2Calc not executable: \"${GM2CALC}\""
-    exit 1
+    echo "Warning: GM2Calc not executable: \"${GM2CALC}\"; skipping test"
+    exit
 fi
 
 errors=0

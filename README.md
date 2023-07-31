@@ -87,9 +87,7 @@ one may run:
 Alternatively, the [Conan](https://conan.io/) package manager can be
 used to install the dependencies:
 
-    mkdir -p build
-    cd build
-    conan install ..
+    conan install . --output-folder=build --build=missing
 
 Compilation of GM2Calc
 ----------------------
@@ -99,19 +97,23 @@ To compile GM2Calc run:
     mkdir -p build
     cd build
     cmake ..
-    make
+    cmake --build .
 
 The GM2Calc executable can then be found in `bin/gm2calc.x` and the
 GM2Calc library can be found in the `lib/` directory.  The used
 compiler and package paths can be passed as arguments to cmake.
 
-**Example:**
+**Example:** manually specifing the dependencies:
 
     cmake \
        -DCMAKE_CXX_COMPILER=icpc \
-       -DEIGEN3_INCLUDE_DIR=/opt/eigen3/eigen3 \
+       -DEigen3_DIR=/usr/share/eigen3/cmake \
        -DBOOST_ROOT=/opt/boost \
        ..
+
+**Example:** using the dependencies installed by Conan:
+
+    cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
 
 
 Running GM2Calc
