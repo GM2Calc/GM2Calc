@@ -52,7 +52,7 @@ namespace {
       return is_zero(a - b, prec*(1.0 + max));
    }
 
-   bool is_equal_rel(double a, double b, double eps) noexcept
+   bool is_equal_rel(double a, double b, double rel_diff) noexcept
    {
       const double zero_eps = std::numeric_limits<double>::epsilon();
 
@@ -64,20 +64,20 @@ namespace {
          return false;
       }
 
-      return std::fabs((a - b)/a) < eps;
+      return std::fabs((a - b)/a) < rel_diff;
    }
 
    /// shift values symmetrically away from equality, if they are close
-   void shift(double& x, double& y, double eps) noexcept
+   void shift(double& x, double& y, double rel_diff) noexcept
    {
-      if (is_equal_rel(x, y, eps)) {
+      if (is_equal_rel(x, y, rel_diff)) {
          const double mid = 0.5*std::abs(y + x);
          if (x < y) {
-            x = (1 - eps)*mid;
-            y = (1 + eps)*mid;
+            x = (1 - rel_diff)*mid;
+            y = (1 + rel_diff)*mid;
          } else {
-            x = (1 + eps)*mid;
-            x = (1 - eps)*mid;
+            x = (1 + rel_diff)*mid;
+            x = (1 - rel_diff)*mid;
          }
       }
    }
