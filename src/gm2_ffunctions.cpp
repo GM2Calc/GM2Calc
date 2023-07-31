@@ -426,17 +426,17 @@ double Fb11(double x, double y) noexcept {
 
 /// expansion of Fb(x,y) around y ~ x, x != 0
 double Fbx(double x, double y) noexcept {
+   if (is_equal(x, 1.0, 1e-2)) {
+      const double d = x - 1;
+      return 1.0/12 + d*(-0.1 + d*(0.1 + d*(-2.0/21 + d*(5.0/56 + d*(-1.0/12 + d*(7.0/90 - 4.0/55*d))))));
+   }
+
    const double x1 = x - 1.0;
    const double d = y - x;
    const double lx = std::log(x);
    const double x14 = pow4(x1);
    const double x15 = x14*x1;
    const double x16 = x15*x1;
-
-   if (is_equal(x, 1.0, 1e-2)) {
-      const double d = x - 1;
-      return 1.0/12 + d*(-0.1 + d*(0.1 + d*(-2.0/21 + d*(5.0/56 + d*(-1.0/12 + d*(7.0/90 - 4.0/55*d))))));
-   }
 
    return (-5 - 2*lx + x*(4 - 4*lx + x))/(2*x14)
       - d*(-1 + x*(-9 - 6*lx + x*(9 - 6*lx + x)))/(2*x15*x)
@@ -483,6 +483,11 @@ double Fa11(double x, double y) noexcept {
 
 /// expansion of Fa(x,y) around y ~ x, x != 0
 double Fax(double x, double y) noexcept {
+   if (is_equal(x, 1.0, 1e-2)) {
+      const double d = x - 1;
+      return 0.25 + d*(-0.4 + d*(0.5 + d*(-4.0/7 + d*(5.0/8 + d*(-2./3 + d*(0.7 - 8.0/11*d))))));
+   }
+
    const double x1 = x - 1.0;
    const double d = y - x;
    const double lx = std::log(x);
@@ -491,11 +496,6 @@ double Fax(double x, double y) noexcept {
    const double x16 = x15*x1;
    const double x2 = sqr(x);
    const double x3 = x2*x;
-
-   if (is_equal(x, 1.0, 1e-2)) {
-      const double d = x - 1;
-      return 0.25 + d*(-0.4 + d*(0.5 + d*(-4.0/7 + d*(5.0/8 + d*(-2./3 + d*(0.7 - 8.0/11*d))))));
-   }
 
    return (2 + x*(3 + 6*lx + x*(-6 + x)))/(2*x14*x)
       - d*(-1 + x*(8 + x*(12*lx + x*(-8 + x))))/(2*x15*x2)
