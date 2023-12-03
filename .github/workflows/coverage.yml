@@ -11,7 +11,7 @@ jobs:
       CC: gcc
       CFLAGS: -fprofile-arcs -ftest-coverage
       CXX: g++
-      CXX_FLAGS: -fprofile-arcs -ftest-coverage
+      CXXFLAGS: -fprofile-arcs -ftest-coverage
     steps:
     - name: checkout
       uses: actions/checkout@v1
