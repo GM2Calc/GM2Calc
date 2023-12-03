@@ -16,7 +16,7 @@ jobs:
     - name: checkout
       uses: actions/checkout@v1
     - name: install dependencies
-      run: apt-get install libeigen3-dev libboost-math-dev
+      run: sudo apt-get install lcov libeigen3-dev libboost-math-dev
     - name: cmake
       run: cmake . -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
     - name: cmake build
