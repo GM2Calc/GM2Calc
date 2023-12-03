@@ -1,0 +1,29 @@
+name: coverage
+
+on: ["push", "pull_request"]
+
+jobs:
+  coverage:
+    name: Coverage
+    runs-on: ubuntu-latest
+    env:
+      BUILD_TYPE: Release
+      CC: gcc
+      CFLAGS: -fprofile-arcs -ftest-coverage
+      CXX: g++
+      CXXFLAGS: -fprofile-arcs -ftest-coverage
+    steps:
+    - name: checkout
+      uses: actions/checkout@v1
+    - name: install dependencies
+      run: sudo apt-get install lcov libeigen3-dev libboost-math-dev
+    - name: cmake
+      run: cmake . -DENABLE_MATHEMATICA=OFF -DENABLE_PYTHON=OFF -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+    - name: cmake build
+      run: cmake --build . --config ${{ env.BUILD_TYPE }}
+    - name: ctest
+      run: ctest -T Test -T Coverage -C ${{ env.BUILD_TYPE }}
+      env:
+        CTEST_OUTPUT_ON_FAILURE: 1
+    - name: Coveralls
+      uses: coverallsapp/github-action@v2

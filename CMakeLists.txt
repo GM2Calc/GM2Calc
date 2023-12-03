@@ -8,6 +8,7 @@ option(ENABLE_MATHEMATICA "Enable Mathematica interface" ON)
 option(ENABLE_PYTHON "Enable Python interface" ON)
 option(ENABLE_TESTS "Enable tests" ON)
 
+include(CTest)
 include(GNUInstallDirs)
 
 if(NOT CMAKE_BUILD_TYPE)
