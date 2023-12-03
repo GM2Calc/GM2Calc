@@ -3,6 +3,7 @@ GM2Calc
 
 ![](https://img.shields.io/github/v/release/GM2Calc/GM2Calc)
 [![Build Status](https://github.com/GM2Calc/GM2Calc/workflows/test/badge.svg)](https://github.com/GM2Calc/GM2Calc/actions)
+[![Coverage Status](https://coveralls.io/repos/github/GM2Calc/GM2Calc/badge.svg)](https://coveralls.io/github/GM2Calc/GM2Calc)
 
 GM2Calc calculates the new physics contributions to the anomalous
 magnetic moment of the muon a_µ = (g-2)/2 in the real MSSM and in the
