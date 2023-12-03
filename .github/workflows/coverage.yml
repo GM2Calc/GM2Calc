@@ -18,7 +18,7 @@ jobs:
     - name: install dependencies
       run: sudo apt-get install lcov libeigen3-dev libboost-math-dev
     - name: cmake
-      run: cmake . -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+      run: cmake . -DENABLE_MATHEMATICA=OFF -DENABLE_PYTHON=OFF -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
     - name: cmake build
       run: cmake --build . --config ${{ env.BUILD_TYPE }}
     - name: ctest
