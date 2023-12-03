@@ -25,3 +25,5 @@ jobs:
       run: ctest -T Test -T Coverage -C ${{ env.BUILD_TYPE }}
       env:
         CTEST_OUTPUT_ON_FAILURE: 1
+    - name: Coveralls
+      uses: coverallsapp/github-action@v2
