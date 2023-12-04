@@ -26,8 +26,8 @@ jobs:
       env:
         CTEST_OUTPUT_ON_FAILURE: 1
     - name: Lcov
-      run: lcov --directory . --capture --exclude '/usr/*' --exclude '*/test/*' --output-file=coverage.info
+      run: lcov --directory . --capture --exclude '/usr/*' --exclude '*/test/*' --output-file=coverage.lcov
     - name: Coveralls
       uses: coverallsapp/github-action@v2
       with:
-        file: coverage.info
+        file: coverage.lcov
