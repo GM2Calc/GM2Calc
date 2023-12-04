@@ -4,6 +4,7 @@ project(GM2Calc
   DESCRIPTION "Calculation of BSM contributions to the anomalous magnetic moment of the muon"
   LANGUAGES C CXX)
 
+option(ENABLE_EXAMPLES "Enable examples" ON)
 option(ENABLE_MATHEMATICA "Enable Mathematica interface" ON)
 option(ENABLE_PYTHON "Enable Python interface" ON)
 option(ENABLE_TESTS "Enable tests" ON)
