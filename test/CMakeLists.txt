@@ -15,6 +15,7 @@ endfunction()
 
 add_gm2calc_bench(test_benchmark           cpp)
 add_gm2calc_bench(test_benchmark_ffunctions cpp)
+add_gm2calc_test(test_dilog                cpp)
 add_gm2calc_test(test_THDM                 cpp)
 add_gm2calc_test(test_THDM_amu             cpp)
 add_gm2calc_test(test_THDM_c_interface     cpp)
