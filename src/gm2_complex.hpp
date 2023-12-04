@@ -47,13 +47,7 @@ constexpr Complex<T> conj(const Complex<T>& z) noexcept
 template <typename T>
 Complex<T> log(const Complex<T>& z) noexcept
 {
-   T a = arg(z);
-
-   if (z.im == T(0) && a < T(0)) {
-      a = -a;
-   }
-
-   return { 0.5*std::log(norm_sqr(z)), a };
+   return { 0.5*std::log(norm_sqr(z)), arg(z) };
 }
 
 template <typename T>
