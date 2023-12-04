@@ -67,10 +67,11 @@ void normalize_to_interval(Eigen::Matrix<double,M,N>& m, double min = -1., doubl
    const auto size = m.size();
 
    for (int i = 0; i < size; i++) {
-      if (data[i] < min)
+      if (data[i] < min) {
          data[i] = min;
-      else if (data[i] > max)
+      } else if (data[i] > max) {
          data[i] = max;
+      }
    }
 }
 
