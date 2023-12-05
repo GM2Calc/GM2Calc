@@ -317,7 +317,7 @@ double T7(double u, double w, double cw2) noexcept
    const auto s1 = u + w - 1.0 + std::sqrt(ra); // Eq.(79)
 
    const auto res =
-      -0.5*f5*(2*(u + w) - sqr(u - w) - 1)*gm2calc::log(s1/(2*std::sqrt(u*w)))
+      -0.5*f5*(2*(u + w) - sqr(u - w) - 1)*std::log(s1/(2*std::sqrt(u*w)))
       *(u + w - 1 - 4*u*w/s1);
 
    return std::real(res);
@@ -333,7 +333,7 @@ double T8(double u, double w, double cw2) noexcept
    const auto s2 = u + w - cw2 + std::sqrt(ra); // Eq.(81)
 
    const auto res =
-      2.0*f6*(4*u*w - sqr(u + w - cw2))*gm2calc::log(s2/(2*std::sqrt(u*w)))
+      2.0*f6*(4*u*w - sqr(u + w - cw2))*std::log(s2/(2*std::sqrt(u*w)))
       *((u + w)/cw2 - 4.0*u*w/(cw2*s2) - 1.0);
 
    return std::real(res);
