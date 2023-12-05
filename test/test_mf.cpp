@@ -111,3 +111,18 @@ TEST_CASE("mtau_MSbar_at_1TeV")
 
    CHECK_CLOSE(mtau, mtau_expected, 0.01);
 }
+
+
+// This test checks for non-convergence of the iteration to determine
+// Lambda_QCD due to a too small renormalization scale
+TEST_CASE("non-convergence")
+{
+   const double alpha_s = 0.1184;
+   const double scale = 1e-15;
+   const double mb_mb = 4.2;
+
+   const auto mb_mz = gm2calc::calculate_mb_SM5_DRbar(mb_mb, alpha_s, scale);
+
+   CHECK_LT(mb_mz, 5.0);
+   CHECK_GT(mb_mz, 1.0);
+}
