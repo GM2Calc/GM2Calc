@@ -2,6 +2,7 @@
 
 #include "doctest.h"
 #include "gm2calc/MSSMNoFV_onshell.hpp"
+#include "gm2calc/gm2_uncertainty.hpp"
 #include "gm2_linalg.hpp"
 #include <Eigen/Core>
 
@@ -303,4 +304,16 @@ TEST_CASE("goldstone_boson_position")
 
    CHECK_CLOSE(model.get_MAh(0), model.get_MVZ(), eps);
    CHECK_CLOSE(model.get_MHpm(0), model.get_MVWm(), eps);
+}
+
+
+TEST_CASE("uncertainty-size")
+{
+   const auto model = setup_gm2calc();
+   const auto damu_0l = gm2calc::calculate_uncertainty_amu_0loop(model);
+   const auto damu_1l = gm2calc::calculate_uncertainty_amu_1loop(model);
+   const auto damu_2l = gm2calc::calculate_uncertainty_amu_2loop(model);
+
+   CHECK_GT(damu_0l, damu_1l);
+   CHECK_GT(damu_1l, damu_2l);
 }

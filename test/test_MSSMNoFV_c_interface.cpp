@@ -239,3 +239,23 @@ TEST_CASE("uncertainty")
 
    gm2calc_mssmnofv_free(model);
 }
+
+
+TEST_CASE("uncertainty-size")
+{
+   MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
+
+   setup(model);
+
+   const gm2calc::MSSMNoFV_onshell mcpp(
+      *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
+
+   const auto damu_0l = gm2calc_mssmnofv_calculate_uncertainty_amu_0loop(model);
+   const auto damu_1l = gm2calc_mssmnofv_calculate_uncertainty_amu_1loop(model);
+   const auto damu_2l = gm2calc_mssmnofv_calculate_uncertainty_amu_2loop(model);
+
+   gm2calc_mssmnofv_free(model);
+
+   CHECK_GT(damu_0l, damu_1l);
+   CHECK_GT(damu_1l, damu_2l);
+}
