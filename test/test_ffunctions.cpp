@@ -73,6 +73,54 @@ TEST_CASE("symmetries")
    CHECK_CLOSE(Iabc(1.0, 2.0, 3.0), Iabc(3.0, 2.0, 1.0), eps);
 }
 
+TEST_CASE("errors")
+{
+   CHECK(std::isnan(gm2calc::F1(-1)));
+   CHECK(std::isnan(gm2calc::F2(-1)));
+   CHECK(std::isnan(gm2calc::F3(-1)));
+
+   CHECK(std::isnan(gm2calc::Fa(-1, 0)));
+   CHECK(std::isnan(gm2calc::Fa(0, -1)));
+   CHECK(std::isnan(gm2calc::Fa(-1, -1)));
+
+   CHECK(std::isnan(gm2calc::Fb(-1, 0)));
+   CHECK(std::isnan(gm2calc::Fb(0, -1)));
+   CHECK(std::isnan(gm2calc::Fb(-1, -1)));
+
+   CHECK(std::isnan(gm2calc::FPZ(-1, 0)));
+   CHECK(std::isnan(gm2calc::FPZ(0, -1)));
+   CHECK(std::isnan(gm2calc::FPZ(-1, -1)));
+
+   CHECK(std::isnan(gm2calc::FSZ(-1, 0)));
+   CHECK(std::isnan(gm2calc::FSZ(0, -1)));
+   CHECK(std::isnan(gm2calc::FSZ(-1, -1)));
+
+   CHECK(std::isnan(gm2calc::f_PS(-1)));
+   CHECK(std::isnan(gm2calc::f_S(-1)));
+   CHECK(std::isnan(gm2calc::f_sferm(-1)));
+   CHECK(std::isnan(gm2calc::f_CSl(-1)));
+   CHECK(std::isnan(gm2calc::f_CSd(-1, 0, 1, 1)));
+   CHECK(std::isnan(gm2calc::f_CSd(0, -1, 1, 1)));
+   CHECK(std::isnan(gm2calc::f_CSd(-1, -1, 1, 1)));
+   CHECK(std::isnan(gm2calc::f_CSu(-1, 0, 1, 1)));
+   CHECK(std::isnan(gm2calc::f_CSu(0, -1, 1, 1)));
+   CHECK(std::isnan(gm2calc::f_CSu(-1, -1, 1, 1)));
+
+   CHECK(std::isnan(gm2calc::FCWl(-1, 0)));
+   CHECK(std::isnan(gm2calc::FCWl(0, -1)));
+   CHECK(std::isnan(gm2calc::FCWl(-1, -1)));
+
+   CHECK(std::isnan(gm2calc::FCWu(-1, 0, 0, 0, 1, 1)));
+   CHECK(std::isnan(gm2calc::FCWu(0, -1, 0, 0, 1, 1)));
+   CHECK(std::isnan(gm2calc::FCWu(0, 0, -1, 0, 1, 1)));
+   CHECK(std::isnan(gm2calc::FCWu(0, 0, 0, -1, 1, 1)));
+
+   CHECK(std::isnan(gm2calc::FCWd(-1, 0, 0, 0, 1, 1)));
+   CHECK(std::isnan(gm2calc::FCWd(0, -1, 0, 0, 1, 1)));
+   CHECK(std::isnan(gm2calc::FCWd(0, 0, -1, 0, 1, 1)));
+   CHECK(std::isnan(gm2calc::FCWd(0, 0, 0, -1, 1, 1)));
+}
+
 template <typename T>
 void test_1(const char* func_name, T func, double eps)
 {

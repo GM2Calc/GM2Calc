@@ -810,6 +810,7 @@ double FPZ(double x, double y) noexcept
 {
    if (x < 0 || y < 0) {
       ERROR("FPZ: arguments must not be negative.");
+      return std::numeric_limits<double>::quiet_NaN();
    }
 
    sort(x, y);
@@ -840,6 +841,7 @@ double FSZ(double x, double y) noexcept
 {
    if (x < 0 || y < 0) {
       ERROR("FSZ: arguments must not be negative.");
+      return std::numeric_limits<double>::quiet_NaN();
    }
 
    sort(x, y);
@@ -878,6 +880,7 @@ double FCWl(double x, double y) noexcept
 {
    if (x < 0 || y < 0) {
       ERROR("FCWl: arguments must not be negative.");
+      return std::numeric_limits<double>::quiet_NaN();
    }
 
    sort(x, y);
@@ -910,6 +913,7 @@ double FCWu(double xu, double xd, double yu, double yd, double qu, double qd) no
 {
    if (xu < 0 || xd < 0 || yu < 0 || yd < 0) {
       ERROR("FCWu: arguments must not be negative.");
+      return std::numeric_limits<double>::quiet_NaN();
    }
 
    constexpr double eps = 1e-8;
@@ -938,6 +942,7 @@ double FCWd(double xu, double xd, double yu, double yd, double qu, double qd) no
 {
    if (xu < 0 || xd < 0 || yu < 0 || yd < 0) {
       ERROR("FCWd: arguments must not be negative.");
+      return std::numeric_limits<double>::quiet_NaN();
    }
 
    constexpr double eps = 1e-8;
