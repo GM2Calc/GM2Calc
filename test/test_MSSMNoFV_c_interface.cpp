@@ -22,6 +22,15 @@
    CHECK_CLOSE(a,b,std::numeric_limits<double>::epsilon())
 
 
+class Cleanup_on_destruction {
+public:
+   Cleanup_on_destruction(MSSMNoFV_onshell* model_) : model(model_) {}
+   ~Cleanup_on_destruction() { gm2calc_mssmnofv_calculate_masses(model); }
+private:
+   MSSMNoFV_onshell* model = nullptr;
+};
+
+
 void setup(MSSMNoFV_onshell* model)
 {
    /* fill DR-bar parameters */
@@ -149,20 +158,20 @@ void test_parameters(const MSSMNoFV_onshell* model, const gm2calc::MSSMNoFV_onsh
 TEST_CASE("parameter_setters")
 {
    MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
+   Cleanup_on_destruction cleanup(model);
    gm2calc::MSSMNoFV_onshell model2;
 
    setup(model);
    setup(model2);
 
    test_parameters(model, model2);
-
-   gm2calc_mssmnofv_free(model);
 }
 
 
 TEST_CASE("parameter_getters")
 {
    MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
+   Cleanup_on_destruction cleanup(model);
 
    setup(model);
 
@@ -170,14 +179,13 @@ TEST_CASE("parameter_getters")
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
 
    test_parameters(model, mcpp);
-
-   gm2calc_mssmnofv_free(model);
 }
 
 
 TEST_CASE("1_loop")
 {
    MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
+   Cleanup_on_destruction cleanup(model);
 
    setup(model);
 
@@ -190,14 +198,13 @@ TEST_CASE("1_loop")
    CHECK_EQUAL(gm2calc_mssmnofv_calculate_amu_1loop(model), gm2calc::calculate_amu_1loop(mcpp));
    CHECK_EQUAL(gm2calc_mssmnofv_calculate_amu_1loop_non_tan_beta_resummed(model),
                gm2calc::calculate_amu_1loop_non_tan_beta_resummed(mcpp));
-
-   gm2calc_mssmnofv_free(model);
 }
 
 
 TEST_CASE("2_loop")
 {
    MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
+   Cleanup_on_destruction cleanup(model);
 
    setup(model);
 
@@ -220,14 +227,13 @@ TEST_CASE("2_loop")
    CHECK_EQUAL(gm2calc_mssmnofv_calculate_amu_2loop(model), gm2calc::calculate_amu_2loop(mcpp));
    CHECK_EQUAL(gm2calc_mssmnofv_calculate_amu_2loop_non_tan_beta_resummed(model),
                gm2calc::calculate_amu_2loop_non_tan_beta_resummed(mcpp));
-
-   gm2calc_mssmnofv_free(model);
 }
 
 
 TEST_CASE("uncertainty")
 {
    MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
+   Cleanup_on_destruction cleanup(model);
 
    setup(model);
 
@@ -236,14 +242,13 @@ TEST_CASE("uncertainty")
 
    CHECK_EQUAL(gm2calc_mssmnofv_calculate_uncertainty_amu_2loop(model),
                gm2calc::calculate_uncertainty_amu_2loop(mcpp));
-
-   gm2calc_mssmnofv_free(model);
 }
 
 
 TEST_CASE("uncertainty-size")
 {
    MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
+   Cleanup_on_destruction cleanup(model);
 
    setup(model);
 
@@ -253,8 +258,6 @@ TEST_CASE("uncertainty-size")
    const auto damu_0l = gm2calc_mssmnofv_calculate_uncertainty_amu_0loop(model);
    const auto damu_1l = gm2calc_mssmnofv_calculate_uncertainty_amu_1loop(model);
    const auto damu_2l = gm2calc_mssmnofv_calculate_uncertainty_amu_2loop(model);
-
-   gm2calc_mssmnofv_free(model);
 
    CHECK_GT(damu_0l, damu_1l);
    CHECK_GT(damu_1l, damu_2l);
