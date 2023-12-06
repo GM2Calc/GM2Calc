@@ -1,5 +1,6 @@
 #!/bin/sh
 
+BASEDIR="$(dirname $0)"
 GM2CALC=${GM2CALC:-bin/gm2calc.x}
 
 if test ! -x "${GM2CALC}"; then
@@ -11,12 +12,22 @@ errors=0
 passes=0
 
 expect_failure() {
-    if [ $1  -eq 0 ] ; then
+    if [ $1 -eq 0 ] ; then
         printf "%s\n" " [FAIL]"
         errors=$(expr $errors + 1)
     else
         printf "%s\n" " [OK]"
         passes=$(expr $passes + 1)
+    fi
+}
+
+expect_success() {
+    if [ $1 -eq 0 ] ; then
+        printf "%s\n" " [OK]"
+        passes=$(expr $passes + 1)
+    else
+        printf "%s\n" " [FAIL]"
+        errors=$(expr $errors + 1)
     fi
 }
 
@@ -26,10 +37,24 @@ test_no_input_source() {
     expect_failure "$?"
 }
 
+test_detailed_output() {
+    printf "%s" "test_detailed_output"
+    { cat $2
+      cat <<EOF
+Block GM2CalcConfig
+     0     1     # minimal output
+EOF
+    } | ${GM2CALC} "--$1-input-file=-" >/dev/null 2>&1
+    expect_success "$?"
+}
+
 # run tests
 test_no_input_source "gm2calc"
 test_no_input_source "slha"
 test_no_input_source "thdm"
+test_detailed_output "gm2calc" "${BASEDIR}/../input/example.gm2"
+test_detailed_output "slha" "${BASEDIR}/../input/example.slha"
+test_detailed_output "thdm" "${BASEDIR}/../input/example.thdm"
 
 count=$(expr $errors + $passes)
 
