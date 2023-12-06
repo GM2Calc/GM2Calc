@@ -31,9 +31,21 @@ expect_success() {
     fi
 }
 
+test_version_output() {
+    printf "%s" "test_help_output"
+    ${GM2CALC} "--version" >/dev/null 2>&1
+    expect_success "$?"
+}
+
+test_help_output() {
+    printf "%s" "test_help_output"
+    ${GM2CALC} "--help" >/dev/null 2>&1
+    expect_success "$?"
+}
+
 test_no_input_source() {
     printf "%s" "test_no_input_source $1"
-    ${GM2CALC} "--$1-input-file=" 2>/dev/null
+    ${GM2CALC} "--$1-input-file=" >/dev/null 2>&1
     expect_failure "$?"
 }
 
@@ -82,6 +94,8 @@ EOF
 }
 
 # run tests
+test_help_output
+test_version_output
 test_no_input_source "gm2calc"
 test_no_input_source "slha"
 test_no_input_source "thdm"
