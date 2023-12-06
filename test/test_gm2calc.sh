@@ -21,12 +21,15 @@ expect_failure() {
 }
 
 test_no_input_source() {
-    printf "%s" "test_no_input_source"
-    ${GM2CALC} "--gm2calc-input-file=" 2>/dev/null
+    printf "%s" "test_no_input_source $1"
+    ${GM2CALC} "--$1-input-file=" 2>/dev/null
     expect_failure "$?"
 }
 
-test_no_input_source
+# run tests
+test_no_input_source "gm2calc"
+test_no_input_source "slha"
+test_no_input_source "thdm"
 
 count=$(expr $errors + $passes)
 
