@@ -42,6 +42,9 @@ if(BASH_PROGRAM)
   add_test(NAME test_points
     COMMAND ${BASH_PROGRAM} -c
     "GM2CALC=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/gm2calc.x ${CMAKE_CURRENT_SOURCE_DIR}/test_points.sh > test_points.sh.out 2>&1")
+  add_test(NAME test_gm2calc
+    COMMAND ${BASH_PROGRAM} -c
+    "GM2CALC=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/gm2calc.x ${CMAKE_CURRENT_SOURCE_DIR}/test_gm2calc.sh > test_gm2calc.sh.out 2>&1")
 endif (BASH_PROGRAM)
 
 # test Mathematica scripts
