@@ -90,7 +90,6 @@ TEST_CASE("test-g3")
 TEST_CASE("test-g3")
 {
    const double eps = std::numeric_limits<double>::epsilon();
-   const double pi = 3.1415926535897932;
    const auto sm = gm2calc::SM();
    const double gY = sm.get_gY();
    const double g2 = sm.get_g2();
