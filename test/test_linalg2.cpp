@@ -83,8 +83,8 @@ typedef boost::mpl::list<
 BOOST_AUTO_TEST_CASE_TEMPLATE(test_svd, T, svd_tests)
 {
     typedef typename T::S S;
-    const size_t M = T::M;
-    const size_t N = T::N;
+    const std::size_t M = T::M;
+    const std::size_t N = T::N;
 
     Eigen::Matrix<S, M, N> m = Eigen::Matrix<S, M, N>::Random();
     Eigen::Array<double, MIN_(M, N), 1> s;
@@ -172,7 +172,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE
 (test_diagonalize_symmetric, T, diagonalize_symmetric_tests)
 {
     typedef typename T::S S;
-    const size_t N = T::N;
+    const std::size_t N = T::N;
 
     Eigen::Matrix<S, N, N> m = Eigen::Matrix<S, N, N>::Random();
     m = ((m + m.transpose())/2).eval();
@@ -183,18 +183,18 @@ BOOST_AUTO_TEST_CASE_TEMPLATE
     Eigen::Matrix<std::complex<double>, N, N> diag = u.adjoint() * m * u.conjugate();
 
     BOOST_CHECK((s >= 0).all());
-    for (size_t i = 0; i < N; i++)
-	for (size_t j = 0; j < N; j++)
+    for (std::size_t i = 0; i < N; i++)
+	for (std::size_t j = 0; j < N; j++)
 	    BOOST_CHECK_SMALL(abs(diag(i,j) - (i==j ? s(i) : 0)), 1e-12);
 
     if (T::check_ascending_order)
-	for (size_t i = 0; i < N-1; i++)
+	for (std::size_t i = 0; i < N-1; i++)
 	    BOOST_CHECK(s[i] <= s[i+1]);
 
     T().svs(m, s);
     BOOST_CHECK((s >= 0).all());
-    for (size_t i = 0; i < N; i++)
-	for (size_t j = 0; j < N; j++)
+    for (std::size_t i = 0; i < N; i++)
+	for (std::size_t j = 0; j < N; j++)
 	    BOOST_CHECK_SMALL(abs(diag(i,j) - (i==j ? s(i) : 0)), 1e-12);
 }
 #endif // TEST_LINALG2_PART2
@@ -223,7 +223,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE
 (test_diagonalize_hermitian, T, diagonalize_hermitian_tests)
 {
     typedef typename T::S S;
-    const size_t N = T::N;
+    const std::size_t N = T::N;
 
     Eigen::Matrix<S, N, N> m = Eigen::Matrix<S, N, N>::Random();
     m = ((m + m.adjoint())/2).eval();
@@ -233,11 +233,11 @@ BOOST_AUTO_TEST_CASE_TEMPLATE
     T().fxn(m, w, &z);		// following LAPACK convention
     Eigen::Matrix<S, N, N> diag = z.adjoint() * m * z;
 
-    for (size_t i = 0; i < N; i++)
-	for (size_t j = 0; j < N; j++)
+    for (std::size_t i = 0; i < N; i++)
+	for (std::size_t j = 0; j < N; j++)
 	    BOOST_CHECK_SMALL(abs(diag(i,j) - (i==j ? w(i) : 0)), 1e-12);
 
-    for (size_t i = 0; i < N-1; i++)
+    for (std::size_t i = 0; i < N-1; i++)
 	BOOST_CHECK(w[i] <= w[i+1]);
 }
 #endif // TEST_LINALG2_PART3
@@ -275,8 +275,8 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_fs_svd, T, fs_svd_tests)
 {
     typedef typename T::R R;
     typedef typename T::S S;
-    const size_t M = T::M;
-    const size_t N = T::N;
+    const std::size_t M = T::M;
+    const std::size_t N = T::N;
     const R eps = numeric_limits<R>::epsilon();
 
     Eigen::Matrix<S, M, N> m = Eigen::Matrix<S, M, N>::Random();
@@ -319,8 +319,8 @@ typedef boost::mpl::list<
 BOOST_AUTO_TEST_CASE_TEMPLATE(test_casting_fs_svd, T, casting_fs_svd_tests)
 {
     typedef typename T::R R;
-    const size_t M = T::M;
-    const size_t N = T::N;
+    const std::size_t M = T::M;
+    const std::size_t N = T::N;
     const R eps = numeric_limits<R>::epsilon();
 
     Eigen::Matrix<R, M, N> m = Eigen::Matrix<R, M, N>::Random();
@@ -364,7 +364,7 @@ typedef boost::mpl::list<
     Test_fs<long double, long double, 6>
 > fs_diagonalize_symmetric_tests;
 
-template<typename R, typename S, size_t N>
+template<typename R, typename S, std::size_t N>
 void check_fs_diagonalize_symmetric(Eigen::Matrix<S, N, N> m)
 {
     const R eps = numeric_limits<R>::epsilon();
@@ -376,17 +376,17 @@ void check_fs_diagonalize_symmetric(Eigen::Matrix<S, N, N> m)
     Eigen::Matrix<std::complex<R>, N, N> diag = u.conjugate() * m * u.adjoint();
 
     BOOST_CHECK((s >= 0).all());
-    for (size_t i = 0; i < N; i++)
-	for (size_t j = 0; j < N; j++)
+    for (std::size_t i = 0; i < N; i++)
+	for (std::size_t j = 0; j < N; j++)
 	    BOOST_CHECK_SMALL(abs(diag(i,j) - (i==j ? s(i) : 0)), 5000*eps);
 
-    for (size_t i = 0; i < N-1; i++)
+    for (std::size_t i = 0; i < N-1; i++)
 	BOOST_CHECK(s[i] <= s[i+1]);
 
     fs_diagonalize_symmetric(m, s);
     BOOST_CHECK((s >= 0).all());
-    for (size_t i = 0; i < N; i++)
-	for (size_t j = 0; j < N; j++)
+    for (std::size_t i = 0; i < N; i++)
+	for (std::size_t j = 0; j < N; j++)
 	    BOOST_CHECK_SMALL(abs(diag(i,j) - (i==j ? s(i) : 0)), 5000*eps);
 }
 
@@ -463,7 +463,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE
 {
     typedef typename T::R R;
     typedef typename T::S S;
-    const size_t N = T::N;
+    const std::size_t N = T::N;
 
     Eigen::Matrix<S, N, N> m = Eigen::Matrix<S, N, N>::Random();
     m = ((m + m.transpose())/2).eval();
@@ -499,7 +499,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE
     typedef typename P::first T;
     typedef typename T::R R;
     typedef typename T::S S;
-    const size_t N = T::N;
+    const std::size_t N = T::N;
     const R eps = numeric_limits<R>::epsilon();
 
     Eigen::Matrix<S, N, N> m = Eigen::Matrix<S, N, N>::Random();
@@ -510,16 +510,16 @@ BOOST_AUTO_TEST_CASE_TEMPLATE
     fs_diagonalize_hermitian(m, w, z); // following SARAH convention
     Eigen::Matrix<S, N, N> diag = z * m * z.adjoint();
 
-    for (size_t i = 0; i < N; i++)
-	for (size_t j = 0; j < N; j++)
+    for (std::size_t i = 0; i < N; i++)
+	for (std::size_t j = 0; j < N; j++)
 	    BOOST_CHECK_SMALL(abs(diag(i,j) - (i==j ? w(i) : 0)), 50000*eps);
 
-    for (size_t i = 0; i < N-1; i++)
+    for (std::size_t i = 0; i < N-1; i++)
 	BOOST_CHECK(abs(w[i]) <= abs(w[i+1]));
 
     fs_diagonalize_hermitian(m, w);
-    for (size_t i = 0; i < N; i++)
-	for (size_t j = 0; j < N; j++)
+    for (std::size_t i = 0; i < N; i++)
+	for (std::size_t j = 0; j < N; j++)
 	    BOOST_CHECK_SMALL(abs(diag(i,j) - (i==j ? w(i) : 0)), 50000*eps);
 }
 #endif // TEST_LINALG2_PART7
@@ -572,7 +572,7 @@ TEST_CASE("test_fs_svd_errbd_easy")
     // BOOST_WARN_GE (s_error.abs().minCoeff(), s_errbd / 10);
     CHECK_LE(s_error.abs().maxCoeff(), s_errbd * 10);
 
-    for (size_t i = 0; i < 3; i++) {
+    for (std::size_t i = 0; i < 3; i++) {
 	double u_error_1 = angle(u.row(i).eval(),   u_true.row(i) .eval());
 	double v_error_1 = angle(v.row(i).eval(),   v_true.row(i) .eval());
 	double u_error_2 = angle(u.row(i).eval(), (-u_true.row(i)).eval());
@@ -631,7 +631,7 @@ TEST_CASE("test_fs_svd_errbd_hard")
     // BOOST_WARN_GE (s_error.abs().minCoeff(), s_errbd / 10);
     CHECK_LE(s_error.abs().maxCoeff(), s_errbd * 10);
 
-    for (size_t i = 0; i < 3; i++) {
+    for (std::size_t i = 0; i < 3; i++) {
 	double u_error_1 = angle(u.row(i).eval(),   u_true.row(i) .eval());
 	double v_error_1 = angle(v.row(i).eval(),   v_true.row(i) .eval());
 	double u_error_2 = angle(u.row(i).eval(), (-u_true.row(i)).eval());
@@ -684,7 +684,7 @@ TEST_CASE("test_fs_diagonalize_hermitian_errbd")
     // BOOST_WARN_GE (w_error.abs().minCoeff(), w_errbd / 10);
     CHECK_LE(w_error.abs().maxCoeff(), w_errbd * 10);
 
-    for (size_t i = 0; i < 3; i++) {
+    for (std::size_t i = 0; i < 3; i++) {
 	double z_error_1 = angle(z.row(i).eval(),   z_true.row(i) .eval());
 	double z_error_2 = angle(z.row(i).eval(), (-z_true.row(i)).eval());
 	double z_error = std::min(z_error_1, z_error_2);
