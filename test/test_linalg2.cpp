@@ -29,7 +29,6 @@
       CHECK(std::abs(a) < (eps));                       \
    } while (0)
 
-using namespace gm2calc;
 
 template<class S_, int M_, int N_,
 	 void fxn_(const Eigen::Matrix<S_, M_, N_>&,
@@ -284,7 +283,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_fs_svd, T, fs_svd_tests)
     Eigen::Matrix<S, M, M> u;
     Eigen::Matrix<S, N, N> v;
 
-    fs_svd(m, s, u, v);		// following SARAH convention
+    gm2calc::fs_svd(m, s, u, v);		// following SARAH convention
     Eigen::Matrix<S, M, N> sigma = u.conjugate() * m * v.adjoint();
 
     BOOST_CHECK((s >= 0).all());
@@ -295,7 +294,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_fs_svd, T, fs_svd_tests)
     for (Eigen::Index i = 0; i < s.size()-1; i++)
 	BOOST_CHECK(s[i] <= s[i+1]);
 
-    fs_svd(m, s);
+    gm2calc::fs_svd(m, s);
     BOOST_CHECK((s >= 0).all());
     for (Eigen::Index i = 0; i < sigma.rows(); i++)
 	for (Eigen::Index j = 0; j < sigma.cols(); j++)
@@ -328,7 +327,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_casting_fs_svd, T, casting_fs_svd_tests)
     Eigen::Matrix<std::complex<R>, M, M> u;
     Eigen::Matrix<std::complex<R>, N, N> v;
 
-    fs_svd(m, s, u, v);		// following SARAH convention
+    gm2calc::fs_svd(m, s, u, v);		// following SARAH convention
     Eigen::Matrix<std::complex<R>, M, N> sigma = u.conjugate() * m * v.adjoint();
 
     BOOST_CHECK((s >= 0).all());
@@ -339,7 +338,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_casting_fs_svd, T, casting_fs_svd_tests)
     for (Eigen::Index i = 0; i < s.size()-1; i++)
 	BOOST_CHECK(s[i] <= s[i+1]);
 
-    fs_svd(m, s);
+    gm2calc::fs_svd(m, s);
     BOOST_CHECK((s >= 0).all());
     for (Eigen::Index i = 0; i < sigma.rows(); i++)
 	for (Eigen::Index j = 0; j < sigma.cols(); j++)
@@ -372,7 +371,7 @@ void check_fs_diagonalize_symmetric(Eigen::Matrix<S, N, N> m)
     Eigen::Array<R, N, 1> s;
     Eigen::Matrix<std::complex<R>, N, N> u;
 
-    fs_diagonalize_symmetric(m, s, u);
+    gm2calc::fs_diagonalize_symmetric(m, s, u);
     Eigen::Matrix<std::complex<R>, N, N> diag = u.conjugate() * m * u.adjoint();
 
     BOOST_CHECK((s >= 0).all());
@@ -383,7 +382,7 @@ void check_fs_diagonalize_symmetric(Eigen::Matrix<S, N, N> m)
     for (std::size_t i = 0; i < N-1; i++)
 	BOOST_CHECK(s[i] <= s[i+1]);
 
-    fs_diagonalize_symmetric(m, s);
+    gm2calc::fs_diagonalize_symmetric(m, s);
     BOOST_CHECK((s >= 0).all());
     for (std::size_t i = 0; i < N; i++)
 	for (std::size_t j = 0; j < N; j++)
@@ -507,7 +506,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE
     Eigen::Array<R, N, 1> w;
     Eigen::Matrix<S, N, N> z;
 
-    fs_diagonalize_hermitian(m, w, z); // following SARAH convention
+    gm2calc::fs_diagonalize_hermitian(m, w, z); // following SARAH convention
     Eigen::Matrix<S, N, N> diag = z * m * z.adjoint();
 
     for (std::size_t i = 0; i < N; i++)
@@ -517,7 +516,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE
     for (std::size_t i = 0; i < N-1; i++)
 	BOOST_CHECK(abs(w[i]) <= abs(w[i+1]));
 
-    fs_diagonalize_hermitian(m, w);
+    gm2calc::fs_diagonalize_hermitian(m, w);
     for (std::size_t i = 0; i < N; i++)
 	for (std::size_t j = 0; j < N; j++)
 	    BOOST_CHECK_SMALL(abs(diag(i,j) - (i==j ? w(i) : 0)), 50000*eps);
@@ -549,7 +548,7 @@ TEST_CASE("test_fs_svd_errbd_easy")
     double s_errbd;
     Eigen::Array<double, 3, 1> u_errbd;
     Eigen::Array<double, 3, 1> v_errbd;
-    fs_svd(m, s, u, v, s_errbd, u_errbd, v_errbd);
+    gm2calc::fs_svd(m, s, u, v, s_errbd, u_errbd, v_errbd);
 
     Eigen::Array<double, 3, 1> s_true;
     s_true <<			// from Mathematica
@@ -608,7 +607,7 @@ TEST_CASE("test_fs_svd_errbd_hard")
     double s_errbd;
     Eigen::Array<double, 3, 1> u_errbd;
     Eigen::Array<double, 3, 1> v_errbd;
-    fs_svd(m, s, u, v, s_errbd, u_errbd, v_errbd);
+    gm2calc::fs_svd(m, s, u, v, s_errbd, u_errbd, v_errbd);
 
     Eigen::Array<double, 3, 1> s_true;
     s_true <<			// from Mathematica
@@ -667,7 +666,7 @@ TEST_CASE("test_fs_diagonalize_hermitian_errbd")
     Eigen::Matrix<double, 3, 3> z;
     double w_errbd;
     Eigen::Array<double, 3, 1> z_errbd;
-    fs_diagonalize_hermitian(m, w, z, w_errbd, z_errbd);
+    gm2calc::fs_diagonalize_hermitian(m, w, z, w_errbd, z_errbd);
 
     Eigen::Array<double, 3, 1> w_true;
     w_true <<			// from Mathematica
@@ -708,6 +707,6 @@ TEST_CASE("test_diagonalize_symmetric_errbd")
    Eigen::Matrix<std::complex<double>, 4, 4> u;
    double s_errbd = 0;
    Eigen::Array<double, 4, 1> u_errbd;
-   fs_diagonalize_symmetric_errbd(m, s, &u, &s_errbd, &u_errbd);
+   gm2calc::fs_diagonalize_symmetric_errbd(m, s, &u, &s_errbd, &u_errbd);
    CHECK(u.isUnitary());
 }
