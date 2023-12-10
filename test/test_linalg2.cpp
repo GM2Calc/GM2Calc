@@ -29,7 +29,6 @@
       CHECK(std::abs(a) < (eps));                       \
    } while (0)
 
-using namespace std;
 using namespace Eigen;
 using namespace gm2calc;
 
@@ -59,21 +58,21 @@ struct Test_svd {
 #ifdef TEST_LINALG2_PART1
 typedef boost::mpl::list<
     // use Eigen::JacobiSVD
-    Test_svd<complex<double>, 1, 1, svd, svd>,
-    Test_svd<complex<double>, 2, 2, svd, svd>,
-    Test_svd<complex<double>, 3, 3, svd, svd>,
-    Test_svd<complex<double>, 6, 6, svd, svd>,
+    Test_svd<std::complex<double>, 1, 1, svd, svd>,
+    Test_svd<std::complex<double>, 2, 2, svd, svd>,
+    Test_svd<std::complex<double>, 3, 3, svd, svd>,
+    Test_svd<std::complex<double>, 6, 6, svd, svd>,
     Test_svd<double	    , 1, 1, svd, svd>,
     Test_svd<double	    , 2, 2, svd, svd>,
     Test_svd<double	    , 3, 3, svd, svd>,
     Test_svd<double	    , 6, 6, svd, svd>,
 
-    Test_svd<complex<double>, 1, 1, reorder_svd, reorder_svd, true>,
-    Test_svd<complex<double>, 2, 2, reorder_svd, reorder_svd, true>,
-    Test_svd<complex<double>, 3, 3, reorder_svd, reorder_svd, true>,
-    Test_svd<complex<double>, 6, 6, reorder_svd, reorder_svd, true>,
-    Test_svd<complex<double>, 4, 6, reorder_svd, reorder_svd, true>,
-    Test_svd<complex<double>, 6, 4, reorder_svd, reorder_svd, true>,
+    Test_svd<std::complex<double>, 1, 1, reorder_svd, reorder_svd, true>,
+    Test_svd<std::complex<double>, 2, 2, reorder_svd, reorder_svd, true>,
+    Test_svd<std::complex<double>, 3, 3, reorder_svd, reorder_svd, true>,
+    Test_svd<std::complex<double>, 6, 6, reorder_svd, reorder_svd, true>,
+    Test_svd<std::complex<double>, 4, 6, reorder_svd, reorder_svd, true>,
+    Test_svd<std::complex<double>, 6, 4, reorder_svd, reorder_svd, true>,
     Test_svd<double	    , 1, 1, reorder_svd, reorder_svd, true>,
     Test_svd<double	    , 2, 2, reorder_svd, reorder_svd, true>,
     Test_svd<double	    , 3, 3, reorder_svd, reorder_svd, true>,
@@ -115,7 +114,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_svd, T, svd_tests)
 
 template<class S_, int N_,
 	 void fxn_(const Matrix<S_, N_, N_>&,
-		   Array<double, N_, 1>&, Matrix<complex<double>, N_, N_>&),
+		   Array<double, N_, 1>&, Matrix<std::complex<double>, N_, N_>&),
 	 void svs_(const Matrix<S_, N_, N_>&,
 		   Array<double, N_, 1>&),
 	 bool check_ascending_order_ = false>
@@ -124,7 +123,7 @@ struct Test_diagonalize_symmetric {
     enum { N = N_ };
     enum { check_ascending_order = check_ascending_order_ };
     void fxn(const Matrix<S_, N_, N_>& m,
-	     Array<double, N_, 1>& s, Matrix<complex<double>, N_, N_>& u)
+	     Array<double, N_, 1>& s, Matrix<std::complex<double>, N_, N_>& u)
     { fxn_(m, s, u); }
     void svs(const Matrix<S_, N_, N_>& m,
 	     Array<double, N_, 1>& s)
@@ -135,30 +134,30 @@ struct Test_diagonalize_symmetric {
 typedef boost::mpl::list<
     // use Eigen::JacobiSVD
     Test_diagonalize_symmetric
-	<complex<double>, 1, diagonalize_symmetric, diagonalize_symmetric>,
+	<std::complex<double>, 1, diagonalize_symmetric, diagonalize_symmetric>,
     Test_diagonalize_symmetric
-	<complex<double>, 2, diagonalize_symmetric, diagonalize_symmetric>,
+	<std::complex<double>, 2, diagonalize_symmetric, diagonalize_symmetric>,
     Test_diagonalize_symmetric
-	<complex<double>, 3, diagonalize_symmetric, diagonalize_symmetric>,
+	<std::complex<double>, 3, diagonalize_symmetric, diagonalize_symmetric>,
     Test_diagonalize_symmetric
-	<complex<double>, 4, diagonalize_symmetric, diagonalize_symmetric>,
+	<std::complex<double>, 4, diagonalize_symmetric, diagonalize_symmetric>,
     Test_diagonalize_symmetric
-	<complex<double>, 6, diagonalize_symmetric, diagonalize_symmetric>,
+	<std::complex<double>, 6, diagonalize_symmetric, diagonalize_symmetric>,
 
     Test_diagonalize_symmetric
-	<complex<double>, 1,
+	<std::complex<double>, 1,
 	 reorder_diagonalize_symmetric, reorder_diagonalize_symmetric, true>,
     Test_diagonalize_symmetric
-	<complex<double>, 2,
+	<std::complex<double>, 2,
 	 reorder_diagonalize_symmetric, reorder_diagonalize_symmetric, true>,
     Test_diagonalize_symmetric
-	<complex<double>, 3,
+	<std::complex<double>, 3,
 	 reorder_diagonalize_symmetric, reorder_diagonalize_symmetric, true>,
     Test_diagonalize_symmetric
-	<complex<double>, 4,
+	<std::complex<double>, 4,
 	 reorder_diagonalize_symmetric, reorder_diagonalize_symmetric, true>,
     Test_diagonalize_symmetric
-	<complex<double>, 6,
+	<std::complex<double>, 6,
 	 reorder_diagonalize_symmetric, reorder_diagonalize_symmetric, true>,
 
     // use Eigen::SelfAdjointEigenSolver
@@ -179,10 +178,10 @@ BOOST_AUTO_TEST_CASE_TEMPLATE
     Matrix<S, N, N> m = Matrix<S, N, N>::Random();
     m = ((m + m.transpose())/2).eval();
     Array<double, N, 1> s;
-    Matrix<complex<double>, N, N> u;
+    Matrix<std::complex<double>, N, N> u;
 
     T().fxn(m, s, u);
-    Matrix<complex<double>, N, N> diag = u.adjoint() * m * u.conjugate();
+    Matrix<std::complex<double>, N, N> diag = u.adjoint() * m * u.conjugate();
 
     BOOST_CHECK((s >= 0).all());
     for (size_t i = 0; i < N; i++)
@@ -217,7 +216,7 @@ struct Test_diagonalize_hermitian {
 #ifdef TEST_LINALG2_PART3
 typedef boost::mpl::list<
     // use Eigen::SelfAdjointEigenSolver
-    Test_diagonalize_hermitian<complex<double>, 6, hermitian_eigen>,
+    Test_diagonalize_hermitian<std::complex<double>, 6, hermitian_eigen>,
     Test_diagonalize_hermitian<double	      , 6, hermitian_eigen>
 > diagonalize_hermitian_tests;
 
@@ -254,19 +253,19 @@ struct Test_fs {
 
 #ifdef TEST_LINALG2_PART4
 typedef boost::mpl::list<
-    Test_fs<double, complex<double>, 1>,
-    Test_fs<double, complex<double>, 6>,
-    Test_fs<double, complex<double>, 4, 6>,
-    Test_fs<double, complex<double>, 6, 4>,
+    Test_fs<double, std::complex<double>, 1>,
+    Test_fs<double, std::complex<double>, 6>,
+    Test_fs<double, std::complex<double>, 4, 6>,
+    Test_fs<double, std::complex<double>, 6, 4>,
     Test_fs<double, double	   , 1>,
     Test_fs<double, double	   , 6>,
     Test_fs<double, double	   , 4, 6>,
     Test_fs<double, double	   , 6, 4>,
 
-    Test_fs<long double, complex<long double>, 1>,
-    Test_fs<long double, complex<long double>, 6>,
-    Test_fs<long double, complex<long double>, 4, 6>,
-    Test_fs<long double, complex<long double>, 6, 4>,
+    Test_fs<long double, std::complex<long double>, 1>,
+    Test_fs<long double, std::complex<long double>, 6>,
+    Test_fs<long double, std::complex<long double>, 4, 6>,
+    Test_fs<long double, std::complex<long double>, 6, 4>,
     Test_fs<long double, long double	     , 1>,
     Test_fs<long double, long double	     , 6>,
     Test_fs<long double, long double	     , 4, 6>,
@@ -327,11 +326,11 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_casting_fs_svd, T, casting_fs_svd_tests)
 
     Matrix<R, M, N> m = Matrix<R, M, N>::Random();
     Array<R, MIN_(M, N), 1> s;
-    Matrix<complex<R>, M, M> u;
-    Matrix<complex<R>, N, N> v;
+    Matrix<std::complex<R>, M, M> u;
+    Matrix<std::complex<R>, N, N> v;
 
     fs_svd(m, s, u, v);		// following SARAH convention
-    Matrix<complex<R>, M, N> sigma = u.conjugate() * m * v.adjoint();
+    Matrix<std::complex<R>, M, N> sigma = u.conjugate() * m * v.adjoint();
 
     BOOST_CHECK((s >= 0).all());
     for (Eigen::Index i = 0; i < sigma.rows(); i++)
@@ -352,13 +351,13 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(test_casting_fs_svd, T, casting_fs_svd_tests)
 #ifdef TEST_LINALG2_PART6
 typedef boost::mpl::list<
     // use Eigen::JacobiSVD
-    Test_fs<double, complex<double>, 1>,
-    Test_fs<double, complex<double>, 3>,
-    Test_fs<double, complex<double>, 6>,
+    Test_fs<double, std::complex<double>, 1>,
+    Test_fs<double, std::complex<double>, 3>,
+    Test_fs<double, std::complex<double>, 6>,
 
-    Test_fs<long double, complex<long double>, 1>,
-    Test_fs<long double, complex<long double>, 3>,
-    Test_fs<long double, complex<long double>, 6>,
+    Test_fs<long double, std::complex<long double>, 1>,
+    Test_fs<long double, std::complex<long double>, 3>,
+    Test_fs<long double, std::complex<long double>, 6>,
 
     // use Eigen::SelfAdjointEigenSolver
     Test_fs<double, double, 6>,
@@ -372,10 +371,10 @@ void check_fs_diagonalize_symmetric(Matrix<S, N, N> m)
     const R eps = numeric_limits<R>::epsilon();
 
     Array<R, N, 1> s;
-    Matrix<complex<R>, N, N> u;
+    Matrix<std::complex<R>, N, N> u;
 
     fs_diagonalize_symmetric(m, s, u);
-    Matrix<complex<R>, N, N> diag = u.conjugate() * m * u.adjoint();
+    Matrix<std::complex<R>, N, N> diag = u.conjugate() * m * u.adjoint();
 
     BOOST_CHECK((s >= 0).all());
     for (size_t i = 0; i < N; i++)
@@ -401,9 +400,9 @@ template<typename S, int N>
 struct RandomUnitary;
 
 template<typename R>
-struct RandomUnitary<complex<R>, 1> {
-    Matrix<complex<R>, 1, 1> operator()() const {
-	return Matrix<complex<R>, 1, 1>(polar(R(1), random_angle<R>()));
+struct RandomUnitary<std::complex<R>, 1> {
+    Matrix<std::complex<R>, 1, 1> operator()() const {
+	return Matrix<std::complex<R>, 1, 1>(polar(R(1), random_angle<R>()));
     }
 };
 
@@ -415,17 +414,17 @@ struct RandomUnitary<R, 1> {
 };
 
 template<typename R>
-struct RandomUnitary<complex<R>, 2> {
-    Matrix<complex<R>, 2, 2> operator()() const {
+struct RandomUnitary<std::complex<R>, 2> {
+    Matrix<std::complex<R>, 2, 2> operator()() const {
 	R b = random_angle<R>();
 	R c = random_angle<R>();
 	R d = random_angle<R>();
-	complex<R> p = polar(R(1), c);
-	complex<R> q = polar(R(1), d);
-	Matrix<complex<R>, 2, 2> u;
+	std::complex<R> p = polar(R(1), c);
+	std::complex<R> q = polar(R(1), d);
+	Matrix<std::complex<R>, 2, 2> u;
 	u <<      p *cos(b),      q *sin(b),
 	    -conj(q)*sin(b), conj(p)*cos(b);
-	u *= RandomUnitary<complex<R>, 1>()()(0,0);
+	u *= RandomUnitary<std::complex<R>, 1>()()(0,0);
 	return u;
     }
 };
@@ -489,9 +488,9 @@ typedef boost::mpl::fold<
         boost::mpl::push_front<
           boost::mpl::push_front<
 	      _1,
-	      boost::mpl::pair<Test_fs<double, complex<double>, 6>, _2> >,
+	      boost::mpl::pair<Test_fs<double, std::complex<double>, 6>, _2> >,
 	    boost::mpl::pair<Test_fs<double, double, 6>, _2> >,
-	  boost::mpl::pair<Test_fs<long double, complex<long double>, 6>,_2> >,
+	  boost::mpl::pair<Test_fs<long double, std::complex<long double>, 6>,_2> >,
 	boost::mpl::pair<Test_fs<long double, long double, 6>, _2> >
 >::type fs_diagonalize_hermitian_tests;
 
@@ -588,7 +587,7 @@ TEST_CASE("test_fs_svd_errbd_easy")
 	    u_error = u_error_2;
 	    v_error = v_error_2;
 	}
-	cout << i << ": u_error=" << u_error << " u_errbd=" << u_errbd[i]
+	std::cout << i << ": u_error=" << u_error << " u_errbd=" << u_errbd[i]
 	     << " v_error=" << v_error << " v_errbd=" << v_errbd[i] << '\n';
 	// BOOST_WARN_GE (u_error, u_errbd[i] / 10);
 	CHECK_LE(u_error, u_errbd[i] * 10);
@@ -647,7 +646,7 @@ TEST_CASE("test_fs_svd_errbd_hard")
 	    u_error = u_error_2;
 	    v_error = v_error_2;
 	}
-	cout << i << ": u_error=" << u_error << " u_errbd=" << u_errbd[i]
+	std::cout << i << ": u_error=" << u_error << " u_errbd=" << u_errbd[i]
 	     << " v_error=" << v_error << " v_errbd=" << v_errbd[i] << '\n';
 	// this m seems to be a very bad matrix for error estimation
 	// for singular vectors
@@ -689,8 +688,8 @@ TEST_CASE("test_fs_diagonalize_hermitian_errbd")
     for (size_t i = 0; i < 3; i++) {
 	double z_error_1 = angle(z.row(i).eval(),   z_true.row(i) .eval());
 	double z_error_2 = angle(z.row(i).eval(), (-z_true.row(i)).eval());
-	double z_error = min(z_error_1, z_error_2);
-	cout << i << ": z_error=" << z_error << " z_errbd=" << z_errbd[i]
+	double z_error = std::min(z_error_1, z_error_2);
+	std::cout << i << ": z_error=" << z_error << " z_errbd=" << z_errbd[i]
 	     << '\n';
 	// BOOST_WARN_GE (z_error, z_errbd[i] / 10);
 	CHECK_LE(z_error, z_errbd[i] * 10);
@@ -699,15 +698,15 @@ TEST_CASE("test_fs_diagonalize_hermitian_errbd")
 
 TEST_CASE("test_diagonalize_symmetric_errbd")
 {
-   Matrix<complex<double>, 4, 4> m;
+   Matrix<std::complex<double>, 4, 4> m;
    m <<
-      0. , 0., 0., complex<double>(-4.4299349683288838e-06,7.0893778912230837e-06),
+      0. , 0., 0., std::complex<double>(-4.4299349683288838e-06,7.0893778912230837e-06),
       0. , 0., 0., 4.1620179585196247e-05,
       0. , 0., 0., 3.7871449517912927e-05,
-      complex<double>(-4.4299349683288838e-06,7.0893778912230837e-06), 4.1620179585196247e-05, 3.7871449517912927e-05, 90.229999999964136;
+      std::complex<double>(-4.4299349683288838e-06,7.0893778912230837e-06), 4.1620179585196247e-05, 3.7871449517912927e-05, 90.229999999964136;
 
    Array<double, 4, 1> s;
-   Matrix<complex<double>, 4, 4> u;
+   Matrix<std::complex<double>, 4, 4> u;
    double s_errbd = 0;
    Array<double, 4, 1> u_errbd;
    fs_diagonalize_symmetric_errbd(m, s, &u, &s_errbd, &u_errbd);
