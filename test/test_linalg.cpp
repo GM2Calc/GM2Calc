@@ -5,10 +5,6 @@
 #include <limits>
 #include <cmath>
 #include <complex>
-#include <iostream>
-
-// #define BOOST_TEST_DYN_LINK
-// #define BOOST_TEST_MODULE test_linalg2
 
 // #include <boost/test/unit_test.hpp>
 // #include <boost/mpl/pair.hpp>
@@ -568,7 +564,7 @@ TEST_CASE("test_fs_svd_errbd_easy")
       0.30023878106517676, 0.4598961723449197, 0.8356746885044375;
 
    Eigen::Array<double, 3, 1> s_error = s - s_true;
-   // BOOST_WARN_GE (s_error.abs().minCoeff(), s_errbd / 10);
+   WARN_GE(s_error.abs().minCoeff(), s_errbd / 10);
    CHECK_LE(s_error.abs().maxCoeff(), s_errbd * 10);
 
    for (Eigen::Index i = 0; i < 3; i++) {
@@ -585,11 +581,11 @@ TEST_CASE("test_fs_svd_errbd_easy")
          u_error = u_error_2;
          v_error = v_error_2;
       }
-      std::cout << i << ": u_error=" << u_error << " u_errbd=" << u_errbd[i]
-                << " v_error=" << v_error << " v_errbd=" << v_errbd[i] << '\n';
-      // BOOST_WARN_GE (u_error, u_errbd[i] / 10);
+      INFO(i << ": u_error=" << u_error << " u_errbd=" << u_errbd[i]
+           << " v_error=" << v_error << " v_errbd=" << v_errbd[i] << '\n');
+      WARN_GE(u_error, u_errbd[i] / 10);
       CHECK_LE(u_error, u_errbd[i] * 10);
-      // BOOST_WARN_GE (v_error, v_errbd[i] / 10);
+      WARN_GE(v_error, v_errbd[i] / 10);
       CHECK_LE(v_error, v_errbd[i] * 10);
    }
 }
@@ -627,7 +623,7 @@ TEST_CASE("test_fs_svd_errbd_hard")
       -0.708169831153997, 0.7060421306432921, 1.605386026477888e-9;
 
     Eigen::Array<double, 3, 1> s_error = s - s_true;
-    // BOOST_WARN_GE (s_error.abs().minCoeff(), s_errbd / 10);
+    WARN_GE(s_error.abs().minCoeff(), s_errbd / 10);
     CHECK_LE(s_error.abs().maxCoeff(), s_errbd * 10);
 
     for (Eigen::Index i = 0; i < 3; i++) {
@@ -647,9 +643,9 @@ TEST_CASE("test_fs_svd_errbd_hard")
             << " v_error=" << v_error << " v_errbd=" << v_errbd[i] << '\n');
        // this m seems to be a very bad matrix for error estimation
        // for singular vectors
-       // BOOST_WARN_GE (u_error, u_errbd[i] / 10);
+       WARN_GE(u_error, u_errbd[i] / 10);
        CHECK_LE(u_error, u_errbd[i] * 1e5);
-       // BOOST_WARN_GE (v_error, v_errbd[i] / 10);
+       WARN_GE(v_error, v_errbd[i] / 10);
        CHECK_LE(v_error, v_errbd[i] * 1e5);
     }
 }
@@ -679,7 +675,7 @@ TEST_CASE("test_fs_diagonalize_hermitian_errbd")
       0.3279852776056818,  0.5910090485061035, 0.7369762290995782;
 
    Eigen::Array<double, 3, 1> w_error = w - w_true;
-   // BOOST_WARN_GE(w_error.abs().minCoeff(), w_errbd / 10);
+   WARN_GE(w_error.abs().minCoeff(), w_errbd / 10);
    CHECK_LE(w_error.abs().maxCoeff(), w_errbd * 10);
 
    for (Eigen::Index i = 0; i < 3; i++) {
@@ -687,7 +683,7 @@ TEST_CASE("test_fs_diagonalize_hermitian_errbd")
       double z_error_2 = angle(z.row(i).eval(), (-z_true.row(i)).eval());
       double z_error = std::min(z_error_1, z_error_2);
       INFO(i << ": z_error=" << z_error << " z_errbd=" << z_errbd[i] << '\n');
-      // BOOST_WARN_GE(z_error, z_errbd[i] / 10);
+      WARN_GE(z_error, z_errbd[i] / 10);
       CHECK_LE(z_error, z_errbd[i] * 10);
    }
 }
