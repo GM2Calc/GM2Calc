@@ -696,12 +696,16 @@ TEST_CASE("test_fs_diagonalize_hermitian_errbd")
 
 TEST_CASE("test_diagonalize_symmetric_errbd")
 {
+   const std::complex<double> m14(-4.4299349683288838e-06,7.0893778912230837e-06);
+   const double m24 = 4.1620179585196247e-05;
+   const double m34 = 3.7871449517912927e-05;
+   const double m44 = 90.229999999964136;
    Eigen::Matrix<std::complex<double>, 4, 4> m;
    m <<
-      0. , 0., 0., std::complex<double>(-4.4299349683288838e-06,7.0893778912230837e-06),
-      0. , 0., 0., 4.1620179585196247e-05,
-      0. , 0., 0., 3.7871449517912927e-05,
-      std::complex<double>(-4.4299349683288838e-06,7.0893778912230837e-06), 4.1620179585196247e-05, 3.7871449517912927e-05, 90.229999999964136;
+      0. , 0. , 0. , m14,
+      0. , 0. , 0. , m24,
+      0. , 0. , 0. , m34,
+      m14, m24, m34, m44;
 
    Eigen::Array<double, 4, 1> s;
    Eigen::Matrix<std::complex<double>, 4, 4> u;
