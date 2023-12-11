@@ -24,6 +24,7 @@
 #include <cmath>
 #include <complex>
 #include <algorithm>
+#include <stdexcept>
 #include <Eigen/Core>
 #include <Eigen/SVD>
 #include <Eigen/Eigenvalues>
@@ -502,8 +503,8 @@ void diagonalize_symmetric_errbd
        // n-th derivative of sqrt(x)
        const auto sqrtfn =
           [](std::complex<Real> x, int n) {
-             static constexpr Real Pi = 3.141592653589793238462643383279503L;
-             return std::sqrt(Pi*x)/(2*std::tgamma(static_cast<Real>(1.5)-n)*std::pow(x, n));
+             static constexpr Real pi = 3.141592653589793238462643383279503L;
+             return std::sqrt(0.25*pi*x)/(std::tgamma(static_cast<Real>(1.5) - n)*std::pow(x, n));
           };
        Zsqrt = Z.matrixFunction(sqrtfn).eval();
        if (!Zsqrt.isUnitary()) {

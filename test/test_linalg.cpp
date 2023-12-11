@@ -712,8 +712,7 @@ TEST_CASE("test_diagonalize_symmetric_errbd")
    double s_errbd = 0;
    Eigen::Array<double, 4, 1> u_errbd;
    gm2calc::fs_diagonalize_symmetric_errbd(m, s, &u, &s_errbd, &u_errbd);
-   const double eps = std::sqrt(std::numeric_limits<double>::epsilon());
    INFO("u =\n" << u);
    INFO("uu^+ =\n" << (u*u.adjoint()).eval());
-   CHECK(u.isUnitary(eps));
+   CHECK(u.isUnitary());
 }
