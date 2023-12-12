@@ -13,12 +13,12 @@
    } while (0)
 
 
-template<class R_, class S_, int M_, int N_ = M_>
+template <class R_, class S_, int M_, int N_ = M_>
 struct Test_fs {
-    typedef R_ R;
-    typedef S_ S;
-    enum { M = M_ };
-    enum { N = N_ };
+   typedef R_ R;
+   typedef S_ S;
+   enum { M = M_ };
+   enum { N = N_ };
 };
 
 
