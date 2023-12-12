@@ -230,58 +230,58 @@ struct Test_fs {
     enum { N = N_ };
 };
 
-#ifdef TEST_LINALG2_PART4
-typedef boost::mpl::list<
-    Test_fs<double, std::complex<double>, 1>,
-    Test_fs<double, std::complex<double>, 6>,
-    Test_fs<double, std::complex<double>, 4, 6>,
-    Test_fs<double, std::complex<double>, 6, 4>,
-    Test_fs<double, double	   , 1>,
-    Test_fs<double, double	   , 6>,
-    Test_fs<double, double	   , 4, 6>,
-    Test_fs<double, double	   , 6, 4>,
-
+TEST_CASE_TEMPLATE("test_fs_svd", T,
+    Test_fs<double, std::complex<double>          , 1>,
+    Test_fs<double, std::complex<double>          , 6>,
+    Test_fs<double, std::complex<double>          , 4, 6>,
+    Test_fs<double, std::complex<double>          , 6, 4>,
+    Test_fs<double, double	                  , 1>,
+    Test_fs<double, double	                  , 6>,
+    Test_fs<double, double	                  , 4, 6>,
+    Test_fs<double, double	                  , 6, 4>,
     Test_fs<long double, std::complex<long double>, 1>,
     Test_fs<long double, std::complex<long double>, 6>,
     Test_fs<long double, std::complex<long double>, 4, 6>,
     Test_fs<long double, std::complex<long double>, 6, 4>,
-    Test_fs<long double, long double	     , 1>,
-    Test_fs<long double, long double	     , 6>,
-    Test_fs<long double, long double	     , 4, 6>,
-    Test_fs<long double, long double	     , 6, 4>
-> fs_svd_tests;
-
-BOOST_AUTO_TEST_CASE_TEMPLATE(test_fs_svd, T, fs_svd_tests)
+    Test_fs<long double, long double   	          , 1>,
+    Test_fs<long double, long double   	          , 6>,
+    Test_fs<long double, long double   	          , 4, 6>,
+    Test_fs<long double, long double   	          , 6, 4>
+)
 {
-    typedef typename T::R R;
-    typedef typename T::S S;
-    const Eigen::Index M = T::M;
-    const Eigen::Index N = T::N;
-    const R eps = numeric_limits<R>::epsilon();
+   typedef typename T::R R;
+   typedef typename T::S S;
+   constexpr Eigen::Index M = T::M;
+   constexpr Eigen::Index N = T::N;
+   const R eps = std::numeric_limits<R>::epsilon();
 
-    Eigen::Matrix<S, M, N> m = Eigen::Matrix<S, M, N>::Random();
-    Eigen::Array<R, MIN_(M, N), 1> s;
-    Eigen::Matrix<S, M, M> u;
-    Eigen::Matrix<S, N, N> v;
+   const Eigen::Matrix<S, M, N> m = Eigen::Matrix<S, M, N>::Random();
+   Eigen::Array<R, MIN_(M, N), 1> s;
+   Eigen::Matrix<S, M, M> u;
+   Eigen::Matrix<S, N, N> v;
 
-    gm2calc::fs_svd(m, s, u, v);		// following SARAH convention
-    Eigen::Matrix<S, M, N> sigma = u.conjugate() * m * v.adjoint();
+   gm2calc::fs_svd(m, s, u, v); // following SARAH convention
+   const Eigen::Matrix<S, M, N> sigma = u.conjugate() * m * v.adjoint();
 
-    BOOST_CHECK((s >= 0).all());
-    for (Eigen::Index i = 0; i < sigma.rows(); i++)
-	for (Eigen::Index j = 0; j < sigma.cols(); j++)
-	    BOOST_CHECK_SMALL(abs(sigma(i,j) - (i==j ? s(i) : 0)), 50*eps);
+   CHECK((s >= 0).all());
+   for (Eigen::Index i = 0; i < sigma.rows(); i++) {
+      for (Eigen::Index j = 0; j < sigma.cols(); j++) {
+         CHECK_SMALL(abs(sigma(i, j) - (i == j ? s(i) : 0)), 50 * eps);
+      }
+   }
 
-    for (Eigen::Index i = 0; i < s.size()-1; i++)
-	BOOST_CHECK(s[i] <= s[i+1]);
+   for (Eigen::Index i = 0; i < s.size() - 1; i++) {
+      CHECK(s[i] <= s[i + 1]);
+   }
 
-    gm2calc::fs_svd(m, s);
-    BOOST_CHECK((s >= 0).all());
-    for (Eigen::Index i = 0; i < sigma.rows(); i++)
-	for (Eigen::Index j = 0; j < sigma.cols(); j++)
-	    BOOST_CHECK_SMALL(abs(sigma(i,j) - (i==j ? s(i) : 0)), 50*eps);
+   gm2calc::fs_svd(m, s);
+   CHECK((s >= 0).all());
+   for (Eigen::Index i = 0; i < sigma.rows(); i++) {
+      for (Eigen::Index j = 0; j < sigma.cols(); j++) {
+         CHECK_SMALL(abs(sigma(i, j) - (i == j ? s(i) : 0)), 50 * eps);
+      }
+   }
 }
-#endif // TEST_LINALG2_PART4
 
 #ifdef TEST_LINALG2_PART5
 typedef boost::mpl::list<
