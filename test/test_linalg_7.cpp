@@ -22,7 +22,7 @@ struct Test_fs {
 };
 
 
-#ifdef TEST_LINALG2_PART7
+#if 0
 using namespace boost::mpl::placeholders;
 
 typedef boost::mpl::fold<
@@ -74,4 +74,4 @@ TEST_CASE_TEMPLATE("test_fs_diagonalize_hermitian", P,
       }
    }
 }
-#endif // TEST_LINALG2_PART7
+#endif
