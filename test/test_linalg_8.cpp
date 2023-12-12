@@ -2,87 +2,9 @@
 
 #include "doctest.h"
 #include "gm2_linalg.hpp"
-#include <limits>
 #include <cmath>
 #include <complex>
 
-// #include <boost/mpl/pair.hpp>
-// #include <boost/mpl/list.hpp>
-// #include <boost/mpl/int.hpp>
-// #include <boost/mpl/range_c.hpp>
-// #include <boost/mpl/fold.hpp>
-// #include <boost/mpl/push_front.hpp>
-// #include <boost/mpl/placeholders.hpp>
-
-
-#define CHECK_CLOSE(a,b,eps)                            \
-   do {                                                 \
-      CHECK((a) == doctest::Approx(b).epsilon(eps));    \
-   } while (0)
-
-
-#define CHECK_SMALL(a,eps)                              \
-   do {                                                 \
-      CHECK(std::abs(a) < (eps));                       \
-   } while (0)
-
-
-template<class R_, class S_, int M_, int N_ = M_>
-struct Test_fs {
-    typedef R_ R;
-    typedef S_ S;
-    enum { M = M_ };
-    enum { N = N_ };
-};
-
-
-#ifdef TEST_LINALG2_PART7
-using namespace boost::mpl::placeholders;
-
-typedef boost::mpl::fold<
-    boost::mpl::range_c<int, 0, 10>,
-    boost::mpl::list<>,
-    boost::mpl::push_front<
-      boost::mpl::push_front<
-        boost::mpl::push_front<
-          boost::mpl::push_front<
-	      _1,
-	      boost::mpl::pair<Test_fs<double, std::complex<double>, 6>, _2> >,
-	    boost::mpl::pair<Test_fs<double, double, 6>, _2> >,
-	  boost::mpl::pair<Test_fs<long double, std::complex<long double>, 6>,_2> >,
-	boost::mpl::pair<Test_fs<long double, long double, 6>, _2> >
->::type fs_diagonalize_hermitian_tests;
-
-BOOST_AUTO_TEST_CASE_TEMPLATE
-(test_fs_diagonalize_hermitian, P, fs_diagonalize_hermitian_tests)
-{
-    typedef typename P::first T;
-    typedef typename T::R R;
-    typedef typename T::S S;
-    const Eigen::Index N = T::N;
-    const R eps = numeric_limits<R>::epsilon();
-
-    Eigen::Matrix<S, N, N> m = Eigen::Matrix<S, N, N>::Random();
-    m = ((m + m.adjoint())/2).eval();
-    Eigen::Array<R, N, 1> w;
-    Eigen::Matrix<S, N, N> z;
-
-    gm2calc::fs_diagonalize_hermitian(m, w, z); // following SARAH convention
-    Eigen::Matrix<S, N, N> diag = z * m * z.adjoint();
-
-    for (Eigen::Index i = 0; i < N; i++)
-	for (Eigen::Index j = 0; j < N; j++)
-	    BOOST_CHECK_SMALL(abs(diag(i,j) - (i==j ? w(i) : 0)), 50000*eps);
-
-    for (Eigen::Index i = 0; i < N-1; i++)
-	BOOST_CHECK(abs(w[i]) <= abs(w[i+1]));
-
-    gm2calc::fs_diagonalize_hermitian(m, w);
-    for (Eigen::Index i = 0; i < N; i++)
-	for (Eigen::Index j = 0; j < N; j++)
-	    BOOST_CHECK_SMALL(abs(diag(i,j) - (i==j ? w(i) : 0)), 50000*eps);
-}
-#endif // TEST_LINALG2_PART7
 
 template<int N>
 double angle(const Eigen::Matrix<double, 1, N>& u, const Eigen::Matrix<double, 1, N>& v)
@@ -94,6 +16,7 @@ double angle(const Eigen::Matrix<double, 1, N>& u, const Eigen::Matrix<double, 1
     Eigen::Matrix<double, 1, N> diff_perp = diff - diff.dot(n_avg) * n_avg;
     return (diff_perp / avg.norm()).norm();
 }
+
 
 TEST_CASE("test_fs_svd_errbd_easy")
 {
@@ -128,21 +51,20 @@ TEST_CASE("test_fs_svd_errbd_easy")
      -0.9475388908723534, 0.2445224258983454, 0.20586119963989832,
       0.30023878106517676, 0.4598961723449197, 0.8356746885044375;
 
-   Eigen::Array<double, 3, 1> s_error = s - s_true;
+   const Eigen::Array<double, 3, 1> s_error = s - s_true;
    WARN_GE(s_error.abs().minCoeff(), s_errbd / 10);
    CHECK_LE(s_error.abs().maxCoeff(), s_errbd * 10);
 
    for (Eigen::Index i = 0; i < 3; i++) {
-      double u_error_1 = angle(u.row(i).eval(),   u_true.row(i) .eval());
-      double v_error_1 = angle(v.row(i).eval(),   v_true.row(i) .eval());
-      double u_error_2 = angle(u.row(i).eval(), (-u_true.row(i)).eval());
-      double v_error_2 = angle(v.row(i).eval(), (-v_true.row(i)).eval());
+      const double u_error_1 = angle(u.row(i).eval(),   u_true.row(i) .eval());
+      const double v_error_1 = angle(v.row(i).eval(),   v_true.row(i) .eval());
+      const double u_error_2 = angle(u.row(i).eval(), (-u_true.row(i)).eval());
+      const double v_error_2 = angle(v.row(i).eval(), (-v_true.row(i)).eval());
       double u_error, v_error;
       if (u_error_1 + v_error_1 < u_error_2 + v_error_2) {
          u_error = u_error_1;
          v_error = v_error_1;
-      }
-      else {
+      } else {
          u_error = u_error_2;
          v_error = v_error_2;
       }
@@ -154,6 +76,7 @@ TEST_CASE("test_fs_svd_errbd_easy")
       CHECK_LE(v_error, v_errbd[i] * 10);
    }
 }
+
 
 TEST_CASE("test_fs_svd_errbd_hard")
 {
@@ -187,33 +110,34 @@ TEST_CASE("test_fs_svd_errbd_hard")
       -7.521989593869741e-7, -7.567975556452352e-7, 0.9999999999994309,
       -0.708169831153997, 0.7060421306432921, 1.605386026477888e-9;
 
-    Eigen::Array<double, 3, 1> s_error = s - s_true;
-    WARN_GE(s_error.abs().minCoeff(), s_errbd / 10);
-    CHECK_LE(s_error.abs().maxCoeff(), s_errbd * 10);
+   const Eigen::Array<double, 3, 1> s_error = s - s_true;
+   WARN_GE(s_error.abs().minCoeff(), s_errbd / 10);
+   CHECK_LE(s_error.abs().maxCoeff(), s_errbd * 10);
 
-    for (Eigen::Index i = 0; i < 3; i++) {
-       double u_error_1 = angle(u.row(i).eval(),   u_true.row(i) .eval());
-       double v_error_1 = angle(v.row(i).eval(),   v_true.row(i) .eval());
-       double u_error_2 = angle(u.row(i).eval(), (-u_true.row(i)).eval());
-       double v_error_2 = angle(v.row(i).eval(), (-v_true.row(i)).eval());
-       double u_error, v_error;
-       if (u_error_1 + v_error_1 < u_error_2 + v_error_2) {
-          u_error = u_error_1;
-          v_error = v_error_1;
-       }	else {
-          u_error = u_error_2;
-          v_error = v_error_2;
-       }
-       INFO(i << ": u_error=" << u_error << " u_errbd=" << u_errbd[i]
-            << " v_error=" << v_error << " v_errbd=" << v_errbd[i] << '\n');
-       // this m seems to be a very bad matrix for error estimation
-       // for singular vectors
-       WARN_GE(u_error, u_errbd[i] / 10);
-       CHECK_LE(u_error, u_errbd[i] * 1e5);
-       WARN_GE(v_error, v_errbd[i] / 10);
-       CHECK_LE(v_error, v_errbd[i] * 1e5);
-    }
+   for (Eigen::Index i = 0; i < 3; i++) {
+      const double u_error_1 = angle(u.row(i).eval(), u_true.row(i).eval());
+      const double v_error_1 = angle(v.row(i).eval(), v_true.row(i).eval());
+      const double u_error_2 = angle(u.row(i).eval(), (-u_true.row(i)).eval());
+      const double v_error_2 = angle(v.row(i).eval(), (-v_true.row(i)).eval());
+      double u_error, v_error;
+      if (u_error_1 + v_error_1 < u_error_2 + v_error_2) {
+         u_error = u_error_1;
+         v_error = v_error_1;
+      } else {
+         u_error = u_error_2;
+         v_error = v_error_2;
+      }
+      INFO(i << ": u_error=" << u_error << " u_errbd=" << u_errbd[i]
+             << " v_error=" << v_error << " v_errbd=" << v_errbd[i] << '\n');
+      // this m seems to be a very bad matrix for error estimation
+      // for singular vectors
+      WARN_GE(u_error, u_errbd[i] / 10);
+      CHECK_LE(u_error, u_errbd[i] * 1e5);
+      WARN_GE(v_error, v_errbd[i] / 10);
+      CHECK_LE(v_error, v_errbd[i] * 1e5);
+   }
 }
+
 
 TEST_CASE("test_fs_diagonalize_hermitian_errbd")
 {
@@ -239,19 +163,20 @@ TEST_CASE("test_fs_diagonalize_hermitian_errbd")
      -0.7369762290995782, -0.3279852776056818, 0.5910090485061035,
       0.3279852776056818,  0.5910090485061035, 0.7369762290995782;
 
-   Eigen::Array<double, 3, 1> w_error = w - w_true;
+   const Eigen::Array<double, 3, 1> w_error = w - w_true;
    WARN_GE(w_error.abs().minCoeff(), w_errbd / 10);
    CHECK_LE(w_error.abs().maxCoeff(), w_errbd * 10);
 
    for (Eigen::Index i = 0; i < 3; i++) {
-      double z_error_1 = angle(z.row(i).eval(),   z_true.row(i) .eval());
-      double z_error_2 = angle(z.row(i).eval(), (-z_true.row(i)).eval());
-      double z_error = std::min(z_error_1, z_error_2);
+      const double z_error_1 = angle(z.row(i).eval(),   z_true.row(i) .eval());
+      const double z_error_2 = angle(z.row(i).eval(), (-z_true.row(i)).eval());
+      const double z_error = std::min(z_error_1, z_error_2);
       INFO(i << ": z_error=" << z_error << " z_errbd=" << z_errbd[i] << '\n');
       WARN_GE(z_error, z_errbd[i] / 10);
       CHECK_LE(z_error, z_errbd[i] * 10);
    }
 }
+
 
 TEST_CASE("test_diagonalize_symmetric_errbd")
 {
