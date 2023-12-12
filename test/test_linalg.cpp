@@ -194,35 +194,33 @@ struct Test_diagonalize_hermitian {
    }
 };
 
-#ifdef TEST_LINALG2_PART3
-typedef boost::mpl::list<
-    // use Eigen::SelfAdjointEigenSolver
-    Test_diagonalize_hermitian<std::complex<double>, 6, hermitian_eigen>,
-    Test_diagonalize_hermitian<double	      , 6, hermitian_eigen>
-> diagonalize_hermitian_tests;
-
-BOOST_AUTO_TEST_CASE_TEMPLATE
-(test_diagonalize_hermitian, T, diagonalize_hermitian_tests)
+TEST_CASE_TEMPLATE("test_diagonalize_hermitian", T,
+   // use Eigen::SelfAdjointEigenSolver
+   Test_diagonalize_hermitian<std::complex<double>, 6, gm2calc::hermitian_eigen>,
+   Test_diagonalize_hermitian<double              , 6, gm2calc::hermitian_eigen>
+)
 {
-    typedef typename T::S S;
-    const Eigen::Index N = T::N;
+   typedef typename T::S S;
+   constexpr Eigen::Index N = T::N;
 
-    Eigen::Matrix<S, N, N> m = Eigen::Matrix<S, N, N>::Random();
-    m = ((m + m.adjoint())/2).eval();
-    Eigen::Array<double, N, 1> w;
-    Eigen::Matrix<S, N, N> z;
+   Eigen::Matrix<S, N, N> m = Eigen::Matrix<S, N, N>::Random();
+   m = ((m + m.adjoint()) / 2).eval();
+   Eigen::Array<double, N, 1> w;
+   Eigen::Matrix<S, N, N> z;
 
-    T().fxn(m, w, &z);		// following LAPACK convention
-    Eigen::Matrix<S, N, N> diag = z.adjoint() * m * z;
+   T().fxn(m, w, &z); // following LAPACK convention
+   const Eigen::Matrix<S, N, N> diag = z.adjoint() * m * z;
 
-    for (Eigen::Index i = 0; i < N; i++)
-	for (Eigen::Index j = 0; j < N; j++)
-	    BOOST_CHECK_SMALL(abs(diag(i,j) - (i==j ? w(i) : 0)), 1e-12);
+   for (Eigen::Index i = 0; i < N; i++) {
+      for (Eigen::Index j = 0; j < N; j++) {
+         CHECK_SMALL(abs(diag(i, j) - (i == j ? w(i) : 0)), 1e-12);
+      }
+   }
 
-    for (Eigen::Index i = 0; i < N-1; i++)
-	BOOST_CHECK(w[i] <= w[i+1]);
+   for (Eigen::Index i = 0; i < N - 1; i++) {
+      CHECK(w[i] <= w[i + 1]);
+   }
 }
-#endif // TEST_LINALG2_PART3
 
 template<class R_, class S_, int M_, int N_ = M_>
 struct Test_fs {
