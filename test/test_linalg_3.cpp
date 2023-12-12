@@ -2,7 +2,6 @@
 
 #include "doctest.h"
 #include "gm2_linalg.hpp"
-#include <limits>
 #include <cmath>
 #include <complex>
 
