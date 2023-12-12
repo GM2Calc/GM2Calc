@@ -22,28 +22,13 @@ struct Test_fs {
 };
 
 
-#if 0
-using namespace boost::mpl::placeholders;
-
-typedef boost::mpl::fold<
-    boost::mpl::range_c<int, 0, 10>,
-    boost::mpl::list<>,
-    boost::mpl::push_front<
-      boost::mpl::push_front<
-        boost::mpl::push_front<
-          boost::mpl::push_front<
-	      _1,
-	      boost::mpl::pair<Test_fs<double, std::complex<double>, 6>, _2> >,
-	    boost::mpl::pair<Test_fs<double, double, 6>, _2> >,
-	  boost::mpl::pair<Test_fs<long double, std::complex<long double>, 6>,_2> >,
-	boost::mpl::pair<Test_fs<long double, long double, 6>, _2> >
->::type fs_diagonalize_hermitian_tests;
-
-
-TEST_CASE_TEMPLATE("test_fs_diagonalize_hermitian", P,
-                   fs_diagonalize_hermitian_tests)
+TEST_CASE_TEMPLATE("test_fs_diagonalize_hermitian", T,
+                   Test_fs<double, std::complex<double>, 6>,
+                   Test_fs<double, double, 6>,
+                   Test_fs<long double, std::complex<long double>, 6>,
+                   Test_fs<long double, long double, 6>
+)
 {
-   typedef typename P::first T;
    typedef typename T::R R;
    typedef typename T::S S;
    constexpr Eigen::Index N = T::N;
@@ -74,4 +59,3 @@ TEST_CASE_TEMPLATE("test_fs_diagonalize_hermitian", P,
       }
    }
 }
-#endif
