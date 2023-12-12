@@ -119,7 +119,8 @@ Eigen::Array<Real,Nsrc - Ncmp,1> remove_if_equal(
    const Eigen::Array<Real,Nsrc,1>& src,
    const Eigen::Array<Real,Ncmp,1>& cmp)
 {
-   static_assert(Nsrc > Ncmp);
+   static_assert(Nsrc > Ncmp, "Error: size of source vector is not greater "
+                              "than size of comparison vector.");
 
    Eigen::Array<Real,Nsrc,1> non_equal(src);
    Eigen::Array<Real,Nsrc - Ncmp,1> dst;
