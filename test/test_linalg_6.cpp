@@ -58,7 +58,8 @@ void check_fs_diagonalize_symmetric(Eigen::Matrix<S, N, N> m)
 template <typename R>
 R random_angle()
 {
-   return 2 * M_PI * std::rand() / RAND_MAX;
+   const double pi = 3.1415926535897932;
+   return 2 * pi * std::rand() / RAND_MAX;
 }
 
 
