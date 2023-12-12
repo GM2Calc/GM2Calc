@@ -77,16 +77,16 @@ TEST_CASE_TEMPLATE("test_svd", T,
    )
 {
    typedef typename T::S S;
-   const Eigen::Index M = T::M;
-   const Eigen::Index N = T::N;
+   constexpr Eigen::Index M = T::M;
+   constexpr Eigen::Index N = T::N;
 
-   Eigen::Matrix<S, M, N> m = Eigen::Matrix<S, M, N>::Random();
+   const Eigen::Matrix<S, M, N> m = Eigen::Matrix<S, M, N>::Random();
    Eigen::Array<double, MIN_(M, N), 1> s;
    Eigen::Matrix<S, M, M> u;
    Eigen::Matrix<S, N, N> vh;
 
    T().fxn(m, s, u, vh);	// following LAPACK convention
-   Eigen::Matrix<S, M, N> sigma = u.adjoint() * m * vh.adjoint();
+   const Eigen::Matrix<S, M, N> sigma = u.adjoint() * m * vh.adjoint();
 
    CHECK((s >= 0).all());
    for (Eigen::Index i = 0; i < sigma.rows(); i++) {
@@ -110,105 +110,88 @@ TEST_CASE_TEMPLATE("test_svd", T,
    }
 }
 
-template<class S_, int N_,
-	 void fxn_(const Eigen::Matrix<S_, N_, N_>&,
-		   Eigen::Array<double, N_, 1>&, Eigen::Matrix<std::complex<double>, N_, N_>&),
-	 void svs_(const Eigen::Matrix<S_, N_, N_>&,
-		   Eigen::Array<double, N_, 1>&),
-	 bool check_ascending_order_ = false>
+template <
+   class S_, int N_,
+   void fxn_(const Eigen::Matrix<S_, N_, N_>&, Eigen::Array<double, N_, 1>&,
+             Eigen::Matrix<std::complex<double>, N_, N_>&),
+   void svs_(const Eigen::Matrix<S_, N_, N_>&, Eigen::Array<double, N_, 1>&),
+   bool check_ascending_order_ = false>
 struct Test_diagonalize_symmetric {
-    typedef S_ S;
-    enum { N = N_ };
-    enum { check_ascending_order = check_ascending_order_ };
-    void fxn(const Eigen::Matrix<S_, N_, N_>& m,
-	     Eigen::Array<double, N_, 1>& s, Eigen::Matrix<std::complex<double>, N_, N_>& u)
-    { fxn_(m, s, u); }
-    void svs(const Eigen::Matrix<S_, N_, N_>& m,
-	     Eigen::Array<double, N_, 1>& s)
-    { svs_(m, s); }
+   typedef S_ S;
+   enum { N = N_ };
+   enum { check_ascending_order = check_ascending_order_ };
+   void fxn(const Eigen::Matrix<S_, N_, N_>& m, Eigen::Array<double, N_, 1>& s,
+            Eigen::Matrix<std::complex<double>, N_, N_>& u)
+   {
+      fxn_(m, s, u);
+   }
+   void svs(const Eigen::Matrix<S_, N_, N_>& m, Eigen::Array<double, N_, 1>& s)
+   {
+      svs_(m, s);
+   }
 };
 
-#ifdef TEST_LINALG2_PART2
-typedef boost::mpl::list<
+TEST_CASE_TEMPLATE("test_diagonalize_symmetric", T,
     // use Eigen::JacobiSVD
-    Test_diagonalize_symmetric
-	<std::complex<double>, 1, diagonalize_symmetric, diagonalize_symmetric>,
-    Test_diagonalize_symmetric
-	<std::complex<double>, 2, diagonalize_symmetric, diagonalize_symmetric>,
-    Test_diagonalize_symmetric
-	<std::complex<double>, 3, diagonalize_symmetric, diagonalize_symmetric>,
-    Test_diagonalize_symmetric
-	<std::complex<double>, 4, diagonalize_symmetric, diagonalize_symmetric>,
-    Test_diagonalize_symmetric
-	<std::complex<double>, 6, diagonalize_symmetric, diagonalize_symmetric>,
-
-    Test_diagonalize_symmetric
-	<std::complex<double>, 1,
-	 reorder_diagonalize_symmetric, reorder_diagonalize_symmetric, true>,
-    Test_diagonalize_symmetric
-	<std::complex<double>, 2,
-	 reorder_diagonalize_symmetric, reorder_diagonalize_symmetric, true>,
-    Test_diagonalize_symmetric
-	<std::complex<double>, 3,
-	 reorder_diagonalize_symmetric, reorder_diagonalize_symmetric, true>,
-    Test_diagonalize_symmetric
-	<std::complex<double>, 4,
-	 reorder_diagonalize_symmetric, reorder_diagonalize_symmetric, true>,
-    Test_diagonalize_symmetric
-	<std::complex<double>, 6,
-	 reorder_diagonalize_symmetric, reorder_diagonalize_symmetric, true>,
-
+    Test_diagonalize_symmetric<std::complex<double>, 1, gm2calc::diagonalize_symmetric        , gm2calc::diagonalize_symmetric>,
+    Test_diagonalize_symmetric<std::complex<double>, 2, gm2calc::diagonalize_symmetric        , gm2calc::diagonalize_symmetric>,
+    Test_diagonalize_symmetric<std::complex<double>, 3, gm2calc::diagonalize_symmetric        , gm2calc::diagonalize_symmetric>,
+    Test_diagonalize_symmetric<std::complex<double>, 4, gm2calc::diagonalize_symmetric        , gm2calc::diagonalize_symmetric>,
+    Test_diagonalize_symmetric<std::complex<double>, 6, gm2calc::diagonalize_symmetric        , gm2calc::diagonalize_symmetric>,
+    Test_diagonalize_symmetric<std::complex<double>, 1, gm2calc::reorder_diagonalize_symmetric, gm2calc::reorder_diagonalize_symmetric, true>,
+    Test_diagonalize_symmetric<std::complex<double>, 2, gm2calc::reorder_diagonalize_symmetric, gm2calc::reorder_diagonalize_symmetric, true>,
+    Test_diagonalize_symmetric<std::complex<double>, 3, gm2calc::reorder_diagonalize_symmetric, gm2calc::reorder_diagonalize_symmetric, true>,
+    Test_diagonalize_symmetric<std::complex<double>, 4, gm2calc::reorder_diagonalize_symmetric, gm2calc::reorder_diagonalize_symmetric, true>,
+    Test_diagonalize_symmetric<std::complex<double>, 6, gm2calc::reorder_diagonalize_symmetric, gm2calc::reorder_diagonalize_symmetric, true>,
     // use Eigen::SelfAdjointEigenSolver
-    Test_diagonalize_symmetric
-	<double, 6, diagonalize_symmetric, diagonalize_symmetric>,
-
-    Test_diagonalize_symmetric
-	<double, 6,
-	 reorder_diagonalize_symmetric, reorder_diagonalize_symmetric, true>
-> diagonalize_symmetric_tests;
-
-BOOST_AUTO_TEST_CASE_TEMPLATE
-(test_diagonalize_symmetric, T, diagonalize_symmetric_tests)
+    Test_diagonalize_symmetric<double, 6, gm2calc::diagonalize_symmetric        , gm2calc::diagonalize_symmetric>,
+    Test_diagonalize_symmetric<double, 6, gm2calc::reorder_diagonalize_symmetric, gm2calc::reorder_diagonalize_symmetric, true>
+)
 {
-    typedef typename T::S S;
-    const Eigen::Index N = T::N;
+   typedef typename T::S S;
+   constexpr Eigen::Index N = T::N;
 
-    Eigen::Matrix<S, N, N> m = Eigen::Matrix<S, N, N>::Random();
-    m = ((m + m.transpose())/2).eval();
-    Eigen::Array<double, N, 1> s;
-    Eigen::Matrix<std::complex<double>, N, N> u;
+   Eigen::Matrix<S, N, N> m = Eigen::Matrix<S, N, N>::Random();
+   m = ((m + m.transpose())/2).eval();
+   Eigen::Array<double, N, 1> s;
+   Eigen::Matrix<std::complex<double>, N, N> u;
 
-    T().fxn(m, s, u);
-    Eigen::Matrix<std::complex<double>, N, N> diag = u.adjoint() * m * u.conjugate();
+   T().fxn(m, s, u);
+   const Eigen::Matrix<std::complex<double>, N, N> diag = u.adjoint() * m * u.conjugate();
 
-    BOOST_CHECK((s >= 0).all());
-    for (Eigen::Index i = 0; i < N; i++)
-	for (Eigen::Index j = 0; j < N; j++)
-	    BOOST_CHECK_SMALL(abs(diag(i,j) - (i==j ? s(i) : 0)), 1e-12);
+   CHECK((s >= 0).all());
+   for (Eigen::Index i = 0; i < N; i++) {
+      for (Eigen::Index j = 0; j < N; j++) {
+         CHECK_SMALL(abs(diag(i,j) - (i==j ? s(i) : 0)), 1e-12);
+      }
+   }
 
-    if (T::check_ascending_order)
-	for (Eigen::Index i = 0; i < N-1; i++)
-	    BOOST_CHECK(s[i] <= s[i+1]);
+   if (T::check_ascending_order) {
+      for (Eigen::Index i = 0; i < N-1; i++) {
+         CHECK(s[i] <= s[i+1]);
+      }
+   }
 
-    T().svs(m, s);
-    BOOST_CHECK((s >= 0).all());
-    for (Eigen::Index i = 0; i < N; i++)
-	for (Eigen::Index j = 0; j < N; j++)
-	    BOOST_CHECK_SMALL(abs(diag(i,j) - (i==j ? s(i) : 0)), 1e-12);
+   T().svs(m, s);
+   CHECK((s >= 0).all());
+   for (Eigen::Index i = 0; i < N; i++) {
+      for (Eigen::Index j = 0; j < N; j++) {
+         CHECK_SMALL(abs(diag(i,j) - (i==j ? s(i) : 0)), 1e-12);
+      }
+   }
 }
-#endif // TEST_LINALG2_PART2
 
-template<class S_, int N_,
-	 void fxn_(const Eigen::Matrix<S_, N_, N_>&,
-		   Eigen::Array<double, N_, 1>&,
-		   Eigen::Matrix<S_, N_, N_> *)>
+template <class S_, int N_,
+          void fxn_(const Eigen::Matrix<S_, N_, N_>&,
+                    Eigen::Array<double, N_, 1>&, Eigen::Matrix<S_, N_, N_>*)>
 struct Test_diagonalize_hermitian {
-    typedef S_ S;
-    enum { N = N_ };
-    void fxn(const Eigen::Matrix<S_, N_, N_>& m,
-	     Eigen::Array<double, N_, 1>& w,
-	     Eigen::Matrix<S_, N_, N_> *z)
-    { fxn_(m, w, z); }
+   typedef S_ S;
+   enum { N = N_ };
+   void fxn(const Eigen::Matrix<S_, N_, N_>& m, Eigen::Array<double, N_, 1>& w,
+            Eigen::Matrix<S_, N_, N_>* z)
+   {
+      fxn_(m, w, z);
+   }
 };
 
 #ifdef TEST_LINALG2_PART3
