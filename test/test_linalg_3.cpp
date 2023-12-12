@@ -45,7 +45,7 @@ TEST_CASE_TEMPLATE("test_diagonalize_hermitian", T,
 
    for (Eigen::Index i = 0; i < N; i++) {
       for (Eigen::Index j = 0; j < N; j++) {
-         CHECK_SMALL(abs(diag(i, j) - (i == j ? w(i) : 0)), 1e-12);
+         CHECK_SMALL(std::abs(diag(i, j) - (i == j ? w(i) : 0)), 1e-12);
       }
    }
 

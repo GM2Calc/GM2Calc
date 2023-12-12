@@ -58,7 +58,7 @@ TEST_CASE_TEMPLATE("test_fs_svd", T,
    CHECK((s >= 0).all());
    for (Eigen::Index i = 0; i < sigma.rows(); i++) {
       for (Eigen::Index j = 0; j < sigma.cols(); j++) {
-         CHECK_SMALL(abs(sigma(i, j) - (i == j ? s(i) : 0)), 50 * eps);
+         CHECK_SMALL(std::abs(sigma(i, j) - (i == j ? s(i) : 0)), 50 * eps);
       }
    }
 
@@ -70,7 +70,7 @@ TEST_CASE_TEMPLATE("test_fs_svd", T,
    CHECK((s >= 0).all());
    for (Eigen::Index i = 0; i < sigma.rows(); i++) {
       for (Eigen::Index j = 0; j < sigma.cols(); j++) {
-         CHECK_SMALL(abs(sigma(i, j) - (i == j ? s(i) : 0)), 50 * eps);
+         CHECK_SMALL(std::abs(sigma(i, j) - (i == j ? s(i) : 0)), 50 * eps);
       }
    }
 }
