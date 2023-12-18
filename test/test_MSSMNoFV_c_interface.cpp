@@ -25,7 +25,7 @@
 class Cleanup_on_destruction {
 public:
    Cleanup_on_destruction(MSSMNoFV_onshell* model_) : model(model_) {}
-   ~Cleanup_on_destruction() { gm2calc_mssmnofv_calculate_masses(model); }
+   ~Cleanup_on_destruction() { gm2calc_mssmnofv_free(model); }
 private:
    MSSMNoFV_onshell* model = nullptr;
 };
