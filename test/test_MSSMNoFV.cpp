@@ -324,5 +324,8 @@ TEST_CASE("print")
 {
    const auto model = setup_gm2calc();
    std::cout << model;
+   std::cout << *static_cast<const gm2calc::MSSMNoFV_onshell_mass_eigenstates*>(&model);
+   std::cout << *static_cast<const gm2calc::MSSMNoFV_onshell_soft_parameters*>(&model);
+   std::cout << *static_cast<const gm2calc::MSSMNoFV_onshell_susy_parameters*>(&model);
    std::cout << model.get_physical();
 }
