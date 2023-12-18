@@ -4,6 +4,7 @@
 #include "gm2calc/MSSMNoFV_onshell.hpp"
 #include "gm2calc/gm2_uncertainty.hpp"
 #include "gm2_linalg.hpp"
+#include <iostream>
 #include <Eigen/Core>
 
 
@@ -316,4 +317,12 @@ TEST_CASE("uncertainty-size")
 
    CHECK_GT(damu_0l, damu_1l);
    CHECK_GT(damu_1l, damu_2l);
+}
+
+
+TEST_CASE("print")
+{
+   const auto model = setup_gm2calc();
+   std::cout << model;
+   std::cout << model.get_physical();
 }
