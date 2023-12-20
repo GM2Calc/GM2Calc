@@ -113,6 +113,39 @@ void test_parameters(const MSSMNoFV_onshell* model, const gm2calc::MSSMNoFV_onsh
       }
    }
 
+   for (unsigned i = 0; i < 2; i++) {
+      for (unsigned k = 0; k < 2; k++) {
+         CHECK_EQUAL(gm2calc_mssmnofv_get_USe(model,i,k)  , model2.get_ZE(i,k));
+         CHECK_EQUAL(gm2calc_mssmnofv_get_USm(model,i,k)  , model2.get_ZM(i,k));
+         CHECK_EQUAL(gm2calc_mssmnofv_get_UStau(model,i,k), model2.get_ZTau(i,k));
+         CHECK_EQUAL(gm2calc_mssmnofv_get_USu(model,i,k)  , model2.get_ZU(i,k));
+         CHECK_EQUAL(gm2calc_mssmnofv_get_USd(model,i,k)  , model2.get_ZD(i,k));
+         CHECK_EQUAL(gm2calc_mssmnofv_get_USc(model,i,k)  , model2.get_ZC(i,k));
+         CHECK_EQUAL(gm2calc_mssmnofv_get_USs(model,i,k)  , model2.get_ZS(i,k));
+         CHECK_EQUAL(gm2calc_mssmnofv_get_USt(model,i,k)  , model2.get_ZT(i,k));
+         CHECK_EQUAL(gm2calc_mssmnofv_get_USb(model,i,k)  , model2.get_ZB(i,k));
+
+         double im_UM = 0.0, im_UP = 0.0;
+         const double re_UM = gm2calc_mssmnofv_get_UM(model, i, k, &im_UM);
+         const double re_UP = gm2calc_mssmnofv_get_UP(model, i, k, &im_UP);
+
+         CHECK_EQUAL(re_UM, std::real(model2.get_UM(i,k)));
+         CHECK_EQUAL(im_UM, std::imag(model2.get_UM(i,k)));
+         CHECK_EQUAL(re_UP, std::real(model2.get_UP(i,k)));
+         CHECK_EQUAL(im_UP, std::imag(model2.get_UP(i,k)));
+      }
+   }
+
+   for (unsigned i = 0; i < 4; i++) {
+      for (unsigned k = 0; k < 4; k++) {
+         double im_ZN = 0.0;
+         const double re_ZN = gm2calc_mssmnofv_get_ZN(model, i, k, &im_ZN);
+         CHECK_EQUAL(re_ZN, std::real(model2.get_ZN(i,k)));
+         CHECK_EQUAL(im_ZN, std::imag(model2.get_ZN(i,k)));
+      }
+   }
+
+   COMPARE_0(scale);
    COMPARE_0(EL);
    COMPARE_0(EL0);
    COMPARE_0(gY);
@@ -143,9 +176,31 @@ void test_parameters(const MSSMNoFV_onshell* model, const gm2calc::MSSMNoFV_onsh
    COMPARE_1(MChi,1);
    COMPARE_1(MChi,2);
    COMPARE_1(MChi,3);
+   COMPARE_1(MSu,0);
+   COMPARE_1(MSu,1);
+   COMPARE_1(MSd,0);
+   COMPARE_1(MSd,1);
+   COMPARE_1(MSc,0);
+   COMPARE_1(MSc,1);
+   COMPARE_1(MSs,0);
+   COMPARE_1(MSs,1);
+   COMPARE_1(MSt,0);
+   COMPARE_1(MSt,1);
+   COMPARE_1(MSb,0);
+   COMPARE_1(MSb,1);
+   COMPARE_1(MSe,0);
+   COMPARE_1(MSe,1);
    COMPARE_1(MSm,0);
    COMPARE_1(MSm,1);
+   COMPARE_1(MSe,0);
+   COMPARE_1(MSe,1);
+   COMPARE_1(MStau,0);
+   COMPARE_1(MStau,1);
+   COMPARE_0(MSveL);
    COMPARE_0(MSvmL);
+   COMPARE_0(MSvtL);
+   COMPARE_1(Mhh,0);
+   COMPARE_1(Mhh,1);
 
    CHECK_EQUAL(gm2calc_mssmnofv_get_MAh(model), model2.get_MAh(1));
 
