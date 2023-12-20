@@ -71,6 +71,7 @@ void setup_gm2calc_scheme(MSSMNoFV_onshell* model)
    gm2calc_mssmnofv_calculate_masses(model);
 }
 
+
 gm2calc::MSSMNoFV_onshell setup_gm2calc_scheme()
 {
    gm2calc::MSSMNoFV_onshell model;
@@ -114,6 +115,45 @@ gm2calc::MSSMNoFV_onshell setup_gm2calc_scheme()
 
    return model;
 }
+
+
+void setup_slha_scheme(MSSMNoFV_onshell* model)
+{
+   setup_gm2calc_scheme(model);
+
+   gm2calc_mssmnofv_set_MSm_pole(model, 0, 300);
+   gm2calc_mssmnofv_set_MSm_pole(model, 1, 400);
+   gm2calc_mssmnofv_set_MSvmL_pole(model, 500);
+   gm2calc_mssmnofv_set_MCha_pole(model, 0, 600);
+   gm2calc_mssmnofv_set_MCha_pole(model, 1, 700);
+   gm2calc_mssmnofv_set_MChi_pole(model, 0, 800);
+   gm2calc_mssmnofv_set_MChi_pole(model, 1, 900);
+   gm2calc_mssmnofv_set_MChi_pole(model, 2, 1000);
+   gm2calc_mssmnofv_set_MChi_pole(model, 3, 1100);
+
+   gm2calc_mssmnofv_convert_to_onshell(model);
+}
+
+
+gm2calc::MSSMNoFV_onshell setup_slha_scheme()
+{
+   auto model = setup_gm2calc_scheme();
+
+   model.get_physical().MSm(0) = 300;
+   model.get_physical().MSm(1) = 400;
+   model.get_physical().MSvmL = 500;
+   model.get_physical().MCha(0) = 600;
+   model.get_physical().MCha(1) = 700;
+   model.get_physical().MChi(0) = 800;
+   model.get_physical().MChi(1) = 900;
+   model.get_physical().MChi(2) = 1000;
+   model.get_physical().MChi(3) = 1100;
+
+   model.convert_to_onshell();
+
+   return model;
+}
+
 
 void test_parameters(const MSSMNoFV_onshell* model, const gm2calc::MSSMNoFV_onshell& model2)
 {
@@ -260,6 +300,18 @@ TEST_CASE("parameter_getters")
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
 
    test_parameters(model, mcpp);
+}
+
+
+TEST_CASE("conversion")
+{
+   MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
+   Cleanup_on_destruction cleanup(model);
+
+   setup_slha_scheme(model);
+   const gm2calc::MSSMNoFV_onshell model2 = setup_slha_scheme();
+
+   test_parameters(model, model2);
 }
 
 
