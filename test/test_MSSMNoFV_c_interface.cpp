@@ -33,6 +33,17 @@ private:
 
 void setup(MSSMNoFV_onshell* model)
 {
+   /* fill SM parameters */
+   gm2calc_mssmnofv_set_alpha_MZ(model, 1./127);
+   gm2calc_mssmnofv_set_alpha_thompson(model, 1./137);
+   gm2calc_mssmnofv_set_g3(model, 0.118);
+   gm2calc_mssmnofv_set_MZ_pole(model, 91);
+   gm2calc_mssmnofv_set_MW_pole(model, 83);
+   gm2calc_mssmnofv_set_MT_pole(model, 172);
+   gm2calc_mssmnofv_set_MB_running(model, 3);
+   gm2calc_mssmnofv_set_ML_pole(model, 1.7);
+   gm2calc_mssmnofv_set_MM_pole(model, 0.1);
+
    /* fill DR-bar parameters */
    gm2calc_mssmnofv_set_TB(model, 10);      /* 1L */
    gm2calc_mssmnofv_set_Ae(model,1,1,0);    /* 1L */
@@ -63,6 +74,17 @@ void setup(MSSMNoFV_onshell* model)
 void setup(gm2calc::MSSMNoFV_onshell& model) {
    const Eigen::Matrix<double,3,3> UnitMatrix
       = Eigen::Matrix<double,3,3>::Identity();
+
+   // fill SM parameters
+   model.set_alpha_MZ(1./127);
+   model.set_alpha_thompson(1./137);
+   model.set_g3(0.118);
+   model.get_physical().MVZ = 91;
+   model.get_physical().MVWm = 83;
+   model.get_physical().MFt = 172;
+   model.get_physical().MFb = 3;
+   model.get_physical().MFtau = 1.7;
+   model.get_physical().MFm = 0.1;
 
    // fill DR-bar parameters
    model.set_TB(10);                      // 1L
