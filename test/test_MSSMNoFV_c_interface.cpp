@@ -31,7 +31,7 @@ private:
 };
 
 
-void setup(MSSMNoFV_onshell* model)
+void setup_gm2calc_scheme(MSSMNoFV_onshell* model)
 {
    /* fill SM parameters */
    gm2calc_mssmnofv_set_alpha_MZ(model, 1./127);
@@ -71,7 +71,10 @@ void setup(MSSMNoFV_onshell* model)
    gm2calc_mssmnofv_calculate_masses(model);
 }
 
-void setup(gm2calc::MSSMNoFV_onshell& model) {
+gm2calc::MSSMNoFV_onshell setup_gm2calc_scheme()
+{
+   gm2calc::MSSMNoFV_onshell model;
+
    const Eigen::Matrix<double,3,3> UnitMatrix
       = Eigen::Matrix<double,3,3>::Identity();
 
@@ -108,6 +111,8 @@ void setup(gm2calc::MSSMNoFV_onshell& model) {
 
    // calculate mass spectrum
    model.calculate_masses();
+
+   return model;
 }
 
 void test_parameters(const MSSMNoFV_onshell* model, const gm2calc::MSSMNoFV_onshell& model2)
@@ -236,10 +241,9 @@ TEST_CASE("parameter_setters")
 {
    MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
    Cleanup_on_destruction cleanup(model);
-   gm2calc::MSSMNoFV_onshell model2;
 
-   setup(model);
-   setup(model2);
+   setup_gm2calc_scheme(model);
+   const gm2calc::MSSMNoFV_onshell model2 = setup_gm2calc_scheme();
 
    test_parameters(model, model2);
 }
@@ -250,7 +254,7 @@ TEST_CASE("parameter_getters")
    MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
    Cleanup_on_destruction cleanup(model);
 
-   setup(model);
+   setup_gm2calc_scheme(model);
 
    const gm2calc::MSSMNoFV_onshell mcpp(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
@@ -264,7 +268,7 @@ TEST_CASE("1_loop")
    MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
    Cleanup_on_destruction cleanup(model);
 
-   setup(model);
+   setup_gm2calc_scheme(model);
 
    const gm2calc::MSSMNoFV_onshell mcpp(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
@@ -283,7 +287,7 @@ TEST_CASE("2_loop")
    MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
    Cleanup_on_destruction cleanup(model);
 
-   setup(model);
+   setup_gm2calc_scheme(model);
 
    const gm2calc::MSSMNoFV_onshell mcpp(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
@@ -312,7 +316,7 @@ TEST_CASE("uncertainty")
    MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
    Cleanup_on_destruction cleanup(model);
 
-   setup(model);
+   setup_gm2calc_scheme(model);
 
    const gm2calc::MSSMNoFV_onshell mcpp(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
@@ -327,7 +331,7 @@ TEST_CASE("uncertainty-size")
    MSSMNoFV_onshell* model = gm2calc_mssmnofv_new();
    Cleanup_on_destruction cleanup(model);
 
-   setup(model);
+   setup_gm2calc_scheme(model);
 
    const gm2calc::MSSMNoFV_onshell mcpp(
       *reinterpret_cast<const gm2calc::MSSMNoFV_onshell*>(model));
