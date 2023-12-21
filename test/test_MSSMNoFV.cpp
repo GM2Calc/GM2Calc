@@ -329,3 +329,55 @@ TEST_CASE("print")
    std::cout << *static_cast<const gm2calc::MSSMNoFV_onshell_susy_parameters*>(&model);
    std::cout << model.get_physical();
 }
+
+
+TEST_CASE("problems")
+{
+   {
+      gm2calc::MSSMNoFV_onshell_problems p;
+      CHECK(!p.have_problem());
+      CHECK(!p.have_warning());
+      CHECK(p.get_problems().empty());
+      CHECK(p.get_warnings().empty());
+   }
+
+   {
+      gm2calc::MSSMNoFV_onshell_problems p;
+      p.flag_no_convergence_Mu_MassB_MassWB(1.0, 0);
+      CHECK(!p.have_problem());
+      CHECK(p.have_warning());
+      CHECK(p.no_Mu_MassB_MassWB_convergence());
+      p.unflag_no_convergence_Mu_MassB_MassWB();
+      CHECK(!p.have_problem());
+      CHECK(!p.have_warning());
+   }
+
+   {
+      gm2calc::MSSMNoFV_onshell_problems p;
+      p.flag_no_convergence_me2(1.0, 0);
+      CHECK(!p.have_problem());
+      CHECK(p.have_warning());
+      CHECK(p.no_me2_convergence());
+      p.unflag_no_convergence_me2();
+      CHECK(!p.have_problem());
+      CHECK(!p.have_warning());
+   }
+
+   {
+      gm2calc::MSSMNoFV_onshell_problems p;
+      p.flag_tachyon("h");
+      CHECK(p.have_problem());
+      CHECK(!p.have_warning());
+      CHECK(p.have_tachyon());
+   }
+
+   {
+      gm2calc::MSSMNoFV_onshell_problems p;
+      p.flag_tachyon("h");
+      CHECK(p.have_problem());
+      CHECK(!p.have_warning());
+      p.clear_problems();
+      CHECK(!p.have_problem());
+      CHECK(!p.have_warning());
+   }
+}
