@@ -733,3 +733,11 @@ TEST_CASE("alpha_h_swapped")
    test_sin_beta_minus_alpha(1.0);    // order of h and H switched: (H, h)
    test_sin_beta_minus_alpha(0.9999); // normal ordering: (h, H)
 }
+
+
+TEST_CASE("print")
+{
+   std::cout << calc_point(0.99);
+   std::cout << gm2calc::THDM_mass_eigenstates();
+   std::cout << gm2calc::THDM_parameters();
+}
