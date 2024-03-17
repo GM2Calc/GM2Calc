@@ -44,6 +44,7 @@ std::complex<T> horner(const std::complex<T>& z, const T (&coeffs)[N]) noexcept
    return { rz*a + b, iz*a };
 }
 
+/// returns log(1 + z) for complex z
 template <typename T>
 std::complex<T> log1p(const std::complex<T>& z) noexcept
 {
