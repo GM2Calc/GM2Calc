@@ -34,6 +34,7 @@ TEST_CASE_TEMPLATE("test_casting_fs_svd", T,
 )
 {
    typedef typename T::R R;
+   typedef typename T::S S;
    constexpr Eigen::Index M = T::M;
    constexpr Eigen::Index N = T::N;
    const R eps = std::numeric_limits<R>::epsilon();
@@ -43,7 +44,7 @@ TEST_CASE_TEMPLATE("test_casting_fs_svd", T,
    Eigen::Matrix<std::complex<R>, M, M> u;
    Eigen::Matrix<std::complex<R>, N, N> v;
 
-   gm2calc::fs_svd(m, s, u, v); // following SARAH convention
+   gm2calc::fs_svd<R, std::complex<R>, M, N>(m, s, u, v); // following SARAH convention
    Eigen::Matrix<std::complex<R>, M, N> sigma = u.conjugate() * m * v.adjoint();
 
    CHECK((s >= 0).all());
@@ -57,7 +58,7 @@ TEST_CASE_TEMPLATE("test_casting_fs_svd", T,
       CHECK(s[i] <= s[i + 1]);
    }
 
-   gm2calc::fs_svd(m, s);
+   gm2calc::fs_svd<R, S, M, N>(m, s);
    CHECK((s >= 0).all());
    for (Eigen::Index i = 0; i < sigma.rows(); i++) {
       for (Eigen::Index j = 0; j < sigma.cols(); j++) {
