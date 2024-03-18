@@ -39,7 +39,7 @@ TEST_CASE_TEMPLATE("test_fs_diagonalize_hermitian", T,
    Eigen::Array<R, N, 1> w;
    Eigen::Matrix<S, N, N> z;
 
-   gm2calc::fs_diagonalize_hermitian(m, w, z); // following SARAH convention
+   gm2calc::fs_diagonalize_hermitian<R, S, N>(m, w, z); // following SARAH convention
    const Eigen::Matrix<S, N, N> diag = z * m * z.adjoint();
 
    for (Eigen::Index i = 0; i < N; i++) {
@@ -52,7 +52,7 @@ TEST_CASE_TEMPLATE("test_fs_diagonalize_hermitian", T,
       CHECK(std::abs(w[i]) <= std::abs(w[i + 1]));
    }
 
-   gm2calc::fs_diagonalize_hermitian(m, w);
+   gm2calc::fs_diagonalize_hermitian<R, S, N>(m, w);
    for (Eigen::Index i = 0; i < N; i++) {
       for (Eigen::Index j = 0; j < N; j++) {
          CHECK_SMALL(std::abs(diag(i, j) - (i == j ? w(i) : 0)), 50000 * eps);
