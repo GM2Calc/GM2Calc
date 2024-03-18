@@ -31,7 +31,7 @@ void check_fs_diagonalize_symmetric(Eigen::Matrix<S, N, N> m)
    Eigen::Array<R, N, 1> s;
    Eigen::Matrix<std::complex<R>, N, N> u;
 
-   gm2calc::fs_diagonalize_symmetric(m, s, u);
+   gm2calc::fs_diagonalize_symmetric<R, S, N>(m, s, u);
    const Eigen::Matrix<std::complex<R>, N, N> diag = u.conjugate() * m * u.adjoint();
 
    CHECK((s >= 0).all());
@@ -45,7 +45,7 @@ void check_fs_diagonalize_symmetric(Eigen::Matrix<S, N, N> m)
       CHECK(s[i] <= s[i + 1]);
    }
 
-   gm2calc::fs_diagonalize_symmetric(m, s);
+   gm2calc::fs_diagonalize_symmetric<R, S, N>(m, s);
    CHECK((s >= 0).all());
    for (Eigen::Index i = 0; i < N; i++) {
       for (Eigen::Index j = 0; j < N; j++) {
