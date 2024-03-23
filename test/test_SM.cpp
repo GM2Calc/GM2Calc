@@ -30,14 +30,47 @@ TEST_CASE("test-CKM-unitarity")
 
 
 // check unitarity of CKM matrix constructed from angles
-TEST_CASE("test-CKM-unitarity")
+TEST_CASE("test-CKM-unitarity-from-angles")
+{
+   const double eps = std::numeric_limits<double>::epsilon();
+   const double pi = 3.1415926535897932;
+
+   const struct Data { double a{}, b{}, c{}, d{}; } angles[] = {
+      { 0.0, 0.0, 0.0, 0.0 },
+      { 0.1, 0.2, 0.3, 0.4 },
+      { pi, pi, pi, pi },
+      { pi/2, pi/2, pi/2, pi/2 },
+   };
+
+   for (const auto& a: angles) {
+      auto sm = gm2calc::SM();
+      sm.set_ckm_from_angles(a.a, a.b, a.c, a.d);
+      CHECK(is_unitary(sm.get_ckm(), eps));
+   }
+}
+
+
+// check unitarity of CKM matrix constructed from Wolfenstein parameters
+TEST_CASE("test-CKM-unitarity-from-Wolfenstein")
 {
    const double eps = std::numeric_limits<double>::epsilon();
 
-   auto sm = gm2calc::SM();
-   sm.set_ckm_from_angles(0.1, 0.2, 0.3, 0.4);
+   const struct Data { double a{}, b{}, c{}, d{}; } parameters[] = {
+      { 0.1, 0.2, 0.3, 0.4 },
+      { 0.0, 0.0, 0.0, 0.0 },
+      { 1.0, 1.0, 1.0, 1.0 },
+      { 1.0, 1.0, 1.0, 0.0 },
+      { -1.0, -1.0, -1.0, -1.0 },
+      { -1.0, -1.0, -1.0, 0.0 },
+      { -1.0, -1.0, 1.0, -1.0 },
+      { -1.0, -1.0, 1.0, 0.0 },
+   };
 
-   CHECK(is_unitary(sm.get_ckm(), eps));
+   for (const auto& p: parameters) {
+      auto sm = gm2calc::SM();
+      sm.set_ckm_from_wolfenstein(p.a, p.b, p.c, p.d);
+      CHECK(is_unitary(sm.get_ckm(), eps));
+   }
 }
 
 
