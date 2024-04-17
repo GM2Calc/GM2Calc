@@ -42,7 +42,7 @@ namespace {
             y = (1 + rel_diff)*mid;
          } else {
             x = (1 + rel_diff)*mid;
-            x = (1 - rel_diff)*mid;
+            y = (1 - rel_diff)*mid;
          }
       }
    }
