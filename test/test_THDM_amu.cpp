@@ -394,20 +394,6 @@ TEST_CASE("2-loop_fermionic_figure_8")
 
    // Eq.(64), first line, second term
    const auto amu_Hp_u = [&](double mS) {
-      INFO(
-         "xu(0) = " << mu2(0)/sqr(mS) <<
-         ", xu(1) = " << mu2(1)/sqr(mS) <<
-         ", xu(2) = " << mu2(2)/sqr(mS) <<
-         ", xd(0) = " << md2(0)/sqr(mS) <<
-         ", xd(1) = " << md2(1)/sqr(mS) <<
-         ", xd(2) = " << md2(2)/sqr(mS) <<
-         ", yu(0) = " << mu2(0)/mw2 <<
-         ", yu(1) = " << mu2(1)/mw2 <<
-         ", yu(2) = " << mu2(2)/mw2 <<
-         ", yd(0) = " << md2(0)/mw2 <<
-         ", yd(1) = " << md2(1)/mw2 <<
-         ", yd(2) = " << md2(2)/mw2
-         );
       return -pref_char*(
          + gm2calc::thdm::fuHp(sqr(mS), md2(0), mu2(0), mw2, mz2)
          + gm2calc::thdm::fuHp(sqr(mS), md2(1), mu2(1), mw2, mz2)
@@ -494,7 +480,21 @@ TEST_CASE("2-loop_fermionic_figure_8")
       CHECK_CLOSE(std::abs(1e10*amu_A_u(mS)), std::abs(1e10*a_A_u), eps);
       CHECK_CLOSE(std::abs(1e10*amu_A_d(mS)), std::abs(1e10*a_A_d), eps);
       CHECK_CLOSE(std::abs(1e10*amu_A_l(mS)), std::abs(1e10*a_A_l), eps);
-      INFO("mS = " << mS);
+      INFO(
+         "mS = " << mS <<
+         ", xu(0) = " << mu2(0)/sqr(mS) <<
+         ", xu(1) = " << mu2(1)/sqr(mS) <<
+         ", xu(2) = " << mu2(2)/sqr(mS) <<
+         ", xd(0) = " << md2(0)/sqr(mS) <<
+         ", xd(1) = " << md2(1)/sqr(mS) <<
+         ", xd(2) = " << md2(2)/sqr(mS) <<
+         ", yu(0) = " << mu2(0)/mw2 <<
+         ", yu(1) = " << mu2(1)/mw2 <<
+         ", yu(2) = " << mu2(2)/mw2 <<
+         ", yd(0) = " << md2(0)/mw2 <<
+         ", yd(1) = " << md2(1)/mw2 <<
+         ", yd(2) = " << md2(2)/mw2
+         );
       CHECK_CLOSE(std::abs(1e10*amu_Hp_u(mS)), std::abs(1e10*a_Hp_u), eps);
       CHECK_CLOSE(std::abs(1e10*amu_Hp_d(mS)), std::abs(1e10*a_Hp_d), eps);
       CHECK_CLOSE(std::abs(1e10*amu_Hp_l(mS)), std::abs(1e10*a_Hp_l), eps);
