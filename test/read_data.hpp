@@ -37,6 +37,9 @@ read_from_file(const std::string& filename)
    }
 
    while (std::getline(fstr, line)) {
+      if (line.empty() || line[0] == '#') {
+         continue;
+      }
       std::istringstream iss(line);
       std::vector<T> vec{std::istream_iterator<T>(iss),
                          std::istream_iterator<T>()};
