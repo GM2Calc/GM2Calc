@@ -67,7 +67,7 @@ double F1t(double) noexcept;
 double F2(double) noexcept;
 /// \f$\mathcal{F}_3(\omega)\f$, Eq (28) arxiv:1502.04199
 double F3(double) noexcept;
-/// \f$\tidle{F}_{FZ}(x,y)\f$
+/// \f$\tilde{F}_{FZ}(x,y)\f$
 double FPZ(double, double) noexcept;
 /// \f$F_{FZ}(x,y)\f$
 double FSZ(double, double) noexcept;
