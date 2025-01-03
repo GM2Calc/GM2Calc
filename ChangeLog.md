@@ -1,3 +1,34 @@
+GM2Calc-2.3.0 [January, 03 2025]
+================================
+
+New
+---
+
+ * Automatic test coverage report from
+   [Coveralls.io](https://coveralls.io).
+
+ * Extended test suite significantly. Currently 91% of the source code
+   is covered by tests.
+
+Changes
+-------
+
+ * Change (commit bd74e60): Update complex dilogarithm to cleaner and
+   more precise version from the
+   [polylogarithm](https://github.com/Expander/polylogarithm) package
+   version 7.0.0.
+
+ * Change (commit afdeb6d): Update
+   [FindMathematica](https://github.com/sakra/FindMathematica) to
+   version 4.0.0.
+
+Fixed bugs
+----------
+
+ * Bugfix (commit c6d18e8): Correcting variable shift to avoid
+   numerical instabilities in some 2-loop functions.
+
+
 GM2Calc-2.2.0 [July, 31 2023]
 =============================
 
