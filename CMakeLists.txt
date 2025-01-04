@@ -42,28 +42,26 @@ endif()
 if(ENABLE_PYTHON)
   # Needed a shared library for cppyy package used for the python interface
   if(${BUILD_SHARED_LIBS})
-    find_package(Python2 COMPONENTS Interpreter Development)
     find_package(Python3 COMPONENTS Interpreter Development)
+    set(GM2CALC_VENV "${PROJECT_BINARY_DIR}/gm2calc-venv")
+    execute_process(COMMAND "${Python3_EXECUTABLE}" -m venv "${GM2CALC_VENV}" OUTPUT_QUIET)
+    set(ENV{VIRTUAL_ENV} "${GM2CALC_VENV}")
+    set(Python3_FIND_VIRTUALENV FIRST)
+    unset(Python3_EXECUTABLE)
+    find_package(Python3 COMPONENTS Interpreter Development)
+    # python executable in the virtual environment
+    set(PYTHON_EXE "${GM2CALC_VENV}/bin/python")
   else()
     message("-- Python interface requires a shared library to be built.  Use the option -DBUILD_SHARED_LIBS=ON to enable.")
   endif()
 endif()
 
-if(Python2_FOUND)
-  execute_process(
-    COMMAND ${Python2_EXECUTABLE} -c "import cppyy"
-    RESULT_VARIABLE PYTHON2_HAS_cppyy
-    OUTPUT_QUIET)
-  if(NOT ${PYTHON2_HAS_cppyy} EQUAL 0)
-    message("-- Python2 does not have cppyy.  cppyy module is required for python interface.")
-  else()
-    set(Python_INTERFACE 1)
-  endif()
-endif()
-
 if(Python3_FOUND)
   execute_process(
-    COMMAND ${Python3_EXECUTABLE} -c "import cppyy"
+    COMMAND "${PYTHON_EXE}" -m pip install cppyy
+    OUTPUT_QUIET)
+  execute_process(
+    COMMAND "${PYTHON_EXE}" -c "import cppyy"
     RESULT_VARIABLE PYTHON3_HAS_cppyy
     OUTPUT_QUIET)
   if(NOT ${PYTHON3_HAS_cppyy} EQUAL 0)
