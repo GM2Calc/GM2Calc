@@ -582,7 +582,7 @@ struct Detailed_writer<gm2calc::THDM> {
             "==============================\n"
             "\n"
             "bosonic   2L: " << FORMAT_AMU(amu_2l_B) << " (" << FORMAT_PCT(100. * amu_2l_B / amu_2l) << "% of 2L result)\n"
-         << "fermionic 2L: " << FORMAT_AMU(amu_2l_F) << " (" << FORMAT_PCT(100. * amu_2l_B / amu_2l) << "% of 2L result)\n"
+         << "fermionic 2L: " << FORMAT_AMU(amu_2l_F) << " (" << FORMAT_PCT(100. * amu_2l_F / amu_2l) << "% of 2L result)\n"
          << "sum         : " << FORMAT_AMU(amu_2l) << " (" << FORMAT_PCT(100. * amu_2l / amu_best)
          << "% of full 1L + 2L result)\n";
    }
