@@ -35,6 +35,15 @@ string(REGEX REPLACE "^#define[ \t]+GM2CALC_VERSION[ \t]+\"([0-9.]+)\"$" "\\1" G
 
 find_package(Boost 1.37.0 REQUIRED)
 find_package(Eigen3 3.1 REQUIRED NO_MODULE)
+
+# conan's Eigen3 package defines Eigen3_INCLUDE_DIR instead of
+# EIGEN3_INCLUDE_DIR
+if(NOT DEFINED EIGEN3_INCLUDE_DIR)
+  if(DEFINED Eigen3_INCLUDE_DIR)
+    set(EIGEN3_INCLUDE_DIR "${Eigen3_INCLUDE_DIR}")
+  endif()
+endif()
+
 if(ENABLE_MATHEMATICA)
   find_package(Mathematica COMPONENTS MathLink)
 endif()
