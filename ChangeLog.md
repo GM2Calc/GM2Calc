@@ -1,3 +1,23 @@
+GM2Calc-2.3.1 [March, 17 2025]
+==============================
+
+Changes
+-------
+
+ * Change (commit 3863bcf): Update
+   [FindMathematica](https://github.com/sakra/FindMathematica) to
+   version 4.1.0.
+
+Fixed bugs
+----------
+
+ * Bugfix (commit a030919): Use virtual environment in CMake to test
+   python interface.
+
+ * Bugfix (commit c97b5b1): Correcting percentage value in detailed
+   output of the 2HDM calculation.
+
+
 GM2Calc-2.3.0 [January, 03 2025]
 ================================
 
